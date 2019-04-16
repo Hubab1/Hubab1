@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Woodhouse
+
+![Woodhouse](https://i2.wp.com/www.bubbleblabber.com/wp-content/uploads/2015/06/Woodhouse.jpg)
+
+online leasing front end
+
+## Setup
+
+Install dependencies
+
+    $ npm install
+
 
 ## Available Scripts
 
