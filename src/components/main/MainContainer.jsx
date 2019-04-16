@@ -29,8 +29,11 @@ class MainContainer extends Component {
   render() {
       if (!this.state.Page) return null;
       return (
-        <this.state.Page>
-        </this.state.Page>
+        <div>
+            <div className="header"></div>
+            <this.state.Page>
+            </this.state.Page>
+        </div>
       );
   }
 };
