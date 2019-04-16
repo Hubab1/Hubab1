@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import index from './assets/index';
 import { Route, Switch } from 'react-router-dom';
 
 import MainContainer from './components/main/MainContainer';
