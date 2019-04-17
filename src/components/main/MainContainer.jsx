@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Terms from './Terms';
+import { fetchRenterProfile } from '../../reducers/renterProfile/renterProfile';
 import TalkAboutOptions from './TalkAboutOptions';
 
 
@@ -11,18 +13,21 @@ class MainContainer extends Component {
   }
   
   componentDidMount() {
-      // fetch renter profile
-      const renter_profile = {
-          completed_terms_and_conditions: false,
-          lets_talk_about: [],
-          roommates: [],
-          pets: [],
-          guarantor: {}
-      };
-      if (!renter_profile.completed_terms_and_conditions) {
+      this.props.fetchRenterProfile();
+  }
+
+  initializePage () {
+      const profile = this.props.profile;
+      if (!profile.completed_terms_and_conditions) {
           this.setState({Page: Terms});
-      } else if (renter_profile.lets_talk_about.length == 0) {
+      } else if (profile.lets_talk_about.length === 0) {
           this.setState({Page: TalkAboutOptions});
+      }
+  }
+
+  componentDidUpdate(prevProps) {
+      if (!prevProps.profile && this.props.profile) {
+        this.initializePage();
       }
   }
   
@@ -38,4 +43,10 @@ class MainContainer extends Component {
   }
 };
 
-export default MainContainer;
+const mapStateToProps = state => ({
+    profile: state.renterProfile
+});
+
+export default connect(mapStateToProps,
+    { fetchRenterProfile }
+)(MainContainer);

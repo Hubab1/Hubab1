@@ -11,8 +11,6 @@ injectGlobal`
       text-decoration: none;
   }
   html,body{
-    // max-width: 38rem;
-    // padding: 2rem;
     margin: auto;
     font-family: sans-serif;
   }
@@ -22,6 +20,7 @@ export const page = css`
   text-align: center;
   max-width: 900px;
   margin: auto;
+  padding-bottom: 25px;
 `
 
 
