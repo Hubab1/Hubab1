@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
 import index from './assets/index';
-import { Route, Switch } from 'react-router-dom';
 
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './reducers/store';
 import MainContainer from './components/main/MainContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 
@@ -16,9 +19,11 @@ class App extends Component {
     );
 
     return (
-      <div className="App">
-          {routes}
-      </div>
+      <Provider store={store}>
+        <div className="App">
+            {routes}
+        </div>
+      </Provider>
     );
   }
 }
