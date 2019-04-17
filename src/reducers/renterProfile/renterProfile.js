@@ -21,4 +21,4 @@ export const fetchRenterProfile = () => {
         const profile = await API.fetchRenterProfile();
         return dispatch(renterProfileReceived(profile));
     }
-}
+};

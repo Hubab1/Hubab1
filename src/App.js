@@ -1,4 +1,4 @@
-import index from './assets/index';
+import './assets/index';
 
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
