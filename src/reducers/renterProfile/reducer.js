@@ -3,6 +3,7 @@ import { createSlice } from 'redux-starter-kit';
 import API from './api';
 
 const renterProfile = createSlice({
+    slice: 'renterProfile',
     initialState: null,
     reducers: {
         renterProfileReceived(state, action) {

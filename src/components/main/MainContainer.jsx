@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Terms from './Terms';
-import { fetchRenterProfile } from '../../reducers/renterProfile/renterProfile';
-import TalkAboutOptions from './TalkAboutOptions';
+import { fetchRenterProfile } from '../../reducers/renterProfile/reducer';
+import { changeScreen } from '../../reducers/nav/reducer';
+import Customize from './Customize';
+
+const mapScreenName = {
+    'Terms': Terms,
+    'Customize': Customize
+}
 
 
 class MainContainer extends Component {
@@ -19,9 +25,11 @@ class MainContainer extends Component {
   initializePage () {
       const profile = this.props.profile;
       if (!profile.completed_terms_and_conditions) {
-          this.setState({Page: Terms});
+          this.props.changeScreen('Terms');
+        //   this.setState({Page: Terms});
       } else if (profile.lets_talk_about.length === 0) {
-          this.setState({Page: TalkAboutOptions});
+          this.props.changeScreen(Customize);
+        //   this.setState({Page: Customize});
       }
   }
 
@@ -32,21 +40,23 @@ class MainContainer extends Component {
   }
   
   render() {
-      if (!this.state.Page) return null;
+      if (!this.props.screen) return null;
+      const Component = mapScreenName[this.props.screen];
       return (
         <div>
             <div className="header"></div>
-            <this.state.Page>
-            </this.state.Page>
+            <Component>
+            </Component>
         </div>
       );
   }
 };
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile
+    profile: state.renterProfile,
+    screen: state.nav.screen
 });
 
 export default connect(mapStateToProps,
-    { fetchRenterProfile }
+    { fetchRenterProfile, changeScreen }
 )(MainContainer);
