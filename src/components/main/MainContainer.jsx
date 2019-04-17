@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Terms from './Terms';
-import { renterProfileReceived, fetchRenterProfile } from '../../reducers/renterProfile/renterProfile';
+import { fetchRenterProfile } from '../../reducers/renterProfile/renterProfile';
 import TalkAboutOptions from './TalkAboutOptions';
 
 
@@ -47,4 +47,6 @@ const mapStateToProps = state => ({
     profile: state.renterProfile
 });
 
-export default connect(mapStateToProps, {fetchRenterProfile, renterProfileReceived})(MainContainer);
+export default connect(mapStateToProps,
+    { fetchRenterProfile }
+)(MainContainer);
