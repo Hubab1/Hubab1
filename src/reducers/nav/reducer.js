@@ -1,5 +1,4 @@
 import { createSlice } from 'redux-starter-kit';
-import sharedInstance from 'jss';
 
 const routes = {
     Terms: {next: 'Customize', back: 'Terms'},
