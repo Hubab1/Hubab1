@@ -26,10 +26,8 @@ class MainContainer extends Component {
       const profile = this.props.profile;
       if (!profile.completed_terms_and_conditions) {
           this.props.changeScreen('Terms');
-        //   this.setState({Page: Terms});
       } else if (profile.lets_talk_about.length === 0) {
           this.props.changeScreen(Customize);
-        //   this.setState({Page: Customize});
       }
   }
 
