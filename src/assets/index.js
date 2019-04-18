@@ -24,9 +24,18 @@ export const page = css`
 `
 
 export const subPage = css`
-    padding: 25px;
+    padding: 45px;
 `
 
+export const agentBlock = css`
+    padding: 25px;
+    line-height: 18px;
+    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);  
+`
+
+export const agentTitle = css`
+    line-height: 25px;
+`
 
 export const Banner = styled.div`
   height: 100px;
@@ -38,11 +47,14 @@ export const Banner = styled.div`
 `
 
 export const H1 = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   color: #454B57;
   font-size: 24px;
   line-height: 29px;
-  text-align: center;
+`
+
+export const Subtitle = styled.small`
+  
 `
 
 export const TextReader = styled.div`

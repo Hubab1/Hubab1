@@ -1,8 +1,8 @@
 import { createSlice } from 'redux-starter-kit';
 
 const routes = {
-    Terms: {next: 'Customize', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions'},
-    Customize: {next: 'Customize', back: 'Terms', buttonText: 'Continue'}
+    Terms: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions'},
+    RenterProfileOptions: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'Continue'}
 };
 
 const nav = createSlice({

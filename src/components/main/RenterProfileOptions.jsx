@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class TalkAboutOptions extends React.Component {
+export default class RentalProfileOptions extends React.Component {
     render () {
         return (
             <div>

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import store from './reducers/store';
 import MainContainer from './components/main/MainContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
-import LoginContainer from './components/profile/LoginContainer';
+import LoginContainer from './components/login/LoginContainer';
 
 
 class App extends Component {
