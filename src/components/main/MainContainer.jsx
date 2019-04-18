@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Terms from './Terms';
 import { fetchRenterProfile } from '../../reducers/renterProfile/reducer';
 import { changeScreen } from '../../reducers/nav/reducer';
-import Customize from './Customize';
-
-const mapScreenName = {
-    'Terms': Terms,
-    'Customize': Customize
-}
+import mapScreenName from '../../mapScreenName';
 
 
 class MainContainer extends Component {
@@ -27,7 +21,7 @@ class MainContainer extends Component {
       if (!profile.completed_terms_and_conditions) {
           this.props.changeScreen('Terms');
       } else if (profile.lets_talk_about.length === 0) {
-          this.props.changeScreen('Customize');
+          this.props.changeScreen('RenterProfileOptions');
       }
   }
 
@@ -39,13 +33,9 @@ class MainContainer extends Component {
   
   render() {
       if (!this.props.screen) return null;
-      const Component = mapScreenName[this.props.screen];
+      const Screen = mapScreenName[this.props.screen];
       return (
-        <div>
-            <div className="header"></div>
-            <Component>
-            </Component>
-        </div>
+          <Screen />
       );
   }
 };
