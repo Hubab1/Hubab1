@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Banner, BlueButton, page, Link } from '../../assets/index';
-import { nextScreen } from '../../reducers/nav/reducer';
+import { nextScreen, selectors } from '../../reducers/nav/reducer';
 
 export class Page extends React.Component {
     changeScreen = () => {
@@ -14,7 +14,7 @@ export class Page extends React.Component {
             <div className={page}>
                 <Banner>555 Waverly</Banner>
                 {this.props.children}
-                <BlueButton onClick={this.changeScreen}>I Agree to the Terms & Conditions</BlueButton>
+                <BlueButton onClick={this.changeScreen}>{this.props.buttonText}</BlueButton>
                 <br/>
                 <br/>
                 <Link>Go Back</Link>
@@ -23,4 +23,8 @@ export class Page extends React.Component {
     }
 }
 
-export default connect(null, {nextScreen})(Page);
+const mapStateToProps = state => ({
+    buttonText: selectors.getCurrentScreen(state).buttonText
+});
+
+export default connect(mapStateToProps, {nextScreen})(Page);
