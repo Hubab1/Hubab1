@@ -23,6 +23,10 @@ export const page = css`
   padding-bottom: 25px;
 `
 
+export const subPage = css`
+    padding: 25px;
+`
+
 
 export const Banner = styled.div`
   height: 100px;
@@ -46,7 +50,6 @@ export const TextReader = styled.div`
   background-color: rgba(238,238,238,0.4);
   max-height: 650px;
   overflow: auto;
-  margin: 20px;
   padding: 20px;
   color: #454B57;
   font-size: 14px;
@@ -59,6 +62,7 @@ export const Bold = styled.span`
 `
 
 export const BlueButton = styled.button`
+    width: 90%;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;

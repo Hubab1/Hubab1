@@ -3,10 +3,10 @@ const API = {};
 API.fetchRenterProfile = () => {
     return Promise.resolve({
         completed_terms_and_conditions: false,
-        lets_talk_about: [],
+        rental_options: [{page: 'has_pets', limit: 1}, {page: 'has_roommates', limit: 3}],
         roommates: [],
         pets: [],
-        guarantor: {}
+        guarantor: {},
     });
 }
 
