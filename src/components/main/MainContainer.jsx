@@ -22,7 +22,7 @@ class MainContainer extends Component {
       if (!profile) return;
       if (!profile.completed_terms_and_conditions) {
           this.props.changeScreen('Terms');
-      } else if (profile.lets_talk_about.length === 0) {
+      } else if (profile.selected_rental_options.length === 0) {
           this.props.changeScreen('RenterProfileOptions');
       }
   }
