@@ -1,5 +1,9 @@
 import React from 'react';
-import { H1, Banner, TextReader, Bold, BlueButton, page, Link } from '../../assets/index';
+import { connect } from 'react-redux';
+
+import { H1, TextReader, Bold } from '../../assets/index';
+import { nextScreen } from '../../reducers/nav/reducer';
+import Page from './Page';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -9,11 +13,11 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
 mollit anim id est laborum.`;
 
-export default class Terms extends React.Component {
+export class Terms extends React.Component {
+
     render () {
         return (
-            <div className={page}>
-                <Banner>555 Waverly</Banner>
+            <Page>
                 <H1>Terms and Conditions</H1>
                 <TextReader>
                     <div>Terms and Conditions</div>
@@ -33,11 +37,9 @@ export default class Terms extends React.Component {
                     <br/>
                     <div>Please {LOREM}</div>
                 </TextReader>
-                <BlueButton>I Agree to the Terms & Conditions</BlueButton>
-                <br/>
-                <br/>
-                <Link href="#">Go Back</Link>
-            </div>
+            </Page>
         );
     }
 }
+
+export default connect(null, {nextScreen})(Terms);
