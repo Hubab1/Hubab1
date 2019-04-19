@@ -9,8 +9,7 @@ class LoginSplash extends Component {
           <Page>
               <div className={agentBlock}>
                   <div>Jane Morgan</div>
-                  <br/>
-                  <br/>
+                  <span style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
                   <div className={agentTitle}>
                       <div>Leasing Agent</div>
                       <div>Sky Residencies</div>

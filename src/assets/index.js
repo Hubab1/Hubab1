@@ -27,6 +27,14 @@ export const subPage = css`
     padding: 45px;
 `
 
+export const Disclaimer = styled.div`
+    color: #454B57;
+    font-size: 14px;
+    padding: 25px;
+    line-height: 17px;
+    text-align: center;
+`
+
 export const agentBlock = css`
     padding: 25px;
     line-height: 18px;
@@ -53,8 +61,21 @@ export const H1 = styled.div`
   line-height: 29px;
 `
 
-export const Subtitle = styled.small`
-  
+export const Subtitle = styled.small`	
+    color: #818797;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+`
+
+// export const Subtitle = styled.small`
+//     color: #818797;
+// `
+
+export const loginContent = css`
+    padding: 35px;
+    margin: auto;
+    max-width: 500px;
 `
 
 export const TextReader = styled.div`
