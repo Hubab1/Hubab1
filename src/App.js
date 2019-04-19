@@ -13,6 +13,9 @@ import history from './history';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
         main: '#2B44FF'

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 
-import { Bold, H1, BlueButton, agentBlock, agentTitle } from 'assets/index';
+import { Bold, H1, agentBlock, agentTitle } from 'assets/index';
 import Page from 'components/login/Page';
 
 class LoginSplash extends Component {
@@ -9,7 +10,7 @@ class LoginSplash extends Component {
           <Page>
               <div className={agentBlock}>
                   <div>Jane Morgan</div>
-                  <span style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
+                  <span aria-label="agent-avatar" role="img" style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
                   <div className={agentTitle}>
                       <div>Leasing Agent</div>
                       <div>Sky Residencies</div>
@@ -22,7 +23,9 @@ class LoginSplash extends Component {
                   <div>Your new home awaits at <Bold>555 Waverly 605 W 11th St, New York, Unit 3F</Bold> awaits.</div>
                   <br/>
                   <br/>
-                  <BlueButton onClick={this.props.nextPage} style={{width: '100%'}}>Click here</BlueButton>
+                  <Button onClick={this.props.nextPage} variant="contained" color="primary" type="submit" fullWidth>
+                        Click here
+                  </Button>
               </div>
           </Page>
       );

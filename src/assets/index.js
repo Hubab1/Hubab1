@@ -94,19 +94,6 @@ export const Bold = styled.span`
   font-weight: bold;
 `
 
-export const BlueButton = styled.button`
-    width: 90%;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 17px;
-    color: white;
-    border-radius: 2px;
-    background-color: #2B44FF;
-    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
-
-`
-
 export const Link = styled.a`
   color: #2B44FF;
   font-weight: 600;

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { H1, Subtitle, BlueButton, Disclaimer, Bold, loginContent } from 'assets/index';
+import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
 import { nextScreen } from '../../reducers/nav/reducer';
 import Page from './Page';
 import history from '../../history';
@@ -49,7 +49,7 @@ export class LoginPage extends React.Component {
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className={loginContent}>
-                            <span style={{fontSize: 60}}>📋</span>
+                            <span aria-label="clipboard" role="img" style={{fontSize: 60}}>📋</span>
                             <div>
                                 <TextField
                                     error={errors.password && touched.password && !!errors.password}

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
-import { Banner, BlueButton, page, Link, subPage } from 'assets/index';
+import { Banner, page, Link, subPage } from 'assets/index';
 import { nextScreen, selectors } from 'reducers/nav/reducer';
 
 export class Page extends React.Component {
