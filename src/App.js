@@ -3,33 +3,20 @@ import './assets/index';
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import store from './reducers/store';
 import MainContainer from './components/main/MainContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import LoginContainer from './components/login/LoginContainer';
 import history from './history';
-
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-  palette: {
-    primary: {
-        main: '#2B44FF'
-    },
-    secondary: {
-        main: '#2B44FF'
-      }
-    }
-  },
-)
+import createTheme from 'assets/createTheme';
 
 
 class App extends Component {
+  state = {}
   componentDidMount () {
+      this.setState({theme: createTheme()});
       const isLoggedIn = false;
       if (!isLoggedIn) {
           history.push('/login');
@@ -37,6 +24,7 @@ class App extends Component {
   }
   
   render() {
+      if (!this.state.theme) return null;
       const routes = (
         <Switch>
             <Route exact path="/" component={MainContainer} />
@@ -47,7 +35,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={this.state.theme}>
             <div className="App">
                 <Router history={history}>
                     {routes}

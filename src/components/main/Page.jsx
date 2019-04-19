@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 import { Banner, page, Link, subPage } from 'assets/index';
 import { nextScreen, selectors } from 'reducers/nav/reducer';
+import { community } from '../../constants';
 
 export class Page extends React.Component {
     changeScreen = () => {
@@ -13,7 +14,7 @@ export class Page extends React.Component {
     render () {
         return (
             <div className={page}>
-                <Banner>555 Waverly</Banner>
+                <Banner>{community.name}</Banner>
                 <div className={subPage}>
                     {this.props.children}
                     <Button onClick={this.changeScreen} variant="contained" color="primary" type="submit" fullWidth>
