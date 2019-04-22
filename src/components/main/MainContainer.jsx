@@ -1,52 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import { fetchRenterProfile } from '../../reducers/renterProfile/reducer';
-import { changeScreen } from '../../reducers/nav/reducer';
-import mapScreenName from '../../mapScreenName';
+import Terms from './Terms';
+import { Route, Switch } from 'react-router-dom';
 
 
 class MainContainer extends Component {
-  constructor () {
-      super();
-      this.state = {};
-  }
-  
-  componentDidMount() {
-      // if islogged in
-      this.props.fetchRenterProfile().then(this.initializePage);
-  }
+    render() {
+        return (
+            <Switch>
+                <Route path="/terms" component={Terms}/>
+            </Switch>
+        );
+    }
+}
 
-  initializePage = () => {
-      const profile = this.props.profile;
-      if (!profile) return;
-      if (!profile.completed_terms_and_conditions) {
-          this.props.changeScreen('Terms');
-      } else if (profile.selected_rental_options.length === 0) {
-          this.props.changeScreen('RenterProfileOptions');
-      }
-  }
-
-  componentDidUpdate(prevProps) {
-      if (!prevProps.profile && this.props.profile) {
-        this.initializePage();
-      }
-  }
-  
-  render() {
-      if (!this.props.screen) return null;
-      const Screen = mapScreenName[this.props.screen];
-      return (
-          <Screen />
-      );
-  }
-};
-
-const mapStateToProps = state => ({
-    profile: state.renterProfile,
-    screen: state.nav.screen
-});
-
-export default connect(mapStateToProps,
-    { fetchRenterProfile, changeScreen }
-)(MainContainer);
+export default MainContainer;

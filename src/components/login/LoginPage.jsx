@@ -5,7 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
-import { nextScreen } from '../../reducers/nav/reducer';
+
+import { logIn } from '../../reducers/nav/reducer';
+import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
+import { initializePage } from 'utils/initializePage';
+
 import Page from './Page';
 import history from '../../history';
 import auth from 'utils/auth';
@@ -81,4 +85,10 @@ export class LoginPage extends React.Component {
     }
 }
 
-export default connect(null, {nextScreen})(LoginPage);
+const mapStateToProps = (state) => ({
+    profile: state.renterProfile,
+});
+
+const mapDispatchToProps = { logIn, fetchRenterProfile };
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

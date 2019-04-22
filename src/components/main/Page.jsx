@@ -12,6 +12,7 @@ export class Page extends React.Component {
     }
 
     render () {
+        debugger;
         return (
             <div className={page}>
                 <Banner>{community.name}</Banner>

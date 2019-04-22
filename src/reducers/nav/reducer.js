@@ -1,28 +1,25 @@
 import { createSlice } from 'redux-starter-kit';
 
 const routes = {
-    Terms: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions'},
-    RenterProfileOptions: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'Continue'}
+    Terms: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions', url: '/terms'},
+    RenterProfileOptions: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'Continue', url: 'profile'}
 };
 
 const nav = createSlice({
     slice: 'nav',
     initialState: {
-        screen: null
+        isLoggedIn: false
     },
     reducers: {
-        changeScreen(state, action) {
-            state.screen = action.payload;
-        },
         nextScreen(state, action) {
             const currentScreen = state.screen;
             state.screen = routes[currentScreen].next;
-        }
+        },
     }
 });
 
 const { actions, reducer } = nav;
-export const { nextScreen, changeScreen } = actions;
+export const { nextScreen, logIn, logOut } = actions;
 export default reducer;
 
 export const selectors = {};
