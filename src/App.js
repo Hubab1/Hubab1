@@ -11,15 +11,17 @@ import ProfileContainer from './components/profile/ProfileContainer';
 import LoginContainer from './components/login/LoginContainer';
 import history from './history';
 import createTheme from 'assets/createTheme';
+import auth from 'utils/auth';
 
 
 class App extends Component {
   state = {}
   componentDidMount () {
       this.setState({theme: createTheme()});
-      const isLoggedIn = false;
-      if (!isLoggedIn) {
+      if (!auth.isAuthenticated()) {
           history.push('/login');
+      } else {
+          history.push('/');
       }
   }
   
