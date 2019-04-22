@@ -8,14 +8,19 @@ import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
 import { nextScreen } from '../../reducers/nav/reducer';
 import Page from './Page';
 import history from '../../history';
+import auth from 'utils/auth';
 
 export class LoginPage extends React.Component {
-
+    auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        setTimeout(()=> {
+        return auth.login(values.username, values.password).then((res) => {
+            auth.setSession(res.token);
             setSubmitting(false);
             history.push('/');
-        }, 1000);
+        }).catch((res) => {
+            this.setState({errors: res.errors});
+            setSubmitting(false);
+        });
     }
 
     render () {
