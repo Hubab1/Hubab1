@@ -23,6 +23,27 @@ export const page = css`
   padding-bottom: 25px;
 `
 
+export const subPage = css`
+    padding: 45px;
+`
+
+export const Disclaimer = styled.div`
+    color: #454B57;
+    font-size: 14px;
+    padding: 25px;
+    line-height: 17px;
+    text-align: center;
+`
+
+export const agentBlock = css`
+    padding: 25px;
+    line-height: 18px;
+    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);  
+`
+
+export const agentTitle = css`
+    line-height: 25px;
+`
 
 export const Banner = styled.div`
   height: 100px;
@@ -34,11 +55,27 @@ export const Banner = styled.div`
 `
 
 export const H1 = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   color: #454B57;
   font-size: 24px;
   line-height: 29px;
-  text-align: center;
+`
+
+export const Subtitle = styled.small`	
+    color: #818797;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+`
+
+// export const Subtitle = styled.small`
+//     color: #818797;
+// `
+
+export const loginContent = css`
+    padding: 35px;
+    margin: auto;
+    max-width: 500px;
 `
 
 export const TextReader = styled.div`
@@ -46,7 +83,6 @@ export const TextReader = styled.div`
   background-color: rgba(238,238,238,0.4);
   max-height: 650px;
   overflow: auto;
-  margin: 20px;
   padding: 20px;
   color: #454B57;
   font-size: 14px;
@@ -56,18 +92,6 @@ export const TextReader = styled.div`
 
 export const Bold = styled.span`
   font-weight: bold;
-`
-
-export const BlueButton = styled.button`
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 17px;
-    color: white;
-    border-radius: 2px;
-    background-color: #2B44FF;
-    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
-
 `
 
 export const Link = styled.a`
