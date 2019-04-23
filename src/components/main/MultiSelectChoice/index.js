@@ -17,7 +17,7 @@ export default class MultiSelectChoice extends React.Component {
                 type="submit"
                 fullWidth
                 classes={{
-                    root: this.props.selected ? selected : unselected,
+                    root: this.props._selected ? selected : unselected,
                     label: contentContainer
                 }}
             >
