@@ -19,7 +19,7 @@ const nav = createSlice({
 });
 
 const { actions, reducer } = nav;
-export const { nextScreen, logIn, logOut } = actions;
+export const { nextScreen } = actions;
 export default reducer;
 
 export const selectors = {};
