@@ -61,6 +61,15 @@ export const H1 = styled.div`
   line-height: 29px;
 `
 
+export const PageHeader = styled.div`
+    color: #000000;
+    margin: 15px 0;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+    text-align: center;
+`
+
 export const Subtitle = styled.small`	
     color: #818797;
     font-size: 15px;

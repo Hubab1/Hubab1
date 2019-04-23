@@ -1,6 +1,5 @@
 import {
-    css,
-    injectGlobal
+    css
   } from 'emotion';
 
 export const contentContainer = css`

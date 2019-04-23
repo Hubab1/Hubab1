@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import MultiSelectContext from './context';
 
-import { contentContainer, label, prefix, root, selected, unselected } from './styles';
+import { contentContainer, label, prefix, selected, unselected } from './styles';
 
 export default class MultiSelectChoice extends React.Component {
     static contextType = MultiSelectContext;

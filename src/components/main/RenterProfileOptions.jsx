@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 
 import Page from './Page';
 import MultiSelectChoice from './MultiSelectChoice';
 import MultiSelect from './MultiSelectChoice/MultiSelect';
+import { PageHeader, Subtitle } from 'assets/index';
 
 export default class RentalProfileOptions extends React.Component {
     render () {
@@ -11,7 +12,7 @@ export default class RentalProfileOptions extends React.Component {
             <Page>
                 <div>
                 <Formik
-                    initialValues={{ options: ['storage', 'pets'] }}
+                    initialValues={{ options: [] }}
                     validate={values => {
                         let errors = {};
                         return errors;
@@ -20,47 +21,48 @@ export default class RentalProfileOptions extends React.Component {
                 >
                 {({
                     values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    setValues,
-                    handleSubmit,
-                    isSubmitting,
-                    /* and other goodies */
+                    setFieldValue,
                 }) => (
-                    <MultiSelect onChange={handleChange} setValues={setValues} value={values.options}>
-                        <MultiSelectChoice
-                            prefix="👪"
-                            name="other_adults"
-                            label="Other adults will live here"
-                        />
-                        <div style={{height: 8}}></div>
-                        <MultiSelectChoice
-                            prefix="🐶"
-                            name="pets"
-                            label="Pets will live here"
-                        />
-                        <div style={{height: 8}}></div>
-                        <MultiSelectChoice
-                            prefix="💰"
-                            name="guarantor"
-                            label="I'll need a guarantor"
-                        />
-                        <div style={{height: 8}}></div>
-                        <MultiSelectChoice
-                            prefix="🚗"
-                            name="paring"
-                            label="I'd like a parking space"
-                        />
-                        <div style={{height: 8}}></div>
-                        <MultiSelectChoice
-                            prefix="🛍️"
-                            name="storage"
-                            label="I'll need extra storage"
-                        />
-                        <div style={{height: 8}}></div>
-                    </MultiSelect>
+                    <Fragment>
+                        <PageHeader>Let's talk about your new place</PageHeader>
+                        <Subtitle>Select all that apply</Subtitle>
+                        <div style={{height: 12}}></div>
+                        <MultiSelect
+                            onChange={(value) => setFieldValue('options', value)}
+                            value={values.options}
+                        >
+                            <MultiSelectChoice
+                                prefix="👪"
+                                name="other_adults"
+                                label="Other adults will live here"
+                            />
+                            <div style={{height: 8}}></div>
+                            <MultiSelectChoice
+                                prefix="🐶"
+                                name="pets"
+                                label="Pets will live here"
+                            />
+                            <div style={{height: 8}}></div>
+                            <MultiSelectChoice
+                                prefix="💰"
+                                name="guarantor"
+                                label="I'll need a guarantor"
+                            />
+                            <div style={{height: 8}}></div>
+                            <MultiSelectChoice
+                                prefix="🚗"
+                                name="parking"
+                                label="I'd like a parking space"
+                            />
+                            <div style={{height: 8}}></div>
+                            <MultiSelectChoice
+                                prefix="🛍️"
+                                name="storage"
+                                label="I'll need extra storage"
+                            />
+                            <div style={{height: 8}}></div>
+                        </MultiSelect>
+                    </Fragment>
                 )
                 }</Formik>
                 </div>
