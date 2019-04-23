@@ -24,7 +24,7 @@ export const page = css`
 `
 
 export const subPage = css`
-    padding: 45px;
+    padding: 45px 20px;
 `
 
 export const Disclaimer = styled.div`
