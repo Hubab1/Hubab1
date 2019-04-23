@@ -2,6 +2,8 @@ import { createSlice } from 'redux-starter-kit';
 
 import { ALL_ROUTES } from '../../constants';
 
+//TODO: add logic here that will determine next screen based on all routes, application config, and what was selected on RenterProfileOptions
+
 const routes = {
     Terms: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions', url: '/terms'},
     RenterProfileOptions: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'Continue', url: 'profile'}
