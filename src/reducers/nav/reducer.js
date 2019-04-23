@@ -1,5 +1,7 @@
 import { createSlice } from 'redux-starter-kit';
 
+import { ALL_ROUTES } from '../../constants';
+
 const routes = {
     Terms: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'I Agree to the Terms & Conditions', url: '/terms'},
     RenterProfileOptions: {next: 'RenterProfileOptions', back: 'Terms', buttonText: 'Continue', url: 'profile'}

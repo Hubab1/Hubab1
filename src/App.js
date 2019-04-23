@@ -6,9 +6,10 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 
-import MainContainer from './components/main/MainContainer';
-import ProfileContainer from './components/profile/ProfileContainer';
-import LoginContainer from './components/login/LoginContainer';
+import MainContainer from 'components/main/MainContainer';
+import ProfileContainer from 'components/profile/ProfileContainer';
+import LoginContainer from 'components/login/LoginContainer';
+import Page from 'components/common/Page';
 import history from './history';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
@@ -39,9 +40,9 @@ class App extends Component {
         if (!this.state.theme) return null;
         const routes = (
             <Switch>
-                <Route path="/" component={MainContainer} />
                 <Route path="/profile" component={ProfileContainer} />
                 <Route path="/login" component={LoginContainer} />
+                <Route path="/" component={MainContainer} />
             </Switch>
         );
 
@@ -49,7 +50,9 @@ class App extends Component {
             <MuiThemeProvider theme={this.state.theme}>
                 <div className="App">
                     <Router history={history}>
-                        {routes}
+                        <Page>
+                            {routes}
+                        </Page>
                     </Router>
                 </div>
             </MuiThemeProvider>

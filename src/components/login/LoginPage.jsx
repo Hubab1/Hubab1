@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,6 @@ import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
 import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
 import { initializePage } from 'utils/initializePage';
 
-import Page from './Page';
 import auth from 'utils/auth';
 
 export class LoginPage extends React.Component {
@@ -20,7 +19,7 @@ export class LoginPage extends React.Component {
             setSubmitting(false);
             this.props.fetchRenterProfile().then(
                 initializePage(this.props.profile)
-            )
+            );
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -29,7 +28,7 @@ export class LoginPage extends React.Component {
 
     render () {
         return (
-            <Page>
+            <Fragment>
                 <H1 style={{color: 'black', fontWeight: 500}}>Hello, Sam!</H1>
                 <Subtitle>Create a password to get started.</Subtitle>
 
@@ -80,7 +79,7 @@ export class LoginPage extends React.Component {
                     </form>
                 )}
                 </Formik>
-            </Page>
+            </Fragment>
         );
     }
 }

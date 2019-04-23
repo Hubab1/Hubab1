@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 
 import { Bold, H1, agentBlock, agentTitle } from 'assets/index';
-import Page from 'components/login/Page';
 
 class LoginSplash extends Component {
   render() {
       return (
-          <Page>
+          <Fragment>
               <div className={agentBlock}>
                   <div>Jane Morgan</div>
                   <span aria-label="agent-avatar" role="img" style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
@@ -27,7 +26,7 @@ class LoginSplash extends Component {
                         Click here
                   </Button>
               </div>
-          </Page>
+          </Fragment>
       );
   }
 };

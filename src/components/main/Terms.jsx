@@ -1,9 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
+import Button from '@material-ui/core/Button';
 
-import { H1, TextReader, Bold } from 'assets/index';
-import { nextScreen } from 'reducers/nav/reducer';
-import Page from 'components/main/Page';
+import { H1, Link, TextReader, Bold } from 'assets/index';
+import { nextRoute, previousRoute } from 'utils/routeNavigation';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -15,9 +14,23 @@ mollit anim id est laborum.`;
 
 export class Terms extends React.Component {
 
+    handleClickNext = () => {
+        const { history } = this.props;
+        const path = history.location.pathname;
+        const nextPage = nextRoute(path)
+        history.push(nextPage)
+    }
+
+    handleClickBack = () => {
+        const { history } = this.props;
+        const path = history.location.pathname;
+        const previousPage = previousRoute(path)
+        history.push(previousPage)
+    }
+
     render () {
         return (
-            <Page>
+            <Fragment>
                 <H1>Terms and Conditions</H1>
                 <TextReader>
                     <div>Terms and Conditions</div>
@@ -37,9 +50,15 @@ export class Terms extends React.Component {
                     <br/>
                     <div>Please {LOREM}</div>
                 </TextReader>
-            </Page>
+                <Button onClick={this.handleClickNext} variant="contained" color="primary" type="submit" fullWidth>
+                    I Agree to the Terms & Conditions
+                </Button>
+                <br/>
+                <br/>
+                <Link onClick={this.handleClickBack}>Go Back</Link>
+            </Fragment>
         );
     }
 }
 
-export default connect(null, {nextScreen})(Terms);
+export default Terms;
