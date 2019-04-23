@@ -26,6 +26,18 @@ export const prefix = css`
     text-align: center;
 `
 
-export const root = css`
+export const unselected = css`
     padding-left: 0px !important;
+`
+
+export const selected = css`
+    padding-left: 0px !important;
+    border-width: 3px !important;
+`
+
+export const activated = css`
+    background-color: red !important;
+    padding: 200px;
+    height: 200px !important;
+    font-size: 100px !important;
 `
