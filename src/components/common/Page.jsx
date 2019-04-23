@@ -4,9 +4,6 @@ import { Banner, page, subPage } from 'assets/index';
 import { community } from '../../constants';
 
 export class Page extends React.Component {
-    changeScreen = () => {
-        this.props.nextScreen();
-    }
 
     render () {
         return (

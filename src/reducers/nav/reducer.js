@@ -1,6 +1,6 @@
 import { createSlice } from 'redux-starter-kit';
 
-import { ALL_ROUTES } from '../../constants';
+import { ALL_ROUTES } from 'constants.js';
 
 //TODO: add logic here that will determine next screen based on all routes, application config, and what was selected on RenterProfileOptions
 

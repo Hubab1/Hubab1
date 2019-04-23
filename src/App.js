@@ -10,7 +10,7 @@ import MainContainer from 'components/main/MainContainer';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginContainer from 'components/login/LoginContainer';
 import Page from 'components/common/Page';
-import history from './history';
+import history from 'history.js';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { initializePage } from 'utils/initializePage';

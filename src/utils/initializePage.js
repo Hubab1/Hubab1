@@ -1,4 +1,4 @@
-import history from '../history';
+import history from 'history.js';
 
 
 export const initializePage = (profile) => {
