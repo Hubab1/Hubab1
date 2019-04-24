@@ -1,5 +1,5 @@
-import Terms from './components/main/Terms';
-import RenterProfileOptions from './components/main/RenterProfileOptions';
+import Terms from 'components/main/Terms';
+import RenterProfileOptions from 'components/profile/RenterProfileOptions';
 
 export default {
     'Terms': Terms,

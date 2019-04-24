@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/emotion/styles';
 import { nextScreen } from 'reducers/nav/reducer';
-import Page from './Page';
+import Page from 'components/login/Page';
 import history from 'history.js';
 import auth from 'utils/auth';
 

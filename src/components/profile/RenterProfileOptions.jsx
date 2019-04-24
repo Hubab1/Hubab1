@@ -67,8 +67,7 @@ export default class RentalProfileOptions extends React.Component {
                                 <div style={{height: 8}}></div>
                             </MultiSelect>
                         </Fragment>
-                    )
-                    }</Formik>
+                    )}</Formik>
                 </div>
             </Page>
         );

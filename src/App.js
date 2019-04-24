@@ -1,15 +1,15 @@
-import './assets/emotion/styles';
+import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import store from './reducers/store';
-import MainContainer from './components/main/MainContainer';
-import ProfileContainer from './components/profile/ProfileContainer';
-import LoginContainer from './components/login/LoginContainer';
-import history from './history';
+import store from 'reducers/store';
+import MainContainer from 'components/main/MainContainer';
+import ProfileContainer from 'components/profile/ProfileContainer';
+import LoginContainer from 'components/login/LoginContainer';
+import history from 'history.js';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 
