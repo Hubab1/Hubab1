@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 
-import { H1, Link, TextReader, Bold } from 'assets/index';
+import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
 import { nextRoute, previousRoute } from 'utils/routeNavigation';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,

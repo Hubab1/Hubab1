@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { community } from 'components/../constants';
+import { page } from 'assets/emotion/styles';
 
 export default class Page extends React.Component {
     render () {

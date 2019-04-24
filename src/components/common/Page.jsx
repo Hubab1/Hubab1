@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Banner, page, subPage } from 'assets/index';
-import { community } from '../../constants';
+import { Banner, page, subPage } from 'assets/emotion/styles';
+import { community } from 'constants.js';
 
 export class Page extends React.Component {
 
