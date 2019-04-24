@@ -61,9 +61,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.nav.isLoggedIn,
     profile: state.renterProfile,
-    screen: state.nav.screen
 });
 
 const mapDispatchToProps = {fetchRenterProfile};
