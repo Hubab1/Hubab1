@@ -24,7 +24,7 @@ export const page = css`
 `
 
 export const subPage = css`
-    padding: 45px;
+    padding: 45px 20px;
 `
 
 export const Disclaimer = styled.div`
@@ -59,6 +59,15 @@ export const H1 = styled.div`
   color: #454B57;
   font-size: 24px;
   line-height: 29px;
+`
+
+export const PageHeader = styled.div`
+    color: #000000;
+    margin: 15px 0;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+    text-align: center;
 `
 
 export const Subtitle = styled.small`	

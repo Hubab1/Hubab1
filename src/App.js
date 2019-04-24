@@ -1,4 +1,4 @@
-import './assets/index';
+import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
@@ -32,8 +32,9 @@ class App extends Component {
             if (!auth.isAuthenticated()) {
                 if (leaseSettings.client && !leaseSettings.client.has_application) {
                     history.push('/welcome');
+                } else {
+                    history.push('/login');
                 }
-                history.push('/login');
             } else {
                 this.props.fetchRenterProfile().then(
                     initializePage(profile)

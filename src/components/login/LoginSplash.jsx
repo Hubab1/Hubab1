@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 
-import { Bold, H1, agentBlock, agentTitle } from 'assets/index';
+import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
 
 class LoginSplash extends Component {
   render() {
@@ -16,7 +16,7 @@ class LoginSplash extends Component {
                   </div>
               </div>
               <div style={{textAlign: 'left', padding: 25}}>
-                  <H1>Hi Sam, YOU HAVE AN APPLICATION AND ARE HERE TO CONTINUE IT!!!!</H1>
+                  <PageHeader>Hi Sam, YOU HAVE AN APPLICATION AND ARE HERE TO CONTINUE IT!!!!</PageHeader>
                   <div>Your magically simple rental application starts here.</div>
                   <br/>
                   <div>Your new home awaits at <Bold>555 Waverly 605 W 11th St, New York, Unit 3F</Bold> awaits.</div>

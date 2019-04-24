@@ -13,7 +13,7 @@ API.fetchLeaseSettings = () => {
             last_name: 'Cheetoh',
             email: 'chester@cheetoh.com',
             phone: '(666) 777-8888',
-            has_application: true,
+            has_application: false,
         },
         unit: {
             number: 23,

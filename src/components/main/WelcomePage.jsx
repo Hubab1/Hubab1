@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 
-import { Bold, H1, agentBlock, agentTitle } from 'assets/index';
-
+import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
+import history from 'history.js';
 
 class WelcomePage extends Component {
+
     render() {
         return (
             <Fragment>
@@ -17,13 +19,13 @@ class WelcomePage extends Component {
                     </div>
                 </div>
                 <div style={{textAlign: 'left', padding: 25}}>
-                    <H1>Hi Sam,</H1>
+                    <PageHeader>Hi Sam,</PageHeader>
                     <div>Your magically simple rental application starts here.</div>
                     <br/>
                     <div>Your new home awaits at <Bold>555 Waverly 605 W 11th St, New York, Unit 3F</Bold> awaits.</div>
                     <br/>
                     <br/>
-                    <Button onClick={this.props.nextPage} variant="contained" color="primary" type="submit" fullWidth>
+                    <Button onClick={() => history.push('/login')} variant="contained" color="primary" type="submit" fullWidth>
                           Click here
                     </Button>
                 </div>
@@ -33,4 +35,8 @@ class WelcomePage extends Component {
     }
 }
 
-export default WelcomePage;
+const mapStateToProps = state => ({
+    leaseSettings: state.leaseSettings,
+});
+
+export default connect(mapStateToProps, null)(WelcomePage);
