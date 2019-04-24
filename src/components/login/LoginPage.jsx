@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
 
-import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
@@ -29,7 +29,7 @@ export class LoginPage extends React.Component {
     render () {
         return (
             <Fragment>
-                <H1 style={{color: 'black', fontWeight: 500}}>Hello, Sam!</H1>
+                <H1 style={{color: 'black', fontWeight: 500}}></H1>
                 <Subtitle>Create a password to get started.</Subtitle>
 
                 <Formik

@@ -1,11 +1,11 @@
 import { configureStore } from 'redux-starter-kit';
 
-import renterProfile from './renterProfile/reducer';
-import nav from './nav/reducer';
+import renterProfile from 'reducers/renter-profile';
+import leaseSettings from 'reducers/lease-settings';
 
 const reducer = {
   renterProfile,
-  nav
+  leaseSettings,
 };
 
 export default configureStore({
