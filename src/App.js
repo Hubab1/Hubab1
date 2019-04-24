@@ -1,4 +1,4 @@
-import './assets/index';
+import './assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';

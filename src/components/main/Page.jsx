@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
-import { Banner, page, Link, subPage } from 'assets/index';
+import { Banner, page, Link, subPage } from 'assets/emotion/styles';
 import { nextScreen, selectors } from 'reducers/nav/reducer';
-import { community } from '../../constants';
+import { community } from 'constants.js';
 
 export class Page extends React.Component {
     changeScreen = () => {

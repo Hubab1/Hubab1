@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
-import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/index';
+import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
 import Page from 'components/login/Page';
 
 class LoginSplash extends Component {

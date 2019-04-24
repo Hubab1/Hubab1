@@ -4,10 +4,10 @@ import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
-import { nextScreen } from '../../reducers/nav/reducer';
+import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/emotion/styles';
+import { nextScreen } from 'reducers/nav/reducer';
 import Page from './Page';
-import history from '../../history';
+import history from 'history.js';
 import auth from 'utils/auth';
 
 export class LoginPage extends React.Component {

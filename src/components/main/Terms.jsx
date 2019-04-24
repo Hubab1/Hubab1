@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { H1, TextReader, Bold } from '../../assets/index';
-import { nextScreen } from '../../reducers/nav/reducer';
+import { H1, TextReader, Bold } from 'assets/emotion/styles';
+import { nextScreen } from 'reducers/nav/reducer';
 import Page from './Page';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 

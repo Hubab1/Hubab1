@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 
-import Page from './Page';
-import MultiSelectChoice from './MultiSelect/MultiSelectChoice';
-import MultiSelect from './MultiSelect';
-import { PageHeader, Subtitle } from 'assets/index';
+import Page from 'components/main/Page';
+import { MultiSelect, MultiSelectChoice } from 'components/MultiSelect';
+import { PageHeader, Subtitle } from 'assets/emotion/styles';
 
 export default class RentalProfileOptions extends React.Component {
     onSubmit = () => {

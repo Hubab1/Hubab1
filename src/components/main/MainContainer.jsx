@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchRenterProfile } from '../../reducers/renterProfile/reducer';
-import { changeScreen } from '../../reducers/nav/reducer';
-import mapScreenName from '../../mapScreenName';
+import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
+import { changeScreen } from 'reducers/nav/reducer';
+import mapScreenName from 'mapScreenName.js';
 
 
 class MainContainer extends Component {
