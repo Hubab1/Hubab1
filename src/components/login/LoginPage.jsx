@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/index';
-import { nextScreen } from '../../reducers/nav/reducer';
-import Page from './Page';
-import history from '../../history';
+
+import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
+import { initializePage } from 'utils/initializePage';
+
 import auth from 'utils/auth';
 
 export class LoginPage extends React.Component {
@@ -16,7 +17,9 @@ export class LoginPage extends React.Component {
         return auth.login(values.username, values.password).then((res) => {
             auth.setSession(res.token);
             setSubmitting(false);
-            history.push('/');
+            this.props.fetchRenterProfile().then(
+                initializePage(this.props.profile)
+            );
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -25,7 +28,7 @@ export class LoginPage extends React.Component {
 
     render () {
         return (
-            <Page>
+            <Fragment>
                 <H1 style={{color: 'black', fontWeight: 500}}>Hello, Sam!</H1>
                 <Subtitle>Create a password to get started.</Subtitle>
 
@@ -76,9 +79,15 @@ export class LoginPage extends React.Component {
                     </form>
                 )}
                 </Formik>
-            </Page>
+            </Fragment>
         );
     }
 }
 
-export default connect(null, {nextScreen})(LoginPage);
+const mapStateToProps = (state) => ({
+    profile: state.renterProfile,
+});
+
+const mapDispatchToProps = { fetchRenterProfile };
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

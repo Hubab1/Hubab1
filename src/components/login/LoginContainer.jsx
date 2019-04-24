@@ -12,12 +12,12 @@ class LoginContainer extends Component {
             this.setState({screen: this.state.screen + 1});
         }
     }
-    
+
     render() {
-        const Page = pages[this.state.screen];
+        const ScreenComponent = pages[this.state.screen];
         return (
             <div>
-                <Page nextPage={this.nextPage}/>
+                <ScreenComponent nextPage={this.nextPage}/>
             </div>
         );
     }
