@@ -23,7 +23,7 @@ class App extends Component {
     componentDidMount () {
         this.setState({theme: createTheme()});
         if (!auth.isAuthenticated()) {
-            history.push('/login');
+            history.push('/welcome');
         } else {
             this.props.fetchRenterProfile().then(initializePage(this.props.profile));
         }
