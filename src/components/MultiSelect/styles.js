@@ -10,6 +10,9 @@ export const contentContainer = css`
     text-transform: none;
 `
 
+export const multiSelectChoiceContainer = css`
+    margin-bottom: 10px;
+`
 export const label = css`
     flex: 1;
     padding-left: 0;

@@ -39,31 +39,26 @@ export default class RentalProfileOptions extends React.Component {
                                 name="other_adults"
                                 label="Other adults will live here"
                             />
-                            <div style={{height: 8}}></div>
                             <MultiSelectChoice
                                 prefix="🐶"
                                 name="pets"
                                 label="Pets will live here"
                             />
-                            <div style={{height: 8}}></div>
                             <MultiSelectChoice
                                 prefix="💰"
                                 name="guarantor"
                                 label="I'll need a guarantor"
                             />
-                            <div style={{height: 8}}></div>
                             <MultiSelectChoice
                                 prefix="🚗"
                                 name="parking"
                                 label="I'd like a parking space"
                             />
-                            <div style={{height: 8}}></div>
                             <MultiSelectChoice
                                 prefix="🛍️"
                                 name="storage"
                                 label="I'll need extra storage"
                             />
-                            <div style={{height: 8}}></div>
                         </MultiSelect>
                     </Fragment>
                 )}</Formik>
