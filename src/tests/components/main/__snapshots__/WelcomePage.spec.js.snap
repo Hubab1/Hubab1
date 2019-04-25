@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot for created event 1`] = `
+exports[`matches snapshot for welcome page 1`] = `
 Array [
   <div
     className="css-lwkisb"
