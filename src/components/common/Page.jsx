@@ -1,5 +1,5 @@
 import React from 'react';
-import SiteThemeContext from 'SiteThemeContext.js';
+import SiteThemeContext from 'contexts/SiteThemeContext.js';
 
 import { Banner, page, subPage } from 'assets/emotion/styles';
 import { community } from 'constants.js';
