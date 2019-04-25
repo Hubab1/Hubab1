@@ -23,7 +23,7 @@ export class App extends Component {
     state = {}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { profile, fetchRenterProfile } = this.props;
+        const { fetchRenterProfile } = this.props;
         if (!isAuthenticated) {
             if (leaseSettings.client && leaseSettings.client.application_id) {
                 history.push('/login');
