@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
 import history from 'history.js';
 
-class WelcomePage extends Component {
+export class WelcomePage extends Component {
 
     render() {
         return (

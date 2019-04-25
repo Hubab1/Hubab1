@@ -25,18 +25,18 @@ class App extends Component {
         const { fetchRenterProfile, fetchLeaseSettings, profile } = this.props;
         fetchLeaseSettings().then((leaseSettings) => {
 
-            const primaryColor = leaseSettings.community_branding.primary_color;
-            const secondaryColor = leaseSettings.community_branding.secondary_color;
+            const primaryColor = leaseSettings.primary_color;
+            const secondaryColor = leaseSettings.secondary_color;
             this.setState({theme: createTheme(primaryColor, secondaryColor)});
 
             if (!auth.isAuthenticated()) {
-                if (leaseSettings.client && !leaseSettings.client.has_application) {
+                if (leaseSettings.client && !leaseSettings.client.application_id) {
                     history.push('/welcome');
                 } else {
                     history.push('/login');
                 }
             } else {
-                this.props.fetchRenterProfile().then(
+                fetchRenterProfile().then(
                     initializePage(profile)
                 );
             }

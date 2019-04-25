@@ -2,27 +2,26 @@ const API = {};
 
 API.fetchLeaseSettings = () => {
     return Promise.resolve({
-        community_branding: {
-            splash_image: 'https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811',
-            logo: 'https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png',
-            primary_color: '#000000',
-            secondary_color: '#FFA500',
+        "name": "Cortland",
+        "street": "2173 Highland Ave S",
+        "city": "Birmingham",
+        "state": "AL",
+        "postal_code": 35205,
+        "terms_of_service": "https://some-link.com/something.pdf",
+        "privacy_policy": "https://some-link.com/something.pdf",
+        "logo": "https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png",
+        "background_image": "https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811",
+        "primary_color": "#000000",
+        "secondary_color": "#FFA500",
+        "client": {
+        "first_name": "Chester",
+        "last_name": "Cheetah",
+        "email": "chester@cheetos.com",
+        "phone": "+11231231234",
+        "application_id": 12
         },
-        client: {
-            first_name: 'Chester',
-            last_name: 'Cheetoh',
-            email: 'chester@cheetoh.com',
-            phone: '(666) 777-8888',
-            has_application: false,
-        },
-        unit: {
-            number: 23,
-            rent: 1234,
-        },
-        name: 'Cheetoh Mansion',
-        address: '123 Fake St.',
-        toc_link: 'www.link.com',
-        pp_link: 'www.something.com',
+        "unit_number": "3B",
+        "monthly_rent": 5000,
     });
 }
 
