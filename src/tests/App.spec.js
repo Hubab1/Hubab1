@@ -4,9 +4,8 @@ import { shallow } from 'enzyme';
 import { App } from 'App';
 import { WelcomePage } from 'components/main/WelcomePage';
 import history from 'history.js';
-import auth from 'utils/auth';
 
-let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise;
+let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise, fetchRenterProfilePromise;
 
 beforeEach(() => {
 
@@ -33,9 +32,10 @@ beforeEach(() => {
     };
 
     fetchLeaseSettingsPromise = Promise.resolve(leaseSettingsObject);
+    fetchRenterProfilePromise = Promise.resolve({});
 
     defaultProps = {
-    fetchRenterProfile: jest.fn(),
+    fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
     fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
     profile: null,
     }
@@ -49,6 +49,46 @@ describe('componentDidMount', () => {
 
         expect(defaultProps.fetchLeaseSettings).toHaveBeenCalledTimes(1);
 
+    });
+})
+
+describe('mountNavigation', () => {
+    it('calls fetchRenterProfile if authenticated', function () {
+        const wrapper = shallow(<App { ...defaultProps} />);
+        wrapper.instance().mountNavigation(true, {});
+
+        expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
+    });
+    it('routes to login page if not authenticated, but there is an associated application', function () {
+        const historyStub = jest.fn();
+        history.push = historyStub;
+
+        const wrapper = shallow(<App { ...defaultProps} />);
+        wrapper.instance().mountNavigation(false, {client:{application_id:123}});
+
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/login');
+    });
+    it('routes to welcome page if not authenticated, and there is a client associated', function () {
+        const historyStub = jest.fn();
+        history.push = historyStub;
+
+        const wrapper = shallow(<App { ...defaultProps} />);
+        wrapper.instance().mountNavigation(false, {client:{}});
+
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
+    });
+
+    it('routes to welcome page if not authenticated, and there is no client associated', function () {
+        const historyStub = jest.fn();
+        history.push = historyStub;
+
+        const wrapper = shallow(<App { ...defaultProps} />);
+        wrapper.instance().mountNavigation(false, {client:{}});
+
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
 

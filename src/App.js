@@ -21,23 +21,32 @@ import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 export class App extends Component {
     state = {}
+
+    mountNavigation(isAuthenticated, leaseSettings) {
+        const { profile, fetchRenterProfile } = this.props;
+        if (!isAuthenticated) {
+            if (leaseSettings.client && leaseSettings.client.application_id) {
+                history.push('/login');
+            } else {
+                history.push('/welcome');
+            }
+        } else {
+            fetchRenterProfile().then(
+                initializePage(profile)
+            );
+        }
+    }
+
     componentDidMount () {
-        const { fetchRenterProfile, fetchLeaseSettings, profile } = this.props;
+        const { fetchLeaseSettings } = this.props;
         fetchLeaseSettings().then((leaseSettings) => {
             const primaryColor = leaseSettings.primary_color;
             const secondaryColor = leaseSettings.secondary_color;
             this.setState({theme: createTheme(primaryColor, secondaryColor)});
-            if (!auth.isAuthenticated()) {
-                if (!leaseSettings.client || leaseSettings.client && !leaseSettings.client.application_id) {
-                    history.push('/welcome');
-                } else {
-                    history.push('/login');
-                }
-            } else {
-                fetchRenterProfile().then(
-                    initializePage(profile)
-                );
-            }
+
+            const isAuthenticated = auth.isAuthenticated();
+
+            this.mountNavigation(isAuthenticated, leaseSettings);
         })
     }
 
