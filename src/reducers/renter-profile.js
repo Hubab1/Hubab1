@@ -1,6 +1,6 @@
 import { createSlice } from 'redux-starter-kit';
 
-import API from './api';
+import API from 'reducers/api';
 
 const renterProfile = createSlice({
     slice: 'renterProfile',

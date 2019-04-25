@@ -14,19 +14,38 @@ import history from 'history.js';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { initializePage } from 'utils/initializePage';
-import { fetchRenterProfile } from 'reducers/renterProfile/reducer';
+import { fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 
 
-class App extends Component {
+export class App extends Component {
     state = {}
-    componentDidMount () {
-        this.setState({theme: createTheme()});
-        if (!auth.isAuthenticated()) {
-            history.push('/welcome');
+
+    mountNavigation(isAuthenticated, leaseSettings) {
+        const { fetchRenterProfile } = this.props;
+        if (!isAuthenticated) {
+            if (leaseSettings.client && leaseSettings.client.application_id) {
+                history.push('/login');
+            } else {
+                history.push('/welcome');
+            }
         } else {
-            this.props.fetchRenterProfile().then(initializePage(this.props.profile));
+            fetchRenterProfile();
         }
+    }
+
+    componentDidMount () {
+        const { fetchLeaseSettings } = this.props;
+        fetchLeaseSettings().then((leaseSettings) => {
+            const primaryColor = leaseSettings.primary_color;
+            const secondaryColor = leaseSettings.secondary_color;
+            this.setState({theme: createTheme(primaryColor, secondaryColor)});
+
+            const isAuthenticated = auth.isAuthenticated();
+
+            this.mountNavigation(isAuthenticated, leaseSettings);
+        })
     }
 
     componentDidUpdate(prevProps) {
@@ -64,7 +83,7 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 });
 
-const mapDispatchToProps = {fetchRenterProfile};
+const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
