@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import { App } from 'App';
 import { WelcomePage } from 'components/main/WelcomePage';
 import history from 'history.js';
-import executeAfterPromises from 'tests/utils/executeAfterPromises';
 import auth from 'utils/auth';
 
 let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise;
