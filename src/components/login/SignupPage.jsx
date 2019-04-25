@@ -51,6 +51,7 @@ export class SignupPage extends React.Component {
                     errors,
                     touched,
                     handleChange,
+                    submitCount,
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
@@ -61,6 +62,7 @@ export class SignupPage extends React.Component {
                             <FormTextInput
                                 label="First Name"
                                 name="first_name"
+                                submitted={submitCount > 0}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 error={errors.first_name}
@@ -70,6 +72,7 @@ export class SignupPage extends React.Component {
                             <FormTextInput
                                 label="Last Name"
                                 name="last_name"
+                                submitted={submitCount > 0}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 error={errors.last_name}
@@ -79,6 +82,7 @@ export class SignupPage extends React.Component {
                             <FormTextInput
                                 label="Email"
                                 name="email"
+                                submitted={submitCount > 0}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 error={errors.email}
@@ -88,6 +92,7 @@ export class SignupPage extends React.Component {
                             <FormTextInput
                                 label="Phone Number"
                                 name="phone_number"
+                                submitted={submitCount > 0}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 error={errors.phone_number}
@@ -98,6 +103,7 @@ export class SignupPage extends React.Component {
                                 label="Password"
                                 name="password"
                                 type="password"
+                                submitted={submitCount > 0}
                                 handleChange={handleChange}
                                 handleBlur={handleBlur}
                                 error={errors.password}

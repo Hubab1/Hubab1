@@ -5,11 +5,11 @@ import TextField from '@material-ui/core/TextField';
 
 export default class FormTextInput extends React.Component {
     render () {
-        const { error, touched, handleChange, handleBlur, value, label, name, type } = this.props;
+        const { error, touched, handleChange, handleBlur, value, label, name, type, submitted } = this.props;
         return (
             <TextField
-                error={touched && error}
-                helperText={error}
+                error={submitted && error}
+                helperText={touched && error}
                 label={label}
                 classes={ {root} }
                 type={type && type}
