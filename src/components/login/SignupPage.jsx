@@ -15,7 +15,7 @@ import auth from 'utils/auth';
 export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        return auth.login(values.username, values.password).then((res) => {
+        return auth.register(values).then((res) => {
             auth.setSession(res.token);
             setSubmitting(false);
             this.props.fetchRenterProfile().then(
