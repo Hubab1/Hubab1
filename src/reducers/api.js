@@ -18,7 +18,6 @@ API.fetchLeaseSettings = () => {
         "last_name": "Cheetah",
         "email": "chester@cheetos.com",
         "phone": "+11231231234",
-        "application_id": 12
         },
         "unit_number": "3B",
         "monthly_rent": 5000,
