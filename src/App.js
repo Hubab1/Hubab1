@@ -31,9 +31,7 @@ export class App extends Component {
                 history.push('/welcome');
             }
         } else {
-            fetchRenterProfile().then(
-                initializePage(profile)
-            );
+            fetchRenterProfile();
         }
     }
 

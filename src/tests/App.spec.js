@@ -55,8 +55,10 @@ describe('componentDidMount', () => {
 describe('mountNavigation', () => {
     it('calls fetchRenterProfile if authenticated', function () {
         const wrapper = shallow(<App { ...defaultProps} />);
-        wrapper.instance().mountNavigation(true, {});
 
+        const isAuthenticated = true;
+        const leaseSettings = {};
+        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
     });
     it('routes to login page if not authenticated, but there is an associated application', function () {
@@ -64,8 +66,10 @@ describe('mountNavigation', () => {
         history.push = historyStub;
 
         const wrapper = shallow(<App { ...defaultProps} />);
-        wrapper.instance().mountNavigation(false, {client:{application_id:123}});
 
+        const isAuthenticated = false;
+        const leaseSettings = {client:{application_id:123}};
+        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/login');
     });
@@ -74,7 +78,9 @@ describe('mountNavigation', () => {
         history.push = historyStub;
 
         const wrapper = shallow(<App { ...defaultProps} />);
-        wrapper.instance().mountNavigation(false, {client:{}});
+        const isAuthenticated = false;
+        const leaseSettings = {client:{}};
+        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -85,7 +91,9 @@ describe('mountNavigation', () => {
         history.push = historyStub;
 
         const wrapper = shallow(<App { ...defaultProps} />);
-        wrapper.instance().mountNavigation(false, {client:{}});
+        const isAuthenticated = false;
+        const leaseSettings = {};
+        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
