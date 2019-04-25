@@ -1,0 +1,9 @@
+version: '3'
+services:
+  woodhouse:
+    image: node:10.15
+    environment:
+      - CI=true
+    volumes:
+      - ./../:/woodhouse
+    working_dir: /woodhouse
