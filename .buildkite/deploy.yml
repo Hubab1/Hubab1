@@ -1,0 +1,7 @@
+steps:
+  - label: ":rocket: Deploy Woodhouse"
+    command: './.buildkite/steps/deploy.sh'
+    agents:
+      queue: docker
+    env:
+      BUILDKITE_ASSUME_ROLE: arn:aws:iam::380368738393:role/CI/ProductionDeployWoodhouse
