@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
-import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
+import { Bold, PageHeader, agentBlock, agentTitle, BackgroundImage } from 'assets/emotion/styles';
 import history from 'history.js';
 
 export class WelcomePage extends Component {
@@ -11,6 +11,7 @@ export class WelcomePage extends Component {
         return (
             <Fragment>
                 <div className={agentBlock}>
+                    <BackgroundImage url={this.props.leaseSettings.background_image} />
                     <div>Jane Morgan</div>
                     <span aria-label="agent-avatar" role="img" style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
                     <div className={agentTitle}>

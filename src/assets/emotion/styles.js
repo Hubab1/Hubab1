@@ -38,7 +38,7 @@ export const Disclaimer = styled.div`
 export const agentBlock = css`
     padding: 25px;
     line-height: 18px;
-    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);  
+    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
 `
 
 export const agentTitle = css`
@@ -70,7 +70,7 @@ export const PageHeader = styled.div`
     text-align: center;
 `
 
-export const Subtitle = styled.small`	
+export const Subtitle = styled.small`
     color: #818797;
     font-size: 15px;
     line-height: 18px;
@@ -88,23 +88,36 @@ export const loginContent = css`
 `
 
 export const TextReader = styled.div`
-  text-align: left;
-  background-color: rgba(238,238,238,0.4);
-  max-height: 650px;
-  overflow: auto;
-  padding: 20px;
-  color: #454B57;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
+    text-align: left;
+    background-color: rgba(238,238,238,0.4);
+    max-height: 650px;
+    overflow: auto;
+    padding: 20px;
+    color: #454B57;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
 `
 
 export const Bold = styled.span`
-  font-weight: bold;
+    font-weight: bold;
 `
 
 export const Link = styled.a`
-  color: #2B44FF;
-  font-weight: 600;
-  line-height: 17px;
+    color: #2B44FF;
+    font-weight: 600;
+    line-height: 17px;
 `
+
+ export const BackgroundImage = styled.div( props => ({
+     position: 'absolute',
+     top: 0,
+     left: 0,
+     width: '100%',
+     height: '100%',
+     backgroundImage: `url(${props.url})`,
+     backgroundPosition: 'center',
+     backgroundSize: 'cover',
+     zIndex: -5,
+     opacity: .5,
+ }))
