@@ -115,9 +115,9 @@ export const Link = styled.a`
      left: 0,
      width: '100%',
      height: '100%',
-     backgroundImage: `url(${props.url})`,
      backgroundPosition: 'center',
      backgroundSize: 'cover',
      zIndex: -5,
      opacity: .5,
+     backgroundImage: `url(${props.url})`,
  }))

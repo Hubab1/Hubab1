@@ -1,3 +1,5 @@
+import image from '../assets/images/desktop_cortlandimg.png';
+
 const API = {};
 
 API.fetchLeaseSettings = () => {
@@ -10,7 +12,7 @@ API.fetchLeaseSettings = () => {
         "terms_of_service": "https://some-link.com/something.pdf",
         "privacy_policy": "https://some-link.com/something.pdf",
         "logo": "https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png",
-        "background_image": "https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811",
+        "background_image": image,
         "primary_color": "#000000",
         "secondary_color": "#FFA500",
         "client": {
