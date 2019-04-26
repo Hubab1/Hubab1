@@ -20,6 +20,15 @@ import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 
 export class App extends Component {
+    constructor () {
+        super();
+        window.updateTheme = this.updateTheme;
+    }
+
+    updateTheme = (primaryColor, secondaryColor) => {
+        this.setState({theme: createTheme(primaryColor, secondaryColor)});
+    }
+
     state = {}
 
     mountNavigation(isAuthenticated, leaseSettings) {
@@ -67,15 +76,19 @@ export class App extends Component {
         );
         return (
             <MuiThemeProvider theme={theme}>
-            <SiteThemeContext.Provider value={{primary: theme.palette.primary.main, secondary: theme.palette.secondary.main}}>
-                <div className="App">
-                    <Router history={history}>
-                        <Page>
-                            {routes}
-                        </Page>
-                    </Router>
-                </div>
-            </SiteThemeContext.Provider>
+                <SiteThemeContext.Provider value={{
+                    primary: theme.palette.primary.main,
+                    secondary: theme.palette.secondary.main,
+                    primaryContrastText: theme.palette.primary.contrastText
+                }}>
+                    <div className="App">
+                        <Router history={history}>
+                            <Page>
+                                {routes}
+                            </Page>
+                        </Router>
+                    </div>
+                </SiteThemeContext.Provider>
             </MuiThemeProvider>
         );
     }

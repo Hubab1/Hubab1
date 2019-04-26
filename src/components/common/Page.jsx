@@ -12,7 +12,7 @@ export class Page extends React.Component {
             <div className={page}>
                 <Banner style={{
                     backgroundColor: this.context.primary,
-                    color: this.context.secondary
+                    color: this.context.primaryContrastText
                 }}>
                     {community.name}
                 </Banner>
