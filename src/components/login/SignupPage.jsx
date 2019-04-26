@@ -112,6 +112,7 @@ export class SignupPage extends React.Component {
                             />
                             <ActionButton disabled={isSubmitting}>Start Application</ActionButton>
                         </div>
+                        <div className="already-have-account">Already have an account? Sign in <a href="#">here</a></div>
                     </form>
                 )}
                 </Formik>
