@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import FormTextInput from 'components/common/FormTextInput';
-import Button from '@material-ui/core/Button';
+import ActionButton from 'components/common/ActionButton';
 import * as Yup from 'yup';
 
 import { SubtitleTwo, loginContent } from 'assets/emotion/styles';
@@ -110,9 +110,7 @@ export class SignupPage extends React.Component {
                                 touched={touched.password}
                                 value={values.password}
                             />
-                            <Button variant="contained" color="primary" type="submit" disabled={isSubmitting} fullWidth>
-                                Start Application
-                            </Button>
+                            <ActionButton disabled={isSubmitting}>Start Application</ActionButton>
                         </div>
                     </form>
                 )}
