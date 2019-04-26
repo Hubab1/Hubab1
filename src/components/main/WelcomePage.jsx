@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
+import ActionButton from 'components/common/ActionButton';
 import { Bold, PageHeader, agentBlock, agentTitle } from 'assets/emotion/styles';
 import history from 'history.js';
 
@@ -25,9 +25,8 @@ export class WelcomePage extends Component {
                     <div>Your new home awaits at <Bold>555 Waverly 605 W 11th St, New York, Unit 3F</Bold> awaits.</div>
                     <br/>
                     <br/>
-                    <Button onClick={() => history.push('/login')} variant="contained" color="primary" type="submit" fullWidth>
-                          Click here
-                    </Button>
+                    <ActionButton
+                        onClick={() => history.push('/login')}>Click here</ActionButton>
                 </div>
             </Fragment>
 

@@ -5,7 +5,7 @@ import { Route, Switch, Router } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-
+import SiteThemeContext from './contexts/SiteThemeContext';
 import MainContainer from 'components/main/MainContainer';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginContainer from 'components/login/LoginContainer';
@@ -56,7 +56,8 @@ export class App extends Component {
 
 
     render() {
-        if (!this.state.theme) return null;
+        const theme = this.state.theme;
+        if (!theme) return null;
         const routes = (
             <Switch>
                 <Route path="/profile" component={ProfileContainer} />
@@ -64,9 +65,9 @@ export class App extends Component {
                 <Route path="/" component={MainContainer} />
             </Switch>
         );
-
         return (
-            <MuiThemeProvider theme={this.state.theme}>
+            <MuiThemeProvider theme={theme}>
+            <SiteThemeContext.Provider value={{primary: theme.palette.primary.main, secondary: theme.palette.secondary.main}}>
                 <div className="App">
                     <Router history={history}>
                         <Page>
@@ -74,6 +75,7 @@ export class App extends Component {
                         </Page>
                     </Router>
                 </div>
+            </SiteThemeContext.Provider>
             </MuiThemeProvider>
         );
     }

@@ -11,8 +11,8 @@ API.fetchLeaseSettings = () => {
         "privacy_policy": "https://some-link.com/something.pdf",
         "logo": "https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png",
         "background_image": "https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811",
-        "primary_color": "#000000",
-        "secondary_color": "#FFA500",
+        "primary_color": "rgba(40,97,101,1)",
+        "secondary_color": "#FFFFFF",
         "client": {
         "first_name": "Chester",
         "last_name": "Cheetah",
@@ -26,7 +26,7 @@ API.fetchLeaseSettings = () => {
 
 API.fetchRenterProfile = () => {
     return Promise.resolve({
-        completed_terms_and_conditions: false,
+        completed_terms_and_conditions: true,
         _rental_options_config: [{page: 'has_pets', limit: 1}, {page: 'has_roommates', limit: 3}],
         selected_rental_options: [],
         roommates: [],
