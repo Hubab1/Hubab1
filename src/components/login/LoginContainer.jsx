@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 
 import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
 
 
 class LoginContainer extends Component {
     render() {
-        return (
-            <div>
-                <LoginPage/>
-            </div>
-        );
+        if (this.props.personalized) {
+            return (
+                <div>
+                    <LoginPage/>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <SignupPage/>
+                </div>
+            )
+        }
     }
+};
+
+LoginContainer.defaultProps = {
+    personalized: false
 };
 
 export default LoginContainer;

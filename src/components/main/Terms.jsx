@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Button from '@material-ui/core/Button';
+import ActionButton from 'components/common/ActionButton';
 
 import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
 import { nextRoute, previousRoute } from 'utils/routeNavigation';
@@ -50,9 +50,8 @@ export class Terms extends React.Component {
                     <br/>
                     <div>Please {LOREM}</div>
                 </TextReader>
-                <Button onClick={this.handleClickNext} variant="contained" color="primary" type="submit" fullWidth>
-                    I Agree to the Terms & Conditions
-                </Button>
+                <br/>
+                <ActionButton>I Agree to the Terms & Conditions</ActionButton>
                 <br/>
                 <br/>
                 <Link onClick={this.handleClickBack}>Go Back</Link>

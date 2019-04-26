@@ -77,12 +77,16 @@ export const Subtitle = styled.small`
     text-align: center;
 `
 
-// export const Subtitle = styled.small`
-//     color: #818797;
-// `
+export const SubtitleTwo = styled.small`
+    color: rgba(38,48,91,1);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    text-align: center;
+`
 
 export const loginContent = css`
-    padding: 35px;
+    padding: 10px;
     margin: auto;
     max-width: 500px;
 `

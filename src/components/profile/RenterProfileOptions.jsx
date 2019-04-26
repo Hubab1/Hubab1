@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
-import Button from '@material-ui/core/Button';
+import ActionButton from 'components/common/ActionButton';
 
 import { MultiSelect, MultiSelectChoice } from 'components/MultiSelect';
 import { PageHeader, Subtitle } from 'assets/emotion/styles';
@@ -62,9 +62,7 @@ export default class RentalProfileOptions extends React.Component {
                         </MultiSelect>
                     </Fragment>
                 )}</Formik>
-                <Button onClick={this.onSubmit} variant="contained" color="primary" type="submit" fullWidth>
-                    Continue
-                </Button>
+                <ActionButton onClick={this.onClick}>Continue</ActionButton>
             </div>
         );
     }
