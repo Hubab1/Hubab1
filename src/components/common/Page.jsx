@@ -8,7 +8,6 @@ export class Page extends React.Component {
     static contextType = SiteThemeContext;
 
     render () {
-        if (window.location.pathname.includes('welcome')) return (this.props.children)
         return (
             <div className={page}>
                 <Banner style={{

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import SiteThemeContext from './contexts/SiteThemeContext';
 import MainContainer from 'components/main/MainContainer';
+import WelcomePage from 'components/main/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginContainer from 'components/login/LoginContainer';
 import Page from 'components/common/Page';
@@ -54,15 +55,17 @@ export class App extends Component {
         }
     }
 
-
     render() {
         const theme = this.state.theme;
         if (!theme) return null;
         const routes = (
             <Switch>
-                <Route path="/profile" component={ProfileContainer} />
-                <Route path="/login" component={LoginContainer} />
-                <Route path="/" component={MainContainer} />
+                <Route path="/welcome" component={WelcomePage}/>
+                <Page>
+                    <Route path="/profile" component={ProfileContainer} />
+                    <Route path="/login" component={LoginContainer} />
+                    <Route path="/" component={MainContainer} />
+                </Page>
             </Switch>
         );
         return (
@@ -70,9 +73,7 @@ export class App extends Component {
             <SiteThemeContext.Provider value={{primary: theme.palette.primary.main, secondary: theme.palette.secondary.main}}>
                 <div className="App">
                     <Router history={history}>
-                        <Page>
                             {routes}
-                        </Page>
                     </Router>
                 </div>
             </SiteThemeContext.Provider>

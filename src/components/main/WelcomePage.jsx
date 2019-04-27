@@ -1,33 +1,84 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { Bold, PageHeader, agentBlock, agentTitle, BackgroundImage } from 'assets/emotion/styles';
+import funnelImage from '../../assets/images/PoweredByFunnel.png';
+import homeImage from '../../assets/images/home-image.png';
+import {
+    BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeContainer,
+    WelcomeTitle, WelcomeInfo, WelcomeInfoTitle, WelcomeLogo,
+    WelcomeFooterContainer, HomeImageContainer
+} from 'assets/emotion/styles';
+import ActionButton from 'components/common/ActionButton';
+import SiteThemeContext from 'contexts/SiteThemeContext';
 import history from 'history.js';
 
+
 export class WelcomePage extends Component {
+    static contextType = SiteThemeContext;
+
+    renderUnitInfo = (layout, unit_number) => {
+        let unitInfo = layout;
+
+        if (unit_number){
+            unitInfo = !!unitInfo ? unitInfo.concat(` - ${unit_number}`) : unit_number;
+        }
+        return unitInfo;
+    }
+
+    renderWelcomeInfo = () => {
+        const { name, street, city, state, postal_code, layout, unit_number } = this.props.leaseSettings;
+
+        const infoLines = [];
+
+        name && infoLines.push(name);
+        street && infoLines.push(street);
+
+        const unitInfo = this.renderUnitInfo(layout, unit_number);
+        unitInfo && infoLines.push(unitInfo);
+
+        infoLines.push(`${city}, ${state} ${postal_code}`);
+
+        return (
+            infoLines.map( (line, i) => {
+                if ( i === 0 ) {
+                    return <WelcomeInfoTitle key={i}>{line}</WelcomeInfoTitle>;
+                }
+                return <WelcomeInfo key={i}>{line}</WelcomeInfo>;
+            })
+        );
+    }
 
     render() {
+        const { client, background_image, logo } = this.props.leaseSettings;
+
+        const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'
+
         return (
             <Fragment>
-                <div className={agentBlock}>
-                    <BackgroundImage url={this.props.leaseSettings.background_image} />
-                    <div>Jane Morgan</div>
-                    <span aria-label="agent-avatar" role="img" style={{fontSize: 60, lineHeight: '80px'}}>👩</span>
-                    <div className={agentTitle}>
-                        <div>Leasing Agent</div>
-                        <div>Sky Residencies</div>
-                    </div>
-                </div>
-                <div style={{textAlign: 'left', padding: 25}}>
-                    <PageHeader>Hi Sam,</PageHeader>
-                    <div>Your magically simple rental application starts here.</div>
-                    <br/>
-                    <div>Your new home awaits at <Bold>555 Waverly 605 W 11th St, New York, Unit 3F</Bold> awaits.</div>
-                    <br/>
-                    <br/>
-                    <ActionButton
-                        onClick={() => history.push('/login')}>Click here</ActionButton>
-                </div>
+                <BackgroundImage url={background_image} />
+                <BackgroundImageTint primaryColor={this.context.primary} />
+                <WelcomeFlexContainer>
+                    <WelcomeLogo>
+                        <img src={logo} width="150" alt="company logo"/>
+                    </WelcomeLogo>
+                    <WelcomeContainer>
+                        <HomeImageContainer>
+                            <img src={homeImage} width="30" alt="company logo"/>
+                        </HomeImageContainer>
+                        <WelcomeTitle>
+                            {helloContent}
+                        </WelcomeTitle>
+                        Your new home awaits at
+                        <br/>
+                        {this.renderWelcomeInfo()}
+                    </WelcomeContainer>
+                    <WelcomeFooterContainer>
+                        <ActionButton
+                            onClick={() => history.push('/login')}>Start Application
+                        </ActionButton>
+                        <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
+                    </WelcomeFooterContainer>
+                </WelcomeFlexContainer>
             </Fragment>
 
         );

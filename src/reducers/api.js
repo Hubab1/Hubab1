@@ -1,4 +1,5 @@
-import image from '../assets/images/desktop_cortlandimg.png';
+import backgroundImage from '../assets/images/desktop_cortlandimg.png';
+import logoImage from '../assets/images/cortland_logo.png';
 
 const API = {};
 
@@ -11,8 +12,8 @@ API.fetchLeaseSettings = () => {
         "postal_code": 35205,
         "terms_of_service": "https://some-link.com/something.pdf",
         "privacy_policy": "https://some-link.com/something.pdf",
-        "logo": "https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png",
-        "background_image": image,
+        "logo": logoImage,
+        "background_image": backgroundImage,
         "primary_color": "rgba(40,97,101,1)",
         "secondary_color": "#FFFFFF",
         "client": {
@@ -22,6 +23,7 @@ API.fetchLeaseSettings = () => {
         "phone": "+11231231234",
         },
         "unit_number": "3B",
+        "layout": "1 Bedroom",
         "monthly_rent": 5000,
     });
 }
