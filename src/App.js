@@ -20,7 +20,7 @@ import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 
 export class App extends Component {
-    state = {}
+    state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
         const { fetchRenterProfile } = this.props;

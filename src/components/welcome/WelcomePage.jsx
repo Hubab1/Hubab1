@@ -5,7 +5,7 @@ import { withTheme } from '@material-ui/core/styles';
 import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
 import {
-    BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeContainer,
+    BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
     WelcomeTitle, WelcomeInfo, WelcomeInfoTitle, WelcomeLogo,
     WelcomeFooterContainer, HomeImageContainer
 } from './styles';
@@ -54,25 +54,25 @@ export class WelcomePage extends Component {
 
         return (
             <Fragment>
-                <BackgroundImage url={background_image} />
-                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main} />
-                <WelcomeFlexContainer>
-                    <WelcomeLogo>
+                <BackgroundImage url={background_image} className="welcome__background-image"/>
+                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main} className="welcome__background-image-tint"/>
+                <WelcomeFlexContainer className="welcome__flex-container">
+                    <WelcomeLogo className="welcome__logo">
                         <img src={logo} width="150" alt="company logo"/>
                     </WelcomeLogo>
-                    <WelcomeContainer>
-                        <HomeImageContainer>
+                    <WelcomeTextContainer className="welcome__text_container">
+                        <HomeImageContainer className="welcome__home-image">
                             <img src={homeImage} width="30" alt="company logo"/>
                         </HomeImageContainer>
-                        <WelcomeTitle>
+                        <WelcomeTitle className="welcome__title">
                             {helloContent}
                         </WelcomeTitle>
                         Your new home awaits at
                         <br/>
                         {this.renderWelcomeInfo()}
-                    </WelcomeContainer>
-                    <WelcomeFooterContainer>
-                        <ActionButton
+                    </WelcomeTextContainer>
+                    <WelcomeFooterContainer className="welcome__footer-container">
+                        <ActionButton className="welcome__start-application-button"
                             onClick={() => history.push('/login')}>Start Application
                         </ActionButton>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />

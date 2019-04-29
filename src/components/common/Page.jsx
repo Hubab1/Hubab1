@@ -11,7 +11,7 @@ export class Page extends React.Component {
             <div className={page}>
                 <Banner style={{
                     backgroundColor: this.props.theme.palette.primary.main,
-                    color: this.props.theme.palette.secondary.main
+                    color: this.props.theme.palette.primary.contrastText
                 }}>
                     {community.name}
                 </Banner>

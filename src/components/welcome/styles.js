@@ -33,7 +33,7 @@ export const WelcomeFlexContainer = styled.div`
     width: 100%;
 `
 
-export const WelcomeContainer = styled.div`
+export const WelcomeTextContainer = styled.div`
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
