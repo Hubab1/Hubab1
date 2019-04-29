@@ -3,16 +3,16 @@
 exports[`matches snapshot for welcome page 1`] = `
 Array [
   <div
-    className="css-7gulox"
+    className="welcome__background-image css-7gulox"
   />,
   <div
-    className="css-1u4ctym"
+    className="welcome__background-image-tint css-1u4ctym"
   />,
   <div
-    className="css-1cs06h0"
+    className="welcome__flex-container css-1cs06h0"
   >
     <div
-      className="css-1wiy7ua"
+      className="welcome__logo css-1wiy7ua"
     >
       <img
         alt="company logo"
@@ -21,10 +21,10 @@ Array [
       />
     </div>
     <div
-      className="css-1l6arv8"
+      className="welcome__text_container css-1l6arv8"
     >
       <div
-        className="css-1kbcrrf"
+        className="welcome__home-image css-1kbcrrf"
       >
         <img
           alt="company logo"
@@ -33,7 +33,7 @@ Array [
         />
       </div>
       <div
-        className="css-v8g9jw"
+        className="welcome__title css-v8g9jw"
       >
         Hello Chester,
       </div>
@@ -61,7 +61,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-q38i9v"
+      className="welcome__footer-container css-q38i9v"
     >
       <button
         className="MuiButtonBase-root-27 MuiButton-root-1 css-xrj6rj MuiButton-contained-12 MuiButton-containedPrimary-13 MuiButton-raised-15 MuiButton-raisedPrimary-16 MuiButton-fullWidth-26"
