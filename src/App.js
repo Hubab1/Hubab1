@@ -5,7 +5,6 @@ import { Route, Switch, Router } from 'react-router-dom';
 import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import SiteThemeContext from './contexts/SiteThemeContext';
 import MainContainer from 'components/main/MainContainer';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
