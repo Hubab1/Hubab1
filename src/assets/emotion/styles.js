@@ -140,9 +140,8 @@ export const WelcomeContainer = styled.div`
     margin: auto;
     font-family: sans-serif;
     color: #FFFFFF;
-    padding: 10px 50px 50px 50px;
+    padding: 0 50px 50px 50px;
     max-width: 500px;
-    margin-bottom: 80px;
 `
 
 export const WelcomeLogo = styled.div`
@@ -187,7 +186,9 @@ export const HomeImageContainer = styled.div`
     position: relative;
     top: -35px;
     width: 30px;
-    border-radius: 30px;
+    height: 15px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
     background: inherit;
     text-align: center;
     padding: 10px;
