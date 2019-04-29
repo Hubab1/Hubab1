@@ -37,7 +37,6 @@ export const WelcomeTextContainer = styled.div`
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
-    font-family: sans-serif;
     color: #FFFFFF;
     padding: 0 50px 50px 50px;
     max-width: 500px;
@@ -50,7 +49,6 @@ export const WelcomeLogo = styled.div`
 `
 
 export const WelcomeTitle = styled.div`
-    font-family: "Proxima Nova";
     font-size: 25px;
     line-height: 30px;
     text-align: center;
@@ -59,7 +57,6 @@ export const WelcomeTitle = styled.div`
 
 export const WelcomeInfo = styled.div`
     color: #FFFFFF;
-    font-family: "Proxima Nova";
     font-size: 22px;
     line-height: 30px;
     text-align: center;
@@ -68,7 +65,6 @@ export const WelcomeInfo = styled.div`
 export const WelcomeInfoTitle = styled.div`
     color: #FFFFFF;
     font-weight: 600;
-    font-family: "Proxima Nova";
     font-size: 22px;
     line-height: 30px;
     text-align: center;

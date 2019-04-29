@@ -1,6 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import backgroundImage from 'assets/images/desktop_cortlandimg.png';
 import logoImage from 'assets/images/cortland_logo.png';
@@ -40,13 +39,6 @@ beforeEach(() => {
     };
 })
 
-it('matches snapshot for welcome page', function(){
-    expect(
-        renderer.create(<WelcomePage {...defaultProps}/>)
-    ).toMatchSnapshot();
-});
-
-
 it('renders Hello <client name> when client is included in leaseSettings', function(){
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
@@ -62,7 +54,7 @@ it('renders Hi There, when client is included in leaseSettings', function(){
 
 describe('renderWelcomeInfo', () => {
     it('renders correct info when all client and unit info are passed', () => {
-        const wrapper = mount(<WelcomePage {...defaultProps}/>);
+        const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
         expect(wrapper.instance().renderWelcomeInfo().length).toEqual(4)
         expect(wrapper.instance().renderWelcomeInfo()[0].props.children).toEqual('Cortland');
@@ -74,7 +66,7 @@ describe('renderWelcomeInfo', () => {
         delete defaultProps.leaseSettings.unit_number;
         delete defaultProps.leaseSettings.layout;
 
-        const wrapper = mount(<WelcomePage {...defaultProps}/>);
+        const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
         expect(wrapper.instance().renderWelcomeInfo().length).toEqual(3)
         expect(wrapper.instance().renderWelcomeInfo()[0].props.children).toEqual('Cortland');

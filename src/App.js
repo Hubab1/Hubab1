@@ -2,7 +2,7 @@ import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
-import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import MainContainer from 'components/main/MainContainer';
@@ -86,4 +86,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
 
 
-export default withTheme()(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);
