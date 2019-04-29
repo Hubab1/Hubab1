@@ -1,5 +1,5 @@
-import backgroundImage from '../assets/images/desktop_cortlandimg.png';
-import logoImage from '../assets/images/cortland_logo.png';
+import backgroundImage from 'assets/images/desktop_cortlandimg.png';
+import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 

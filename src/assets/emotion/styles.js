@@ -15,48 +15,11 @@ injectGlobal`
   }
 `;
 
-export const page = css`
-  text-align: center;
-  max-width: 900px;
-  margin: auto;
-  padding-bottom: 25px;
-`
-
-export const subPage = css`
-    padding: 45px 20px;
-`
-
-export const Disclaimer = styled.div`
-    color: #454B57;
-    font-size: 14px;
-    padding: 25px;
-    line-height: 17px;
-    text-align: center;
-`
-
-export const Banner = styled.div`
-  height: 100px;
-  box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
-  padding-top: 30px;
-  padding-bottom: 30px;
-  font-size: 30px;
-  text-align: center;
-`
-
 export const H1 = styled.div`
   margin: 20px 0;
   color: #454B57;
   font-size: 24px;
   line-height: 29px;
-`
-
-export const PageHeader = styled.div`
-    color: #000000;
-    margin: 15px 0;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 29px;
-    text-align: center;
 `
 
 export const Subtitle = styled.small`
@@ -71,6 +34,15 @@ export const SubtitleTwo = styled.small`
     font-size: 18px;
     font-weight: 500;
     line-height: 22px;
+    text-align: center;
+`
+
+export const PageHeader = styled.div`
+    color: #000000;
+    margin: 15px 0;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
     text-align: center;
 `
 

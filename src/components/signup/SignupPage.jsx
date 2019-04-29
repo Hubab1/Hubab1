@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import FormTextInput from 'components/common/FormTextInput';
-import ActionButton from 'components/common/ActionButton';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import * as Yup from 'yup';
 
 import { SubtitleTwo, loginContent } from 'assets/emotion/styles';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import RenterProfileOptions from 'components/profile/RenterProfileOptions';
+import RenterProfileOptions from 'components/profile/options/RenterProfileOptions';
 
 
 class ProfileContainer extends Component {

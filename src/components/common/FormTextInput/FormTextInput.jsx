@@ -6,13 +6,13 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 
-import { root } from 'assets/emotion/FormTextInput';
+import { root } from './styles';
 
 export default class FormTextInput extends React.Component {
     state = {showPassword: false}
 
     handleClickShowPassword = () => this.setState({showPassword: !this.state.showPassword})
-    
+
     render () {
         const { error, touched, handleChange, handleBlur, value, label, name, type, submitted } = this.props;
         return (

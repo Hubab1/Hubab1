@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
-import ActionButton from 'components/common/ActionButton';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
-import { MultiSelect, MultiSelectChoice } from 'components/MultiSelect';
+import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { PageHeader, Subtitle } from 'assets/emotion/styles';
 
 export default class RentalProfileOptions extends React.Component {
     onSubmit = () => {
         // todo
     }
-    
+
     render () {
         return (
             <div>

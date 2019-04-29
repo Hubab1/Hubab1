@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import ActionButton from 'components/common/ActionButton';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
 import { nextRoute, previousRoute } from 'utils/routeNavigation';
