@@ -69,13 +69,11 @@ export class App extends Component {
         );
         return (
             <MuiThemeProvider theme={theme}>
-            <SiteThemeContext.Provider value={{primary: theme.palette.primary.main, secondary: theme.palette.secondary.main}}>
                 <div className="App">
                     <Router history={history}>
                             {routes}
                     </Router>
                 </div>
-            </SiteThemeContext.Provider>
             </MuiThemeProvider>
         );
     }
