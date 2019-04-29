@@ -1,18 +1,17 @@
 import React from 'react';
-import SiteThemeContext from 'contexts/SiteThemeContext';
+import { withTheme } from '@material-ui/core/styles';
 
 import { Banner, page, subPage } from 'assets/emotion/styles';
 import { community } from 'constants.js';
 
 export class Page extends React.Component {
-    static contextType = SiteThemeContext;
 
     render () {
         return (
             <div className={page}>
                 <Banner style={{
-                    backgroundColor: this.context.primary,
-                    color: this.context.secondary
+                    backgroundColor: this.props.theme.palette.primary.main,
+                    color: this.props.theme.palette.secondary.main
                 }}>
                     {community.name}
                 </Banner>
@@ -25,4 +24,4 @@ export class Page extends React.Component {
 }
 
 
-export default Page;
+export default withTheme()(Page);

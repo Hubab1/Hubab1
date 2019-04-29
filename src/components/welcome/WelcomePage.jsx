@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withTheme } from '@material-ui/core/styles';
 
 import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
@@ -7,14 +8,12 @@ import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeContainer,
     WelcomeTitle, WelcomeInfo, WelcomeInfoTitle, WelcomeLogo,
     WelcomeFooterContainer, HomeImageContainer
-} from 'assets/emotion/styles';
+} from './styles';
 import ActionButton from 'components/common/ActionButton';
-import SiteThemeContext from 'contexts/SiteThemeContext';
 import history from 'history.js';
 
 
 export class WelcomePage extends Component {
-    static contextType = SiteThemeContext;
 
     renderUnitInfo = (layout, unit_number) => {
         let unitInfo = layout;
@@ -56,7 +55,7 @@ export class WelcomePage extends Component {
         return (
             <Fragment>
                 <BackgroundImage url={background_image} />
-                <BackgroundImageTint primaryColor={this.context.primary} />
+                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main} />
                 <WelcomeFlexContainer>
                     <WelcomeLogo>
                         <img src={logo} width="150" alt="company logo"/>
@@ -89,4 +88,5 @@ const mapStateToProps = state => ({
     leaseSettings: state.leaseSettings,
 });
 
-export default connect(mapStateToProps, null)(WelcomePage);
+const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);
+export default withTheme()(connectedWelcomePage);

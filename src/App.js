@@ -2,12 +2,12 @@ import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import SiteThemeContext from './contexts/SiteThemeContext';
 import MainContainer from 'components/main/MainContainer';
-import WelcomePage from 'components/main/WelcomePage';
+import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginContainer from 'components/login/LoginContainer';
 import Page from 'components/common/Page';
@@ -89,4 +89,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withTheme()(connect(mapStateToProps, mapDispatchToProps)(App));
