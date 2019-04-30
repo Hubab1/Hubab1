@@ -61,7 +61,7 @@ export class App extends Component {
         const routes = (
             <Switch>
                 <Route path="/welcome" component={WelcomePage}/>
-                <Page>
+                <Page logo={this.props.leaseSettings.logo}>
                     <Route path="/profile" component={ProfileContainer} />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/signup" component={SignupPage} />
@@ -83,6 +83,7 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    leaseSettings: state.leaseSettings,
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
