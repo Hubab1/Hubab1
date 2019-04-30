@@ -17,15 +17,15 @@ export class TermsPage extends React.Component {
     handleClickNext = () => {
         const { history } = this.props;
         const path = history.location.pathname;
-        const nextPage = nextRoute(path)
-        history.push(nextPage)
+        const nextPage = nextRoute(path);
+        history.push(nextPage);
     }
 
     handleClickBack = () => {
         const { history } = this.props;
         const path = history.location.pathname;
-        const previousPage = previousRoute(path)
-        history.push(previousPage)
+        const previousPage = previousRoute(path);
+        history.push(previousPage);
     }
 
     render () {
@@ -51,7 +51,7 @@ export class TermsPage extends React.Component {
                     <div>Please {LOREM}</div>
                 </TextReader>
                 <br/>
-                <ActionButton>I Agree to the Terms & Conditions</ActionButton>
+                <ActionButton onClick={this.handleClickNext}>I Agree to the Terms & Conditions</ActionButton>
                 <br/>
                 <br/>
                 <Link onClick={this.handleClickBack}>Go Back</Link>
