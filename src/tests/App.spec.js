@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { App } from 'App';
-import { WelcomePage } from 'components/main/WelcomePage';
+import { WelcomePage } from 'components/welcome/WelcomePage';
 import history from 'history.js';
 
 let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise, fetchRenterProfilePromise;

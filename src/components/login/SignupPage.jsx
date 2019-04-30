@@ -110,7 +110,7 @@ export class SignupPage extends React.Component {
                                 touched={touched.password}
                                 value={values.password}
                             />
-                            <ActionButton disabled={isSubmitting}>Start Application</ActionButton>
+                            <ActionButton disabled={isSubmitting}>Create Account</ActionButton>
                         </div>
                         {/* eslint-disable-next-line */}
                         <div className="already-have-account">Already have an account? Sign in <a href="#">here</a></div>

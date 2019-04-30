@@ -5,8 +5,8 @@ import { Route, Switch, Router } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import SiteThemeContext from './contexts/SiteThemeContext';
 import MainContainer from 'components/main/MainContainer';
+import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginContainer from 'components/login/LoginContainer';
 import Page from 'components/common/Page';
@@ -20,7 +20,7 @@ import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 
 export class App extends Component {
-    state = {}
+    state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
         const { fetchRenterProfile } = this.props;
@@ -54,28 +54,26 @@ export class App extends Component {
         }
     }
 
-
     render() {
         const theme = this.state.theme;
         if (!theme) return null;
         const routes = (
             <Switch>
-                <Route path="/profile" component={ProfileContainer} />
-                <Route path="/login" component={LoginContainer} />
-                <Route path="/" component={MainContainer} />
+                <Route path="/welcome" component={WelcomePage}/>
+                <Page>
+                    <Route path="/profile" component={ProfileContainer} />
+                    <Route path="/login" component={LoginContainer} />
+                    <Route path="/" component={MainContainer} />
+                </Page>
             </Switch>
         );
         return (
             <MuiThemeProvider theme={theme}>
-            <SiteThemeContext.Provider value={{primary: theme.palette.primary.main, secondary: theme.palette.secondary.main}}>
                 <div className="App">
                     <Router history={history}>
-                        <Page>
                             {routes}
-                        </Page>
                     </Router>
                 </div>
-            </SiteThemeContext.Provider>
             </MuiThemeProvider>
         );
     }

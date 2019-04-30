@@ -1,3 +1,6 @@
+import backgroundImage from 'assets/images/desktop_cortlandimg.png';
+import logoImage from 'assets/images/cortland_logo.png';
+
 const API = {};
 
 API.fetchLeaseSettings = () => {
@@ -9,8 +12,8 @@ API.fetchLeaseSettings = () => {
         "postal_code": 35205,
         "terms_of_service": "https://some-link.com/something.pdf",
         "privacy_policy": "https://some-link.com/something.pdf",
-        "logo": "https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png",
-        "background_image": "https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811",
+        "logo": logoImage,
+        "background_image": backgroundImage,
         "primary_color": "rgba(40,97,101,1)",
         "secondary_color": "#FFFFFF",
         "client": {
