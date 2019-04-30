@@ -3,8 +3,8 @@ import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 
-API.fetchLeaseSettings = () => {
-    return Promise.resolve({
+API.fetchLeaseSettings = (_communityId, hash) => {
+    const payload = {
         "name": "Cortland",
         "street": "2173 Highland Ave S",
         "city": "Birmingham",
@@ -16,15 +16,19 @@ API.fetchLeaseSettings = () => {
         "background_image": backgroundImage,
         "primary_color": "rgba(40,97,101,1)",
         "secondary_color": "#FFFFFF",
-        "client": {
-        "first_name": "Chester",
-        "last_name": "Cheetah",
-        "email": "chester@cheetos.com",
-        "phone": "+11231231234",
-        },
         "unit_number": "3B",
         "monthly_rent": 5000,
-    });
+    };
+    if (hash) {
+        payload.client = {
+            "first_name": "Chester",
+            "last_name": "Cheetah",
+            "email": "chester@cheetos.com",
+            "phone": "+11231231234",
+        };
+    }
+    
+    return Promise.resolve(payload);
 }
 
 API.fetchRenterProfile = () => {

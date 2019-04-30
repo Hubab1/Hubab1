@@ -32,7 +32,10 @@ export class Main extends Component {
     mountNavigation(isAuthenticated, leaseSettings) {
         const { fetchRenterProfile, match } = this.props;
         if (!isAuthenticated) {
-            if (leaseSettings.client && leaseSettings.client.application_id) {
+            if (!leaseSettings.client) {
+                history.push(`${match.url}/signup`);
+            }
+            else if (leaseSettings.client && leaseSettings.client.application_id) {
                 history.push(`${match.url}/login`);
             } else {
                 history.push(`${match.url}/welcome`);
@@ -43,10 +46,9 @@ export class Main extends Component {
     }
 
     componentDidMount () {
-        const commId = this.props.match.params.communityId;
-        const { fetchLeaseSettings } = this.props;
-        if (auth.isAuthenticated() && sessionIsValidForCommunityId(commId)) {
-            fetchLeaseSettings(commId).then((leaseSettings) => {
+        const communityId = this.props.match.params.communityId;
+        if (auth.isAuthenticated() && sessionIsValidForCommunityId(communityId)) {
+            this.props.fetchLeaseSettings(communityId).then((leaseSettings) => {
                 const primaryColor = leaseSettings.primary_color;
                 const secondaryColor = leaseSettings.secondary_color;
                 this.setState({theme: createTheme(primaryColor, secondaryColor)});
@@ -55,7 +57,7 @@ export class Main extends Component {
         } else {
             // check if url has query parameter for clients/unit info
             let params = queryString.parse(this.props.location.search);
-            fetchLeaseSettings(commId, params.v).then((leaseSettings) => {
+            this.props.fetchLeaseSettings(communityId, params.v).then((leaseSettings) => {
                 const primaryColor = leaseSettings.primary_color;
                 const secondaryColor = leaseSettings.secondary_color;
                 this.setState({theme: createTheme(primaryColor, secondaryColor)});
