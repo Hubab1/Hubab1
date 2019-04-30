@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
-import SignupPage from 'components/signup/SignupPage';
-import Terms from 'components/terms/Terms';
+import SignupPage from 'components/SignupPage';
+import TermsPage from 'components/TermsPage';
 import Page from 'components/common/Page/Page';
 import history from 'history.js';
 import createTheme from 'assets/createTheme';
@@ -65,7 +65,7 @@ export class App extends Component {
                     <Route path="/profile" component={ProfileContainer} />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/signup" component={SignupPage} />
-                    <Route path="/terms" component={Terms}/>
+                    <Route path="/terms" component={TermsPage}/>
                 </Page>
             </Switch>
         );

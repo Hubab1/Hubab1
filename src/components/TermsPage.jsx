@@ -12,7 +12,7 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
 mollit anim id est laborum.`;
 
-export class Terms extends React.Component {
+export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
@@ -60,4 +60,4 @@ export class Terms extends React.Component {
     }
 }
 
-export default Terms;
+export default TermsPage;
