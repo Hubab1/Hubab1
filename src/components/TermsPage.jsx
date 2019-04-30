@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import ActionButton from 'components/common/ActionButton';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
 import { nextRoute, previousRoute } from 'utils/routeNavigation';
@@ -12,7 +12,7 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
 mollit anim id est laborum.`;
 
-export class Terms extends React.Component {
+export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
@@ -60,4 +60,4 @@ export class Terms extends React.Component {
     }
 }
 
-export default Terms;
+export default TermsPage;

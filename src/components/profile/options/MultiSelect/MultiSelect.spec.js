@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { MultiSelect } from 'components/MultiSelect';
+import { MultiSelect } from '../MultiSelect';
 
 let defaultProps;
 beforeEach(() => {

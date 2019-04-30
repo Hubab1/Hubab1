@@ -4,7 +4,8 @@ import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { H1, Subtitle, Disclaimer, Bold, loginContent } from 'assets/emotion/styles';
+import { Subtitle, H1, Bold, formContent } from 'assets/emotion/styles';
+import { Disclaimer } from './styles';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
@@ -56,7 +57,7 @@ export class LoginPage extends React.Component {
                     /* and other goodies */
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
-                        <div className={loginContent}>
+                        <div className={formContent}>
                             <span aria-label="clipboard" role="img" style={{fontSize: 60}}>📋</span>
                             <div>
                                 <TextField

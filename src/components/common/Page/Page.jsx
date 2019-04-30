@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from '@material-ui/core/styles';
 
-import { Banner, page, subPage } from 'assets/emotion/styles';
+import { Banner, page, subPage } from './styles';
 import { community } from 'constants.js';
 
 export class Page extends React.Component {

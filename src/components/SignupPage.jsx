@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import FormTextInput from 'components/common/FormTextInput';
-import ActionButton from 'components/common/ActionButton';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import * as Yup from 'yup';
 
-import { SubtitleTwo, loginContent } from 'assets/emotion/styles';
+import { SubtitleTwo, formContent } from 'assets/emotion/styles';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
@@ -58,7 +58,7 @@ export class SignupPage extends React.Component {
                     /* and other goodies */
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
-                        <div className={loginContent}>
+                        <div className={formContent}>
                             <FormTextInput
                                 label="First Name"
                                 name="first_name"

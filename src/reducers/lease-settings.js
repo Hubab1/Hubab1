@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import API from 'reducers/api';
+import API from 'api.js';
 
 const leaseSettings = createSlice({
     slice: 'leaseSettings',

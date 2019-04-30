@@ -5,11 +5,12 @@ import { Route, Switch, Router } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import MainContainer from 'components/main/MainContainer';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
-import LoginContainer from 'components/login/LoginContainer';
-import Page from 'components/common/Page';
+import LoginPage from 'components/login/LoginPage';
+import SignupPage from 'components/SignupPage';
+import TermsPage from 'components/TermsPage';
+import Page from 'components/common/Page/Page';
 import history from 'history.js';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
@@ -62,8 +63,9 @@ export class App extends Component {
                 <Route path="/welcome" component={WelcomePage}/>
                 <Page>
                     <Route path="/profile" component={ProfileContainer} />
-                    <Route path="/login" component={LoginContainer} />
-                    <Route path="/" component={MainContainer} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/signup" component={SignupPage} />
+                    <Route path="/terms" component={TermsPage}/>
                 </Page>
             </Switch>
         );

@@ -8,7 +8,7 @@ import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
     WelcomeTitle, ApplicationInfo, WelcomeLogo, WelcomeFooterContainer, HomeImageContainer
 } from './styles';
-import ActionButton from 'components/common/ActionButton';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import history from 'history.js';
 
 
