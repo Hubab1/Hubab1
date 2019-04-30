@@ -75,7 +75,7 @@ export const SubtitleTwo = styled.small`
 `
 
 export const loginContent = css`
-    padding: 35px;
+    padding: 10px;
     margin: auto;
     max-width: 500px;
 `
