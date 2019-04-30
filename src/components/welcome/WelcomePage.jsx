@@ -44,7 +44,7 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer className="welcome__footer-container">
                         <ActionButton className="welcome__start-application-button"
-                            onClick={() => history.push('/login')}>Start Application
+                            onClick={() => history.push('login')}>Start Application
                         </ActionButton>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>

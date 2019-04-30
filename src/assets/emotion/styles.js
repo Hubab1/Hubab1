@@ -73,3 +73,13 @@ export const Link = styled.a`
     font-weight: 600;
     line-height: 17px;
 `
+
+export const CenterAlign = styled.div`
+    text-align: center;
+    margin-top: 200px;
+`
+
+export const BigText = styled.div`
+    font-size: 50px;
+    font-weight: bold;
+`

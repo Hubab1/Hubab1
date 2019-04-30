@@ -1,6 +1,6 @@
 import { ALL_ROUTES } from 'constants.js';
 
-export const nextRoute = path => {
+export const nextRoute = (path) => {
     const lastRoute = ALL_ROUTES[ALL_ROUTES.length-1]
     if (lastRoute === path) return null;
     return ALL_ROUTES[ALL_ROUTES.indexOf(path)+1];

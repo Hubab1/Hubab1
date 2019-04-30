@@ -16,15 +16,13 @@ export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
-        const path = history.location.pathname;
-        const nextPage = nextRoute(path);
+        const nextPage = nextRoute('terms');
         history.push(nextPage);
     }
 
     handleClickBack = () => {
         const { history } = this.props;
-        const path = history.location.pathname;
-        const previousPage = previousRoute(path);
+        const previousPage = previousRoute('terms');
         history.push(previousPage);
     }
 
