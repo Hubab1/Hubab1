@@ -46,7 +46,7 @@ export const PageHeader = styled.div`
     text-align: center;
 `
 
-export const loginContent = css`
+export const formContent = css`
     padding: 10px;
     margin: auto;
     max-width: 500px;
