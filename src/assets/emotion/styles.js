@@ -11,7 +11,7 @@ injectGlobal`
   }
   html,body{
     margin: auto;
-    font-family: sans-serif;
+    font-family: proxima-nova, sans-serif;
   }
 `;
 

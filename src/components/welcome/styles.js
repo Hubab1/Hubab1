@@ -20,7 +20,7 @@ export const BackgroundImageTint = styled.div( props => ({
     width: '100%',
     height: '100%',
     zIndex: -4,
-    opacity: .5,
+    opacity: .6,
     background: props.primaryColor
 }))
 
@@ -37,7 +37,6 @@ export const WelcomeTextContainer = styled.div`
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
-    font-family: sans-serif;
     color: #FFFFFF;
     padding: 0 50px 50px 50px;
     max-width: 500px;
@@ -50,29 +49,10 @@ export const WelcomeLogo = styled.div`
 `
 
 export const WelcomeTitle = styled.div`
-    font-family: "Proxima Nova";
     font-size: 25px;
     line-height: 30px;
     text-align: center;
     padding-bottom: 20px;
-`
-
-export const WelcomeInfo = styled.div`
-    color: #FFFFFF;
-    font-family: "Proxima Nova";
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-`
-
-export const WelcomeInfoTitle = styled.div`
-    color: #FFFFFF;
-    font-weight: 600;
-    font-family: "Proxima Nova";
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-    padding-top: 15px;
 `
 
 export const WelcomeFooterContainer = styled.div`
@@ -92,4 +72,14 @@ export const HomeImageContainer = styled.div`
     text-align: center;
     padding: 10px;
     margin-left: 38%;
+`
+
+export const ApplicationInfo = styled.div`
+    color: #FFFFFF;
+    font-size: 22px;
+    line-height: 30px;
+    text-align: center;
+    & :first-child {
+        font-weight: 800;
+    }
 `

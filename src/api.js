@@ -23,7 +23,6 @@ API.fetchLeaseSettings = () => {
         "phone": "+11231231234",
         },
         "unit_number": "3B",
-        "layout": "1 Bedroom",
         "monthly_rent": 5000,
     });
 }

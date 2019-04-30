@@ -1,6 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import backgroundImage from 'assets/images/desktop_cortlandimg.png';
 import logoImage from 'assets/images/cortland_logo.png';
@@ -40,13 +39,6 @@ beforeEach(() => {
     };
 })
 
-it('matches snapshot for welcome page', function(){
-    expect(
-        renderer.create(<WelcomePage {...defaultProps}/>)
-    ).toMatchSnapshot();
-});
-
-
 it('renders Hello <client name> when client is included in leaseSettings', function(){
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
@@ -60,25 +52,24 @@ it('renders Hi There, when client is included in leaseSettings', function(){
     expect(wrapper.text().includes('Hi There,')).toBeTruthy();
 });
 
-describe('renderWelcomeInfo', () => {
-    it('renders correct info when all client and unit info are passed', () => {
-        const wrapper = mount(<WelcomePage {...defaultProps}/>);
+it('renders correct info when all client and unit info are passed', () => {
+    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
-        expect(wrapper.instance().renderWelcomeInfo().length).toEqual(4)
-        expect(wrapper.instance().renderWelcomeInfo()[0].props.children).toEqual('Cortland');
-        expect(wrapper.instance().renderWelcomeInfo()[1].props.children).toEqual('2173 Highland Ave S');
-        expect(wrapper.instance().renderWelcomeInfo()[2].props.children).toEqual('1 Bedroom - 3B');
-        expect(wrapper.instance().renderWelcomeInfo()[3].props.children).toEqual('Birmingham, AL 35205');
-   });
-    it('renders correct info when all client and unit info is omitted', () => {
-        delete defaultProps.leaseSettings.unit_number;
-        delete defaultProps.leaseSettings.layout;
+    expect(wrapper.find('.welcome__application-info__name').text()).toEqual('Cortland');
+    expect(wrapper.find('.welcome__application-info__street').text()).toEqual('2173 Highland Ave S');
+    expect(wrapper.find('.welcome__application-info__city-state-zip').text()).toEqual('Birmingham, AL 35205');
+    expect(wrapper.find('.welcome__application-info__unit-number').text()).toEqual('Unit 3B');
+});
 
-        const wrapper = mount(<WelcomePage {...defaultProps}/>);
+it('renders correct info when all client and unit info is omitted', () => {
+    delete defaultProps.leaseSettings.unit_number;
+    delete defaultProps.leaseSettings.layout;
 
-        expect(wrapper.instance().renderWelcomeInfo().length).toEqual(3)
-        expect(wrapper.instance().renderWelcomeInfo()[0].props.children).toEqual('Cortland');
-        expect(wrapper.instance().renderWelcomeInfo()[1].props.children).toEqual('2173 Highland Ave S');
-        expect(wrapper.instance().renderWelcomeInfo()[2].props.children).toEqual('Birmingham, AL 35205');
-   });
+    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+
+    expect(wrapper.find('.welcome__application-info__name').text()).toEqual('Cortland');
+    expect(wrapper.find('.welcome__application-info__street').text()).toEqual('2173 Highland Ave S');
+    expect(wrapper.find('.welcome__application-info__city-state-zip').text()).toEqual('Birmingham, AL 35205');
+    expect(wrapper.find('.welcome__application-info__unit-number').length).toEqual(0);
+
 });
