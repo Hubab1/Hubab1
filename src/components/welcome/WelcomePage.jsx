@@ -6,8 +6,7 @@ import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
 import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
-    WelcomeTitle, WelcomeInfo, WelcomeInfoTitle, WelcomeLogo,
-    WelcomeFooterContainer, HomeImageContainer
+    WelcomeTitle, ApplicationInfo, WelcomeLogo, WelcomeFooterContainer, HomeImageContainer
 } from './styles';
 import ActionButton from 'components/common/ActionButton';
 import history from 'history.js';
@@ -15,41 +14,9 @@ import history from 'history.js';
 
 export class WelcomePage extends Component {
 
-    renderUnitInfo = (layout, unit_number) => {
-        let unitInfo = layout;
-
-        if (unit_number){
-            unitInfo = !!unitInfo ? unitInfo.concat(` - ${unit_number}`) : unit_number;
-        }
-        return unitInfo;
-    }
-
-    renderWelcomeInfo = () => {
-        const { name, street, city, state, postal_code, layout, unit_number } = this.props.leaseSettings;
-
-        const infoLines = [];
-
-        name && infoLines.push(name);
-        street && infoLines.push(street);
-
-        const unitInfo = this.renderUnitInfo(layout, unit_number);
-        unitInfo && infoLines.push(unitInfo);
-
-        infoLines.push(`${city}, ${state} ${postal_code}`);
-
-        return (
-            infoLines.map( (line, i) => {
-                if ( i === 0 ) {
-                    return <WelcomeInfoTitle key={i}>{line}</WelcomeInfoTitle>;
-                }
-                return <WelcomeInfo key={i}>{line}</WelcomeInfo>;
-            })
-        );
-    }
-
     render() {
-        const { client, background_image, logo } = this.props.leaseSettings;
-
+        const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.leaseSettings;
+        const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'
 
         return (
@@ -68,8 +35,12 @@ export class WelcomePage extends Component {
                             {helloContent}
                         </WelcomeTitle>
                         Your new home awaits at
-                        <br/>
-                        {this.renderWelcomeInfo()}
+                        <ApplicationInfo>
+                            {name && <div className="welcome__application-info__name">{name}</div>}
+                            {street && <div className="welcome__application-info__street">{street}</div>}
+                            {cityStateZip && <div className="welcome__application-info__city-state-zip">{cityStateZip}</div>}
+                            {unit_number && <div className="welcome__application-info__unit-number">{`Unit ${unit_number}`}</div>}
+                        </ApplicationInfo>
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer className="welcome__footer-container">
                         <ActionButton className="welcome__start-application-button"

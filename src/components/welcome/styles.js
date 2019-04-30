@@ -20,7 +20,7 @@ export const BackgroundImageTint = styled.div( props => ({
     width: '100%',
     height: '100%',
     zIndex: -4,
-    opacity: .5,
+    opacity: .6,
     background: props.primaryColor
 }))
 
@@ -55,22 +55,6 @@ export const WelcomeTitle = styled.div`
     padding-bottom: 20px;
 `
 
-export const WelcomeInfo = styled.div`
-    color: #FFFFFF;
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-`
-
-export const WelcomeInfoTitle = styled.div`
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-    padding-top: 15px;
-`
-
 export const WelcomeFooterContainer = styled.div`
     margin: 2% 10%;
     height: 15%;
@@ -88,4 +72,14 @@ export const HomeImageContainer = styled.div`
     text-align: center;
     padding: 10px;
     margin-left: 38%;
+`
+
+export const ApplicationInfo = styled.div`
+    color: #FFFFFF;
+    font-size: 22px;
+    line-height: 30px;
+    text-align: center;
+    & :first-child {
+        font-weight: 800;
+    }
 `
