@@ -62,19 +62,19 @@ export class LoginPage extends React.Component {
                                     submitted={submitCount > 0}
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
-                                    error={errors.first_name}
-                                    touched={touched.first_name}
-                                    value={values.password}
+                                    error={errors.email}
+                                    touched={touched.email}
+                                    value={values.email}
                                 />
                                 <FormTextInput
-                                    error={errors.password && touched.password && !!errors.password}
-                                    helperText={errors.password}
                                     label="Password"
                                     type="password"
                                     name="password"
-                                    fullWidth
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.password}
+                                    touched={touched.password}
                                     value={values.password}
                                 />
                             </div>

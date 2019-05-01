@@ -36,8 +36,8 @@ export class SignupPage extends React.Component {
                         last_name: Yup.string().required('Last Name is required'),
                         phone_number: Yup.string().required('Phone Number is required'),
                         email: Yup.string()
-                          .email()
-                          .required('Email is required'),
+                            .email()
+                            .required('Email is required'),
                         password: Yup.string()
                             .min(6, 'Password must be at least 6 characters')
                             .required('Password is required')

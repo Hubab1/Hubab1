@@ -6,9 +6,6 @@ import styled from '@emotion/styled';
 
 
 injectGlobal`
-  a{
-      text-decoration: none;
-  }
   html,body{
     margin: auto;
     font-family: proxima-nova, sans-serif;
