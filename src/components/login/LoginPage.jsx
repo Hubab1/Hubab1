@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
+
 
 import auth from 'utils/auth';
 
@@ -34,17 +36,10 @@ export class LoginPage extends React.Component {
                 </H1>
 
                 <Formik
-                    initialValues={{ password: '' }}
-                    validate={values => {
-                        let errors = {};
-                        if (!values.password) {
-                            errors.password = 'Required';
-                        }
-                        if (!values.email) {
-                            errors.email = 'Required';
-                        }
-                        return errors;
-                    }}
+                    validationSchema={Yup.object().shape({
+                        email: Yup.string().required('Email is required'),
+                        password: Yup.string().required('Password is required'),
+                    })}
                     onSubmit={this.onSubmit}
                 >
                 {({
@@ -52,6 +47,7 @@ export class LoginPage extends React.Component {
                     errors,
                     touched,
                     handleChange,
+                    submitCount,
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
@@ -61,13 +57,13 @@ export class LoginPage extends React.Component {
                         <div className={formContent}>
                             <div>
                                 <FormTextInput
-                                    error={errors.password && touched.password && !!errors.password}
-                                    helperText={errors.password}
                                     label="Email or phone number"
                                     name="email"
-                                    fullWidth
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.first_name}
+                                    touched={touched.first_name}
                                     value={values.password}
                                 />
                                 <FormTextInput
@@ -85,8 +81,10 @@ export class LoginPage extends React.Component {
                             <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
                                 Sign In
                             </ActionButton>
+                            {/* eslint-disable-next-line */}
                             <P className="already-have-account">Forgot your password? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
                             <br/>
+                            {/* eslint-disable-next-line */}
                             <P className="already-have-account">Need an account? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
                         </div>
                     </form>
