@@ -12,7 +12,7 @@ export const previousRoute = path => {
     return ALL_ROUTES[ALL_ROUTES.indexOf(path)-1];
 }
 
-export const buildNextRoute = (curUrl, nextUrl) => {
+export const buildRoute = (curUrl, nextUrl) => {
     // handle trailing slashes
     if (curUrl.charAt(curUrl.length-1) === '/') {
         return `${curUrl}${nextUrl}`;

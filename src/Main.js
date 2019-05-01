@@ -2,24 +2,22 @@ import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import { MuiThemeProvider } from '@material-ui/core/styles';
-import AppContextProvider from 'contexts/AppContextProvider';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
+import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import Page from 'components/common/Page/Page';
-import history from 'history.js';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { getInitialPage } from 'utils/initializePage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchLeaseSettings } from 'reducers/lease-settings';
-import { buildNextRoute } from 'utils/routeNavigation';
+import { buildRoute } from 'utils/routeNavigation';
 import { Routes } from 'constants.js';
 
 async function sessionIsValidForCommunityId (communityId) {
@@ -35,15 +33,15 @@ export class Main extends Component {
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { fetchRenterProfile, match } = this.props;
+        const { fetchRenterProfile, match, history } = this.props;
         if (!isAuthenticated) {
             if (!leaseSettings.client) {
-                history.replace(buildNextRoute(match.url, 'signup'));
+                history.replace(buildRoute(match.url, 'signup'));
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.replace(buildNextRoute(match.url, 'login'));
+                history.replace(buildRoute(match.url, 'login'));
             } else {
-                history.replace(buildNextRoute(match.url, 'welcome'));
+                history.replace(buildRoute(match.url, 'welcome'));
             }
         } else {
             fetchRenterProfile();
@@ -73,16 +71,16 @@ export class Main extends Component {
 
     componentDidUpdate (prevProps) {
         // i figured this might be worth handling, but probably should come up with better way to handle this another time
-        const communityId = this.props.match.params.communityId;
+        const { history, match } = this.props;
+        const communityId = match.params.communityId;
         if (prevProps.match.params.communityId !== communityId) {
             console.error('Error, changing community is not supported');
             throw new Error();
         }
 
         if (!prevProps.profile && this.props.profile) {
-            const commId = this.props.match.params.communityId;
-            const initialPage = getInitialPage(commId, this.props.profile);
-            history.replace(`/${communityId}/${initialPage}`);
+            const initialPage = getInitialPage(communityId, this.props.profile);
+            history.replace(buildRoute(match.url, initialPage));
         }
     }
 
@@ -95,12 +93,12 @@ export class Main extends Component {
             <AppContextProvider theme={theme} communityId={communityId}>
                 <div className="App">
                     <Switch>
-                        <Route path={`${match.url}/welcome`} component={WelcomePage}/>
+                        <Route path={buildRoute(match.url, Routes.WELCOME)} component={WelcomePage}/>
                         <Page>
-                            <Route path={`${match.url}/${Routes.PROFILE}`} component={ProfileContainer} />
-                            <Route path={`${match.url}/${Routes.LOGIN}`} component={LoginPage} />
-                            <Route path={`${match.url}/${Routes.SIGNUP}`} component={SignupPage} />
-                            <Route path={`${match.url}/${Routes.TOS}`} component={TermsPage}/>
+                            <Route path={buildRoute(match.url, Routes.PROFILE)} component={ProfileContainer} />
+                            <Route path={buildRoute(match.url, Routes.LOGIN)} component={LoginPage} />
+                            <Route path={buildRoute(match.url, Routes.SIGNUP)} component={SignupPage} />
+                            <Route path={buildRoute(match.url, Routes.TOS)} component={TermsPage}/>
                         </Page>
                     </Switch>
                 </div>

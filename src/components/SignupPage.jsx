@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 import { SubtitleTwo, formContent } from 'assets/emotion/styles';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { initializePage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
@@ -21,9 +20,7 @@ export class SignupPage extends React.Component {
         return auth.register(values).then((res) => {
             auth.setSession(res.token, this.context.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile().then(
-                initializePage(this.props.profile)
-            );
+            this.props.fetchRenterProfile();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -41,8 +38,8 @@ export class SignupPage extends React.Component {
                         last_name: Yup.string().required(),
                         phone_number: Yup.string().required(),
                         email: Yup.string()
-                          .email()
-                          .required('Required'),
+                            .email()
+                            .required('Required'),
                         password: Yup.string()
                             .min(6)
                             .required()

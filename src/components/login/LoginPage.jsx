@@ -4,12 +4,10 @@ import { Formik } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import history from 'history.js';
 import { Subtitle, H1, Bold, formContent } from 'assets/emotion/styles';
 import { Disclaimer } from './styles';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { getInitialPage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
@@ -19,14 +17,10 @@ export class LoginPage extends React.Component {
 
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        console.log(this.context.communityId);
         return auth.login(values.username, values.password).then((res) => {
             auth.setSession(res.token, this.context.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile().then(() => {
-                const nextPage = getInitialPage(this.props.profile)
-                history.push(`${nextPage}`);
-            });
+            this.props.fetchRenterProfile();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);

@@ -3,6 +3,7 @@ export const community = {
 };
 
 export const Routes = {
+    WELCOME: 'welcome',
     PROFILE: 'profile',
     LOGIN: 'login',
     SIGNUP: 'signup',
