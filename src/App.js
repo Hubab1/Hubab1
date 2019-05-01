@@ -29,7 +29,7 @@ export class App extends Component {
             if (leaseSettings.client && leaseSettings.client.application_id) {
                 history.push('/login');
             } else {
-                    history.push('/welcome');
+                history.push('/welcome');
             }
         } else {
             fetchRenterProfile();
