@@ -7,7 +7,6 @@ import { Banner, page, subPage } from './styles';
 export class Page extends React.Component {
 
     render () {
-        console.log(this.props);
         return (
             <div className={page}>
                 <Banner style={{

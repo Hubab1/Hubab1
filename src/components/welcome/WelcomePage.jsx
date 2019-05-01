@@ -5,7 +5,7 @@ import { withTheme } from '@material-ui/core/styles';
 import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
 import Logo from 'components/common/Logo';
-import { H1, H2, P }from 'components/common/HtmlTagStyles';
+import { H1, H2, P }from 'assets/styles';
 import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
     WelcomeFooterContainer, HomeImageContainer

@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
-import { PageHeader, Subtitle } from 'assets/emotion/styles';
+import { H1, Subtitle } from 'assets/styles';
 
 export default class RentalProfileOptions extends React.Component {
     onSubmit = () => {
@@ -27,7 +27,7 @@ export default class RentalProfileOptions extends React.Component {
                     setFieldValue
                 }) => (
                     <Fragment>
-                        <PageHeader>Let's talk about your new place</PageHeader>
+                        <H1>Let's talk about your new place</H1>
                         <Subtitle>Select all that apply</Subtitle>
                         <div style={{height: 12}}></div>
                         <MultiSelect

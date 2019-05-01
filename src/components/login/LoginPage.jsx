@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
-import { Subtitle, H1, Bold, formContent } from 'assets/emotion/styles';
-import { Disclaimer } from './styles';
-
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
+
 
 export class LoginPage extends React.Component {
     auth=auth
@@ -30,8 +29,9 @@ export class LoginPage extends React.Component {
     render () {
         return (
             <Fragment>
-                <H1 style={{color: 'black', fontWeight: 500}}></H1>
-                <Subtitle>Create a password to get started.</Subtitle>
+                <H1>
+                    Sign in to continue with your application
+                </H1>
 
                 <Formik
                     initialValues={{ password: '' }}
@@ -39,8 +39,9 @@ export class LoginPage extends React.Component {
                         let errors = {};
                         if (!values.password) {
                             errors.password = 'Required';
-                        } else if (values.password.length < 6) {
-                            errors.password = 'Password too short.';
+                        }
+                        if (!values.email) {
+                            errors.email = 'Required';
                         }
                         return errors;
                     }}
@@ -58,9 +59,18 @@ export class LoginPage extends React.Component {
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className={formContent}>
-                            <span aria-label="clipboard" role="img" style={{fontSize: 60}}>📋</span>
                             <div>
-                                <TextField
+                                <FormTextInput
+                                    error={errors.password && touched.password && !!errors.password}
+                                    helperText={errors.password}
+                                    label="Email or phone number"
+                                    name="email"
+                                    fullWidth
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                />
+                                <FormTextInput
                                     error={errors.password && touched.password && !!errors.password}
                                     helperText={errors.password}
                                     label="Password"
@@ -72,10 +82,12 @@ export class LoginPage extends React.Component {
                                     value={values.password}
                                 />
                             </div>
-                            <Disclaimer>By tapping continue, you confirm you have read, understand and accept the <Bold>Privacy Policy</Bold> and <Bold>Terms of Use.</Bold></Disclaimer>
-                            <Button variant="contained" color="primary" type="submit" disabled={isSubmitting} fullWidth>
-                                Let's Go!
-                            </Button>
+                            <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
+                                Sign In
+                            </ActionButton>
+                            <P className="already-have-account">Forgot your password? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
+                            <br/>
+                            <P className="already-have-account">Need an account? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
                         </div>
                     </form>
                 )}

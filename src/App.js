@@ -1,4 +1,4 @@
-import 'assets/emotion/styles';
+import 'assets/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
@@ -29,7 +29,7 @@ export class App extends Component {
             if (leaseSettings.client && leaseSettings.client.application_id) {
                 history.push('/login');
             } else {
-                history.push('/welcome');
+                    history.push('/welcome');
             }
         } else {
             fetchRenterProfile();

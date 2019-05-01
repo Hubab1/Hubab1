@@ -37,7 +37,7 @@ export const WelcomeFlexContainer = styled.div`
 export const WelcomeTextContainer = styled.div`
     background-color: rgba(0,0,0,0.33);
     text-align: center;
-    margin: auto;
+    margin: auto 30px;
     padding: 0 50px 50px 50px;
     max-width: 500px;
 `
@@ -58,5 +58,5 @@ export const HomeImageContainer = styled.div`
     background: inherit;
     text-align: center;
     padding: 10px;
-    margin-left: 38%;
+    margin: 0 auto;
 `

@@ -15,34 +15,10 @@ injectGlobal`
   }
 `;
 
-export const H1 = styled.div`
-  margin: 20px 0;
-  color: #454B57;
-  font-size: 24px;
-  line-height: 29px;
-`
-
 export const Subtitle = styled.small`
     color: #818797;
     font-size: 15px;
     line-height: 18px;
-    text-align: center;
-`
-
-export const SubtitleTwo = styled.small`
-    color: rgba(38,48,91,1);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-    text-align: center;
-`
-
-export const PageHeader = styled.div`
-    color: #000000;
-    margin: 15px 0;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 29px;
     text-align: center;
 `
 
@@ -55,7 +31,7 @@ export const formContent = css`
 export const TextReader = styled.div`
     text-align: left;
     background-color: rgba(238,238,238,0.4);
-    max-height: 650px;
+    max-height: 350px;
     overflow: auto;
     padding: 20px;
     color: #454B57;
@@ -68,8 +44,24 @@ export const Bold = styled.span`
     font-weight: bold;
 `
 
-export const Link = styled.a`
-    color: #2B44FF;
-    font-weight: 600;
-    line-height: 17px;
+export const H1 = styled.h1`
+    font-weight:600;
+    font-size:23px;
+    margin: 0;
+`
+
+export const H2 = styled.h2`
+    font-weight: 400;
+    font-size: 20px;
+`
+
+export const H3 = styled.h3`
+    font-weight: 400;
+    font-size: 18px;
+`
+
+export const P = styled.p`
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
 `

@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 const LogoContainer = styled.div`
     text-align: center;
     width: 91px;
-    height: 51px;
-    margin: 21px auto auto auto;
+    height: 63px;
+    margin: 21px auto 21px auto;
 `;
 
 const Logo = (props) => {

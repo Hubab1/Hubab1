@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import * as Yup from 'yup';
 
-import { SubtitleTwo, formContent } from 'assets/emotion/styles';
+import { H1, P, formContent } from 'assets/styles';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { initializePage } from 'utils/initializePage';
-
 import auth from 'utils/auth';
+import { initializePage } from 'utils/initializePage';
 
 export class SignupPage extends React.Component {
     auth=auth
@@ -30,19 +29,18 @@ export class SignupPage extends React.Component {
     render () {
         return (
             <Fragment>
-                <SubtitleTwo>To get started on your rental application, create an account below</SubtitleTwo>
+                <H1>Start your rental application by creating an account below</H1>
                 <Formik
-                    initialValues={{ password: '' }}
                     validationSchema={Yup.object().shape({
-                        first_name: Yup.string().required(),
-                        last_name: Yup.string().required(),
-                        phone_number: Yup.string().required(),
+                        first_name: Yup.string().required('First Name is required'),
+                        last_name: Yup.string().required('Last Name is required'),
+                        phone_number: Yup.string().required('Phone Number is required'),
                         email: Yup.string()
                           .email()
-                          .required('Required'),
+                          .required('Email is required'),
                         password: Yup.string()
-                            .min(6)
-                            .required()
+                            .min(6, 'Password must be at least 6 characters')
+                            .required('Password is required')
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -110,10 +108,10 @@ export class SignupPage extends React.Component {
                                 touched={touched.password}
                                 value={values.password}
                             />
-                            <ActionButton disabled={isSubmitting}>Create Account</ActionButton>
+                        <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                         </div>
                         {/* eslint-disable-next-line */}
-                        <div className="already-have-account">Already have an account? Sign in <a href="#">here</a></div>
+                        <P className="already-have-account">Already have an account? <a href="#" style={{textDecoration: 'underline'}}>Sign in here</a></P>
                     </form>
                 )}
                 </Formik>

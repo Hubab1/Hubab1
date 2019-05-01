@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 
-import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1, P, TextReader, Bold } from 'assets/styles';
 import { nextRoute, previousRoute } from 'utils/routeNavigation';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -32,6 +32,7 @@ export class TermsPage extends React.Component {
         return (
             <Fragment>
                 <H1>Terms and Conditions</H1>
+                <br/>
                 <TextReader>
                     <div>Terms and Conditions</div>
                     <div>General Site Usage</div>
@@ -51,10 +52,10 @@ export class TermsPage extends React.Component {
                     <div>Please {LOREM}</div>
                 </TextReader>
                 <br/>
-                <ActionButton onClick={this.handleClickNext}>I Agree to the Terms & Conditions</ActionButton>
-                <br/>
-                <br/>
-                <Link onClick={this.handleClickBack}>Go Back</Link>
+                <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
+                    I Agree to the Terms & Conditions
+                </ActionButton>
+                <P onClick={this.handleClickBack}>Go Back</P>
             </Fragment>
         );
     }
