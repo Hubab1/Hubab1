@@ -58,5 +58,4 @@ export const HomeImageContainer = styled.div`
     background: inherit;
     text-align: center;
     padding: 10px;
-    margin-left: 38%;
-`
+    margin: 0 auto;`
