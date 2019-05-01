@@ -82,10 +82,10 @@ export class LoginPage extends React.Component {
                                 Sign In
                             </ActionButton>
                             {/* eslint-disable-next-line */}
-                            <P className="already-have-account">Forgot your password? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
+                            <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                             <br/>
                             {/* eslint-disable-next-line */}
-                            <P className="already-have-account">Need an account? <a href="#" style={{textDecoration: 'underline'}}>Click here</a></P>
+                            <P className="already-have-account">Need an account? <a href="#">Click here</a></P>
                         </div>
                     </form>
                 )}

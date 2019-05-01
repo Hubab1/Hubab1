@@ -111,7 +111,7 @@ export class SignupPage extends React.Component {
                         <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                         </div>
                         {/* eslint-disable-next-line */}
-                        <P className="already-have-account">Already have an account? <a href="#" style={{textDecoration: 'underline'}}>Sign in here</a></P>
+                        <P className="already-have-account">Already have an account? <a href="#">Sign in here</a></P>
                     </form>
                 )}
                 </Formik>
