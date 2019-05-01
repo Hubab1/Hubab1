@@ -35,7 +35,7 @@ export class Main extends Component {
         const { fetchRenterProfile, match, history } = this.props;
         if (!isAuthenticated) {
             if (!leaseSettings.client) {
-                history.replace(buildRoute(match.url, 'signup'));
+                history.replace(buildRoute(match.url, 'welcome'));
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
                 history.replace(buildRoute(match.url, 'login'));

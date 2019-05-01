@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { App } from 'App';
-import { WelcomePage } from 'components/welcome/WelcomePage';
+import { Main } from 'Main';
 import history from 'history.js';
 
 let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise, fetchRenterProfilePromise;
@@ -35,9 +34,21 @@ beforeEach(() => {
     fetchRenterProfilePromise = Promise.resolve({});
 
     defaultProps = {
-    fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
-    fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
-    profile: null,
+        fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
+        fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
+        profile: null,
+        history: {
+            replace: jest.fn()
+        },
+        location: {
+            search: ''
+        },
+        match: {
+            url: '',
+            params: {
+                communityId: '123'
+            }
+        }
     }
 })
 
@@ -45,7 +56,7 @@ beforeEach(() => {
 
 describe('componentDidMount', () => {
     it('calls fetchLeaseSettings', function () {
-        const wrapper = shallow(<App { ...defaultProps} />);
+        const wrapper = shallow(<Main { ...defaultProps} />);
 
         expect(defaultProps.fetchLeaseSettings).toHaveBeenCalledTimes(1);
 
@@ -54,7 +65,7 @@ describe('componentDidMount', () => {
 
 describe('mountNavigation', () => {
     it('calls fetchRenterProfile if authenticated', function () {
-        const wrapper = shallow(<App { ...defaultProps} />);
+        const wrapper = shallow(<Main { ...defaultProps} />);
 
         const isAuthenticated = true;
         const leaseSettings = {};
@@ -63,9 +74,9 @@ describe('mountNavigation', () => {
     });
     it('routes to login page if not authenticated, but there is an associated application', function () {
         const historyStub = jest.fn();
-        history.push = historyStub;
+        const history = {push: historyStub, replace: historyStub}
 
-        const wrapper = shallow(<App { ...defaultProps} />);
+        const wrapper = shallow(<Main { ...defaultProps} history={history} />);
 
         const isAuthenticated = false;
         const leaseSettings = {client:{application_id:123}};
@@ -75,9 +86,9 @@ describe('mountNavigation', () => {
     });
     it('routes to welcome page if not authenticated, and there is a client associated', function () {
         const historyStub = jest.fn();
-        history.push = historyStub;
+        const history = {push: historyStub, replace: historyStub}
 
-        const wrapper = shallow(<App { ...defaultProps} />);
+        const wrapper = shallow(<Main { ...defaultProps} history={history} />);
         const isAuthenticated = false;
         const leaseSettings = {client:{}};
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
@@ -88,9 +99,9 @@ describe('mountNavigation', () => {
 
     it('routes to welcome page if not authenticated, and there is no client associated', function () {
         const historyStub = jest.fn();
-        history.push = historyStub;
+        const history = {push: historyStub, replace: historyStub}
 
-        const wrapper = shallow(<App { ...defaultProps} />);
+        const wrapper = shallow(<Main { ...defaultProps} history={history} />);
         const isAuthenticated = false;
         const leaseSettings = {};
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
