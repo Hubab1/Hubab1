@@ -6,9 +6,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import * as Yup from 'yup';
 
 import { SubtitleTwo, formContent } from 'assets/emotion/styles';
-
 import { fetchRenterProfile } from 'reducers/renter-profile';
-
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
 

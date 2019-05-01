@@ -9,12 +9,13 @@ import {
     WelcomeTitle, ApplicationInfo, WelcomeLogo, WelcomeFooterContainer, HomeImageContainer
 } from './styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import history from 'history.js';
+import { Routes } from 'constants.js';
 
 
 export class WelcomePage extends Component {
 
     render() {
+        const { history } = this.props;
         const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.leaseSettings;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'
@@ -44,7 +45,7 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer className="welcome__footer-container">
                         <ActionButton className="welcome__start-application-button"
-                            onClick={() => history.push('login')}>Start Application
+                            onClick={() => history.push(Routes.LOGIN)}>Start Application
                         </ActionButton>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>

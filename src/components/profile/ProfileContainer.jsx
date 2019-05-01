@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
+import { buildRoute } from 'utils/routeNavigation';
+import { Routes } from 'constants.js';
 import RenterProfileOptions from 'components/profile/options/RenterProfileOptions';
 
 
@@ -9,8 +11,7 @@ class ProfileContainer extends Component {
         const { match }= this.props;
         return (
             <Switch>
-                <Route path={`${match.url}/options`} component={RenterProfileOptions} />
-                <Redirect exact to={`${match.url}/options`} />
+                <Route path={buildRoute(match.url, Routes.profile.OPTIONS)} component={RenterProfileOptions} />
             </Switch>
         );
     }

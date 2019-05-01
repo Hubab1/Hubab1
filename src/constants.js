@@ -3,8 +3,11 @@ export const community = {
 };
 
 export const Routes = {
-    WELCOME: 'welcome',
     PROFILE: 'profile',
+    profile: {
+        OPTIONS: 'options'
+    },
+    WELCOME: 'welcome',
     LOGIN: 'login',
     SIGNUP: 'signup',
     TOS: 'terms',
