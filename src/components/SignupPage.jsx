@@ -11,12 +11,15 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { initializePage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
+import AppContext from 'contexts/AppContext';
 
 export class SignupPage extends React.Component {
+    static contextType = AppContext;
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.register(values).then((res) => {
-            auth.setSession(res.token);
+            auth.setSession(res.token, this.context.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then(
                 initializePage(this.props.profile)

@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { H1, Link, TextReader, Bold } from 'assets/emotion/styles';
-import { nextRoute, previousRoute } from 'utils/routeNavigation';
+import { nextRoute } from 'utils/routeNavigation';
+import { Routes } from 'constants.js';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -16,14 +17,14 @@ export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
-        const nextPage = nextRoute('terms');
+        const nextPage = nextRoute(Routes.TOS);
         history.push(nextPage);
     }
 
     handleClickBack = () => {
         const { history } = this.props;
-        const previousPage = previousRoute('terms');
-        history.push(previousPage);
+        // maybe clear session here too?
+        history.push(Routes.SIGNUP);
     }
 
     render () {

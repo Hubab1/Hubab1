@@ -2,7 +2,8 @@ import 'assets/emotion/styles';
 
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+// import { MuiThemeProvider } from '@material-ui/core/styles';
+import AppContextProvider from 'contexts/AppContextProvider';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
@@ -18,12 +19,16 @@ import auth from 'utils/auth';
 import { getInitialPage } from 'utils/initializePage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchLeaseSettings } from 'reducers/lease-settings';
+import { buildNextRoute } from 'utils/routeNavigation';
+import { Routes } from 'constants.js';
 
-
-async function sessionIsValidForCommunityId (community) {
-    // do some api call to check that this authentication token is valid for this community
-    // eg const isValidSession = await API.checkToken(community, auth.getToken());
-    return true;
+async function sessionIsValidForCommunityId (communityId) {
+    if (auth.accessScope() === communityId) {
+        // maybe do some api call to check that this authentication token is valid for this community
+        // eg const isValidSession = await API.checkToken(community, auth.getToken());
+        return true;
+    }
+    return false;
 }
 
 export class Main extends Component {
@@ -33,21 +38,21 @@ export class Main extends Component {
         const { fetchRenterProfile, match } = this.props;
         if (!isAuthenticated) {
             if (!leaseSettings.client) {
-                history.push(`${match.url}/signup`);
+                history.replace(buildNextRoute(match.url, 'signup'));
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.push(`${match.url}/login`);
+                history.replace(buildNextRoute(match.url, 'login'));
             } else {
-                history.push(`${match.url}/welcome`);
+                history.replace(buildNextRoute(match.url, 'welcome'));
             }
         } else {
             fetchRenterProfile();
         }
     }
 
-    componentDidMount () {
+    async componentDidMount () {
         const communityId = this.props.match.params.communityId;
-        if (auth.isAuthenticated() && sessionIsValidForCommunityId(communityId)) {
+        if (auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId)) {
             this.props.fetchLeaseSettings(communityId).then((leaseSettings) => {
                 const primaryColor = leaseSettings.primary_color;
                 const secondaryColor = leaseSettings.secondary_color;
@@ -77,7 +82,7 @@ export class Main extends Component {
         if (!prevProps.profile && this.props.profile) {
             const commId = this.props.match.params.communityId;
             const initialPage = getInitialPage(commId, this.props.profile);
-            history.push(`/${communityId}/${initialPage}`);
+            history.replace(`/${communityId}/${initialPage}`);
         }
     }
 
@@ -85,23 +90,21 @@ export class Main extends Component {
         const theme = this.state.theme;
         if (!theme) return null;
         const { match }= this.props;
-        const routes = (
-            <Switch>
-                <Route path={`${match.url}/welcome`} component={WelcomePage}/>
-                <Page>
-                    <Route path={`${match.url}/profile`} component={ProfileContainer} />
-                    <Route path={`${match.url}/login`} component={LoginPage} />
-                    <Route path={`${match.url}/signup`} component={SignupPage} />
-                    <Route path={`${match.url}/terms`} component={TermsPage}/>
-                </Page>
-            </Switch>
-        );
+        const communityId = match.params.communityId;
         return (
-            <MuiThemeProvider theme={theme}>
+            <AppContextProvider theme={theme} communityId={communityId}>
                 <div className="App">
-                    {routes}
+                    <Switch>
+                        <Route path={`${match.url}/welcome`} component={WelcomePage}/>
+                        <Page>
+                            <Route path={`${match.url}/${Routes.PROFILE}`} component={ProfileContainer} />
+                            <Route path={`${match.url}/${Routes.LOGIN}`} component={LoginPage} />
+                            <Route path={`${match.url}/${Routes.SIGNUP}`} component={SignupPage} />
+                            <Route path={`${match.url}/${Routes.TOS}`} component={TermsPage}/>
+                        </Page>
+                    </Switch>
                 </div>
-            </MuiThemeProvider>
+            </AppContextProvider>
         );
     }
 }

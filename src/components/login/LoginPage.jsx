@@ -12,12 +12,16 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { getInitialPage } from 'utils/initializePage';
 
 import auth from 'utils/auth';
+import AppContext from 'contexts/AppContext';
 
 export class LoginPage extends React.Component {
+    static contextType = AppContext;
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
+        console.log(this.context.communityId);
         return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token);
+            auth.setSession(res.token, this.context.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then(() => {
                 const nextPage = getInitialPage(this.props.profile)
@@ -55,8 +59,7 @@ export class LoginPage extends React.Component {
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    isSubmitting,
-                    /* and other goodies */
+                    isSubmitting
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className={formContent}>

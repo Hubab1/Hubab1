@@ -11,3 +11,12 @@ export const previousRoute = path => {
     if (firstRoute === path) return null;
     return ALL_ROUTES[ALL_ROUTES.indexOf(path)-1];
 }
+
+export const buildNextRoute = (curUrl, nextUrl) => {
+    // handle trailing slashes
+    if (curUrl.charAt(curUrl.length-1) === '/') {
+        return `${curUrl}${nextUrl}`;
+    } else {
+        return `${curUrl}/${nextUrl}`;
+    }
+}
