@@ -25,6 +25,7 @@ export const BackgroundImageTint = styled.div( props => ({
 }))
 
 export const WelcomeFlexContainer = styled.div`
+    label: welcome-container;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -35,6 +36,7 @@ export const WelcomeFlexContainer = styled.div`
 `
 
 export const WelcomeTextContainer = styled.div`
+    label: welcome-content;
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
@@ -44,6 +46,7 @@ export const WelcomeTextContainer = styled.div`
 `
 
 export const WelcomeFooterContainer = styled.div`
+    label: footer;
     margin: 2% 10%;
     height: 15%;
     text-align: center;

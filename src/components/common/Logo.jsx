@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 
 const LogoContainer = styled.div`
+    label: community-logo;
     text-align: center;
     width: 91px;
     height: 63px;
@@ -11,7 +12,7 @@ const LogoContainer = styled.div`
 
 const Logo = (props) => {
     return (
-        <LogoContainer className="community-logo">
+        <LogoContainer>
             <img src={props.logo} alt="company logo"/>
         </LogoContainer>
     );

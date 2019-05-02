@@ -23,30 +23,28 @@ export class WelcomePage extends Component {
 
         return (
             <Fragment>
-                <BackgroundImage url={background_image} className="welcome__background-image"/>
-                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main} className="welcome__background-image-tint"/>
-                <WelcomeFlexContainer className="welcome__flex-container">
+                <BackgroundImage url={background_image}/>
+                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main}/>
+                <WelcomeFlexContainer>
                     <Logo logo={logo}/>
-                    <WelcomeTextContainer className="welcome__text_container">
-                        <HomeImageContainer className="welcome__home-image">
+                    <WelcomeTextContainer>
+                        <HomeImageContainer>
                             <img src={homeImage} width="30" alt="company logo"/>
                         </HomeImageContainer>
-                        <H2 className="welcome__title">
+                        <H2>
                             {helloContent}
                         </H2>
                         <P>Your new home awaits at</P>
-                        <br/>
-                        {name && <H1 className="welcome__application-info__name">{name}</H1>}
+                        {name && <H1>{name}</H1>}
                         {
-                            name ? <P className="welcome__application-info__street">{street}</P> :
-                            <H1 className="welcome__application-info__street">{street}</H1>
+                            name ? <P label="street">{street}</P> :
+                            <H1>{street}</H1>
                         }
-                        {cityStateZip && <P className="welcome__application-info__city-state-zip">{cityStateZip}</P>}
-                        {unit_number && <P className="welcome__application-info__unit-number">{`Unit ${unit_number}`}</P>}
+                        {cityStateZip && <P>{cityStateZip}</P>}
+                        {unit_number && <P>{`Unit ${unit_number}`}</P>}
                     </WelcomeTextContainer>
-                    <WelcomeFooterContainer className="welcome__footer-container">
+                    <WelcomeFooterContainer>
                         <ActionButton
-                            className="welcome__start-application-button"
                             onClick={() => history.push('/login')}
                             color="secondary"
                         >
