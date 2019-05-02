@@ -21,6 +21,15 @@ import { fetchLeaseSettings } from 'reducers/lease-settings';
 
 
 export class App extends Component {
+    constructor () {
+        super();
+        window.updateTheme = this.updateTheme;
+    }
+
+    updateTheme = (primaryColor, secondaryColor) => {
+        this.setState({theme: createTheme(primaryColor, secondaryColor)});
+    }
+
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
