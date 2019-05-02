@@ -3,5 +3,5 @@ import {
   } from 'emotion';
 
 export const root = css`
-  margin-bottom: 35px !important;
+  margin-bottom: 14px !important;
 `

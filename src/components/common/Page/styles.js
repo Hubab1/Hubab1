@@ -9,14 +9,14 @@ export const page = css`
 `
 
 export const subPage = css`
-    padding: 45px 20px;
+    padding: 30px 20px;
 `
 
 export const Banner = styled.div`
-  height: 100px;
+  height: 92px;
   box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 5px;
+  padding-bottom: 10px;
   font-size: 30px;
   text-align: center;
 `

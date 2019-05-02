@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import backgroundImage from 'assets/images/desktop_cortlandimg.png';
 import logoImage from 'assets/images/cortland_logo.png';
 import { WelcomePage } from './WelcomePage';
-import { WelcomeInfoTitle, WelcomeInfo } from './styles';
+import { WelcomeTextContainer } from './styles';
 
 let defaultProps, context;
 beforeEach(() => {
@@ -55,10 +55,10 @@ it('renders Hi There, when client is included in leaseSettings', function(){
 it('renders correct info when all client and unit info are passed', () => {
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
-    expect(wrapper.find('.welcome__application-info__name').text()).toEqual('Cortland');
-    expect(wrapper.find('.welcome__application-info__street').text()).toEqual('2173 Highland Ave S');
-    expect(wrapper.find('.welcome__application-info__city-state-zip').text()).toEqual('Birmingham, AL 35205');
-    expect(wrapper.find('.welcome__application-info__unit-number').text()).toEqual('Unit 3B');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('Cortland');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('2173 Highland Ave S');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('Birmingham, AL 35205');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('Unit 3B');
 });
 
 it('renders correct info when all client and unit info is omitted', () => {
@@ -67,9 +67,9 @@ it('renders correct info when all client and unit info is omitted', () => {
 
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
-    expect(wrapper.find('.welcome__application-info__name').text()).toEqual('Cortland');
-    expect(wrapper.find('.welcome__application-info__street').text()).toEqual('2173 Highland Ave S');
-    expect(wrapper.find('.welcome__application-info__city-state-zip').text()).toEqual('Birmingham, AL 35205');
-    expect(wrapper.find('.welcome__application-info__unit-number').length).toEqual(0);
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('Cortland');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('2173 Highland Ave S');
+    expect(wrapper.find(WelcomeTextContainer).text()).toContain('Birmingham, AL 35205');
+    expect(wrapper.find(WelcomeTextContainer).text()).not.toContain('Unit');
 
 });
