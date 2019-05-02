@@ -1,5 +1,3 @@
-import 'assets/emotion/styles';
-
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -93,7 +91,7 @@ export class Main extends Component {
                 <div className="App">
                     <Switch>
                         <Route path={buildRoute(match.url, Routes.WELCOME)} component={WelcomePage}/>
-                        <Page>
+                        <Page logo={this.props.leaseSettings.logo}>
                             <Route path={buildRoute(match.url, Routes.PROFILE)} component={ProfileContainer} />
                             <Route path={buildRoute(match.url, Routes.LOGIN)} component={LoginPage} />
                             <Route path={buildRoute(match.url, Routes.SIGNUP)} component={SignupPage} />
@@ -108,6 +106,7 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    leaseSettings: state.leaseSettings
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};

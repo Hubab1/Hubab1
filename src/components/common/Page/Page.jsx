@@ -1,8 +1,8 @@
 import React from 'react';
 import { withTheme } from '@material-ui/core/styles';
 
+import Logo from 'components/common/Logo';
 import { Banner, page, subPage } from './styles';
-import { community } from 'constants.js';
 
 export class Page extends React.Component {
 
@@ -13,7 +13,7 @@ export class Page extends React.Component {
                     backgroundColor: this.props.theme.palette.primary.main,
                     color: this.props.theme.palette.primary.contrastText
                 }}>
-                    {community.name}
+                    <Logo logo={this.props.logo} />
                 </Banner>
                 <div className={subPage}>
                     {this.props.children}

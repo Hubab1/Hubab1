@@ -25,37 +25,28 @@ export const BackgroundImageTint = styled.div( props => ({
 }))
 
 export const WelcomeFlexContainer = styled.div`
+    label: welcome-container;
     position: absolute;
     display: flex;
     flex-direction: column;
     align-content: space-around;
+    color: white;
     height: 100%;
     width: 100%;
 `
 
 export const WelcomeTextContainer = styled.div`
+    label: welcome-content;
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
-    color: #FFFFFF;
-    padding: 0 50px 50px 50px;
+    padding-bottom: 50px;
+    width: 82%;
     max-width: 500px;
 `
 
-export const WelcomeLogo = styled.div`
-    margin-top: 20px;
-    width: 150px;
-    margin: auto;
-`
-
-export const WelcomeTitle = styled.div`
-    font-size: 25px;
-    line-height: 30px;
-    text-align: center;
-    padding-bottom: 20px;
-`
-
 export const WelcomeFooterContainer = styled.div`
+    label: footer;
     margin: 2% 10%;
     height: 15%;
     text-align: center;
@@ -71,15 +62,4 @@ export const HomeImageContainer = styled.div`
     background: inherit;
     text-align: center;
     padding: 10px;
-    margin-left: 38%;
-`
-
-export const ApplicationInfo = styled.div`
-    color: #FFFFFF;
-    font-size: 22px;
-    line-height: 30px;
-    text-align: center;
-    & :first-child {
-        font-weight: 800;
-    }
-`
+    margin: 0 auto;`

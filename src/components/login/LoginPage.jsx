@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import * as Yup from 'yup';
 
-import { Subtitle, H1, Bold, formContent } from 'assets/emotion/styles';
-import { Disclaimer } from './styles';
-
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
+
 
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
+
 
 export class LoginPage extends React.Component {
     static contextType = AppContext;
@@ -30,20 +31,15 @@ export class LoginPage extends React.Component {
     render () {
         return (
             <Fragment>
-                <H1 style={{color: 'black', fontWeight: 500}}></H1>
-                <Subtitle>Create a password to get started.</Subtitle>
+                <H1>
+                    Sign in to continue with your application
+                </H1>
 
                 <Formik
-                    initialValues={{ password: '' }}
-                    validate={values => {
-                        let errors = {};
-                        if (!values.password) {
-                            errors.password = 'Required';
-                        } else if (values.password.length < 6) {
-                            errors.password = 'Password too short.';
-                        }
-                        return errors;
-                    }}
+                    validationSchema={Yup.object().shape({
+                        email: Yup.string().required('Email is required'),
+                        password: Yup.string().required('Password is required'),
+                    })}
                     onSubmit={this.onSubmit}
                 >
                 {({
@@ -51,30 +47,44 @@ export class LoginPage extends React.Component {
                     errors,
                     touched,
                     handleChange,
+                    submitCount,
                     handleBlur,
                     handleSubmit,
                     isSubmitting
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className={formContent}>
-                            <span aria-label="clipboard" role="img" style={{fontSize: 60}}>📋</span>
                             <div>
-                                <TextField
-                                    error={errors.password && touched.password && !!errors.password}
-                                    helperText={errors.password}
+                                <FormTextInput
+                                    label="Email or phone number"
+                                    name="email"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.email}
+                                    touched={touched.email}
+                                    value={values.email}
+                                />
+                                <FormTextInput
                                     label="Password"
                                     type="password"
                                     name="password"
-                                    fullWidth
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.password}
+                                    touched={touched.password}
                                     value={values.password}
                                 />
                             </div>
-                            <Disclaimer>By tapping continue, you confirm you have read, understand and accept the <Bold>Privacy Policy</Bold> and <Bold>Terms of Use.</Bold></Disclaimer>
-                            <Button variant="contained" color="primary" type="submit" disabled={isSubmitting} fullWidth>
-                                Let's Go!
-                            </Button>
+                            <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
+                                Sign In
+                            </ActionButton>
+                            {/* eslint-disable-next-line */}
+                            <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
+                            <br/>
+                            {/* eslint-disable-next-line */}
+                            <P className="already-have-account">Need an account? <a href="#">Click here</a></P>
                         </div>
                     </form>
                 )}

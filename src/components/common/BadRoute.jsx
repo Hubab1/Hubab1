@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CenterAlign, BigText } from 'assets/emotion/styles';
+import { CenterAlign, BigText } from 'assets/styles';
 
 export default function BadRoute () {
     return (
