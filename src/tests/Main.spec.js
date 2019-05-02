@@ -36,12 +36,14 @@ beforeEach(() => {
     defaultProps = {
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
         fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
+        leaseSettings: leaseSettingsObject,
         profile: null,
         history: {
             replace: jest.fn()
         },
         location: {
-            search: ''
+            search: '',
+            pathname: ''
         },
         match: {
             url: '',

@@ -30,8 +30,9 @@ export class Main extends Component {
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { fetchRenterProfile, match, history } = this.props;
+        const { fetchRenterProfile, match, history, location } = this.props;
         if (!isAuthenticated) {
+            if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
             if (!leaseSettings.client) {
                 history.replace(buildRoute(match.url, 'welcome'));
             }
@@ -47,23 +48,15 @@ export class Main extends Component {
 
     async componentDidMount () {
         const communityId = this.props.match.params.communityId;
-        if (auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId)) {
-            this.props.fetchLeaseSettings(communityId).then((leaseSettings) => {
-                const primaryColor = leaseSettings.primary_color;
-                const secondaryColor = leaseSettings.secondary_color;
-                this.setState({theme: createTheme(primaryColor, secondaryColor)});
-                this.mountNavigation(true, leaseSettings);
-            })
-        } else {
-            // check if url has query parameter for clients/unit info
-            let params = queryString.parse(this.props.location.search);
-            this.props.fetchLeaseSettings(communityId, params.v).then((leaseSettings) => {
-                const primaryColor = leaseSettings.primary_color;
-                const secondaryColor = leaseSettings.secondary_color;
-                this.setState({theme: createTheme(primaryColor, secondaryColor)});
-                this.mountNavigation(false, leaseSettings);
-            })
-        }
+        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
+
+        let params = queryString.parse(this.props.location.search);
+        const leaseSettings = await this.props.fetchLeaseSettings(communityId, params.v);
+        const primaryColor = leaseSettings.primary_color;
+        const secondaryColor = leaseSettings.secondary_color;
+        this.setState({theme: createTheme(primaryColor, secondaryColor)});
+
+        this.mountNavigation(isLoggedIn, leaseSettings);
     }
 
     componentDidUpdate (prevProps) {
