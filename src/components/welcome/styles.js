@@ -38,7 +38,8 @@ export const WelcomeTextContainer = styled.div`
     background-color: rgba(0,0,0,0.33);
     text-align: center;
     margin: auto;
-    padding: 0 50px 50px 50px;
+    padding-bottom: 50px;
+    width: 82%;
     max-width: 500px;
 `
 
