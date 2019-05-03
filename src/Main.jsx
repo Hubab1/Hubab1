@@ -60,16 +60,10 @@ export class Main extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        // i figured this might be worth handling, but probably should come up with better way to handle this another time
-        const { history, match } = this.props;
-        const communityId = match.params.communityId;
-        if (prevProps.match.params.communityId !== communityId) {
-            console.error('Error, changing community is not supported');
-            throw new Error();
-        }
+        const { history } = this.props;
 
         if (!prevProps.profile && this.props.profile) {
-            const initialPage = getInitialPage(communityId, this.props.profile);
+            const initialPage = getInitialPage(this.props.profile);
             history.replace(initialPage);
         }
     }
@@ -77,10 +71,8 @@ export class Main extends Component {
     render() {
         const theme = this.state.theme;
         if (!theme) return null;
-        const { match }= this.props;
-        const communityId = match.params.communityId;
         return (
-            <AppContextProvider theme={theme} communityId={communityId}>
+            <AppContextProvider theme={theme}>
                 <div className="App">
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>

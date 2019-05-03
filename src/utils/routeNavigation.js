@@ -12,7 +12,7 @@ export const previousRoute = path => {
     return ALL_ROUTES[ALL_ROUTES.indexOf(path)-1];
 }
 
-export const getInitialPage = (commId, profile) => {
+export const getInitialPage = (profile) => {
     if (!profile) return;
     if (!profile.completed_terms_and_conditions) {
         return ROUTES.TOS;
