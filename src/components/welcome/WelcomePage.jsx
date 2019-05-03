@@ -27,7 +27,6 @@ export class WelcomePage extends Component {
     }
     
     render() {
-        const { history } = this.props;
         const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.leaseSettings;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'

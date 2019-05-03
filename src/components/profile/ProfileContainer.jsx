@@ -7,7 +7,6 @@ import RenterProfileOptions from 'components/profile/options/RenterProfileOption
 
 class ProfileContainer extends Component {
     render() {
-        const { match }= this.props;
         return (
             <Switch>
                 <Route path={FullRoutes.PROFILE_OPTIONS} component={RenterProfileOptions} />

@@ -84,7 +84,7 @@ describe('mountNavigation', () => {
         const leaseSettings = {client:{application_id:123}};
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/login');
+        expect(historyStub).toHaveBeenCalledWith('/123/login');
     });
     it('routes to welcome page if not authenticated, and there is a client associated', function () {
         const historyStub = jest.fn();
@@ -96,7 +96,7 @@ describe('mountNavigation', () => {
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/welcome');
+        expect(historyStub).toHaveBeenCalledWith('/123/welcome');
     });
 
     it('routes to welcome page if not authenticated, and there is no client associated', function () {
@@ -109,7 +109,7 @@ describe('mountNavigation', () => {
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/welcome');
+        expect(historyStub).toHaveBeenCalledWith('/123/welcome');
     });
 
 
