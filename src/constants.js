@@ -2,19 +2,15 @@ export const community = {
     name: '555 Waverly'
 };
 
-export const Routes = {
-    PROFILE: 'profile',
-    profile: {
-        OPTIONS: 'options'
-    },
-    WELCOME: 'welcome',
-    LOGIN: 'login',
-    SIGNUP: 'signup',
-    TOS: 'terms',
-    PROFILE_OPTIONS: 'profile/options',
-    PETS: 'profile/pets'
+export const FullRoutes = {
+    PROFILE_OPTIONS: '/:communityId/profile/options',
+    PROFILE: '/:communityId/profile',
+    WELCOME: '/:communityId/welcome',
+    LOGIN: '/:communityId/login',
+    SIGNUP: '/:communityId/signup',
+    TOS: '/:communityId/terms'
 }
 
 export const ALL_ROUTES = [
-    Routes.LOGIN, Routes.TOS, Routes.PROFILE_OPTIONS, Routes.PETS
+    FullRoutes.LOGIN, FullRoutes.TOS, FullRoutes.PROFILE_OPTIONS
 ]

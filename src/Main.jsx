@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { generatePath } from 'react-router';
 
 import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
@@ -14,8 +15,8 @@ import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchLeaseSettings } from 'reducers/lease-settings';
-import { buildRoute, getInitialPage } from 'utils/routeNavigation';
-import { Routes } from 'constants.js';
+import { getInitialPage } from 'utils/routeNavigation';
+import { FullRoutes } from 'constants.js';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -30,16 +31,17 @@ export class Main extends Component {
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { fetchRenterProfile, match, history, location } = this.props;
+        const { fetchRenterProfile, history, location, match } = this.props;
+        const communityId = match.params.communityId;
         if (!isAuthenticated) {
             if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
             if (!leaseSettings.client) {
-                history.replace(buildRoute(match.url, 'welcome'));
+                history.replace(generatePath(FullRoutes.WELCOME, {communityId}));
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.replace(buildRoute(match.url, 'login'));
+                history.replace(generatePath(FullRoutes.LOGIN, {communityId}));
             } else {
-                history.replace(buildRoute(match.url, 'welcome'));
+                history.replace(generatePath(FullRoutes.WELCOME, {communityId}));
             }
         } else {
             fetchRenterProfile();
@@ -70,7 +72,7 @@ export class Main extends Component {
 
         if (!prevProps.profile && this.props.profile) {
             const initialPage = getInitialPage(communityId, this.props.profile);
-            history.replace(buildRoute(match.url, initialPage));
+            history.replace(generatePath(initialPage, {communityId}));
         }
     }
 
@@ -83,12 +85,12 @@ export class Main extends Component {
             <AppContextProvider theme={theme} communityId={communityId}>
                 <div className="App">
                     <Switch>
-                        <Route path={buildRoute(match.url, Routes.WELCOME)} component={WelcomePage}/>
+                        <Route path={FullRoutes.WELCOME} component={WelcomePage}/>
                         <Page logo={this.props.leaseSettings.logo}>
-                            <Route path={buildRoute(match.url, Routes.PROFILE)} component={ProfileContainer} />
-                            <Route path={buildRoute(match.url, Routes.LOGIN)} component={LoginPage} />
-                            <Route path={buildRoute(match.url, Routes.SIGNUP)} component={SignupPage} />
-                            <Route path={buildRoute(match.url, Routes.TOS)} component={TermsPage}/>
+                            <Route path={FullRoutes.PROFILE} component={ProfileContainer} />
+                            <Route path={FullRoutes.LOGIN} component={LoginPage} />
+                            <Route path={FullRoutes.SIGNUP} component={SignupPage} />
+                            <Route path={FullRoutes.TOS} component={TermsPage}/>
                         </Page>
                     </Switch>
                 </div>

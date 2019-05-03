@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
+import { generatePath } from 'react-router';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, TextReader, Bold } from 'assets/styles';
-import { nextRoute } from 'utils/routeNavigation';
-import { Routes } from 'constants.js';
+import { FullRoutes } from 'constants.js';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -17,14 +17,14 @@ export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
-        const nextPage = nextRoute(Routes.TOS);
-        history.push(nextPage);
+        const communityId = this.props.match.params.communityId;
+        history.push(generatePath(FullRoutes.PROFILE_OPTIONS, {communityId}));
     }
 
     handleClickBack = () => {
         const { history } = this.props;
         // maybe clear session here too?
-        history.push(Routes.SIGNUP);
+        history.push(FullRoutes.SIGNUP);
     }
 
     render () {

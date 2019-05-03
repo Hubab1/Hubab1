@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { Routes } from 'constants.js';
+import { FullRoutes } from 'constants.js';
 
 
 import auth from 'utils/auth';
@@ -31,6 +32,8 @@ export class LoginPage extends React.Component {
     }
 
     render () {
+        const { match } = this.props;
+        const communityId = match.params.communityId;
         return (
             <Fragment>
                 <H1>
@@ -85,7 +88,7 @@ export class LoginPage extends React.Component {
                             {/* eslint-disable-next-line */}
                             <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                             <br/>
-                            <P className="already-have-account">Need an account? <Link to={`/${this.context.communityId}/${Routes.SIGNUP}`}>Click here</Link></P>
+                            <P className="already-have-account">Need an account? <Link to={generatePath(FullRoutes.SIGNUP, {communityId})}>Click here</Link></P>
                         </div>
                     </form>
                 )}

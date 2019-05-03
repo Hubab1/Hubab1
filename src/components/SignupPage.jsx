@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { Routes } from 'constants.js';
+import { FullRoutes } from 'constants.js';
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
 
@@ -28,6 +29,8 @@ export class SignupPage extends React.Component {
     }
 
     render () {
+        const { match } = this.props;
+        const communityId = match.params.communityId;
         return (
             <Fragment>
                 <H1>Start your rental application by creating an account below</H1>
@@ -111,7 +114,7 @@ export class SignupPage extends React.Component {
                             />
                         <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                         </div>
-                        <P className="already-have-account">Already have an account? <Link to={`/${this.context.communityId}/${Routes.LOGIN}`}>Sign in here</Link></P>
+                        <P className="already-have-account">Already have an account? <Link to={generatePath(FullRoutes.LOGIN, {communityId})}>Sign in here</Link></P>
                     </form>
                 )}
                 </Formik>
