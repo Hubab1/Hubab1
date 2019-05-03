@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { generatePath } from 'react-router';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, TextReader, Bold } from 'assets/styles';
@@ -16,16 +15,14 @@ mollit anim id est laborum.`;
 export class TermsPage extends React.Component {
 
     handleClickNext = () => {
-        const { history, match } = this.props;
-        const communityId = match.params.communityId;
-        history.push(generatePath(ROUTES.PROFILE_OPTIONS, {communityId}));
+        const { history } = this.props;
+        history.push(ROUTES.PROFILE_OPTIONS);
     }
 
     handleClickBack = () => {
-        const { history, match } = this.props;
-        const communityId = match.params.communityId;
+        const { history } = this.props;
         // maybe clear session here too? Or maybe it doesn't make sense to go back from this page?
-        history.push(generatePath(ROUTES.SIGNUP, {communityId}));
+        history.push(ROUTES.SIGNUP);
     }
 
     render () {

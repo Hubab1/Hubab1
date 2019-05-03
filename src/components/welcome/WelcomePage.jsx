@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { generatePath } from 'react-router';
 
 import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
@@ -19,11 +18,9 @@ import { ROUTES } from 'constants.js';
 export class WelcomePage extends Component {
 
     getNextLinkUrl () {
-        const { match } = this.props;
-        const communityId = match.params.communityId;
         const hasClient = !!this.props.leaseSettings.client;
         const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
-        return generatePath(url, {communityId});
+        return url;
     }
     
     render() {

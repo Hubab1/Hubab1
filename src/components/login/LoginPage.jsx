@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import { generatePath } from 'react-router';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -13,16 +12,13 @@ import { ROUTES } from 'constants.js';
 
 
 import auth from 'utils/auth';
-import AppContext from 'contexts/AppContext';
 
 
 export class LoginPage extends React.Component {
-    static contextType = AppContext;
-
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token, this.context.communityId);
+            auth.setSession(res.token, this.props.basename);
             setSubmitting(false);
             this.props.fetchRenterProfile();
         }).catch((res) => {
@@ -32,8 +28,6 @@ export class LoginPage extends React.Component {
     }
 
     render () {
-        const { match } = this.props;
-        const communityId = match.params.communityId;
         return (
             <Fragment>
                 <H1>
@@ -88,7 +82,7 @@ export class LoginPage extends React.Component {
                             {/* eslint-disable-next-line */}
                             <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                             <br/>
-                            <P className="already-have-account">Need an account? <Link to={generatePath(ROUTES.SIGNUP, {communityId})}>Click here</Link></P>
+                            <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>
                         </div>
                     </form>
                 )}
@@ -100,6 +94,7 @@ export class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    basename: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

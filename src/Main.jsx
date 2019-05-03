@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { generatePath } from 'react-router';
 
 import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
@@ -31,17 +30,16 @@ export class Main extends Component {
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { fetchRenterProfile, history, location, match } = this.props;
-        const communityId = match.params.communityId;
+        const { fetchRenterProfile, history, location } = this.props;
         if (!isAuthenticated) {
             if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
             if (!leaseSettings.client) {
-                history.replace(generatePath(ROUTES.WELCOME, {communityId}));
+                history.replace(ROUTES.WELCOME);
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.replace(generatePath(ROUTES.LOGIN, {communityId}));
+                history.replace(ROUTES.LOGIN);
             } else {
-                history.replace(generatePath(ROUTES.WELCOME, {communityId}));
+                history.replace(ROUTES.WELCOME);
             }
         } else {
             fetchRenterProfile();
@@ -49,11 +47,11 @@ export class Main extends Component {
     }
 
     async componentDidMount () {
-        const communityId = this.props.match.params.communityId;
-        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
+        const basename = this.props.basename;
+        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(basename);
 
         let params = queryString.parse(this.props.location.search);
-        const leaseSettings = await this.props.fetchLeaseSettings(communityId, params.v);
+        const leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
         const primaryColor = leaseSettings.primary_color;
         const secondaryColor = leaseSettings.secondary_color;
         this.setState({theme: createTheme(primaryColor, secondaryColor)});
@@ -72,7 +70,7 @@ export class Main extends Component {
 
         if (!prevProps.profile && this.props.profile) {
             const initialPage = getInitialPage(communityId, this.props.profile);
-            history.replace(generatePath(initialPage, {communityId}));
+            history.replace(initialPage);
         }
     }
 
@@ -101,7 +99,8 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    leaseSettings: state.leaseSettings
+    leaseSettings: state.leaseSettings,
+    basename: state.siteConfig.basename
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};

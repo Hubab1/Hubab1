@@ -3,13 +3,13 @@ export const community = {
 };
 
 export const ROUTES = {
-    COMMUNITY: '/:communityId',
-    PROFILE_OPTIONS: '/:communityId/profile/options',
-    PROFILE: '/:communityId/profile',
-    WELCOME: '/:communityId/welcome',
-    LOGIN: '/:communityId/login',
-    SIGNUP: '/:communityId/signup',
-    TOS: '/:communityId/terms'
+    COMMUNITY: '/',
+    PROFILE_OPTIONS: '/profile/options',
+    PROFILE: '/profile',
+    WELCOME: '/welcome',
+    LOGIN: '/login',
+    SIGNUP: '/signup',
+    TOS: '/terms'
 }
 
 export const ALL_ROUTES = [

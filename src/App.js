@@ -1,24 +1,36 @@
 import 'assets/styles';
-
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Main from './Main';
 import BadRoute from 'components/common/BadRoute';
-import history from 'history.js';
-import { ROUTES } from 'constants.js';
+import { basenameReceived } from 'reducers/site-config';
 
-export default class App extends Component {
+export class App extends Component {
+    componentDidMount () {
+        let basename;
+        if (window.location.pathname === '/') {
+            basename = window.location.pathname;
+        } else {
+            basename = window.location.pathname.split('/').filter(token => !!token)[0];
+        }
+        this.props.basenameReceived(basename);
+
+    }
+    
     render() {
+        if (!this.props.basename || this.props.basename === '/') return <BadRoute/>;
         return (
             <div className="App">
-                <Router history={history}>
+                <BrowserRouter basename={this.props.basename}>
                     <Switch>
-                        <Route path={ROUTES.COMMUNITY} component={Main} />
-                        <Route exact path="/" component={BadRoute} />
+                        <Route path={'/'} component={Main} />
                     </Switch>
-                </Router>
+                </BrowserRouter>
             </div>
         );
     }
 }
+
+export default connect(state => ({basename: state.siteConfig.basename}),{basenameReceived})(App);
