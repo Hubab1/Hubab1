@@ -16,15 +16,16 @@ mollit anim id est laborum.`;
 export class TermsPage extends React.Component {
 
     handleClickNext = () => {
-        const { history } = this.props;
-        const communityId = this.props.match.params.communityId;
+        const { history, match } = this.props;
+        const communityId = match.params.communityId;
         history.push(generatePath(FullRoutes.PROFILE_OPTIONS, {communityId}));
     }
 
     handleClickBack = () => {
-        const { history } = this.props;
-        // maybe clear session here too?
-        history.push(FullRoutes.SIGNUP);
+        const { history, match } = this.props;
+        const communityId = match.params.communityId;
+        // maybe clear session here too? Or maybe it doesn't make sense to go back from this page?
+        history.push(generatePath(FullRoutes.SIGNUP, {communityId}));
     }
 
     render () {
