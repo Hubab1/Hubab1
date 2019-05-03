@@ -3,6 +3,7 @@ export const community = {
 };
 
 export const ROUTES = {
+    COMMUNITY: '/:communityId',
     PROFILE_OPTIONS: '/:communityId/profile/options',
     PROFILE: '/:communityId/profile',
     WELCOME: '/:communityId/welcome',
