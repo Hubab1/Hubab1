@@ -3,7 +3,7 @@ import { generatePath } from 'react-router';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, TextReader, Bold } from 'assets/styles';
-import { FullRoutes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -18,14 +18,14 @@ export class TermsPage extends React.Component {
     handleClickNext = () => {
         const { history, match } = this.props;
         const communityId = match.params.communityId;
-        history.push(generatePath(FullRoutes.PROFILE_OPTIONS, {communityId}));
+        history.push(generatePath(ROUTES.PROFILE_OPTIONS, {communityId}));
     }
 
     handleClickBack = () => {
         const { history, match } = this.props;
         const communityId = match.params.communityId;
         // maybe clear session here too? Or maybe it doesn't make sense to go back from this page?
-        history.push(generatePath(FullRoutes.SIGNUP, {communityId}));
+        history.push(generatePath(ROUTES.SIGNUP, {communityId}));
     }
 
     render () {

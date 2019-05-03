@@ -13,7 +13,7 @@ import {
     WelcomeFooterContainer, HomeImageContainer
 } from './styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { FullRoutes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 
 
 export class WelcomePage extends Component {
@@ -22,7 +22,7 @@ export class WelcomePage extends Component {
         const { match } = this.props;
         const communityId = match.params.communityId;
         const hasClient = !!this.props.leaseSettings.client;
-        const url = hasClient ? FullRoutes.LOGIN : FullRoutes.SIGNUP;
+        const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
         return generatePath(url, {communityId});
     }
     

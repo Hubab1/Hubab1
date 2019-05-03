@@ -2,7 +2,7 @@ export const community = {
     name: '555 Waverly'
 };
 
-export const FullRoutes = {
+export const ROUTES = {
     PROFILE_OPTIONS: '/:communityId/profile/options',
     PROFILE: '/:communityId/profile',
     WELCOME: '/:communityId/welcome',
@@ -12,5 +12,5 @@ export const FullRoutes = {
 }
 
 export const ALL_ROUTES = [
-    FullRoutes.LOGIN, FullRoutes.TOS, FullRoutes.PROFILE_OPTIONS
+    ROUTES.LOGIN, ROUTES.TOS, ROUTES.PROFILE_OPTIONS
 ]

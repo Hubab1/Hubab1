@@ -9,7 +9,7 @@ import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { FullRoutes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 import auth from 'utils/auth';
 import AppContext from 'contexts/AppContext';
 
@@ -114,7 +114,7 @@ export class SignupPage extends React.Component {
                             />
                         <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                         </div>
-                        <P className="already-have-account">Already have an account? <Link to={generatePath(FullRoutes.LOGIN, {communityId})}>Sign in here</Link></P>
+                        <P className="already-have-account">Already have an account? <Link to={generatePath(ROUTES.LOGIN, {communityId})}>Sign in here</Link></P>
                     </form>
                 )}
                 </Formik>

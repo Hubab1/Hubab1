@@ -9,7 +9,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { FullRoutes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 
 
 import auth from 'utils/auth';
@@ -88,7 +88,7 @@ export class LoginPage extends React.Component {
                             {/* eslint-disable-next-line */}
                             <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                             <br/>
-                            <P className="already-have-account">Need an account? <Link to={generatePath(FullRoutes.SIGNUP, {communityId})}>Click here</Link></P>
+                            <P className="already-have-account">Need an account? <Link to={generatePath(ROUTES.SIGNUP, {communityId})}>Click here</Link></P>
                         </div>
                     </form>
                 )}

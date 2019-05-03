@@ -16,7 +16,7 @@ import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchLeaseSettings } from 'reducers/lease-settings';
 import { getInitialPage } from 'utils/routeNavigation';
-import { FullRoutes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -36,12 +36,12 @@ export class Main extends Component {
         if (!isAuthenticated) {
             if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
             if (!leaseSettings.client) {
-                history.replace(generatePath(FullRoutes.WELCOME, {communityId}));
+                history.replace(generatePath(ROUTES.WELCOME, {communityId}));
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.replace(generatePath(FullRoutes.LOGIN, {communityId}));
+                history.replace(generatePath(ROUTES.LOGIN, {communityId}));
             } else {
-                history.replace(generatePath(FullRoutes.WELCOME, {communityId}));
+                history.replace(generatePath(ROUTES.WELCOME, {communityId}));
             }
         } else {
             fetchRenterProfile();
@@ -85,12 +85,12 @@ export class Main extends Component {
             <AppContextProvider theme={theme} communityId={communityId}>
                 <div className="App">
                     <Switch>
-                        <Route path={FullRoutes.WELCOME} component={WelcomePage}/>
+                        <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page logo={this.props.leaseSettings.logo}>
-                            <Route path={FullRoutes.PROFILE} component={ProfileContainer} />
-                            <Route path={FullRoutes.LOGIN} component={LoginPage} />
-                            <Route path={FullRoutes.SIGNUP} component={SignupPage} />
-                            <Route path={FullRoutes.TOS} component={TermsPage}/>
+                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
+                            <Route path={ROUTES.LOGIN} component={LoginPage} />
+                            <Route path={ROUTES.SIGNUP} component={SignupPage} />
+                            <Route path={ROUTES.TOS} component={TermsPage}/>
                         </Page>
                     </Switch>
                 </div>
