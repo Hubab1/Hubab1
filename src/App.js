@@ -1,7 +1,7 @@
 import 'assets/styles';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import Main from './Main';
 import BadRoute from 'components/common/BadRoute';
@@ -24,9 +24,7 @@ export class App extends Component {
         return (
             <div className="App">
                 <BrowserRouter basename={this.props.basename}>
-                    <Switch>
-                        <Route path={'/'} component={Main} />
-                    </Switch>
+                    <Main/>
                 </BrowserRouter>
             </div>
         );

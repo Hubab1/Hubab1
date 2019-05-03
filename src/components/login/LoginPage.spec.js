@@ -30,10 +30,8 @@ jest.mock('../../history', ()=>{
 
 it('sets session after logging in', function () {
     const setSession = jest.fn();
-    const context = { communityId: '123' };
-    const wrapper = shallow(<LoginPage/>);
+    const wrapper = shallow(<LoginPage basename="123"/>);
     wrapper.instance().auth.setSession = setSession;
-    wrapper.instance().context = context;
     return wrapper.instance().onSubmit({username: 'Frank', password: 'Abagail'}, {setSubmitting: function(){}}).then(() => {
         expect(setSession).toHaveBeenCalledWith('abc', '123');
     });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
@@ -27,7 +27,7 @@ async function sessionIsValidForCommunityId (communityId) {
 }
 
 export class Main extends Component {
-    state = {theme: null}
+    state = {theme: null, error: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
         const { fetchRenterProfile, history, location } = this.props;
@@ -51,9 +51,16 @@ export class Main extends Component {
         const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(basename);
 
         let params = queryString.parse(this.props.location.search);
-        const leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
+        let leaseSettings;
+        try {
+            leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
+        } catch {
+            // todo: handle community id not found.
+            return this.setState({hasError: true});
+        }
         const primaryColor = leaseSettings.primary_color;
         const secondaryColor = leaseSettings.secondary_color;
+        // todo: store in redux
         this.setState({theme: createTheme(primaryColor, secondaryColor)});
 
         this.mountNavigation(isLoggedIn, leaseSettings);
@@ -70,6 +77,7 @@ export class Main extends Component {
 
     render() {
         const theme = this.state.theme;
+        if (this.state.hasError) return <div>Error getting application form</div>;
         if (!theme) return null;
         return (
             <AppContextProvider theme={theme}>
@@ -98,4 +106,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

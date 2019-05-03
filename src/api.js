@@ -3,7 +3,11 @@ import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 
-API.fetchLeaseSettings = (_communityId, hash) => {
+API.fetchLeaseSettings = (communityId, hash) => {
+    // example response if community id not valid
+    const invalidCommunitites = new Set(['23', '44', '25']);
+    if (invalidCommunitites.has(communityId)) return Promise.reject({error: 'invalid community'});
+
     const payload = {
         "name": "Cortland",
         "street": "2173 Highland Ave S",

@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Main } from 'Main';
-import history from 'history.js';
 
 let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise, fetchRenterProfilePromise;
 
@@ -44,12 +43,6 @@ beforeEach(() => {
         location: {
             search: '',
             pathname: ''
-        },
-        match: {
-            url: '',
-            params: {
-                communityId: '123'
-            }
         }
     }
 })
@@ -84,7 +77,7 @@ describe('mountNavigation', () => {
         const leaseSettings = {client:{application_id:123}};
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/123/login');
+        expect(historyStub).toHaveBeenCalledWith('/login');
     });
     it('routes to welcome page if not authenticated, and there is a client associated', function () {
         const historyStub = jest.fn();
@@ -96,7 +89,7 @@ describe('mountNavigation', () => {
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/123/welcome');
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
     it('routes to welcome page if not authenticated, and there is no client associated', function () {
@@ -109,7 +102,7 @@ describe('mountNavigation', () => {
         wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/123/welcome');
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
 
