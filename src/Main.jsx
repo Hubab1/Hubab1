@@ -14,8 +14,8 @@ import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchLeaseSettings } from 'reducers/lease-settings';
-import { buildRoute, getInitialPage } from 'utils/routeNavigation';
-import { Routes } from 'constants.js';
+import { getInitialPage } from 'utils/routeNavigation';
+import { ROUTES } from 'constants.js';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -30,16 +30,16 @@ export class Main extends Component {
     state = {theme: null}
 
     mountNavigation(isAuthenticated, leaseSettings) {
-        const { fetchRenterProfile, match, history, location } = this.props;
+        const { fetchRenterProfile, history, location } = this.props;
         if (!isAuthenticated) {
             if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
             if (!leaseSettings.client) {
-                history.replace(buildRoute(match.url, 'welcome'));
+                history.replace(ROUTES.WELCOME);
             }
             else if (leaseSettings.client && leaseSettings.client.application_id) {
-                history.replace(buildRoute(match.url, 'login'));
+                history.replace(ROUTES.LOGIN);
             } else {
-                history.replace(buildRoute(match.url, 'welcome'));
+                history.replace(ROUTES.WELCOME);
             }
         } else {
             fetchRenterProfile();
@@ -47,11 +47,11 @@ export class Main extends Component {
     }
 
     async componentDidMount () {
-        const communityId = this.props.match.params.communityId;
-        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
+        const basename = this.props.basename;
+        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(basename);
 
         let params = queryString.parse(this.props.location.search);
-        const leaseSettings = await this.props.fetchLeaseSettings(communityId, params.v);
+        const leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
         const primaryColor = leaseSettings.primary_color;
         const secondaryColor = leaseSettings.secondary_color;
         this.setState({theme: createTheme(primaryColor, secondaryColor)});
@@ -60,35 +60,27 @@ export class Main extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        // i figured this might be worth handling, but probably should come up with better way to handle this another time
-        const { history, match } = this.props;
-        const communityId = match.params.communityId;
-        if (prevProps.match.params.communityId !== communityId) {
-            console.error('Error, changing community is not supported');
-            throw new Error();
-        }
+        const { history } = this.props;
 
         if (!prevProps.profile && this.props.profile) {
-            const initialPage = getInitialPage(communityId, this.props.profile);
-            history.replace(buildRoute(match.url, initialPage));
+            const initialPage = getInitialPage(this.props.profile);
+            history.replace(initialPage);
         }
     }
 
     render() {
         const theme = this.state.theme;
         if (!theme) return null;
-        const { match }= this.props;
-        const communityId = match.params.communityId;
         return (
-            <AppContextProvider theme={theme} communityId={communityId}>
+            <AppContextProvider theme={theme}>
                 <div className="App">
                     <Switch>
-                        <Route path={buildRoute(match.url, Routes.WELCOME)} component={WelcomePage}/>
+                        <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page logo={this.props.leaseSettings.logo}>
-                            <Route path={buildRoute(match.url, Routes.PROFILE)} component={ProfileContainer} />
-                            <Route path={buildRoute(match.url, Routes.LOGIN)} component={LoginPage} />
-                            <Route path={buildRoute(match.url, Routes.SIGNUP)} component={SignupPage} />
-                            <Route path={buildRoute(match.url, Routes.TOS)} component={TermsPage}/>
+                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
+                            <Route path={ROUTES.LOGIN} component={LoginPage} />
+                            <Route path={ROUTES.SIGNUP} component={SignupPage} />
+                            <Route path={ROUTES.TOS} component={TermsPage}/>
                         </Page>
                     </Switch>
                 </div>
@@ -99,7 +91,8 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    leaseSettings: state.leaseSettings
+    leaseSettings: state.leaseSettings,
+    basename: state.siteConfig.basename
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};

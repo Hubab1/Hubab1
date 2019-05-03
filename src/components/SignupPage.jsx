@@ -8,17 +8,14 @@ import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { Routes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 import auth from 'utils/auth';
-import AppContext from 'contexts/AppContext';
 
 export class SignupPage extends React.Component {
-    static contextType = AppContext;
-
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.register(values).then((res) => {
-            auth.setSession(res.token, this.context.communityId);
+            auth.setSession(res.token, this.props.basename);
             setSubmitting(false);
             this.props.fetchRenterProfile();
         }).catch((res) => {
@@ -53,8 +50,7 @@ export class SignupPage extends React.Component {
                     submitCount,
                     handleBlur,
                     handleSubmit,
-                    isSubmitting,
-                    /* and other goodies */
+                    isSubmitting
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className={formContent}>
@@ -111,7 +107,7 @@ export class SignupPage extends React.Component {
                             />
                         <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                         </div>
-                        <P className="already-have-account">Already have an account? <Link to={`/${this.context.communityId}/${Routes.LOGIN}`}>Sign in here</Link></P>
+                        <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
                     </form>
                 )}
                 </Formik>
@@ -122,6 +118,7 @@ export class SignupPage extends React.Component {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    basename: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

@@ -8,20 +8,17 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { Routes } from 'constants.js';
+import { ROUTES } from 'constants.js';
 
 
 import auth from 'utils/auth';
-import AppContext from 'contexts/AppContext';
 
 
 export class LoginPage extends React.Component {
-    static contextType = AppContext;
-
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token, this.context.communityId);
+            auth.setSession(res.token, this.props.basename);
             setSubmitting(false);
             this.props.fetchRenterProfile();
         }).catch((res) => {
@@ -85,7 +82,7 @@ export class LoginPage extends React.Component {
                             {/* eslint-disable-next-line */}
                             <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                             <br/>
-                            <P className="already-have-account">Need an account? <Link to={`/${this.context.communityId}/${Routes.SIGNUP}`}>Click here</Link></P>
+                            <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>
                         </div>
                     </form>
                 )}
@@ -97,6 +94,7 @@ export class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    basename: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };
