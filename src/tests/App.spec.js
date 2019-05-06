@@ -2,14 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { App } from 'App';
-import { WelcomePage } from 'components/welcome/WelcomePage';
 import history from 'history.js';
 
-let defaultProps, leaseSettingsObject, fetchLeaseSettingsPromise, fetchRenterProfilePromise;
+let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
 
 beforeEach(() => {
 
-    leaseSettingsObject = {
+    configurationObject = {
         "name": "Cortland",
         "street": "2173 Highland Ave S",
         "city": "Birmingham",
@@ -31,23 +30,24 @@ beforeEach(() => {
         "monthly_rent": 5000,
     };
 
-    fetchLeaseSettingsPromise = Promise.resolve(leaseSettingsObject);
+    fetchConfigurationPromise = Promise.resolve(configurationObject);
     fetchRenterProfilePromise = Promise.resolve({});
 
     defaultProps = {
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
-        fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
+        fetchConfiguration: jest.fn().mockReturnValue(fetchConfigurationPromise),
         profile: null,
+        configuration: {}
     }
 })
 
 
 
 describe('componentDidMount', () => {
-    it('calls fetchLeaseSettings', function () {
-        const wrapper = shallow(<App { ...defaultProps} />);
+    it('calls fetchConfiguration', function () {
+        shallow(<App { ...defaultProps} />);
 
-        expect(defaultProps.fetchLeaseSettings).toHaveBeenCalledTimes(1);
+        expect(defaultProps.fetchConfiguration).toHaveBeenCalledTimes(1);
 
     });
 })
@@ -57,8 +57,8 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<App { ...defaultProps} />);
 
         const isAuthenticated = true;
-        const leaseSettings = {};
-        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
+        const configuration = {};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
     });
     it('routes to login page if not authenticated, but there is an associated application', function () {
@@ -68,8 +68,8 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<App { ...defaultProps} />);
 
         const isAuthenticated = false;
-        const leaseSettings = {client:{application_id:123}};
-        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
+        const configuration = {client:{application_id:123}};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/login');
     });
@@ -79,8 +79,8 @@ describe('mountNavigation', () => {
 
         const wrapper = shallow(<App { ...defaultProps} />);
         const isAuthenticated = false;
-        const leaseSettings = {client:{}};
-        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
+        const configuration = {client:{}};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -92,8 +92,8 @@ describe('mountNavigation', () => {
 
         const wrapper = shallow(<App { ...defaultProps} />);
         const isAuthenticated = false;
-        const leaseSettings = {};
-        wrapper.instance().mountNavigation(isAuthenticated, leaseSettings);
+        const configuration = {};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
