@@ -15,7 +15,7 @@ import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { initializePage } from 'utils/initializePage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { fetchLeaseSettings } from 'reducers/configuration';
+import { fetchConfiguration } from 'reducers/configuration';
 
 
 
@@ -31,10 +31,10 @@ export class App extends Component {
 
     state = {theme: null}
 
-    mountNavigation(isAuthenticated, leaseSettings) {
+    mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile } = this.props;
         if (!isAuthenticated) {
-            if (leaseSettings.client && leaseSettings.client.application_id) {
+            if (configuration.client && configuration.client.application_id) {
                 history.push('/login');
             } else {
                 history.push('/welcome');
@@ -45,15 +45,15 @@ export class App extends Component {
     }
 
     componentDidMount () {
-        const { fetchLeaseSettings } = this.props;
-        fetchLeaseSettings().then((leaseSettings) => {
-            const primaryColor = leaseSettings.primary_color;
-            const secondaryColor = leaseSettings.secondary_color;
+        const { fetchConfiguration } = this.props;
+        fetchConfiguration().then((configuration) => {
+            const primaryColor = configuration.primary_color;
+            const secondaryColor = configuration.secondary_color;
             this.setState({theme: createTheme(primaryColor, secondaryColor)});
 
             const isAuthenticated = auth.isAuthenticated();
 
-            this.mountNavigation(isAuthenticated, leaseSettings);
+            this.mountNavigation(isAuthenticated, configuration);
         })
     }
 
@@ -69,7 +69,7 @@ export class App extends Component {
         const routes = (
             <Switch>
                 <Route path="/welcome" component={WelcomePage}/>
-                <Page logo={this.props.leaseSettings.logo}>
+                <Page logo={this.props.configuration.logo}>
                     <Route path="/profile" component={ProfileContainer} />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/signup" component={SignupPage} />
@@ -91,17 +91,17 @@ export class App extends Component {
 
 App.propTypes = {
     profile: PropTypes.object,
-    leaseSettings: PropTypes.object,
+    configuration: PropTypes.object,
     fetchRenterProfile: PropTypes.func,
-    fetchLeaseSettings: PropTypes.func,
+    fetchConfiguration: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    leaseSettings: state.leaseSettings,
+    configuration: state.configuration,
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

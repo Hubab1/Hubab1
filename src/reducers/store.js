@@ -1,11 +1,11 @@
 import { configureStore } from 'redux-starter-kit';
 
 import renterProfile from 'reducers/renter-profile';
-import leaseSettings from 'reducers/configuration';
+import configuration from 'reducers/configuration';
 
 const reducer = {
     renterProfile,
-    leaseSettings,
+    configuration,
 };
 
 export default configureStore({

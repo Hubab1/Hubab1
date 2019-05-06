@@ -3,7 +3,7 @@ import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 
-API.fetchLeaseSettings = () => {
+API.fetchConfiguration = () => {
     return Promise.resolve({
         "name": "Cortland",
         "street": "2173 Highland Ave S",

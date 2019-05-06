@@ -18,7 +18,7 @@ import history from 'history.js';
 export class WelcomePage extends Component {
 
     render() {
-        const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.leaseSettings;
+        const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.configuration;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'
 
@@ -60,14 +60,14 @@ export class WelcomePage extends Component {
 }
 
 WelcomePage.propTypes = {
-    leaseSettings: PropTypes.object.isRequired,
+    configuration: PropTypes.object.isRequired,
     theme: PropTypes.shape({
         palette: PropTypes.object
     }).isRequired
 }
 
 const mapStateToProps = state => ({
-    leaseSettings: state.leaseSettings,
+    configuration: state.configuration,
 });
 
 const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);

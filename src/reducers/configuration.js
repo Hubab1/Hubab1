@@ -2,10 +2,10 @@ import { createSlice } from 'redux-starter-kit';
 import API from 'api.js';
 
 const configuration = createSlice({
-    slice: 'leaseSettings',
+    slice: 'configuration',
     initialState: null,
     reducers: {
-        leaseSettingsReceived(state, action) {
+        configurationReceived(state, action) {
             state = action.payload;
             return state;
         }
@@ -13,14 +13,14 @@ const configuration = createSlice({
 });
 
 const { actions, reducer } = configuration;
-export const { leaseSettingsReceived } = actions;
+export const { configurationReceived } = actions;
 export default reducer;
 
 
-export const fetchLeaseSettings = () => {
+export const fetchConfiguration = () => {
     return async dispatch => {
-        const leaseSettings = await API.fetchLeaseSettings();
-        dispatch(leaseSettingsReceived(leaseSettings));
-        return leaseSettings
+        const configuration = await API.fetchConfiguration();
+        dispatch(configurationReceived(configuration));
+        return configuration
     }
 };
