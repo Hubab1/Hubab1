@@ -1,6 +1,5 @@
-import 'assets/styles';
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch, Router } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -82,12 +81,19 @@ export class App extends Component {
             <MuiThemeProvider theme={theme}>
                 <div className="App">
                     <Router history={history}>
-                            {routes}
+                        {routes}
                     </Router>
                 </div>
             </MuiThemeProvider>
         );
     }
+}
+
+App.propTypes = {
+    profile: PropTypes.object,
+    leaseSettings: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    fetchLeaseSettings: PropTypes.func,
 }
 
 const mapStateToProps = state => ({

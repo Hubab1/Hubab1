@@ -22,10 +22,10 @@ beforeEach(() => {
         "primary_color": "#000000",
         "secondary_color": "#FFA500",
         "client": {
-        "first_name": "Chester",
-        "last_name": "Cheetah",
-        "email": "chester@cheetos.com",
-        "phone": "+11231231234",
+            "first_name": "Chester",
+            "last_name": "Cheetah",
+            "email": "chester@cheetos.com",
+            "phone": "+11231231234",
         },
         "unit_number": "3B",
         "monthly_rent": 5000,
@@ -35,9 +35,9 @@ beforeEach(() => {
     fetchRenterProfilePromise = Promise.resolve({});
 
     defaultProps = {
-    fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
-    fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
-    profile: null,
+        fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
+        fetchLeaseSettings: jest.fn().mockReturnValue(fetchLeaseSettingsPromise),
+        profile: null,
     }
 })
 

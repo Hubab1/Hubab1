@@ -1,6 +1,6 @@
 import {
     css
-  } from 'emotion';
+} from 'emotion';
 
 export const root = css`
   margin-bottom: 14px !important;

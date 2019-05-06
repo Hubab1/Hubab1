@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 
@@ -37,8 +38,7 @@ export class WelcomePage extends Component {
                         <P>Your new home awaits at</P>
                         {name && <H1>{name}</H1>}
                         {
-                            name ? <P label="street">{street}</P> :
-                            <H1>{street}</H1>
+                            name ? <P label="street">{street}</P> : <H1>{street}</H1>
                         }
                         {cityStateZip && <P>{cityStateZip}</P>}
                         {unit_number && <P>{`Unit ${unit_number}`}</P>}
@@ -57,6 +57,13 @@ export class WelcomePage extends Component {
 
         );
     }
+}
+
+WelcomePage.propTypes = {
+    leaseSettings: PropTypes.object.isRequired,
+    theme: PropTypes.shape({
+        palette: PropTypes.object
+    }).isRequired
 }
 
 const mapStateToProps = state => ({

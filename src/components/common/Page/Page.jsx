@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 
 import Logo from 'components/common/Logo';
@@ -21,6 +22,11 @@ export class Page extends React.Component {
             </div>
         );
     }
+}
+
+Page.propTypes = {
+    theme: PropTypes.object.isRequired,
+    logo: PropTypes.string
 }
 
 

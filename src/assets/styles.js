@@ -1,7 +1,7 @@
 import {
     css,
     injectGlobal
-  } from 'emotion';
+} from 'emotion';
 import styled from '@emotion/styled';
 
 
