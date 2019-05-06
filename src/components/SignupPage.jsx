@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -42,78 +43,83 @@ export class SignupPage extends React.Component {
                     })}
                     onSubmit={this.onSubmit}
                 >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    submitCount,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting
-                }) => (
-                    <form onSubmit={handleSubmit} autoComplete="off">
-                        <div className={formContent}>
-                            <FormTextInput
-                                label="First Name"
-                                name="first_name"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.first_name}
-                                touched={touched.first_name}
-                                value={values.first_name}
-                            />
-                            <FormTextInput
-                                label="Last Name"
-                                name="last_name"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.last_name}
-                                touched={touched.last_name}
-                                value={values.last_name}
-                            />
-                            <FormTextInput
-                                label="Email"
-                                name="email"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.email}
-                                touched={touched.email}
-                                value={values.email}
-                            />
-                            <FormTextInput
-                                label="Phone Number"
-                                name="phone_number"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.phone_number}
-                                touched={touched.phone_number}
-                                value={values.phone_number}
-                            />
-                            <FormTextInput
-                                label="Password"
-                                name="password"
-                                type="password"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.password}
-                                touched={touched.password}
-                                value={values.password}
-                            />
-                        <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
-                        </div>
-                        <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
-                    </form>
-                )}
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        submitCount,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting
+                    }) => (
+                        <form onSubmit={handleSubmit} autoComplete="off">
+                            <div className={formContent}>
+                                <FormTextInput
+                                    label="First Name"
+                                    name="first_name"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.first_name}
+                                    touched={touched.first_name}
+                                    value={values.first_name}
+                                />
+                                <FormTextInput
+                                    label="Last Name"
+                                    name="last_name"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.last_name}
+                                    touched={touched.last_name}
+                                    value={values.last_name}
+                                />
+                                <FormTextInput
+                                    label="Email"
+                                    name="email"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.email}
+                                    touched={touched.email}
+                                    value={values.email}
+                                />
+                                <FormTextInput
+                                    label="Phone Number"
+                                    name="phone_number"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.phone_number}
+                                    touched={touched.phone_number}
+                                    value={values.phone_number}
+                                />
+                                <FormTextInput
+                                    label="Password"
+                                    name="password"
+                                    type="password"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.password}
+                                    touched={touched.password}
+                                    value={values.password}
+                                />
+                                <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
+                            </div>
+                            <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
+                        </form>
+                    )}
                 </Formik>
             </Fragment>
         );
     }
+}
+
+SignupPage.propTypes = {
+    profile: PropTypes.object,
+    fetchRenterProfile: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({

@@ -1,6 +1,7 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+
 import { root, label, ButtonContainer } from './styles';
 
 export default class ActionButton extends React.Component {
@@ -22,4 +23,12 @@ export default class ActionButton extends React.Component {
             </ButtonContainer>
         );
     }
+}
+
+ActionButton.propTypes = {
+    color: PropTypes.string,
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool,
+    marginTop: PropTypes.string,
+    marginBottom: PropTypes.string
 }

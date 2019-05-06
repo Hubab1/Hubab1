@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MultiSelectContext from './context';
 
 export default class MultiSelect extends React.Component {
@@ -21,4 +22,8 @@ export default class MultiSelect extends React.Component {
             </MultiSelectContext.Provider>
         );
     }
+}
+
+MultiSelect.propTypes = {
+    value: PropTypes.array
 }

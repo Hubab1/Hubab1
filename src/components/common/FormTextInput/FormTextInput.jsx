@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
@@ -28,18 +29,28 @@ export default class FormTextInput extends React.Component {
                 onBlur={handleBlur}
                 value={value}
                 InputProps={type === 'password' && {
-                    endAdornment: <InputAdornment position="end">
-                        <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                        >
-                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                  </InputAdornment>
-                }}
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="Toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                            >
+                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    )}}
             />
         );
     }
+}
+
+FormTextInput.propTypes = {
+    type: PropTypes.oneOf(['text', 'password']),
+    error: PropTypes.string,
+    handleChange: PropTypes.func,
+    handleBlur: PropTypes.func,
+    name: PropTypes.string,
+    value: PropTypes.string,
 }
 
 FormTextInput.defaultProps = {

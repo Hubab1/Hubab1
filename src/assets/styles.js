@@ -1,6 +1,6 @@
 import {
     css
-  } from 'emotion';
+} from 'emotion';
 import styled from '@emotion/styled';
 
 export const Subtitle = styled.small`

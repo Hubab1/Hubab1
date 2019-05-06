@@ -5,9 +5,9 @@ import leaseSettings from 'reducers/lease-settings';
 import siteConfig from 'reducers/site-config';
 
 const reducer = {
-  renterProfile,
-  leaseSettings,
-  siteConfig
+    renterProfile,
+    leaseSettings,
+    siteConfig
 };
 
 export default configureStore({

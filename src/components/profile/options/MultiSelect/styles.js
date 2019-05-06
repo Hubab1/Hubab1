@@ -1,6 +1,6 @@
 import {
     css
-  } from 'emotion';
+} from 'emotion';
 
 export const contentContainer = css`
     display: flex;

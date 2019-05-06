@@ -22,46 +22,46 @@ export default class RentalProfileOptions extends React.Component {
                     }}
                     onSubmit={this.onSubmit}
                 >
-                {({
-                    values,
-                    setFieldValue
-                }) => (
-                    <Fragment>
-                        <H1>Let's talk about your new place</H1>
-                        <Subtitle>Select all that apply</Subtitle>
-                        <div style={{height: 12}}></div>
-                        <MultiSelect
-                            onChange={(value) => setFieldValue('options', value)}
-                            value={values.options}
-                        >
-                            <MultiSelectChoice
-                                prefix="👪"
-                                name="other_adults"
-                                label="Other adults will live here"
-                            />
-                            <MultiSelectChoice
-                                prefix="🐶"
-                                name="pets"
-                                label="Pets will live here"
-                            />
-                            <MultiSelectChoice
-                                prefix="💰"
-                                name="guarantor"
-                                label="I'll need a guarantor"
-                            />
-                            <MultiSelectChoice
-                                prefix="🚗"
-                                name="parking"
-                                label="I'd like a parking space"
-                            />
-                            <MultiSelectChoice
-                                prefix="🛍️"
-                                name="storage"
-                                label="I'll need extra storage"
-                            />
-                        </MultiSelect>
-                    </Fragment>
-                )}</Formik>
+                    {({
+                        values,
+                        setFieldValue
+                    }) => (
+                        <Fragment>
+                            <H1>Let's talk about your new place</H1>
+                            <Subtitle>Select all that apply</Subtitle>
+                            <div style={{height: 12}}></div>
+                            <MultiSelect
+                                onChange={(value) => setFieldValue('options', value)}
+                                value={values.options}
+                            >
+                                <MultiSelectChoice
+                                    prefix="👪"
+                                    name="other_adults"
+                                    label="Other adults will live here"
+                                />
+                                <MultiSelectChoice
+                                    prefix="🐶"
+                                    name="pets"
+                                    label="Pets will live here"
+                                />
+                                <MultiSelectChoice
+                                    prefix="💰"
+                                    name="guarantor"
+                                    label="I'll need a guarantor"
+                                />
+                                <MultiSelectChoice
+                                    prefix="🚗"
+                                    name="parking"
+                                    label="I'd like a parking space"
+                                />
+                                <MultiSelectChoice
+                                    prefix="🛍️"
+                                    name="storage"
+                                    label="I'll need extra storage"
+                                />
+                            </MultiSelect>
+                        </Fragment>
+                    )}</Formik>
                 <ActionButton onClick={this.onClick}>Continue</ActionButton>
             </div>
         );
