@@ -3,7 +3,6 @@ import { createSlice } from 'redux-starter-kit';
 const siteConfig = createSlice({
     slice: 'renterProfile',
     initialState: {
-        // basename equivalent to communityId
         basename: '',
         theme: null
     },
@@ -11,14 +10,10 @@ const siteConfig = createSlice({
         basenameReceived(state, action) {
             state.basename = action.payload;
             return state;
-        },
-        themeReceived(state, action) {
-            state.theme = action.payload;
-            return state;
         }
     }
 });
 
 const { actions, reducer } = siteConfig;
-export const { basenameReceived, themeReceived } = actions;
+export const { basenameReceived } = actions;
 export default reducer;

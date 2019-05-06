@@ -55,7 +55,7 @@ export class Main extends Component {
         try {
             leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
         } catch {
-            // todo: handle community id not found.
+            // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
         const primaryColor = leaseSettings.primary_color;
