@@ -1,7 +1,7 @@
 import { createSlice } from 'redux-starter-kit';
 import API from 'api.js';
 
-const leaseSettings = createSlice({
+const configuration = createSlice({
     slice: 'leaseSettings',
     initialState: null,
     reducers: {
@@ -12,7 +12,7 @@ const leaseSettings = createSlice({
     }
 });
 
-const { actions, reducer } = leaseSettings;
+const { actions, reducer } = configuration;
 export const { leaseSettingsReceived } = actions;
 export default reducer;
 

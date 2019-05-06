@@ -1,7 +1,7 @@
 import { configureStore } from 'redux-starter-kit';
 
 import renterProfile from 'reducers/renter-profile';
-import leaseSettings from 'reducers/lease-settings';
+import leaseSettings from 'reducers/configuration';
 
 const reducer = {
     renterProfile,

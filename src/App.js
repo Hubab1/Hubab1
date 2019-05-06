@@ -15,7 +15,7 @@ import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { initializePage } from 'utils/initializePage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { fetchLeaseSettings } from 'reducers/lease-settings';
+import { fetchLeaseSettings } from 'reducers/configuration';
 
 
 
