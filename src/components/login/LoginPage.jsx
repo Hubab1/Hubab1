@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { initializePage } from 'utils/initializePage';
+import { ROUTES } from 'constants.js';
 
 
 import auth from 'utils/auth';
@@ -18,11 +19,9 @@ export class LoginPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token);
+            auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile().then(
-                initializePage(this.props.profile)
-            );
+            this.props.fetchRenterProfile();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -51,8 +50,7 @@ export class LoginPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting,
-                        /* and other goodies */
+                        isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
@@ -85,8 +83,7 @@ export class LoginPage extends React.Component {
                                 {/* eslint-disable-next-line */}
                                 <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
                                 <br/>
-                                {/* eslint-disable-next-line */}
-                                <P className="already-have-account">Need an account? <a href="#">Click here</a></P>
+                                <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>
                             </div>
                         </form>
                     )}
@@ -103,6 +100,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    communityId: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

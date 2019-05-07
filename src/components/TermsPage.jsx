@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, TextReader, Bold } from 'assets/styles';
-import { nextRoute, previousRoute } from 'utils/routeNavigation';
+import { ROUTES } from 'constants.js';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -16,16 +16,13 @@ export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
-        const path = history.location.pathname;
-        const nextPage = nextRoute(path);
-        history.push(nextPage);
+        history.push(ROUTES.PROFILE_OPTIONS);
     }
 
     handleClickBack = () => {
         const { history } = this.props;
-        const path = history.location.pathname;
-        const previousPage = previousRoute(path);
-        history.push(previousPage);
+        // maybe clear session here too? Or maybe it doesn't make sense to go back from this page?
+        history.push(ROUTES.SIGNUP);
     }
 
     render () {

@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-
 import { fetchRenterProfile } from 'reducers/renter-profile';
+import { ROUTES } from 'constants.js';
 import auth from 'utils/auth';
-import { initializePage } from 'utils/initializePage';
 
 export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.register(values).then((res) => {
-            auth.setSession(res.token);
+            auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile().then(
-                initializePage(this.props.profile)
-            );
+            this.props.fetchRenterProfile();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -53,8 +51,7 @@ export class SignupPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting,
-                        /* and other goodies */
+                        isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
@@ -111,8 +108,7 @@ export class SignupPage extends React.Component {
                                 />
                                 <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                             </div>
-                            {/* eslint-disable-next-line */}
-                            <P className="already-have-account">Already have an account? <a href="#">Sign in here</a></P>
+                            <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
                         </form>
                     )}
                 </Formik>
@@ -128,6 +124,7 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    communityId: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

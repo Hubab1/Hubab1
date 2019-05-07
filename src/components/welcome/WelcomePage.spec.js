@@ -9,6 +9,11 @@ import { WelcomeTextContainer } from './styles';
 let defaultProps, context;
 beforeEach(() => {
     defaultProps = {
+        match: {
+            params: {
+                communityId: 123
+            }
+        },
         leaseSettings: {
             "name": "Cortland",
             "street": "2173 Highland Ave S",

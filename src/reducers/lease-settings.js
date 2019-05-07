@@ -17,9 +17,9 @@ export const { leaseSettingsReceived } = actions;
 export default reducer;
 
 
-export const fetchLeaseSettings = () => {
+export const fetchLeaseSettings = (communityId, hash) => {
     return async dispatch => {
-        const leaseSettings = await API.fetchLeaseSettings();
+        const leaseSettings = await API.fetchLeaseSettings(communityId, hash);
         dispatch(leaseSettingsReceived(leaseSettings));
         return leaseSettings
     }
