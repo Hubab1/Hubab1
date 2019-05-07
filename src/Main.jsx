@@ -47,13 +47,13 @@ export class Main extends Component {
     }
 
     async componentDidMount () {
-        const basename = this.props.basename;
-        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(basename);
+        const communityId = this.props.communityId;
+        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
 
         let params = queryString.parse(this.props.location.search);
         let leaseSettings;
         try {
-            leaseSettings = await this.props.fetchLeaseSettings(basename, params.v);
+            leaseSettings = await this.props.fetchLeaseSettings(communityId, params.v);
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
@@ -100,7 +100,7 @@ export class Main extends Component {
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     leaseSettings: state.leaseSettings,
-    basename: state.siteConfig.basename
+    communityId: state.siteConfig.basename
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};

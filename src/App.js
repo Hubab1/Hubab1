@@ -8,12 +8,8 @@ import { basenameReceived } from 'reducers/site-config';
 
 export class App extends Component {
     componentDidMount () {
-        let basename;
-        if (window.location.pathname === '/') {
-            basename = window.location.pathname;
-        } else {
-            basename = window.location.pathname.split('/').filter(token => !!token)[0];
-        }
+        const basename = window.location.pathname.split('/')[1];
+        console.log(basename)
         this.props.basenameReceived(basename);
 
     }
@@ -30,4 +26,6 @@ export class App extends Component {
     }
 }
 
-export default connect(state => ({basename: state.siteConfig.basename}),{basenameReceived})(App);
+const mapStateToProps = state => ({basename: state.siteConfig.basename});
+const mapDispatchToProps = {basenameReceived};
+export default connect(mapStateToProps,mapDispatchToProps)(App);

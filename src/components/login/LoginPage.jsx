@@ -19,7 +19,7 @@ export class LoginPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token, this.props.basename);
+            auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile();
         }).catch((res) => {
@@ -100,7 +100,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    basename: state.siteConfig.basename
+    communityId: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

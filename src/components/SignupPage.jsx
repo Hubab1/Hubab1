@@ -16,7 +16,7 @@ export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return auth.register(values).then((res) => {
-            auth.setSession(res.token, this.props.basename);
+            auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile();
         }).catch((res) => {
@@ -124,7 +124,7 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    basename: state.siteConfig.basename
+    communityId: state.siteConfig.basename
 });
 
 const mapDispatchToProps = { fetchRenterProfile };
