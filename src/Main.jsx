@@ -81,7 +81,7 @@ export class Main extends Component {
         if (!theme) return null;
         return (
             <AppContextProvider theme={theme}>
-                <div className="App">
+                <div>
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page>
