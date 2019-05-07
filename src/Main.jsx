@@ -84,7 +84,7 @@ export class Main extends Component {
                 <div className="App">
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>
-                        <Page logo={this.props.leaseSettings.logo}>
+                        <Page>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />

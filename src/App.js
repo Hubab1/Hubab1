@@ -9,7 +9,6 @@ import { basenameReceived } from 'reducers/site-config';
 export class App extends Component {
     componentDidMount () {
         const basename = window.location.pathname.split('/')[1];
-        console.log(basename)
         this.props.basenameReceived(basename);
 
     }
