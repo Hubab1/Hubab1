@@ -9,7 +9,7 @@ import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 
 export class SignupPage extends React.Component {

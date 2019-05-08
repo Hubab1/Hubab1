@@ -15,7 +15,7 @@ import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {

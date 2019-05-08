@@ -1,4 +1,4 @@
-import { ALL_ROUTES, ROUTES } from 'constants.js';
+import { ALL_ROUTES, ROUTES } from 'app/constants';
 
 export const nextRoute = (path) => {
     const lastRoute = ALL_ROUTES[ALL_ROUTES.length-1]

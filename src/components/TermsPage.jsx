@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, TextReader, Bold, GoBack } from 'assets/styles';
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

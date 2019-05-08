@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 import RenterProfileOptions from 'components/profile/options/RenterProfileOptions';
 
 
