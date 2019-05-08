@@ -52,7 +52,7 @@ export class TermsPage extends React.Component {
                 <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
                     I Agree to the Terms & Conditions
                 </ActionButton>
-                <P onClick={this.handleClickBack}>Go Back</P>
+                <P style={{cursor: 'pointer'}} onClick={this.handleClickBack}>Go Back</P>
             </Fragment>
         );
     }

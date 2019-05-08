@@ -37,8 +37,12 @@ export class LoginPage extends React.Component {
 
                 <Formik
                     validationSchema={Yup.object().shape({
-                        email: Yup.string().required('Email is required'),
-                        password: Yup.string().required('Password is required'),
+                        email: Yup.string()
+                            .email('Must be a valid Email')
+                            .required('Email is required'),
+                        password: Yup.string()
+                            .min(6, 'Password must be at least 6 characters')
+                            .required('Password is required')
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -56,7 +60,7 @@ export class LoginPage extends React.Component {
                             <div className={formContent}>
                                 <div>
                                     <FormTextInput
-                                        label="Email or phone number"
+                                        label="Email"
                                         name="email"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
