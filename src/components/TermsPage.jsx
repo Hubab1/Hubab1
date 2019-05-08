@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, P, TextReader, Bold } from 'assets/styles';
+import { H1, TextReader, Bold, GoBack } from 'assets/styles';
 import { ROUTES } from 'constants.js';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -52,7 +52,7 @@ export class TermsPage extends React.Component {
                 <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
                     I Agree to the Terms & Conditions
                 </ActionButton>
-                <P style={{cursor: 'pointer'}} onClick={this.handleClickBack}>Go Back</P>
+                <GoBack onClick={this.handleClickBack}>Go Back</GoBack>
             </Fragment>
         );
     }

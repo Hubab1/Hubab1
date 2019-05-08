@@ -55,6 +55,10 @@ export const P = styled.p`
     margin: 0;
 `
 
+export const GoBack = styled(P)`
+    cursor: pointer;
+`
+
 export const CenterAlign = styled.div`
     text-align: center;
     margin-top: 200px;
