@@ -9,7 +9,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 
 
 import auth from 'utils/auth';

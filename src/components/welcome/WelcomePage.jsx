@@ -13,7 +13,7 @@ import {
     WelcomeFooterContainer, HomeImageContainer
 } from './styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES } from 'constants.js';
+import { ROUTES } from 'app/constants';
 
 
 export class WelcomePage extends Component {
