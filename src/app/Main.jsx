@@ -7,6 +7,7 @@ import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
+import ForgotPassword from 'components/login/ForgotPassword';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import Page from 'components/common/Page/Page';
@@ -31,8 +32,9 @@ export class Main extends Component {
 
     mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
+        const pathname = location.pathname;
         if (!isAuthenticated) {
-            if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
+            if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password')) return;
             if (!configuration.client) {
                 history.replace(ROUTES.WELCOME);
             }
@@ -85,6 +87,7 @@ export class Main extends Component {
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page>
+                            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
