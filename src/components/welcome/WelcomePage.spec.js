@@ -6,15 +6,10 @@ import logoImage from 'assets/images/cortland_logo.png';
 import { WelcomePage } from './WelcomePage';
 import { WelcomeTextContainer } from './styles';
 
-let defaultProps, context;
+let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        match: {
-            params: {
-                communityId: 123
-            }
-        },
-        leaseSettings: {
+        configuration: {
             "name": "Cortland",
             "street": "2173 Highland Ave S",
             "city": "Birmingham",
@@ -44,14 +39,14 @@ beforeEach(() => {
     };
 })
 
-it('renders Hello <client name> when client is included in leaseSettings', function(){
+it('renders Hello <client name> when client is included in configuration', function(){
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
     expect(wrapper.text().includes('Hello Chester,')).toBeTruthy();
 });
 
-it('renders Hi There, when client is included in leaseSettings', function(){
-    delete defaultProps.leaseSettings.client;
+it('renders Hi There, when client is included in configuration', function(){
+    delete defaultProps.configuration.client;
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
     expect(wrapper.text().includes('Hi There,')).toBeTruthy();
@@ -67,8 +62,8 @@ it('renders correct info when all client and unit info are passed', () => {
 });
 
 it('renders correct info when all client and unit info is omitted', () => {
-    delete defaultProps.leaseSettings.unit_number;
-    delete defaultProps.leaseSettings.layout;
+    delete defaultProps.configuration.unit_number;
+    delete defaultProps.configuration.layout;
 
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 

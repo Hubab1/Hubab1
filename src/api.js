@@ -3,7 +3,7 @@ import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 
-API.fetchLeaseSettings = (communityId, hash) => {
+API.fetchConfiguration = (communityId, hash) => {
     // example response if community id not valid
     const invalidCommunitites = new Set(['23', '44', '25']);
     if (invalidCommunitites.has(communityId)) return Promise.reject({error: 'invalid community'});

@@ -13,7 +13,7 @@ import Page from 'components/common/Page/Page';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { fetchLeaseSettings } from 'reducers/lease-settings';
+import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'constants.js';
 
@@ -29,14 +29,14 @@ async function sessionIsValidForCommunityId (communityId) {
 export class Main extends Component {
     state = {theme: null, error: null}
 
-    mountNavigation(isAuthenticated, leaseSettings) {
+    mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
         if (!isAuthenticated) {
             if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
-            if (!leaseSettings.client) {
+            if (!configuration.client) {
                 history.replace(ROUTES.WELCOME);
             }
-            else if (leaseSettings.client && leaseSettings.client.application_id) {
+            else if (configuration.client && configuration.client.application_id) {
                 history.replace(ROUTES.LOGIN);
             } else {
                 history.replace(ROUTES.WELCOME);
@@ -51,19 +51,19 @@ export class Main extends Component {
         const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
 
         let params = queryString.parse(this.props.location.search);
-        let leaseSettings;
+        let configuration;
         try {
-            leaseSettings = await this.props.fetchLeaseSettings(communityId, params.v);
+            configuration = await this.props.fetchConfiguration(communityId, params.v);
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
-        const primaryColor = leaseSettings.primary_color;
-        const secondaryColor = leaseSettings.secondary_color;
+        const primaryColor = configuration.primary_color;
+        const secondaryColor = configuration.secondary_color;
         // todo: store in redux
         this.setState({theme: createTheme(primaryColor, secondaryColor)});
 
-        this.mountNavigation(isLoggedIn, leaseSettings);
+        this.mountNavigation(isLoggedIn, configuration);
     }
 
     componentDidUpdate (prevProps) {
@@ -99,11 +99,11 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    leaseSettings: state.leaseSettings,
+    configuration: state.configuration,
     communityId: state.siteConfig.basename
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchLeaseSettings};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -31,7 +31,7 @@ Page.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    logo: state.leaseSettings.logo
+    logo: state.configuration.logo
 });
 
 
