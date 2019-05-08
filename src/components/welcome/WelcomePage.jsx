@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import funnelImage from '../../assets/images/PoweredByFunnel.png';
 import homeImage from '../../assets/images/home-image.png';
@@ -12,11 +13,17 @@ import {
     WelcomeFooterContainer, HomeImageContainer
 } from './styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import history from 'history.js';
+import { ROUTES } from 'constants.js';
 
 
 export class WelcomePage extends Component {
 
+    getNextLinkUrl () {
+        const hasClient = !!this.props.configuration.client;
+        const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
+        return url;
+    }
+    
     render() {
         const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.configuration;
         const cityStateZip = `${city}, ${state} ${postal_code}`
@@ -44,12 +51,13 @@ export class WelcomePage extends Component {
                         {unit_number && <P>{`Unit ${unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <ActionButton
-                            onClick={() => history.push('/login')}
-                            color="secondary"
-                        >
-                            Start Application
-                        </ActionButton>
+                        <Link to={this.getNextLinkUrl()}>
+                            <ActionButton
+                                color="secondary"
+                            >
+                                Start Application
+                            </ActionButton>
+                        </Link>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>
                 </WelcomeFlexContainer>

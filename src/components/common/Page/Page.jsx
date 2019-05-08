@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 import Logo from 'components/common/Logo';
 import { Banner, page, subPage } from './styles';
@@ -29,5 +30,9 @@ Page.propTypes = {
     logo: PropTypes.string
 }
 
+const mapStateToProps = state => ({
+    logo: state.configuration.logo
+});
 
-export default withTheme()(Page);
+
+export default connect(mapStateToProps, null)(withTheme()(Page));

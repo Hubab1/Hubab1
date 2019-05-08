@@ -3,8 +3,12 @@ import logoImage from 'assets/images/cortland_logo.png';
 
 const API = {};
 
-API.fetchConfiguration = () => {
-    return Promise.resolve({
+API.fetchConfiguration = (communityId, hash) => {
+    // example response if community id not valid
+    const invalidCommunitites = new Set(['23', '44', '25']);
+    if (invalidCommunitites.has(communityId)) return Promise.reject({error: 'invalid community'});
+
+    const payload = {
         "name": "Cortland",
         "street": "2173 Highland Ave S",
         "city": "Birmingham",
@@ -16,15 +20,19 @@ API.fetchConfiguration = () => {
         "background_image": backgroundImage,
         "primary_color": "rgba(40,97,101,1)",
         "secondary_color": "#FFFFFF",
-        "client": {
+        "unit_number": "3B",
+        "monthly_rent": 5000,
+    };
+    if (hash) {
+        payload.client = {
             "first_name": "Chester",
             "last_name": "Cheetah",
             "email": "chester@cheetos.com",
             "phone": "+11231231234",
-        },
-        "unit_number": "3B",
-        "monthly_rent": 5000,
-    });
+        };
+    }
+    
+    return Promise.resolve(payload);
 }
 
 API.fetchRenterProfile = () => {

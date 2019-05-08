@@ -1,16 +1,7 @@
 import {
-    css,
-    injectGlobal
+    css
 } from 'emotion';
 import styled from '@emotion/styled';
-
-
-injectGlobal`
-  html,body{
-    margin: auto;
-    font-family: proxima-nova, sans-serif;
-  }
-`;
 
 export const Subtitle = styled.small`
     color: #818797;
@@ -63,3 +54,13 @@ export const P = styled.p`
     font-size: 16px;
     margin: 0;
 `
+
+export const CenterAlign = styled.div`
+    text-align: center;
+    margin-top: 200px;
+`
+
+export const BigText = styled.div`
+    font-size: 50px;
+    font-weight: bold;
+` 

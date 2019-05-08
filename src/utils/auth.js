@@ -9,10 +9,19 @@ class Auth {
         return Promise.resolve({token: 'abcdefgh'});
     }
 
-    setSession = (authToken) => {
+    getToken = () => {
+        return localStorage.getItem('access_token');
+    }
+
+    accessScope = () => {
+        return localStorage.getItem('access_scope');
+    }
+
+    setSession = (authToken, scope) => {
         const nowPlus30Days = new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).getTime();
         localStorage.setItem('expires_at', nowPlus30Days);
         localStorage.setItem('access_token', authToken);
+        localStorage.setItem('access_scope', scope);
     }
 
     logout = () => {
