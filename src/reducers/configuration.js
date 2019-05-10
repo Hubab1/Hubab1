@@ -27,7 +27,6 @@ export const fetchConfiguration = (communityId, hash) => {
             personalizedInfo = await API.fetchPersonalizedInfo(communityId, hash);
         }
         configuration = Object.assign({}, configuration, personalizedInfo);
-        console.log(configuration)
         dispatch(configurationReceived(configuration));
         return configuration
     }
