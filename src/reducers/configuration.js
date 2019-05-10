@@ -17,9 +17,17 @@ export const { configurationReceived } = actions;
 export default reducer;
 
 
-export const fetchConfiguration = () => {
+// if you create LeaseSettings with community id 37 (excelsior), this hash will add a client and unit 'za7jDFkEML'
+
+export const fetchConfiguration = (communityId, hash) => {
     return async dispatch => {
-        const configuration = await API.fetchConfiguration();
+        let configuration = await API.fetchConfiguration(communityId, hash);
+        let personalizedInfo = {};
+        if (hash) {
+            personalizedInfo = await API.fetchPersonalizedInfo(communityId, hash);
+        }
+        configuration = Object.assign({}, configuration, personalizedInfo);
+        console.log(configuration)
         dispatch(configurationReceived(configuration));
         return configuration
     }
