@@ -1,45 +1,44 @@
 {
-  "name": "woodhouse",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/core": "^10.0.10",
-    "@emotion/styled": "^10.0.10",
-    "@material-ui/core": "^3.9.3",
-    "@material-ui/icons": "^3.0.2",
-    "emotion": "^10.0.9",
-    "formik": "^1.5.2",
-    "node-sass": "^4.11.0",
-    "prop-types": "^15.7.2",
-    "query-string": "^6.5.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-input-mask": "^2.0.4",
-    "react-redux": "^7.0.2",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
-    "redux-starter-kit": "^0.4.3",
-    "yup": "^0.27.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.jsx src/**/*.js",
-    "lint:fix": "eslint src/**/*.jsx src/**/*.js --fix"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1"
-  }
+    "name": "woodhouse",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@emotion/core": "^10.0.10",
+        "@emotion/styled": "^10.0.10",
+        "@material-ui/core": "^3.9.3",
+        "@material-ui/icons": "^3.0.2",
+        "emotion": "^10.0.9",
+        "formik": "^1.5.2",
+        "node-sass": "^4.11.0",
+        "prop-types": "^15.7.2",
+        "query-string": "^6.5.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-redux": "^7.0.2",
+        "react-router-dom": "^5.0.0",
+        "react-scripts": "2.1.8",
+        "redux-starter-kit": "^0.4.3",
+        "yup": "^0.27.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "lint": "eslint src/**/*.jsx src/**/*.js",
+        "lint:fix": "eslint src/**/*.jsx src/**/*.js --fix"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "devDependencies": {
+        "enzyme": "^3.9.0",
+        "enzyme-adapter-react-16": "^1.12.1"
+    }
 }

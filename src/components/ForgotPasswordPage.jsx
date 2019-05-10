@@ -3,26 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import history from 'app/history';
-import InputMask from 'react-input-mask';
+import { Link } from 'react-router-dom';
 
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { formContent, H1, H3, GoBack } from 'assets/styles';
+import { formContent, H1, H3, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 
-
 export class ForgotPasswordPage extends React.Component {
-    state = {phone: null}
-
-    handleChange = (values) => {
-        this.setState({phone: values.phone})
-    }
-
     onSubmit = (values, { setSubmitting }) => {
-        console.log(values); 
+        console.log(values);
     }
 
     render () {
@@ -38,7 +30,9 @@ export class ForgotPasswordPage extends React.Component {
                 <Formik
                     validationSchema={Yup.object().shape({
                         phone_number: Yup.string()
-                            .length(10, 'Must be 10 digits')
+                            .required('Phone Number is required')
+                            .matches(/^[0-9]*$/, 'Phone Number must be only numbers')
+                            .length(10, 'Phone Number must be 10 digits')
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -55,32 +49,21 @@ export class ForgotPasswordPage extends React.Component {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
                                 <div>
-                                    <InputMask 
-                                        mask="(999) 999-9999" 
-                                        value={values.phone}
-                                        onChange={() => this.handleChange(values.phone)}
-                                    >
-                                        {() =>
-                                            <FormTextInput
-                                                label="Phone Number"
-                                                name="phone"
-                                                ref="phone"
-                                                submitted={submitCount > 0}
-                                                handleChange={handleChange}
-                                                handleBlur={handleBlur}
-                                                error={errors.phone}
-                                                touched={touched.phone}
-                                                value={values.phone}
-                                            /> 
-                                        }
-                                    </InputMask>
+                                    <FormTextInput
+                                        label="Phone Number"
+                                        name="phone_number"
+                                        submitted={submitCount > 0}
+                                        handleChange={handleChange}
+                                        handleBlur={handleBlur}
+                                        error={errors.phone_number}
+                                        touched={touched.phone_number}
+                                        value={values.phone_number}
+                                    />
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="30px" marginBottom="10px">
+                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">
                                     Send Text
                                 </ActionButton>
-                                {/* eslint-disable-next-line */}
-                                <br/>
-                                <GoBack onClick={() => history.push(ROUTES.LOGIN)}>Go Back</GoBack>
+                                <P><Link to={ROUTES.LOGIN}>Go Back</Link></P>
                             </div>
                         </form>
                     )}
