@@ -9,6 +9,7 @@ import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
+import ForgotPasswordPage from 'components/ForgotPasswordPage';
 import Page from 'components/common/Page/Page';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
@@ -89,6 +90,7 @@ export class Main extends Component {
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
                             <Route path={ROUTES.TOS} component={TermsPage}/>
+                            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
                         </Page>
                     </Switch>
                 </div>
