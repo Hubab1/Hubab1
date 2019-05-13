@@ -15,6 +15,7 @@ import { ROUTES } from 'app/constants';
 export class ForgotPasswordPage extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         // const cleanedPhoneNumber = values.phone.replace(/\D/g,'')
+        this.props.history.push(ROUTES.RESET_PASSWORD);
         setSubmitting(false);
     }
 

@@ -5,7 +5,7 @@ export const community = {
 export const ROUTES = {
     COMMUNITY: '/',
     PROFILE_OPTIONS: '/profile/options',
-    FORGOT_PASSWORD: '/password/reset',
+    RESET_PASSWORD: '/password/reset',
     PROFILE: '/profile',
     WELCOME: '/welcome',
     LOGIN: '/login',

@@ -7,7 +7,6 @@ import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
-import ForgotPassword from 'components/login/ForgotPassword';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ForgotPasswordPage from 'components/ForgotPasswordPage';
@@ -18,6 +17,7 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'app/constants';
+import ResetPassword from 'components/login/ResetPassword';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -88,7 +88,7 @@ export class Main extends Component {
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page>
-                            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+                            <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
