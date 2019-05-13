@@ -28,9 +28,21 @@ CORS_ORIGIN_WHITELIST = (
 )
 `
 
-### Create LeaseSettings in Chuck
+### Use Existing LeaseSettings or Create One in Chuck
+ 
+ The LeaseSettings object in Chuck maps to the configuration on the frontend App. For development purposes you can use the following LeaseSettings object:
 
-Create or identify a LeaseSettings object here: http://localhost:8000/admin/onlineleasing/leasesettings/
+    LeaseSettings with selected attributes
+    id: 1,
+    community: The Excelsior (id:37),
+    background: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_background/b10195d50ab77145bdf59e0b54b2fe5d.png',
+    logo: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_logos/c9bed1d02d3b3b0a0f1c19a3ec4b8e9c.png',
+    primary_color: '286165',
+    secondary_color: 'FFFFFF'
+
+    Personalized Hash: za7jDFkEML
+
+You can also create or identify a LeaseSettings object in admin: http://localhost:8000/admin/onlineleasing/leasesettings/
 
 If you'd like to make a personalized link with associated client and/or unit data, you can create a hash in the shell with [PersonalizedHash](https://github.com/Nestio/chuck/blob/d6eadddac786af3a0af4acdaf017f1c5fc64a954/chuck/onlineleasing/utils.py#L6)
 

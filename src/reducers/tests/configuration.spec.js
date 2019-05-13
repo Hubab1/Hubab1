@@ -9,7 +9,7 @@ const mockStore = configureStore(middlewares);
 
 
 describe('fetchConfiguration', () => {
-    it('should only call fetchConfiguration if no no hash is provided', () =>{
+    it('should only call fetchConfiguration if only communityId is provided', () =>{
 
         const store = mockStore({configuration: null});
         const configData = {community: 'coolsville'};
@@ -29,7 +29,7 @@ describe('fetchConfiguration', () => {
         })
     })
 
-    it('should only call fetchConfiguration if no no hash is provided', () =>{
+    it('should call fetchConfiguration and fetchPersonalizedInfo if communityId and hash are provided', () =>{
 
         const store = mockStore({configuration: null});
         const configData = {community: 'coolsville'};
