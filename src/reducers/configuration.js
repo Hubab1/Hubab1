@@ -21,7 +21,7 @@ export default reducer;
 
 export const fetchConfiguration = (communityId, hash) => {
     return async dispatch => {
-        let configuration = await API.fetchConfiguration(communityId, hash);
+        let configuration = await API.fetchConfiguration(communityId);
         let personalizedInfo = {};
         if (hash) {
             personalizedInfo = await API.fetchPersonalizedInfo(communityId, hash);
