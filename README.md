@@ -65,4 +65,4 @@ format: `localhost:3000/{your-lease-settings-id}/v={your-optional-personalized-h
 
 without hash: `localhost:3000/1`
 
-with hash: `localhost:3000/1/v=za7jDFkEML`
+with hash: `localhost:3000/1/?v=za7jDFkEML`
