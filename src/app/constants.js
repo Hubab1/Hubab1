@@ -9,7 +9,8 @@ export const ROUTES = {
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
-    TOS: '/terms'
+    TOS: '/terms',
+    FORGOT_PASSWORD: '/forgot-password',
 }
 
 export const ALL_ROUTES = [
