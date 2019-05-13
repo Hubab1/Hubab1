@@ -85,7 +85,7 @@ export class LoginPage extends React.Component {
                                     Sign In
                                 </ActionButton>
                                 {/* eslint-disable-next-line */}
-                                <P className="already-have-account">Forgot your password? <a href="#">Click here</a></P>
+                                <P className="already-have-account">Forgot your password? <Link to={ROUTES.FORGOT_PASSWORD}>Click here</Link></P>
                                 <br/>
                                 <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>
                             </div>
