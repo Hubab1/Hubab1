@@ -31,6 +31,12 @@ Make sure the following is added to `settings_local.py` in Chuck to avoid cors i
 ### Create LeaseSettings in Chuck
 
 Create or identify a LeaseSettings object here: http://localhost:8000/admin/onlineleasing/leasesettings/
+Feel free to use the following images / colors if creating a LeaseSettings object:
+    
+    background: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_background/b10195d50ab77145bdf59e0b54b2fe5d.png',
+    logo: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_logos/c9bed1d02d3b3b0a0f1c19a3ec4b8e9c.png',
+    primary_color: '286165',
+    secondary_color: 'FFFFFF'
 
 If you'd like to make a personalized link with associated client and/or unit data, you can create a hash in the shell with [PersonalizedHash](https://github.com/Nestio/chuck/blob/d6eadddac786af3a0af4acdaf017f1c5fc64a954/chuck/onlineleasing/utils.py#L6)
 
