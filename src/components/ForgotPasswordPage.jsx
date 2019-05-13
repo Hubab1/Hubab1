@@ -64,6 +64,7 @@ export class ForgotPasswordPage extends React.Component {
                                                 {...inputProps}
                                                 error={submitCount > 0 && !!errors.phone}
                                                 helperText={touched && errors.phone}
+                                                fullWidth
                                             /> 
                                         }
                                     </InputMask>
