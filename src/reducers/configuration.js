@@ -16,10 +16,17 @@ const { actions, reducer } = configuration;
 export const { configurationReceived } = actions;
 export default reducer;
 
-
-export const fetchConfiguration = () => {
+export const fetchConfiguration = (communityId, hash) => {
     return async dispatch => {
-        const configuration = await API.fetchConfiguration();
+        let configuration = {};
+        if (hash) {
+            const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)])
+            configuration = data.reduce((config, item) => {
+                return Object.assign(config, item)
+            }, {});
+        } else {
+            configuration = await API.fetchConfiguration(communityId);
+        }
         dispatch(configurationReceived(configuration));
         return configuration
     }

@@ -59,8 +59,8 @@ export class Main extends Component {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
-        const primaryColor = configuration.primary_color;
-        const secondaryColor = configuration.secondary_color;
+        const primaryColor = `#${configuration.primary_color}`;
+        const secondaryColor = `#${configuration.secondary_color}`;
         // todo: store in redux
         this.setState({theme: createTheme(primaryColor, secondaryColor)});
 

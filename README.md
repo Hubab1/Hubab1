@@ -4,76 +4,65 @@
 
 online leasing front end
 
-## Setup
+## Development Setup
+
+
+### Run Chuck
+
+Run Chuck locally on port 8000 (default)
+
+Chuck handles all API functionality. Online Leasing endpoint specs can be found here:
+https://nestiolistings.com/api/onlineleasing/api-doc/#/
+
+### Chuck Config (settings_local.py)
+
+Make sure the following is added to `settings_local.py` in Chuck to avoid cors issues
+
+    ALLOWED_HOSTS = '*'
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_URLS_REGEX = r'^.*$'
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8080',
+        'https://vars.hotjar.com',
+    )
+
+
+### Use Existing LeaseSettings or Create One in Chuck
+ 
+ The LeaseSettings object in Chuck maps to the configuration on the frontend App. For development purposes you can use the following LeaseSettings object:
+
+    LeaseSettings with selected attributes
+    id: 1,
+    community: The Excelsior (id:37),
+    background: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_background/b10195d50ab77145bdf59e0b54b2fe5d.png',
+    logo: 'https://nestiolistings-assets-dev.s3.amazonaws.com/onlineleasing_logos/c9bed1d02d3b3b0a0f1c19a3ec4b8e9c.png',
+    primary_color: '286165',
+    secondary_color: 'FFFFFF'
+
+    Personalized Hash: za7jDFkEML
+
+You can also create or identify a LeaseSettings object in admin: http://localhost:8000/admin/onlineleasing/leasesettings/
+
+If you'd like to make a personalized link with associated client and/or unit data, you can create a hash in the shell with [PersonalizedHash](https://github.com/Nestio/chuck/blob/d6eadddac786af3a0af4acdaf017f1c5fc64a954/chuck/onlineleasing/utils.py#L6)
+
+
+### Run Woodhouse
 
 Install dependencies
 
     $ npm install
 
+Start development server 
 
-## Available Scripts
+    $ npm start
 
-In the project directory, you can run:
+Woodhouse runs on port 3000 (`localhost:3000`)
 
-### `npm start`
+Update the localhost url appending the LeaseSettings object optional personalized hash identified in the previous step like this:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+format: `localhost:3000/{your-lease-settings-id}/v={your-optional-personalized-hash}`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+without hash: `localhost:3000/1`
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+with hash: `localhost:3000/1/?v=za7jDFkEML`

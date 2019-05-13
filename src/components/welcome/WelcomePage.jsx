@@ -19,19 +19,20 @@ import { ROUTES } from 'app/constants';
 export class WelcomePage extends Component {
 
     getNextLinkUrl () {
-        const hasClient = !!this.props.configuration.client;
+        const hasClient = !!this.props.configuration.person;
         const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
         return url;
     }
     
     render() {
-        const { client, background_image, logo, name, street, city, state, postal_code, unit_number } = this.props.configuration;
+        const { person, background, logo, community, unit } = this.props.configuration;
+        const { building_name, city, state, postal_code, normalized_street_address } = community;
         const cityStateZip = `${city}, ${state} ${postal_code}`
-        const helloContent = client ? `Hello ${client.first_name},` : 'Hi There,'
+        const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
 
         return (
             <Fragment>
-                <BackgroundImage url={background_image}/>
+                <BackgroundImage url={background}/>
                 <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main}/>
                 <WelcomeFlexContainer>
                     <Logo logo={logo}/>
@@ -43,12 +44,12 @@ export class WelcomePage extends Component {
                             {helloContent}
                         </H2>
                         <P>Your new home awaits at</P>
-                        {name && <H1>{name}</H1>}
+                        { building_name && <H1>{building_name}</H1> }
                         {
-                            name ? <P label="street">{street}</P> : <H1>{street}</H1>
+                            building_name ? <P label="street">{normalized_street_address}</P> : <H1>{normalized_street_address}</H1>
                         }
                         {cityStateZip && <P>{cityStateZip}</P>}
-                        {unit_number && <P>{`Unit ${unit_number}`}</P>}
+                        {unit && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link to={this.getNextLinkUrl()}>
