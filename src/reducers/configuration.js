@@ -22,7 +22,7 @@ export const fetchConfiguration = (communityId, hash) => {
         if (hash) {
             const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)])
             configuration = data.reduce((config, item) => {
-                return Object.assign({}, config, item)
+                return Object.assign(config, item)
             }, {});
         } else {
             configuration = await API.fetchConfiguration(communityId);
