@@ -31,10 +31,10 @@ export default class ResetPassword extends React.Component {
 
                 <Formik
                     validationSchema={Yup.object({
-                        password_1: Yup.string().required('Password is required'),
-                        password_2: Yup.string()
-                            .oneOf([Yup.ref('password_1')], 'Password must match')
-                            .required('Password confirm is required')
+                        password: Yup.string().required('Password is required'),
+                        password_confirm: Yup.string()
+                            .oneOf([Yup.ref('password')], 'Password must match')
+                            .required('Please confirm password')
                     })}
 
                     onSubmit={this.onSubmit}
@@ -55,24 +55,24 @@ export default class ResetPassword extends React.Component {
                                     <FormTextInput
                                         label="Enter new password"
                                         type="password"
-                                        name="password_1"
+                                        name="password"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.password_1}
-                                        touched={touched.password_1}
-                                        value={values.password_1}
+                                        error={errors.password}
+                                        touched={touched.password}
+                                        value={values.password}
                                     />
                                     <FormTextInput
                                         label="Confirm password"
                                         type="password"
-                                        name="password_2"
+                                        name="password_confirm"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.password_2}
-                                        touched={touched.password_2}
-                                        value={values.password_2}
+                                        error={errors.password_confirm}
+                                        touched={touched.password_confirm}
+                                        value={values.password_confirm}
                                     />
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
