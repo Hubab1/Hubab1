@@ -6,12 +6,12 @@ export const ROUTES = {
     COMMUNITY: '/',
     PROFILE_OPTIONS: '/profile/options',
     RESET_PASSWORD: '/password/reset',
+    FORGOT_PASSWORD: '/password/forgot',
     PROFILE: '/profile',
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
-    TOS: '/terms',
-    FORGOT_PASSWORD: '/forgot-password',
+    TOS: '/terms'
 }
 
 export const ALL_ROUTES = [
