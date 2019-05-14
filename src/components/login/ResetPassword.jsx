@@ -31,7 +31,8 @@ export default class ResetPassword extends React.Component {
 
                 <Formik
                     validationSchema={Yup.object({
-                        password: Yup.string().required('Password is required'),
+                        password: Yup.string().min(8, 'Password must be at least 8 characters')
+                            .required('Password is required'),
                         password_confirm: Yup.string()
                             .oneOf([Yup.ref('password')], 'Password must match')
                             .required('Please confirm password')
