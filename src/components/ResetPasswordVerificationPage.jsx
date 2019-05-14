@@ -12,6 +12,10 @@ import { ROUTES } from 'app/constants';
 export class ResetPasswordVerificationPage extends React.Component {
     state = {reset_code: null}
 
+    componentDidMount() {
+        !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
+    }
+
     onSubmit = (values, { setSubmitting }) => {
         const reset_code = this.state.reset_code;
         setSubmitting(false);
@@ -23,6 +27,7 @@ export class ResetPasswordVerificationPage extends React.Component {
     }
 
     render () {
+        if (!this.props.history.location.state) return <div></div>;
         const phone_number = this.props.history.location.state.phone_number;
         return (
             <Fragment>
