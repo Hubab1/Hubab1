@@ -47,6 +47,11 @@ You can also create or identify a LeaseSettings object in admin: http://localhos
 If you'd like to make a personalized link with associated client and/or unit data, you can create a hash in the shell with [PersonalizedHash](https://github.com/Nestio/chuck/blob/d6eadddac786af3a0af4acdaf017f1c5fc64a954/chuck/onlineleasing/utils.py#L6)
 
 
+### Logging in
+
+Create an Applicant in Chuck. Set an email and password and associate a client.
+
+
 ### Run Woodhouse
 
 Install dependencies
