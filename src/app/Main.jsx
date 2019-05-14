@@ -11,12 +11,13 @@ import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ForgotPasswordPage from 'components/ForgotPasswordPage';
 import Page from 'components/common/Page/Page';
+import ConfirmationPage from 'components/common/ConfirmationPage';
 import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
-import { ROUTES } from 'app/constants';
+import { ROUTES, PASSWORD_CONFIRMATION_PROPS } from 'app/constants';
 import ResetPassword from 'components/login/ResetPassword';
 
 async function sessionIsValidForCommunityId (communityId) {
@@ -86,14 +87,18 @@ export class Main extends Component {
             <AppContextProvider theme={theme}>
                 <div>
                     <Switch>
-                        <Route path={ROUTES.WELCOME} component={WelcomePage}/>
+                        <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
                             <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
-                            <Route path={ROUTES.TOS} component={TermsPage}/>
+                            <Route path={ROUTES.TOS} component={TermsPage} />
                             <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
+                            <Route 
+                                path={ROUTES.RESET_PASSWORD_CONFIRMATION} 
+                                render={(props) => <ConfirmationPage {...props} {...PASSWORD_CONFIRMATION_PROPS} />}
+                            />
                         </Page>
                     </Switch>
                 </div>
