@@ -62,6 +62,7 @@ export default class ResetPassword extends React.Component {
                                         error={errors.password}
                                         touched={touched.password}
                                         value={values.password}
+                                        showHelperText
                                     />
                                     <FormTextInput
                                         label="Confirm password"
@@ -73,6 +74,7 @@ export default class ResetPassword extends React.Component {
                                         error={errors.password_confirm}
                                         touched={touched.password_confirm}
                                         value={values.password_confirm}
+                                        showHelperText
                                     />
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">

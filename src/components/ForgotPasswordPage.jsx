@@ -40,7 +40,6 @@ export class ForgotPasswordPage extends React.Component {
                     {({
                         values,
                         errors,
-                        touched,
                         handleChange,
                         submitCount,
                         handleBlur,
@@ -63,7 +62,7 @@ export class ForgotPasswordPage extends React.Component {
                                             <TextField
                                                 {...inputProps}
                                                 error={submitCount > 0 && !!errors.phone}
-                                                helperText={touched && errors.phone}
+                                                helperText={submitCount > 0 && errors.phone}
                                                 fullWidth
                                             /> 
                                         }

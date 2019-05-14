@@ -49,7 +49,6 @@ export class LoginPage extends React.Component {
                     {({
                         values,
                         errors,
-                        touched,
                         handleChange,
                         submitCount,
                         handleBlur,
@@ -66,7 +65,6 @@ export class LoginPage extends React.Component {
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
                                         error={errors.email}
-                                        touched={touched.email}
                                         value={values.email}
                                     />
                                     <FormTextInput
@@ -77,8 +75,8 @@ export class LoginPage extends React.Component {
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
                                         error={errors.password}
-                                        touched={touched.password}
                                         value={values.password}
+                                        showHelperText
                                     />
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
