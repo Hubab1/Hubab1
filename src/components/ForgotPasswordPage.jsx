@@ -15,6 +15,10 @@ import { ROUTES } from 'app/constants';
 export class ForgotPasswordPage extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         // const cleanedPhoneNumber = values.phone.replace(/\D/g,'')
+        this.props.history.push({
+            pathname: ROUTES.VERIFY_PASSWORD_CODE, 
+            state: {phone_number: values.phone}
+        });
         setSubmitting(false);
     }
 
@@ -39,7 +43,6 @@ export class ForgotPasswordPage extends React.Component {
                     {({
                         values,
                         errors,
-                        touched,
                         handleChange,
                         submitCount,
                         handleBlur,
@@ -62,7 +65,7 @@ export class ForgotPasswordPage extends React.Component {
                                             <TextField
                                                 {...inputProps}
                                                 error={submitCount > 0 && !!errors.phone}
-                                                helperText={touched && errors.phone}
+                                                helperText={submitCount > 0 && errors.phone}
                                                 fullWidth
                                             /> 
                                         }

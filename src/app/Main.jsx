@@ -18,6 +18,7 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'app/constants';
+import ResetPassword from 'components/login/ResetPassword';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -33,8 +34,9 @@ export class Main extends Component {
 
     mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
+        const pathname = location.pathname;
         if (!isAuthenticated) {
-            if (location.pathname.includes('login') || location.pathname.includes('signup')) return;
+            if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password')) return;
             if (!configuration.client) {
                 history.replace(ROUTES.WELCOME);
             }
@@ -87,6 +89,7 @@ export class Main extends Component {
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage}/>
                         <Page>
+                            <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />

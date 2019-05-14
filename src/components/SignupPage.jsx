@@ -38,7 +38,7 @@ export class SignupPage extends React.Component {
                             .email()
                             .required('Email is required'),
                         password: Yup.string()
-                            .min(6, 'Password must be at least 6 characters')
+                            .min(8, 'Password must be at least 8 characters')
                             .required('Password is required')
                     })}
                     onSubmit={this.onSubmit}
@@ -46,7 +46,6 @@ export class SignupPage extends React.Component {
                     {({
                         values,
                         errors,
-                        touched,
                         handleChange,
                         submitCount,
                         handleBlur,
@@ -62,7 +61,6 @@ export class SignupPage extends React.Component {
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
                                     error={errors.first_name}
-                                    touched={touched.first_name}
                                     value={values.first_name}
                                 />
                                 <FormTextInput
@@ -72,7 +70,6 @@ export class SignupPage extends React.Component {
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
                                     error={errors.last_name}
-                                    touched={touched.last_name}
                                     value={values.last_name}
                                 />
                                 <FormTextInput
@@ -82,7 +79,6 @@ export class SignupPage extends React.Component {
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
                                     error={errors.email}
-                                    touched={touched.email}
                                     value={values.email}
                                 />
                                 <FormTextInput
@@ -92,7 +88,6 @@ export class SignupPage extends React.Component {
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
                                     error={errors.phone_number}
-                                    touched={touched.phone_number}
                                     value={values.phone_number}
                                 />
                                 <FormTextInput
@@ -103,8 +98,8 @@ export class SignupPage extends React.Component {
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
                                     error={errors.password}
-                                    touched={touched.password}
                                     value={values.password}
+                                    showHelperText
                                 />
                                 <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                             </div>

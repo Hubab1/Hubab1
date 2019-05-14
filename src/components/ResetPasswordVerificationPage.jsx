@@ -3,36 +3,34 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import InputMask from 'react-input-mask';
-import TextField from '@material-ui/core/TextField';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { formContent, H1, H3, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 
 export class ResetPasswordVerificationPage extends React.Component {
+    state = {reset_code: null}
 
     onSubmit = (values, { setSubmitting }) => {
-        // const cleanedPhoneNumber = values.phone.replace(/\D/g,'')
+        const reset_code = this.state.reset_code;
         setSubmitting(false);
+        this.props.history.push(ROUTES.RESET_PASSWORD);
     }
 
-    handleCodeChange = (values) => {
-        if (values.length === 6) {
-            this.form.submitForm();
-        }
+    handleCodeChange = (event) => {
+        this.setState({reset_code:event.target.value}, () => this.form.submitForm());
     }
 
     render () {
+        const phone_number = this.props.history.location.state.phone_number;
         return (
             <Fragment>
                 <H1>
                     Enter Verification Code 
                 </H1>
                 <H3>
-                We sent a text message to <strong>(609) 213-5221</strong> with a 6 digitcode to reset your password.
+                We sent a text message to <strong>{phone_number}</strong> with a 6 digit code to reset your password.
                 </H3>
 
                 <Formik
@@ -53,8 +51,10 @@ export class ResetPasswordVerificationPage extends React.Component {
                         handleSubmit,
                         isSubmitting
                     }) => {
-                        const wrappedHandleChange = (values) => {
-                            this.handleCodeChange(values);
+                        const wrappedHandleChange = (event) => {
+                            if (event.target.value.length === 6) {
+                                this.handleCodeChange(event);
+                            }
                             handleChange();
                         }
                         return (
@@ -69,15 +69,16 @@ export class ResetPasswordVerificationPage extends React.Component {
                                             handleBlur={handleBlur}
                                             error={errors.reset_code}
                                             touched={touched.reset_code }
-                                            value={values.email}
+                                            value={values.reset_code}
                                         />
                                     </div>
                                 </div>
                             </form>
                         )
 
-                    })}
+                    }}
                 </Formik>
+                <P>Didn't Receive a text? <a href='' role="button" onClick={() => console.log('you clict')}>Resend Here</a></P>
             </Fragment>
         );
     }

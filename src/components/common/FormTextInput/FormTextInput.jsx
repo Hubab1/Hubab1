@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -9,39 +9,35 @@ import TextField from '@material-ui/core/TextField';
 
 import { root } from './styles';
 
-export default class FormTextInput extends React.Component {
-    state = {showPassword: false}
+export default function FormTextInput (props) {
+    const [showPassword, setShowPassword] = useState(false);
 
-    handleClickShowPassword = () => this.setState({showPassword: !this.state.showPassword})
-
-    render () {
-        const { error, touched, handleChange, handleBlur, value, label, name, type, submitted } = this.props;
-        return (
-            <TextField
-                error={submitted && error}
-                helperText={touched && error}
-                label={label}
-                classes={ {root} }
-                type={type === 'text' || this.state.showPassword ? 'text' : 'password'}
-                name={name}
-                fullWidth
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={value}
-                InputProps={type === 'password' && {
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="Toggle password visibility"
-                                onClick={this.handleClickShowPassword}
-                            >
-                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                        </InputAdornment>
-                    )}}
-            />
-        );
-    }
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText } = props;
+    return (
+        <TextField
+            error={submitted && error}
+            helperText={(submitted || showHelperText) && error}
+            label={label}
+            classes={ {root} }
+            type={type === 'text' || showPassword ? 'text' : 'password'}
+            name={name}
+            fullWidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={value}
+            InputProps={type === 'password' && {
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="Toggle password visibility"
+                            onClick={()=>setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                )}}
+        />
+    );
 }
 
 FormTextInput.propTypes = {
