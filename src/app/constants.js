@@ -11,6 +11,7 @@ export const ROUTES = {
     SIGNUP: '/signup',
     TOS: '/terms',
     FORGOT_PASSWORD: '/forgot-password',
+    VERIFY_PASSWORD_CODE: '/verify-password',
 }
 
 export const ALL_ROUTES = [
