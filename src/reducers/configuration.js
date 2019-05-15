@@ -48,15 +48,3 @@ selectors.selectTheme = createSelector(
         return theme;
     }
 );
-
-// export const selectors = {};
-// selectors.selectTheme = createSelector(
-//     state => state.configuration,
-//     (configuration) => {
-//         if (!configuration) return null;
-//         const primaryColor = `#${configuration.primary_color}`;
-//         const secondaryColor = `#${configuration.secondary_color}`;
-//         const theme = createTheme(primaryColor, secondaryColor);
-//         return theme;
-//     }
-// );
