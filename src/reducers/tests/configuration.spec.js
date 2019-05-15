@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
 import API from 'app/api';
-import { fetchConfiguration, configurationReceived } from 'reducers/configuration';
+import { fetchConfiguration, configurationReceived, selectors } from 'reducers/configuration';
 
 const middlewares = [ thunk ];
 const mockStore = configureStore(middlewares);
@@ -50,4 +50,24 @@ describe('fetchConfiguration', () => {
         })
     })
 
+})
+
+describe('selectTheme', () => {
+    it('recomputes theme only when colors change', () => {
+        const theme = selectors.selectTheme({configuration: {
+            primary_color: '000000',
+            secondary_color: 'ffffff'
+        }});
+        expect(theme).not.toBe(null);
+        const themeTwo = selectors.selectTheme({configuration: {
+            primary_color: '000000',
+            secondary_color: 'ffffff'
+        }});
+        expect(theme).toEqual(themeTwo);
+        const themeThree = selectors.selectTheme({configuration: {
+            primary_color: '000000',
+            secondary_color: 'cccccc'
+        }});
+        expect(themeTwo).not.toEqual(themeThree);
+    })
 })
