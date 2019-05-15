@@ -28,6 +28,15 @@ export const TextReader = styled.div`
     line-height: 17px;
 `
 
+export const ErrorDetail = styled.div`
+    color: #f44336;
+    text-align: left;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 1em;
+`
+
 export const Bold = styled.span`
     font-weight: bold;
 `

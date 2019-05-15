@@ -43,7 +43,8 @@ export class ResetPasswordVerificationPage extends React.Component {
                 <Formik
                     validationSchema={Yup.object().shape({
                         resetCode: Yup.string()
-                            .length(6, 'Invalid code')
+                            .max(6, 'Invalid code')
+                            .matches(/^\d+$/, 'Only numbers are allowed')
                     })}
                     onSubmit={this.onSubmit}
                 >

@@ -15,8 +15,8 @@ export default function FormTextInput (props) {
     const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText } = props;
     return (
         <TextField
-            error={submitted && error}
-            helperText={(submitted || showHelperText) && error}
+            error={error}
+            helperText={error}
             label={label}
             classes={ {root} }
             type={type === 'text' || showPassword ? 'text' : 'password'}

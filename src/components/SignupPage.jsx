@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { H1, P, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import { getInitialPage } from 'utils/routeNavigation';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
@@ -15,10 +16,15 @@ import auth from 'utils/auth';
 export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
+        const { history } = this.props;
+
         return auth.register(values).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile();
+            this.props.fetchRenterProfile().then((profile) => {
+                const initialPage = getInitialPage(profile);
+                history.replace(initialPage);
+            });
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);

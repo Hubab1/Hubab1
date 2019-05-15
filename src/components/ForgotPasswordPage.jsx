@@ -17,7 +17,7 @@ export class ForgotPasswordPage extends React.Component {
         // const cleanedPhoneNumber = values.phone.replace(/\D/g,'')
         this.props.history.push({
             pathname: ROUTES.VERIFY_PASSWORD_CODE, 
-            state: {phone_number: values.phone}
+            state: {phoneNumber: values.phone}
         });
         setSubmitting(false);
     }
