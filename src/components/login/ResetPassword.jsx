@@ -9,12 +9,10 @@ import { formContent, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import auth from 'utils/auth';
 
 
 export default class ResetPassword extends React.Component {
     state = {confirmReset: false}
-    auth=auth
     onSubmit = (values, { setSubmitting }) => {
         return API.passwordReset(values.password).then(() => {
             this.setState({confirmReset: true})
