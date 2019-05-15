@@ -30,9 +30,17 @@ jest.mock('app/history', () => {
 
 it('sets session after logging in', function() {
     const setSession = jest.fn();
-    const wrapper = shallow( < LoginPage communityId = "123" / > );
+    const wrapper = shallow( < LoginPage communityId = "123"/> );
     wrapper.instance().auth.setSession = setSession;
     return wrapper.instance().onSubmit({ username: 'Frank', password: 'Abagail' }, { setSubmitting: function() {} }).then(() => {
         expect(setSession).toHaveBeenCalledWith('abc', '123');
+    });
+});
+
+it('renders errors if has errors', function() {
+    const wrapper = shallow( < LoginPage communityId = "123"/> );
+    wrapper.instance().auth.login = () => Promise.reject({errors: {error: 'Invalid credentials'}});
+    return wrapper.instance().onSubmit({}, {setSubmitting: ()=>{}}).then(() => {
+        expect(wrapper.state('errors').error).toEqual('Invalid credentials');
     });
 });
