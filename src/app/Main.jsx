@@ -11,13 +11,13 @@ import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ForgotPasswordPage from 'components/ForgotPasswordPage';
 import Page from 'components/common/Page/Page';
-import createTheme from 'assets/createTheme';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'app/constants';
 import ResetPassword from 'components/login/ResetPassword';
+import { selectors } from '../reducers/configuration';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -61,10 +61,6 @@ export class Main extends Component {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
-        const primaryColor = `#${configuration.primary_color}`;
-        const secondaryColor = `#${configuration.secondary_color}`;
-        // todo: store in redux
-        this.setState({theme: createTheme(primaryColor, secondaryColor)});
 
         this.mountNavigation(isLoggedIn, configuration);
     }
@@ -79,7 +75,7 @@ export class Main extends Component {
     }
 
     render() {
-        const theme = this.state.theme;
+        const theme = this.props.theme;
         if (this.state.hasError) return <div>Error getting application form</div>;
         if (!theme) return null;
         return (
@@ -105,7 +101,8 @@ export class Main extends Component {
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
-    communityId: state.siteConfig.basename
+    communityId: state.siteConfig.basename,
+    theme: selectors.selectTheme(state)
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};

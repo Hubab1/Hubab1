@@ -1,5 +1,8 @@
 import { createSlice } from 'redux-starter-kit';
+import { createSelector } from 'reselect';
+
 import API from 'app/api';
+import createTheme from 'assets/createTheme';
 
 const configuration = createSlice({
     slice: 'configuration',
@@ -31,3 +34,29 @@ export const fetchConfiguration = (communityId, hash) => {
         return configuration
     }
 };
+
+// selectors
+export const selectors = {};
+selectors.selectTheme = createSelector(
+    state => state.configuration && state.configuration.primary_color,
+    state => state.configuration && state.configuration.secondary_color,
+    (primary_color, secondary_color) => {
+        if (primary_color == null || secondary_color == null) return null;
+        const primaryColor = `#${primary_color}`;
+        const secondaryColor = `#${secondary_color}`;
+        const theme = createTheme(primaryColor, secondaryColor);
+        return theme;
+    }
+);
+
+// export const selectors = {};
+// selectors.selectTheme = createSelector(
+//     state => state.configuration,
+//     (configuration) => {
+//         if (!configuration) return null;
+//         const primaryColor = `#${configuration.primary_color}`;
+//         const secondaryColor = `#${configuration.secondary_color}`;
+//         const theme = createTheme(primaryColor, secondaryColor);
+//         return theme;
+//     }
+// );
