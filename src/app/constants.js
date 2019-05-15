@@ -7,7 +7,7 @@ export const ROUTES = {
     PROFILE_OPTIONS: '/profile/options',
     RESET_PASSWORD: '/password/reset',
     FORGOT_PASSWORD: '/password/forgot',
-    RESET_PASSWORD_CONFIRMATION: '/password/reset-confirmation',
+    VERIFY_PASSWORD_CODE: '/password/verify',
     PROFILE: '/profile',
     WELCOME: '/welcome',
     LOGIN: '/login',

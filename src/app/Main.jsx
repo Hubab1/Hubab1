@@ -10,6 +10,7 @@ import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ForgotPasswordPage from 'components/ForgotPasswordPage';
+import ResetPasswordVerificationPage from 'components/ResetPasswordVerificationPage';
 import Page from 'components/common/Page/Page';
 import ConfirmationPage from 'components/common/ConfirmationPage';
 import createTheme from 'assets/createTheme';
@@ -46,7 +47,10 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            fetchRenterProfile();
+            fetchRenterProfile().then((profile) => {
+                const initialPage = getInitialPage(profile);
+                history.replace(initialPage);
+            });
         }
     }
 
@@ -70,15 +74,6 @@ export class Main extends Component {
         this.mountNavigation(isLoggedIn, configuration);
     }
 
-    componentDidUpdate (prevProps) {
-        const { history } = this.props;
-
-        if (!prevProps.profile && this.props.profile) {
-            const initialPage = getInitialPage(this.props.profile);
-            history.replace(initialPage);
-        }
-    }
-
     render() {
         const theme = this.state.theme;
         if (this.state.hasError) return <div>Error getting application form</div>;
@@ -99,6 +94,7 @@ export class Main extends Component {
                                 path={ROUTES.RESET_PASSWORD_CONFIRMATION} 
                                 render={(props) => <ConfirmationPage {...props} {...PASSWORD_CONFIRMATION_PROPS} />}
                             />
+                            <Route path={ROUTES.VERIFY_PASSWORD_CODE} component={ResetPasswordVerificationPage} />
                         </Page>
                     </Switch>
                 </div>
