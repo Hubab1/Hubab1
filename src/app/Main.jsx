@@ -29,7 +29,7 @@ async function sessionIsValidForCommunityId (communityId) {
 }
 
 export class Main extends Component {
-    state = {theme: null, error: null}
+    state = {error: null}
 
     mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
