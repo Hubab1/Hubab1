@@ -42,4 +42,8 @@ API.fetchRenterProfile = () => {
     });
 }
 
+API.passwordResetVerification = (phoneNumber, code) => {
+    return Promise.resolve('success');
+}
+
 export default API;
