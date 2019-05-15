@@ -10,20 +10,15 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 
 export class ResetPasswordVerificationPage extends React.Component {
-    state = {reset_code: null}
 
     componentDidMount() {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        const reset_code = this.state.reset_code;
+        debugger;
         setSubmitting(false);
         this.props.history.push(ROUTES.RESET_PASSWORD);
-    }
-
-    handleCodeChange = (event) => {
-        this.setState({reset_code:event.target.value}, () => this.form.submitForm());
     }
 
     render () {
@@ -54,13 +49,16 @@ export class ResetPasswordVerificationPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting
+                        isSubmitting,
+                        submitForm,
                     }) => {
                         const wrappedHandleChange = (event) => {
+                            handleChange(event);
                             if (event.target.value.length === 6) {
-                                this.handleCodeChange(event);
+                                submitForm().then((data) => {
+                                    debugger;
+                                });
                             }
-                            handleChange();
                         }
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
