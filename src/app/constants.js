@@ -15,12 +15,6 @@ export const ROUTES = {
     TOS: '/terms'
 }
 
-export const PASSWORD_CONFIRMATION_PROPS = {
-    successMessage: 'Your password has been reset.',
-    buttonRoute: ROUTES.LOGIN,
-    buttonText: 'Sign in',
-}
-
 export const ALL_ROUTES = [
     ROUTES.LOGIN, ROUTES.TOS, ROUTES.PROFILE_OPTIONS
 ]

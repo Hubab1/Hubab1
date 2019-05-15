@@ -46,4 +46,8 @@ API.passwordResetVerification = (phoneNumber, code) => {
     return Promise.resolve('success');
 }
 
+API.passwordReset = (newPassword) => {
+    return Promise.resolve('success');
+}
+
 export default API;

@@ -12,12 +12,11 @@ import TermsPage from 'components/TermsPage';
 import ForgotPasswordPage from 'components/ForgotPasswordPage';
 import ResetPasswordVerificationPage from 'components/ResetPasswordVerificationPage';
 import Page from 'components/common/Page/Page';
-import ConfirmationPage from 'components/common/ConfirmationPage';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
-import { ROUTES, PASSWORD_CONFIRMATION_PROPS } from 'app/constants';
+import { ROUTES } from 'app/constants';
 import ResetPassword from 'components/login/ResetPassword';
 import { selectors } from '../reducers/configuration';
 
@@ -86,10 +85,6 @@ export class Main extends Component {
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
                             <Route path={ROUTES.TOS} component={TermsPage} />
                             <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
-                            <Route 
-                                path={ROUTES.RESET_PASSWORD_CONFIRMATION} 
-                                render={(props) => <ConfirmationPage {...props} {...PASSWORD_CONFIRMATION_PROPS} />}
-                            />
                             <Route path={ROUTES.VERIFY_PASSWORD_CODE} component={ResetPasswordVerificationPage} />
                         </Page>
                     </Switch>
