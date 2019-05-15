@@ -16,17 +16,15 @@ export class ResetPasswordVerificationPage extends React.Component {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
 
-    onSubmit = (values, { setSubmitting }) => {
+    onSubmit = (values, { setSubmitting, setErrors }) => {
         const phoneNumber = this.props.history.location.state.phoneNumber;
         const code = values.resetCode;
         return API.passwordResetVerification(phoneNumber, code).then(() => {
             setSubmitting(false);
             this.props.history.push(ROUTES.RESET_PASSWORD);
         }).catch((res) => {
-            this.form.setErrors(res.errors)
-            setSubmitting(false);
-            debugger;
-
+            setErrors({resetCode: res.errors})
+            setSubmitting(false);   
         })
     }
 
@@ -47,7 +45,6 @@ export class ResetPasswordVerificationPage extends React.Component {
                         resetCode: Yup.string()
                             .length(6, 'Invalid code')
                     })}
-                    ref={node => (this.form = node)}
                     onSubmit={this.onSubmit}
                 >
                     {({
