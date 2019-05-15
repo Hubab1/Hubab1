@@ -51,6 +51,8 @@ If you'd like to make a personalized link with associated client and/or unit dat
 
 Create an Applicant in Chuck. Set an email and password and associate a client.
 
+You should use the applicant.set_password(raw_password) method to set a password on the applicant.
+
 
 ### Run Woodhouse
 
