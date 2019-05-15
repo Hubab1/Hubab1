@@ -8,6 +8,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { formContent, H1, H3, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
+import API from 'app/api';
 
 export class ResetPasswordVerificationPage extends React.Component {
 
@@ -16,26 +17,34 @@ export class ResetPasswordVerificationPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        debugger;
-        setSubmitting(false);
-        this.props.history.push(ROUTES.RESET_PASSWORD);
+        const phoneNumber = this.props.history.location.state.phoneNumber;
+        const code = values.resetCode;
+        return API.passwordResetVerification(phoneNumber, code).then(() => {
+            setSubmitting(false);
+            this.props.history.push(ROUTES.RESET_PASSWORD);
+        }).catch((res) => {
+            this.form.setErrors(res.errors)
+            setSubmitting(false);
+            debugger;
+
+        })
     }
 
     render () {
         if (!this.props.history.location.state) return <div></div>;
-        const phone_number = this.props.history.location.state.phone_number;
+        const phoneNumber = this.props.history.location.state.phoneNumber;
         return (
             <Fragment>
                 <H1>
                     Enter Verification Code 
                 </H1>
                 <H3>
-                We sent a text message to <strong>{phone_number}</strong> with a 6 digit code to reset your password.
+                We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
                 </H3>
 
                 <Formik
                     validationSchema={Yup.object().shape({
-                        reset_code: Yup.string()
+                        resetCode: Yup.string()
                             .length(6, 'Invalid code')
                     })}
                     ref={node => (this.form = node)}
@@ -55,9 +64,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                         const wrappedHandleChange = (event) => {
                             handleChange(event);
                             if (event.target.value.length === 6) {
-                                submitForm().then((data) => {
-                                    debugger;
-                                });
+                                setTimeout(submitForm, 0);
                             }
                         }
                         return (
@@ -66,13 +73,13 @@ export class ResetPasswordVerificationPage extends React.Component {
                                     <div>
                                         <FormTextInput
                                             label="Enter Code"
-                                            name="reset_code"
+                                            name="resetCode"
                                             submitted={submitCount > 0}
                                             handleChange={wrappedHandleChange}
                                             handleBlur={handleBlur}
-                                            error={errors.reset_code}
-                                            touched={touched.reset_code }
-                                            value={values.reset_code}
+                                            error={errors.resetCode}
+                                            touched={touched.resetCode }
+                                            value={values.resetCode}
                                         />
                                     </div>
                                 </div>
