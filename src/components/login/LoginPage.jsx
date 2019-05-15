@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { formContent, H1, P } from 'assets/styles';
+import { getInitialPage } from 'utils/routeNavigation';
+import { formContent, H1, P, ErrorDetail } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 
@@ -16,12 +17,19 @@ import auth from 'utils/auth';
 
 
 export class LoginPage extends React.Component {
+    state = {errors: null}
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        return auth.login(values.username, values.password).then((res) => {
+        const { history } = this.props;
+        return auth.login(values.email, values.password).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile();
+            if (this.state.errors) this.setState({errors: null});
+            this.props.fetchRenterProfile().then((profile) => {
+                const initialPage = getInitialPage(profile);
+                history.replace(initialPage);
+            });
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -78,6 +86,9 @@ export class LoginPage extends React.Component {
                                         value={values.password}
                                         showHelperText
                                     />
+                                </div>
+                                <div>
+                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
                                     Sign In

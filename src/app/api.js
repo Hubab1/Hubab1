@@ -1,5 +1,9 @@
 const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
+function chuck (path) {
+    return `${CHUCK_BASE_URL}${path}`;
+}
+
 const getWithHeaders = (url) => fetch(url, {
     headers: {
         "Content-Type": "application/json",
@@ -14,6 +18,13 @@ const API = {};
 
 API.fetchConfiguration = (communityId) => {
     return getWithHeaders(CHUCK_BASE_LEASE_SETTINGS(communityId));
+};
+
+API.login = (email, password) => {
+    return fetch(chuck('/api/onlineleasing/login/'), {
+        method: 'POST',
+        body: JSON.stringify({email, password})
+    }).then(res => res.json());
 };
 
 API.fetchPersonalizedInfo = (communityId, hash) => {

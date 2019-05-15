@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 const LogoContainer = styled.div`
     label: community-logo;
     text-align: center;
-    width: 91px;
     height: 63px;
     margin: 21px auto 21px auto;
 `;

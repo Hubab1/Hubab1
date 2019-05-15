@@ -45,7 +45,10 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            fetchRenterProfile();
+            fetchRenterProfile().then((profile) => {
+                const initialPage = getInitialPage(profile);
+                history.replace(initialPage);
+            });
         }
     }
 
@@ -63,15 +66,6 @@ export class Main extends Component {
         }
 
         this.mountNavigation(isLoggedIn, configuration);
-    }
-
-    componentDidUpdate (prevProps) {
-        const { history } = this.props;
-
-        if (!prevProps.profile && this.props.profile) {
-            const initialPage = getInitialPage(this.props.profile);
-            history.replace(initialPage);
-        }
     }
 
     render() {
