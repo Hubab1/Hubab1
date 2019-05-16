@@ -27,7 +27,7 @@ export class WelcomePage extends Component {
         const { building_name, city, state, postal_code, normalized_street_address } = community;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
-        console.log(this.props.configuration.person)
+
         return (
             <Fragment>
                 <BackgroundImage url={background}/>

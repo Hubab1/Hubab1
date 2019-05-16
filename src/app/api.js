@@ -27,7 +27,6 @@ API.login = (email, password) => {
     }).then(res => res.json());
 };
 
-// register/lease-settings/(?P<lease_settings_id>\d+)/clients/(?P<client_id>\d+)
 API.register = (data, leaseSettingsId, clientId) => {
     return fetch(chuck(`/api/onlineleasing/register/lease-settings/${leaseSettingsId}/clients/${clientId}`), {
         method: 'POST',
