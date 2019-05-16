@@ -86,7 +86,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <a href='' role="button" onClick={() => console.log('you clict')}>Resend Here</a></P>
+                <P>Didn't Receive a text? <a href='/' role="button" onClick={() => console.log('you clict')}>Resend Here</a></P>
             </Fragment>
         );
     }
