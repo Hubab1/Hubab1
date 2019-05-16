@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 
 const LogoContainer = styled.div`
@@ -16,5 +17,9 @@ const Logo = (props) => {
         </LogoContainer>
     );
 }
+
+Logo.propTypes = {
+    logo: PropTypes.string
+};
 
 export default Logo;

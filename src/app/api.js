@@ -20,13 +20,6 @@ API.fetchConfiguration = (communityId) => {
     return getWithHeaders(CHUCK_BASE_LEASE_SETTINGS(communityId));
 };
 
-API.login = (email, password) => {
-    return fetch(chuck('/api/onlineleasing/login/'), {
-        method: 'POST',
-        body: JSON.stringify({email, password})
-    }).then(res => res.json());
-};
-
 API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
@@ -40,7 +33,21 @@ API.fetchRenterProfile = () => {
         pets: [],
         guarantor: {},
     });
-}
+};
+
+API.login = (email, password) => {
+    return fetch(chuck('/api/onlineleasing/login/'), {
+        method: 'POST',
+        body: JSON.stringify({email, password})
+    }).then(res => res.json());
+};
+
+API.passwordResetRequest = (phone_number, lease_settings_id) => {
+    return fetch(chuck('/api/onlineleasing/password-reset/'), {
+        method: 'POST',
+        body: JSON.stringify({phone_number, lease_settings_id})
+    }).then(res => res.json());
+};
 
 API.passwordResetVerification = (phoneNumber, code) => {
     return Promise.resolve('success');
