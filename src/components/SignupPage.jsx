@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
-import { H1, P, formContent } from 'assets/styles';
+import { H1, P, formContent, ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
@@ -14,6 +14,8 @@ import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 
 export class SignupPage extends React.Component {
+    state = {errors: null}
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
@@ -113,6 +115,9 @@ export class SignupPage extends React.Component {
                                     value={values.password}
                                     showHelperText
                                 />
+                                <div>
+                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
+                                </div>
                                 <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
                             </div>
                             <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>

@@ -7,13 +7,17 @@ class Auth {
         return API.register(data, leaseSettingsId, clientId).then((res)=>{
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
+        }).catch(() => {
+            return Promise.reject({errors: {error: 'Problem creating account.'}});
         });
     }
     login = (email, password) => {
         return API.login(email, password).then((res) => {
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
-        })
+        }).catch(() => {
+            return Promise.reject({errors: {error: 'Problem logging in.'}});
+        });
     }
 
     getToken = () => {
