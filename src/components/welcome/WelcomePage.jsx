@@ -19,9 +19,7 @@ import { ROUTES } from 'app/constants';
 export class WelcomePage extends Component {
 
     getNextLinkUrl () {
-        const hasClient = !!this.props.configuration.person;
-        const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
-        return url;
+        return ROUTES.SIGNUP;
     }
     
     render() {
@@ -52,7 +50,7 @@ export class WelcomePage extends Component {
                         {unit && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={this.getNextLinkUrl()}>
+                        <Link to={{pathname: this.getNextLinkUrl(), state: this.props.configuration.person}}>
                             <ActionButton
                                 color="secondary"
                             >

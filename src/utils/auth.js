@@ -3,14 +3,21 @@ import API from 'app/api';
 
 // token auth service loosely based on the authentication service exemplified here: https://medium.appbase.io/how-to-implement-authentication-for-your-react-app-cf09eef3bb0b
 class Auth {
-    register = (data) => {
-        return Promise.resolve({token: 'abcdefgh'});
+    register = (data, leaseSettingsId, clientId) => {
+        return API.register(data, leaseSettingsId, clientId).then((res)=>{
+            if (res.errors) return Promise.reject({errors: res.errors});
+            return Promise.resolve({token: res.token});
+        }).catch(() => {
+            return Promise.reject({errors: {error: 'Problem creating account.'}});
+        });
     }
     login = (email, password) => {
         return API.login(email, password).then((res) => {
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
-        })
+        }).catch(() => {
+            return Promise.reject({errors: {error: 'Problem logging in.'}});
+        });
     }
 
     getToken = () => {
