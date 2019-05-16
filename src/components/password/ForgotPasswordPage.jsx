@@ -14,18 +14,23 @@ import { ROUTES } from 'app/constants';
 import API from 'app/api';
 
 export class ForgotPasswordPage extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
+    onSubmit = (values, { setSubmitting, setErrors }) => {
         const strippedPhoneNumber = values.phone.replace(/\D/g,'')
         const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
         const { communityId } = this.props;
 
-        API.passwordResetRequest(sanitizedPhoneNumber, communityId).then( () => {
-            this.props.history.push({
-                pathname: ROUTES.VERIFY_PASSWORD_CODE, 
-                state: {phoneNumber: values.phone}
-            });
+        API.passwordResetRequest(sanitizedPhoneNumber, communityId).then( (res) => {
+            if (res.errors) {
+                setErrors({phone: res.errors._schema[0]})
+            } else {
+                this.props.history.push({
+                    pathname: ROUTES.VERIFY_PASSWORD_CODE, 
+                    state: {phoneNumber: values.phone}
+                });
+            }
             setSubmitting(false);
-        }).catch( (res) => {
+        }).catch( () => {
+            setErrors({phone: 'An error has occurred'})
             setSubmitting(false);
         })
     }
