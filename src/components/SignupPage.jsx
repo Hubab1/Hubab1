@@ -17,8 +17,13 @@ export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
+        const client = history.location.state;
+        let clientId;
+        if (client) {
+            clientId = client.id;
+        }
 
-        return auth.register(values).then((res) => {
+        return auth.register(values, this.props.communityId, clientId).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then((profile) => {
@@ -36,10 +41,11 @@ export class SignupPage extends React.Component {
             <Fragment>
                 <H1>Start your rental application by creating an account below</H1>
                 <Formik
+                    initialValues={this.props.history.location.state}
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone_number: Yup.string().required('Phone Number is required'),
+                        phone_1: Yup.string().required('Phone Number is required'),
                         email: Yup.string()
                             .email()
                             .required('Email is required'),
@@ -89,12 +95,12 @@ export class SignupPage extends React.Component {
                                 />
                                 <FormTextInput
                                     label="Phone Number"
-                                    name="phone_number"
+                                    name="phone_1"
                                     submitted={submitCount > 0}
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
-                                    error={errors.phone_number}
-                                    value={values.phone_number}
+                                    error={errors.phone_1}
+                                    value={values.phone_1}
                                 />
                                 <FormTextInput
                                     label="Password"

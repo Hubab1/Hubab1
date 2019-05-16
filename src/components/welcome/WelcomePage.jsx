@@ -19,9 +19,7 @@ import { ROUTES } from 'app/constants';
 export class WelcomePage extends Component {
 
     getNextLinkUrl () {
-        const hasClient = !!this.props.configuration.person;
-        const url = hasClient ? ROUTES.LOGIN : ROUTES.SIGNUP;
-        return url;
+        return ROUTES.SIGNUP;
     }
     
     render() {
@@ -29,7 +27,7 @@ export class WelcomePage extends Component {
         const { building_name, city, state, postal_code, normalized_street_address } = community;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
-
+        console.log(this.props.configuration.person)
         return (
             <Fragment>
                 <BackgroundImage url={background}/>
@@ -52,7 +50,7 @@ export class WelcomePage extends Component {
                         {unit && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={this.getNextLinkUrl()}>
+                        <Link to={{pathname: this.getNextLinkUrl(), state: this.props.configuration.person}}>
                             <ActionButton
                                 color="secondary"
                             >
