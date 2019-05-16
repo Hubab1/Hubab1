@@ -27,7 +27,7 @@ export default class ResetPassword extends React.Component {
         if (this.state.confirmReset) {
             return <ConfirmationPage 
                 successMessage="Your password has been reset."
-                buttonRoute={ROUTES.LOGIN}
+                buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
             />
         } 
