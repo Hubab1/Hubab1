@@ -11,4 +11,4 @@ echo -e "--- Building Woodhouse"
 docker-compose -f .buildkite/docker-compose.yml run --rm woodhouse npm run build
 
 echo -e "--- Deploying Woodhouse"
-s3cmd sync build/ s3://woodhouse-dev
+s3cmd --guess-mime-type sync build/ s3://woodhouse-dev
