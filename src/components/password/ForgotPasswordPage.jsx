@@ -12,13 +12,13 @@ import { formContent, H1, H3, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
+import { phoneSanitizer } from 'utils/phoneSanitizer';
+
 
 export class ForgotPasswordPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const strippedPhoneNumber = values.phone.replace(/\D/g,'')
-        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
-        const { communityId } = this.props;
-
+        const sanitizedPhoneNumber = phoneSanitizer(values.phone);
+        
         // API.passwordResetRequest(sanitizedPhoneNumber, communityId).then( (res) => {
         //     if (res.errors) {
         //         setErrors({phone: res.errors._schema[0]})

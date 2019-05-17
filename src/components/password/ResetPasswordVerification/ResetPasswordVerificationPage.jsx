@@ -9,6 +9,7 @@ import { formContent, H1, H3, P, LinkButton } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
+import { phoneSanitizer } from 'utils/phoneSanitizer';
 
 export class ResetPasswordVerificationPage extends React.Component {
 
@@ -17,14 +18,17 @@ export class ResetPasswordVerificationPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const phoneNumber = this.props.history.location.state.phoneNumber;
-        const strippedPhoneNumber = phoneNumber.replace(/\D/g,'')
-        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
-
+        const { communityId } = this.props;
+        const sanitizedPhoneNumber = phoneSanitizer(this.props.history.location.state.phoneNumber)
         const code = values.resetCode;
-        return API.passwordResetVerification(sanitizedPhoneNumber, code).then(() => {
+
+        return API.passwordResetVerification(sanitizedPhoneNumber, code, communityId).then((res) => {
+            if (res.errors) {
+                setErrors({resetCode: res.errors._schema[0]})
+            } else{
+                this.props.history.push(ROUTES.RESET_PASSWORD);
+            }
             setSubmitting(false);
-            this.props.history.push(ROUTES.RESET_PASSWORD);
         }).catch((res) => {
             setErrors({resetCode: res.errors})
             setSubmitting(false);   
@@ -33,8 +37,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
     handleClickLink = () => {
         const { communityId, history } = this.props;
-        const strippedPhoneNumber = history.location.state.phoneNumber.replace(/\D/g,'');
-        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`;
+        const sanitizedPhoneNumber = phoneSanitizer(this.props.history.location.state.phoneNumber)
 
         API.passwordResetRequest(sanitizedPhoneNumber, communityId)
     }

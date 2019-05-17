@@ -56,8 +56,11 @@ API.passwordResetRequest = (phone_number, lease_settings_id) => {
     }).then(res => res.json());
 };
 
-API.passwordResetVerification = (phoneNumber, code) => {
-    return Promise.resolve('success');
+API.passwordResetVerification = (phone_number, code, lease_settings_id) => {
+    return fetch(chuck('/api/onlineleasing/password-reset-verification/'), {
+        method: 'POST',
+        body: JSON.stringify({ phone_number, code, lease_settings_id })
+    }).then(res => res.json());
 }
 
 API.passwordReset = (newPassword) => {
