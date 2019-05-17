@@ -35,12 +35,14 @@ beforeEach(() => {
                 }
             },
             secondary_color: "FFFFFF",
-            person: {
-                email: "callieapi@example.com",
-                first_name: "Callie",
-                id: 280066,
-                last_name: "Api",
-                phone_1: "1234543123",
+            client: {
+                person: {
+                    email: "callieapi@example.com",
+                    first_name: "Callie",
+                    id: 280066,
+                    last_name: "Api",
+                    phone_1: "1234543123",
+                }
             },
             unit: {
                 id: 2747820,
@@ -61,8 +63,8 @@ it('renders Hello <client name> when client is included in configuration', funct
     expect(wrapper.text().includes('Hello Callie,')).toBeTruthy();
 });
 
-it('renders Hi There, when client is included in configuration', function(){
-    delete defaultProps.configuration.person;
+it('renders Hi There, when client is not included in configuration', function(){
+    delete defaultProps.configuration.client;
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 
     expect(wrapper.text().includes('Hi There,')).toBeTruthy();
