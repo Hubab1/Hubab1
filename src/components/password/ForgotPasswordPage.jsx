@@ -11,15 +11,28 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, H3, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
+import API from 'app/api';
 
 export class ForgotPasswordPage extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
-        // const cleanedPhoneNumber = values.phone.replace(/\D/g,'')
-        this.props.history.push({
-            pathname: ROUTES.VERIFY_PASSWORD_CODE, 
-            state: {phoneNumber: values.phone}
-        });
-        setSubmitting(false);
+    onSubmit = (values, { setSubmitting, setErrors }) => {
+        const strippedPhoneNumber = values.phone.replace(/\D/g,'')
+        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
+        const { communityId } = this.props;
+
+        API.passwordResetRequest(sanitizedPhoneNumber, communityId).then( (res) => {
+            if (res.errors) {
+                setErrors({phone: res.errors._schema[0]})
+            } else {
+                this.props.history.push({
+                    pathname: ROUTES.VERIFY_PASSWORD_CODE, 
+                    state: {phoneNumber: values.phone}
+                });
+            }
+            setSubmitting(false);
+        }).catch( () => {
+            setErrors({phone: 'An error has occurred'})
+            setSubmitting(false);
+        })
     }
 
     render () {
