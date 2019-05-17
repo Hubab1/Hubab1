@@ -77,13 +77,13 @@ export class Main extends Component {
             <AppContextProvider theme={theme}>
                 <div>
                     <Switch>
-                        <Route path={ROUTES.WELCOME} component={WelcomePage}/>
+                        <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
                             <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
-                            <Route path={ROUTES.TOS} component={TermsPage}/>
+                            <Route path={ROUTES.TOS} component={TermsPage} />
                             <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
                             <Route path={ROUTES.VERIFY_PASSWORD_CODE} component={ResetPasswordVerificationPage} />
                         </Page>

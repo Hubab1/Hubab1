@@ -3,26 +3,34 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import API from 'app/api';
+import { ROUTES } from 'app/constants';
 import { formContent, H1 } from 'assets/styles';
-import auth from 'utils/auth';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import ConfirmationPage from 'components/common/ConfirmationPage';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 
 
 export default class ResetPassword extends React.Component {
-    auth=auth
+    state = {confirmReset: false}
     onSubmit = (values, { setSubmitting }) => {
-        return auth.login(values.username, values.password).then((res) => {
-            auth.setSession(res.token, this.props.communityId);
+        return API.passwordReset(values.password).then(() => {
+            this.setState({confirmReset: true})
             setSubmitting(false);
-            this.props.fetchRenterProfile();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
-        });
+        })
     }
 
     render () {
+        if (this.state.confirmReset) {
+            return <ConfirmationPage 
+                successMessage="Your password has been reset."
+                buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
+                buttonText="Sign in"
+            />
+        } 
         return (
             <Fragment>
                 <H1>
