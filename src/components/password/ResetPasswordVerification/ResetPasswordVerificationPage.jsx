@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import { formContent, H1, H3, P } from 'assets/styles';
+import { formContent, H1, H3, P, LinkButton } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
@@ -18,14 +18,25 @@ export class ResetPasswordVerificationPage extends React.Component {
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const phoneNumber = this.props.history.location.state.phoneNumber;
+        const strippedPhoneNumber = phoneNumber.replace(/\D/g,'')
+        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
+
         const code = values.resetCode;
-        return API.passwordResetVerification(phoneNumber, code).then(() => {
+        return API.passwordResetVerification(sanitizedPhoneNumber, code).then(() => {
             setSubmitting(false);
             this.props.history.push(ROUTES.RESET_PASSWORD);
         }).catch((res) => {
             setErrors({resetCode: res.errors})
             setSubmitting(false);   
         })
+    }
+
+    handleClickLink = () => {
+        const { communityId, history } = this.props;
+        const strippedPhoneNumber = history.location.state.phoneNumber.replace(/\D/g,'');
+        const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`;
+
+        API.passwordResetRequest(sanitizedPhoneNumber, communityId)
     }
 
     render () {
@@ -86,7 +97,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <a href='/' role="button" onClick={() => console.log('you clict')}>Resend Here</a></P>
+                <P>Didn't Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
             </Fragment>
         );
     }
