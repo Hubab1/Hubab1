@@ -64,4 +64,8 @@ API.passwordReset = (newPassword) => {
     return Promise.resolve('success');
 }
 
+API.inviteRoommate = (data) => {
+    return Promise.resolve('perkele');  
+}
+
 export default API;
