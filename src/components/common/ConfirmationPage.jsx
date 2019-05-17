@@ -16,6 +16,6 @@ export default function ConfirmationPage (props) {
 
 ConfirmationPage.propTypes = {
     successMessage: PropTypes.string,
-    buttonRoute: PropTypes.string,
+    buttonClick: PropTypes.func,
     buttonText: PropTypes.string,
 }
