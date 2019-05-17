@@ -21,10 +21,18 @@ export class WelcomePage extends Component {
     getNextLinkUrl () {
         return ROUTES.SIGNUP;
     }
+
+    getLinkState () {
+        const client = this.props.configuration.client;
+        if (!client) return;
+        const { first_name, last_name, email, phone_1 } = client.person;
+        return {first_name, last_name, email, phone_1, id: client.id};
+    }
     
     render() {
-        const { person, background, logo, community, unit } = this.props.configuration;
+        const { client, background, logo, community, unit } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
+        const person = client ? client.person : null;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
 
@@ -50,7 +58,7 @@ export class WelcomePage extends Component {
                         {unit && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={{pathname: this.getNextLinkUrl(), state: this.props.configuration.person}}>
+                        <Link to={{pathname: this.getNextLinkUrl(), state: this.getLinkState()}}>
                             <ActionButton
                                 color="secondary"
                             >
