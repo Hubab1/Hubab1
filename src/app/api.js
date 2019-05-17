@@ -1,6 +1,6 @@
 const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
-function chuck (path) {
+function chuck(path) {
     return `${CHUCK_BASE_URL}${path}`;
 }
 
@@ -38,18 +38,29 @@ API.fetchRenterProfile = () => {
 API.login = (email, password) => {
     return fetch(chuck('/api/onlineleasing/login/'), {
         method: 'POST',
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password })
+    }).then(res => res.json());
+};
+
+API.register = (data, leaseSettingsId, clientId) => {
+    return fetch(chuck(`/api/onlineleasing/register/lease-settings/${leaseSettingsId}/clients/${clientId}`), {
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(res => res.json());
 };
 
 API.passwordResetRequest = (phone_number, lease_settings_id) => {
     return fetch(chuck('/api/onlineleasing/password-reset/'), {
         method: 'POST',
-        body: JSON.stringify({phone_number, lease_settings_id})
+        body: JSON.stringify({ phone_number, lease_settings_id })
     }).then(res => res.json());
 };
 
 API.passwordResetVerification = (phoneNumber, code) => {
+    return Promise.resolve('success');
+}
+
+API.passwordReset = (newPassword) => {
     return Promise.resolve('success');
 }
 

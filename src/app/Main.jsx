@@ -75,7 +75,7 @@ export class Main extends Component {
             <AppContextProvider theme={theme}>
                 <div>
                     <Switch>
-                        <Route path={ROUTES.WELCOME} component={WelcomePage}/>
+                        <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
