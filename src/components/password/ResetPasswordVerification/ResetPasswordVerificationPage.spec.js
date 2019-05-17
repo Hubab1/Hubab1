@@ -27,7 +27,7 @@ it('onSubmit calls API.passwordResetVerification', () => {
     const wrapper = shallow(<ResetPasswordVerificationPage {...defaultProps}/>);
     API.passwordResetVerification = jest.fn().mockReturnValue(Promise.resolve());
     wrapper.instance().onSubmit({ resetCode: '666666' }, { setSubmitting: function() {}, setErrors: function() {} });
-    expect(API.passwordResetVerification).toHaveBeenCalledWith(sanitizedPhoneNumber, '666666', defaultProps.communityId);
+    expect(API.passwordResetVerification).toHaveBeenCalledWith(sanitizedPhoneNumber, '666666');
 
 });
 
