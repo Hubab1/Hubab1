@@ -31,7 +31,11 @@ API.updateRenterProfile = (data) => {
 API.fetchRenterProfile = () => {
     return Promise.resolve({
         completed_terms_and_conditions: false,
-        _rental_options_config: [{ page: 'has_pets', limit: 1 }, { page: 'has_roommates', limit: 3 }],
+        rental_options_config: {
+            guarantor: {limit: 1},
+            pets: {limit: 1},
+            roommates: {limit: 3}
+        },
         selected_rental_options: [],
         roommates: [],
         pets: [],
