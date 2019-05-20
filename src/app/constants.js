@@ -14,7 +14,7 @@ export const ROUTES = {
     RESET_PASSWORD: '/password/reset',
     PROFILE: '/profile',
     PROFILE_OPTIONS: '/profile/options',
-    ROOMMATES: '/profile/roommates',
+    INVITE_ROOMMATES: '/profile/invite-roommates',
 }
 
 export const ALL_ROUTES = [

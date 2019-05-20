@@ -1,14 +1,16 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import InputMask from 'react-input-mask';
+import TextField from '@material-ui/core/TextField';
 
 import { H1, P, formContent, ErrorDetail } from 'assets/styles';
+import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import ConfirmationPage from 'components/common/ConfirmationPage';
+import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 
@@ -26,14 +28,15 @@ export class InviteRoommatesPage extends React.Component {
     }
 
     render () {
-        if (this.state.confirmReset) {
+        if (this.state.confirmSent) {
             return <ConfirmationPage 
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
+                buttonClick={() => this.props.history.push(ROUTES.LOGIN)} // to be updated with next route once we get flow in order
                 buttonText="Continue"
-                secondaryButtonClick={() => console.log('clickers magoo')}
+                secondaryButtonClick={() => this.setState({confirmSent: false})}
                 secondaryButtonText="Add Another Rooommate"
+                confirmationImage={inviteConfirm}
             />
         } 
         return (
@@ -44,7 +47,10 @@ export class InviteRoommatesPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone_1: Yup.string().required('Phone Number is required'),
+                        phone: Yup.string()
+                            .required('Phone Number is required')
+                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -77,19 +83,28 @@ export class InviteRoommatesPage extends React.Component {
                                     error={errors.last_name}
                                     value={values.last_name}
                                 />
-                                <FormTextInput
+                                <InputMask 
+                                    mask="(999) 999-9999"
                                     label="Phone Number"
-                                    name="phone_1"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
+                                    name="phone"
+                                    id="phone"
+                                    value={values.phone}
+                                    onChange={handleChange}
                                     handleBlur={handleBlur}
-                                    error={errors.phone_1}
-                                    value={values.phone_1}
-                                />
+                                >
+                                    {(inputProps) => 
+                                        <TextField
+                                            {...inputProps}
+                                            error={submitCount > 0 && !!errors.phone}
+                                            helperText={submitCount > 0 && errors.phone}
+                                            fullWidth
+                                        /> 
+                                    }
+                                </InputMask>
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="76px">Send Invite</ActionButton>
+                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <Link to={ROUTES.PROFILE_OPTIONS}>Go Back</Link>
                         </form>
@@ -101,15 +116,7 @@ export class InviteRoommatesPage extends React.Component {
 }
 
 InviteRoommatesPage.propTypes = {
-    profile: PropTypes.object,
-    fetchRenterProfile: PropTypes.func
+    history: PropTypes.object
 }
 
-const mapStateToProps = (state) => ({
-    profile: state.renterProfile,
-    communityId: state.siteConfig.basename
-});
-
-const mapDispatchToProps = { fetchRenterProfile };
-
-export default connect(mapStateToProps, mapDispatchToProps)(InviteRoommatesPage);
+export default InviteRoommatesPage;
