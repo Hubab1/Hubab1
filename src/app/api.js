@@ -24,6 +24,10 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
 
+API.updateRenterProfile = (data) => {
+    return Promise.resolve({});
+}
+
 API.fetchRenterProfile = () => {
     return Promise.resolve({
         completed_terms_and_conditions: false,
