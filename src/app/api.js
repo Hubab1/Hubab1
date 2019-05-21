@@ -42,8 +42,10 @@ API.login = (email, password, communityId) => {
     }).then(res => res.json());
 };
 
-API.register = (data, leaseSettingsId, clientId) => {
-    return fetch(chuck(`/api/onlineleasing/register/lease-settings/${leaseSettingsId}/clients/${clientId}`), {
+API.register = (data, leaseSettingsId, hash) => {
+    let registerUrl = `/api/onlineleasing/communities/${leaseSettingsId}/register/`;
+    if (hash) { registerUrl = registerUrl.concat(`?v=${hash}`); }
+    return fetch(chuck(registerUrl), {
         method: 'POST',
         body: JSON.stringify(data)
     }).then(res => res.json());
