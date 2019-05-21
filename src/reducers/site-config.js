@@ -4,11 +4,13 @@ const siteConfig = createSlice({
     slice: 'renterProfile',
     initialState: {
         basename: '',
-        theme: null
+        theme: null,
+        hash: null,
     },
     reducers: {
         basenameReceived(state, action) {
-            state.basename = action.payload;
+            state.basename = action.payload.basename;
+            state.hash = action.payload.hash;
             return state;
         }
     }
