@@ -35,13 +35,13 @@ export class InviteRoommatesPage extends React.Component {
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)} // to be updated with next route once we get flow in order
                 buttonText="Continue"
                 secondaryButtonClick={() => this.setState({confirmSent: false})}
-                secondaryButtonText="Add Another Rooommate"
+                secondaryButtonText="Add Another Roommate"
                 confirmationImage={inviteConfirm}
             />
         } 
         return (
             <Fragment>
-                <H1>Let's Invite Your Rooommates</H1>
+                <H1>Let's Invite Your Roommates</H1>
                 <P>Tell us the basics and we’ll send them an invite to tell us the rest.</P>
                 <Formik
                     validationSchema={Yup.object().shape({
