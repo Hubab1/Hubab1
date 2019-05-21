@@ -35,8 +35,8 @@ API.fetchRenterProfile = () => {
     });
 };
 
-API.login = (email, password) => {
-    return fetch(chuck('/api/onlineleasing/login/'), {
+API.login = (email, password, communityId) => {
+    return fetch(chuck(`/api/onlineleasing/communities/${communityId}/login/`), {
         method: 'POST',
         body: JSON.stringify({ email, password })
     }).then(res => res.json());
