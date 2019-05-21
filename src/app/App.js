@@ -14,10 +14,9 @@ export class App extends Component {
         siteConfig.basename = basename;
 
         let params = queryString.parse(window.location.search);
-        siteConfig.hash = params.v      ;
+        siteConfig.hash = params.v;
         
         this.props.basenameReceived(siteConfig);
-
     }
 
     render() {
