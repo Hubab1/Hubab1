@@ -6,13 +6,13 @@ import { root, label, ButtonContainer } from './styles';
 
 export default class ActionButton extends React.Component {
     render () {
-        const { color, disabled, onClick, children, marginTop, marginBottom } = this.props;
+        const { color, disabled, onClick, children, marginTop, marginBottom, variant } = this.props;
         return (
             <ButtonContainer marginTop={marginTop} marginBottom={marginBottom}>
                 <Button
                     onClick={onClick}
                     classes={{ root, label }}
-                    variant="contained"
+                    variant={variant || 'contained'}
                     color={color || 'primary'}
                     type="submit"
                     disabled={disabled}
@@ -30,5 +30,6 @@ ActionButton.propTypes = {
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     marginTop: PropTypes.string,
-    marginBottom: PropTypes.string
+    marginBottom: PropTypes.string,
+    variant: PropTypes.string,
 }

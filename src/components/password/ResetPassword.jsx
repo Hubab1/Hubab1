@@ -7,7 +7,7 @@ import API from 'app/api';
 import { ROUTES } from 'app/constants';
 import { formContent, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import ConfirmationPage from 'components/common/ConfirmationPage';
+import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 
 
