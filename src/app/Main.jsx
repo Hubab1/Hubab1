@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 
 import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
@@ -53,12 +52,12 @@ export class Main extends Component {
 
     async componentDidMount () {
         const communityId = this.props.communityId;
+        const hash = this.props.hash;
         const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
 
-        let params = queryString.parse(this.props.location.search);
         let configuration;
         try {
-            configuration = await this.props.fetchConfiguration(communityId, params.v);
+            configuration = await this.props.fetchConfiguration(communityId, hash);
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
@@ -94,7 +93,8 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     communityId: state.siteConfig.basename,
-    theme: selectors.selectTheme(state)
+    hash: state.siteConfig.hash,
+    theme: selectors.selectTheme(state),
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};

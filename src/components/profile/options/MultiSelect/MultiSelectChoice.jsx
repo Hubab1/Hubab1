@@ -15,7 +15,6 @@ export default class MultiSelectChoice extends React.Component {
                     onClick={()=>this.context._onClick(this.props.name)}
                     variant="outlined"
                     color="primary"
-                    type="submit"
                     fullWidth
                     classes={{
                         root: this.props._selected ? selected : unselected,

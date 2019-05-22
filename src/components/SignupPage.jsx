@@ -19,13 +19,12 @@ export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
-        const client = history.location.state;
-        let clientId;
-        if (client) {
-            clientId = client.id;
-        }
 
-        return auth.register(values, this.props.communityId, clientId).then((res) => {
+        //reset phone_1 field to phone_number for backend
+        // eslint-disable-next-line
+        delete Object.assign(values, {['phone_number']: values['phone_1'] })['phone_1'];
+
+        return auth.register(values, this.props.communityId, this.props.hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then((profile) => {
@@ -136,7 +135,8 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    communityId: state.siteConfig.basename
+    communityId: state.siteConfig.basename,
+    hash: state.siteConfig.hash,
 });
 
 const mapDispatchToProps = { fetchRenterProfile };

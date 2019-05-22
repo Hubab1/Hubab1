@@ -24,7 +24,7 @@ export class WelcomePage extends Component {
 
     getLinkState () {
         const client = this.props.configuration.client;
-        if (!client) return;
+        if (!client || !client.person) return;
         const { first_name, last_name, email, phone_1 } = client.person;
         return {first_name, last_name, email, phone_1, id: client.id};
     }
@@ -35,7 +35,6 @@ export class WelcomePage extends Component {
         const person = client ? client.person : null;
         const cityStateZip = `${city}, ${state} ${postal_code}`
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
-
         return (
             <Fragment>
                 <BackgroundImage url={background}/>
@@ -55,7 +54,7 @@ export class WelcomePage extends Component {
                             building_name ? <P label="street">{normalized_street_address}</P> : <H1>{normalized_street_address}</H1>
                         }
                         {cityStateZip && <P>{cityStateZip}</P>}
-                        {unit && <P>{`Unit ${unit.unit_number}`}</P>}
+                        { unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link to={{pathname: this.getNextLinkUrl(), state: this.getLinkState()}}>

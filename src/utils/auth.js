@@ -11,8 +11,8 @@ class Auth {
             return Promise.reject({errors: {error: 'There was a problem creating your account.'}});
         });
     }
-    login = (email, password) => {
-        return API.login(email, password).then((res) => {
+    login = (email, password, communityId) => {
+        return API.login(email, password, communityId).then((res) => {
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
         })

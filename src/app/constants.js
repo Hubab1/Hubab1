@@ -4,16 +4,17 @@ export const community = {
 
 export const ROUTES = {
     COMMUNITY: '/',
-    PROFILE_OPTIONS: '/profile/options',
+    WELCOME: '/welcome',
+    LOGIN: '/login',
+    SIGNUP: '/signup',
+    TOS: '/terms',
     PASSWORD: '/password',
     FORGOT_PASSWORD: '/password/forgot',
     VERIFY_PASSWORD_CODE: '/password/verify',
     RESET_PASSWORD: '/password/reset',
     PROFILE: '/profile',
-    WELCOME: '/welcome',
-    LOGIN: '/login',
-    SIGNUP: '/signup',
-    TOS: '/terms'
+    PROFILE_OPTIONS: '/profile/options',
+    INVITE_ROOMMATES: '/profile/invite-roommates',
 }
 
 export const ALL_ROUTES = [
