@@ -15,6 +15,7 @@ import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPag
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
+import captureRoute from 'app/captureRoute';
 
 export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -40,7 +41,7 @@ export class GuarantorPage extends React.Component {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={this.nextPage}
+                buttonClick={this.props._nextRoute}
                 buttonText="Continue"
             />
         }
@@ -112,7 +113,7 @@ export class GuarantorPage extends React.Component {
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
-                            <Link to={ROUTES.PROFILE_OPTIONS}>Go Back</Link>
+                            <Link to={this.props._prev}>Go Back</Link>
                         </form>
                     )}
                 </Formik>
@@ -125,4 +126,4 @@ GuarantorPage.propTypes = {
     history: PropTypes.object
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(GuarantorPage);
+export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(captureRoute(GuarantorPage, ROUTES.GUARANTOR));

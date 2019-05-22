@@ -59,3 +59,23 @@ selectors.selectOrderedRoutes = createSelector(
         }
     }
 );
+
+selectors.selectNextRoute = createSelector(
+    selectors.selectOrderedRoutes,
+    state => state.siteConfig.currentRoute,
+    (orderedRoutes, currentRoute) => {
+        if (orderedRoutes && currentRoute) {
+            return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
+        }
+    }
+);
+
+selectors.selectPrevRoute = createSelector(
+    selectors.selectOrderedRoutes,
+    state => state.siteConfig.currentRoute,
+    (orderedRoutes, currentRoute) => {
+        if (orderedRoutes && currentRoute) {
+            return orderedRoutes[orderedRoutes.indexOf(currentRoute)-1];
+        }
+    }
+);

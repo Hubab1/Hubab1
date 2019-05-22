@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { ROUTES } from 'app/constants';
-import { selectors, updateRenterProfile } from 'reducers/renter-profile';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, P } from 'assets/styles';
+import captureRoute from 'app/captureRoute';
 
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         setSubmitting(false);
         this.props.updateRenterProfile({selected_rental_options: values.options});
-        const index = this.props.routes.indexOf(ROUTES.PROFILE_OPTIONS);
-        this.props.history.push(this.props.routes[index+1]);
+        this.props._nextRoute();
     }
 
     render () {
@@ -76,5 +76,4 @@ export class RentalProfileOptions extends React.Component {
     }
 }
 
-
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(RentalProfileOptions);
+export default connect(null, {updateRenterProfile})(captureRoute(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));

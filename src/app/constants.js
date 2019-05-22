@@ -15,8 +15,8 @@ export const ROUTES = {
     PROFILE: '/profile',
     PROFILE_OPTIONS: '/profile/options',
     GUARANTOR: '/profile/guarantor',
-    PARKING: 'parking/parking',
-    PETS: 'profile/pets',
+    PARKING: '/parking/parking',
+    PETS: '/profile/pets',
     ROOMMATES: '/profile/invite-roommates',
 }
 
