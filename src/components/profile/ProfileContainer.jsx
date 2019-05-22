@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'app/constants';
 import RenterProfileOptions from 'components/profile/options/RenterProfileOptions';
+import InviteRoommatesPage from 'components/profile/InviteRoommatesPage';
 
 
 class ProfileContainer extends Component {
@@ -10,6 +11,7 @@ class ProfileContainer extends Component {
         return (
             <Switch>
                 <Route path={ROUTES.PROFILE_OPTIONS} component={RenterProfileOptions} />
+                <Route path={ROUTES.INVITE_ROOMMATES} component={InviteRoommatesPage} />
             </Switch>
         );
     }

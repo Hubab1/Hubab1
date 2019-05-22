@@ -25,5 +25,6 @@ export default class MultiSelect extends React.Component {
 }
 
 MultiSelect.propTypes = {
-    value: PropTypes.array
+    value: PropTypes.array,
+    onChagne: PropTypes.func,
 }

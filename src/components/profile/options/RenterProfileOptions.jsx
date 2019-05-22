@@ -2,17 +2,21 @@ import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
+import { ROUTES } from 'app/constants';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
-import { H1, Subtitle } from 'assets/styles';
+import { H1, P } from 'assets/styles';
 
 export default class RentalProfileOptions extends React.Component {
-    onSubmit = () => {
-        // todo
+    onSubmit = (values, { setSubmitting }) => {
+        this.props.history.push(ROUTES.INVITE_ROOMMATES);
+        setSubmitting(false);
     }
 
     render () {
         return (
-            <div>
+            <Fragment>
+                <H1>Let's talk about your new place</H1>
+                <P>Select all that apply</P>
                 <Formik
                     initialValues={{ options: [] }}
                     validate={values => {
@@ -24,12 +28,11 @@ export default class RentalProfileOptions extends React.Component {
                 >
                     {({
                         values,
-                        setFieldValue
+                        setFieldValue,
+                        isSubmitting,
+                        handleSubmit,
                     }) => (
-                        <Fragment>
-                            <H1>Let's talk about your new place</H1>
-                            <Subtitle>Select all that apply</Subtitle>
-                            <div style={{height: 12}}></div>
+                        <form onSubmit={handleSubmit} autoComplete="off">
                             <MultiSelect
                                 onChange={(value) => setFieldValue('options', value)}
                                 value={values.options}
@@ -60,10 +63,11 @@ export default class RentalProfileOptions extends React.Component {
                                     label="I'll need extra storage"
                                 />
                             </MultiSelect>
-                        </Fragment>
-                    )}</Formik>
-                <ActionButton onClick={this.onClick}>Continue</ActionButton>
-            </div>
+                            <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Continue</ActionButton>
+                        </form>
+                    )}
+                </Formik>
+            </Fragment>
         );
     }
 }
