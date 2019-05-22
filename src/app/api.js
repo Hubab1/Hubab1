@@ -43,15 +43,17 @@ API.fetchRenterProfile = () => {
     });
 };
 
-API.login = (email, password) => {
-    return fetch(chuck('/api/onlineleasing/login/'), {
+API.login = (email, password, communityId) => {
+    return fetch(chuck(`/api/onlineleasing/communities/${communityId}/login/`), {
         method: 'POST',
         body: JSON.stringify({ email, password })
     }).then(res => res.json());
 };
 
-API.register = (data, leaseSettingsId, clientId) => {
-    return fetch(chuck(`/api/onlineleasing/register/lease-settings/${leaseSettingsId}/clients/${clientId}`), {
+API.register = (data, leaseSettingsId, hash) => {
+    let registerUrl = `/api/onlineleasing/communities/${leaseSettingsId}/register/`;
+    if (hash) { registerUrl = registerUrl.concat(`?v=${hash}`); }
+    return fetch(chuck(registerUrl), {
         method: 'POST',
         body: JSON.stringify(data)
     }).then(res => res.json());

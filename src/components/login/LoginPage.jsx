@@ -22,7 +22,7 @@ export class LoginPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
-        return auth.login(values.email, values.password).then((res) => {
+        return auth.login(values.email, values.password, this.props.communityId).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             if (this.state.errors) this.setState({errors: null});
