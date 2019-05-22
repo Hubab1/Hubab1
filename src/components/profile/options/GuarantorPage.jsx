@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -28,12 +27,6 @@ export class GuarantorPage extends React.Component {
             this.setState({errors: res.errors});
             setSubmitting(false);
         });
-    }
-
-    nextPage = () => {
-        this.props.updateRenterProfile({guarantor: {}});
-        const index = this.props.routes.indexOf(ROUTES.GUARANTOR);
-        this.props.history.push(this.props.routes[index+1]);
     }
 
     render () {
@@ -120,10 +113,6 @@ export class GuarantorPage extends React.Component {
             </Fragment>
         );
     }
-}
-
-GuarantorPage.propTypes = {
-    history: PropTypes.object
 }
 
 export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(captureRoute(GuarantorPage, ROUTES.GUARANTOR));

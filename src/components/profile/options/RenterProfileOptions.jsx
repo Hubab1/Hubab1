@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -74,6 +75,10 @@ export class RentalProfileOptions extends React.Component {
             </Fragment>
         );
     }
+}
+
+RentalProfileOptions.propTypes = {
+    updateRenterProfile: PropTypes.func.isRequired
 }
 
 export default connect(null, {updateRenterProfile})(captureRoute(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
