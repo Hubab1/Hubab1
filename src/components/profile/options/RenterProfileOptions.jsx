@@ -8,7 +8,7 @@ import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, P } from 'assets/styles';
-import captureRoute from 'app/captureRoute';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
@@ -81,4 +81,4 @@ RentalProfileOptions.propTypes = {
     updateRenterProfile: PropTypes.func.isRequired
 }
 
-export default connect(null, {updateRenterProfile})(captureRoute(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+export default connect(null, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));

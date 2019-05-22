@@ -12,7 +12,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
-import captureRoute from 'app/captureRoute';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 
 export class InviteRoommatesPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -115,4 +115,4 @@ export class InviteRoommatesPage extends React.Component {
     }
 }
 
-export default captureRoute(InviteRoommatesPage, ROUTES.ROOMMATES);
+export default withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES);

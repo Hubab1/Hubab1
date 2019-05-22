@@ -14,7 +14,7 @@ import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPag
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
-import captureRoute from 'app/captureRoute';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 
 export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -115,4 +115,4 @@ export class GuarantorPage extends React.Component {
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(captureRoute(GuarantorPage, ROUTES.GUARANTOR));
+export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(GuarantorPage, ROUTES.GUARANTOR));

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
 
-export default function captureRoute(WrappedComponent, route) {
+export default function withRelativeRoutes(WrappedComponent, route) {
     class Component extends React.Component {
         constructor (props) {
             super(props);
