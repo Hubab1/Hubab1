@@ -26,7 +26,8 @@ export class WelcomePage extends Component {
         const client = this.props.configuration.client;
         if (!client || !client.person) return;
         const { first_name, last_name, email, phone_1 } = client.person;
-        return {first_name, last_name, email, phone_1, id: client.id};
+        const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
+        return { clientValues, hash: this.props.hash};
     }
     
     render() {
@@ -82,6 +83,7 @@ WelcomePage.propTypes = {
 
 const mapStateToProps = state => ({
     configuration: state.configuration,
+    hash: state.siteConfig.hash
 });
 
 const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);
