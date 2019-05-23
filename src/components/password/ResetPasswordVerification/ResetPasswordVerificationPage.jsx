@@ -19,8 +19,9 @@ export class ResetPasswordVerificationPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const phoneNumber = this.props.history.location.state.phoneNumber
         const code = values.resetCode;
+        const communityId = this.props.communityId;
 
-        return API.passwordResetVerification(phoneNumber, code).then((res) => {
+        return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
             if (res.errors) {
                 setErrors({resetCode: res.errors._schema[0]})
             } else{

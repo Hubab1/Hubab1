@@ -19,7 +19,7 @@ export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
-        const hash = this.props.history.location.state.hash;
+        const hash = this.props.history.location.state && this.props.history.location.state.hash;
 
         return auth.register(values, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
@@ -35,11 +35,12 @@ export class SignupPage extends React.Component {
     }
 
     render () {
+        const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
             <Fragment>
                 <H1>Start your rental application by creating an account below</H1>
                 <Formik
-                    initialValues={this.props.history.location.state.clientValues}
+                    initialValues={initialValues}
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),

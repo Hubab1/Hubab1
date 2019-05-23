@@ -21,19 +21,19 @@ it('renders phone number in text', () => {
 
 it('onSubmit calls API.passwordResetVerification', () => {
     const phoneNumber = defaultProps.history.location.state.phoneNumber;
-    const strippedPhoneNumber = phoneNumber.replace(/\D/g,'')
-    const sanitizedPhoneNumber = `+1${strippedPhoneNumber}`
 
     const wrapper = shallow(<ResetPasswordVerificationPage {...defaultProps}/>);
     API.passwordResetVerification = jest.fn().mockReturnValue(Promise.resolve());
     wrapper.instance().onSubmit({ resetCode: '666666' }, { setSubmitting: function() {}, setErrors: function() {} });
-    expect(API.passwordResetVerification).toHaveBeenCalledWith(sanitizedPhoneNumber, '666666');
+    expect(API.passwordResetVerification).toHaveBeenCalledWith(phoneNumber, '666666', defaultProps.communityId);
 
 });
 
 it('clicking Resend Here calls API.passwordResetRequest', () => {
+    const phoneNumber = defaultProps.history.location.state.phoneNumber;
+
     const wrapper = shallow(<ResetPasswordVerificationPage {...defaultProps}/>);
     API.passwordResetRequest = jest.fn().mockReturnValue(Promise.resolve());
     wrapper.find('LinkButton').simulate('click');
-    expect(API.passwordResetRequest).toHaveBeenCalledWith('+12222222222', defaultProps.communityId);
+    expect(API.passwordResetRequest).toHaveBeenCalledWith(phoneNumber, defaultProps.communityId);
 });
