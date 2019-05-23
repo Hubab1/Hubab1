@@ -76,3 +76,8 @@ export const BigText = styled.div`
     font-size: 50px;
     font-weight: bold;
 ` 
+
+export const SpacerContainer = styled.div((props) => ({
+    marginTop: props.marginTop || 0,
+    marginBottom: props.marginBottom || 0,
+}));

@@ -10,9 +10,8 @@ import Logo from 'components/common/Logo';
 import { H1, H2, P }from 'assets/styles';
 import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
-    WelcomeFooterContainer, HomeImageContainer
+    WelcomeFooterContainer, HomeImageContainer, StyledButton
 } from './styles';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 
 
@@ -57,12 +56,15 @@ export class WelcomePage extends Component {
                         { unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={{pathname: this.getNextLinkUrl(), state: this.getLinkState()}}>
-                            <ActionButton
-                                color="secondary"
-                            >
-                                Start Application
-                            </ActionButton>
+                        <Link 
+                            to={{pathname: this.getNextLinkUrl(), state: this.getLinkState()}}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <div>
+                                <StyledButton fullWidth>
+                                    Start Application
+                                </StyledButton>
+                            </div>
                         </Link>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>

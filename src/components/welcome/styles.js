@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 
 export const BackgroundImage = styled.div( props => ({
@@ -63,3 +65,19 @@ export const HomeImageContainer = styled.div`
     text-align: center;
     padding: 10px;
     margin: 0 auto;`
+
+
+    export const StyledButton = withStyles({
+    root: {
+        background: '#FFF',
+        borderRadius: 21.5,
+        color: 'black',
+        '&:hover': {
+            background: '#CCC'
+        },
+    },
+    label: {
+        textTransform: 'none',
+    },
+})(Button);
+      
