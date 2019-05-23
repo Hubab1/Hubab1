@@ -1,15 +1,20 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
+import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 import { ROUTES } from 'app/constants';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, P } from 'assets/styles';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 
-export default class RentalProfileOptions extends React.Component {
+export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
-        this.props.history.push(ROUTES.INVITE_ROOMMATES);
         setSubmitting(false);
+        this.props.updateRenterProfile({selected_rental_options: values.options});
+        this.props._nextRoute();
     }
 
     render () {
@@ -39,7 +44,7 @@ export default class RentalProfileOptions extends React.Component {
                             >
                                 <MultiSelectChoice
                                     prefix="👪"
-                                    name="other_adults"
+                                    name="roommates"
                                     label="Other adults will live here"
                                 />
                                 <MultiSelectChoice
@@ -71,3 +76,9 @@ export default class RentalProfileOptions extends React.Component {
         );
     }
 }
+
+RentalProfileOptions.propTypes = {
+    updateRenterProfile: PropTypes.func.isRequired
+}
+
+export default connect(null, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));

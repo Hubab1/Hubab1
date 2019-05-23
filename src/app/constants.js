@@ -14,9 +14,16 @@ export const ROUTES = {
     RESET_PASSWORD: '/password/reset',
     PROFILE: '/profile',
     PROFILE_OPTIONS: '/profile/options',
-    INVITE_ROOMMATES: '/profile/invite-roommates',
+    GUARANTOR: '/profile/guarantor',
+    PARKING: '/parking/parking',
+    PETS: '/profile/pets',
+    ROOMMATES: '/profile/invite-roommates',
 }
 
 export const ALL_ROUTES = [
     ROUTES.LOGIN, ROUTES.TOS, ROUTES.PROFILE_OPTIONS
+]
+
+export const BASE_ROUTES = [
+    ROUTES.TOS, ROUTES.PROFILE_OPTIONS
 ]

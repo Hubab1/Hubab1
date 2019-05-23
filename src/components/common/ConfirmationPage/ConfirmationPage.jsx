@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { H1, P } from 'assets/styles';
 import { ImageContainer } from './styles';
+import inviteConfirm from 'assets/images/invite-confirm.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 export default function ConfirmationPage (props) {
@@ -26,6 +27,10 @@ export default function ConfirmationPage (props) {
                 </ActionButton> }
         </Fragment>
     );
+}
+
+ConfirmationPage.defaultProps = {
+    confirmationImage: inviteConfirm
 }
 
 ConfirmationPage.propTypes = {

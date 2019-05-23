@@ -1,24 +1,26 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import TextField from '@material-ui/core/TextField';
 
-import { H1, P, formContent, ErrorDetail } from 'assets/styles';
-import inviteConfirm from 'assets/images/invite-confirm.png';
+import { H1, Subtitle, formContent, ErrorDetail } from 'assets/styles';
+
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
+import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
-export class InviteRoommatesPage extends React.Component {
+export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteRoommate(values).then((res) => {
+        API.inviteGuarantor(values).then((res) => {
             setSubmitting(false);
             this.setState({confirmSent: true})
         }).catch((res) => {
@@ -29,20 +31,18 @@ export class InviteRoommatesPage extends React.Component {
 
     render () {
         if (this.state.confirmSent) {
-            return <ConfirmationPage 
+            return <ConfirmationPage
                 successMessage="Invite Sent!"
-                secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
+                secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
                 buttonClick={this.props._nextRoute}
                 buttonText="Continue"
-                secondaryButtonClick={() => this.setState({confirmSent: false})}
-                secondaryButtonText="Add Another Roommate"
-                confirmationImage={inviteConfirm}
             />
-        } 
+        }
         return (
             <Fragment>
-                <H1>Let's Invite Your Roommates</H1>
-                <P>Tell us the basics and we’ll send them an invite to tell us the rest.</P>
+                <H1>Let's Invite a Guarantor</H1>
+                <br/>
+                <Subtitle>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it couldn’t be paid for some reason.</Subtitle>
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
@@ -115,4 +115,4 @@ export class InviteRoommatesPage extends React.Component {
     }
 }
 
-export default withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES);
+export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(GuarantorPage, ROUTES.GUARANTOR));

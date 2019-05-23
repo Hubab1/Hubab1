@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, TextReader, Bold, GoBack } from 'assets/styles';
 import { ROUTES } from 'app/constants';
+import { updateRenterProfile } from 'reducers/renter-profile';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -16,6 +18,7 @@ export class TermsPage extends React.Component {
 
     handleClickNext = () => {
         const { history } = this.props;
+        this.props.updateRenterProfile({completed_terms_and_conditions: true});
         history.push(ROUTES.PROFILE_OPTIONS);
     }
 
@@ -58,4 +61,4 @@ export class TermsPage extends React.Component {
     }
 }
 
-export default TermsPage;
+export default connect(null, {updateRenterProfile})(TermsPage);
