@@ -50,6 +50,12 @@ export class GuarantorPage extends React.Component {
                         phone: Yup.string()
                             .required('Phone Number is required')
                             .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+                        submit_button: Yup.string().when(['first_name', 'last_name', 'phone'], {
+                            is: (first_name, last_name, phone) => {
+                                return !(first_name, last_name, phone)
+                            },
+                            then: Yup.string().required()
+                        })
 
                     })}
                     onSubmit={this.onSubmit}
@@ -104,7 +110,7 @@ export class GuarantorPage extends React.Component {
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+                                <ActionButton disabled={!!errors.submit_button || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <Link to={this.props._prev}>Go Back</Link>
                         </form>
