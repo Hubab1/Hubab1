@@ -67,7 +67,7 @@ export const HomeImageContainer = styled.div`
     margin: 0 auto;`
 
 
-    export const StyledButton = withStyles({
+    export const WhiteButton = withStyles({
     root: {
         background: '#FFF',
         borderRadius: 21.5,
