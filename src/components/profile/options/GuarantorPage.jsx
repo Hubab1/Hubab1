@@ -20,7 +20,7 @@ export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteRoommate(values).then((res) => {
+        API.inviteGuarantor(values).then((res) => {
             setSubmitting(false);
             this.setState({confirmSent: true})
         }).catch((res) => {
@@ -33,7 +33,7 @@ export class GuarantorPage extends React.Component {
         if (this.state.confirmSent) {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
-                secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
+                secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
                 buttonClick={this.props._nextRoute}
                 buttonText="Continue"
             />

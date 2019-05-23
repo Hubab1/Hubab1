@@ -78,4 +78,8 @@ API.inviteRoommate = (data) => {
     return Promise.resolve('perkele');  
 }
 
+API.inviteGuarantor = (data) => {
+    return Promise.resolve('perkele');
+}
+
 export default API;
