@@ -77,7 +77,14 @@ export const BigText = styled.div`
     font-weight: bold;
 ` 
 
-export const SpacerContainer = styled.div((props) => ({
-    marginTop: props.marginTop || 0,
-    marginBottom: props.marginBottom || 0,
-}));
+export const LinkButton = styled.button`
+    background:none!important;
+    color:inherit;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    label: link-button;
+`
+LinkButton.displayName = 'LinkButton';

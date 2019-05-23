@@ -10,7 +10,7 @@ import Logo from 'components/common/Logo';
 import { H1, H2, P }from 'assets/styles';
 import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
-    WelcomeFooterContainer, HomeImageContainer, StyledButton
+    WelcomeFooterContainer, HomeImageContainer, WhiteButton
 } from './styles';
 import { ROUTES } from 'app/constants';
 
@@ -25,7 +25,8 @@ export class WelcomePage extends Component {
         const client = this.props.configuration.client;
         if (!client || !client.person) return;
         const { first_name, last_name, email, phone_1 } = client.person;
-        return {first_name, last_name, email, phone_1, id: client.id};
+        const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
+        return { clientValues, hash: this.props.hash};
     }
     
     render() {
@@ -61,9 +62,9 @@ export class WelcomePage extends Component {
                             style={{ textDecoration: 'none' }}
                         >
                             <div>
-                                <StyledButton fullWidth>
+                                <WhiteButton fullWidth>
                                     Start Application
-                                </StyledButton>
+                                </WhiteButton>
                             </div>
                         </Link>
                         <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
@@ -84,6 +85,7 @@ WelcomePage.propTypes = {
 
 const mapStateToProps = state => ({
     configuration: state.configuration,
+    hash: state.siteConfig.hash
 });
 
 const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);
