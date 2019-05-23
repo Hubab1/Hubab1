@@ -76,3 +76,15 @@ export const BigText = styled.div`
     font-size: 50px;
     font-weight: bold;
 ` 
+
+export const LinkButton = styled.button`
+    background:none!important;
+    color:inherit;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    label: link-button;
+`
+LinkButton.displayName = 'LinkButton';

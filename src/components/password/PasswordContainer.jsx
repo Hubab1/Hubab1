@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'app/constants';
 import ForgotPasswordPage from 'components/password/ForgotPasswordPage';
-import ResetPasswordVerificationPage from 'components/password/ResetPasswordVerificationPage';
+import ResetPasswordVerificationPage from 'components/password/ResetPasswordVerification/ResetPasswordVerificationPage';
 import ResetPassword from 'components/password/ResetPassword';
 
 

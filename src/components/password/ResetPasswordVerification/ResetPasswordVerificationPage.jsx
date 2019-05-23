@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import { formContent, H1, H3, P } from 'assets/styles';
+import { formContent, H1, H3, P, LinkButton } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
@@ -17,15 +17,28 @@ export class ResetPasswordVerificationPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const phoneNumber = this.props.history.location.state.phoneNumber;
+        const phoneNumber = this.props.history.location.state.phoneNumber
         const code = values.resetCode;
-        return API.passwordResetVerification(phoneNumber, code).then(() => {
+        const communityId = this.props.communityId;
+
+        return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
+            if (res.errors) {
+                setErrors({resetCode: res.errors._schema[0]})
+            } else{
+                this.props.history.push(ROUTES.RESET_PASSWORD);
+            }
             setSubmitting(false);
-            this.props.history.push(ROUTES.RESET_PASSWORD);
         }).catch((res) => {
             setErrors({resetCode: res.errors})
             setSubmitting(false);   
         })
+    }
+
+    handleClickLink = () => {
+        const { communityId, history } = this.props;
+        const phoneNumber = history.location.state.phoneNumber;
+
+        API.passwordResetRequest(phoneNumber, communityId)
     }
 
     render () {
@@ -86,7 +99,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <a href='/' role="button" onClick={() => console.log('you clict')}>Resend Here</a></P>
+                <P>Didn't Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
             </Fragment>
         );
     }

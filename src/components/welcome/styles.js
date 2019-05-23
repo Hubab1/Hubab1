@@ -54,12 +54,13 @@ export const WelcomeFooterContainer = styled.div`
 
 export const HomeImageContainer = styled.div`
     position: relative;
-    top: -35px;
+    top: -40px;
     width: 30px;
-    height: 15px;
+    height: 30px;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
     background: inherit;
     text-align: center;
-    padding: 10px;
-    margin: 0 auto;`
+    padding: 10px 10px 0 10px;
+    margin: 0 auto;
+`

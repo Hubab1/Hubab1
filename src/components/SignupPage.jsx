@@ -19,12 +19,9 @@ export class SignupPage extends React.Component {
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
+        const hash = this.props.history.location.state && this.props.history.location.state.hash;
 
-        //reset phone_1 field to phone_number for backend
-        // eslint-disable-next-line
-        delete Object.assign(values, {['phone_number']: values['phone_1'] })['phone_1'];
-
-        return auth.register(values, this.props.communityId, this.props.hash).then((res) => {
+        return auth.register(values, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then((profile) => {
@@ -38,15 +35,16 @@ export class SignupPage extends React.Component {
     }
 
     render () {
+        const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
             <Fragment>
                 <H1>Start your rental application by creating an account below</H1>
                 <Formik
-                    initialValues={this.props.history.location.state}
+                    initialValues={initialValues}
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone_1: Yup.string().required('Phone Number is required'),
+                        phone_number: Yup.string().required('Phone Number is required'),
                         email: Yup.string()
                             .email()
                             .required('Email is required'),
@@ -96,12 +94,12 @@ export class SignupPage extends React.Component {
                                 />
                                 <FormTextInput
                                     label="Phone Number"
-                                    name="phone_1"
+                                    name="phone_number"
                                     submitted={submitCount > 0}
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
-                                    error={errors.phone_1}
-                                    value={values.phone_1}
+                                    error={errors.phone_number}
+                                    value={values.phone_number}
                                 />
                                 <FormTextInput
                                     label="Password"
@@ -136,7 +134,6 @@ SignupPage.propTypes = {
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     communityId: state.siteConfig.basename,
-    hash: state.siteConfig.hash,
 });
 
 const mapDispatchToProps = { fetchRenterProfile };
