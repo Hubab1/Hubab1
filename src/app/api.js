@@ -65,8 +65,15 @@ API.passwordResetVerification = (phone_number, code, lease_settings_id) => {
     }).then(res => res.json());
 }
 
-API.passwordReset = (newPassword) => {
-    return Promise.resolve('success');
+API.passwordReset = (password, token) => {
+    return fetch(chuck('/api/onlineleasing/password-change/'), {
+        method: 'PUT',
+        body: JSON.stringify({password}),
+        headers: {
+            'content_type': 'application/json',
+            'HTTP_AUTHORIZATION': token
+        }
+    });
 }
 
 API.inviteRoommate = (data) => {

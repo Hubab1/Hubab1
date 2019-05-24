@@ -25,7 +25,10 @@ export class ResetPasswordVerificationPage extends React.Component {
             if (res.errors) {
                 setErrors({resetCode: res.errors._schema[0]})
             } else{
-                this.props.history.push(ROUTES.RESET_PASSWORD);
+                this.props.history.push({
+                    pathname: ROUTES.RESET_PASSWORD, 
+                    state: {token: res.token}
+                });
             }
             setSubmitting(false);
         }).catch((res) => {

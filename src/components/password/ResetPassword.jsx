@@ -14,7 +14,9 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 export default class ResetPassword extends React.Component {
     state = {confirmReset: false}
     onSubmit = (values, { setSubmitting }) => {
-        return API.passwordReset(values.password).then(() => {
+        const token = this.props.history.location.state.token;
+
+        return API.passwordReset(values.password, token).then(() => {
             this.setState({confirmReset: true})
             setSubmitting(false);
         }).catch((res) => {
