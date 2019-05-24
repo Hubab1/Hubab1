@@ -70,10 +70,10 @@ API.passwordReset = (password, token) => {
         method: 'PUT',
         body: JSON.stringify({password}),
         headers: {
-            'content_type': 'application/json',
-            'HTTP_AUTHORIZATION': token
+            "Content-Type": "application/json",
+            'AUTHORIZATION': `token ${token}`,
         }
-    });
+    }).then(res => res.json());
 }
 
 API.inviteRoommate = (data) => {

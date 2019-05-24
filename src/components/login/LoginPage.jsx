@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
-import { formContent, H1, P, ErrorDetail } from 'assets/styles';
+import { formContent, H1, P } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
+import GenericFormError from 'components/common/GenericFormError';
+
 
 
 import auth from 'utils/auth';
@@ -31,7 +33,7 @@ export class LoginPage extends React.Component {
                 history.replace(initialPage);
             });
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: res.errors.error});
             setSubmitting(false);
         });
     }
@@ -88,12 +90,11 @@ export class LoginPage extends React.Component {
                                     />
                                 </div>
                                 <div>
-                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
+                                    {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
                                     Sign In
                                 </ActionButton>
-                                {/* eslint-disable-next-line */}
                                 <P className="already-have-account">Forgot your password? <Link to={ROUTES.FORGOT_PASSWORD}>Click here</Link></P>
                                 <br/>
                                 <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>

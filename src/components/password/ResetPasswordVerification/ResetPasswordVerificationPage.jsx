@@ -41,7 +41,7 @@ export class ResetPasswordVerificationPage extends React.Component {
         const { communityId, history } = this.props;
         const phoneNumber = history.location.state.phoneNumber;
 
-        API.passwordResetRequest(phoneNumber, communityId)
+        API.passwordResetRequest(phoneNumber, communityId);
     }
 
     render () {
