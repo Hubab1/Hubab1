@@ -41,6 +41,6 @@ it('renders errors if has errors', function() {
     const wrapper = shallow( < LoginPage communityId = "123"/> );
     wrapper.instance().auth.login = () => Promise.reject({errors: {error: 'Invalid credentials'}});
     return wrapper.instance().onSubmit({}, {setSubmitting: ()=>{}}).then(() => {
-        expect(wrapper.state('errors').error).toEqual('Invalid credentials');
+        expect(wrapper.state('errors')).toEqual('Invalid credentials');
     });
 });

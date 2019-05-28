@@ -14,7 +14,6 @@ const FormErrorContainer = styled.div`
 
 const IconDiv = styled.div`
     background-color: #FB6D68;
-    width: 10%;
     padding: 7px 5px 5px 5px;
     text-align: center;
     border-radius: 3px 0 0 3px;
