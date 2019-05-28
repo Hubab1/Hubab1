@@ -58,8 +58,7 @@ export const H3 = styled.h3`
 `
 
 export const P = styled.p`
-    font-weight: 400;
-    font-size: 16px;
+    font-size: '16px';
     margin: 0;
 `
 

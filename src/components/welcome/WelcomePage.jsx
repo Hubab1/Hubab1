@@ -49,9 +49,9 @@ export class WelcomePage extends Component {
                             {helloContent}
                         </H2>
                         <P>Your new home awaits at</P>
-                        { building_name && <H1>{building_name}</H1> }
+                        { building_name && <H1 className="welcome__building-name">{building_name}</H1> }
                         {
-                            building_name ? <P label="street">{normalized_street_address}</P> : <H1>{normalized_street_address}</H1>
+                            building_name ? <P>{normalized_street_address}</P> : <H1>{normalized_street_address}</H1>
                         }
                         {cityStateZip && <P>{cityStateZip}</P>}
                         { unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
@@ -67,7 +67,7 @@ export class WelcomePage extends Component {
                                 </WhiteButton>
                             </div>
                         </Link>
-                        <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
+                        <img src={funnelImage} width="150" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>
                 </WelcomeFlexContainer>
             </Fragment>
