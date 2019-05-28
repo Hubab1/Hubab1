@@ -35,7 +35,7 @@ export default function GenericFormError (props) {
     return (
         <div className={errorContainer}>
             <div className={iconDiv}>
-                <Error style={{color:'white'}}></Error>
+                <Error style={{color:'white', width: '18px'}}></Error>
             </div>
             <div className={messageDiv}>
                 {props.errors.map((error) => {
