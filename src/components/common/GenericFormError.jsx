@@ -1,9 +1,8 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Icon from '@material-ui/core/Icon';
+import React, {Fragment} from 'react';
+import { css } from 'emotion';
+import Error from '@material-ui/icons/Error'
 
-
-const FormErrorContainer = styled.div`
+const errorContainer = css`
     padding: 20px 10px 0 10px;
     border-radius: 3px;
     display: flex;
@@ -12,29 +11,40 @@ const FormErrorContainer = styled.div`
     line-height: 16px;
 `
 
-const IconDiv = styled.div`
+const iconDiv = css`
     background-color: #FB6D68;
-    padding: 7px 5px 5px 5px;
-    text-align: center;
+    padding: 5px;
     border-radius: 3px 0 0 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
-const MessageDiv = styled.div`
+const messageDiv = css`
     background-color: #FEF0EF;
     display: inline-block;
     padding: 10px;
     border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 export default function GenericFormError (props) {
     return (
-        <FormErrorContainer>
-            <IconDiv>
-                <Icon style={{color:'white'}}>error</Icon>
-            </IconDiv>
-            <MessageDiv>
-                {props.errors}
-            </MessageDiv>
-        </FormErrorContainer>
+        <div className={errorContainer}>
+            <div className={iconDiv}>
+                <Error style={{color:'white'}}></Error>
+            </div>
+            <div className={messageDiv}>
+                {props.errors.map((error, index) => {
+                    return (
+                        <Fragment key={index}>
+                            {error} <br/>
+                        </Fragment>
+                    )
+                })}
+            </div>
+        </div>
     );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ResetPassword from './ResetPassword';
+import GenericFormError from 'components/common/GenericFormError';
 import API from 'app/api';
 
 let defaultProps;
@@ -33,7 +34,8 @@ it('renders errors if has errors', function() {
         )
     );
     return wrapper.instance().onSubmit({ password: 'Abagail' }, { setSubmitting: function() {} }).then(() => {
-        expect(wrapper.state('errors')).toEqual('Invalid credentials');
+        expect(wrapper.state('errors')).toEqual(['Invalid credentials']);
+        expect(wrapper.find(GenericFormError).props()['errors']).toEqual(['Invalid credentials']);
     });
 
 });

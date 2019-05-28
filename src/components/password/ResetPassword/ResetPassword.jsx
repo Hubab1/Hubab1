@@ -22,7 +22,7 @@ export default class ResetPassword extends React.Component {
 
         return API.passwordReset(values.password, token).then((res) => {
             if (res.errors) {
-                this.setState({errors: res.errors[0]});
+                this.setState({errors: res.errors});
             } else {
                 this.setState({confirmReset: true})
             }   

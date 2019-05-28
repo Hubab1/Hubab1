@@ -33,7 +33,7 @@ export class LoginPage extends React.Component {
                 history.replace(initialPage);
             });
         }).catch((res) => {
-            const errorMessage = res.errors && res.errors.error || 'An error occurred, please try again.'
+            const errorMessage = (res.errors && res.errors.error) || 'An error occurred, please try again.'
             this.setState({errors: errorMessage});
             setSubmitting(false);
         });

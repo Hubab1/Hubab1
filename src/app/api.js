@@ -1,7 +1,7 @@
 const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 function chuck(path) {
-    return `${CHUCK_BASE_URL}${path}`;
+    return `${CHUCK_BASE_URL}/api/onlineleasing${path}`;
 }
 
 const getWithHeaders = (url) => fetch(url, {
@@ -36,14 +36,14 @@ API.fetchRenterProfile = () => {
 };
 
 API.login = (email, password, communityId) => {
-    return fetch(chuck(`/api/onlineleasing/communities/${communityId}/login/`), {
+    return fetch(chuck(`/communities/${communityId}/login/`), {
         method: 'POST',
         body: JSON.stringify({ email, password })
     }).then(res => res.json());
 };
 
 API.register = (data, leaseSettingsId, hash) => {
-    let registerUrl = `/api/onlineleasing/communities/${leaseSettingsId}/register/`;
+    let registerUrl = `/communities/${leaseSettingsId}/register/`;
     if (hash) { registerUrl = registerUrl.concat(`?v=${hash}`); }
     return fetch(chuck(registerUrl), {
         method: 'POST',
@@ -52,21 +52,21 @@ API.register = (data, leaseSettingsId, hash) => {
 };
 
 API.passwordResetRequest = (phone_number, lease_settings_id) => {
-    return fetch(chuck('/api/onlineleasing/password-reset/'), {
+    return fetch(chuck('/password-reset/'), {
         method: 'POST',
         body: JSON.stringify({ phone_number, lease_settings_id })
     }).then(res => res.json());
 };
 
 API.passwordResetVerification = (phone_number, code, lease_settings_id) => {
-    return fetch(chuck('/api/onlineleasing/password-reset-verification/'), {
+    return fetch(chuck('/password-reset-verification/'), {
         method: 'POST',
         body: JSON.stringify({ phone_number, code, lease_settings_id })
     }).then(res => res.json());
 }
 
 API.passwordReset = (password, token) => {
-    return fetch(chuck('/api/onlineleasing/password-change/'), {
+    return fetch(chuck('/password-change/'), {
         method: 'PUT',
         body: JSON.stringify({password}),
         headers: {
