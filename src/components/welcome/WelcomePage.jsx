@@ -65,7 +65,7 @@ export class WelcomePage extends Component {
                                 Start Application
                             </ActionButton>
                         </Link>
-                        <img src={funnelImage} width="200" style={{marginTop:'20px'}} alt="funnel logo" />
+                        <img src={funnelImage} width="150" style={{marginTop:'20px'}} alt="funnel logo" />
                     </WelcomeFooterContainer>
                 </WelcomeFlexContainer>
             </Fragment>

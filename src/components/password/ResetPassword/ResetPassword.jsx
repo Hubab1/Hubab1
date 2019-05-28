@@ -9,16 +9,26 @@ import { formContent, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import GenericFormError from 'components/common/GenericFormError';
 
 
 export default class ResetPassword extends React.Component {
-    state = {confirmReset: false}
+    state = {
+        confirmReset: false, 
+        errors: null
+    }
     onSubmit = (values, { setSubmitting }) => {
-        return API.passwordReset(values.password).then(() => {
-            this.setState({confirmReset: true})
+        const token = this.props.history.location.state.token;
+
+        return API.passwordReset(values.password, token).then((res) => {
+            if (res.errors) {
+                this.setState({errors: res.errors});
+            } else {
+                this.setState({confirmReset: true})
+            }   
             setSubmitting(false);
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: 'There was an error with resetting your password. Please try again.'})
             setSubmitting(false);
         })
     }
@@ -36,7 +46,7 @@ export default class ResetPassword extends React.Component {
                 <H1>
                     Reset Password
                 </H1>
-
+                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                 <Formik
                     validationSchema={Yup.object({
                         password: Yup.string().min(8, 'Password must be at least 8 characters')
