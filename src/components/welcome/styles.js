@@ -75,6 +75,7 @@ export const WhiteButton = withStyles({
         '&:hover': {
             background: '#CCC'
         },
+        height: '43px',
     },
     label: {
         textTransform: 'none',

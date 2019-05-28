@@ -5,12 +5,11 @@ export default (primaryColor='#2B44FF', secondaryColor='#2B44FF') => createMuiTh
         useNextVariants: true,
     },
     palette: {
-        primary: {
+        primary: {  
             main: primaryColor
         },
         secondary: {
             main: secondaryColor
         },
-        white: '#FFFFFF'
     }
 });
