@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import Error from '@material-ui/icons/Error'
 
 const errorContainer = css`
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px;
     border-radius: 3px;
     display: flex;
     justify-content: center;
@@ -23,10 +23,10 @@ const iconDiv = css`
 const messageDiv = css`
     background-color: #FEF0EF;
     display: inline-block;
-    padding: 10px;
+    padding: 15px 20px;
     border-radius: 3px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 `
 
@@ -37,9 +37,9 @@ export default function GenericFormError (props) {
                 <Error style={{color:'white'}}></Error>
             </div>
             <div className={messageDiv}>
-                {props.errors.map((error, index) => {
+                {props.errors.map((error) => {
                     return (
-                        <Fragment key={index}>
+                        <Fragment key={error}>
                             {error} <br/>
                         </Fragment>
                     )
