@@ -28,6 +28,7 @@ const messageDiv = css`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-grow: 1;
 `
 
 export default function GenericFormError (props) {
