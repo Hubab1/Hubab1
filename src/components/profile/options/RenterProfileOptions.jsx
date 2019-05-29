@@ -10,6 +10,34 @@ import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
+const optionConfig = {
+    roommates: {
+        prefix: '👪',
+        name: 'roommates',
+        label: 'Other adults will live here'
+    },
+    pets: {
+        prefix: '🐶',
+        name: 'pets',
+        label: 'Pets will live here'
+    },
+    guarantor: {
+        prefix: '💰',
+        name: 'guarantor',
+        label: 'I\'ll need a guarantor'
+    },
+    parking: {
+        prefix: '🚗',
+        name: 'parking',
+        label: 'I\'d like a parking space'
+    },
+    storage: {
+        prefix: '🛍️',
+        name: 'storage',
+        label: 'I\'ll need extra storage'
+    }
+}
+
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         setSubmitting(false);
@@ -18,6 +46,7 @@ export class RentalProfileOptions extends React.Component {
     }
 
     render () {
+        const options = this.props.profile ? Object.keys(this.props.profile.rental_options_config) : [];
         return (
             <Fragment>
                 <H1>Let's talk about your new place</H1>
@@ -42,31 +71,12 @@ export class RentalProfileOptions extends React.Component {
                                 onChange={(value) => setFieldValue('options', value)}
                                 value={values.options}
                             >
-                                <MultiSelectChoice
-                                    prefix="👪"
-                                    name="roommates"
-                                    label="Other adults will live here"
-                                />
-                                <MultiSelectChoice
-                                    prefix="🐶"
-                                    name="pets"
-                                    label="Pets will live here"
-                                />
-                                <MultiSelectChoice
-                                    prefix="💰"
-                                    name="guarantor"
-                                    label="I'll need a guarantor"
-                                />
-                                <MultiSelectChoice
-                                    prefix="🚗"
-                                    name="parking"
-                                    label="I'd like a parking space"
-                                />
-                                <MultiSelectChoice
-                                    prefix="🛍️"
-                                    name="storage"
-                                    label="I'll need extra storage"
-                                />
+                                {options.map(option => (
+                                    <MultiSelectChoice
+                                        key={option}
+                                        {...optionConfig[option]}
+                                    />
+                                ))}
                             </MultiSelect>
                             <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Continue</ActionButton>
                         </form>
@@ -81,4 +91,8 @@ RentalProfileOptions.propTypes = {
     updateRenterProfile: PropTypes.func.isRequired
 }
 
-export default connect(null, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+const mapStateToProps = state => ({
+    profile: state.renterProfile
+})
+
+export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
