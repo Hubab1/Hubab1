@@ -46,13 +46,14 @@ export class RentalProfileOptions extends React.Component {
     }
 
     render () {
-        const options = this.props.profile ? Object.keys(this.props.profile.rental_options_config) : [];
+        if (this.props.config == null || this.props.profile == null) return null;
+        const options = Object.keys(this.props.config.rental_options_config);
         return (
             <Fragment>
                 <H1>Let's talk about your new place</H1>
                 <P>Select all that apply</P>
                 <Formik
-                    initialValues={{ options: [] }}
+                    initialValues={{ options: this.props.profile.selected_rental_options }}
                     validate={values => {
                         let errors = {};
                         // todo
@@ -92,7 +93,8 @@ RentalProfileOptions.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile
+    config: state.configuration,
+    profile: state.renterProfile,
 })
 
 export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
