@@ -20,7 +20,6 @@ export class SignupPage extends React.Component {
 
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        console.log(values)
         const { history } = this.props;
         const hash = this.props.history.location.state && this.props.history.location.state.hash;
 
@@ -55,7 +54,6 @@ export class SignupPage extends React.Component {
                             .required('Email is required'),
                         password: Yup.string()
                             .min(8, 'Password must be at least 8 characters')
-                            .required('Password is required')
                     })}
                     onSubmit={this.onSubmit}
                 >

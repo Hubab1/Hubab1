@@ -49,6 +49,7 @@ FormTextInput.propTypes = {
     handleBlur: PropTypes.func,
     name: PropTypes.string,
     value: PropTypes.string,
+    showHelperText: PropTypes.bool,
     touched: PropTypes.bool,
 }
 
