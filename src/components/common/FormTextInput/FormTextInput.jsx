@@ -12,11 +12,12 @@ import { root } from './styles';
 export default function FormTextInput (props) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText } = props;
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched } = props;
+    const showHelperTextBeforeSubmit = showHelperText && (touched || value);
     return (
         <TextField
             error={submitted && error}
-            helperText={(submitted || showHelperText) && error}
+            helperText={showHelperTextBeforeSubmit || submitted ? error : null}
             label={label}
             classes={ {root} }
             type={type === 'text' || showPassword ? 'text' : 'password'}
@@ -25,8 +26,8 @@ export default function FormTextInput (props) {
             onChange={handleChange}
             onBlur={handleBlur}
             value={value}
-            InputProps={type === 'password' && {
-                endAdornment: (
+            InputProps={type === 'password' ? 
+                { endAdornment: (
                     <InputAdornment position="end">
                         <IconButton
                             aria-label="Toggle password visibility"
@@ -35,7 +36,8 @@ export default function FormTextInput (props) {
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>
-                )}}
+                )} : null
+            }
         />
     );
 }
@@ -47,6 +49,7 @@ FormTextInput.propTypes = {
     handleBlur: PropTypes.func,
     name: PropTypes.string,
     value: PropTypes.string,
+    touched: PropTypes.bool,
 }
 
 FormTextInput.defaultProps = {
