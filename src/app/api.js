@@ -1,3 +1,5 @@
+import auth from 'utils/auth';
+
 const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 function chuck(path) {
@@ -25,22 +27,22 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
 };
 
 API.updateRenterProfile = (data) => {
-    return Promise.resolve({});
+    return fetch(chuck('/application/'), {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
 }
 
 API.fetchRenterProfile = () => {
-    return Promise.resolve({
-        completed_terms_and_conditions: false,
-        rental_options_config: {
-            guarantor: {limit: 1},
-            pets: {limit: 1},
-            roommates: {limit: 3}
-        },
-        selected_rental_options: [],
-        roommates: [],
-        pets: [],
-        guarantor: {},
-    });
+    return fetch(chuck('/application/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        }
+    }).then(res => res.json());
 };
 
 API.login = (email, password, communityId) => {

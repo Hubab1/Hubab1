@@ -9,12 +9,16 @@ let defaultProps;
 
 beforeEach(() => {
     defaultProps = {
-        updateRenterProfile: jest.fn()
+        updateRenterProfile: jest.fn(),
+        profile: {
+            selected_rental_options: []
+        },
+        config: null
     }
 })
 
 it('renders a MultiSelectChoice component for each option in rental_options_config', function() {
-    let wrapper = shallow( <RentalProfileOptions {...defaultProps} profile={{rental_options_config: {guarantor: {limit: 1}, roommates: {limit: 1}}}}/> );
+    let wrapper = shallow( <RentalProfileOptions {...defaultProps} config={{rental_options_config: {guarantor: {limit: 1}, roommates: {limit: 1}}}}/> );
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(MultiSelectChoice).length).toEqual(2);
 });
