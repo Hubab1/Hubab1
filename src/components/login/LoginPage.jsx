@@ -37,8 +37,8 @@ export class LoginPage extends React.Component {
                 history.replace(initialPage);
             });
         }).catch((res) => {
-            const errorMessage = ['The email and password you entered do not match our records. Please try again.'];
-            this.setState({errors: errorMessage});
+            const errorMessage = 'The email and password you entered do not match our records. Please try again.';
+            this.setState({errors: [errorMessage]});
             setSubmitting(false);
         });
     }

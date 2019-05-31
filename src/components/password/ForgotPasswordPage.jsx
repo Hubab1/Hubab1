@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import InputMask from 'react-input-mask';
-import TextField from '@material-ui/core/TextField';
+import PhoneNumberInput from 'components/common/PhoneNumberInput';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, H3, P } from 'assets/styles';
@@ -57,32 +56,19 @@ export class ForgotPasswordPage extends React.Component {
                         errors,
                         handleChange,
                         submitCount,
-                        handleBlur,
                         handleSubmit,
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                <div>
-                                    <InputMask 
-                                        mask="(999) 999-9999"
-                                        label="Phone Number"
-                                        name="phone"
-                                        id="phone"
-                                        value={values.phone}
-                                        onChange={handleChange}
-                                        handleBlur={handleBlur}
-                                    >
-                                        {(inputProps) => 
-                                            <TextField
-                                                {...inputProps}
-                                                error={submitCount > 0 && !!errors.phone}
-                                                helperText={submitCount > 0 && errors.phone}
-                                                fullWidth
-                                            /> 
-                                        }
-                                    </InputMask>
-                                </div>
+                                <PhoneNumberInput 
+                                    label="Phone Number"
+                                    name="phone"
+                                    value={values.phone}
+                                    handleChange={handleChange}
+                                    error={submitCount > 0 && !!errors.phone}
+                                    helperText={submitCount > 0 ? errors.phone : null}
+                                />
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">
                                     Send Text
                                 </ActionButton>

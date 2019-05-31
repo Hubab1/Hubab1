@@ -2,12 +2,11 @@ import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import InputMask from 'react-input-mask';
-import TextField from '@material-ui/core/TextField';
 
 import { H1, P, formContent, ErrorDetail } from 'assets/styles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
@@ -83,24 +82,14 @@ export class InviteRoommatesPage extends React.Component {
                                     error={errors.last_name}
                                     value={values.last_name}
                                 />
-                                <InputMask 
-                                    mask="(999) 999-9999"
+                                <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone"
-                                    id="phone"
                                     value={values.phone}
-                                    onChange={handleChange}
-                                    handleBlur={handleBlur}
-                                >
-                                    {(inputProps) => 
-                                        <TextField
-                                            {...inputProps}
-                                            error={submitCount > 0 && !!errors.phone}
-                                            helperText={submitCount > 0 && errors.phone}
-                                            fullWidth
-                                        /> 
-                                    }
-                                </InputMask>
+                                    handleChange={handleChange}
+                                    error={submitCount > 0 && !!errors.phone}
+                                    helperText={submitCount > 0 ? errors.phone : null}
+                                />
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { H1, P, formContent, ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
 import { fetchRenterProfile } from 'reducers/renter-profile';
@@ -38,19 +39,21 @@ export class SignupPage extends React.Component {
         const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
             <Fragment>
-                <H1>Start your rental application by creating an account below</H1>
+                <H1>Start Your Rental Application by Creating an Account Below</H1>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone_number: Yup.string().required('Phone Number is required'),
+                        phone_number: Yup.string()
+                            .required('Phone Number is required')
+                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
                         email: Yup.string()
                             .email()
                             .required('Email is required'),
                         password: Yup.string()
+                            .required('Password must be at least 8 characters')
                             .min(8, 'Password must be at least 8 characters')
-                            .required('Password is required')
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -61,7 +64,8 @@ export class SignupPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting
+                        isSubmitting,
+                        touched
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
@@ -92,14 +96,13 @@ export class SignupPage extends React.Component {
                                     error={errors.email}
                                     value={values.email}
                                 />
-                                <FormTextInput
+                                <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone_number"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
-                                    handleBlur={handleBlur}
-                                    error={errors.phone_number}
                                     value={values.phone_number}
+                                    handleChange={handleChange}
+                                    error={submitCount > 0 && !!errors.phone_number}
+                                    helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
                                 <FormTextInput
                                     label="Password"
@@ -111,11 +114,12 @@ export class SignupPage extends React.Component {
                                     error={errors.password}
                                     value={values.password}
                                     showHelperText
+                                    touched={touched && touched.password}
                                 />
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="76px">Create Account</ActionButton>
+                                <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="20px" marginBottom="20px">Create Account</ActionButton>
                             </div>
                             <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
                         </form>
