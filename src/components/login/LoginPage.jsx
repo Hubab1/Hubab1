@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
+import { css } from 'emotion';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
+import loginImage from 'assets/images/signin.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
@@ -13,10 +16,11 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 
-
-
 import auth from 'utils/auth';
 
+const imgMargin = css`
+    margin: 26px 0 22px 0;
+`
 
 export class LoginPage extends React.Component {
     state = {errors: null}
@@ -33,7 +37,7 @@ export class LoginPage extends React.Component {
                 history.replace(initialPage);
             });
         }).catch((res) => {
-            const errorMessage = (res.errors && res.errors.error) || 'An error occurred, please try again.'
+            const errorMessage = ['The email and password you entered do not match our records. Please try again.'];
             this.setState({errors: errorMessage});
             setSubmitting(false);
         });
@@ -43,9 +47,10 @@ export class LoginPage extends React.Component {
         return (
             <Fragment>
                 <H1>
-                    Sign in to continue with your application
+                    Sign In to Continue with Your Application
                 </H1>
-
+                <img className={imgMargin} src={loginImage} alt="signup clipboard"/> 
+                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
                         email: Yup.string()
@@ -91,14 +96,13 @@ export class LoginPage extends React.Component {
                                     />
                                 </div>
                                 <div>
-                                    {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
+                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="37px">
                                     Sign In
                                 </ActionButton>
-                                <P className="already-have-account">Forgot your password? <Link to={ROUTES.FORGOT_PASSWORD}>Click here</Link></P>
+                                <Link to={ROUTES.FORGOT_PASSWORD}><P className="already-have-account">Forgot your password?</P></Link>
                                 <br/>
-                                <P className="already-have-account">Need an account? <Link to={ROUTES.SIGNUP}>Click here</Link></P>
+                                <Link to={ROUTES.SIGNUP}><P className="already-have-account">Need an account?</P></Link>
                             </div>
                         </form>
                     )}
