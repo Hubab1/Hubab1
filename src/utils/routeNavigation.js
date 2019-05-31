@@ -13,10 +13,6 @@ export const previousRoute = path => {
 }
 
 export const getInitialPage = (profile) => {
-    if (!profile) return;
-    if (!profile.completed_terms_and_conditions) {
-        return ROUTES.TOS;
-    } else if (profile.selected_rental_options.length === 0) {
-        return ROUTES.PROFILE_OPTIONS;
-    }
+    // TODO
+    return ROUTES.PROFILE_OPTIONS;
 }
