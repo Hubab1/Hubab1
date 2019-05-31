@@ -27,7 +27,8 @@ export default reducer;
 export const fetchRenterProfile = () => {
     return async dispatch => {
         const profile = await API.fetchRenterProfile();
-        return dispatch(renterProfileReceived(profile));
+        dispatch(renterProfileReceived(profile));
+        return profile;
     }
 };
 

@@ -25,5 +25,5 @@ export const ALL_ROUTES = [
 ]
 
 export const BASE_ROUTES = [
-    ROUTES.TOS, ROUTES.PROFILE_OPTIONS
+    ROUTES.PROFILE_OPTIONS
 ]
