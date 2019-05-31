@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
+import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
-import { H1, P } from 'assets/styles';
+import { H1, H3, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const optionConfig = {
@@ -38,6 +39,11 @@ const optionConfig = {
     }
 }
 
+const Header = styled(H1)`
+    width: 70%;
+    margin: auto;
+`
+
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         setSubmitting(false);
@@ -50,8 +56,8 @@ export class RentalProfileOptions extends React.Component {
         const options = Object.keys(this.props.config.rental_options_config);
         return (
             <Fragment>
-                <H1>Let's talk about your new place</H1>
-                <P>Select all that apply</P>
+                <Header>Let's Talk About Your New Place</Header>
+                <H3>Select all that apply</H3>
                 <Formik
                     initialValues={{ options: this.props.profile.selected_rental_options }}
                     validate={values => {
