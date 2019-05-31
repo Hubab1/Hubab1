@@ -11,7 +11,7 @@ class ProfileContainer extends Component {
     render() {
         return (
             <Switch>
-                <Route path={ROUTES.PROFILE_OPTIONS} component={PetsPage} />
+                <Route path={ROUTES.PROFILE_OPTIONS} component={RenterProfileOptions} />
                 <Route path={ROUTES.GUARANTOR} component={GuarantorPage} />
                 <Route path={ROUTES.INVITE_ROOMMATES} component={InviteRoommatesPage} />
                 <Route path={ROUTES.PETS} component={PetsPage} />
