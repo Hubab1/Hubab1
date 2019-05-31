@@ -34,7 +34,7 @@ export class LoginPage extends React.Component {
             });
         }).catch((res) => {
             const errorMessage = (res.errors && res.errors.error) || 'An error occurred, please try again.'
-            this.setState({errors: errorMessage});
+            this.setState({errors: [errorMessage]});
             setSubmitting(false);
         });
     }
