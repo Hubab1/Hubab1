@@ -53,6 +53,7 @@ export class SignupPage extends React.Component {
                             .email()
                             .required('Email is required'),
                         password: Yup.string()
+                            .required('Password must be at least 8 characters')
                             .min(8, 'Password must be at least 8 characters')
                     })}
                     onSubmit={this.onSubmit}
@@ -75,7 +76,7 @@ export class SignupPage extends React.Component {
                                     submitted={submitCount > 0}
                                     handleChange={handleChange}
                                     handleBlur={handleBlur}
-                                    error={errors.first_name}s
+                                    error={errors.first_name}
                                     value={values.first_name}
                                 />
                                 <FormTextInput
@@ -99,7 +100,6 @@ export class SignupPage extends React.Component {
                                 <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone_number"
-                                    id="phone_number"
                                     type="tel"
                                     value={values.phone_number}
                                     handleChange={handleChange}
