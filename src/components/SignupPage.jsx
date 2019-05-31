@@ -99,7 +99,6 @@ export class SignupPage extends React.Component {
                                 <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone_number"
-                                    type="tel"
                                     value={values.phone_number}
                                     handleChange={handleChange}
                                     error={submitCount > 0 && !!errors.phone_number}
