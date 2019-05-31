@@ -104,7 +104,7 @@ export class InviteRoommatesPage extends React.Component {
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <Link to={this.props._prev}>Go Back</Link>
                         </form>

@@ -115,7 +115,7 @@ export class SignupPage extends React.Component {
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="76px">Create Account</ActionButton>
+                                <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="76px">Create Account</ActionButton>
                             </div>
                             <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
                         </form>
