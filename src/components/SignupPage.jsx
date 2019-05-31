@@ -5,7 +5,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
-
 import { H1, P, formContent, ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
@@ -100,7 +99,6 @@ export class SignupPage extends React.Component {
                                 <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone_number"
-                                    type="tel"
                                     value={values.phone_number}
                                     handleChange={handleChange}
                                     error={submitCount > 0 && !!errors.phone_number}

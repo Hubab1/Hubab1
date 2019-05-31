@@ -14,7 +14,6 @@ export default function FormTextInput (props) {
 
     const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched } = props;
     const showHelperTextBeforeSubmit = showHelperText && (touched || value);
-    console.log(error);
     return (
         <TextField
             error={submitted && error}
