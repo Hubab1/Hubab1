@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 
 import API from 'app/api';
 import { ROUTES } from 'app/constants';
+import thumbsUp from 'assets/images/thumbs-up.png';
 import { formContent, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
@@ -34,9 +35,10 @@ export default class ResetPassword extends React.Component {
     }
 
     render () {
-        if (this.state.confirmReset) {
+        if (true) {
             return <ConfirmationPage 
-                successMessage="Your password has been reset."
+                successMessage="Your Password Has Been Reset."
+                confirmationImage={thumbsUp}
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
             />
@@ -52,7 +54,7 @@ export default class ResetPassword extends React.Component {
                         password: Yup.string().min(8, 'Password must be at least 8 characters')
                             .required('Password is required'),
                         password_confirm: Yup.string()
-                            .oneOf([Yup.ref('password')], 'Password must match')
+                            .oneOf([Yup.ref('password')], 'Oops! Passwords do not match.')
                             .required('Please confirm password')
                     })}
 
