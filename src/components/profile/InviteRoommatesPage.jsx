@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import TextField from '@material-ui/core/TextField';
 
-import { H1, P, formContent, ErrorDetail } from 'assets/styles';
+import { H1, H3, formContent, ErrorDetail } from 'assets/styles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -42,7 +42,7 @@ export class InviteRoommatesPage extends React.Component {
         return (
             <Fragment>
                 <H1>Let's Invite Your Roommates</H1>
-                <P>Tell us the basics and we’ll send them an invite to tell us the rest.</P>
+                <H3>Tell us the basics and we’ll send them an invite to tell us the rest.</H3>
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
