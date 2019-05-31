@@ -13,6 +13,7 @@ const Header = styled.div`
 const Policy = styled.div`
     margin-top: 30px;
     white-space: pre-line;
+    margin-bottom: 36px;
 `
 
 export default function PetPolicy (props) {

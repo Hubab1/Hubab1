@@ -75,7 +75,7 @@ export class PetsPage extends React.Component {
                         }
                     })}
                 </div>
-                <ActionButton disabled={!this.state.petSelected} marginTop="31px" marginBottom="10px">Next</ActionButton>
+                <ActionButton disabled={!this.state.petSelected} marginTop="55px" marginBottom="20px">Next</ActionButton>
                 <Link to={this.props._prev}>Go Back</Link>
             </Fragment>
         );
