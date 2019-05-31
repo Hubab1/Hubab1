@@ -35,7 +35,7 @@ export default class ResetPassword extends React.Component {
     }
 
     render () {
-        if (true) {
+        if (this.state.confirmReset) {
             return <ConfirmationPage 
                 successMessage="Your Password Has Been Reset."
                 confirmationImage={thumbsUp}
