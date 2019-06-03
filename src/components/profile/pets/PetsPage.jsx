@@ -26,7 +26,6 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        debugger;
         API.addPets(values).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
@@ -63,7 +62,7 @@ export class PetsPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-                    <Link to={this.props._prev}>Go Back</Link>
+                <Link to={this.props._prev}>Go Back</Link>
             </Fragment>
         );
     }
