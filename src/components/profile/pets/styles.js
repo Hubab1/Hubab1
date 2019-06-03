@@ -13,23 +13,13 @@ export const petTypeContainer = css`
     margin-bottom: 55px;
 `
 
-export const petTypeUnselected = css`
-    text-align: center;
-    background-color: white;
-    padding: 10px 0;
-    border: 1px solid #828796;
+export const petButtonRoot = css`
     flex-grow: 1;
-    border-radius: 2px;
+    border-radius: 2px !important;
+    text-transform: capitalize !important;
+    padding: 10px 0;
+    border: 1px solid #828796 !important;
 `
-export const PetTypeSelected = styled.div( props => ({
-    textAlign: 'center',
-    backgroundColor: props.color,
-    color: 'white',
-    padding: '10px 0',
-    border: '1px solid #828796',
-    flexGrow: '1',
-    borderRadius: '2px',
-}));
 
 export const petsImageMargin = css`
     margin: 20px 0 35px 0;

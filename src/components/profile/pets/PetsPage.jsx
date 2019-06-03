@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
 import { H1, H3, P } from 'assets/styles';
-import { petPolicy, petTypeContainer, petTypeUnselected, PetTypeSelected, 
-    petsImageMargin, policyDiv, petTypeLabel } from './styles'
+import { petPolicy, petTypeContainer, 
+    petsImageMargin, policyDiv, petTypeLabel, petButtonRoot } from './styles'
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -57,21 +58,24 @@ export class PetsPage extends React.Component {
                 <div className={petTypeContainer}>
                     {['Dog', 'Cat', 'Other'].map(type => {
                         if (this.state.petSelected === type) {
-                            return <PetTypeSelected 
+                            return <Button 
                                 key={type}
-                                color={this.props.theme.palette.primary.main}
+                                variant="contained"
+                                color="primary"
+                                classes={{root: petButtonRoot}}
                                 onClick={() => this.handlePetClick(type)}
                             >
                                 {type}
-                            </PetTypeSelected>
+                            </Button>
                         } else {
-                            return <div 
-                                key={type} 
-                                className={ petTypeUnselected}
+                            return <Button 
+                                key={type}
+                                classes={{root: petButtonRoot}}
+                                variant="outlined"
                                 onClick={() => this.handlePetClick(type)}
                             >
                                 {type}
-                            </div>
+                            </Button>
                         }
                     })}
                 </div>

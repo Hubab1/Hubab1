@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 
 export const root = css`
     border-radius: 21.5px !important;
+    height: 45px;
 `
 
 export const label = css`

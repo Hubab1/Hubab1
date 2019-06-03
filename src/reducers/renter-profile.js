@@ -45,7 +45,7 @@ export const updateRenterProfile = (newData) => {
 // selectors
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
-    state => state.renterProfile && state.configuration.rental_options_config,
+    state => state.configuration && state.configuration.rental_options_config,
     state => state.renterProfile && state.renterProfile.selected_rental_options,
     (config, selectedOptions) => {
         if (selectedOptions && config) {
