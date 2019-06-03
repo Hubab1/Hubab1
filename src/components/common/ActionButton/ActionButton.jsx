@@ -12,8 +12,8 @@ export default class ActionButton extends React.Component {
                 <Button
                     onClick={onClick}
                     classes={{ root, label }}
-                    variant={variant || 'contained'}
-                    color={color || 'primary'}
+                    variant={variant}
+                    color={color}
                     type="submit"
                     disabled={disabled}
                     fullWidth
@@ -32,4 +32,9 @@ ActionButton.propTypes = {
     marginTop: PropTypes.string,
     marginBottom: PropTypes.string,
     variant: PropTypes.string,
+}
+
+ActionButton.defaultProps = {
+    variant: 'contained',
+    color: 'primary',
 }
