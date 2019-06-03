@@ -11,6 +11,11 @@ import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
+const SpacedH3 = styled(H3)`
+    margin-top: 15px;
+    margin-bottom: 30px;
+`
+
 const optionConfig = {
     roommates: {
         prefix: '👪',
@@ -39,11 +44,6 @@ const optionConfig = {
     }
 }
 
-const Header = styled(H1)`
-    width: 70%;
-    margin: auto;
-`
-
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         setSubmitting(false);
@@ -56,8 +56,8 @@ export class RentalProfileOptions extends React.Component {
         const options = Object.keys(this.props.config.rental_options_config);
         return (
             <Fragment>
-                <Header>Let's Talk About Your New Place</Header>
-                <H3>Select all that apply</H3>
+                <H1>Let's Talk About Your New Place</H1>
+                <SpacedH3>Select all that apply</SpacedH3>
                 <Formik
                     initialValues={{ options: this.props.profile.selected_rental_options }}
                     validate={values => {

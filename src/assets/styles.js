@@ -45,6 +45,8 @@ export const H1 = styled.h1`
     font-weight:600;
     font-size:23px;
     margin: 0;
+    width: 70%;
+    margin: 0 auto;
 `
 
 export const H2 = styled.h2`
@@ -56,6 +58,7 @@ export const H3 = styled.h3`
     font-weight: 400;
     font-size: 18px;
     color: #454B57;
+    margin: 0;
 `
 
 export const P = styled.p`
