@@ -1,28 +1,23 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
 import { petTypeContainer, petTypeLabel, petButtonRoot } from './styles';
 
 function PetTypeSelect(props) {
-    const [petSelected, setPetSelected] = useState('');
-  
-    useEffect(() => {
-        props.onChange(petSelected);
-    }, [petSelected]);
-
+    const { onChange, petTypeOptions, value } = props;
     return (
         <Fragment>
             <div className={petTypeLabel}>Type</div>
             <div className={petTypeContainer}>
-                {props.petTypeOptions.map(type => {
-                    if (petSelected === type) {
+                {petTypeOptions.map(type => {
+                    if (value === type) {
                         return <Button 
                             key={type}
                             variant="contained"
                             color="primary"
                             classes={{root: petButtonRoot}}
-                            onClick={() => setPetSelected('')}
+                            onClick={() => onChange('')}
                         >
                             {type}
                         </Button>
@@ -31,7 +26,7 @@ function PetTypeSelect(props) {
                             key={type}
                             classes={{root: petButtonRoot}}
                             variant="outlined"
-                            onClick={() => setPetSelected(type)}
+                            onClick={() => onChange(type)}
                         >
                             {type}
                         </Button>
@@ -45,7 +40,7 @@ function PetTypeSelect(props) {
 PetTypeSelect.propTypes = {
     petTypeOptions: PropTypes.array,
     onChange: PropTypes.func,
-    values: PropTypes.string,
+    value: PropTypes.string,
 };
 
 PetTypeSelect.defaultProps = {
