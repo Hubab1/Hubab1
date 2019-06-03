@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import { Formik } from 'formik';
+
 
 import { H1, H3, P } from 'assets/styles';
-import { petPolicy, petTypeContainer, 
-    petsImageMargin, policyDiv, petTypeLabel, petButtonRoot } from './styles'
+import { petPolicy, petsImageMargin, policyDiv } from './styles'
+import PetTypeSelect from './PetTypeSelect';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -18,22 +19,14 @@ import { selectors } from 'reducers/configuration';
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false, 
-        petSelected: '',
         errors: null};
 
     toggleViewPetPolicy = () => {
         this.setState({viewPetPolicy: !this.state.viewPetPolicy})
     }
 
-    handlePetClick = (type) => {
-        if (this.state.petSelected === type) {
-            this.setState({petSelected: ''});
-        } else {
-            this.setState({petSelected: type});
-        }
-    }
-
-    onSubmit = (values, { setSubmitting, setErrors }) => {
+    onSubmit = (values, { setSubmitting }) => {
+        debugger;
         API.addPets(values).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
@@ -54,33 +47,23 @@ export class PetsPage extends React.Component {
                 <div className={policyDiv}>
                     <P>Have you read the pet policy? <span onClick={this.toggleViewPetPolicy} className={petPolicy}>Read it now!</span></P>
                 </div>
-                <div className={petTypeLabel}>Type</div>
-                <div className={petTypeContainer}>
-                    {['Dog', 'Cat', 'Other'].map(type => {
-                        if (this.state.petSelected === type) {
-                            return <Button 
-                                key={type}
-                                variant="contained"
-                                color="primary"
-                                classes={{root: petButtonRoot}}
-                                onClick={() => this.handlePetClick(type)}
-                            >
-                                {type}
-                            </Button>
-                        } else {
-                            return <Button 
-                                key={type}
-                                classes={{root: petButtonRoot}}
-                                variant="outlined"
-                                onClick={() => this.handlePetClick(type)}
-                            >
-                                {type}
-                            </Button>
-                        }
-                    })}
-                </div>
-                <ActionButton disabled={!this.state.petSelected} marginTop="55px" marginBottom="20px">Next</ActionButton>
-                <Link to={this.props._prev}>Go Back</Link>
+                <Formik onSubmit={this.onSubmit} initalValues={{petType:''}}>
+                    {({
+                        values,
+                        setFieldValue,
+                        isSubmitting,
+                        handleSubmit,
+                    }) => (
+                        <form onSubmit={handleSubmit} autoComplete="off">
+                            <PetTypeSelect
+                                onChange={(value) => setFieldValue('petType', value)}
+                                value={values.petType}
+                            />
+                            <ActionButton disabled={isSubmitting || !values.petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
+                        </form>
+                    )}
+                </Formik>
+                    <Link to={this.props._prev}>Go Back</Link>
             </Fragment>
         );
     }

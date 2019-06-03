@@ -1,5 +1,4 @@
 import { css } from 'emotion';
-import styled from '@emotion/styled';
 
 
 export const petPolicy = css`

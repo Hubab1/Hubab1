@@ -1,18 +1,55 @@
-import React, { useState, useEffect } from 'react';
-  
+import React, { useState, useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
-function Demo2() {
-    const [count, setCount] = useState(0);
+import { petTypeContainer, petTypeLabel, petButtonRoot } from './styles';
+
+function PetTypeSelect(props) {
+    const [petSelected, setPetSelected] = useState('');
   
     useEffect(() => {
-        document.title = `You clicked ${count} times`;
-    });
-  
+        props.onChange(petSelected);
+    }, [petSelected]);
+
     return (
-        <div>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
-        </div>
+        <Fragment>
+            <div className={petTypeLabel}>Type</div>
+            <div className={petTypeContainer}>
+                {props.petTypeOptions.map(type => {
+                    if (petSelected === type) {
+                        return <Button 
+                            key={type}
+                            variant="contained"
+                            color="primary"
+                            classes={{root: petButtonRoot}}
+                            onClick={() => setPetSelected('')}
+                        >
+                            {type}
+                        </Button>
+                    } else {
+                        return <Button 
+                            key={type}
+                            classes={{root: petButtonRoot}}
+                            variant="outlined"
+                            onClick={() => setPetSelected(type)}
+                        >
+                            {type}
+                        </Button>
+                    }
+                })}
+            </div>
+        </Fragment>
     );
 }
-  
+
+PetTypeSelect.propTypes = {
+    petTypeOptions: PropTypes.array,
+    onChange: PropTypes.func,
+    values: PropTypes.string,
+};
+
+PetTypeSelect.defaultProps = {
+    petTypeOptions: ['Dog', 'Cat', 'Other'],
+};
+
+export default PetTypeSelect;
