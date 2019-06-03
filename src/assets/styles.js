@@ -44,8 +44,6 @@ export const Bold = styled.span`
 export const H1 = styled.h1`
     font-weight:600;
     font-size:23px;
-    margin: 0;
-    width: 70%;
     margin: 0 auto;
 `
 
