@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
+import { Formik, FieldArray } from 'formik';
 
 
 import { H1, H3, P } from 'assets/styles';
@@ -46,7 +46,7 @@ export class PetsPage extends React.Component {
                 <div className={policyDiv}>
                     <P>Have you read the pet policy? <span onClick={this.toggleViewPetPolicy} className={petPolicy}>Read it now!</span></P>
                 </div>
-                <Formik onSubmit={this.onSubmit} initalValues={{petType:''}}>
+                <Formik onSubmit={this.onSubmit} initialValues={{petOptions:[{}]}}>
                     {({
                         values,
                         setFieldValue,
@@ -54,10 +54,38 @@ export class PetsPage extends React.Component {
                         handleSubmit,
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            <PetTypeSelect
-                                onChange={(value) => setFieldValue('petType', value)}
-                                value={values.petType}
+                            <FieldArray
+                                name="petOptions"
+                                render={arrayHelpers => (
+                                    <div>
+                                        {
+                                            values.petOptions.map((petOption, index) => (
+                                                <div key={index}>
+                                                    <PetTypeSelect
+                                                        onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
+                                                        value={values.petOptions[index].petType}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => arrayHelpers.insert(index, '')} // insert an empty string at a position
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>)
+                                            )
+                                        }
+                                    </div>
+                                )}
                             />
+                            <div>
+                                <button type="submit">Submit</button>
+                            </div>
                             <ActionButton disabled={isSubmitting || !values.petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
                         </form>
                     )}
