@@ -1,14 +1,24 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
+import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
-import { H1, P } from 'assets/styles';
+import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+
+const SkinnyH1 = styled(H1)`
+    width: 70%;
+`
+
+const SpacedH3 = styled(H3)`
+    margin-top: 15px;
+    margin-bottom: 30px;
+`
 
 const optionConfig = {
     roommates: {
@@ -50,8 +60,8 @@ export class RentalProfileOptions extends React.Component {
         const options = Object.keys(this.props.config.rental_options_config);
         return (
             <Fragment>
-                <H1>Let's talk about your new place</H1>
-                <P>Select all that apply</P>
+                <SkinnyH1>Let's Talk About Your New Place</SkinnyH1>
+                <SpacedH3>Select all that apply</SpacedH3>
                 <Formik
                     initialValues={{ options: this.props.profile.selected_rental_options }}
                     validate={values => {
