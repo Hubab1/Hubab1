@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
 
 import { H1, H3, formContent, ErrorDetail } from 'assets/styles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import BackButton from 'components/common/BackButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
@@ -95,7 +95,7 @@ export class InviteRoommatesPage extends React.Component {
                                 </div>
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
-                            <Link to={this.props._prev}>Go Back</Link>
+                            <BackButton onClick={() => this.props.history.push(this.props._prev)}/>
                         </form>
                     )}
                 </Formik>

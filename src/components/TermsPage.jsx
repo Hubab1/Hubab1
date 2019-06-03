@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, TextReader, Bold, GoBack } from 'assets/styles';
+import BackButton from 'components/common/BackButton';
+import { H1, TextReader, Bold } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
@@ -55,10 +57,15 @@ export class TermsPage extends React.Component {
                 <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
                     I Agree to the Terms & Conditions
                 </ActionButton>
-                <GoBack onClick={this.handleClickBack}>Go Back</GoBack>
+                <BackButton onClick={this.handleClickBack}/>>
             </Fragment>
         );
     }
 }
 
 export default connect(null, {updateRenterProfile})(TermsPage);
+
+TermsPage.propTypes = {
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
