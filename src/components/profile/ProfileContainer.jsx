@@ -14,7 +14,10 @@ class ProfileContainer extends Component {
                 <Route path={ROUTES.PROFILE_OPTIONS} component={RenterProfileOptions} />
                 <Route path={ROUTES.GUARANTOR} component={GuarantorPage} />
                 <Route path={ROUTES.ROOMMATES} component={InviteRoommatesPage} />
+<<<<<<< HEAD
                 <Route path={ROUTES.PETS} component={PetsPage} />
+=======
+>>>>>>> master
             </Switch>
         );
     }
