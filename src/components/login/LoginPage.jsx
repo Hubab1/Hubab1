@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { css } from 'emotion';
+import styled from '@emotion/styled';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +7,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
-import loginImage from 'assets/images/signin.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
@@ -18,8 +17,10 @@ import GenericFormError from 'components/common/GenericFormError';
 
 import auth from 'utils/auth';
 
-const imgMargin = css`
-    margin: 26px 0 22px 0;
+const SkinnyH1 = styled(H1)`
+    width: 70%;
+    margin: auto;
+    padding-bottom: 15px;
 `
 
 export class LoginPage extends React.Component {
@@ -46,10 +47,9 @@ export class LoginPage extends React.Component {
     render () {
         return (
             <Fragment>
-                <H1>
+                <SkinnyH1>
                     Sign In to Continue with Your Application
-                </H1>
-                <img className={imgMargin} src={loginImage} alt="signup clipboard"/> 
+                </SkinnyH1>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
@@ -97,7 +97,7 @@ export class LoginPage extends React.Component {
                                 </div>
                                 <div>
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="37px">
+                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="50px">
                                     Sign In
                                 </ActionButton>
                                 <Link to={ROUTES.FORGOT_PASSWORD}><P className="already-have-account">Forgot your password?</P></Link>
