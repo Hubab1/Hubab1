@@ -3,23 +3,31 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import PhoneNumberInput from 'components/common/PhoneNumberInput';
+import styled from '@emotion/styled';
 
+import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { formContent, H1, H3, P } from 'assets/styles';
+import BackLink from 'components/common/BackLink';
+import GenericFormError from 'components/common/GenericFormError';
+import forgotPassword from 'assets/images/forgot-password.png';
+import { formContent, H1, H3 } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 
+const SpacedH3 = styled(H3)`
+    margin: 20px 15% 25px 15%;
+`
 
 export class ForgotPasswordPage extends React.Component {
+    state = {errors: null}
+
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const { communityId } = this.props;
         
         API.passwordResetRequest(values.phone, communityId).then( (res) => {
             if (res.errors) {
-                setErrors({phone: res.errors._schema[0]})
+                this.setState({errors: ["Applicant does not exist"]})
             } else {
                 this.props.history.push({
                     pathname: ROUTES.VERIFY_PASSWORD_CODE, 
@@ -28,7 +36,7 @@ export class ForgotPasswordPage extends React.Component {
             }
             setSubmitting(false);
         }).catch( () => {
-            setErrors({phone: 'An error has occurred'})
+            this.setState({errors: ["Applicant does not exist"]})
             setSubmitting(false);
         })
     }
@@ -39,10 +47,11 @@ export class ForgotPasswordPage extends React.Component {
                 <H1>
                     Forgot your password?
                 </H1>
-                <H3>
+                <SpacedH3>
                     Don’t worry! We’ll send you a text message with a code to reset your password.
-                </H3>
-
+                </SpacedH3>
+                <img src={forgotPassword} alt="hand with smartphone in it"/>
+                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
                         phone: Yup.string()
@@ -69,10 +78,10 @@ export class ForgotPasswordPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone}
                                     helperText={submitCount > 0 ? errors.phone : null}
                                 />
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">
+                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="20px">
                                     Send Text
                                 </ActionButton>
-                                <P><Link to={ROUTES.LOGIN}>Go Back</Link></P>
+                                <BackLink to={ROUTES.LOGIN}/>
                             </div>
                         </form>
                     )}

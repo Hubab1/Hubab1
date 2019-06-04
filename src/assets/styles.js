@@ -65,10 +65,6 @@ export const P = styled.p`
     margin: 0;
 `
 
-export const GoBack = styled(P)`
-    cursor: pointer;
-`
-
 export const CenterAlign = styled.div`
     text-align: center;
     margin-top: 200px;
@@ -81,7 +77,7 @@ export const BigText = styled.div`
 
 export const LinkButton = styled.button`
     background:none!important;
-    color:inherit;
+    color:#2B44FF;
     border:none; 
     padding:0!important;
     font: inherit;

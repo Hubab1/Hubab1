@@ -3,12 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import styled from '@emotion/styled';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { formContent, H1, H3, P, LinkButton } from 'assets/styles';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import forgotPassword from 'assets/images/forgot-password.png';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
+
+const SpacedH3 = styled(H3)`
+    margin: 20px 15% 25px 15%;
+`
 
 export class ResetPasswordVerificationPage extends React.Component {
 
@@ -52,10 +57,10 @@ export class ResetPasswordVerificationPage extends React.Component {
                 <H1>
                     Enter Verification Code 
                 </H1>
-                <H3>
+                <SpacedH3>
                 We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
-                </H3>
-
+                </SpacedH3>
+                <img src={forgotPassword} alt="hand with smartphone in it"/>
                 <Formik
                     validationSchema={Yup.object().shape({
                         resetCode: Yup.string()
@@ -109,8 +114,8 @@ export class ResetPasswordVerificationPage extends React.Component {
 }
 
 ResetPasswordVerificationPage.propTypes = {
-    fetchRenterProfile: PropTypes.func,
-    profile: PropTypes.object
+    profile: PropTypes.object,
+    history: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
@@ -118,6 +123,4 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename
 });
 
-const mapDispatchToProps = { fetchRenterProfile };
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordVerificationPage);
+export default connect(mapStateToProps, null)(ResetPasswordVerificationPage);
