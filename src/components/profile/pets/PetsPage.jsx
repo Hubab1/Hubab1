@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 
 
 import { H1, H3, P, ErrorDetail } from 'assets/styles';
-import { petPolicy, petsImageMargin, policyDiv } from './styles'
+import { viewPetPolicy, petsImageMargin, policyDiv } from './styles'
 import PetTypeSelect from './PetTypeSelect';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
@@ -22,6 +22,7 @@ import { css } from 'emotion';
 
 const cancelButton = css`
     color: #828796;
+    cursor: pointer;
 `
 
 // taken from here: https://jaredpalmer.com/formik/docs/api/fieldarray
@@ -31,7 +32,8 @@ const ErrorMessage = ({ name }) => (
         render={({ form }) => {
             const error = getIn(form.errors, name);
             const touch = getIn(form.touched, name);
-            return <ErrorDetail>{touch && error ? error : null}</ErrorDetail>
+            const submitCount = form.submitCount;
+            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>
         }}
     />
 );
@@ -65,7 +67,7 @@ export class PetsPage extends React.Component {
                 <H3>Now is the time to gush about your pets, we are all ears.</H3>
                 <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
                 <div className={policyDiv}>
-                    <P>Have you read the pet policy? <span onClick={this.toggleViewPetPolicy} className={petPolicy}>Read it now!</span></P>
+                    <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy + ' cursor-pointer'}>Read it now!</span></P>
                 </div>
                 <Formik
                     validationSchema={Yup.object().shape({
@@ -87,7 +89,7 @@ export class PetsPage extends React.Component {
                         isSubmitting,
                         handleSubmit,
                     }) => (
-                        <form onSubmit={handleSubmit} autoComplete="off">
+                        <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <FieldArray
                                 name="petOptions"
                                 render={arrayHelpers => (
@@ -96,7 +98,7 @@ export class PetsPage extends React.Component {
                                             values.petOptions.map((petOption, index) => (
                                                 <div key={index}>
                                                     <PetTypeSelect
-                                                        topAdornment={index > 0 && <Cancel style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
+                                                        topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
                                                         onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
                                                         value={petOption.petType}
                                                     />
