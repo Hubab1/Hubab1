@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddAnotherButton Matches snapshot 1`] = `
+<span
+  role="button"
+  style={
+    Object {
+      "color": "#FFFFFF",
+      "cursor": "pointer",
+      "display": "inline-block",
+    }
+  }
+>
+  <span
+    style={
+      Object {
+        "fontSize": 15,
+      }
+    }
+  >
+    <svg
+      aria-hidden="true"
+      className="MuiSvgIcon-root"
+      focusable="false"
+      role="presentation"
+      style={
+        Object {
+          "fontSize": 20,
+          "verticalAlign": "middle",
+        }
+      }
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M0 0h24v24H0z"
+        fill="none"
+      />
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+      />
+    </svg>
+     
+    <span
+      style={
+        Object {
+          "verticalAlign": "middle",
+        }
+      }
+    >
+      Add Another 
+      Pet
+    </span>
+  </span>
+</span>
+`;

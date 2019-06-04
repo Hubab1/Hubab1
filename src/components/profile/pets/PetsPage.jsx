@@ -24,6 +24,7 @@ const cancelButton = css`
     color: #828796;
 `
 
+// taken from here: https://jaredpalmer.com/formik/docs/api/fieldarray
 const ErrorMessage = ({ name }) => (
     <Field
         name={name}
@@ -56,7 +57,8 @@ export class PetsPage extends React.Component {
     render () {
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
-        } 
+        }
+        const selectedPetOptions = [{}];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
@@ -77,7 +79,7 @@ export class PetsPage extends React.Component {
                             .required('Select a Pet')
                     })}
                     onSubmit={this.onSubmit}
-                    initialValues={{petOptions:[{petType: 'Dog'}, {petType: 'Cat'}]}}
+                    initialValues={{petOptions: selectedPetOptions}}
                 >
                     {({
                         values,

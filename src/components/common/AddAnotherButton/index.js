@@ -4,7 +4,7 @@ import { withTheme } from '@material-ui/styles';
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
-const AddAnotherButton = withTheme(((props) => (
+const AddAnotherButton = withTheme((props) => (
     <span
         role="button"
         style={{
@@ -18,7 +18,7 @@ const AddAnotherButton = withTheme(((props) => (
             <AddCircle style={{verticalAlign: 'middle', fontSize: props.fontSize + 5}} /> <span style={{verticalAlign: 'middle'}}>Add Another {props.thing}</span>
         </span>
     </span>
-)));
+));
 
 AddAnotherButton.propTypes = {
     fontSize: PropTypes.number
