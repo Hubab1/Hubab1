@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import BackButton from 'components/common/BackButton';
+import BackLink from 'components/common/BackLink';
 import GenericFormError from 'components/common/GenericFormError';
 import forgotPassword from 'assets/images/forgot-password.png';
 import { formContent, H1, H3 } from 'assets/styles';
@@ -81,7 +81,7 @@ export class ForgotPasswordPage extends React.Component {
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="20px">
                                     Send Text
                                 </ActionButton>
-                                <BackButton onClick={() => this.props.history.push(ROUTES.LOGIN)}/>
+                                <BackLink to={ROUTES.LOGIN}/>
                             </div>
                         </form>
                     )}

@@ -9,7 +9,7 @@ import PetTypeSelect from './PetTypeSelect';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import BackButton from 'components/common/BackButton';
+import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -62,7 +62,7 @@ export class PetsPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-                <BackButton onClick={() => this.props.history.push(this.props._prev)}/>
+                <BackLink to={this.props._prev}/>
             </Fragment>
         );
     }

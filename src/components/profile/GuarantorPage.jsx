@@ -9,7 +9,7 @@ import { H1, Subtitle, formContent, ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import BackButton from 'components/common/BackButton';
+import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
@@ -96,7 +96,7 @@ export class GuarantorPage extends React.Component {
                                 </div>
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
-                            <BackButton onClick={() => this.props.history.push(this.props._prev)}/>
+                            <BackLink to={this.props._prev}/>
                         </form>
                     )}
                 </Formik>
