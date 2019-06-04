@@ -123,5 +123,4 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename
 });
 
-
 export default connect(mapStateToProps, null)(ResetPasswordVerificationPage);
