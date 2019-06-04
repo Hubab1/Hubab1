@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Formik, FieldArray } from 'formik';
+import { Formik, FieldArray, Field, getIn } from 'formik';
+import * as Yup from 'yup';
 
 
-import { H1, H3, P } from 'assets/styles';
+import { H1, H3, P, ErrorDetail } from 'assets/styles';
 import { petPolicy, petsImageMargin, policyDiv } from './styles'
 import PetTypeSelect from './PetTypeSelect';
 import petsImage from 'assets/images/pets.png';
@@ -22,6 +23,17 @@ import { css } from 'emotion';
 const cancelButton = css`
     color: #828796;
 `
+
+const ErrorMessage = ({ name }) => (
+    <Field
+        name={name}
+        render={({ form }) => {
+            const error = getIn(form.errors, name);
+            const touch = getIn(form.touched, name);
+            return <ErrorDetail>{touch && error ? error : null}</ErrorDetail>
+        }}
+    />
+);
 
 export class PetsPage extends React.Component {
     state = {
@@ -53,7 +65,20 @@ export class PetsPage extends React.Component {
                 <div className={policyDiv}>
                     <P>Have you read the pet policy? <span onClick={this.toggleViewPetPolicy} className={petPolicy}>Read it now!</span></P>
                 </div>
-                <Formik onSubmit={this.onSubmit} initialValues={{petOptions:[{petType: 'Dog'}, {petType: 'Cat'}]}}>
+                <Formik
+                    validationSchema={Yup.object().shape({
+                        petOptions: Yup.array()
+                            .of(
+                                Yup.object().shape({
+                                    petType: Yup.string()
+                                        .required('Required'),
+                                })
+                            )
+                            .required('Select a Pet')
+                    })}
+                    onSubmit={this.onSubmit}
+                    initialValues={{petOptions:[{petType: 'Dog'}, {petType: 'Cat'}]}}
+                >
                     {({
                         values,
                         setFieldValue,
@@ -69,10 +94,11 @@ export class PetsPage extends React.Component {
                                             values.petOptions.map((petOption, index) => (
                                                 <div key={index}>
                                                     <PetTypeSelect
+                                                        topAdornment={index > 0 && <Cancel style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
                                                         onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
-                                                        value={values.petOptions[index].petType}
-                                                        topAdornment={index > 0 && <Cancel style={{fontSize: 12}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
+                                                        value={petOption.petType}
                                                     />
+                                                    <ErrorMessage name={`petOptions[${index}].petType`} />
                                                 </div>)
                                             )
                                         }
@@ -83,7 +109,7 @@ export class PetsPage extends React.Component {
                                     </div>
                                 )}
                             />
-                            <ActionButton disabled={isSubmitting || !values.petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
+                            <ActionButton disabled={isSubmitting || !values.petOptions[0].petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
                         </form>
                     )}
                 </Formik>

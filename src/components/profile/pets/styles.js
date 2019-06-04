@@ -9,7 +9,7 @@ export const petPolicy = css`
 export const petTypeContainer = css`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 55px;
+    margin-bottom: 15px;
 `
 
 export const petButtonRoot = css`
@@ -18,6 +18,7 @@ export const petButtonRoot = css`
     text-transform: capitalize !important;
     padding: 10px 0;
     border: 1px solid #828796 !important;
+    height: 45px;
 `
 
 export const petsImageMargin = css`
