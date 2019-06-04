@@ -34,3 +34,8 @@ export const petTypeLabel = css`
     margin-bottom: 11px;
     text-align: left;
 `
+
+export const labelheader = css`
+    justify-content: space-between;
+    display: flex;
+`

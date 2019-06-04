@@ -9,12 +9,19 @@ import { petPolicy, petsImageMargin, policyDiv } from './styles'
 import PetTypeSelect from './PetTypeSelect';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
+import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import { selectors } from 'reducers/configuration';
+import Cancel from '@material-ui/icons/Cancel';
+import { css } from 'emotion';
 
+
+const cancelButton = css`
+    color: #828796;
+`
 
 export class PetsPage extends React.Component {
     state = {
@@ -46,7 +53,7 @@ export class PetsPage extends React.Component {
                 <div className={policyDiv}>
                     <P>Have you read the pet policy? <span onClick={this.toggleViewPetPolicy} className={petPolicy}>Read it now!</span></P>
                 </div>
-                <Formik onSubmit={this.onSubmit} initialValues={{petOptions:[{}]}}>
+                <Formik onSubmit={this.onSubmit} initialValues={{petOptions:[{petType: 'Dog'}, {petType: 'Cat'}]}}>
                     {({
                         values,
                         setFieldValue,
@@ -64,33 +71,23 @@ export class PetsPage extends React.Component {
                                                     <PetTypeSelect
                                                         onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
                                                         value={values.petOptions[index].petType}
+                                                        topAdornment={index > 0 && <Cancel style={{fontSize: 12}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
                                                     />
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => arrayHelpers.insert(index, '')} // insert an empty string at a position
-                                                    >
-                                                        +
-                                                    </button>
                                                 </div>)
                                             )
                                         }
+                                        <AddAnotherButton
+                                            thing="Pet"
+                                            onClick={() => arrayHelpers.push({})}
+                                        />
                                     </div>
                                 )}
                             />
-                            <div>
-                                <button type="submit">Submit</button>
-                            </div>
                             <ActionButton disabled={isSubmitting || !values.petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
                         </form>
                     )}
                 </Formik>
-                <Link to={this.props._prev}>Go Back</Link>
+                <Link to={this.props._prev || '/'}>Go Back</Link>
             </Fragment>
         );
     }

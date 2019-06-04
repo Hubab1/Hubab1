@@ -35,4 +35,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, null)(withTheme()(Page));
+export default connect(mapStateToProps, null)(withTheme((Page)));

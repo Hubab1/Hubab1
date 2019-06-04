@@ -91,4 +91,4 @@ const mapStateToProps = state => ({
 });
 
 const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);
-export default withTheme()(connectedWelcomePage);
+export default withTheme((connectedWelcomePage));
