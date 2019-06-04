@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
-import funnelImage from '../../assets/images/PoweredByFunnel.png';
-import homeImage from '../../assets/images/home-image.png';
+import funnelImage from 'assets/images/PoweredByFunnel.png';
+import homeImage from 'assets/images/home-image.png';
 import Logo from 'components/common/Logo';
 import { H1, H2, P }from 'assets/styles';
 import {
@@ -38,7 +37,7 @@ export class WelcomePage extends Component {
         return (
             <Fragment>
                 <BackgroundImage url={background}/>
-                <BackgroundImageTint primaryColor={this.props.theme.palette.primary.main}/>
+                <BackgroundImageTint/>
                 <WelcomeFlexContainer>
                     <Logo logo={logo}/>
                     <WelcomeTextContainer>
@@ -90,5 +89,4 @@ const mapStateToProps = state => ({
     hash: state.siteConfig.hash
 });
 
-const connectedWelcomePage = connect(mapStateToProps, null)(WelcomePage);
-export default withTheme((connectedWelcomePage));
+export default connect(mapStateToProps, null)(WelcomePage);
