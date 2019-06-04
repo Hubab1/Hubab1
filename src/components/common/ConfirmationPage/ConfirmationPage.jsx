@@ -17,7 +17,7 @@ export default function ConfirmationPage (props) {
         secondaryButtonClick, secondaryButtonText, confirmationImage } = props;
     return (
         <Fragment>
-            <H1>{`${successMessage}`}</H1>
+            <H1>{successMessage}</H1>
             { secondarySuccessMessage && <SpacedH3>{secondarySuccessMessage}</SpacedH3>}
             { confirmationImage && 
                 <ImageContainer>
