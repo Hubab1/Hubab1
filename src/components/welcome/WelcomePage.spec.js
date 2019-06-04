@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import backgroundImage from 'assets/images/desktop_cortlandimg.png';
-import logoImage from 'assets/images/cortland_logo.png';
 import { WelcomePage } from './WelcomePage';
 import { WelcomeTextContainer } from './styles';
 
@@ -11,7 +9,7 @@ beforeEach(() => {
     defaultProps = {
         configuration: {
             application_fee: null,
-            background: backgroundImage,
+            background: 'some background image url',
             community: {
                 building_name: "The Excelsior",
                 building_number: "601",
@@ -21,7 +19,7 @@ beforeEach(() => {
                 state: "NY",
             },
             id: 1,
-            logo: logoImage,
+            logo: 'logo of a pegasus flying over the moon',
             primary_color: "286165",
             rental_options_config: {
                 guarantor: {
