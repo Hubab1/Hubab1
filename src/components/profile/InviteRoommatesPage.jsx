@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import styled from '@emotion/styled';
 
 import { H1, H3, formContent, ErrorDetail } from 'assets/styles';
+import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
@@ -12,6 +14,10 @@ import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPag
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+
+const SpacedH3 = styled(H3)`
+    margin: 20px 15% 20px 15%;
+`
 
 export class InviteRoommatesPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -40,8 +46,9 @@ export class InviteRoommatesPage extends React.Component {
         } 
         return (
             <Fragment>
-                <H1>Let's Invite Your Roommates</H1>
-                <H3>Tell us the basics and we’ll send them an invite to tell us the rest.</H3>
+                <H1>Invite Your Roommates</H1>
+                <SpacedH3>Tell us the basics and we’ll send them an invite to tell us the rest.</SpacedH3>
+                <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
