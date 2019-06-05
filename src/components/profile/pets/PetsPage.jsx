@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik, FieldArray, Field, getIn } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +11,7 @@ import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -119,7 +119,7 @@ export class PetsPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-                <Link to={this.props._prev || '/'}>Go Back</Link>
+                <BackLink to={this.props._prev || '/'}/>
             </Fragment>
         );
     }

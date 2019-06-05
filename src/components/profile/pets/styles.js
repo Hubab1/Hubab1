@@ -25,12 +25,12 @@ export const petButtonRoot = css`
         border-top-left-radius: 0px !important;
         border-bottom-left-radius: 0px !important;
     }
-    &:first-child {
+    &:first-of-type {
         border-right: 0px !important;
         border-top-right-radius: 0px !important;
         border-bottom-right-radius: 0px !important;
     }
-    &:not(:first-child):not(:last-child) {
+    &:not(:first-of-type):not(:last-child) {
         border-radius: 0px !important;
     }
 

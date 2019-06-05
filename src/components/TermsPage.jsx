@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, TextReader, Bold, GoBack } from 'assets/styles';
+import BackLink from 'components/common/BackLink';
+import { H1, TextReader, Bold } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
@@ -20,12 +22,6 @@ export class TermsPage extends React.Component {
         const { history } = this.props;
         this.props.updateRenterProfile({completed_terms_and_conditions: true});
         history.push(ROUTES.PROFILE_OPTIONS);
-    }
-
-    handleClickBack = () => {
-        const { history } = this.props;
-        // maybe clear session here too? Or maybe it doesn't make sense to go back from this page?
-        history.push(ROUTES.SIGNUP);
     }
 
     render () {
@@ -55,10 +51,15 @@ export class TermsPage extends React.Component {
                 <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
                     I Agree to the Terms & Conditions
                 </ActionButton>
-                <GoBack onClick={this.handleClickBack}>Go Back</GoBack>
+                <BackLink to={ROUTES.SIGNUP}/>>
             </Fragment>
         );
     }
 }
 
 export default connect(null, {updateRenterProfile})(TermsPage);
+
+TermsPage.propTypes = {
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
