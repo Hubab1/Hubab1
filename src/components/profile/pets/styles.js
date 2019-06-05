@@ -1,15 +1,16 @@
 import { css } from 'emotion';
 
 
-export const petPolicy = css`
+export const viewPetPolicy = css`
     color: #2B44FF;
+    cursor: pointer;
     text-decoration: underline
 `
 
 export const petTypeContainer = css`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 55px;
+    margin-bottom: 15px;
 `
 
 export const petButtonRoot = css`
@@ -18,6 +19,21 @@ export const petButtonRoot = css`
     text-transform: capitalize !important;
     padding: 10px 0;
     border: 1px solid #828796 !important;
+    height: 45px;
+    &:last-child {
+        border-left: 0px !important;
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+    &:first-of-type {
+        border-right: 0px !important;
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+    &:not(:first-of-type):not(:last-child) {
+        border-radius: 0px !important;
+    }
+
 `
 
 export const petsImageMargin = css`
@@ -33,4 +49,9 @@ export const petTypeLabel = css`
     font-size: 12px;
     margin-bottom: 11px;
     text-align: left;
+`
+
+export const petTypeLabelHeader = css`
+    justify-content: space-between;
+    display: flex;
 `

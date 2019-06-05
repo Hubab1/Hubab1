@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from '@material-ui/core/styles';
+import { withTheme } from '@material-ui/styles';
 import { connect } from 'react-redux';
 
 import Logo from 'components/common/Logo';
@@ -35,4 +35,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, null)(withTheme()(Page));
+export default connect(mapStateToProps, null)(withTheme(Page));

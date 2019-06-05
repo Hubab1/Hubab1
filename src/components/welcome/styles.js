@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
+import { withTheme } from '@material-ui/styles';
 
 
 export const BackgroundImage = styled.div( props => ({
@@ -15,7 +16,7 @@ export const BackgroundImage = styled.div( props => ({
     backgroundImage: `url(${props.url})`,
 }))
 
-export const BackgroundImageTint = styled.div( props => ({
+export const BackgroundImageTint = withTheme(styled.div( props => ({
     position: 'absolute',
     top: 0,
     left: 0,
@@ -23,8 +24,8 @@ export const BackgroundImageTint = styled.div( props => ({
     height: '100%',
     zIndex: -4,
     opacity: .6,
-    background: props.primaryColor
-}))
+    background: props.theme.palette.primary.main
+})))
 
 export const WelcomeFlexContainer = styled.div`
     label: welcome__container;
