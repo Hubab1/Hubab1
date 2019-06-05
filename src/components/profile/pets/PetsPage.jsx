@@ -51,7 +51,6 @@ export class PetsPage extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         // ignore form values without pet type
         const payload = values.petOptions.filter(option => !!option.petType);
-        console.log(this.props.updateRenterProfile)
         this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
@@ -118,10 +117,8 @@ export class PetsPage extends React.Component {
                 >
                     {({
                         values,
-                        setFieldValue,
                         handleChange,
                         handleBlur,
-                        errors,
                         isSubmitting,
                         handleSubmit,
                     }) => (
@@ -135,7 +132,7 @@ export class PetsPage extends React.Component {
                                                 <div key={index}>
                                                     <PetTypeSelect
                                                         topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
-                                                        onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
+                                                        onChange={(value)=>arrayHelpers.replace(index, {petType: value})}
                                                         value={petOption.petType}
                                                     />
                                                     {petOption.petType === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
