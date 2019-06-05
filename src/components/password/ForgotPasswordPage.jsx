@@ -45,7 +45,7 @@ export class ForgotPasswordPage extends React.Component {
         return (
             <Fragment>
                 <H1>
-                    Forgot your password?
+                    Forgot Your Password?
                 </H1>
                 <SpacedH3>
                     Don’t worry! We’ll send you a text message with a code to reset your password.

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-
+import { css } from 'emotion';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
-import { formContent, H1, P } from 'assets/styles';
+import { formContent, H1 } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
@@ -21,6 +21,12 @@ const SkinnyH1 = styled(H1)`
     width: 70%;
     margin: auto;
     padding-bottom: 15px;
+`
+
+const loginLinks = css`
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2B44FF;
 `
 
 export class LoginPage extends React.Component {
@@ -100,9 +106,9 @@ export class LoginPage extends React.Component {
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="50px">
                                     Sign In
                                 </ActionButton>
-                                <Link to={ROUTES.FORGOT_PASSWORD}><P className="already-have-account">Forgot your password?</P></Link>
+                                <Link to={ROUTES.FORGOT_PASSWORD} className={loginLinks}>Forgot your password?</Link>
                                 <br/>
-                                <Link to={ROUTES.SIGNUP}><P className="already-have-account">Need an account?</P></Link>
+                                <Link to={ROUTES.SIGNUP} className={loginLinks}>Need an account?</Link>
                             </div>
                         </form>
                     )}
