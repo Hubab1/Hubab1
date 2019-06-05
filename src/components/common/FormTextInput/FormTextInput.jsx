@@ -12,12 +12,12 @@ import { root } from './styles';
 export default function FormTextInput (props) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched, endAdornment } = props;
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched, endAdornment, helperText } = props;
     const showHelperTextBeforeSubmit = showHelperText && (touched || value);
     return (
         <TextField
             error={submitted && error}
-            helperText={showHelperTextBeforeSubmit || submitted ? error : null}
+            helperText={helperText ? helperText : showHelperTextBeforeSubmit || submitted ? error : null}
             label={label}
             classes={ {root} }
             type={type === 'text' || showPassword ? 'text' : 'password'}

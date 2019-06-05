@@ -88,6 +88,43 @@ export class PetsPage extends React.Component {
         );
     }
 
+    renderCatFields (petOption, handleChange, handleBlur, index) {
+        return (
+            <Fragment>
+                <FormTextInput
+                    label="Cat Name"
+                    name={`petOptions[${index}].name`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.name}
+                />
+                <FormTextInput
+                    label="Weight"
+                    name={`petOptions[${index}].weight`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.weight}
+                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
+                />
+            </Fragment>
+        );
+    }
+
+    renderOtherFields (petOption, handleChange, handleBlur, index) {
+        return (
+            <Fragment>
+                <FormTextInput
+                    label="Description"
+                    name={`petOptions[${index}].description`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.description}
+                    helperText="Please share a bit about your pet"
+                />
+            </Fragment>
+        );
+    }
+
     render () {
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
@@ -136,6 +173,8 @@ export class PetsPage extends React.Component {
                                                         value={petOption.petType}
                                                     />
                                                     {petOption.petType === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
+                                                    {petOption.petType === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
+                                                    {petOption.petType === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
                                                     <ErrorMessage name={`petOptions[${index}].petType`} />
                                                 </div>)
                                             )
