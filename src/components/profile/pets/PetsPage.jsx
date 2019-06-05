@@ -40,14 +40,16 @@ const ErrorMessage = ({ name }) => (
 
 export class PetsPage extends React.Component {
     state = {
-        viewPetPolicy: false, 
-        errors: null};
+        viewPetPolicy: false,
+        errors: null
+    }
 
     toggleViewPetPolicy = () => {
         this.setState({viewPetPolicy: !this.state.viewPetPolicy})
     }
 
     onSubmit = (values, { setSubmitting }) => {
+        // todo: maybe filter out pets not filled in
         API.addPets(values).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
@@ -67,17 +69,17 @@ export class PetsPage extends React.Component {
                 <H3>Now is the time to gush about your pets, we are all ears.</H3>
                 <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
                 <div className={policyDiv}>
-                    <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy + ' cursor-pointer'}>Read it now!</span></P>
+                    <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>
                 </div>
                 <Formik
                     validationSchema={Yup.object().shape({
                         petOptions: Yup.array()
-                            .of(
-                                Yup.object().shape({
-                                    petType: Yup.string()
-                                        .required('Required'),
-                                })
-                            )
+                            // .of(
+                            //     Yup.object().shape({
+                            //         petType: Yup.string()
+                            //             .required('Required'),
+                            //     })
+                            // )
                             .required('Select a Pet')
                     })}
                     onSubmit={this.onSubmit}
@@ -113,7 +115,7 @@ export class PetsPage extends React.Component {
                                     </div>
                                 )}
                             />
-                            <ActionButton disabled={isSubmitting || !values.petOptions[0].petType} marginTop="55px" marginBottom="20px">Next</ActionButton>
+                            <ActionButton disabled={isSubmitting} marginTop="55px" marginBottom="20px">Next</ActionButton>
                         </form>
                     )}
                 </Formik>

@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-import { petTypeContainer, petTypeLabel, petButtonRoot, labelheader } from './styles';
+import { petTypeContainer, petTypeLabel, petButtonRoot, petTypeLabelHeader } from './styles';
 
 function PetTypeSelect(props) {
     const { onChange, petTypeOptions, value } = props;
     return (
         <Fragment>
-            <div className={labelheader}>
+            <div className={petTypeLabelHeader}>
                 <span className={petTypeLabel}>Type</span>
                 <span>{props.topAdornment}</span>
             </div>

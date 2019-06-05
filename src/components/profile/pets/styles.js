@@ -20,6 +20,20 @@ export const petButtonRoot = css`
     padding: 10px 0;
     border: 1px solid #828796 !important;
     height: 45px;
+    &:last-child {
+        border-left: 0px !important;
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+    &:first-child {
+        border-right: 0px !important;
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+    &:not(:first-child):not(:last-child) {
+        border-radius: 0px !important;
+    }
+
 `
 
 export const petsImageMargin = css`
@@ -37,7 +51,7 @@ export const petTypeLabel = css`
     text-align: left;
 `
 
-export const labelheader = css`
+export const petTypeLabelHeader = css`
     justify-content: space-between;
     display: flex;
 `
