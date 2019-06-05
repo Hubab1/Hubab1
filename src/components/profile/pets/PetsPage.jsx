@@ -50,7 +50,7 @@ export class PetsPage extends React.Component {
 
     onSubmit = (values, { setSubmitting }) => {
         // ignore form values without pet type
-        const payload = values.petOptions.filter(option => !!option.petType);
+        const payload = values.petOptions.filter(option => !!option.pet_type);
         this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
@@ -126,10 +126,11 @@ export class PetsPage extends React.Component {
     }
 
     render () {
+        if (!this.props.profile) return null;
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
         }
-        const selectedPetOptions = [{}];
+        const selectedPetOptions = this.props.profile.pets || [{}];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
@@ -169,13 +170,13 @@ export class PetsPage extends React.Component {
                                                 <div key={index}>
                                                     <PetTypeSelect
                                                         topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
-                                                        onChange={(value)=>arrayHelpers.replace(index, {petType: value})}
-                                                        value={petOption.petType}
+                                                        onChange={(value)=>arrayHelpers.replace(index, {pet_type: value})}
+                                                        value={petOption.pet_type}
                                                     />
-                                                    {petOption.petType === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
-                                                    {petOption.petType === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
-                                                    {petOption.petType === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
-                                                    <ErrorMessage name={`petOptions[${index}].petType`} />
+                                                    {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
+                                                    {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
+                                                    {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
+                                                    <ErrorMessage name={`petOptions[${index}].pet_type`} />
                                                 </div>)
                                             )
                                         }
@@ -196,5 +197,9 @@ export class PetsPage extends React.Component {
     }
 }
 
-const connectedPetsPage = connect(null, {updateRenterProfile})(PetsPage);
+const mapStateToProps = state => ({
+    profile: state.renterProfile
+})
+
+const connectedPetsPage = connect(mapStateToProps, {updateRenterProfile})(PetsPage);
 export default withRelativeRoutes(connectedPetsPage, ROUTES.PETS);
