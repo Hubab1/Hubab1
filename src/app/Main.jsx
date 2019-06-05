@@ -9,6 +9,7 @@ import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
+import ConnectBankPage from 'components/ConnectBankPage';
 import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
@@ -81,6 +82,7 @@ export class Main extends Component {
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
                             <Route path={ROUTES.TOS} component={TermsPage}/>
+                            <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
                         </Page>
                     </Switch>
                 </div>

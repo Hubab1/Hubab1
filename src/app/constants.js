@@ -18,11 +18,8 @@ export const ROUTES = {
     PARKING: '/parking/parking',
     PETS: '/profile/pets',
     ROOMMATES: '/profile/invite-roommates',
+    CONNECT_BANK: '/connect-bank',
 }
-
-export const ALL_ROUTES = [
-    ROUTES.LOGIN, ROUTES.TOS, ROUTES.PROFILE_OPTIONS
-]
 
 export const BASE_ROUTES = [
     ROUTES.PROFILE_OPTIONS

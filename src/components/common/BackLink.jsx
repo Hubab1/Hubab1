@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 import { Link } from 'react-router-dom';
 
-
-
-const backLinkRoot = css`
+export const backLinkRoot = css`
     font-weight: 500;
     font-size: 16px;
     text-transform: capitalize;
@@ -27,7 +25,7 @@ export const BackLink = props => {
 };
 
 BackLink.propTypes = {
-    onClick: PropTypes.func,
+    to: PropTypes.func,
 };
 
 export default BackLink;
