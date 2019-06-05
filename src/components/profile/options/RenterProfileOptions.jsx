@@ -50,9 +50,10 @@ const optionConfig = {
 
 export class RentalProfileOptions extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
-        setSubmitting(false);
-        this.props.updateRenterProfile({selected_rental_options: values.options});
-        this.props._nextRoute();
+        this.props.updateRenterProfile({selected_rental_options: values.options}).then(() => {
+            this.props._nextRoute();
+            setSubmitting(false);
+        });
     }
 
     render () {

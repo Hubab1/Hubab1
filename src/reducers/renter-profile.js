@@ -34,11 +34,13 @@ export const fetchRenterProfile = () => {
 
 
 export const updateRenterProfile = (newData) => {
-    API.updateRenterProfile(newData);
-    // optimistic update
-    return {
-        type: renterProfileUpdated.toString(),
-        payload: newData
+    return dispatch => {
+        return API.updateRenterProfile(newData).then(res => {
+            return dispatch({
+                type: renterProfileUpdated.toString(),
+                payload: newData
+            });
+        })
     }
 };
 

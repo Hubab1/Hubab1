@@ -5,17 +5,17 @@ import * as Yup from 'yup';
 
 
 import { H1, H3, P, ErrorDetail } from 'assets/styles';
-import { viewPetPolicy, petsImageMargin, policyDiv } from './styles'
+import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import PetTypeSelect from './PetTypeSelect';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
-import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import { selectors } from 'reducers/configuration';
 import Cancel from '@material-ui/icons/Cancel';
 import { css } from 'emotion';
 
@@ -49,13 +49,44 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        // todo: maybe filter out pets not filled in
-        API.addPets(values).then((res) => {
+        // ignore form values without pet type
+        const payload = values.petOptions.filter(option => !!option.petType);
+        console.log(this.props.updateRenterProfile)
+        this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
         });
+    }
+
+    renderDogFields (petOption, handleChange, handleBlur, index) {
+        return (
+            <Fragment>
+                <FormTextInput
+                    label="Dog Name"
+                    name={`petOptions[${index}].name`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.name}
+                />
+                <FormTextInput
+                    label="Breed"
+                    name={`petOptions[${index}].breed`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.breed}
+                />
+                <FormTextInput
+                    label="Weight"
+                    name={`petOptions[${index}].weight`}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={petOption.weight}
+                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
+                />
+            </Fragment>
+        );
     }
 
     render () {
@@ -88,6 +119,9 @@ export class PetsPage extends React.Component {
                     {({
                         values,
                         setFieldValue,
+                        handleChange,
+                        handleBlur,
+                        errors,
                         isSubmitting,
                         handleSubmit,
                     }) => (
@@ -104,6 +138,7 @@ export class PetsPage extends React.Component {
                                                         onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
                                                         value={petOption.petType}
                                                     />
+                                                    {petOption.petType === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
                                                     <ErrorMessage name={`petOptions[${index}].petType`} />
                                                 </div>)
                                             )
@@ -125,9 +160,5 @@ export class PetsPage extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    theme: selectors.selectTheme(state)
-})
-
-const connectedPetsPage = connect(mapStateToProps, null)(PetsPage);
+const connectedPetsPage = connect(null, {updateRenterProfile})(PetsPage);
 export default withRelativeRoutes(connectedPetsPage, ROUTES.PETS);

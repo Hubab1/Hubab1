@@ -12,7 +12,7 @@ import { root } from './styles';
 export default function FormTextInput (props) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched } = props;
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showHelperText, touched, endAdornment } = props;
     const showHelperTextBeforeSubmit = showHelperText && (touched || value);
     return (
         <TextField
@@ -26,7 +26,7 @@ export default function FormTextInput (props) {
             onChange={handleChange}
             onBlur={handleBlur}
             value={value}
-            InputProps={type === 'password' ? 
+            InputProps={endAdornment ? {endAdornment} : type === 'password' ?
                 { endAdornment: (
                     <InputAdornment position="end">
                         <IconButton
