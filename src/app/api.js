@@ -94,9 +94,5 @@ API.inviteGuarantor = (data) => {
     return Promise.resolve('perkele');
 }
 
-API.addPets = (data) => {
-    return Promise.resolve('perkele');
-}
-
 
 export default API;

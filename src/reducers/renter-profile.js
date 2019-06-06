@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit';
-import produce from "immer";
+import produce from 'immer';
 import { createSelector } from 'reselect';
 import API from 'app/api';
 import { BASE_ROUTES, ROUTES } from 'app/constants';
+import uuidv4 from 'uuid/v4';
 
 const renterProfile = createSlice({
     slice: 'renterProfile',
@@ -10,6 +11,9 @@ const renterProfile = createSlice({
     reducers: {
         renterProfileReceived(state, action) {
             state = action.payload;
+            if (state.pets) {
+                state.pets.forEach(pet => pet.key = uuidv4());
+            }
             return state;
         },
         renterProfileUpdated(state, action) {
@@ -34,11 +38,13 @@ export const fetchRenterProfile = () => {
 
 
 export const updateRenterProfile = (newData) => {
-    API.updateRenterProfile(newData);
-    // optimistic update
-    return {
-        type: renterProfileUpdated.toString(),
-        payload: newData
+    return dispatch => {
+        return API.updateRenterProfile(newData).then(res => {
+            return dispatch({
+                type: renterProfileUpdated.toString(),
+                payload: newData
+            });
+        })
     }
 };
 

@@ -113,7 +113,7 @@ export class SignupPage extends React.Component {
                                     handleBlur={handleBlur}
                                     error={errors.password}
                                     value={values.password}
-                                    showHelperText
+                                    showValidationText
                                     touched={touched && touched.password}
                                 />
                                 <div>
