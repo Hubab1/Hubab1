@@ -8,7 +8,6 @@ import { H1, H3, P } from 'assets/styles';
 import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import AddAnotherButton from 'components/common/AddAnotherButton';
@@ -36,72 +35,6 @@ export class PetsPage extends React.Component {
             this.setState({errors: res.errors});
             setSubmitting(false);
         });
-    }
-
-    renderDogFields (petOption, handleChange, handleBlur, index) {
-        return (
-            <Fragment>
-                <FormTextInput
-                    label="Dog Name"
-                    name={`petOptions[${index}].name`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.name}
-                />
-                <FormTextInput
-                    label="Breed"
-                    name={`petOptions[${index}].breed`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.breed}
-                />
-                <FormTextInput
-                    label="Weight"
-                    name={`petOptions[${index}].weight`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.weight}
-                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
-                />
-            </Fragment>
-        );
-    }
-
-    renderCatFields (petOption, handleChange, handleBlur, index) {
-        return (
-            <Fragment>
-                <FormTextInput
-                    label="Cat Name"
-                    name={`petOptions[${index}].name`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.name}
-                />
-                <FormTextInput
-                    label="Weight"
-                    name={`petOptions[${index}].weight`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.weight}
-                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
-                />
-            </Fragment>
-        );
-    }
-
-    renderOtherFields (petOption, handleChange, handleBlur, index) {
-        return (
-            <Fragment>
-                <FormTextInput
-                    label="Description"
-                    name={`petOptions[${index}].description`}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={petOption.description}
-                    helperText="Please share a bit about your pet"
-                />
-            </Fragment>
-        );
     }
 
     render () {
