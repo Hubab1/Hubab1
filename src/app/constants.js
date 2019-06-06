@@ -19,6 +19,7 @@ export const ROUTES = {
     PETS: '/profile/pets',
     ROOMMATES: '/profile/invite-roommates',
     CONNECT_BANK: '/connect-bank',
+    MANUAL_INCOME_ENTRY: '/manual-income-entry',
 }
 
 export const BASE_ROUTES = [

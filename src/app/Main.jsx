@@ -10,13 +10,14 @@ import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ConnectBankPage from 'components/ConnectBankPage';
+import ManualIncomeEntryPage from 'components/ManualIncomeEntryPage';
 import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'app/constants';
-import { selectors } from '../reducers/configuration';
+import { selectors } from 'reducers/configuration';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -83,6 +84,7 @@ export class Main extends Component {
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
                             <Route path={ROUTES.TOS} component={TermsPage}/>
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
+                            <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                         </Page>
                     </Switch>
                 </div>

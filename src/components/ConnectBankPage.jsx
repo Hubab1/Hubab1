@@ -22,10 +22,10 @@ export class ConnectBankPage extends React.Component {
             <Fragment>
                 <H1>Verify Your Income Instantly</H1>
                 <SpacedH3>Confirm that you qualify for this apartment by linking your bank account.</SpacedH3>
-                <ActionButton onClick={this.linkBankAccount} marginTop="20px" marginBottom="10px">
+                <ActionButton onClick={this.linkBankAccount} marginTop="20px" marginBottom="20px">
                     Link Bank Account
                 </ActionButton>
-                <Link to={ROUTES.PROFILE_OPTIONS} className={backLinkRoot}>Don't Want to Link</Link>
+                <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={backLinkRoot}>Don't Want to Link?</Link>
             </Fragment>
         );
     }
