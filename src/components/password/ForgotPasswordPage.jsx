@@ -51,7 +51,6 @@ export class ForgotPasswordPage extends React.Component {
                     Don’t worry! We’ll send you a text message with a code to reset your password.
                 </SpacedH3>
                 <img src={forgotPassword} alt="hand with smartphone in it"/>
-                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
                         phone: Yup.string()
@@ -70,6 +69,7 @@ export class ForgotPasswordPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                                 <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone"

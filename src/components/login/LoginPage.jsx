@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { getInitialPage } from 'utils/routeNavigation';
-import { formContent, H1 } from 'assets/styles';
+import { formContent, H1, link } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
@@ -21,12 +21,6 @@ const SkinnyH1 = styled(H1)`
     width: 70%;
     margin: auto;
     padding-bottom: 15px;
-`
-
-const loginLinks = css`
-    display: inline-block;
-    margin-bottom: 20px;
-    color: #2B44FF;
 `
 
 export class LoginPage extends React.Component {
@@ -56,7 +50,6 @@ export class LoginPage extends React.Component {
                 <SkinnyH1>
                     Sign In to Continue with Your Application
                 </SkinnyH1>
-                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
                         email: Yup.string()
@@ -79,6 +72,7 @@ export class LoginPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                                 <div>
                                     <FormTextInput
                                         label="Email"
@@ -106,9 +100,9 @@ export class LoginPage extends React.Component {
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="50px">
                                     Sign In
                                 </ActionButton>
-                                <Link to={ROUTES.FORGOT_PASSWORD} className={loginLinks}>Forgot your password?</Link>
+                                <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>
                                 <br/>
-                                <Link to={ROUTES.SIGNUP} className={loginLinks}>Need an account?</Link>
+                                <Link to={ROUTES.SIGNUP} className={link}>Need an account?</Link>
                             </div>
                         </form>
                     )}

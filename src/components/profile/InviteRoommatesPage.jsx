@@ -50,7 +50,6 @@ export class InviteRoommatesPage extends React.Component {
                 <H1>Invite Your Roommates</H1>
                 <SpacedH3>Tell us the basics and we’ll send them an invite to tell us the rest.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
-                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
@@ -73,6 +72,7 @@ export class InviteRoommatesPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
