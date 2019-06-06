@@ -92,7 +92,7 @@ export class LoginPage extends React.Component {
                                         handleBlur={handleBlur}
                                         error={errors.password}
                                         value={values.password}
-                                        showHelperText
+                                        showValidationText
                                     />
                                 </div>
                                 <div>
