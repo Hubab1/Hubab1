@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Formik, FieldArray, Field, getIn } from 'formik';
+import { Formik, FieldArray } from 'formik';
 import * as Yup from 'yup';
+import uuidv4 from 'uuid/v4';
 
-
-import { H1, H3, P, ErrorDetail } from 'assets/styles';
+import { H1, H3, P } from 'assets/styles';
 import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import PetTypeSelect from './PetTypeSelect';
+import PetItem from './PetItem';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
@@ -16,27 +16,6 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import Cancel from '@material-ui/icons/Cancel';
-import { css } from 'emotion';
-
-
-const cancelButton = css`
-    color: #828796;
-    cursor: pointer;
-`
-
-// taken from here: https://jaredpalmer.com/formik/docs/api/fieldarray
-const ErrorMessage = ({ name }) => (
-    <Field
-        name={name}
-        render={({ form }) => {
-            const error = getIn(form.errors, name);
-            const touch = getIn(form.touched, name);
-            const submitCount = form.submitCount;
-            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>
-        }}
-    />
-);
 
 export class PetsPage extends React.Component {
     state = {
@@ -167,22 +146,18 @@ export class PetsPage extends React.Component {
                                     <div>
                                         {
                                             values.petOptions.map((petOption, index) => (
-                                                <div key={index}>
-                                                    <PetTypeSelect
-                                                        topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
-                                                        onChange={(value)=>arrayHelpers.replace(index, {pet_type: value})}
-                                                        value={petOption.pet_type}
-                                                    />
-                                                    {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
-                                                    {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
-                                                    {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
-                                                    <ErrorMessage name={`petOptions[${index}].pet_type`} />
-                                                </div>)
-                                            )
+                                                <PetItem key={petOption.key}
+                                                    arrayHelpers={arrayHelpers}
+                                                    index={index}
+                                                    petOption={petOption}
+                                                    handleChange={handleChange}
+                                                    handleBlur={handleBlur}
+                                                />
+                                            ))
                                         }
                                         <AddAnotherButton
                                             thing="Pet"
-                                            onClick={() => arrayHelpers.push({})}
+                                            onClick={() => arrayHelpers.push({key: uuidv4()})}
                                         />
                                     </div>
                                 )}
