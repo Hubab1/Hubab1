@@ -28,10 +28,10 @@ export class InviteRoommatesPage extends React.Component {
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
         // patching to co_applicants here creates invitee, but doesn't actually set anything on the application. fine for now, but might want to revise later
-        this.props.updateRenterProfile({co_applicants: values}).then((res) => {
+        this.props.updateRenterProfile({co_applicants: [values]}).then((res) => {
             if (res.errors) {
-                const c = get(res, 'errors.co_applicants');
-                const coApplicantKey = coApplicantKey && Object.keys(coApplicantsErrorsObj)[0];
+                const coApplicantsErrorsObj = get(res, 'errors.co_applicants');
+                const coApplicantKey = coApplicantsErrorsObj &&     Object.keys(coApplicantsErrorsObj)[0];
                 const coApplicantErrors = coApplicantKey && coApplicantsErrorsObj[coApplicantKey]
                 coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']})
             } else {
@@ -110,7 +110,7 @@ export class InviteRoommatesPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone_number}
                                     helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
-\                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
