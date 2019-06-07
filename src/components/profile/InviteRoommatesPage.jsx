@@ -20,7 +20,7 @@ import GenericFormError from 'components/common/GenericFormError';
 
 
 const SpacedH3 = styled(H3)`
-    margin: 20px 15% 20px 15%;
+    margin: 20px 15% 20px 15%;s
 `
 
 export class InviteRoommatesPage extends React.Component {
@@ -30,8 +30,8 @@ export class InviteRoommatesPage extends React.Component {
         // patching to co_applicants here creates invitee, but doesn't actually set anything on the application. fine for now, but might want to revise later
         this.props.updateRenterProfile({co_applicants: values}).then((res) => {
             if (res.errors) {
-                const coApplicantsErrorsObj = get(res, 'errors.co_applicants');
-                const coApplicantKey = Object.keys(coApplicantsErrorsObj)[0];
+                const c = get(res, 'errors.co_applicants');
+                const coApplicantKey = coApplicantKey && Object.keys(coApplicantsErrorsObj)[0];
                 const coApplicantErrors = coApplicantKey && coApplicantsErrorsObj[coApplicantKey]
                 coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']})
             } else {
@@ -65,7 +65,7 @@ export class InviteRoommatesPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone: Yup.string()
+                        phone_number: Yup.string()
                             .required('Phone Number is required')
                             .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
 
@@ -104,13 +104,13 @@ export class InviteRoommatesPage extends React.Component {
                                 />
                                 <PhoneNumberInput 
                                     label="Phone Number"
-                                    name="phone"
-                                    value={values.phone}
+                                    name="phone_number"
+                                    value={values.phone_number}
                                     handleChange={handleChange}
-                                    error={submitCount > 0 && !!errors.phone}
-                                    helperText={submitCount > 0 ? errors.phone : null}
+                                    error={submitCount > 0 && !!errors.phone_number}
+                                    helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
-\                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+\                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
