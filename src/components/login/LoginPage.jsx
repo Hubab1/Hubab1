@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-import { css } from 'emotion';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
