@@ -17,7 +17,6 @@ import GenericFormError from 'components/common/GenericFormError';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import GenericFormError from 'components/common/GenericFormError';
 
 
 const SpacedH3 = styled(H3)`
@@ -112,11 +111,7 @@ export class InviteRoommatesPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone_number}
                                     helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
-<<<<<<< HEAD
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
-=======
-                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
->>>>>>> master
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
