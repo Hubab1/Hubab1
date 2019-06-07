@@ -4,13 +4,14 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 
-import { H1, Subtitle, formContent, ErrorDetail } from 'assets/styles';
+import { H1, Subtitle, formContent } from 'assets/styles';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import GenericFormError from 'components/common/GenericFormError';
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
@@ -24,7 +25,7 @@ export class GuarantorPage extends React.Component {
             setSubmitting(false);
             this.setState({confirmSent: true})
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: [res.errors]});
             setSubmitting(false);
         });
     }
@@ -65,6 +66,7 @@ export class GuarantorPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
@@ -91,9 +93,6 @@ export class GuarantorPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone}
                                     helperText={submitCount > 0 ? errors.phone : null}
                                 />
-                                <div>
-                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
-                                </div>
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <BackLink to={this.props._prev}/>

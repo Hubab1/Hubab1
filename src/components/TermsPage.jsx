@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import BackLink from 'components/common/BackLink';
 import { H1, TextReader, Bold } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
@@ -49,9 +48,8 @@ export class TermsPage extends React.Component {
                 </TextReader>
                 <br/>
                 <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
-                    I Agree to the Terms & Conditions
+                    Agree and Continue
                 </ActionButton>
-                <BackLink to={ROUTES.SIGNUP}/>>
             </Fragment>
         );
     }
