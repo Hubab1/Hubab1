@@ -13,6 +13,7 @@ import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import GenericFormError from 'components/common/GenericFormError';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -39,7 +40,7 @@ export class InviteRoommatesPage extends React.Component {
             }
             setSubmitting(false);
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: [res.errors]});
             setSubmitting(false);
         });
     }
@@ -84,6 +85,7 @@ export class InviteRoommatesPage extends React.Component {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
@@ -110,7 +112,11 @@ export class InviteRoommatesPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone_number}
                                     helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
+<<<<<<< HEAD
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+=======
+                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+>>>>>>> master
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
