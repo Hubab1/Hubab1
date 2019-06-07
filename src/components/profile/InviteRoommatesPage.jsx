@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
 import { H1, H3, formContent, ErrorDetail } from 'assets/styles';
@@ -12,7 +13,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
-import API from 'app/api';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const SpacedH3 = styled(H3)`
@@ -23,9 +24,15 @@ export class InviteRoommatesPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteRoommate(values).then((res) => {
+        const updatedCoApplicants = this.props.profile.co_applicants.concat(values);
+        this.props.updateRenterProfile({co_applicants: updatedCoApplicants}).then((res) => {
+            if (res.errors) {
+                const coAppErrors = res.errors.co_applicants[0];
+                setErrors(coAppErrors)
+            } else {
+                this.setState({confirmSent: true})
+            }
             setSubmitting(false);
-            this.setState({confirmSent: true})
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -53,7 +60,7 @@ export class InviteRoommatesPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone: Yup.string()
+                        phone_number: Yup.string()
                             .required('Phone Number is required')
                             .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
 
@@ -91,16 +98,16 @@ export class InviteRoommatesPage extends React.Component {
                                 />
                                 <PhoneNumberInput 
                                     label="Phone Number"
-                                    name="phone"
-                                    value={values.phone}
+                                    name="phone_number"
+                                    value={values.phone_number}
                                     handleChange={handleChange}
-                                    error={submitCount > 0 && !!errors.phone}
-                                    helperText={submitCount > 0 ? errors.phone : null}
+                                    error={submitCount > 0 && !!errors.phone_number}
+                                    helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
                                 <div>
                                     {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
                                 </div>
-                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
@@ -111,4 +118,8 @@ export class InviteRoommatesPage extends React.Component {
     }
 }
 
-export default withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES);
+const mapStateToProps = state => ({
+    profile: state.renterProfile,
+})
+
+export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES));

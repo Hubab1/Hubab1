@@ -26,7 +26,7 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
 
-API.updateRenterProfile = (data) => {
+API.patchApplication = (data) => {
     return fetch(chuck('/application/'), {
         method: 'PATCH',
         headers: {
@@ -86,9 +86,6 @@ API.passwordReset = (password, token) => {
     }).then(res => res.json());
 }
 
-API.inviteRoommate = (data) => {
-    return Promise.resolve('perkele');  
-}
 
 API.inviteGuarantor = (data) => {
     return Promise.resolve('perkele');

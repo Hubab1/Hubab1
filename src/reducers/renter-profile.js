@@ -39,7 +39,10 @@ export const fetchRenterProfile = () => {
 
 export const updateRenterProfile = (newData) => {
     return dispatch => {
-        return API.updateRenterProfile(newData).then(res => {
+        return API.patchApplication(newData).then(res => {
+            if (res.errors) {
+                return res
+            }
             return dispatch({
                 type: renterProfileUpdated.toString(),
                 payload: newData
