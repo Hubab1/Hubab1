@@ -29,7 +29,7 @@ export default class ResetPassword extends React.Component {
             }   
             setSubmitting(false);
         }).catch((res) => {
-            this.setState({errors: 'There was an error with resetting your password. Please try again.'})
+            this.setState({errors: ['There was an error with resetting your password. Please try again.']})
             setSubmitting(false);
         })
     }
@@ -37,7 +37,7 @@ export default class ResetPassword extends React.Component {
     render () {
         if (this.state.confirmReset) {
             return <ConfirmationPage 
-                successMessage="Your Password Has Been Reset."
+                successMessage="Success! Your Password Has Been Reset."
                 confirmationImage={thumbsUp}
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
@@ -48,7 +48,6 @@ export default class ResetPassword extends React.Component {
                 <H1>
                     Reset Password
                 </H1>
-                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                 <Formik
                     validationSchema={Yup.object({
                         password: Yup.string().min(8, 'Password must be at least 8 characters')
@@ -72,6 +71,7 @@ export default class ResetPassword extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <div>
                                     <FormTextInput
                                         label="Enter new password"

@@ -75,6 +75,12 @@ export const BigText = styled.div`
     font-weight: bold;
 ` 
 
+export const link = css`
+display: inline-block;
+margin-bottom: 20px;
+color: #2B44FF;
+`
+
 export const LinkButton = styled.button`
     background:none!important;
     color:#2B44FF;

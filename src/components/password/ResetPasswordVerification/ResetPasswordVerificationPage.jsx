@@ -99,6 +99,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                                             error={errors.resetCode}
                                             touched={touched.resetCode }
                                             value={values.resetCode}
+                                            type="tel"
                                         />
                                     </div>
                                 </div>

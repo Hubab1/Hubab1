@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import Error from '@material-ui/icons/Error'
 
 const errorContainer = css`
-    padding: 20px 10px;
+    padding: 20px 0;
     border-radius: 3px;
     display: flex;
     justify-content: center;
