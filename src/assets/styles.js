@@ -92,3 +92,12 @@ export const LinkButton = styled.button`
     label: link-button;
 `
 LinkButton.displayName = 'LinkButton';
+
+
+export const linkRoot = css`
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: black;
+`
