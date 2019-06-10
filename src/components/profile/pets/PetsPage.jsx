@@ -31,6 +31,7 @@ export class PetsPage extends React.Component {
         const payload = values.petOptions.filter(option => !!option.pet_type);
         this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
+            this.props._nextRoute();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
