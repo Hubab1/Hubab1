@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -9,9 +8,8 @@ import { Link } from 'react-router-dom';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { getInitialPage } from 'utils/routeNavigation';
-import { formContent, H1, P } from 'assets/styles';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { formContent, H1, P, link } from 'assets/styles';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 
@@ -33,9 +31,8 @@ export class LoginPage extends React.Component {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             if (this.state.errors) this.setState({errors: null});
-            this.props.fetchRenterProfile().then((profile) => {
-                const initialPage = getInitialPage(profile);
-                history.replace(initialPage);
+            this.props.fetchRenterProfile().then(() => {
+                history.replace(this.props.initialPage);
             });
         }).catch((res) => {
             const errorMessage = 'The email and password you entered do not match our records. Please try again.';
@@ -50,7 +47,6 @@ export class LoginPage extends React.Component {
                 <SkinnyH1>
                     Sign In to Continue with Your Application
                 </SkinnyH1>
-                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Formik
                     validationSchema={Yup.object().shape({
                         email: Yup.string()
@@ -73,6 +69,7 @@ export class LoginPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                                 <div>
                                     <FormTextInput
                                         label="Email"
@@ -92,7 +89,7 @@ export class LoginPage extends React.Component {
                                         handleBlur={handleBlur}
                                         error={errors.password}
                                         value={values.password}
-                                        showHelperText
+                                        showValidationText
                                     />
                                 </div>
                                 <div>
@@ -100,9 +97,9 @@ export class LoginPage extends React.Component {
                                 <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="50px">
                                     Sign In
                                 </ActionButton>
-                                <Link to={ROUTES.FORGOT_PASSWORD}><P className="already-have-account">Forgot your password?</P></Link>
+                                <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>
                                 <br/>
-                                <Link to={ROUTES.SIGNUP}><P className="already-have-account">Need an account?</P></Link>
+                                <Link to={ROUTES.SIGNUP} className={link}>Need an account?</Link>
                             </div>
                         </form>
                     )}
@@ -119,6 +116,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename
 });
 

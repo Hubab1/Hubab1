@@ -1,12 +1,5 @@
-.already-have-account {
-    color: #26305B;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 15px;
-    text-align: center;
-}
-
-html,body {
+html,
+body {
     margin: auto auto auto auto;
     font-family: proxima-nova, sans-serif;
 }
@@ -17,6 +10,7 @@ img {
 
 .welcome__building-header {
     margin-top: 10px !important;
+    margin-bottom: 15px !important;
 }
 
 .text-left {

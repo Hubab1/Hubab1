@@ -5,12 +5,12 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
-import { H1, P, formContent, ErrorDetail } from 'assets/styles';
+import { H1, P, formContent, link } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
+import GenericFormError from 'components/common/GenericFormError';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { getInitialPage } from 'utils/routeNavigation';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 
@@ -26,11 +26,10 @@ export class SignupPage extends React.Component {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then((profile) => {
-                const initialPage = getInitialPage(profile);
-                history.replace(initialPage);
+                history.replace(this.props.initialPage);
             });
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: [res.errors.error]});
             setSubmitting(false);
         });
     }
@@ -69,6 +68,7 @@ export class SignupPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
@@ -113,15 +113,12 @@ export class SignupPage extends React.Component {
                                     handleBlur={handleBlur}
                                     error={errors.password}
                                     value={values.password}
-                                    showHelperText
+                                    showValidationText
                                     touched={touched && touched.password}
                                 />
-                                <div>
-                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
-                                </div>
                                 <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="20px" marginBottom="20px">Create Account</ActionButton>
                             </div>
-                            <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN}>Sign in here</Link></P>
+                            <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
                         </form>
                     )}
                 </Formik>
@@ -137,6 +134,7 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
 });
 

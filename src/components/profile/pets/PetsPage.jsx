@@ -1,42 +1,20 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Formik, FieldArray, Field, getIn } from 'formik';
+import { Formik, FieldArray } from 'formik';
 import * as Yup from 'yup';
+import uuidv4 from 'uuid/v4';
 
-
-import { H1, H3, P, ErrorDetail } from 'assets/styles';
-import { viewPetPolicy, petsImageMargin, policyDiv } from './styles'
-import PetTypeSelect from './PetTypeSelect';
+import { H1, H3, P } from 'assets/styles';
+import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
+import { updateRenterProfile } from 'reducers/renter-profile';
+import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
-import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import { selectors } from 'reducers/configuration';
-import Cancel from '@material-ui/icons/Cancel';
-import { css } from 'emotion';
-
-
-const cancelButton = css`
-    color: #828796;
-    cursor: pointer;
-`
-
-// taken from here: https://jaredpalmer.com/formik/docs/api/fieldarray
-const ErrorMessage = ({ name }) => (
-    <Field
-        name={name}
-        render={({ form }) => {
-            const error = getIn(form.errors, name);
-            const touch = getIn(form.touched, name);
-            const submitCount = form.submitCount;
-            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>
-        }}
-    />
-);
 
 export class PetsPage extends React.Component {
     state = {
@@ -49,8 +27,9 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        // todo: maybe filter out pets not filled in
-        API.addPets(values).then((res) => {
+        // ignore form values without pet type
+        const payload = values.petOptions.filter(option => !!option.pet_type);
+        this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
         }).catch((res) => {
             this.setState({errors: res.errors});
@@ -59,10 +38,11 @@ export class PetsPage extends React.Component {
     }
 
     render () {
+        if (!this.props.profile) return null;
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
         }
-        const selectedPetOptions = [{}];
+        const selectedPetOptions = this.props.profile.pets || [];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
@@ -87,7 +67,8 @@ export class PetsPage extends React.Component {
                 >
                     {({
                         values,
-                        setFieldValue,
+                        handleChange,
+                        handleBlur,
                         isSubmitting,
                         handleSubmit,
                     }) => (
@@ -98,19 +79,18 @@ export class PetsPage extends React.Component {
                                     <div>
                                         {
                                             values.petOptions.map((petOption, index) => (
-                                                <div key={index}>
-                                                    <PetTypeSelect
-                                                        topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
-                                                        onChange={(value) => setFieldValue(`petOptions[${index}].petType`, value)}
-                                                        value={petOption.petType}
-                                                    />
-                                                    <ErrorMessage name={`petOptions[${index}].petType`} />
-                                                </div>)
-                                            )
+                                                <PetItem key={petOption.key}
+                                                    arrayHelpers={arrayHelpers}
+                                                    index={index}
+                                                    petOption={petOption}
+                                                    handleChange={handleChange}
+                                                    handleBlur={handleBlur}
+                                                />
+                                            ))
                                         }
                                         <AddAnotherButton
                                             thing="Pet"
-                                            onClick={() => arrayHelpers.push({})}
+                                            onClick={() => arrayHelpers.push({key: uuidv4()})}
                                         />
                                     </div>
                                 )}
@@ -126,8 +106,8 @@ export class PetsPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    theme: selectors.selectTheme(state)
+    profile: state.renterProfile
 })
 
-const connectedPetsPage = connect(mapStateToProps, null)(PetsPage);
+const connectedPetsPage = connect(mapStateToProps, {updateRenterProfile})(PetsPage);
 export default withRelativeRoutes(connectedPetsPage, ROUTES.PETS);
