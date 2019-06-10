@@ -88,7 +88,13 @@ API.passwordReset = (password, token) => {
 
 
 API.inviteGuarantor = (data) => {
-    return Promise.resolve('perkele');
+    return fetch(chuck('/guarantors/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
 }
 
 
