@@ -52,6 +52,7 @@ export class PetsPage extends React.Component {
         // todo: maybe filter out pets not filled in
         API.addPets(values).then((res) => {
             setSubmitting(false);
+            this.props._nextRoute();
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
