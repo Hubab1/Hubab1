@@ -6,7 +6,8 @@
     text-align: center;
 }
 
-html,body {
+html,
+body {
     margin: auto auto auto auto;
     font-family: proxima-nova, sans-serif;
 }
@@ -21,4 +22,9 @@ img {
 
 .text-left {
     text-align: left;
+}
+
+#finicityConnectIframe {
+    position: relative !important;
+    height: 100%;
 }

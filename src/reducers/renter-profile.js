@@ -66,7 +66,8 @@ selectors.selectNextRoute = createSelector(
     state => state.siteConfig.currentRoute,
     (orderedRoutes, currentRoute) => {
         if (orderedRoutes && currentRoute) {
-            return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
+            const nextRoute = orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
+            return nextRoute ? nextRoute : ROUTES.CONNECT_BANK;
         }
     }
 );
