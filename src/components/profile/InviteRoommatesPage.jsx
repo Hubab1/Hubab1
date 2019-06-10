@@ -31,8 +31,7 @@ export class InviteRoommatesPage extends React.Component {
         this.props.updateRenterProfile({co_applicants: [values]}).then((res) => {
             if (res.errors) {
                 const coApplicantsErrorsObj = get(res, 'errors.co_applicants');
-                const coApplicantKey = coApplicantsErrorsObj &&     Object.keys(coApplicantsErrorsObj)[0];
-                const coApplicantErrors = coApplicantKey && coApplicantsErrorsObj[coApplicantKey]
+                const coApplicantErrors = coApplicantsErrorsObj && Object.values(coApplicantsErrorsObj)[0]
                 coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']})
             } else {
                 this.setState({confirmSent: true})

@@ -8,6 +8,7 @@ import { root } from 'components/common/FormTextInput/styles';
 
 const PhoneNumberInput = (props) => {
     const { label, name, value, handleChange, error, helperText} = props; 
+    console.log(error)
     return (
         <InputMask 
             mask="(999) 999-9999"
