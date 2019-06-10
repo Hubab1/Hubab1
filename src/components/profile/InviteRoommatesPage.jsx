@@ -82,7 +82,6 @@ export class InviteRoommatesPage extends React.Component {
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                             <div className={formContent}>
                                 { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
