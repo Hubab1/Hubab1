@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { getInitialPage } from 'utils/routeNavigation';
-import { formContent, H1, link } from 'assets/styles';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { formContent, H1, P, link } from 'assets/styles';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 
@@ -32,9 +31,8 @@ export class LoginPage extends React.Component {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             if (this.state.errors) this.setState({errors: null});
-            this.props.fetchRenterProfile().then((profile) => {
-                const initialPage = getInitialPage(profile);
-                history.replace(initialPage);
+            this.props.fetchRenterProfile().then(() => {
+                history.replace(this.props.initialPage);
             });
         }).catch((res) => {
             const errorMessage = 'The email and password you entered do not match our records. Please try again.';
@@ -118,6 +116,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename
 });
 

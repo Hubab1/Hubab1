@@ -42,7 +42,7 @@ export class PetsPage extends React.Component {
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
         }
-        const selectedPetOptions = this.props.profile.pets || [{}];
+        const selectedPetOptions = this.props.profile.pets || [];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>

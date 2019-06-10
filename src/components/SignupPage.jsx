@@ -10,8 +10,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormError from 'components/common/GenericFormError';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { getInitialPage } from 'utils/routeNavigation';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 
@@ -27,8 +26,7 @@ export class SignupPage extends React.Component {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             this.props.fetchRenterProfile().then((profile) => {
-                const initialPage = getInitialPage(profile);
-                history.replace(initialPage);
+                history.replace(this.props.initialPage);
             });
         }).catch((res) => {
             this.setState({errors: [res.errors.error]});
@@ -136,6 +134,7 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
 });
 

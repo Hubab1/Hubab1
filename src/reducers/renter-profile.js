@@ -13,6 +13,8 @@ const renterProfile = createSlice({
             state = action.payload;
             if (state.pets) {
                 state.pets.forEach(pet => pet.key = uuidv4());
+            } else {
+                state.pets = [{key: uuidv4()}];
             }
             return state;
         },
@@ -63,6 +65,29 @@ selectors.selectOrderedRoutes = createSelector(
                 }
             })
             return BASE_ROUTES.concat(addedRoutes)
+        }
+    }
+);
+
+
+const routeMapping = (profile) => ({
+    [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
+    [ROUTES.ROOMMATES]: !profile.roommates,
+    [ROUTES.GUARANTOR]: !profile.guarantors,
+    [ROUTES.PETS]: !profile.pets,
+});
+
+selectors.selectInitialPage = createSelector(
+    selectors.selectOrderedRoutes,
+    state => state.renterProfile,
+    (orderedRoutes, profile) => {
+        if (orderedRoutes && profile) {
+            for (let i = 0; i < orderedRoutes.length; i++) {
+                const route = orderedRoutes[i];
+                if (i === orderedRoutes.length -1 || routeMapping(profile)[route]) {
+                    return route;
+                }
+            }
         }
     }
 );
