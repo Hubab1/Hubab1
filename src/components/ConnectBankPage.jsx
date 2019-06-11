@@ -28,17 +28,14 @@ export class ConnectBankPage extends React.Component {
             window.finicityConnect.connectIFrame(this.state.finicityUrl, {
                 selector: '.subPage',
                 overlay: "rgba(255,255,255, 0)",
+                // link to webhook 
                 // success: (data) => {
                 //   if(data.reportId){
                 //     console.log("Yay! We got reportId", data.reportId);
 
                 //   } else{
-                //       debugger;
                 //      console.log('The user finished, but added no accounts, so no report id exists');
                 //   }
-                // },
-                // ping: () => {
-                //     debugger;
                 // },
                 // cancel: function(){
                 //   console.log('The user cancelled the iframe');
@@ -51,9 +48,6 @@ export class ConnectBankPage extends React.Component {
                 // loaded: function(){
                 //   console.log('This gets called only once asfter the iframe has finished loading');
                 // },
-                // sessionExpired: () => {
-                //     debugger;
-                // }
             });
             return <Fragment/>;
         }
