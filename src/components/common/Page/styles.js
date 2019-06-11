@@ -13,7 +13,7 @@ export const subPage = `subPage ${css`
     height: 500px;
 `}`
 
-export const Banner = styled.div`s
+export const Banner = styled.div`
   height: 92px;
   box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
   padding-top: 5px;
