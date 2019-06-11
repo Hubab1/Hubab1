@@ -37,7 +37,7 @@ describe('selectInitialPage', () => {
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}]
             }
         });
-        expect(initialPage).toEqual(ROUTES.PETS);
+        expect(initialPage).toEqual(ROUTES.CONNECT_BANK);
 
         initialPage = selectors.selectInitialPage({
             configuration,
