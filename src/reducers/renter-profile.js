@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit';
-import produce from "immer";
+import produce from 'immer';
 import { createSelector } from 'reselect';
 import API from 'app/api';
 import { BASE_ROUTES, ROUTES } from 'app/constants';
+import uuidv4 from 'uuid/v4';
 
 const renterProfile = createSlice({
     slice: 'renterProfile',
@@ -10,6 +11,11 @@ const renterProfile = createSlice({
     reducers: {
         renterProfileReceived(state, action) {
             state = action.payload;
+            if (state.pets) {
+                state.pets.forEach(pet => pet.key = uuidv4());
+            } else {
+                state.pets = [{key: uuidv4()}];
+            }
             return state;
         },
         renterProfileUpdated(state, action) {
@@ -34,11 +40,16 @@ export const fetchRenterProfile = () => {
 
 
 export const updateRenterProfile = (newData) => {
-    API.updateRenterProfile(newData);
-    // optimistic update
-    return {
-        type: renterProfileUpdated.toString(),
-        payload: newData
+    return dispatch => {
+        return API.patchApplication(newData).then(res => {
+            if (res.errors) {
+                return res
+            }
+            return dispatch({
+                type: renterProfileUpdated.toString(),
+                payload: newData
+            });
+        })
     }
 };
 
@@ -56,7 +67,30 @@ selectors.selectOrderedRoutes = createSelector(
                     addedRoutes.push(ROUTES[key.toUpperCase()]);
                 }
             })
-            return BASE_ROUTES.concat(addedRoutes)
+            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK])
+        }
+    }
+);
+
+
+const routeMapping = (profile) => ({
+    [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
+    [ROUTES.ROOMMATES]: !profile.roommates,
+    [ROUTES.GUARANTOR]: !profile.guarantors,
+    [ROUTES.PETS]: !profile.pets,
+});
+
+selectors.selectInitialPage = createSelector(
+    selectors.selectOrderedRoutes,
+    state => state.renterProfile,
+    (orderedRoutes, profile) => {
+        if (orderedRoutes && profile) {
+            for (let i = 0; i < orderedRoutes.length; i++) {
+                const route = orderedRoutes[i];
+                if (i === orderedRoutes.length -1 || routeMapping(profile)[route]) {
+                    return route;
+                }
+            }
         }
     }
 );
@@ -66,8 +100,7 @@ selectors.selectNextRoute = createSelector(
     state => state.siteConfig.currentRoute,
     (orderedRoutes, currentRoute) => {
         if (orderedRoutes && currentRoute) {
-            const nextRoute = orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
-            return nextRoute ? nextRoute : ROUTES.CONNECT_BANK;
+            return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
         }
     }
 );

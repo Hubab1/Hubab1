@@ -75,6 +75,12 @@ export const BigText = styled.div`
     font-weight: bold;
 ` 
 
+export const link = css`
+display: inline-block;
+margin-bottom: 20px;
+color: #2B44FF;
+`
+
 export const LinkButton = styled.button`
     background:none!important;
     color:#2B44FF;
@@ -86,3 +92,12 @@ export const LinkButton = styled.button`
     label: link-button;
 `
 LinkButton.displayName = 'LinkButton';
+
+
+export const linkRoot = css`
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: black;
+`

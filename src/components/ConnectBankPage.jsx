@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { backLinkRoot } from 'components/common/BackLink';
-import { H1, H3 } from 'assets/styles';
+import { H1, H3, linkRoot } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 import API from 'app/api';
@@ -59,7 +58,7 @@ export class ConnectBankPage extends React.Component {
                 <ActionButton onClick={this.linkBankAccount} marginTop="20px" marginBottom="20px">
                     Link Bank Account
                 </ActionButton>
-                <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={backLinkRoot}>Don't Want to Link?</Link>
+                <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={linkRoot}>Don't Want to Link?</Link>
             </Fragment>
         );
     }

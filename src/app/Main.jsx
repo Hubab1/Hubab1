@@ -13,11 +13,10 @@ import ConnectBankPage from 'components/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/ManualIncomeEntryPage';
 import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
-import { getInitialPage } from 'utils/routeNavigation';
 import { ROUTES } from 'app/constants';
-import { selectors } from 'reducers/configuration';
+import { selectors as configSelectors } from 'reducers/configuration';
 
 async function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -45,9 +44,8 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            fetchRenterProfile().then((profile) => {
-                const initialPage = getInitialPage(profile);
-                history.replace(initialPage);
+            fetchRenterProfile().then(() => {
+                history.replace(this.props.initialPage);
             });
         }
     }
@@ -98,7 +96,8 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
-    theme: selectors.selectTheme(state),
+    initialPage: selectors.selectInitialPage(state),
+    theme: configSelectors.selectTheme(state),
 });
 
 const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};

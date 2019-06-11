@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
+import get from 'lodash/get';
 
-import { H1, H3, formContent, ErrorDetail } from 'assets/styles';
+import { H1, H3, formContent } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -11,23 +13,32 @@ import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import GenericFormError from 'components/common/GenericFormError';
 import { ROUTES } from 'app/constants';
-import API from 'app/api';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
+
 const SpacedH3 = styled(H3)`
-    margin: 20px 15% 20px 15%;
+    margin: 20px 15% 20px 15%;s
 `
 
 export class InviteRoommatesPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteRoommate(values).then((res) => {
+        // patching to co_applicants here creates invitee, but doesn't actually set anything on the application. fine for now, but might want to revise later
+        this.props.updateRenterProfile({co_applicants: [values]}).then((res) => {
+            if (res.errors) {
+                const coApplicantsErrorsObj = get(res, 'errors.co_applicants');
+                const coApplicantErrors = coApplicantsErrorsObj && Object.values(coApplicantsErrorsObj)[0]
+                coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']})
+            } else {
+                this.setState({confirmSent: true})
+            }
             setSubmitting(false);
-            this.setState({confirmSent: true})
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({errors: [res.errors]});
             setSubmitting(false);
         });
     }
@@ -53,7 +64,7 @@ export class InviteRoommatesPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),
                         last_name: Yup.string().required('Last Name is required'),
-                        phone: Yup.string()
+                        phone_number: Yup.string()
                             .required('Phone Number is required')
                             .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
 
@@ -71,6 +82,7 @@ export class InviteRoommatesPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
+                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
@@ -91,16 +103,13 @@ export class InviteRoommatesPage extends React.Component {
                                 />
                                 <PhoneNumberInput 
                                     label="Phone Number"
-                                    name="phone"
-                                    value={values.phone}
+                                    name="phone_number"
+                                    value={values.phone_number}
                                     handleChange={handleChange}
-                                    error={submitCount > 0 && !!errors.phone}
-                                    helperText={submitCount > 0 ? errors.phone : null}
+                                    error={submitCount > 0 && !!errors.phone_number}
+                                    helperText={submitCount > 0 ? errors.phone_number : null}
                                 />
-                                <div>
-                                    {!!this.state.errors && <ErrorDetail>{this.state.errors.error}</ErrorDetail>}
-                                </div>
-                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone || values.phone === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
+                                <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="31px" marginBottom="10px">Send Invite</ActionButton>
                             </div>
                             <BackLink to={this.props._prev}/>
                         </form>
@@ -111,4 +120,8 @@ export class InviteRoommatesPage extends React.Component {
     }
 }
 
-export default withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES);
+const mapStateToProps = state => ({
+    profile: state.renterProfile,
+})
+
+export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES));
