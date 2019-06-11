@@ -5,15 +5,16 @@ import { connect } from 'react-redux';
 
 import Logo from 'components/common/Logo';
 import { Banner, page, subPage } from './styles';
+import { AppContext } from 'contexts/AppContextProvider';
 
 export class Page extends React.Component {
-
+    static contextType = AppContext;
     render () {
         return (
             <div className={page}>
                 <Banner style={{
-                    backgroundColor: this.props.theme.palette.primary.main,
-                    color: this.props.theme.palette.primary.contrastText
+                    backgroundColor: this.context.dark ? this.props.theme.palette.primary.main : '#ffffff',
+                    color: this.context.dark ? this.props.theme.palette.primary.contrastText : '#000000'
                 }}>
                     <Logo logo={this.props.logo} />
                 </Banner>

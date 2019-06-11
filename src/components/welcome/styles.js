@@ -13,6 +13,7 @@ export const BackgroundImage = styled.div( props => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     zIndex: -5,
+    opacity:  props.darkTheme ? 1 : 0.8,
     backgroundImage: `url(${props.url})`,
 }))
 
@@ -24,7 +25,7 @@ export const BackgroundImageTint = withTheme(styled.div( props => ({
     height: '100%',
     zIndex: -4,
     opacity: .6,
-    background: props.theme.palette.primary.main
+    background: props.darkTheme ? props.theme.palette.primary.main : undefined
 })))
 
 export const WelcomeFlexContainer = styled.div`

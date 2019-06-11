@@ -12,10 +12,11 @@ import {
     WelcomeFooterContainer, HomeImageContainer, WhiteButton
 } from './styles';
 import { ROUTES } from 'app/constants';
+import { AppContext } from 'contexts/AppContextProvider';
 
 
 export class WelcomePage extends Component {
-
+    static contextType = AppContext;
     getNextLinkUrl () {
         return ROUTES.SIGNUP;
     }
@@ -36,8 +37,8 @@ export class WelcomePage extends Component {
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
         return (
             <Fragment>
-                <BackgroundImage url={background}/>
-                <BackgroundImageTint/>
+                <BackgroundImage darkTheme={this.context.dark} url={background}/>
+                <BackgroundImageTint darkTheme={this.context.dark}/>
                 <WelcomeFlexContainer>
                     <Logo logo={logo}/>
                     <WelcomeTextContainer>
