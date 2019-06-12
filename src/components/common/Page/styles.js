@@ -8,10 +8,9 @@ export const page = css`
   padding-bottom: 25px;
 `
 
-export const subPage = `subPage ${css`
+export const subPage = css`
     padding: 30px 20px;
-    height: 500px;
-`}`
+`
 
 export const Banner = styled.div`
   height: 92px;
