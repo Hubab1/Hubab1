@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { formContent, H1, P, link } from 'assets/styles';
+import { formContent, H1, link } from 'assets/styles';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';

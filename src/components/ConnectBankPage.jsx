@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { linkRoot } from 'components/common/BackLink';
-import { H1, H3 } from 'assets/styles';
+import { H1, H3, linkRoot } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 
 const SpacedH3 = styled(H3)`
