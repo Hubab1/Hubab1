@@ -29,8 +29,8 @@ const bodyContainer = css`
 
 const bodyRow = css`
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    justify-content: center;
+    :first-child{margin-bottom: 20px;}
 `
 
 
@@ -41,7 +41,6 @@ export class ConnectBankPage extends React.Component {
         API.createFinicityUrl(data).then(res => {
             this.setState({finicityUrl: res.finicity_url, errors: null});
         });
-        console.log('do some stuff');
     }
 
     render () {
@@ -83,7 +82,7 @@ export class ConnectBankPage extends React.Component {
                         <LeftAlignedP><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</LeftAlignedP>
                     </div>
                     <div className={bodyRow}>
-                        <DoneRoundedIcon style={{color:'#00CAB1'}}/>
+                        <DoneRoundedIcon style={{color:'#00CAB1',width:'18px'}}/>
                         <LeftAlignedP><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</LeftAlignedP>
                     </div>
                 </div>
