@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 export const page = css`
   text-align: center;
-  max-width: 900px;
   margin: auto;
   padding-bottom: 25px;
 `
@@ -11,6 +10,8 @@ export const page = css`
 export const subPage = `subPage ${css`
     padding: 30px 20px;
     height: 500px;
+    max-width: 500px;
+    margin: auto;
 `}`
 
 export const Banner = styled.div`

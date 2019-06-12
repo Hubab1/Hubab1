@@ -22,7 +22,7 @@ const LeftAlignedP = styled(P)`
 `
 
 const bodyContainer = css`
-    margin: 40px 30px;
+    margin: 40px 10px 40px 30px;
     display: flex;
     flex-direction: column;
 `
@@ -30,46 +30,49 @@ const bodyContainer = css`
 const bodyRow = css`
     display: flex;
     justify-content: center;
-    :first-child{margin-bottom: 20px;}
+    :first-of-type{margin-bottom: 20px;}
 `
 
 
 export class ConnectBankPage extends React.Component {
     state = {finicityUrl: null, errors: null}
 
+
+
     linkBankAccount = (data) => {
         API.createFinicityUrl(data).then(res => {
-            this.setState({finicityUrl: res.finicity_url, errors: null});
+            this.setState({finicityUrl: res.finicity_url, errors: null}, 
+                () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
+                    selector: '.finicity-container  ',
+                    overlay: "rgba(255,255,255, 0)",
+                    // link to webhook 
+                    // success: (data) => {
+                    //   if(data.reportId){
+                    //     console.log("Yay! We got reportId", data.reportId);
+
+                    //   } else{
+                    //      console.log('The user finished, but added no accounts, so no report id exists');
+                    //   }
+                    // },
+                    // cancel: function(){
+                    //   console.log('The user cancelled the iframe');
+                    //   this.setState({finicityUrl: null, errors: ['You cancelled out of the Finicity Application. Please try again.']})
+                    // },
+                    // error: function(err){
+                    //   console.error('Some runtime error was generated during Finicity Connect', err);
+                    //   this.setState({finicityUrl: null, errors: ['There was an error attempting to get your records. Please try again.']})
+                    // },
+                    // loaded: fun  ction(){
+                    //   console.log('This gets called only once asfter the iframe has finished loading');
+                    // },
+                })
+            );
         });
     }
 
     render () {
         if (this.state.finicityUrl) {
-            window.finicityConnect.connectIFrame(this.state.finicityUrl, {
-                selector: '.subPage',
-                overlay: "rgba(255,255,255, 0)",
-                // link to webhook 
-                // success: (data) => {
-                //   if(data.reportId){
-                //     console.log("Yay! We got reportId", data.reportId);
-
-                //   } else{
-                //      console.log('The user finished, but added no accounts, so no report id exists');
-                //   }
-                // },
-                // cancel: function(){
-                //   console.log('The user cancelled the iframe');
-                //   this.setState({finicityUrl: null, errors: ['You cancelled out of the Finicity Application. Please try again.']})
-                // },
-                // error: function(err){
-                //   console.error('Some runtime error was generated during Finicity Connect', err);
-                //   this.setState({finicityUrl: null, errors: ['There was an error attempting to get your records. Please try again.']})
-                // },
-                // loaded: function(){
-                //   console.log('This gets called only once asfter the iframe has finished loading');
-                // },
-            });
-            return <Fragment/>;
+            return <div className="finicity-container"/>;
         }
         return (
             <Fragment>
