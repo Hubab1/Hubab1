@@ -12,11 +12,11 @@ import {
     WelcomeFooterContainer, HomeImageContainer, WhiteButton
 } from './styles';
 import { ROUTES } from 'app/constants';
-import { AppContext } from 'contexts/AppContextProvider';
+import { AppTheme } from 'contexts/AppContextProvider';
 
 
 export class WelcomePage extends Component {
-    static contextType = AppContext;
+    static contextType = AppTheme;
     getNextLinkUrl () {
         return ROUTES.SIGNUP;
     }
@@ -37,8 +37,8 @@ export class WelcomePage extends Component {
         const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
         return (
             <Fragment>
-                <BackgroundImage darkTheme={this.context.dark} url={background}/>
-                <BackgroundImageTint darkTheme={this.context.dark}/>
+                <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background}/>
+                <BackgroundImageTint background={this.context.welcomeBackgroundImageTintBackground}/>
                 <WelcomeFlexContainer>
                     <Logo logo={logo}/>
                     <WelcomeTextContainer>
@@ -86,8 +86,8 @@ WelcomePage.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    configuration: state.configuration,
-    hash: state.siteConfig.hash
+    hash: state.siteConfig.hash,
+    configuration: state.configuration
 });
 
 export default connect(mapStateToProps, null)(WelcomePage);
