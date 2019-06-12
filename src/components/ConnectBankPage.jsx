@@ -33,17 +33,19 @@ const bodyRow = css`
     :first-of-type{margin-bottom: 20px;}
 `
 
+const finicityContainer = `finicity-container ${css`
+    height: 500px;
+`}`
+
 
 export class ConnectBankPage extends React.Component {
     state = {finicityUrl: null, errors: null}
 
-
-
-    linkBankAccount = (data) => {
+    openFinicityIframe = (data) => {
         API.createFinicityUrl(data).then(res => {
             this.setState({finicityUrl: res.finicity_url, errors: null}, 
                 () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
-                    selector: '.finicity-container  ',
+                    selector: '.finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     // link to webhook 
                     // success: (data) => {
@@ -72,7 +74,7 @@ export class ConnectBankPage extends React.Component {
 
     render () {
         if (this.state.finicityUrl) {
-            return <div className="finicity-container"/>;
+            return <div className={finicityContainer}/>;
         }
         return (
             <Fragment>
@@ -90,7 +92,7 @@ export class ConnectBankPage extends React.Component {
                     </div>
                 </div>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
-                <ActionButton onClick={this.linkBankAccount} marginBottom="20px">
+                <ActionButton onClick={this.openFinicityIframe} marginBottom="20px">
                     Link Bank Account
                 </ActionButton>
                 <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={linkRoot}>Don't Want to Link?</Link>
