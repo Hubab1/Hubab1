@@ -13,9 +13,9 @@ const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
 `
 
-const finicityContainer = `finicity-container ${css`
+const finicityContainer = css`
     height: 500px;
-`}`
+`
 
 
 export class ConnectBankPage extends React.Component {
@@ -25,7 +25,7 @@ export class ConnectBankPage extends React.Component {
         API.createFinicityUrl(data).then(res => {
             this.setState({finicityUrl: res.finicity_url, errors: null}, 
                 () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
-                    selector: '.finicity-container',
+                    selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     // link to webhook 
                     // success: (data) => {
@@ -54,7 +54,7 @@ export class ConnectBankPage extends React.Component {
 
     render () {
         if (this.state.finicityUrl) {
-            return <div className={finicityContainer}/>;
+            return <div className={finicityContainer} id="finicity-container"/>;
         }
         return (
             <Fragment>
