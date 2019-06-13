@@ -33,9 +33,9 @@ const bodyRow = css`
     :first-of-type{margin-bottom: 20px;}
 `
 
-const finicityContainer = `finicity-container ${css`
+const finicityContainer = css`
     height: 500px;
-`}`
+`
 
 
 export class ConnectBankPage extends React.Component {
@@ -45,7 +45,7 @@ export class ConnectBankPage extends React.Component {
         API.createFinicityUrl(data).then(res => {
             this.setState({finicityUrl: res.finicity_url, errors: null}, 
                 () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
-                    selector: '.finicity-container',
+                    selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     // link to webhook 
                     // success: (data) => {
@@ -74,7 +74,7 @@ export class ConnectBankPage extends React.Component {
 
     render () {
         if (this.state.finicityUrl) {
-            return <div className={finicityContainer}/>;
+            return <div className={finicityContainer} id="finicity-container"/>;
         }
         return (
             <Fragment>

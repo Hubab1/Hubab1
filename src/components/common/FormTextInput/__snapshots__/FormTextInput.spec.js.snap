@@ -35,6 +35,7 @@ exports[`FormTextInput password input Matches snapshot 1`] = `
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
+        onDragEnd={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
