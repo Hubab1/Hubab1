@@ -38,7 +38,7 @@ export class ApplicationFeePage extends React.Component {
             <Fragment>
                 <H1>Almost There, {this.props.profile.primary_applicant.first_name}!</H1>
                 <SpacedH3>The application fee for this apartment is $80. After payment, we’ll collect your SSN for screening.</SpacedH3>
-                <img src={creditCardImage}></img>
+                <img src={creditCardImage} alt="credit card"></img>
                 <div className={bodyRow}>
                     <img src={padlockImage} alt="padlock" width="18" height="28"/>
                     <div className={bodyText}>

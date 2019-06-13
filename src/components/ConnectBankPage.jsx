@@ -9,8 +9,8 @@ import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold, linkRoot } from 'assets/styles';
 import { ROUTES } from 'app/constants';
-import GenericFormError from 'components/common/GenericFormError';
-import API from 'app/api';
+import GenericFormError from 'components/common/GenericFormError';  
+// import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const SpacedH3 = styled(H3)`
