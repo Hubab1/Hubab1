@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 
 export const page = css`
   text-align: center;
-  max-width: 900px;
   margin: auto;
   padding-bottom: 25px;
 `
 
 export const subPage = css`
     padding: 30px 20px;
+    max-width: 500px;
+    margin: auto;
 `
 
 export const Banner = styled.div`
