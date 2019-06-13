@@ -16,20 +16,16 @@ const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
 `
 
-const LeftAlignedP = styled(P)`
-    text-align: left;
-    margin-left: 15px;
-`
-
 const bodyContainer = css`
     margin: 40px 10px 40px 30px;
+    text-align: left;
     display: flex;
     flex-direction: column;
+    p{ margin-left: 15px;}
 `
 
 const bodyRow = css`
     display: flex;
-    justify-content: center;
     :first-of-type{margin-bottom: 20px;}
 `
 
@@ -80,15 +76,15 @@ export class ConnectBankPage extends React.Component {
             <Fragment>
                 <H1>Verify Your Income Instantly</H1>
                 <SpacedH3>Confirm that you qualify for this apartment by linking your bank account.</SpacedH3>
-                <img src={safeImage} alt="valult"/>
+                <img src={safeImage} alt="vault"/>
                 <div className={bodyContainer}>
                     <div className={bodyRow}>
-                        <img src={padlockImage} alt="padlock" width="18" height="24"/>
-                        <LeftAlignedP><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</LeftAlignedP>
+                        <img src={padlockImage} alt="padlock" width="18" height="28"/>
+                        <P><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</P>
                     </div>
                     <div className={bodyRow}>
                         <DoneRoundedIcon style={{color:'#00CAB1',width:'18px'}}/>
-                        <LeftAlignedP><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</LeftAlignedP>
+                        <P><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</P>
                     </div>
                 </div>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
