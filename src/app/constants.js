@@ -20,6 +20,7 @@ export const ROUTES = {
     ROOMMATES: '/profile/invite-roommates',
     CONNECT_BANK: '/connect-bank',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
+    APPLICATION_FEE: '/application-fee',
 }
 
 export const BASE_ROUTES = [
