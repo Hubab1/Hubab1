@@ -39,9 +39,7 @@ export const unselected = css`
 `
 
 export const selected = css`
-    box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
     border-width: 1px !important;
     padding-left: 0px !important;
-    box-shadow: 0px 2px 4px 0px !important;
     height: 80px;
 `

@@ -10,6 +10,7 @@ const configuration = createSlice({
     reducers: {
         configurationReceived(state, action) {
             state = action.payload;
+            state.dark = true
             return state;
         }
     }
