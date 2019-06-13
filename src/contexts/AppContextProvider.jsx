@@ -5,7 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 export const AppTheme = React.createContext();
 
 function getThemeValues (config, materialTheme) {
-    if (config.dark) {
+    if (config.dark_mode) {
         return {
             logo: config.logo,
             bannerBackground: materialTheme.palette.primary.main,

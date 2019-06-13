@@ -17,7 +17,6 @@ function MultiSelectChoice (props) {
     
     const context = useContext(MultiSelectContext);
     const classes = useStyles();
-    debugger;
     return (
         <div className={multiSelectChoiceContainer}>
             <Button
