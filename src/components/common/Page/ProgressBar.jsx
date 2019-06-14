@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { withTheme } from '@material-ui/styles';
+import { AppTheme } from 'contexts/AppContextProvider';
 
-export const Container = styled.div`
+export const Track = styled.div`
+    position: absolute;
     width: 100%;
-    backgroundColor: white;
-    height: 10px;
+    background-color: ${props => props.background};
+    opacity: ${props => props.opacity};
+    height: 100%;
     box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
 `
 
 export const Bar = withTheme(styled.div`
+    position: absolute;
     width: ${props => `${props.percent}%`};
-    background-color: ${props => props.theme.palette.primary.main};
-    opacity: 0.7;
+    background-color: ${props => props.background};
+    opacity: ${props => props.opacity};
     height: 100%;
 `);
 
 
+export const Container = styled.div`
+    position: relative;
+    height: 10px;
+`
+
+
 function ProgressBar (props) {
+    const appThemeContext = useContext(AppTheme);
     return (
         <Container>
-            <Bar percent={props.percent}/>
+            <Track
+                opacity={appThemeContext.progressBarTrackOpacity}
+                background={appThemeContext.progressBarTrackBackground}
+            >
+            </Track>
+            <Bar
+                percent={props.percent}
+                opacity={appThemeContext.progressBarOpacity}
+                background={appThemeContext.progressBarBackground}
+            />
         </Container>
     );
 }
