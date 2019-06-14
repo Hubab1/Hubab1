@@ -27,6 +27,11 @@ export const BackgroundImageTint = styled.div( props => ({
     background: props.background
 }))
 
+export const LogoContainer = styled.div`
+    text-align: center;
+    margin-top: 20px;
+`
+
 export const WelcomeFlexContainer = styled.div`
     label: welcome__container;
     position: absolute;

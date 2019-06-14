@@ -37,6 +37,11 @@ export const ErrorDetail = styled.div`
     line-height: 1em;
 `
 
+export const Logo = styled.img`
+    max-width: 90px;
+    max-height: 50px;
+`;
+
 export const Bold = styled.span`
     font-weight: bold;
 `
