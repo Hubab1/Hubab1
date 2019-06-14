@@ -97,7 +97,10 @@ API.inviteGuarantor = (data) => {
 }
 
 API.createFinicityUrl = (data) => {
-    return Promise.resolve({finicity_url: "https://connect.finicity.com?consumerId=c5624f3899fa14a8988c0a8e7b8f123a&customerId=40088217&partnerId=2445582700226&redirectUri=http%3A%2F%2Fwww.google.com&signature=f0ae7aa6463c1e97bffc95fd9b7c1f24110e9243bb5bb3670f357962ef3fe9db&timestamp=1559155162184&type=voi"});
-}
+    return fetch(chuck('/generate-finicity-link/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => res.json());}
 
 export default API;
