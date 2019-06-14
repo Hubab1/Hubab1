@@ -34,11 +34,12 @@ const linkStyle = css`
 export class ApplicationFeePage extends React.Component {
 
     render () {
-        if (!this.props.profile) return <div/>;
+        if (!this.props.profile || !this.props.configuration) return <div/>;
+
         return (
             <Fragment>
                 <H1>Almost There, {this.props.profile.primary_applicant.first_name}!</H1>
-                <SpacedH3>The application fee for this apartment is $80. After payment, we’ll collect your SSN for screening.</SpacedH3>
+                <SpacedH3>The application fee for this apartment is ${this.props.configuration.application_fee ? this.props.configuration.application_fee.toFixed(2) : 0}. After payment, we’ll collect your SSN for screening.</SpacedH3>
                 <img src={creditCardImage} alt="credit card"></img>
                 <div className={bodyRow}>
                     <img src={padlockImage} alt="padlock" width="18" height="28"/>
@@ -53,6 +54,7 @@ export class ApplicationFeePage extends React.Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    configuration: state.configuration
 });
 
 export default connect(mapStateToProps, null)(ApplicationFeePage);
