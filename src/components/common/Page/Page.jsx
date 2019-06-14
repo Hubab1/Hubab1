@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from '@material-ui/styles';
 
 import { Banner, page, subPage } from './styles';
 import { Logo } from 'assets/styles';
@@ -28,9 +27,8 @@ export class Page extends React.Component {
 }
 
 Page.propTypes = {
-    theme: PropTypes.object.isRequired,
     logo: PropTypes.string
 }
 
 
-export default withTheme(Page);
+export default Page;

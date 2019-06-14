@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { withTheme } from '@material-ui/styles';
+
 import { AppTheme } from 'contexts/AppContextProvider';
 
 export const Track = styled.div`
@@ -12,13 +13,13 @@ export const Track = styled.div`
     box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
 `
 
-export const Bar = withTheme(styled.div`
+export const Bar = styled.div`
     position: absolute;
     width: ${props => `${props.percent}%`};
     background-color: ${props => props.background};
     opacity: ${props => props.opacity};
     height: 100%;
-`);
+`
 
 
 export const Container = styled.div`
@@ -43,6 +44,10 @@ function ProgressBar (props) {
             />
         </Container>
     );
+}
+
+ProgressBar.propTypes = {
+    logo: PropTypes.number
 }
 
 export default ProgressBar;
