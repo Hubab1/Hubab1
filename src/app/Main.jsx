@@ -9,9 +9,9 @@ import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
-import ConnectBankPage from 'components/ConnectBankPage';
-import ManualIncomeEntryPage from 'components/ManualIncomeEntryPage';
-import ApplicationFeePage from 'components/ApplicationFeePage';
+import ConnectBankPage from 'components/banking/ConnectBankPage';
+import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
+import ApplicationFeePage from 'components/banking/ApplicationFeePage';
 import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -19,7 +19,7 @@ import { fetchConfiguration } from 'reducers/configuration';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 
-async function sessionIsValidForCommunityId (communityId) {
+function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
         // maybe do some api call to check that this authentication token is valid for this community
         // eg const isValidSession = await API.checkToken(community, auth.getToken());
@@ -54,7 +54,7 @@ export class Main extends Component {
     async componentDidMount () {
         const communityId = this.props.communityId;
         const hash = this.props.hash;
-        const isLoggedIn = auth.isAuthenticated() && await sessionIsValidForCommunityId(communityId);
+        const isLoggedIn = auth.isAuthenticated() && sessionIsValidForCommunityId(communityId);
 
         let configuration;
         try {
