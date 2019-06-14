@@ -12,6 +12,7 @@ import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';  
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import BankVerifying from './BankVerifying';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
@@ -36,10 +37,10 @@ const finicityContainer = css`
 
 
 export class ConnectBankPage extends React.Component {
-    state = {finicityUrl: null, errors: null}
+    state = {finicityUrl: null, errors: null, loading: false, reportData: null}
 
-    openFinicityIframe = (data) => {
-        API.createFinicityUrl(data).then(res => {
+    openFinicityIframe = () => {
+        API.createFinicityUrl().then(res => {
             this.setState({finicityUrl: res.link, errors: null}, 
                 () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
                     selector: '#finicity-container',
@@ -48,6 +49,12 @@ export class ConnectBankPage extends React.Component {
                         // example data:
                         // {success: true, reasonCode: "OK"}
                         if (!!data.success) {
+                            this.setState({finicityUrl: null, errors: null, loading: true});
+                            const apiTest = API;
+                            debugger;
+                            API.getFinicityReport().then( res => {
+                                this.setState({reportData: res})
+                            })
                             this.props._nextRoute();
                         } else {
                             this.setState({finicityUrl: null, errors: ["There was an error accessing your information. Please try again."]});
@@ -71,8 +78,12 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
+        if (this.state.reportData) return <div>{this.state.reportData}</div>
         if (this.state.finicityUrl) {
             return <div className={finicityContainer} id="finicity-container"/>;
+        }
+        if (this.state.loading) {
+            return <BankVerifying/>;
         }
         return (
             <Fragment>
