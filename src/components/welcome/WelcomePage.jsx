@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 
 import funnelImage from 'assets/images/PoweredByFunnel.png';
 import homeImage from 'assets/images/home-image.png';
-import Logo from 'components/common/Logo';
-import { H1, H2, P }from 'assets/styles';
+import { H1, H2, P, Logo }from 'assets/styles';
 import {
     BackgroundImage, BackgroundImageTint, WelcomeFlexContainer, WelcomeTextContainer,
-    WelcomeFooterContainer, HomeImageContainer, WhiteButton
+    WelcomeFooterContainer, HomeImageContainer, WhiteButton, LogoContainer
 } from './styles';
 import { ROUTES } from 'app/constants';
 import { AppTheme } from 'contexts/AppContextProvider';
@@ -40,7 +39,9 @@ export class WelcomePage extends Component {
                 <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background}/>
                 <BackgroundImageTint background={this.context.welcomeBackgroundImageTintBackground}/>
                 <WelcomeFlexContainer>
-                    <Logo logo={logo}/>
+                    <LogoContainer>
+                        <Logo src={logo} alt="company logo"/>
+                    </LogoContainer>
                     <WelcomeTextContainer>
                         <HomeImageContainer>
                             <img src={homeImage} width="30" alt="company logo"/>

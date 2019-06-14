@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/styles';
 
-import Logo from 'components/common/Logo';
 import { Banner, page, subPage } from './styles';
+import { Logo } from 'assets/styles';
 import { AppTheme } from 'contexts/AppContextProvider';
 
 export class Page extends React.Component {
@@ -15,7 +15,7 @@ export class Page extends React.Component {
                     backgroundColor: this.context.bannerBackground,
                     color: this.context.bannerColor
                 }}>
-                    <Logo logo={this.context.logo} />
+                    <Logo src={this.context.logo} alt="company logo" />
                 </Banner>
                 <div className={subPage}>
                     {this.props.children}
