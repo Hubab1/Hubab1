@@ -18,6 +18,7 @@ const bodyRow = css`
     font-size: 12px;
     margin: 30px;
     font-weight: 300;
+    align-items: center;
 `
 
 const bodyText = css`
