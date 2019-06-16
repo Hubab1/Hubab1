@@ -37,6 +37,7 @@ const finicityContainer = css`
 
 
 export class ConnectBankPage extends React.Component {
+<<<<<<< HEAD
     state = {
         showFinicityIframe: false, 
         errors: null, 
@@ -48,6 +49,12 @@ export class ConnectBankPage extends React.Component {
     openFinicityIframe = () => {
         this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
+=======
+    state = {showFinicityIframe: false, errors: null}
+
+    openFinicityIframe = (data) => {
+        API.createFinicityUrl(data).then(res => {
+>>>>>>> NESTIO-9440_connect_bank_page_to_backend
             this.setState({showFinicityIframe: true, errors: null}, 
                 () => window.finicityConnect.connectIFrame(res.link, {
                     selector: '#finicity-container',
@@ -63,17 +70,29 @@ export class ConnectBankPage extends React.Component {
                                 this.setState({loadingFinicityIframe: false, reportData: res})
                             });
                         } else {
+<<<<<<< HEAD
                             this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
+=======
+                            this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
+>>>>>>> NESTIO-9440_connect_bank_page_to_backend
                         }
                     },
                     cancel: function(){
                         console.log('The user cancelled the iframe');
+<<<<<<< HEAD
                         // for some reason, this setState isn't defined here and errors out... thoughts?
                         this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
                     },
                     error: function(err){
                         console.error('Some runtime error was generated during Finicity Connect', err);
                         this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
+=======
+                        this.setState({showFinicityIframe: false});
+                    },
+                    error: function(err){
+                        console.error('Some runtime error was generated during Finicity Connect', err);
+                        this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
+>>>>>>> NESTIO-9440_connect_bank_page_to_backend
                     },
                     loaded: function(){
                         // we might want to add some sort of loading state while links are fetched... need to check with product. this callback would cancel it.
