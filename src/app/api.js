@@ -104,7 +104,13 @@ API.createFinicityUrl = () => {
     }).then(res => res.json());}
 
 API.getFinicityReport = () => {
-    return Promise(resolve => setTimeout(resolve, 3000, {data: 'dkfjkdsjfs'}));
+    const promise = new Promise(resolve => {
+        setTimeout(() => {
+            resolve({data: 'dkfjkdsjfs'})
+        }, 5000);
+    });
+
+    return promise;
 }
 
 export default API;

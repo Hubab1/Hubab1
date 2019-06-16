@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
@@ -37,37 +37,43 @@ const finicityContainer = css`
 
 
 export class ConnectBankPage extends React.Component {
-    state = {finicityUrl: null, errors: null, loading: false, reportData: null}
+    state = {
+        showFinicityIframe: false, 
+        errors: null, 
+        loadingFinicityIframe: false, 
+        loadingReport: false, 
+        reportData: null
+    }
 
     openFinicityIframe = () => {
+        this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
-            this.setState({finicityUrl: res.link, errors: null}, 
-                () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
+            this.setState({showFinicityIframe: true, errors: null}, 
+                () => window.finicityConnect.connectIFrame(res.link, {
                     selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     success: (data) => {
+                        console.log('success')
+                        // for testing - fake bank = finbank; fake bank creds= user:demo pw:go 
                         // example data:
                         // {success: true, reasonCode: "OK"}
                         if (!!data.success) {
-                            this.setState({finicityUrl: null, errors: null, loading: true});
-                            const apiTest = API;
-                            debugger;
+                            this.setState({showFinicityIframe: null, errors: null, loadingReport: true});
                             API.getFinicityReport().then( res => {
-                                this.setState({reportData: res})
-                            })
-                            this.props._nextRoute();
+                                this.setState({loadingFinicityIframe: false, reportData: res})
+                            });
                         } else {
-                            this.setState({finicityUrl: null, errors: ["There was an error accessing your information. Please try again."]});
+                            this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
                         }
                     },
                     cancel: function(){
                         console.log('The user cancelled the iframe');
-                        this.setState({finicityUrl: null});
+                        // for some reason, this setState isn't defined here and errors out... thoughts?
+                        this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
                     },
                     error: function(err){
-                        debugger;
                         console.error('Some runtime error was generated during Finicity Connect', err);
-                        this.setState({finicityUrl: null, errors: ['There was an error attempting to get your records. Please try again.']});
+                        this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
                     },
                     loaded: function(){
                         // we might want to add some sort of loading state while links are fetched... need to check with product. this callback would cancel it.
@@ -78,11 +84,11 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        if (this.state.reportData) return <div>{this.state.reportData}</div>
-        if (this.state.finicityUrl) {
+        if (this.state.reportData) return <div>{JSON.stringify(this.state.reportData)}</div>
+        if (this.state.showFinicityIframe) {
             return <div className={finicityContainer} id="finicity-container"/>;
         }
-        if (this.state.loading) {
+        if (this.state.loadingReport) {
             return <BankVerifying/>;
         }
         return (
@@ -101,7 +107,7 @@ export class ConnectBankPage extends React.Component {
                     </div>
                 </div>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
-                <ActionButton onClick={this.openFinicityIframe} marginBottom="20px">
+                <ActionButton disabled={!!this.state.loadingFinicityIframe} onClick={this.openFinicityIframe} marginBottom="20px">
                     Link Bank Account
                 </ActionButton>
                 <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={linkRoot}>Don't Want to Link?</Link>
