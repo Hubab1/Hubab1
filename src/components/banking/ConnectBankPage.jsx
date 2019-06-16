@@ -36,12 +36,12 @@ const finicityContainer = css`
 
 
 export class ConnectBankPage extends React.Component {
-    state = {finicityUrl: null, errors: null}
+    state = {showFinicityIframe: false, errors: null}
 
     openFinicityIframe = (data) => {
         API.createFinicityUrl(data).then(res => {
-            this.setState({finicityUrl: res.link, errors: null}, 
-                () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
+            this.setState({showFinicityIframe: true, errors: null}, 
+                () => window.finicityConnect.connectIFrame(res.link, {
                     selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     success: (data) => {
@@ -50,17 +50,16 @@ export class ConnectBankPage extends React.Component {
                         if (!!data.success) {
                             this.props._nextRoute();
                         } else {
-                            this.setState({finicityUrl: null, errors: ["There was an error accessing your information. Please try again."]});
+                            this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
                         }
                     },
                     cancel: function(){
                         console.log('The user cancelled the iframe');
-                        this.setState({finicityUrl: null});
+                        this.setState({showFinicityIframe: false});
                     },
                     error: function(err){
-                        debugger;
                         console.error('Some runtime error was generated during Finicity Connect', err);
-                        this.setState({finicityUrl: null, errors: ['There was an error attempting to get your records. Please try again.']});
+                        this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
                     },
                     loaded: function(){
                         // we might want to add some sort of loading state while links are fetched... need to check with product. this callback would cancel it.
