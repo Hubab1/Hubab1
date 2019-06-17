@@ -11,7 +11,11 @@ function getThemeValues (config, materialTheme) {
             bannerBackground: materialTheme.palette.primary.main,
             bannerColor: materialTheme.palette.primary.contrastText,
             welcomeBackgroundImageOpacity: 1,
-            welcomeBackgroundImageTintBackground: materialTheme.palette.primary.main
+            welcomeBackgroundImageTintBackground: materialTheme.palette.primary.main,
+            progressBarTrackBackground: '#ffffff',
+            progressBarTrackOpacity: 1,
+            progressBarBackground: materialTheme.palette.primary.main,
+            progressBarOpacity: 0.7
         }
     } else {
         return {
@@ -19,7 +23,11 @@ function getThemeValues (config, materialTheme) {
             bannerBackground: '#ffffff',
             color: '#000000',
             welcomeBackgroundImageOpacity: 0.8,
-            welcomeBackgroundImageTintBackground: undefined
+            welcomeBackgroundImageTintBackground: undefined,
+            progressBarTrackBackground: materialTheme.palette.primary.main,
+            progressBarTrackOpacity: 0.3,
+            progressBarBackground: materialTheme.palette.primary.main,
+            progressBarOpacity: 1
         }
     }
 }
