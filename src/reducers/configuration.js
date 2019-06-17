@@ -31,7 +31,6 @@ export const fetchConfiguration = (communityId, hash) => {
         } else {
             configuration = await API.fetchConfiguration(communityId);
         }
-        configuration.dark_mode = true;
         dispatch(configurationReceived(configuration));
         return configuration
     }
