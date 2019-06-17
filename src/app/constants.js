@@ -17,7 +17,7 @@ export const ROUTES = {
     GUARANTOR: '/profile/guarantor',
     PARKING: '/parking/parking',
     PETS: '/profile/pets',
-    ROOMMATES: '/profile/invite-roommates',
+    CO_APPLICANTS: '/profile/invite-coapplicants',
     CONNECT_BANK: '/connect-bank',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     APPLICATION_FEE: '/application-fee',

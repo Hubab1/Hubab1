@@ -18,7 +18,7 @@ beforeEach(() => {
 })
 
 it('renders a MultiSelectChoice component for each option in rental_options_config', function() {
-    let wrapper = shallow( <RentalProfileOptions {...defaultProps} config={{rental_options_config: {guarantor: {limit: 1}, roommates: {limit: 1}}}}/> );
+    let wrapper = shallow( <RentalProfileOptions {...defaultProps} config={{rental_options_config: {guarantor: {limit: 1}, co_applicants: {limit: 1}}}}/> );
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(MultiSelectChoice).length).toEqual(2);
 });

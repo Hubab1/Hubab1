@@ -124,4 +124,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 })
 
-export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.ROOMMATES));
+export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.CO_APPLICANTS));

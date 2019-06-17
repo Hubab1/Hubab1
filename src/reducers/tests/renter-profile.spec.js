@@ -5,7 +5,7 @@ describe('selectInitialPage', () => {
     it('computes initial page based on profile data', () => {
         const configuration = {
             rental_options_config: {
-                roommates: {limit: 3},
+                co_applicants: {limit: 3},
                 guarantor: {limit: 3},
                 pets: {limit: 3}
             }
@@ -14,17 +14,17 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: ['roommates', 'pets'],
-                roommates: null,
+                selected_rental_options: ['co_applicants', 'pets'],
+                co_applicants: null,
                 pets: null
             }
         });
-        expect(initialPage).toEqual(ROUTES.ROOMMATES);
+        expect(initialPage).toEqual(ROUTES.CO_APPLICANTS);
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: ['roommates', 'pets'],
-                roommates: [{name: 'bob'}],
+                selected_rental_options: ['co_applicants', 'pets'],
+                co_applicants: [{name: 'bob'}],
                 pets: null
             }
         });
@@ -32,8 +32,8 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: ['roommates', 'pets'],
-                roommates: [{name: 'bob'}],
+                selected_rental_options: ['co_applicants', 'pets'],
+                co_applicants: [{name: 'bob'}],
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}]
             }
         });
@@ -43,7 +43,7 @@ describe('selectInitialPage', () => {
             configuration,
             renterProfile: {
                 selected_rental_options: ['guarantor', 'pets'],
-                roommates: null,
+                co_applicants: null,
                 guarantor: null,
                 pets: null
             }
@@ -55,7 +55,7 @@ describe('selectInitialPage', () => {
             configuration,
             renterProfile: {
                 selected_rental_options: [],
-                roommates: null,
+                co_applicants: null,
                 guarantor: null,
                 pets: null
             }
