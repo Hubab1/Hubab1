@@ -21,9 +21,9 @@ const SpacedH3 = styled(H3)`
 `
 
 const optionConfig = {
-    roommates: {
+    co_applicants: {
         prefix: '👪',
-        name: 'roommates',
+        name: 'co_applicants',
         label: 'Other adults will live here'
     },
     pets: {

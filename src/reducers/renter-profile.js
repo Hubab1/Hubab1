@@ -75,7 +75,7 @@ selectors.selectOrderedRoutes = createSelector(
 
 const routeMapping = (profile) => ({
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
-    [ROUTES.ROOMMATES]: !profile.roommates,
+    [ROUTES.CO_APPLICANTS]: !profile.co_applicants,
     [ROUTES.GUARANTOR]: !profile.guarantors,
     [ROUTES.PETS]: !profile.pets,
 });
