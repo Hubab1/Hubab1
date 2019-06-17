@@ -56,17 +56,33 @@ export class PetsPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         petOptions: Yup.array()
                             .of(
-                                Yup.object().shape({
-                                    petType: Yup.string()
+                                Yup.object({
+                                    pet_type: Yup.string()
                                         .required('Required'),
-                                    name: Yup.string().when('petType', {
+                                    name: Yup.string().when('pet_type', {
+                                        is: (value) => ['Dog', 'Cat'].includes(value),
+                                        then: Yup.string()
+                                            .required('Required'),
+                                        otherwise: Yup.string().notRequired()
+                                    }),
+                                    weight: Yup.string().when('pet_type', {
+                                        is: (value) => ['Dog', 'Cat'].includes(value),
+                                        then: Yup.string()
+                                            .required('Required'),
+                                        otherwise: Yup.string().notRequired()
+                                    }),
+                                    breed: Yup.string().when('pet_type', {
                                         is: 'Dog',
                                         then: Yup.string()
-                                            .required(),
+                                            .required('Required'),
+                                        otherwise: Yup.string().notRequired()
+                                    }),
+                                    description: Yup.string().when('pet_type', {
+                                        is: 'Other',
+                                        then: Yup.string()
+                                            .required('Required'),
                                         otherwise: Yup.string().notRequired()
                                     })
-                                    // breed: Yup.string()
-                                    //     .required('Required'),
                                 })
                             )
                             .required('Select a Pet')

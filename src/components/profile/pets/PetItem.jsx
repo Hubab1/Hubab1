@@ -37,6 +37,7 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.name}
                 />
+                <ErrorMessage name={`petOptions[${index}].name`} />
                 <FormTextInput
                     label="Breed"
                     name={`petOptions[${index}].breed`}
@@ -44,6 +45,7 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.breed}
                 />
+                <ErrorMessage name={`petOptions[${index}].breed`} />
                 <FormTextInput
                     label="Weight"
                     name={`petOptions[${index}].weight`}
@@ -52,6 +54,7 @@ export default class PetItem extends React.Component {
                     value={petOption.weight}
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
+                <ErrorMessage name={`petOptions[${index}].weight`} />
             </Fragment>
         );
     }
@@ -66,6 +69,7 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.name}
                 />
+                <ErrorMessage name={`petOptions[${index}].name`} />
                 <FormTextInput
                     label="Weight"
                     name={`petOptions[${index}].weight`}
@@ -74,6 +78,7 @@ export default class PetItem extends React.Component {
                     value={petOption.weight}
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
+                <ErrorMessage name={`petOptions[${index}].weight`} />
             </Fragment>
         );
     }
@@ -89,6 +94,7 @@ export default class PetItem extends React.Component {
                     value={petOption.description}
                     helperText="Please share a bit about your pet"
                 />
+                <ErrorMessage name={`petOptions[${index}].description`} />
             </Fragment>
         );
     }
@@ -107,9 +113,8 @@ export default class PetItem extends React.Component {
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
                 />
-                <ErrorMessage name={`petOptions[${index}].petType`} />
+                <ErrorMessage name={`petOptions[${index}].pet_type`} />
                 {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
-                <ErrorMessage name={`petOptions[${index}].name`} />
                 {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
                 {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
             </div>
