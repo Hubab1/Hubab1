@@ -105,6 +105,7 @@ API.createFinicityUrl = () => {
 
 API.getFinicityReport = () => {
     const promise = new Promise(resolve => {
+        // once backend is ready, need to add initial api call to retrieve reports, then poll to check for final reports
         setTimeout(() => {
             resolve({data: 'dkfjkdsjfs'})
         }, 5000);
