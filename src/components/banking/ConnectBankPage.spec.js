@@ -14,7 +14,7 @@ it('this.openFinicityIframe sets state to loadingFinicityIframe=true and calls A
     expect(wrapper.state().showFinicityIframe).toEqual(false);
 
     wrapper.instance().openFinicityIframe()
-    
+        
     expect(API.createFinicityUrl).toHaveBeenCalled();
     expect(wrapper.state().loadingFinicityIframe).toEqual(true);
 })

@@ -68,7 +68,7 @@ export class ConnectBankPage extends React.Component {
             return <BankVerifying/>;
         }
         return <ConnectFinicity 
-            loadingFinicityIframe={!!this.state.loadingfinicityIframe}
+            loadingFinicityIframe={!!this.state.loadingFinicityIframe}
             openFinicityIframe={this.openFinicityIframe}
             errors={this.state.errors}
         />
