@@ -60,23 +60,23 @@ export class ConnectBankPage extends React.Component {
                         if (!!data.success) {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true});
                             API.getFinicityReport().then( res => {
-                                this.setState({loadingFinicityIframe: false, reportData: res})
+                                this.setState({reportData: res})
                             });
                         } else {
-                            this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
+                            this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
                         }
                     },
-                    cancel: function(){
+                    cancel: () => {
                         console.log('The user cancelled the iframe');
                         // for some reason, this setState isn't defined here and errors out... thoughts?
-                        this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
+                        this.setState({showFinicityIframe: false});
                     },
-                    error: function(err){
+                    error: (err) => {
                         console.error('Some runtime error was generated during Finicity Connect', err);
-                        this.setState({showFinicityIframe: false, loadingFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
+                        this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.'], loadingFinicityIframe: false});
                     },
-                    loaded: function(){
-                        // we might want to add some sort of loading state while links are fetched... need to check with product. this callback would cancel it.
+                    loaded: () => {
+                        this.setState({loadingFinicityIframe: false})
                     },
                 })
             );
