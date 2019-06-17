@@ -77,7 +77,7 @@ const routeMapping = (profile) => ({
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
     [ROUTES.CO_APPLICANTS]: !profile.co_applicants,
     [ROUTES.GUARANTOR]: !profile.guarantors,
-    [ROUTES.PETS]: !profile.pets,
+    [ROUTES.PETS]: true || !profile.pets,
 });
 
 selectors.selectInitialPage = createSelector(

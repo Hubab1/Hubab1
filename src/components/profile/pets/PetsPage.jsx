@@ -55,12 +55,20 @@ export class PetsPage extends React.Component {
                 <Formik
                     validationSchema={Yup.object().shape({
                         petOptions: Yup.array()
-                            // .of(
-                            //     Yup.object().shape({
-                            //         petType: Yup.string()
-                            //             .required('Required'),
-                            //     })
-                            // )
+                            .of(
+                                Yup.object().shape({
+                                    petType: Yup.string()
+                                        .required('Required'),
+                                    name: Yup.string().when('petType', {
+                                        is: 'Dog',
+                                        then: Yup.string()
+                                            .required(),
+                                        otherwise: Yup.string().notRequired()
+                                    })
+                                    // breed: Yup.string()
+                                    //     .required('Required'),
+                                })
+                            )
                             .required('Select a Pet')
                     })}
                     onSubmit={this.onSubmit}

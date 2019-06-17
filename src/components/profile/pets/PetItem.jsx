@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import { css } from 'emotion';
+import { getIn, Field } from 'formik';
 
+import { ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PetTypeSelect from './PetTypeSelect';
 
@@ -9,6 +11,18 @@ const cancelButton = css`
     color: #828796;
     cursor: pointer;
 `
+
+const ErrorMessage = ({ name }) => (
+    <Field
+        name={name}
+        render={({ form }) => {
+            const error = getIn(form.errors, name);
+            const touch = getIn(form.touched, name);
+            const submitCount = form.submitCount;
+            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>
+        }}
+    />
+);
 
 export default class PetItem extends React.Component {
     cache = {}
@@ -93,7 +107,9 @@ export default class PetItem extends React.Component {
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
                 />
+                <ErrorMessage name={`petOptions[${index}].petType`} />
                 {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
+                <ErrorMessage name={`petOptions[${index}].name`} />
                 {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
                 {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
             </div>
