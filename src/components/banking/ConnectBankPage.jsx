@@ -10,7 +10,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold, linkRoot } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';  
-// import API from 'app/api';
+import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const SpacedH3 = styled(H3)`
@@ -36,38 +36,37 @@ const finicityContainer = css`
 
 
 export class ConnectBankPage extends React.Component {
-    state = {finicityUrl: null, errors: null}
+    state = {showFinicityIframe: false, errors: null}
 
     openFinicityIframe = (data) => {
-        this.props._nextRoute();
-        // API.createFinicityUrl(data).then(res => {
-        //     this.setState({finicityUrl: res.finicity_url, errors: null}, 
-        //         () => window.finicityConnect.connectIFrame(this.state.finicityUrl, {
-        //             selector: '#finicity-container',
-        //             overlay: "rgba(255,255,255, 0)",
-        //             link to webhook 
-        //             success: (data) => {
-        //               if(data.reportId){
-        //                 console.log("Yay! We got reportId", data.reportId);
-
-        //               } else{
-        //                  console.log('The user finished, but added no accounts, so no report id exists');
-        //               }
-        //             },
-        //             cancel: function(){
-        //               console.log('The user cancelled the iframe');
-        //               this.setState({finicityUrl: null, errors: ['You cancelled out of the Finicity Application. Please try again.']})
-        //             },
-        //             error: function(err){
-        //               console.error('Some runtime error was generated during Finicity Connect', err);
-        //               this.setState({finicityUrl: null, errors: ['There was an error attempting to get your records. Please try again.']})
-        //             },
-        //             loaded: function(){
-        //               console.log('This gets called only once asfter the iframe has finished loading');
-        //             },
-        //         })
-        //     );
-        // });
+        API.createFinicityUrl(data).then(res => {
+            this.setState({showFinicityIframe: true, errors: null}, 
+                () => window.finicityConnect.connectIFrame(res.link, {
+                    selector: '#finicity-container',
+                    overlay: "rgba(255,255,255, 0)",
+                    success: (data) => {
+                        // example data:
+                        // {success: true, reasonCode: "OK"}
+                        if (!!data.success) {
+                            this.props._nextRoute();
+                        } else {
+                            this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."]});
+                        }
+                    },
+                    cancel: function(){
+                        console.log('The user cancelled the iframe');
+                        this.setState({showFinicityIframe: false});
+                    },
+                    error: function(err){
+                        console.error('Some runtime error was generated during Finicity Connect', err);
+                        this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.']});
+                    },
+                    loaded: function(){
+                        // we might want to add some sort of loading state while links are fetched... need to check with product. this callback would cancel it.
+                    },
+                })
+            );
+        });
     }
 
     render () {
