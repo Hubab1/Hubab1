@@ -28,7 +28,7 @@ beforeEach(() => {
                 pets: {
                     limit: 1
                 },
-                roommates:{
+                co_applicants:{
                     limit: 3
                 }
             },
