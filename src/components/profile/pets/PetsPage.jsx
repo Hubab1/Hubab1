@@ -16,6 +16,41 @@ import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
+export const petsSchema = Yup.object().shape({
+    petOptions: Yup.array()
+        .of(
+            Yup.object({
+                pet_type: Yup.string()
+                    .required('Required'),
+                name: Yup.string().when('pet_type', {
+                    is: (value) => ['Dog', 'Cat'].includes(value),
+                    then: Yup.string()
+                        .required('Required'),
+                    otherwise: Yup.string().notRequired()
+                }),
+                weight: Yup.string().when('pet_type', {
+                    is: (value) => ['Dog', 'Cat'].includes(value),
+                    then: Yup.string()
+                        .required('Required'),
+                    otherwise: Yup.string().notRequired()
+                }),
+                breed: Yup.string().when('pet_type', {
+                    is: 'Dog',
+                    then: Yup.string()
+                        .required('Required'),
+                    otherwise: Yup.string().notRequired()
+                }),
+                description: Yup.string().when('pet_type', {
+                    is: 'Other',
+                    then: Yup.string()
+                        .required('Required'),
+                    otherwise: Yup.string().notRequired()
+                })
+            })
+        )
+        .required('Select a Pet')
+});
+
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
@@ -53,40 +88,7 @@ export class PetsPage extends React.Component {
                     <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>
                 </div>
                 <Formik
-                    validationSchema={Yup.object().shape({
-                        petOptions: Yup.array()
-                            .of(
-                                Yup.object({
-                                    pet_type: Yup.string()
-                                        .required('Required'),
-                                    name: Yup.string().when('pet_type', {
-                                        is: (value) => ['Dog', 'Cat'].includes(value),
-                                        then: Yup.string()
-                                            .required('Required'),
-                                        otherwise: Yup.string().notRequired()
-                                    }),
-                                    weight: Yup.string().when('pet_type', {
-                                        is: (value) => ['Dog', 'Cat'].includes(value),
-                                        then: Yup.string()
-                                            .required('Required'),
-                                        otherwise: Yup.string().notRequired()
-                                    }),
-                                    breed: Yup.string().when('pet_type', {
-                                        is: 'Dog',
-                                        then: Yup.string()
-                                            .required('Required'),
-                                        otherwise: Yup.string().notRequired()
-                                    }),
-                                    description: Yup.string().when('pet_type', {
-                                        is: 'Other',
-                                        then: Yup.string()
-                                            .required('Required'),
-                                        otherwise: Yup.string().notRequired()
-                                    })
-                                })
-                            )
-                            .required('Select a Pet')
-                    })}
+                    validationSchema={petsSchema}
                     onSubmit={this.onSubmit}
                     initialValues={{petOptions: selectedPetOptions}}
                 >
