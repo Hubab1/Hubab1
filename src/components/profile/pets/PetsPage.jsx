@@ -39,9 +39,9 @@ export class PetsPage extends React.Component {
     }
 
     render () {
-        if (!this.props.profile) return null;
+        if (!this.props.profile || !this.props.configuration) return null;
         if (this.state.viewPetPolicy) {
-            return <PetPolicy date="April 2019" policy="no poopy doggies" onAgree={this.toggleViewPetPolicy}/>
+            return <PetPolicy date="April 2019" policy={this.props.configuration.rental_options_config.pets.pet_policy_details} onAgree={this.toggleViewPetPolicy}/>
         }
         const selectedPetOptions = this.props.profile.pets || [];
         return (
@@ -131,7 +131,8 @@ export class PetsPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile
+    profile: state.renterProfile,
+    configuration: state.configuration
 })
 
 const connectedPetsPage = connect(mapStateToProps, {updateRenterProfile})(PetsPage);

@@ -59,7 +59,7 @@ export const H2 = styled.h2`
 
 export const H3 = styled.h3`
     font-weight: 400;
-    line-height: 28px;
+    line-height: 22px;
     font-size: 18px;
     color: #454B57;
     margin: 0;
