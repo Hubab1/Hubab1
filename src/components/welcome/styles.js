@@ -51,6 +51,8 @@ export const WelcomeTextContainer = styled.div`
     padding-bottom: 50px;
     width: 82%;
     max-width: 500px;
+    position: relative;
+    top: -45px;
 `
 
 export const WelcomeFooterContainer = styled.div`
