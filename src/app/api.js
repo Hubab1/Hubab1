@@ -96,11 +96,20 @@ API.inviteGuarantor = (data) => {
     }).then(res => res.json());
 }
 
-API.createFinicityUrl = (data) => {
+API.createFinicityUrl = () => {
     return fetch(chuck('/generate-finicity-link/'), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => res.json());}
+
+API.getFinicityReport = () => {
+    return new Promise(resolve => {
+        // once backend is ready, need to add initial api call to retrieve reports, then poll to check for final reports
+        setTimeout(() => {
+            resolve({data: 'dkfjkdsjfs'})
+        }, 5000);
+    });
+}
 
 export default API;

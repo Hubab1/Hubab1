@@ -11,7 +11,7 @@ import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
-import ApplicationFeePage from 'components/banking/ApplicationFeePage';
+import ApplicationFeePage from 'components/ApplicationFeePage/ApplicationFeePage';
 import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
