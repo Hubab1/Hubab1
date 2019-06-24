@@ -28,7 +28,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
         return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
             if (res.errors) {
-                setErrors({resetCode: res.errors._schema[0]})
+                setErrors({resetCode: "Invalid Error Code"})
             } else{
                 this.props.history.push({
                     pathname: ROUTES.RESET_PASSWORD, 
@@ -37,7 +37,7 @@ export class ResetPasswordVerificationPage extends React.Component {
             }
             setSubmitting(false);
         }).catch((res) => {
-            setErrors({resetCode: res.errors})
+            setErrors({resetCode: "Invalid Error Code"})
             setSubmitting(false);   
         })
     }
