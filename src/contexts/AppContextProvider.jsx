@@ -22,7 +22,7 @@ function getThemeValues (config, materialTheme) {
             logo: config.logo,
             bannerBackground: '#ffffff',
             color: '#000000',
-            welcomeBackgroundImageOpacity: 0.8,
+            welcomeBackgroundImageOpacity: 0.3,
             welcomeBackgroundImageTintBackground: undefined,
             progressBarTrackBackground: materialTheme.palette.primary.main,
             progressBarTrackOpacity: 0.3,

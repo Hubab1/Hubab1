@@ -38,7 +38,7 @@ export const ErrorDetail = styled.div`
 `
 
 export const Logo = styled.img`
-    max-width: 90px;
+    max-width: 120px;
     max-height: 50px;
 `;
 
