@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 
-import { H1, Subtitle, formContent } from 'assets/styles';
+import { H1, Subtitle, formContent, SpacedH3 } from 'assets/styles';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
@@ -42,8 +42,7 @@ export class GuarantorPage extends React.Component {
         return (
             <Fragment>
                 <H1>Let's Invite a Guarantor</H1>
-                <br/>
-                <Subtitle>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it couldn’t be paid for some reason.</Subtitle>
+                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it couldn’t be paid for some reason.</SpacedH3>
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),

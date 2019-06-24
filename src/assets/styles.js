@@ -107,3 +107,7 @@ export const linkRoot = css`
     text-decoration: none;
     color: black;
 `
+
+export const SpacedH3 = styled(H3)`
+    margin: 20px 5% 25px 5%;
+`
