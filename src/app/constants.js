@@ -9,6 +9,7 @@ export const ROUTES = {
     SIGNUP: '/signup',
     TOS: '/terms',
     PASSWORD: '/password',
+    TELL_US_MORE: '/additional-info',
     FORGOT_PASSWORD: '/password/forgot',
     VERIFY_PASSWORD_CODE: '/password/verify',
     RESET_PASSWORD: '/password/reset',
@@ -24,5 +25,5 @@ export const ROUTES = {
 }
 
 export const BASE_ROUTES = [
-    ROUTES.PROFILE_OPTIONS
+    ROUTES.TELL_US_MORE, ROUTES.PROFILE_OPTIONS
 ]

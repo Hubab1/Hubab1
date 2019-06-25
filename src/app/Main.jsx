@@ -18,6 +18,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
+import TellUsMore from 'components/TellUsMorePage';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -78,6 +79,7 @@ export class Main extends Component {
                         <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
+                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
