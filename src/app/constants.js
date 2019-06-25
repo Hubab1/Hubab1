@@ -26,3 +26,5 @@ export const ROUTES = {
 export const BASE_ROUTES = [
     ROUTES.PROFILE_OPTIONS
 ]
+
+export const REPORT_POLL_INTERVAL = 10000;

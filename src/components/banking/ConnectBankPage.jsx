@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { ROUTES } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import BankVerifying from './BankVerifying';
@@ -20,6 +20,15 @@ export class ConnectBankPage extends React.Component {
         reportData: null
     }
 
+    handleFetchReports = () => {
+        API.fetchFinicityReports().then((res) => {
+            if (res.errors) return;
+            clearInterval(window.fetchReportsInterval);
+            this.setState({reportData: res})
+        })
+    }
+
+
     openFinicityIframe = () => {
         this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
@@ -34,9 +43,15 @@ export class ConnectBankPage extends React.Component {
                         // {success: true, reasonCode: "OK"}
                         if (!!data.success) {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
-                            API.getFinicityReport().then( res => {
-                                this.setState({reportData: res})
-                            });
+                            API.generateFinicityReports().then( (res) => {
+                                window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
+                            }).catch(
+                                this.setState({
+                                    showFinicityIframe: false, 
+                                    loadingFinicityIframe: false, 
+                                    errors: ["There was an error generating your income and assets report. Please try again."]
+                                })
+                            );
                         } else {
                             this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."], loadingFinicityIframe: false});
                         }

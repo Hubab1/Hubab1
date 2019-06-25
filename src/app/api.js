@@ -103,13 +103,21 @@ API.createFinicityUrl = () => {
         },
     }).then(res => res.json());}
 
-API.getFinicityReport = () => {
-    return new Promise(resolve => {
-        // once backend is ready, need to add initial api call to retrieve reports, then poll to check for final reports
-        setTimeout(() => {
-            resolve({data: 'dkfjkdsjfs'})
-        }, 5000);
-    });
+API.generateFinicityReports = () => {
+    return fetch(chuck('/generate-finicity-reports/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => res.json());
+}
+
+
+API.fetchFinicityReports = () => {
+    return fetch(chuck('/fetch-finicity-reports/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => res.json());
 }
 
 export default API;
