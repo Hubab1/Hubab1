@@ -22,7 +22,7 @@ export class ConnectBankPage extends React.Component {
 
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
-            if (res.errors) return;
+            if (res.status === 'inProgress') return;
             clearInterval(window.fetchReportsInterval);
             this.setState({reportData: res})
         })
