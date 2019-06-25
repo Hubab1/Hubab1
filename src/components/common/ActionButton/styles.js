@@ -13,6 +13,11 @@ export const label = css`
     font-size: 16px;
 `
 
+export const disabled = css`
+    background-color: #D5D8DE !important;
+    color: #ffffff !important;
+`
+
 export const ButtonContainer = styled.div(props => ({
     marginTop: props.marginTop || 0,
     marginBottom: props.marginBottom || 0

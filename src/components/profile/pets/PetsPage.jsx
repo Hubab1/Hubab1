@@ -4,7 +4,7 @@ import { Formik, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 
-import { H1, H3, P } from 'assets/styles';
+import { H1, P, SpacedH3 } from 'assets/styles';
 import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
@@ -82,7 +82,7 @@ export class PetsPage extends React.Component {
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
-                <H3>Now is the time to gush about your pets, we are all ears.</H3>
+                <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                 <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
                 <div className={policyDiv}>
                     <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>

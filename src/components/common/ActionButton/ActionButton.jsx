@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-import { root, label, ButtonContainer } from './styles';
+import { root, label, disabled as disabledClass, ButtonContainer } from './styles';
 
 export default class ActionButton extends React.Component {
     render () {
@@ -11,7 +11,7 @@ export default class ActionButton extends React.Component {
             <ButtonContainer marginTop={marginTop} marginBottom={marginBottom}>
                 <Button
                     onClick={onClick}
-                    classes={{ root, label }}
+                    classes={{ root, label, disabled: disabledClass }}
                     variant={variant}
                     color={color}
                     type="submit"
