@@ -52,7 +52,7 @@ export const WelcomeTextContainer = styled.div`
     width: 82%;
     max-width: 500px;
     position: relative;
-    top: -45px;
+
 `
 
 export const WelcomeFooterContainer = styled.div`

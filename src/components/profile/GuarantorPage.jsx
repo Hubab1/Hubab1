@@ -20,8 +20,8 @@ import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const ImageContainer = styled.div`
-    margin-top: 42px;
-    margin-bottom: 50px;
+    margin-top: 31px;
+    margin-bottom: 31px;
     img {
         max-height: 90px;
         max-width: 90px;
