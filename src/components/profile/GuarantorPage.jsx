@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import coin from 'assets/images/coin.png';
+import { H1, formContent, SpacedH3 } from 'assets/styles';
 
-import { H1, Subtitle, formContent } from 'assets/styles';
+import styled from '@emotion/styled';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
@@ -16,6 +18,15 @@ import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+
+const ImageContainer = styled.div`
+    margin-top: 31px;
+    margin-bottom: 31px;
+    img {
+        max-height: 90px;
+        max-width: 90px;
+    }
+`
 
 export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -42,8 +53,10 @@ export class GuarantorPage extends React.Component {
         return (
             <Fragment>
                 <H1>Let's Invite a Guarantor</H1>
-                <br/>
-                <Subtitle>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it couldn’t be paid for some reason.</Subtitle>
+                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it couldn’t be paid for some reason.</SpacedH3>
+                <ImageContainer>
+                    <img src={coin} alt="coin"/>
+                </ImageContainer>
                 <Formik
                     validationSchema={Yup.object().shape({
                         first_name: Yup.string().required('First Name is required'),

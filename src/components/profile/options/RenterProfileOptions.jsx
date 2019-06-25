@@ -10,6 +10,9 @@ import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import guarantor from 'assets/images/guarantor.png';
+import coapplicants from 'assets/images/coapplicants.png';
+import doggie from 'assets/images/doggie.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -22,17 +25,17 @@ const SpacedH3 = styled(H3)`
 
 const optionConfig = {
     co_applicants: {
-        prefix: '👪',
+        prefix: <img alt="coapplicants" src={coapplicants}></img>,
         name: 'co_applicants',
         label: 'Other adults will live here'
     },
     pets: {
-        prefix: '🐶',
+        prefix: <img alt="dog" src={doggie}></img>,
         name: 'pets',
         label: 'Pets will live here'
     },
     guarantor: {
-        prefix: '💰',
+        prefix: <img alt="coins" src={guarantor}></img>,
         name: 'guarantor',
         label: 'I\'ll need a guarantor'
     },

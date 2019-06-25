@@ -10,6 +10,7 @@ export const root = css`
 
 export const label = css`
     text-transform: none;
+    font-size: 16px;
 `
 
 export const ButtonContainer = styled.div(props => ({
