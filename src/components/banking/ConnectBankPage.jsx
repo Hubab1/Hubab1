@@ -20,6 +20,10 @@ export class ConnectBankPage extends React.Component {
         reportData: null
     }
 
+    componentWillUnmount () {
+        clearInterval(window.fetchReportsInterval);
+    }
+
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
             if (res.status === 'inProgress') return;
