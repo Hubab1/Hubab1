@@ -2,17 +2,28 @@ import React, { Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import styled from '@emotion/styled';
 
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import sticky from 'assets/images/sticky.png';
+
+const ImageContainer = styled.div`
+    margin-top: 31px;
+    margin-bottom: 31px;
+    img {
+        max-height: 105px;
+        max-width: 114px;
+    }
+`
 
 export class TellUsMore extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         Promise.resolve().then(() => {
-            // this.props._nextRoute();
+            this.props._nextRoute();
             setSubmitting(false);
         })
     }
@@ -22,6 +33,9 @@ export class TellUsMore extends React.Component {
             <Fragment>
                 <H1>Tell Us A Little More</H1>
                 <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
+                <ImageContainer>
+                    <img src={sticky} alt="sticky note"/>
+                </ImageContainer>
                 <Formik
                     validationSchema={Yup.object().shape({
                         street_address: Yup.string()
