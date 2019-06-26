@@ -48,7 +48,7 @@ export default function FormTextInput (props) {
             helperText={fieldHelperText}
             label={label}
             classes={ {root} }
-            type={type === 'text' || showPassword ? 'text' : 'password'}
+            type={type !== 'password' || showPassword ? type : 'password'}
             name={name}
             fullWidth
             onChange={handleChange}

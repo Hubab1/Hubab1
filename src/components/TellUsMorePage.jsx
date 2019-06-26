@@ -83,6 +83,7 @@ export default class TellUsMore extends React.Component {
                                     <FormTextInput
                                         label="Birthday"
                                         name="birthday"
+                                        type="date"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
