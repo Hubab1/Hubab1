@@ -117,7 +117,7 @@ API.fetchFinicityReports = () => {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
-    }).then(res => res.json());
+    });
 }
 
 export default API;
