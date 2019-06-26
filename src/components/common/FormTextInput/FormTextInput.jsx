@@ -51,6 +51,9 @@ export default function FormTextInput (props) {
             type={type !== 'password' || showPassword ? type : 'password'}
             name={name}
             fullWidth
+            InputLabelProps={{
+                shrink: type === 'date' ? true : undefined,
+            }}
             onChange={handleChange}
             onBlur={handleBlur}
             value={value}

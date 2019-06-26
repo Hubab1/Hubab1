@@ -3,11 +3,20 @@ import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { ROUTES } from 'app/constants';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
-export default class TellUsMore extends React.Component {
+export class TellUsMore extends React.Component {
+    onSubmit = (values, { setSubmitting }) => {
+        Promise.resolve().then(() => {
+            // this.props._nextRoute();
+            setSubmitting(false);
+        })
+    }
+
     render () {
         return (
             <Fragment>
@@ -15,12 +24,16 @@ export default class TellUsMore extends React.Component {
                 <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
                 <Formik
                     validationSchema={Yup.object().shape({
-                        email: Yup.string()
-                            .email('Must be a valid Email')
-                            .required('Email is required'),
-                        password: Yup.string()
-                            .min(8, 'Password must be at least 8 characters')
-                            .required('Password is required')
+                        street_address: Yup.string()
+                            .required('required'),
+                        city: Yup.string()
+                            .required('required'),
+                        state: Yup.string()
+                            .required('required'),
+                        zip: Yup.string()
+                            .required('required'),
+                        birthday: Yup.string()
+                            .required('required'),
                     })}
                     onSubmit={this.onSubmit}
                 >
@@ -92,11 +105,13 @@ export default class TellUsMore extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
+                            <ActionButton disabled={!values.street_address || !values.city || !values.state || !values.zip || !values.birthday || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
-                <ActionButton disabled>Continue</ActionButton>
             </Fragment>
         )
     }
 }
+
+export default withRelativeRoutes(TellUsMore, ROUTES.TELL_US_MORE);
