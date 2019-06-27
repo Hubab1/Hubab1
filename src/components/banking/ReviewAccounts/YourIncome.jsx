@@ -19,13 +19,13 @@ const Bulb = styled.img`
 `
 
 export const getRequirementText = props => {
-    const {config, profile} = this.props;
+    const {config, profile} = props;
     if (profile.unit) {
         // use applicant endpoint data for this in the future
         if (profile.selected_rental_options && profile.selected_rental_options.includes('guarantor')) {
-            return `The total income required for a guarantor on the application is ${config.guarantor_income_requirement_multiplier}x the rent: ${formatCurrency(192000)}`;
+            return `The total income required for a guarantor on the application is ${config.guarantor_income_requirement_multiplier}x the rent: ${formatCurrency(config.guarantor_income_requirement_multiplier * profile.unit.price)}`;
         } else {
-            return `The total income required for all members of the application is ${config.applicant_income_requirements}x the rent: ${formatCurrency(96000)}`;
+            return `The total income required for all members of the application is ${config.applicant_income_requirements}x the rent: ${formatCurrency(config.applicant_income_requirements * profile.unit.price)}`;
         }
     } else {
         if (profile.selected_rental_options && profile.selected_rental_options.includes('guarantor')) {
