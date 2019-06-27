@@ -6,7 +6,6 @@ import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
 import ProfileContainer from 'components/profile/ProfileContainer';
-import ReviewAccountsPage from 'components/banking/ReviewAccounts/ReviewAccountsPage';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import TermsPage from 'components/TermsPage';
@@ -79,7 +78,7 @@ export class Main extends Component {
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
-                            <Route path={ROUTES.PROFILE} component={ReviewAccountsPage} />
+                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
