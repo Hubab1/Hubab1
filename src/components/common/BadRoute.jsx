@@ -1,9 +1,13 @@
 import React from 'react';
 import { css } from 'emotion';
+import styled from '@emotion/styled';
 
-import { H1 } from 'assets/styles';
+const BigText = styled.div`	
+    font-size: 50px;	
+    font-weight: bold;	
+` 	
 
-export const centerAlign = css`
+const centerAlign = css`
     text-align: center;
     margin-top: 200px;
 `
@@ -11,7 +15,7 @@ export const centerAlign = css`
 export default function BadRoute () {
     return (
         <div className={centerAlign}>
-            <H1>404</H1>
+            <BigText>404</BigText>
         </div>
     );
 }
