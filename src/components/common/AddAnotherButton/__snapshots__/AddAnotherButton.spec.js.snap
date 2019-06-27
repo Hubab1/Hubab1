@@ -5,7 +5,7 @@ exports[`AddAnotherButton Matches snapshot 1`] = `
   role="button"
   style={
     Object {
-      "color": "#FFFFFF",
+      "color": "#2B44FF",
       "cursor": "pointer",
       "display": "inline-block",
     }
