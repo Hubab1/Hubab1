@@ -53,6 +53,48 @@ Create an Applicant in Chuck. Set an email and password and associate a client.
 
 You should use the applicant.set_password(raw_password) method to set a password on the applicant.
 
+### Styling with emotion
+
+This project uses emotion.js for styling. There are two ways to apply styling:
+
+1. Styled Components:
+```
+import styled from '@emotion/styled';
+
+export const H1 = styled.h1`
+    font-weight:600;
+    font-size:23px;
+    margin: 0 auto;
+`
+
+<H1>A big ol' heading</H1>
+```
+- Use this to create a React component with styling
+- Our convention is to use this for more common components used throughout the application
+    
+2. Pass css variables
+```
+import { css } from 'emotion';
+
+export const totalContainer = css`
+    background-color: rgba(86,186,130,0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    width: 100%;
+    position: relative;
+    left: -15px;
+    bottom: -15px;
+`
+
+<div className={totalContainer}>
+    { various other children here }
+</div>
+```
+- Use this to pass to pass styling to standard html elements or add additonal styling to a Styled Component
+- Our convention is to use css variables for styling specific to a page
+
+You can do a lot of other neat stuff with emotion.js like pass props and specific classnames. Check out the docs for more info: https://emotion.sh/docs/introduction
 
 ### Run Woodhouse
 
