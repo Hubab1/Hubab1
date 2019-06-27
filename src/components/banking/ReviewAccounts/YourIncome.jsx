@@ -10,7 +10,7 @@ import lightbulb from 'assets/images/lightbulb.png';
 import TextField from '@material-ui/core/TextField';
 import AddCircle from '@material-ui/icons/AddCircle'
 
-import { SpacedP, BoldP, Card, CardSection, addLink, iconRoot, total, incomeEntry, BottomAlignedP, requirements } from './styles'
+import { SpacedP, BoldP, Card, CardSection, addLink, iconRoot, total, incomeEntry, BottomAlignedP } from './styles'
 import { P } from 'assets/styles'
 
 const Bulb = styled.img`
@@ -57,7 +57,7 @@ function YourIncome (props) {
                         <Bulb alt="light bulb" src={lightbulb} />
                     </Grid>
                     <Grid item xs>
-                        <P>The total income required for all members of the application is {props.config.applicant_income_requirement}x the rent: $96,000</P>
+                        <P>{getRequirementText(props)}</P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
                     </Grid>
                 </Grid>
