@@ -82,9 +82,9 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        // if (this.state.reportData) {
-        return <ReviewAccountsPage reportData={this.state.reportData}/>;
-        // }
+        if (this.state.reportData) {
+            return <ReviewAccountsPage reportData={this.state.reportData}/>;
+        }
         if (this.state.showFinicityIframe) {
             return <div className={finicityContainer} id="finicity-container"/>;
         }
