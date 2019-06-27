@@ -6,6 +6,7 @@ import { cardContainer, totalContainer } from './styles';
 
 
 function YourAccountBalance (props) {
+    debugger;
     return (
         <div className={cardContainer}>
             <P bold>Your Account Balance</P>
@@ -14,14 +15,14 @@ function YourAccountBalance (props) {
             </P>
             <div className={totalContainer}>
                 <P bold>Total Account Balance</P>
-                <P bold>$82,838</P>
+                <P bold>{props.assetsBalance}</P>
             </div>
         </div>
     );
 }
 
 YourAccountBalance.propTypes = {
-    assetsData: PropTypes.object,
+    assetsBalance: PropTypes.object,
 }
 
 export default YourAccountBalance;

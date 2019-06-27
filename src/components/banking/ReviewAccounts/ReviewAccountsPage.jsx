@@ -6,7 +6,7 @@ import YourIncome from './YourIncome';
 import YourAccountBalance from './YourAccountBalance';
 import { BackLink } from 'components/common/BackLink';
 import { H1, SpacedH3 } from 'assets/styles';
-import { ROUTES, exampleFinicityJson } from 'app/constants';
+import { ROUTES } from 'app/constants';
 
 
 
@@ -17,12 +17,13 @@ export class ReviewAccountsPage extends React.Component {
     }
 
     render () {
+        console.log(this.props.reportData)
         return (
             <Fragment>
                 <H1>Compare Income & Assets</H1>
                 <SpacedH3>Just arrived: you bank account information. Please review below.</SpacedH3>
-                <YourIncome incomeData={exampleFinicityJson.voi}/>
-                <YourAccountBalance assetsData={exampleFinicityJson.voa}/>
+                <YourIncome incomeData={this.props.reportData.voi}/>
+                <YourAccountBalance assetsBalance={this.props.reportData.voa.assets.currentBalance}/>
                 <ActionButton onClick={this.confirmAccounts} marginTop="30px" marginBottom="20px">
                     Looks Good
                 </ActionButton>
