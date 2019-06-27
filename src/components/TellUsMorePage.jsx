@@ -61,7 +61,7 @@ export class TellUsMore extends React.Component {
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            <Grid container spacing={3}>
+                            <Grid container spacing={1}>
                                 <Grid item xs={12}>
                                     <FormTextInput
                                         label="Street Address"
@@ -119,7 +119,7 @@ export class TellUsMore extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton disabled={!values.street_address || !values.city || !values.state || !values.zip || !values.birthday || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!values.street_address || !values.city || !values.state || !values.zip || !values.birthday || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
