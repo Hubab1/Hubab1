@@ -7,7 +7,7 @@ import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, H3, P, Bold, linkRoot } from 'assets/styles';
+import { H1, H3, P, Bold, blackLinkRoot } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';  
 
@@ -48,7 +48,7 @@ const ConnectFinicity = props => {
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom="20px">
                 Link Bank Account
             </ActionButton>
-            <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={linkRoot}>Don't Want to Link?</Link>
+            <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link>
         </Fragment>
     );
 }
