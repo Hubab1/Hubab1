@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { ROUTES, REPORT_POLL_INTERVAL, exampleFinicityJson } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
@@ -10,6 +10,7 @@ import ConnectFinicity from './ConnectFinicity';
 const finicityContainer = css`
     height: 500px;
 `   
+
 
 export class ConnectBankPage extends React.Component {
     state = {
@@ -90,8 +91,7 @@ export class ConnectBankPage extends React.Component {
         if (this.state.loadingReport) {
             return <BankVerifying/>;
         }
-        return <ReviewAccountsPage 
-            reportData={exampleFinicityJson}
+        return <ConnectFinicity 
             loadingFinicityIframe={!!this.state.loadingFinicityIframe}
             openFinicityIframe={this.openFinicityIframe}
             errors={this.state.errors}

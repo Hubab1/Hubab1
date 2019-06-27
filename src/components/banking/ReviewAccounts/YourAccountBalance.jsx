@@ -6,7 +6,6 @@ import { cardContainer, totalContainer } from './styles';
 
 
 function YourAccountBalance (props) {
-    debugger;
     return (
         <div className={cardContainer}>
             <P bold>Your Account Balance</P>
@@ -22,7 +21,7 @@ function YourAccountBalance (props) {
 }
 
 YourAccountBalance.propTypes = {
-    assetsBalance: PropTypes.object,
+    assetsBalance: PropTypes.number,
 }
 
 export default YourAccountBalance;

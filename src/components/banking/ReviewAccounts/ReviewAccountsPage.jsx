@@ -17,12 +17,11 @@ export class ReviewAccountsPage extends React.Component {
     }
 
     render () {
-        console.log(this.props.reportData)
         return (
             <Fragment>
                 <H1>Compare Income & Assets</H1>
                 <SpacedH3>Just arrived: you bank account information. Please review below.</SpacedH3>
-                <YourIncome incomeData={this.props.reportData.voi}/>
+                <YourIncome incomeData={this.props.reportData.voi.institutions}/>
                 <YourAccountBalance assetsBalance={this.props.reportData.voa.assets.currentBalance}/>
                 <ActionButton onClick={this.confirmAccounts} marginTop="30px" marginBottom="20px">
                     Looks Good
