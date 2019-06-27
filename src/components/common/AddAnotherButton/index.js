@@ -15,7 +15,7 @@ const AddAnotherButton = withTheme((props) => (
         onClick={props.onClick}
     >
         <span style={{fontSize: props.fontSize}}>
-            <AddCircle style={{verticalAlign: 'middle', fontSize: props.fontSize + 5}} /> <span style={{verticalAlign: 'middle'}}>Add Another {props.thing}</span>
+            <AddCircle style={{verticalAlign: 'middle', fontSize: props.fontSize + 5}} /> <span style={{verticalAlign: 'middle'}}>{props.children ? props.children : `Add Another ${props.thing}`}</span>
         </span>
     </span>
 ));

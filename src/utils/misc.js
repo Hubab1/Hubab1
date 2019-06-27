@@ -9,3 +9,8 @@ export function hexToRGB(hex, alpha) {
         return "rgb(" + r + ", " + g + ", " + b + ")";
     }
 }
+
+export function formatCurrency(number) {
+    if (typeof number !== 'number') return '';
+    return '$' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
