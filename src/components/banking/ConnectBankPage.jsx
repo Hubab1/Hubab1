@@ -3,13 +3,13 @@ import { css } from 'emotion';
 import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
 import BankVerifying from './BankVerifying';
 import ConnectFinicity from './ConnectFinicity';
 
 const finicityContainer = css`
     height: 500px;
 `   
-
 
 export class ConnectBankPage extends React.Component {
     state = {
@@ -26,14 +26,17 @@ export class ConnectBankPage extends React.Component {
 
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
-            if (res.status === 'inProgress') return;
+            if (res.status === 202) return;
+            return res.json()
+        }).then( res => {
+            if (!res) return;
             clearInterval(window.fetchReportsInterval);
             this.setState({reportData: res})
         })
     }
 
 
-    openFinicityIframe = () => {
+    openFinicityIframe = () => {    
         this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
             this.setState({showFinicityIframe: true, errors: null}, 
@@ -78,7 +81,9 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        if (this.state.reportData) return <div>{JSON.stringify(this.state.reportData)}</div>
+        if (this.state.reportData) {
+            return <ReviewAccountsPage reportData={this.state.reportData}/>;
+        }
         if (this.state.showFinicityIframe) {
             return <div className={finicityContainer} id="finicity-container"/>;
         }

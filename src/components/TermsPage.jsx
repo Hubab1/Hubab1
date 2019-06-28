@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, TextReader, Bold } from 'assets/styles';
+import { H1, Bold } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
@@ -14,6 +15,18 @@ ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
 in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
 mollit anim id est laborum.`;
+
+export const TextReader = styled.div`
+    text-align: left;
+    background-color: rgba(238,238,238,0.4);
+    max-height: 350px;
+    overflow: auto;
+    padding: 20px;
+    color: #454B57;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+`
 
 export class TermsPage extends React.Component {
 
