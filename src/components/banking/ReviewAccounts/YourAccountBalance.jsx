@@ -3,21 +3,23 @@ import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
-import { cardContainer, totalContainer } from './styles';
+import { Card, CardSection, totalContainer } from './styles';
 
 
-function YourAccountBalance (props) {
+function YourAccountBalance () {
     return (
-        <div className={cardContainer}>
-            <P bold>Your Account Balance</P>
-            <P margin="20px 0">
-                Your total balance is shown below. It will be used to determine your eligibility to rent.
-            </P>
-            <div className={totalContainer}>
-                <P bold>Total Account Balance</P>
-                <P bold>{formatCurrency(props.assetsBalance)}</P>
-            </div>
-        </div>
+        <Card>
+            <CardSection>
+                <P bold>Your Account Balance</P>
+                <P margin="20px 0">
+                    Your total balance is shown below. It will be used to determine your eligibility to rent.
+                </P>
+                <div className={totalContainer}>
+                    <P bold>Total Account Balance</P>
+                    <P bold>{formatCurrency(props.assetsBalance)}</P>
+                </div>
+            </CardSection>
+        </Card>
     );
 }
 
