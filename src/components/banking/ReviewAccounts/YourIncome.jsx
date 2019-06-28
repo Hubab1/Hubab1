@@ -63,6 +63,7 @@ function YourIncome (props) {
                         <P>
                             {getRequirementText(props)}
                             <Tooltip
+                                enterTouchDelay={100}
                                 placement="top-end"
                                 title="Lorem ipsum"
                             >
