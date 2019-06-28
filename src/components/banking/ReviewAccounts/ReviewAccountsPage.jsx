@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import YourIncome from './YourIncome';
@@ -13,16 +14,18 @@ import { ROUTES } from 'app/constants';
 export class ReviewAccountsPage extends React.Component {
 
     confirmAccounts = () => {
-        console.log('do some stuff');
+        this.props.history.push({
+            pathname: ROUTES.APPLICATION_FEE, 
+        });
     }
 
     render () {
         return (
             <Fragment>
                 <H1>Compare Income & Assets</H1>
-                <SpacedH3>Just arrived: you bank account information. Please review below.</SpacedH3>
-                <YourIncome incomeData={this.props.reportData.voi.institutions}/>
-                <YourAccountBalance assetsBalance={this.props.reportData.voa.assets.currentBalance}/>
+                <SpacedH3>Just arrived: your bank account information. Please review below.</SpacedH3>
+                <YourIncome incomeData={get(this.props.reportData, 'voi.institutions', [])}/>
+                <YourAccountBalance assetsBalance={get(this.props.reportData, 'voa.assets.currentBalance')}/>
                 <ActionButton onClick={this.confirmAccounts} marginTop="30px" marginBottom="20px">
                     Looks Good
                 </ActionButton>

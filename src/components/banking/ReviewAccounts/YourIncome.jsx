@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import uuidv4 from 'uuid/v4';
 
+import { formatCurrency } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import { P } from 'assets/styles';
 import { cardContainer, totalContainer, incomeEntry } from './styles'
@@ -40,7 +41,7 @@ function YourIncome (props) {
             />
             <div className={totalContainer}>
                 <P bold>Total Income</P>
-                <P bold>{incomeDataObj['total']}</P>
+                <P bold>{formatCurrency(incomeDataObj['total'])}</P>
             </div>
         </div>
     );
@@ -61,7 +62,7 @@ const IncomeEntry = (props) => {
                 name="employer_one"
                 value={props.name}
             />
-            <P bottomAligned>{props.income}</P>
+            <P bottomAligned>{formatCurrency(props.income)}</P>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
+import { formatCurrency } from 'utils/misc';
 import { cardContainer, totalContainer } from './styles';
 
 
@@ -14,7 +15,7 @@ function YourAccountBalance (props) {
             </P>
             <div className={totalContainer}>
                 <P bold>Total Account Balance</P>
-                <P bold>{props.assetsBalance}</P>
+                <P bold>{formatCurrency(props.assetsBalance)}</P>
             </div>
         </div>
     );
