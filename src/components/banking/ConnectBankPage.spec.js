@@ -4,6 +4,12 @@ import { shallow } from 'enzyme';
 import { ConnectBankPage } from 'components/banking/ConnectBankPage';
 import API from 'app/api';
 
+beforeEach(() => {
+    global.finicityConnect = {
+        connectIFrame: jest.fn()
+    }
+})
+
 
 it('this.openFinicityIframe sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
     const wrapper = shallow(<ConnectBankPage/>);

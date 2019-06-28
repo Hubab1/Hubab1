@@ -1,12 +1,16 @@
 import { css } from 'emotion';
+import styled from '@emotion/styled';
 
-export const cardContainer = css`
+export const CardSection = styled.div`
+    padding: 15px;
+`
+
+export const Card = styled.div`
+    margin-bottom: 20px;
     border: 1px solid #EEEEEE;	
     border-radius: 5px;	
     box-shadow: 0 2px 4px 0 rgba(197,197,197,0.5);
     text-align: left;
-    padding: 15px;
-    margin-bottom: 20px;
 `
 
 export const totalContainer = css`

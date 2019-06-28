@@ -47,8 +47,7 @@ exports[`AddAnotherButton Matches snapshot 1`] = `
         }
       }
     >
-      Add Another 
-      Pet
+      Add Another Pet
     </span>
   </span>
 </span>
