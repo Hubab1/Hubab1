@@ -1,14 +1,5 @@
-import styled from '@emotion/styled';
 import { css } from 'emotion';
-import { P } from 'assets/styles';
-
-export const SpacedP = styled(P)`
-    margin: 20px 0;
-`
-
-export const BoldP = styled(P)`
-    font-weight: 600;
-`
+import styled from '@emotion/styled';
 
 export const CardSection = styled.div`
     padding: 15px;
@@ -22,18 +13,7 @@ export const Card = styled.div`
     text-align: left;
 `
 
-export const addLink = css`
-    color: #2B44FF;
-    font-size: 14px;
-    margin: 10px 0;
-`
-
-export const iconRoot = css`
-    height: 14px !important;
-    width: 14px !important;
-`
-
-export const total = css`
+export const totalContainer = css`
     background-color: rgba(86,186,130,0.1);
     display: flex;
     justify-content: space-between;
@@ -48,8 +28,4 @@ export const incomeEntry = css`
     display: flex;    
     justify-content: space-between;
     margin: 0 0 15px 0;
-`
-
-export const BottomAlignedP = styled(P)`
-    margin-top: auto;
 `

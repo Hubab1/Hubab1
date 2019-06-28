@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 import { Link } from 'react-router-dom';
 
-import { linkRoot } from 'assets/styles'
+import { blackLinkRoot } from 'assets/styles'
 
 
 const arrowIcon = css`
@@ -14,7 +14,7 @@ const arrowIcon = css`
 `
 
 export const BackLink = props => {
-    return <Link to={props.to} className={linkRoot}>
+    return <Link to={props.to} className={blackLinkRoot}>
         <ArrowBackIos classes={{root: arrowIcon}}/>Go Back 
     </Link>
 };

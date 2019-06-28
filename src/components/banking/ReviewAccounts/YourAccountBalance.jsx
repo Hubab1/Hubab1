@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { BoldP, SpacedP, Card, CardSection, total } from './styles';
+import { P } from 'assets/styles';
+import { Card, CardSection, totalContainer } from './styles';
 
 
-function YourAccountBalance (props) {
+function YourAccountBalance () {
     return (
         <Card>
             <CardSection>
-                <BoldP>Your Account Balance</BoldP>
-                <SpacedP>
+                <P bold>Your Account Balance</P>
+                <P margin="20px 0">
                     Your total balance is shown below. It will be used to determine your eligibility to rent.
-                </SpacedP>
-                <div className={total}>
-                    <BoldP>Total Account Balance</BoldP>
-                    <BoldP>$82,838</BoldP>
+                </P>
+                <div className={totalContainer}>
+                    <P bold>Total Account Balance</P>
+                    <P bold>$82,838</P>
                 </div>
             </CardSection>
         </Card>

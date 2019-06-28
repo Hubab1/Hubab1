@@ -11,7 +11,6 @@ const finicityContainer = css`
     height: 500px;
 `   
 
-
 export class ConnectBankPage extends React.Component {
     state = {
         showFinicityIframe: false, 

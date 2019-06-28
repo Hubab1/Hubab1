@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, Subtitle } from 'assets/styles';
+import { H1 } from 'assets/styles';
+
+export const Subtitle = styled.small`
+    color: #818797;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+`
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
