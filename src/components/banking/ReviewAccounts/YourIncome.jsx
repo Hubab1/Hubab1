@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
+import Info from '@material-ui/icons/Info';
 
 import { formatCurrency } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
@@ -58,7 +60,15 @@ function YourIncome (props) {
                         <Bulb alt="light bulb" src={lightbulb} />
                     </Grid>
                     <Grid item xs>
-                        <P>{getRequirementText(props)}</P>
+                        <P>
+                            {getRequirementText(props)}
+                            <Tooltip
+                                placement="top-end"
+                                title="Lorem ipsum"
+                            >
+                                <Info style={{color:'#00CAB1',width:'18px'}}/>
+                            </Tooltip>
+                        </P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
                     </Grid>
                 </Grid>
