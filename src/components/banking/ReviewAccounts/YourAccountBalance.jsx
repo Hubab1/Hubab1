@@ -6,7 +6,7 @@ import { formatCurrency } from 'utils/misc';
 import { Card, CardSection, totalContainer } from './styles';
 
 
-function YourAccountBalance () {
+function YourAccountBalance (props) {
     return (
         <Card>
             <CardSection>

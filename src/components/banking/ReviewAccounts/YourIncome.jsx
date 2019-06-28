@@ -9,7 +9,6 @@ import uuidv4 from 'uuid/v4';
 import { formatCurrency } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import lightbulb from 'assets/images/lightbulb.png';
-import TextField from '@material-ui/core/TextField';
 
 import { Card, CardSection, totalContainer, incomeEntry } from './styles'
 import { P } from 'assets/styles'
@@ -49,7 +48,7 @@ const getIncomeEntriesAndTotal = incomeData => {
                         key={uuidv4()}
                     />
                 );
-                incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
+                return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
             })
         })
     })
@@ -71,7 +70,7 @@ function YourIncome (props) {
                 />
                 <div className={totalContainer}>
                     <P bold>Total Income</P>
-                    <P bold>formatCurrency(incomeDataObj['total'])</P>
+                    <P bold>{formatCurrency(incomeDataObj['total'])}</P>
                 </div>
             </CardSection>
             <CardSection>
