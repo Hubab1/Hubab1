@@ -67,14 +67,14 @@ selectors.selectOrderedRoutes = createSelector(
                     addedRoutes.push(ROUTES[key.toUpperCase()]);
                 }
             })
-            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE])
+            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK])
         }
     }
 );
 
 
 const routeMapping = (profile) => ({
-    [ROUTES.TELL_US_MORE]: true,
+    [ROUTES.TELL_US_MORE]: false,
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
     [ROUTES.CO_APPLICANTS]: !profile.co_applicants,
     [ROUTES.GUARANTOR]: !profile.guarantors,

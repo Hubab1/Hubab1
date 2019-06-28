@@ -78,7 +78,7 @@ export class ForgotPasswordPage extends React.Component {
                                     error={submitCount > 0 && !!errors.phone}
                                     helperText={submitCount > 0 ? errors.phone : null}
                                 />
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="20px">
+                                <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={20}>
                                     Send Text
                                 </ActionButton>
                                 <BackLink to={ROUTES.LOGIN}/>

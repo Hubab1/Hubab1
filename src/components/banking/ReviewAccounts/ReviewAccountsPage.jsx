@@ -23,7 +23,7 @@ export class ReviewAccountsPage extends React.Component {
                 <SpacedH3>Just arrived: you bank account information. Please review below.</SpacedH3>
                 <YourIncome incomeData={exampleFinicityJson.voi}/>
                 <YourAccountBalance assetsData={exampleFinicityJson.voa}/>
-                <ActionButton onClick={this.confirmAccounts} marginTop="30px" marginBottom="20px">
+                <ActionButton onClick={this.confirmAccounts} marginTop={30} marginBottom={20}>
                     Looks Good
                 </ActionButton>
                 <BackLink to={ROUTES.CONNECT_BANK}/>

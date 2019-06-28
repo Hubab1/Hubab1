@@ -66,7 +66,7 @@ function YourIncome (props) {
                                 placement="top-end"
                                 title="Lorem ipsum"
                             >
-                                <Info style={{color:'#00CAB1',width:'18px'}}/>
+                                <Info style={{color:'#828796',width:14}}/>
                             </Tooltip>
                         </P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
