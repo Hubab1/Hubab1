@@ -38,7 +38,7 @@ function MultiSelectChoice (props) {
 
 MultiSelectChoice.propTypes = {
     _selected: PropTypes.bool,
-    prefix: PropTypes.string,
+    prefix: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     label: PropTypes.string
 }
 

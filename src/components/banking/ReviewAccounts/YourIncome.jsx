@@ -36,6 +36,7 @@ export const getRequirementText = props => {
 }
 
 function YourIncome (props) {
+    if (!props.profile || !props.config) return null;
     return (
         <Card>
             <CardSection>
