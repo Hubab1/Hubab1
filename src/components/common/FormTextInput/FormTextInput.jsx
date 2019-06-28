@@ -48,9 +48,12 @@ export default function FormTextInput (props) {
             helperText={fieldHelperText}
             label={label}
             classes={ {root} }
-            type={type === 'text' || showPassword ? 'text' : 'password'}
+            type={type !== 'password' || showPassword ? type : 'password'}
             name={name}
             fullWidth
+            InputLabelProps={{
+                shrink: type === 'date' ? true : undefined,
+            }}
             onChange={handleChange}
             onBlur={handleBlur}
             value={value}
@@ -60,7 +63,7 @@ export default function FormTextInput (props) {
 }
 
 FormTextInput.propTypes = {
-    type: PropTypes.oneOf(['text', 'password', 'tel']),
+    type: PropTypes.oneOf(['text', 'password', 'tel', 'date']),
     error: PropTypes.string,
     handleChange: PropTypes.func,
     handleBlur: PropTypes.func,
