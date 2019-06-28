@@ -31,7 +31,6 @@ export class ConnectBankPage extends React.Component {
             return res.json()
         }).then( res => {
             if (!res) return;
-            console.log('report received and set to state')
             clearInterval(window.fetchReportsInterval);
             this.setState({reportData: res})
         })
@@ -46,10 +45,7 @@ export class ConnectBankPage extends React.Component {
                     selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     success: (data) => {    
-                        console.log('success')
-                        // for testing - fake bank = finbank; fake bank creds= user:demo pw:go 
-                        // example data:
-                        // {success: true, reasonCode: "OK"}
+                        // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:user_2
                         if (!!data.success) {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
                             API.generateFinicityReports().then( (res) => {
@@ -66,12 +62,9 @@ export class ConnectBankPage extends React.Component {
                         }
                     },
                     cancel: () => {
-                        console.log('The user cancelled the iframe');
-                        // for some reason, this setState isn't defined here and errors out... thoughts?
                         this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
                     },
                     error: (err) => {
-                        console.error('Some runtime error was generated during Finicity Connect', err);
                         this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.'], loadingFinicityIframe: false});
                     },
                     loaded: () => {

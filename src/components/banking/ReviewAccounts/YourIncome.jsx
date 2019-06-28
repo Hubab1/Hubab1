@@ -38,14 +38,14 @@ export const getRequirementText = props => {
 
 const getIncomeEntriesAndTotal = incomeData => {
     const incomeDataObj = {'entries': [], 'total': 0}
-    incomeData.map(bank => {
-        return bank.accounts.map(account => {
-            return account.incomeStreams.map((income) => {
+    incomeData.forEach(bank => {
+        return bank.accounts.forEach(account => {
+            return account.incomeStreams.forEach((income) => {
                 incomeDataObj['entries'].push(
                     <IncomeEntry 
                         name={income.name}
                         income={income.projectedGrossAnnual} 
-                        key={uuidv4()}
+                        key={income.id}
                     />
                 );
                 return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
@@ -56,14 +56,14 @@ const getIncomeEntriesAndTotal = incomeData => {
 }
 
 function YourIncome (props) {
-    const incomeDataObj = getIncomeEntriesAndTotal(props.incomeData);
     if (!props.profile || !props.config) return null;
+    const incomeDataObj = getIncomeEntriesAndTotal(props.incomeData);
     return (
         <Card>
             <CardSection>
                 <P bold>Your Income</P>
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
-                <IncomeEntry/>
+                {incomeDataObj['entries']}
                 <AddAnotherButton
                     thing="income source manually"
                     onClick={() => console.log('clickety-clack')}
