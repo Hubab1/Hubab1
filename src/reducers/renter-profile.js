@@ -1,9 +1,11 @@
 import { createSlice } from 'redux-starter-kit';
+import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import API from 'app/api';
+
+import API, { MOCKY } from 'app/api';
 import { BASE_ROUTES, ROUTES } from 'app/constants';
-import uuidv4 from 'uuid/v4';
+import mock from './mock-profile';
 
 const renterProfile = createSlice({
     slice: 'renterProfile',
@@ -32,7 +34,12 @@ export default reducer;
 
 export const fetchRenterProfile = () => {
     return async dispatch => {
-        const profile = await API.fetchRenterProfile();
+        let profile;
+        if (MOCKY) {
+            profile = mock;
+        } else {
+            profile = await API.fetchRenterProfile();
+        }
         dispatch(renterProfileReceived(profile));
         return profile;
     }
@@ -41,6 +48,13 @@ export const fetchRenterProfile = () => {
 
 export const updateRenterProfile = (newData) => {
     return dispatch => {
+        if (MOCKY) {
+            dispatch({
+                type: renterProfileUpdated.toString(),
+                payload: newData
+            });
+            return Promise.resolve({});
+        }
         return API.patchApplication(newData).then(res => {
             if (res.errors) {
                 return res

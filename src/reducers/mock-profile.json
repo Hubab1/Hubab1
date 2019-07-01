@@ -1,0 +1,30 @@
+{
+    "lease_term": null,
+    "lease_settings": 2,
+    "selected_rental_options": [
+        "pets"
+    ],
+    "lease_start_date": null,
+    "primary_applicant": {
+        "phone_number": "(111) 111-1111",
+        "first_name": "frank",
+        "last_name": "underwood",
+        "id": 19,
+        "client":
+            {
+                "person": {
+                    "id": 351422,
+                    "email": "johnjenkins@nestio.com",
+                    "name": "frank underwood",
+                    "phone_1": "(111) 111-1111"},
+                    "id": 341686
+                },
+                "email": "johnjenkins@nestio.com"
+            },
+            "rent": null,
+            "pets": null,
+            "co_applicants": [],
+            "id": 17,
+            "unit": null,
+            "lease_end_date": null
+    }

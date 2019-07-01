@@ -1,5 +1,5 @@
 import history from 'app/history';
-import API from 'app/api';
+import API, { MOCKY } from 'app/api';
 
 // token auth service loosely based on the authentication service exemplified here: https://medium.appbase.io/how-to-implement-authentication-for-your-react-app-cf09eef3bb0b
 class Auth {
@@ -12,6 +12,9 @@ class Auth {
         });
     }
     login = (email, password, communityId) => {
+        if (MOCKY) {
+            return Promise.resolve({token: 'FAKETOKEN'})
+        }
         return API.login(email, password, communityId).then((res) => {
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
