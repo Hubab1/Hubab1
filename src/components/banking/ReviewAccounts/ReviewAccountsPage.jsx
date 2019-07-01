@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import YourIncome from './YourIncome';
