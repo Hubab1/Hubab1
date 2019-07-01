@@ -93,7 +93,7 @@ export class RentalProfileOptions extends React.Component {
                                     />
                                 ))}
                             </MultiSelect>
-                            <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="10px">Continue</ActionButton>
+                            <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={10}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>

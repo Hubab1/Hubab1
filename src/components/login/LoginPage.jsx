@@ -94,7 +94,7 @@ export class LoginPage extends React.Component {
                                 </div>
                                 <div>
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="50px">
+                                <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={50}>
                                     Sign In
                                 </ActionButton>
                                 <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>

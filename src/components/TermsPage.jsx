@@ -60,7 +60,7 @@ export class TermsPage extends React.Component {
                     <div>Please {LOREM}</div>
                 </TextReader>
                 <br/>
-                <ActionButton onClick={this.handleClickNext} marginTop="20px" marginBottom="10px">
+                <ActionButton onClick={this.handleClickNext} marginTop={20} marginBottom={10}>
                     Agree and Continue
                 </ActionButton>
             </Fragment>
