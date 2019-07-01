@@ -45,7 +45,7 @@ export class ConnectBankPage extends React.Component {
                     selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     success: (data) => {    
-                        // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:user_2
+                        // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
                         if (!!data.success) {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
                             API.generateFinicityReports().then( (res) => {
