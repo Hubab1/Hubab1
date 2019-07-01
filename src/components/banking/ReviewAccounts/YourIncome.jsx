@@ -104,7 +104,7 @@ const IncomeEntry = (props) => {
         <div className={incomeEntry}>
             <TextField
                 label="Employer Name"
-                name="employer_name"
+                name={`employer_name_${props.key}`}
                 value={props.name}
             />
             <P bottomAligned>{formatCurrency(props.income)}</P>
@@ -115,5 +115,6 @@ const IncomeEntry = (props) => {
 YourIncome.propTypes = {
     name: PropTypes.string,
     income: PropTypes.number,
+    key: PropTypes.string,
 }
 
