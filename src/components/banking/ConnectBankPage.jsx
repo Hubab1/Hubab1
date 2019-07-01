@@ -20,9 +20,7 @@ export class ConnectBankPage extends React.Component {
         errors: null, 
         loadingFinicityIframe: false, 
         loadingReport: false, 
-        incomeEntries: [],
-        incomeTotal: 0,
-        assetsTotal: 0,
+        reportData: null,
     }
 
     componentWillUnmount () {
@@ -33,23 +31,22 @@ export class ConnectBankPage extends React.Component {
         const assetsData = get(reportData, 'voa.assets.currentBalance');
         const incomeData = get(reportData, 'voi.institutions', []);
 
-        const incomeDataObj = {'entries': [], 'total': 0}
+        const incomeDataObj = {'incomeEntries': [], 'incomeTotal': 0}
         incomeData.forEach(bank => {
             return bank.accounts.forEach(account => {
                 return account.incomeStreams.forEach((income) => {
-                    incomeDataObj['entries'].push({                         
+                    incomeDataObj['incomeEntries'].push({                         
                         name: income.name,
                         income: income.projectedGrossAnnual,
                         id: income.id,
                     });
-                    return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
+                    return incomeDataObj['incomeTotal'] = incomeDataObj['incomeTotal'] + income.projectedGrossAnnual
                 })
             })
         })
+        incomeDataObj.assetsTotal = assetsData;
         this.setState({
-            incomeEntries: incomeDataObj['entries'], 
-            incomeTotal: incomeDataObj['total'],
-            assetsTotal: assetsData,
+            reportData: incomeDataObj, 
         })
     }
     
@@ -105,15 +102,11 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        if (
-                this.state.incomeEntries.length > 0 || 
-                this.state.incomeTotal > 0 || 
-                this.state.assetsTotal > 0
-            ) {
+        if (!!this.state.reportData ) {
             return <ReviewAccountsPage 
-                incomeEntries={this.state.incomeEntries}
-                incomeTotal={this.state.incomeTotal}
-                assetsTotal={this.state.assetsTotal}
+                incomeEntries={this.state.reportData.incomeEntries}
+                incomeTotal={this.state.reportData.incomeTotal}
+                assetsTotal={this.state.reportData.assetsTotal}
                 history={this.props.history}
             />;
         }

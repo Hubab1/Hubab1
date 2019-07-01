@@ -51,7 +51,7 @@ function YourIncome (props) {
                             name={entry.name}
                             income={entry.income} 
                             key={entry.id}
-                            incomeKey={entry.id}
+                            id={entry.id}
                         />
                     })
                 }
@@ -105,7 +105,7 @@ const IncomeEntry = (props) => {
         <div className={incomeEntry}>
             <TextField
                 label="Employer Name"
-                name={`employer_name_${props.incomeKey}`}
+                name={`employer_name_${props.id}`}
                 value={props.name}
             />
             <P bottomAligned>{formatCurrency(props.income)}</P>
@@ -116,6 +116,6 @@ const IncomeEntry = (props) => {
 YourIncome.propTypes = {
     name: PropTypes.string,
     income: PropTypes.number,
-    incomeKey: PropTypes.string,
+    id: PropTypes.string,
 }
 

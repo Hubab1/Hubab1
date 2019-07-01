@@ -83,7 +83,7 @@ it('this.parseReportData updates state with correct data', () => {
     ];
     wrapper.instance().parseReportData(reportData);
 
-    expect(wrapper.state().incomeEntries).toEqual(expectedIncomeEntries);    
-    expect(wrapper.state().incomeTotal).toEqual(7618);    
-    expect(wrapper.state().assetsTotal).toEqual(38362.3);    
+    expect(wrapper.state().reportData.incomeEntries).toEqual(expectedIncomeEntries);    
+    expect(wrapper.state().reportData.incomeTotal).toEqual(7618);    
+    expect(wrapper.state().reportData.assetsTotal).toEqual(38362.3);    
 })
