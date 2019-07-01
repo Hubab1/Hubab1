@@ -30,6 +30,7 @@ export class ConnectBankPage extends React.Component {
     }
 
     parseReportData = reportData => {
+        debugger;
         const assetsData = get(reportData, 'voa.assets.currentBalance');
         const incomeData = get(reportData, 'voi.institutions', []);
 
@@ -47,6 +48,7 @@ export class ConnectBankPage extends React.Component {
                 })
             })
         })
+        debugger;
         this.setState({
             incomeEntries: incomeDataObj['entries'], 
             incomeTotal: incomeDataObj['total'],
