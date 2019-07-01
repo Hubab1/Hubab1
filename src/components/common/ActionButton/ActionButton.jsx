@@ -29,7 +29,7 @@ ActionButton.propTypes = {
     color: PropTypes.string,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
-    marginTop: PropTypes.string,
+    marginTop: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     marginBottom: PropTypes.string,
     variant: PropTypes.string,
 }

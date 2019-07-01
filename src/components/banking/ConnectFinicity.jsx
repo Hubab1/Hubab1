@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, H3, P, Bold, blackLinkRoot } from 'assets/styles';
-import { ROUTES } from 'app/constants';
+import { H1, H3, P, Bold } from 'assets/styles';
+// import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';  
 
 const SpacedH3 = styled(H3)`
