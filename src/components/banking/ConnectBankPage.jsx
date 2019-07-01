@@ -20,7 +20,7 @@ export class ConnectBankPage extends React.Component {
         errors: null, 
         loadingFinicityIframe: false, 
         loadingReport: false, 
-        reportData: null,
+        reportData: {incomeEntries: []},
     }
 
     componentWillUnmount () {
@@ -108,6 +108,7 @@ export class ConnectBankPage extends React.Component {
                 incomeTotal={this.state.reportData.incomeTotal}
                 assetsTotal={this.state.reportData.assetsTotal}
                 history={this.props.history}
+                resetReportData={() => this.setState({reportData: null})}
             />;
         }
         if (this.state.showFinicityIframe) {

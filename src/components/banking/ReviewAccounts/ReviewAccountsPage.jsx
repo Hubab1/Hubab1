@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import YourIncome from './YourIncome';
 import YourAccountBalance from './YourAccountBalance';
-import { BackLink } from 'components/common/BackLink';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 
@@ -16,6 +15,10 @@ export class ReviewAccountsPage extends React.Component {
         this.props.history.push({
             pathname: ROUTES.APPLICATION_FEE, 
         });
+    }
+
+    onClick = () => {
+        this.props.resetReportData();
     }
 
     render () {
@@ -31,7 +34,7 @@ export class ReviewAccountsPage extends React.Component {
                 <ActionButton onClick={this.confirmAccounts} marginTop={30} marginBottom={20}>
                     Looks Good
                 </ActionButton>
-                <BackLink to={ROUTES.CONNECT_BANK}/>
+                <span onClick={this.onClick}>Start Income Verification Over Again</span>
             </Fragment>
         );
     }
