@@ -46,6 +46,7 @@ const getIncomeEntriesAndTotal = incomeData => {
                         name={income.name}
                         income={income.projectedGrossAnnual} 
                         key={income.id}
+                        incomeKey={income.id}
                     />
                 );
                 return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
@@ -104,7 +105,7 @@ const IncomeEntry = (props) => {
         <div className={incomeEntry}>
             <TextField
                 label="Employer Name"
-                name={`employer_name_${props.key}`}
+                name={`employer_name_${props.incomeKey}`}
                 value={props.name}
             />
             <P bottomAligned>{formatCurrency(props.income)}</P>
@@ -115,6 +116,6 @@ const IncomeEntry = (props) => {
 YourIncome.propTypes = {
     name: PropTypes.string,
     income: PropTypes.number,
-    key: PropTypes.string,
+    incomeKey: PropTypes.string,
 }
 
