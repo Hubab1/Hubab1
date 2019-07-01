@@ -1,5 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
+import get from 'lodash/get';
+
 import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -11,18 +13,43 @@ const finicityContainer = css`
     height: 500px;
 `   
 
+
 export class ConnectBankPage extends React.Component {
     state = {
         showFinicityIframe: false, 
         errors: null, 
         loadingFinicityIframe: false, 
         loadingReport: false, 
-        reportData: null
+        reportData: null,
     }
 
     componentWillUnmount () {
         clearInterval(window.fetchReportsInterval);
     }
+
+    parseReportData = reportData => {
+        const assetsData = get(reportData, 'voa.assets.currentBalance');
+        const incomeData = get(reportData, 'voi.institutions', []);
+
+        const incomeDataObj = {'incomeEntries': [], 'incomeTotal': 0}
+        incomeData.forEach(bank => {
+            return bank.accounts.forEach(account => {
+                return account.incomeStreams.forEach((income) => {
+                    incomeDataObj['incomeEntries'].push({                         
+                        name: income.name,
+                        income: income.projectedGrossAnnual,
+                        id: income.id,
+                    });
+                    return incomeDataObj['incomeTotal'] = incomeDataObj['incomeTotal'] + income.projectedGrossAnnual
+                })
+            })
+        })
+        incomeDataObj.assetsTotal = assetsData;
+        this.setState({
+            reportData: incomeDataObj, 
+        })
+    }
+    
 
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
@@ -31,7 +58,7 @@ export class ConnectBankPage extends React.Component {
         }).then( res => {
             if (!res) return;
             clearInterval(window.fetchReportsInterval);
-            this.setState({reportData: res})
+            this.parseReportData(res);
         })
     }
 
@@ -44,10 +71,7 @@ export class ConnectBankPage extends React.Component {
                     selector: '#finicity-container',
                     overlay: "rgba(255,255,255, 0)",
                     success: (data) => {    
-                        console.log('success')
-                        // for testing - fake bank = finbank; fake bank creds= user:demo pw:go 
-                        // example data:
-                        // {success: true, reasonCode: "OK"}
+                        // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
                         if (!!data.success) {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
                             API.generateFinicityReports().then( (res) => {
@@ -64,12 +88,9 @@ export class ConnectBankPage extends React.Component {
                         }
                     },
                     cancel: () => {
-                        console.log('The user cancelled the iframe');
-                        // for some reason, this setState isn't defined here and errors out... thoughts?
                         this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
                     },
                     error: (err) => {
-                        console.error('Some runtime error was generated during Finicity Connect', err);
                         this.setState({showFinicityIframe: false, errors: ['There was an error attempting to get your records. Please try again.'], loadingFinicityIframe: false});
                     },
                     loaded: () => {
@@ -81,8 +102,13 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        if (this.state.reportData) {
-            return <ReviewAccountsPage reportData={this.state.reportData}/>;
+        if (!!this.state.reportData ) {
+            return <ReviewAccountsPage 
+                incomeEntries={this.state.reportData.incomeEntries}
+                incomeTotal={this.state.reportData.incomeTotal}
+                assetsTotal={this.state.reportData.assetsTotal}
+                history={this.props.history}
+            />;
         }
         if (this.state.showFinicityIframe) {
             return <div className={finicityContainer} id="finicity-container"/>;

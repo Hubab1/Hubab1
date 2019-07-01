@@ -6,23 +6,28 @@ import YourIncome from './YourIncome';
 import YourAccountBalance from './YourAccountBalance';
 import { BackLink } from 'components/common/BackLink';
 import { H1, SpacedH3 } from 'assets/styles';
-import { ROUTES, exampleFinicityJson } from 'app/constants';
+import { ROUTES } from 'app/constants';
 
 
 
 export class ReviewAccountsPage extends React.Component {
 
     confirmAccounts = () => {
-        console.log('do some stuff');
+        this.props.history.push({
+            pathname: ROUTES.APPLICATION_FEE, 
+        });
     }
 
     render () {
         return (
             <Fragment>
                 <H1>Compare Income & Assets</H1>
-                <SpacedH3>Just arrived: you bank account information. Please review below.</SpacedH3>
-                <YourIncome incomeData={exampleFinicityJson.voi}/>
-                <YourAccountBalance assetsData={exampleFinicityJson.voa}/>
+                <SpacedH3>Just arrived: your bank account information. Please review below.</SpacedH3>
+                <YourIncome
+                    incomeEntries={this.props.incomeEntries}
+                    incomeTotal={this.props.incomeTotal}
+                />
+                <YourAccountBalance assetsBalance={this.props.assetsTotal}/>
                 <ActionButton onClick={this.confirmAccounts} marginTop={30} marginBottom={20}>
                     Looks Good
                 </ActionButton>
@@ -33,7 +38,9 @@ export class ReviewAccountsPage extends React.Component {
 }
 
 ReviewAccountsPage.propTypes = {
-    reportData: PropTypes.object,
+    incomeEntries: PropTypes.array,
+    incomeTotal: PropTypes.number,
+    assetsTotal: PropTypes.number,
 }
 
 export default ReviewAccountsPage;

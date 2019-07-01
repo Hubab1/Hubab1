@@ -33,5 +33,57 @@ it('this.handleFetchReports calls API.fetchFinicityReports and setState on succe
     API.fetchFinicityReports = jest.fn().mockReturnValue(Promise.resolve(data));
 
     wrapper.instance().handleFetchReports();
-    expect(API.fetchFinicityReports).toHaveBeenCalled();    
+    expect(API.fetchFinicityReports).toHaveBeenCalled();  
+})
+
+
+it('this.parseReportData updates state with correct data', () => {
+    const reportData = {
+        voa: {
+            assets: {
+                beginningBalance: 36942.3,
+                currentBalance: 38362.3,
+                sixMonthAverage: 37537.88,
+                twoMonthAverage: 37843.94,
+            },
+        },
+        voi: {
+            institutions: [{
+                accounts: [{
+                    incomeStreams: [
+                        { 
+                            name: 'employer 1',
+                            projectedGrossAnnual: 6384,
+                            id: 'dkfjdsf-1',
+                        },
+                        { 
+                            name: 'employer 2',
+                            projectedGrossAnnual: 1234,
+                            id: 'dkfjdsf-2',
+                        }
+                    ]
+                }]
+
+            }]
+        }
+    }
+    const wrapper = shallow(<ConnectBankPage/>);
+
+    const expectedIncomeEntries = [
+        { 
+            name: 'employer 1',
+            income: 6384,
+            id: 'dkfjdsf-1',
+        },
+        { 
+            name: 'employer 2',
+            income: 1234,
+            id: 'dkfjdsf-2',
+        }
+    ];
+    wrapper.instance().parseReportData(reportData);
+
+    expect(wrapper.state().reportData.incomeEntries).toEqual(expectedIncomeEntries);    
+    expect(wrapper.state().reportData.incomeTotal).toEqual(7618);    
+    expect(wrapper.state().reportData.assetsTotal).toEqual(38362.3);    
 })

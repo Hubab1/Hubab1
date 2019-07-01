@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
+import { formatCurrency } from 'utils/misc';
 import { Card, CardSection, totalContainer } from './styles';
 
 
-function YourAccountBalance () {
+function YourAccountBalance (props) {
     return (
         <Card>
             <CardSection>
@@ -15,7 +16,7 @@ function YourAccountBalance () {
                 </P>
                 <div className={totalContainer}>
                     <P bold>Total Account Balance</P>
-                    <P bold>$82,838</P>
+                    <P bold>{formatCurrency(props.assetsBalance)}</P>
                 </div>
             </CardSection>
         </Card>
@@ -23,7 +24,7 @@ function YourAccountBalance () {
 }
 
 YourAccountBalance.propTypes = {
-    assetsData: PropTypes.object,
+    assetsBalance: PropTypes.number,
 }
 
 export default YourAccountBalance;
