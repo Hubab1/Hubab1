@@ -29,7 +29,7 @@ export class ReviewAccountsPage extends React.Component {
                     incomeTotal={this.props.incomeTotal}
                 />
                 <YourAccountBalance assetsBalance={this.props.assetsTotal}/>
-                <ActionButton onClick={this.confirmAccounts} marginTop="30px" marginBottom="20px">
+                <ActionButton onClick={this.confirmAccounts} marginTop={30} marginBottom={20}>
                     Looks Good
                 </ActionButton>
                 <BackLink to={ROUTES.CONNECT_BANK}/>

@@ -24,10 +24,10 @@ export default function ConfirmationPage (props) {
                     <img src={confirmationImage} alt="confirmation"/> 
                 </ImageContainer>
             }
-            <ActionButton marginTop="30px" onClick={buttonClick}>{buttonText}</ActionButton>
+            <ActionButton marginTop={30} onClick={buttonClick}>{buttonText}</ActionButton>
             { 
                 secondaryButtonClick && 
-                <ActionButton marginTop="15px" onClick={secondaryButtonClick} variant="outlined">
+                <ActionButton marginTop={15} onClick={secondaryButtonClick} variant="outlined">
                     {secondaryButtonText}
                 </ActionButton> }
         </Fragment>

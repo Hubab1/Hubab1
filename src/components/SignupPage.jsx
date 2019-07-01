@@ -116,7 +116,7 @@ export class SignupPage extends React.Component {
                                     showValidationText
                                     touched={touched && touched.password}
                                 />
-                                <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop="20px" marginBottom="20px">Create Account</ActionButton>
+                                <ActionButton disabled={!values.email || !values.password || !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop={20} marginBottom={20}>Create Account</ActionButton>
                             </div>
                             <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
                         </form>

@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Info from '@material-ui/icons/Info';
 
 import { formatCurrency } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
@@ -45,6 +47,7 @@ function YourIncome (props) {
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
                 {
                     props.incomeEntries.map( entry => {
+                        debugger;
                         return <IncomeEntry 
                             name={entry.name}
                             income={entry.income} 
@@ -68,7 +71,16 @@ function YourIncome (props) {
                         <Bulb alt="light bulb" src={lightbulb} />
                     </Grid>
                     <Grid item xs>
-                        <P>{getRequirementText(props)}</P>
+                        <P>
+                            {getRequirementText(props)}
+                            <Tooltip
+                                enterTouchDelay={100}
+                                placement="top-end"
+                                title="Lorem ipsum"
+                            >
+                                <Info style={{color:'#828796',width:14}}/>
+                            </Tooltip>
+                        </P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
                     </Grid>
                 </Grid>

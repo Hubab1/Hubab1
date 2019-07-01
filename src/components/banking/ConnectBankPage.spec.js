@@ -73,14 +73,12 @@ it('this.parseReportData updates state with correct data', () => {
         { 
             name: 'employer 1',
             income: 6384,
-            incomeKey: 'dkfjdsf-1',
-            key: 'dkfjdsf-1',
+            id: 'dkfjdsf-1',
         },
         { 
             name: 'employer 2',
             income: 1234,
-            incomeKey: 'dkfjdsf-2',
-            key: 'dkfjdsf-2',
+            id: 'dkfjdsf-2',
         }
     ];
     wrapper.instance().parseReportData(reportData);

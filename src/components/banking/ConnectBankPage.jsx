@@ -40,8 +40,7 @@ export class ConnectBankPage extends React.Component {
                     incomeDataObj['entries'].push({                         
                         name: income.name,
                         income: income.projectedGrossAnnual,
-                        key: income.id,
-                        incomeKey: income.id,
+                        id: income.id,
                     });
                     return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
                 })

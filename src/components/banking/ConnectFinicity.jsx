@@ -45,7 +45,7 @@ const ConnectFinicity = props => {
                 </div>
             </div>
             {!!props.errors && <GenericFormError errors={props.errors}/>}
-            <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom="20px">
+            <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>
             {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}

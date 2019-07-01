@@ -25,7 +25,7 @@ export class ManualIncomeEntryPage extends React.Component {
                     Enter income and employment information and upload required documents. 
                     This method is preferred if you freelance or have an irregular income stream.
                 </P>
-                <ActionButton onClick={this.linkBankAccount} marginTop="30px" marginBottom="20px">
+                <ActionButton onClick={this.linkBankAccount} marginTop={30} marginBottom={20}>
                     Enter Info Manually
                 </ActionButton>
                 <BackLink to={ROUTES.CONNECT_BANK}/>
