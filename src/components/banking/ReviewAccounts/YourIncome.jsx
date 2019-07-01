@@ -35,42 +35,31 @@ export const getRequirementText = props => {
     }
 }
 
-const getIncomeEntriesAndTotal = incomeData => {
-    const incomeDataObj = {'entries': [], 'total': 0}
-    incomeData.forEach(bank => {
-        return bank.accounts.forEach(account => {
-            return account.incomeStreams.forEach((income) => {
-                incomeDataObj['entries'].push(
-                    <IncomeEntry 
-                        name={income.name}
-                        income={income.projectedGrossAnnual} 
-                        key={income.id}
-                        incomeKey={income.id}
-                    />
-                );
-                return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
-            })
-        })
-    })
-    return incomeDataObj;
-}
 
 function YourIncome (props) {
     if (!props.profile || !props.config) return null;
-    const incomeDataObj = getIncomeEntriesAndTotal(props.incomeData);
     return (
         <Card>
             <CardSection>
                 <P bold>Your Income</P>
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
-                {incomeDataObj['entries']}
+                {
+                    props.incomeEntries.map( entry => {
+                        return <IncomeEntry 
+                            name={entry.name}
+                            income={entry.income} 
+                            key={entry.id}
+                            incomeKey={entry.id}
+                        />
+                    })
+                }
                 <AddAnotherButton
                     thing="income source manually"
                     onClick={() => console.log('clickety-clack')}
                 />
                 <div className={totalContainer}>
                     <P bold>Total Income</P>
-                    <P bold>{formatCurrency(incomeDataObj['total'])}</P>
+                    <P bold>{formatCurrency(props.incomeTotal)}</P>
                 </div>
             </CardSection>
             <CardSection>
@@ -95,7 +84,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(YourIncome);
 
 YourIncome.propTypes = {
-    incomeData: PropTypes.object,
+    incomeEntries: PropTypes.array,
+    incomeTotal: PropTypes.number,
 }
 
 

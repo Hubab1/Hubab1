@@ -1,5 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
+import get from 'lodash/get';
+
 import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -18,12 +20,40 @@ export class ConnectBankPage extends React.Component {
         errors: null, 
         loadingFinicityIframe: false, 
         loadingReport: false, 
-        reportData: null
+        incomeEntries: [],
+        incomeTotal: 0,
+        assetsTotal: 0,
     }
 
     componentWillUnmount () {
         clearInterval(window.fetchReportsInterval);
     }
+
+    parseReportData = reportData => {
+        const assetsData = get(reportData, 'voa.assets.currentBalance');
+        const incomeData = get(reportData, 'voi.institutions', []);
+
+        const incomeDataObj = {'entries': [], 'total': 0}
+        incomeData.forEach(bank => {
+            return bank.accounts.forEach(account => {
+                return account.incomeStreams.forEach((income) => {
+                    incomeDataObj['entries'].push({                         
+                        name: income.name,
+                        income: income.projectedGrossAnnual,
+                        key: income.id,
+                        incomeKey: income.id,
+                    });
+                    return incomeDataObj['total'] = incomeDataObj['total'] + income.projectedGrossAnnual
+                })
+            })
+        })
+        this.setState({
+            incomeEntries: incomeDataObj['entries'], 
+            incomeTotal: incomeDataObj['total'],
+            assetsTotal: assetsData,
+        })
+    }
+    
 
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
@@ -32,7 +62,7 @@ export class ConnectBankPage extends React.Component {
         }).then( res => {
             if (!res) return;
             clearInterval(window.fetchReportsInterval);
-            this.setState({reportData: res})
+            this.parseReportData(res);
         })
     }
 
@@ -76,9 +106,15 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
-        if (this.state.reportData) {
+        if (
+                this.state.incomeEntries.length > 0 || 
+                this.state.incomeTotal > 0 || 
+                this.state.assetsTotal > 0
+            ) {
             return <ReviewAccountsPage 
-                reportData={this.state.reportData}
+                incomeEntries={this.state.incomeEntries}
+                incomeTotal={this.state.incomeTotal}
+                assetsTotal={this.state.assetsTotal}
                 history={this.props.history}
             />;
         }
