@@ -33,7 +33,7 @@ export const petButtonRoot = css`
     &:not(:first-of-type):not(:last-child) {
         border-radius: 0px !important;
     }
-
+    box-shadow: none !important;
 `
 
 export const petsImageMargin = css`
@@ -54,4 +54,8 @@ export const petTypeLabel = css`
 export const petTypeLabelHeader = css`
     justify-content: space-between;
     display: flex;
+`
+
+export const fourteenFont = css`
+    font-size: 14px !important;
 `
