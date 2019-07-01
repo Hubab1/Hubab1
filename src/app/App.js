@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import Main from 'app/Main';
 import BadRoute from 'components/common/BadRoute';
 import { basenameReceived } from 'reducers/site-config';
-console.log('process.argv', process.env.REACT_APP_ARG);
+
 export class App extends Component {
     componentDidMount () {
         const basename = window.location.pathname.split('/')[1];
