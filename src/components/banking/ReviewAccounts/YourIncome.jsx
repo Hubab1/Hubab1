@@ -47,7 +47,6 @@ function YourIncome (props) {
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
                 {
                     props.incomeEntries.map( entry => {
-                        debugger;
                         return <IncomeEntry 
                             name={entry.name}
                             income={entry.income} 
