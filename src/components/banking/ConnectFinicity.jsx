@@ -48,7 +48,7 @@ const ConnectFinicity = props => {
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom="20px">
                 Link Bank Account
             </ActionButton>
-            <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link>
+            {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}
         </Fragment>
     );
 }
