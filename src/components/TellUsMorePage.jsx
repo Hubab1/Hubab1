@@ -110,9 +110,11 @@ export class TellUsMore extends React.Component {
                                 </Grid>
                                 <Grid item xs={8}>
                                     <KeyboardDatePicker
-                                        id="mui-pickers-date"
+                                        clearable
+                                        format="MM/dd/yyyy"
+                                        placeholder="MM/dd/yyyy"
                                         label="Birthday"
-                                        value={values.birthday}
+                                        value={values.birthday || null}
                                         fullWidth
                                         onBlur={handleBlur}
                                         onChange={e => setFieldValue('birthday', e)}
