@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 
 import { H1, P, SpacedH3 } from 'assets/styles';
-import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
+import { viewPetPolicy, petsImageMargin, policyDiv, fourteenFont } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
@@ -85,7 +85,7 @@ export class PetsPage extends React.Component {
                 <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                 <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
                 <div className={policyDiv}>
-                    <P>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>
+                    <P fontSize={14}>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>
                 </div>
                 <Formik
                     validationSchema={petsSchema}
