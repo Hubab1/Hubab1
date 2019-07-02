@@ -20,7 +20,7 @@ export class ConnectBankPage extends React.Component {
         errors: null, 
         loadingFinicityIframe: false, 
         loadingReport: false, 
-        reportData: {incomeEntries: []},
+        reportData: null,
     }
 
     componentWillUnmount () {
