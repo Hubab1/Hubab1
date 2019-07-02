@@ -37,6 +37,16 @@ API.patchApplication = (data) => {
     }).then(res => res.json());
 }
 
+API.putApplicant = (data) => {
+    return fetch(chuck('/applicant/'), {
+        method: 'PUT',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+}
+
 API.fetchRenterProfile = () => {
     return fetch(chuck('/application/'), {
         method: 'GET',

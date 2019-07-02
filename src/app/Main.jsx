@@ -58,10 +58,10 @@ export class Main extends Component {
         const hash = this.props.hash;
         const isLoggedIn = auth.isAuthenticated() && sessionIsValidForCommunityId(communityId);
 
-        let configuration, applicant;
+        let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            applicant = isLoggedIn && await this.props.fetchApplicant();
+            isLoggedIn && await this.props.fetchApplicant();
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});

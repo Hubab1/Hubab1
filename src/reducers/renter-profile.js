@@ -86,11 +86,12 @@ selectors.selectOrderedRoutes = createSelector(
     }
 );
 
+const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
-const routeMapping = (profile) => ({
-    [ROUTES.TELL_US_MORE]: true,
+const routeMapping = (profile, applicant) => ({
+    [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
-    [ROUTES.CO_APPLICANTS]: !profile.co_applicants,
+    [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,
     [ROUTES.GUARANTOR]: !profile.guarantors,
     [ROUTES.PETS]: !profile.pets,
 });
@@ -98,11 +99,13 @@ const routeMapping = (profile) => ({
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.renterProfile,
-    (orderedRoutes, profile) => {
-        if (orderedRoutes && profile) {
+    state => state.applicant,
+    (orderedRoutes, profile, applicant) => {
+        if (orderedRoutes && profile && applicant) {
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(profile)[route]) {
+                console.log(applicant)
+                if (i === orderedRoutes.length -1 || routeMapping(profile, applicant)[route]) {
                     return route;
                 }
             }

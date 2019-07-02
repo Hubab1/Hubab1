@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,6 +8,7 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { ROUTES } from 'app/constants';
+import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
@@ -23,13 +26,29 @@ const ImageContainer = styled.div`
 
 export class TellUsMore extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
+        this.props.updateApplicant(values).then(() => {
+            this.props._nextRoute();
+            setSubmitting(false);
+        });
+
         Promise.resolve().then(() => {
             this.props._nextRoute();
             setSubmitting(false);
         })
     }
 
+    initialValues () {
+        const applicant = this.props.applicant;
+        return {
+            address_street: applicant.address_street,
+            address_city: applicant.address_city,
+            address_state: applicant.address_state,
+            address_postal_code: applicant.address_postal_code
+        }
+    }
+
     render () {
+        if (!this.props.applicant) return null;
         return (
             <Fragment>
                 <H1>Tell Us A Little More</H1>
@@ -39,17 +58,18 @@ export class TellUsMore extends React.Component {
                 </ImageContainer>
                 <Formik
                     validationSchema={Yup.object().shape({
-                        street_address: Yup.string()
+                        address_street: Yup.string()
                             .required('required'),
-                        city: Yup.string()
+                        address_city: Yup.string()
                             .required('required'),
-                        state: Yup.string()
+                        address_state: Yup.string()
                             .required('required'),
-                        zip: Yup.string()
+                        address_postal_code: Yup.string()
                             .required('required'),
                         birthday: Yup.string()
                             .required('required'),
                     })}
+                    initialValues={this.initialValues(this.props.applicant)}
                     onSubmit={this.onSubmit}
                 >
                     {({
@@ -67,49 +87,50 @@ export class TellUsMore extends React.Component {
                                 <Grid item xs={12}>
                                     <FormTextInput
                                         label="Street Address"
-                                        name="street_address"
+                                        name="address_street"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.street_address}
-                                        value={values.street_address}
+                                        error={errors.address_street}
+                                        value={values.address_street}
                                     />
                                 </Grid>
                                 <Grid item xs={8}>
                                     <FormTextInput
                                         label="City"
-                                        name="city"
+                                        name="address_city"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.city}
-                                        value={values.city}
+                                        error={errors.address_city}
+                                        value={values.address_city}
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FormTextInput
                                         label="State"
-                                        name="state"
+                                        name="address_state"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.state}
-                                        value={values.state}
+                                        error={errors.address_state}
+                                        value={values.address_state}
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FormTextInput
                                         label="Zip"
-                                        name="zip"
+                                        name="address_postal_code"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.zip}
-                                        value={values.zip}
+                                        error={errors.address_postal_code}
+                                        value={values.address_postal_code}
                                     />
                                 </Grid>
                                 <Grid item xs={8}>
                                     <KeyboardDatePicker
+                                        id="birthday-picker"
                                         clearable
                                         format="MM/dd/yyyy"
                                         placeholder="mm/dd/yyyy"
@@ -124,7 +145,7 @@ export class TellUsMore extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!values.street_address || !values.city || !values.state || !values.zip || !values.birthday || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!values.address_street || !values.address_city || !values.address_state || !values.address_postal_code || !values.birthday || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
@@ -133,4 +154,13 @@ export class TellUsMore extends React.Component {
     }
 }
 
-export default withRelativeRoutes(TellUsMore, ROUTES.TELL_US_MORE);
+TellUsMore.propTypes = {
+    updateApplicant: PropTypes.func.isRequired,
+    applicant: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    applicant: state.applicant
+})
+
+export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(TellUsMore, ROUTES.TELL_US_MORE));
