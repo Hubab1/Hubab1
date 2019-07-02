@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 
 import { H1, P, SpacedH3 } from 'assets/styles';
-import { viewPetPolicy, petsImageMargin, policyDiv, fourteenFont } from './styles';
+import { viewPetPolicy, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';

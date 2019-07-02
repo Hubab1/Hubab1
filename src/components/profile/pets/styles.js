@@ -55,7 +55,3 @@ export const petTypeLabelHeader = css`
     justify-content: space-between;
     display: flex;
 `
-
-export const fourteenFont = css`
-    font-size: 14px !important;
-`

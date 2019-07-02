@@ -42,13 +42,23 @@ export default function FormTextInput (props) {
         fieldHelperText = showValidationTextBeforeSubmit || submitted ? error : null;
     }
 
+    let fieldType = type;
+    if (type === 'password') {
+        if (showPassword) {
+            fieldType = 'text';
+        }
+    } else {
+        fieldType = type;
+    }
+
+
     return (
         <TextField
             error={submitted && error}
             helperText={fieldHelperText}
             label={label}
             classes={ {root} }
-            type={type !== 'password' || showPassword ? type : 'password'}
+            type={fieldType}
             name={name}
             fullWidth
             InputLabelProps={{
