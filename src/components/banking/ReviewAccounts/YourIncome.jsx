@@ -3,11 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
 
 import { formatCurrency } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import lightbulb from 'assets/images/lightbulb.png';
-import TextField from '@material-ui/core/TextField';
 
 import { Card, CardSection, totalContainer, incomeEntry } from './styles'
 import { P } from 'assets/styles'
@@ -35,6 +35,7 @@ export const getRequirementText = props => {
     }
 }
 
+
 function YourIncome (props) {
     if (!props.profile || !props.config) return null;
     return (
@@ -42,14 +43,23 @@ function YourIncome (props) {
             <CardSection>
                 <P bold>Your Income</P>
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
-                <IncomeEntry/>
+                {
+                    props.incomeEntries.map( entry => {
+                        return <IncomeEntry 
+                            name={entry.name}
+                            income={entry.income} 
+                            key={entry.id}
+                            id={entry.id}
+                        />
+                    })
+                }
                 <AddAnotherButton
                     thing="income source manually"
                     onClick={() => console.log('clickety-clack')}
                 />
                 <div className={totalContainer}>
                     <P bold>Total Income</P>
-                    <P bold>$82,838</P>
+                    <P bold>{formatCurrency(props.incomeTotal)}</P>
                 </div>
             </CardSection>
             <CardSection>
@@ -58,7 +68,9 @@ function YourIncome (props) {
                         <Bulb alt="light bulb" src={lightbulb} />
                     </Grid>
                     <Grid item xs>
-                        <P>{getRequirementText(props)}</P>
+                        <P>
+                            {getRequirementText(props)}
+                        </P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
                     </Grid>
                 </Grid>
@@ -74,7 +86,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(YourIncome);
 
 YourIncome.propTypes = {
-    incomeData: PropTypes.object,
+    incomeEntries: PropTypes.array,
+    incomeTotal: PropTypes.number,
 }
 
 
@@ -82,11 +95,18 @@ const IncomeEntry = (props) => {
     return (
         <div className={incomeEntry}>
             <TextField
-                label="Employer One"
-                name="employer_one"
-                value="World Industries"
+                label="Employer Name"
+                name={`employer_name_${props.id}`}
+                value={props.name}
             />
-            <P bottomAligned>$38,934</P>
+            <P bottomAligned>{formatCurrency(props.income)}</P>
         </div>
     )
 }
+
+YourIncome.propTypes = {
+    name: PropTypes.string,
+    income: PropTypes.number,
+    id: PropTypes.string,
+}
+

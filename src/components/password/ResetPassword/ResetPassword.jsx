@@ -98,7 +98,7 @@ export default class ResetPassword extends React.Component {
                                         showValidationText
                                     />
                                 </div>
-                                <ActionButton disabled={isSubmitting} marginTop="31px" marginBottom="153px">
+                                <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={153}>
                                     Reset
                                 </ActionButton>
                             </div>
