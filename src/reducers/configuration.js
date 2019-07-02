@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit';
 import { createSelector } from 'reselect';
 
-import API from 'app/api';
+import API, { MOCKY } from 'app/api';
 import createTheme from 'assets/createTheme';
+import mock from './mock-config';
 
 const configuration = createSlice({
     slice: 'configuration',
@@ -24,12 +25,20 @@ export const fetchConfiguration = (communityId, hash) => {
     return async dispatch => {
         let configuration = {};
         if (hash) {
-            const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)])
-            configuration = data.reduce((config, item) => {
-                return Object.assign(config, item)
-            }, {});
+            if (MOCKY) {
+                configuration = mock;
+            } else {
+                const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)])
+                configuration = data.reduce((config, item) => {
+                    return Object.assign(config, item)
+                }, {});
+            }
         } else {
-            configuration = await API.fetchConfiguration(communityId);
+            if (MOCKY) {
+                configuration = mock;
+            } else {
+                configuration = await API.fetchConfiguration(communityId);
+            }
         }
         dispatch(configurationReceived(configuration));
         return configuration
