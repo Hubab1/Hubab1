@@ -92,7 +92,7 @@ const routeMapping = (profile, applicant) => ({
     [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
     [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,
-    [ROUTES.GUARANTOR]: !profile.guarantors,
+    [ROUTES.GUARANTOR]: !applicant.guarantors.length,
     [ROUTES.PETS]: !profile.pets,
 });
 
@@ -104,7 +104,6 @@ selectors.selectInitialPage = createSelector(
         if (orderedRoutes && profile && applicant) {
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                console.log(applicant)
                 if (i === orderedRoutes.length -1 || routeMapping(profile, applicant)[route]) {
                     return route;
                 }
