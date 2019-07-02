@@ -16,6 +16,7 @@ import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
+import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
@@ -57,9 +58,10 @@ export class Main extends Component {
         const hash = this.props.hash;
         const isLoggedIn = auth.isAuthenticated() && sessionIsValidForCommunityId(communityId);
 
-        let configuration;
+        let configuration, applicant;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
+            applicant = isLoggedIn && await this.props.fetchApplicant();
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
@@ -104,7 +106,7 @@ const mapStateToProps = state => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant};
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

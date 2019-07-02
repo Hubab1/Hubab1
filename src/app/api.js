@@ -46,6 +46,15 @@ API.fetchRenterProfile = () => {
     }).then(res => res.json());
 };
 
+API.fetchApplicant = () => {
+    return fetch(chuck('/applicant/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        }
+    }).then(res => res.json());
+};
+
 API.login = (email, password, communityId) => {
     return fetch(chuck(`/communities/${communityId}/login/`), {
         method: 'POST',
