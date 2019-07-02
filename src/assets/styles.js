@@ -48,10 +48,9 @@ export const H3 = styled.h3`
 
 export const P = styled.p(props => ({
     fontWeight: props.bold ? 600 : 400,
-    fontSize: '16px',
+    fontSize: props.fontSize || 16,
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
-
 }))
 
 
