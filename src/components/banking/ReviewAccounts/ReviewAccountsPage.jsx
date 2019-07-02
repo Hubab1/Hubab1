@@ -39,7 +39,7 @@ export class ReviewAccountsPage extends React.Component {
                     role="button"
                     onClick={this.onClick}
                 >
-                        Start Income Verification Over Again
+                    Start Income Verification Over Again
                 </PrimarySpan>
             </Fragment>
         );
