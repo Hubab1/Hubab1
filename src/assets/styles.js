@@ -1,3 +1,5 @@
+import React from 'react';
+import { withTheme } from '@material-ui/styles';
 import {
     css
 } from 'emotion';
@@ -7,6 +9,10 @@ export const formContent = css`
     padding: 10px;
     margin: auto;
     max-width: 500px;
+`
+
+export const cursor = css`
+    cursor: pointer;
 `
 
 export const ErrorDetail = styled.div`
@@ -45,6 +51,15 @@ export const H3 = styled.h3`
     color: #454B57;
     margin: 0;
 `
+
+export const PrimarySpan = withTheme((props) => {
+    const { theme, ...rest } = props;
+    return (
+        <span {...rest} style={{color: theme.palette.primary.main}}>
+            {props.children}
+        </span>
+    )
+})
 
 export const P = styled.p(props => ({
     fontWeight: props.bold ? 600 : 400,

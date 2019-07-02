@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import YourIncome from './YourIncome';
 import YourAccountBalance from './YourAccountBalance';
-import { H1, SpacedH3 } from 'assets/styles';
+import { H1, SpacedH3, PrimarySpan, cursor } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 
 
@@ -34,7 +34,13 @@ export class ReviewAccountsPage extends React.Component {
                 <ActionButton onClick={this.confirmAccounts} marginTop={30} marginBottom={20}>
                     Looks Good
                 </ActionButton>
-                <span onClick={this.onClick}>Start Income Verification Over Again</span>
+                <PrimarySpan
+                    className={cursor}
+                    role="button"
+                    onClick={this.onClick}
+                >
+                        Start Income Verification Over Again
+                </PrimarySpan>
             </Fragment>
         );
     }
