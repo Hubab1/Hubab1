@@ -29,3 +29,5 @@ export const BASE_ROUTES = [
 ]
 
 export const REPORT_POLL_INTERVAL = 10000;
+
+export const STRIPE_PUBLISHABLE_KEY = 'pk_4AdNDrVeXsxO8PMCl5qUsMP7N719q'
