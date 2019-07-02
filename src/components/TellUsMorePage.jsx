@@ -112,7 +112,7 @@ export class TellUsMore extends React.Component {
                                     <KeyboardDatePicker
                                         clearable
                                         format="MM/dd/yyyy"
-                                        placeholder="MM/dd/yyyy"
+                                        placeholder="mm/dd/yyyy"
                                         label="Birthday"
                                         value={values.birthday || null}
                                         fullWidth
