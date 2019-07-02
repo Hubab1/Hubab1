@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 export const AppTheme = React.createContext();
 
@@ -36,7 +38,9 @@ function AppContextProvider (props) {
     return (
         <MuiThemeProvider theme={props.theme}>
             <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
-                {props.children}
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    {props.children}
+                </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>
     )

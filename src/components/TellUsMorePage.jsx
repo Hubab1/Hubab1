@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -58,6 +59,7 @@ export class TellUsMore extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
+                        setFieldValue,
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
@@ -107,15 +109,18 @@ export class TellUsMore extends React.Component {
                                     />
                                 </Grid>
                                 <Grid item xs={8}>
-                                    <FormTextInput
+                                    <KeyboardDatePicker
+                                        clearable
+                                        format="MM/dd/yyyy"
+                                        placeholder="mm/dd/yyyy"
                                         label="Birthday"
-                                        name="birthday"
-                                        type="date"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.birthday}
-                                        value={values.birthday}
+                                        value={values.birthday || null}
+                                        fullWidth
+                                        onBlur={handleBlur}
+                                        onChange={e => setFieldValue('birthday', e)}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
                                     />
                                 </Grid>
                             </Grid>
