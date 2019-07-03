@@ -11,6 +11,7 @@ import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormError from 'components/common/GenericFormError';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 
@@ -25,7 +26,7 @@ export class SignupPage extends React.Component {
         return auth.register(values, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
-            this.props.fetchRenterProfile().then((profile) => {
+            Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                 history.replace(this.props.initialPage);
             });
         }).catch((res) => {
@@ -138,6 +139,6 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
 });
 
-const mapDispatchToProps = { fetchRenterProfile };
+const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
