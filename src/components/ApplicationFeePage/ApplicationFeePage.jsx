@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-
-
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe, Elements } from  'react-stripe-elements';
+
+import { ROUTES } from 'app/constants';
+import { BackLink } from 'components/common/BackLink';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -53,8 +54,9 @@ export class ApplicationFeePage extends React.Component {
                     </div>
                 </div>
                 <Elements>
-                    <PaymentForm></PaymentForm>
+                    <PaymentForm/>
                 </Elements> 
+                <BackLink to={ROUTES.CONNECT_BANK}/>
             </Fragment>
         );
     }
@@ -72,7 +74,6 @@ class _PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
-            debugger;
             if (res.token) {
                 const data = {token: res.token.id};
                 API.stripePayment(data);
@@ -91,7 +92,7 @@ class _PaymentForm extends React.Component {
                     <CardNumberElement></CardNumberElement>
                     <CardExpiryElement></CardExpiryElement>
                     <CardCVCElement></CardCVCElement>
-                    <ActionButton>skipity bee-bop, jazz</ActionButton>
+                    <ActionButton marginTop={25} marginBottom={20}>skipity bee-bop, jazz</ActionButton>
                 </div>
             </form>
 
