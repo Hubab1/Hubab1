@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { Elements } from 'react-stripe-elements';
 
 
+import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe, Elements } from  'react-stripe-elements';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
-import { H1, H3 } from 'assets/styles';
-import InjectedPaymentForm from './PaymentForm';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1, H3, formContent } from 'assets/styles';
+import API from 'app/api';
+// import PaymentForm from './PaymentForm';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -51,8 +53,8 @@ export class ApplicationFeePage extends React.Component {
                     </div>
                 </div>
                 <Elements>
-                    <InjectedPaymentForm/>
-                </Elements>
+                    <PaymentForm></PaymentForm>
+                </Elements> 
             </Fragment>
         );
     }
@@ -64,3 +66,37 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, null)(ApplicationFeePage);
+
+
+class _PaymentForm extends React.Component {
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
+            debugger;
+            if (res.token) {
+                const data = {token: res.token.id};
+                API.stripePayment(data);
+            } else {
+                // some error
+            }
+        }).catch( res => {
+            debugger;
+            // omg more errors!
+        });
+    }
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <div className={formContent}>
+                    <CardNumberElement></CardNumberElement>
+                    <CardExpiryElement></CardExpiryElement>
+                    <CardCVCElement></CardCVCElement>
+                    <ActionButton>skipity bee-bop, jazz</ActionButton>
+                </div>
+            </form>
+
+        )
+    }
+}
+
+const PaymentForm = injectStripe(_PaymentForm);
