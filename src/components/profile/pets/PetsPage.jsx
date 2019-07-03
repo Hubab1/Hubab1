@@ -28,11 +28,11 @@ export const petsSchema = Yup.object().shape({
                         .required('Required'),
                     otherwise: Yup.string().notRequired()
                 }),
-                weight: Yup.string().when('pet_type', {
+                weight: Yup.number().when('pet_type', {
                     is: (value) => ['Dog', 'Cat'].includes(value),
-                    then: Yup.string()
+                    then: Yup.number().typeError('Please enter numbers only')
                         .required('Required'),
-                    otherwise: Yup.string().notRequired()
+                    otherwise: Yup.number().notRequired()
                 }),
                 breed: Yup.string().when('pet_type', {
                     is: 'Dog',
