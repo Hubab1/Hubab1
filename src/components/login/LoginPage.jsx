@@ -10,6 +10,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { formContent, H1, link } from 'assets/styles';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 
@@ -31,7 +32,7 @@ export class LoginPage extends React.Component {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             if (this.state.errors) this.setState({errors: null});
-            this.props.fetchRenterProfile().then(() => {
+            Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                 history.replace(this.props.initialPage);
             });
         }).catch((res) => {
@@ -120,6 +121,6 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename
 });
 
-const mapDispatchToProps = { fetchRenterProfile };
+const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -1,0 +1,30 @@
+{
+    "address_city": "",
+    "lease_settings": 2,
+    "address_postal_code": "",
+    "email": "slkejhfkajshefjkhek@gm.com",
+    "guarantors": [
+        {
+            "phone_number": "(555) 123-6456",
+            "first_name": "scotty",
+            "last_name": "2hotty",
+            "id": 5,
+            "is_registered": false
+        }
+    ],
+    "application": 16,
+    "client": 
+    {
+        "person":
+            {
+                "id": 346785,
+                "email": "slkejhfkajshefjkhek@gm.com",
+                "name": "aslkejflkasefjl@gm.com asal",
+                "phone_1": "(555) 555-5555"
+            },
+        "id": 337136
+    },
+    "address_state": "",
+    "address_street": "",
+    "id": 18
+}

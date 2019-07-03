@@ -3,11 +3,12 @@ import { css } from 'emotion';
 import get from 'lodash/get';
 
 import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
-import API from 'app/api';
+import API, { MOCKY } from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
 import BankVerifying from './BankVerifying';
 import ConnectFinicity from './ConnectFinicity';
+import reports from 'reports.json';
 
 const finicityContainer = css`
     height: 500px;
@@ -28,25 +29,24 @@ export class ConnectBankPage extends React.Component {
     }
 
     parseReportData = reportData => {
-        const assetsData = get(reportData, 'voa.assets.currentBalance');
+        const assetsTotal = get(reportData, 'voa.assets.currentBalance');
         const incomeData = get(reportData, 'voi.institutions', []);
 
-        const incomeDataObj = {'incomeEntries': [], 'incomeTotal': 0}
+        const data = {'incomeEntries': [], 'incomeTotal': 0, assetsTotal}
         incomeData.forEach(bank => {
-            return bank.accounts.forEach(account => {
-                return account.incomeStreams.forEach((income) => {
-                    incomeDataObj['incomeEntries'].push({                         
+            bank.accounts.forEach(account => {
+                account.incomeStreams.forEach((income) => {
+                    data.incomeEntries.push({
                         name: income.name,
                         income: income.projectedGrossAnnual,
                         id: income.id,
                     });
-                    return incomeDataObj['incomeTotal'] = incomeDataObj['incomeTotal'] + income.projectedGrossAnnual
+                    data.incomeTotal += income.projectedGrossAnnual
                 })
             })
         })
-        incomeDataObj.assetsTotal = assetsData;
         this.setState({
-            reportData: incomeDataObj, 
+            reportData: data,
         })
     }
     
@@ -63,7 +63,10 @@ export class ConnectBankPage extends React.Component {
     }
 
 
-    openFinicityIframe = () => {    
+    openFinicityIframe = () => {
+        if (MOCKY) {
+            return this.parseReportData(reports);
+        }
         this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
             this.setState({showFinicityIframe: true, errors: null}, 
