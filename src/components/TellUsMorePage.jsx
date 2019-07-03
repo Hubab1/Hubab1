@@ -25,16 +25,15 @@ const ImageContainer = styled.div`
 `
 
 export class TellUsMore extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
-        this.props.updateApplicant(values).then(() => {
-            this.props._nextRoute();
+    onSubmit = (values, { setSubmitting, setErrors }) => {
+        this.props.updateApplicant(values).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                this.props._nextRoute();
+            }
             setSubmitting(false);
         });
-
-        Promise.resolve().then(() => {
-            this.props._nextRoute();
-            setSubmitting(false);
-        })
     }
 
     initialValues () {
