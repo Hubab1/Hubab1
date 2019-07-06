@@ -121,7 +121,7 @@ API.fetchFinicityReports = () => {
 }
 
 API.stripePayment = (data) => {
-    return fetch(chuck('/stripe-payment/'), {
+    return fetch(chuck('/payment/'), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`
