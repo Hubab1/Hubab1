@@ -32,8 +32,6 @@ export class FinalDetails extends React.Component {
                             <FormControl fullWidth>
                                 <InputLabel htmlFor="employment-status">Select Your Employement Status</InputLabel>
                                 <Select
-                                    inputLabel="Select Your Employment Status"
-                                    fullWidth
                                     value={values.employment}
                                     onChange={handleChange}
                                     inputProps={{
