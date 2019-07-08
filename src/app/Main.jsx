@@ -20,6 +20,7 @@ import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
+import FinalDetails from 'components/FinalDetails';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -89,6 +90,7 @@ export class Main extends Component {
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
+                            <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
                         </Page>
                     </Switch>
                 </div>
