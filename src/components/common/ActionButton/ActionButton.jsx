@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-import { greenRoot, mainRoot, label, disabled as disabledClass, ButtonContainer } from './styles';
+import { greenDisabled, root, label, mainDisabled, ButtonContainer } from './styles';
 
 export default class ActionButton extends React.Component {
     render () {
         const { color, disabled, onClick, children, marginTop, marginBottom, variant, successGreen } = this.props;
-        const rootCss = successGreen ? greenRoot : mainRoot;
+        const disabledCss = successGreen ? greenDisabled : mainDisabled;
         return (
             <ButtonContainer marginTop={marginTop} marginBottom={marginBottom}>
                 <Button
                     onClick={onClick}
-                    classes={{ root: rootCss, label, disabled: disabledClass }}
+                    classes={{ root, label, disabled: disabledCss }}
                     variant={variant}
                     color={color}
                     type="submit"

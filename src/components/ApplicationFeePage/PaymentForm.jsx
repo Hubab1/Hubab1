@@ -13,7 +13,7 @@ import { formatCurrency } from 'utils/misc';
 
 
 export class PaymentForm extends React.Component {
-    state = { cardNumber: false, cardExpiry: false, cardCvc: false, paymentSuccess: false }
+    state = { cardNumber: false, cardExpiry: false, cardCvc: false, paymentSuccess: false, submitting: false }
 
     handleChangeUpdate = (changeObj) => {
         this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}))
@@ -21,6 +21,7 @@ export class PaymentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({submitting: true})
         this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
                 if (res.token) {
                     const data = {token: res.token.id};
@@ -42,36 +43,36 @@ export class PaymentForm extends React.Component {
         });
     }
     render() {
-        const { cardNumber, cardExpiry, cardCvc, paymentSuccess } = this.state;
+        const { cardNumber, cardExpiry, cardCvc, paymentSuccess, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 <Grid container justify="space-between">
                     <Grid item xs={12}>
                         <StripeElementWrapper 
-                        label="Credit Card Number" 
-                        component={CardNumberElement} 
-                        handleChangeUpdate={this.handleChangeUpdate}
-                    />
+                            label="Credit Card Number" 
+                            component={CardNumberElement} 
+                            handleChangeUpdate={this.handleChangeUpdate}
+                        />
                     </Grid>
                     <Grid item xs={5}>
                         <StripeElementWrapper
-                        label="Expiration"
-                        component={CardExpiryElement}
-                        handleChangeUpdate={this.handleChangeUpdate}
-                    />
+                            label="Expiration"
+                            component={CardExpiryElement}
+                            handleChangeUpdate={this.handleChangeUpdate}
+                        />
                     </Grid>
                     <Grid item xs={5}>
                         <StripeElementWrapper
-                        label="CVC"
-                        component={CardCVCElement}
-                        handleChangeUpdate={this.handleChangeUpdate}
-                    />
+                            label="CVC"
+                            component={CardCVCElement}
+                            handleChangeUpdate={this.handleChangeUpdate}
+                        />
                     </Grid>
                 </Grid>
                 <ActionButton 
                     marginTop={25}
                     marginBottom={20}
-                    disabled={!cardNumber || !cardExpiry || !cardCvc}
+                    disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                     successGreen={paymentSuccess}
                 >
                     { 

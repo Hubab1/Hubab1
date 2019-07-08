@@ -3,15 +3,9 @@ import {
 } from 'emotion';
 import styled from '@emotion/styled';
 
-export const mainRoot = css`
+export const root = css`
     border-radius: 21.5px !important;
     height: 45px;
-`
-
-export const greenRoot = css`
-    border-radius: 21.5px !important;
-    height: 45px;
-    background-color: #56BA82 !important;
 `
 
 export const label = css`
@@ -19,8 +13,14 @@ export const label = css`
     font-size: 16px;
 `
 
-export const disabled = css`
+export const mainDisabled = css`
     background-color: #D5D8DE !important;
+    color: #ffffff !important;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12) !important;
+`
+
+export const greenDisabled = css`
+    background-color: #56BA82 !important;
     color: #ffffff !important;
     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12) !important;
 `
