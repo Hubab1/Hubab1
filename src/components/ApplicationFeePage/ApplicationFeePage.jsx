@@ -9,10 +9,9 @@ import { ROUTES } from 'app/constants';
 import { BackLink } from 'components/common/BackLink';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, formContent } from 'assets/styles';
 import API from 'app/api';
-// import PaymentForm from './PaymentForm';
+import PaymentForm from './PaymentForm';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -41,11 +40,11 @@ export class ApplicationFeePage extends React.Component {
 
     render () {
         if (!this.props.profile || !this.props.configuration) return <div/>;
-
+        const applicationFee = this.props.configuration.application_fee;
         return (
             <Fragment>
                 <H1>Almost There, {this.props.profile.primary_applicant.first_name}!</H1>
-                <SpacedH3>The application fee for this apartment is ${this.props.configuration.application_fee ? this.props.configuration.application_fee.toFixed(2) : 0}. After payment, we’ll collect your SSN for screening.</SpacedH3>
+                <SpacedH3>The application fee for this apartment is ${applicationFee ? applicationFee.toFixed(2) : 0}. After payment, we’ll collect your SSN for screening.</SpacedH3>
                 <img src={creditCardImage} alt="credit card"></img>
                 <div className={bodyRow}>
                     <img src={padlockImage} alt="padlock" width="18" height="28"/>
@@ -54,7 +53,7 @@ export class ApplicationFeePage extends React.Component {
                     </div>
                 </div>
                 <Elements>
-                    <PaymentForm/>
+                    <PaymentForm applicationFee={applicationFee}/>
                 </Elements> 
                 <BackLink to={ROUTES.CONNECT_BANK}/>
             </Fragment>
@@ -70,34 +69,3 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, null)(ApplicationFeePage);
 
 
-class _PaymentForm extends React.Component {
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
-            if (res.token) {
-                const data = {token: res.token.id};
-                API.stripePayment(data);
-            } else {
-                // some error
-            }
-        }).catch( res => {
-            debugger;
-            // omg more errors!
-        });
-    }
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <div className={formContent}>
-                    <CardNumberElement></CardNumberElement>
-                    <CardExpiryElement></CardExpiryElement>
-                    <CardCVCElement></CardCVCElement>
-                    <ActionButton marginTop={25} marginBottom={20}>skipity bee-bop, jazz</ActionButton>
-                </div>
-            </form>
-
-        )
-    }
-}
-
-const PaymentForm = injectStripe(_PaymentForm);

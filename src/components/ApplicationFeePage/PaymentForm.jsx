@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
-import { withTheme } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import Lock from '@material-ui/icons/Lock';
 
-import { ErrorDetail } from 'assets/styles';
+import StripeElementWrapper from './StripeElementWrapper';
 import API from 'app/api';
+import { formatCurrency } from 'utils/misc';
 
 
 export class PaymentForm extends React.Component {
@@ -28,134 +27,28 @@ export class PaymentForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <StripeElementWrapper label="Card Number" component={CardNumberElement} />
+                <Grid container justify="space-between">
+                    <Grid item xs={12}>
+                        <StripeElementWrapper label="Credit Card Number" component={CardNumberElement} />
+                    </Grid>
+                    <Grid item xs={5}>
+                        <StripeElementWrapper label="Expiration" component={CardExpiryElement} />
+                    </Grid>
+                    <Grid item xs={5}>
+                        <StripeElementWrapper label="CVC" component={CardCVCElement} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={7}>
-                    <StripeElementWrapper label="Expiry (MM / YY)" component={CardExpiryElement} />
-                </Grid>
-                <Grid item xs={5}>
-                    <StripeElementWrapper label="CVC" component={CardCVCElement} />
-                </Grid>
-            </Grid>
-                <button>tooba toothpaste</button>
+                <ActionButton marginTop={25} marginBottom={20}>
+                    <Lock style={{width: 16, marginRight: 8}}/>
+                    {`Pay ${formatCurrency(this.props.applicationFee)}`}
+                </ActionButton>
             </form>
-
         )
     }
 }
+
+PaymentForm.propTypes = {
+    applicationFee: PropTypes.number,
+};
 
 export default injectStripe(PaymentForm);
-
-class StripeElementWrapper extends PureComponent {
-  
-    static propTypes = {
-        component: PropTypes.func.isRequired,
-        label: PropTypes.string.isRequired,
-    }
-  
-    state = {
-          focused: false,
-          empty: true,
-          error: false,
-    }
-  
-    handleBlur = () => {
-        this.setState({ focused: false })
-    }
-  
-    handleFocus = () => {
-        this.setState({ focused: true })
-    }
-  
-    handleChange = changeObj => {
-        this.setState({
-          error: changeObj.error,
-          empty: changeObj.empty,
-        })
-    }
-  
-    render() {
-        const { component, label } = this.props
-        const { focused, empty, error } = this.state
-  
-        return (
-            <div>
-                <FormControl fullWidth margin="normal">
-                    <InputLabel
-                        focused={focused}
-                        shrink={focused || !empty}
-                        error={!!error}>
-                        {label}
-                    </InputLabel>
-                    <Input
-                        fullWidth
-                        inputComponent={StripeInput}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
-                        onChange={this.handleChange}
-                        inputProps={{ component }}
-                    />
-                </FormControl>
-          {error && <ErrorDetail>{error.message}</ErrorDetail>}
-        </div>
-      )
-    }
-  }
-  
-
-  class _StripeInput extends PureComponent {
-  
-    static propTypes = {
-        classes: PropTypes.object.isRequired,
-        theme: PropTypes.object.isRequired,
-        component: PropTypes.func.isRequired,
-        onBlur: PropTypes.func,
-        onFocus: PropTypes.func,
-        onChange: PropTypes.func,
-    }
-  
-    static defaultProps = {
-        onFocus: () => {},
-        onBlur: () => {},
-        onChange: () => {},
-        classes: {
-            root: {
-            width: '100%',
-            padding: '6px 0 7px',
-            cursor: 'text',
-            },  
-        }
-    }
-  
-    render() {
-        const {
-            classes: c,
-            theme,
-            component: Component,
-            onFocus,
-            onBlur,
-            onChange,
-        } = this.props
-
-        return (
-            <Component
-                className={c.root}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onChange={onChange}
-                placeholder=""
-                style={{
-                    base: {
-                    fontSize: `${theme.typography.fontSize}px`,
-                    fontFamily: theme.typography.fontFamily,
-                    color: '#000000de',
-                    },
-                }}
-            />
-        )
-    }
-}
-  
-  const StripeInput = withTheme(_StripeInput);
