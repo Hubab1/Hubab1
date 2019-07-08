@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import { ErrorDetail } from 'assets/styles';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import StripeInput from './StripeInput'
 
@@ -34,12 +34,12 @@ class StripeElementWrapper extends PureComponent {
             error: changeObj.error,
             empty: changeObj.empty,
         })
+        this.props.handleChangeUpdate(changeObj);
     }
   
     render() {
-        const { component, label } = this.props
-        const { focused, empty, error } = this.state
-  
+        const { component, label } = this.props;
+        const { focused, empty, error } = this.state;
         return (
             <div>
                 <FormControl fullWidth margin="normal">
@@ -56,9 +56,15 @@ class StripeElementWrapper extends PureComponent {
                         onBlur={this.handleBlur}
                         onChange={this.handleChange}
                         inputProps={{ component }}
+                        error={!!error}
                     />
+                    {
+                        error &&
+                        <FormHelperText error>
+                            {error.message}
+                        </FormHelperText>
+                    }
                 </FormControl>
-            {/* error && <ErrorDetail>{error.message}</ErrorDetail> */}
         </div>
       )
     }

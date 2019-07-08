@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe, Elements } from  'react-stripe-elements';
+import { Elements } from  'react-stripe-elements';
 
 import { ROUTES } from 'app/constants';
 import { BackLink } from 'components/common/BackLink';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
-import { H1, H3, formContent } from 'assets/styles';
-import API from 'app/api';
+import { H1, H3 } from 'assets/styles';
 import PaymentForm from './PaymentForm';
 
 const SpacedH3 = styled(H3)`
@@ -53,7 +52,7 @@ export class ApplicationFeePage extends React.Component {
                     </div>
                 </div>
                 <Elements>
-                    <PaymentForm applicationFee={applicationFee}/>
+                    <PaymentForm applicationFee={applicationFee} history={this.props.history}/>
                 </Elements> 
                 <BackLink to={ROUTES.CONNECT_BANK}/>
             </Fragment>

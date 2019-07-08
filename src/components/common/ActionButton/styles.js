@@ -3,9 +3,15 @@ import {
 } from 'emotion';
 import styled from '@emotion/styled';
 
-export const root = css`
+export const mainRoot = css`
     border-radius: 21.5px !important;
     height: 45px;
+`
+
+export const greenRoot = css`
+    border-radius: 21.5px !important;
+    height: 45px;
+    background-color: #56BA82 !important;
 `
 
 export const label = css`
