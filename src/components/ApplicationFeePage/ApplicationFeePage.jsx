@@ -11,6 +11,7 @@ import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
 import { H1, H3 } from 'assets/styles';
 import PaymentForm from './PaymentForm';
+import { formatCurrency } from 'utils/misc';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -43,7 +44,7 @@ export class ApplicationFeePage extends React.Component {
         return (
             <Fragment>
                 <H1>Almost There, {this.props.profile.primary_applicant.first_name}!</H1>
-                <SpacedH3>The application fee for this apartment is ${applicationFee ? applicationFee.toFixed(2) : 0}. After payment, we’ll collect your SSN for screening.</SpacedH3>
+                <SpacedH3>The application fee for this apartment is ${applicationFee ? formatCurrency(applicationFee) : 0}. After payment, we’ll collect your SSN for screening.</SpacedH3>
                 <img src={creditCardImage} alt="credit card"></img>
                 <div className={bodyRow}>
                     <img src={padlockImage} alt="padlock" width="18" height="28"/>

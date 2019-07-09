@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
+import { Elements, CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import Lock from '@material-ui/icons/Lock';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -9,11 +9,19 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import StripeElementWrapper from './StripeElementWrapper';
 import API from 'app/api';
 import { ROUTES } from 'app/constants';
+import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
 
 
 export class PaymentForm extends React.Component {
-    state = { cardNumber: false, cardExpiry: false, cardCvc: false, paymentSuccess: false, submitting: false }
+    state = { 
+        cardNumber: false,
+        cardExpiry: false,
+        cardCvc: false,
+        paymentSuccess: false,
+        submitting: false,
+        errors: null
+    }
 
     handleChangeUpdate = (changeObj) => {
         this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}))
@@ -22,12 +30,13 @@ export class PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({submitting: true})
+        const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
         this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
                 if (res.token) {
                     const data = {token: res.token.id};
                     API.stripePayment(data).then(res => {
                         if (res.error) {
-                            // some error
+                            this.setState({errors: [genericErrorMessage], subitting: false});
                         } else {
                             this.setState(
                                 {paymentSuccess:true},
@@ -36,16 +45,17 @@ export class PaymentForm extends React.Component {
                         }
                     });
                 } else {
-                // some error
+                    this.setState({errors: [genericErrorMessage], subitting: false});        
             }
         }).catch( res => {
-            // omg more errors!
+            this.setState({errors: [genericErrorMessage], subitting: false});        
         });
     }
     render() {
         const { cardNumber, cardExpiry, cardCvc, paymentSuccess, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
+                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Grid container justify="space-between">
                     <Grid item xs={12}>
                         <StripeElementWrapper 
