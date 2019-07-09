@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import InputMask from 'react-input-mask';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-
-function displayValue (val, visible) {
-    if (!val) return val;
-    if (visible) return val;
-    return val.split('').map(char => char === '_' || char == '-' ? char : '*').join('');
-}
 
 export default function SocialSecurityInput (props) {
     const [showText, setShowText] = useState(true);
