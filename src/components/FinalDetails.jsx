@@ -24,7 +24,11 @@ const Image = styled.img`
 const securityBlurb = css`
     color: #828796;
     font-style: italic;
-    font-size: 12px;
+    font-size: 13px;
+`
+
+const centerText = css`
+    text-align: center;
 `
 
 export class FinalDetails extends React.Component {
@@ -78,7 +82,7 @@ export class FinalDetails extends React.Component {
                                 />
                                 <div style={{padding: '20px 0 20px 0'}}>
                                     <Grid container spacing={1} alignItems="center">
-                                        <Grid item xs={4} justify="center" alignItems="center">
+                                        <Grid item xs={4} classes={{ root: centerText }}>
                                             <Image alt="ssl secured" src={ssl} />
                                         </Grid>
                                         <Grid item xs={8}>
