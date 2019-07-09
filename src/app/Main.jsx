@@ -79,7 +79,7 @@ export class Main extends Component {
                         <Route path={ROUTES.WELCOME} component={WelcomePage} />
                         <Page>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
-                            <Route path={ROUTES.TELL_US_MORE} component={ApplicationFeePage} />
+                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                             <Route path={ROUTES.LOGIN} component={LoginPage} />
                             <Route path={ROUTES.SIGNUP} component={SignupPage} />
