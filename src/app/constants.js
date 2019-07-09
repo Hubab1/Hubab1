@@ -22,6 +22,7 @@ export const ROUTES = {
     CONNECT_BANK: '/connect-bank',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     APPLICATION_FEE: '/application-fee',
+    FINAL_DETAILS: '/final-details',
 }
 
 export const BASE_ROUTES = [

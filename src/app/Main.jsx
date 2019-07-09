@@ -16,9 +16,11 @@ import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
+import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
+import FinalDetails from 'components/FinalDetails';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -60,6 +62,7 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
+            isLoggedIn && await this.props.fetchApplicant();
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
@@ -87,6 +90,7 @@ export class Main extends Component {
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
+                            <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
                         </Page>
                     </Switch>
                 </div>
@@ -104,7 +108,7 @@ const mapStateToProps = state => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant};
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
