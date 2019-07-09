@@ -22,7 +22,7 @@ export default function SocialSecurityInput (props) {
             InputProps={{ endAdornment: (
                 <InputAdornment position="end">
                     <IconButton
-                        aria-label="Toggle password visibility"
+                        aria-label="Toggle social security number visibility"
                         onClick={()=>setShowText(!showText)}
                     >
                         {showText ? <Visibility /> : <VisibilityOff />}
