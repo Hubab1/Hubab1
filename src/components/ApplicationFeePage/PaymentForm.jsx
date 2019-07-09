@@ -40,7 +40,7 @@ export class PaymentForm extends React.Component {
                     } else {
                         this.setState(
                             {paymentSuccess:true},
-                            () => setTimeout(() => this.props.history.push(ROUTES.CONNECT_BANK), 3000)
+                            () => setTimeout(() => this.props.history.push(ROUTES.FINAL_DETAILS), 3000)
                         ); 
                     }
                 });

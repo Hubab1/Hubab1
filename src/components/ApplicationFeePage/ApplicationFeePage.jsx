@@ -21,7 +21,7 @@ const bodyRow = css`
     display: flex;
     color: #828796;
     font-size: 12px;
-    margin: 30px;
+    margin: 30px 30px 0 30px;
     font-weight: 300;
     align-items: center;
 `
