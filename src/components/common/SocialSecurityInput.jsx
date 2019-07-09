@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputMask from 'react-input-mask';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+
+function displayValue (val, visible) {
+    if (!val) return val;
+    if (visible) return val;
+    return val.split('').map(char => char === '_' || char == '-' ? char : '*').join('');
+}
 
 export default function SocialSecurityInput (props) {
-    
+    const [showText, setShowText] = useState(true);
+
     return (
-        <InputMask 
-            mask="999-99-9999"
-            label="Social Security Number"
-            name={props.name}
-            value={props.value}
+        <TextField
+            error={props.submitted && props.error}
             onChange={props.handleChange}
-        >
-            {(inputProps) => 
-                <TextField
-                    {...inputProps}
-                    error={props.error}
-                    fullWidth
-                /> 
-            }
-        </InputMask>
-    );
+            name={props.name}
+            placeholder="555-55-5555"
+            fullWidth
+            label="Social Security Number"
+            helperText={props.helperText}
+            type={showText ? 'text' : 'password'}
+            value={props.value}
+            InputProps={{ endAdornment: (
+                <InputAdornment position="end">
+                    <IconButton
+                        aria-label="Toggle password visibility"
+                        onClick={()=>setShowText(!showText)}
+                    >
+                        {showText ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                </InputAdornment>
+            )}}
+        />
+    )
+
 }
