@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { Elements, CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
+import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import Lock from '@material-ui/icons/Lock';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
