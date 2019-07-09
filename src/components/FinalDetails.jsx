@@ -6,10 +6,16 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, SpacedH3 } from 'assets/styles';
+import portfolioImg from 'assets/images/portfolio.png';
+import SocialSecurityInput from 'components/common/SocialSecurityInput';
 
 export class FinalDetails extends React.Component {
+    onSubmit = () => {
+
+    }
+
     render () {
         if (!this.props.profile) return null;
 
@@ -17,6 +23,7 @@ export class FinalDetails extends React.Component {
             <Fragment>
                 <H1>You're almost done, {this.props.profile.primary_applicant.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
+                <img src={portfolioImg} alt="portfolio"></img>
                 <Formik
                     onSubmit={this.onSubmit}
                 >
@@ -45,17 +52,15 @@ export class FinalDetails extends React.Component {
                                     <MenuItem value="other">Other</MenuItem>
                                 </Select>
                                 <br/>
-                                <FormTextInput
-                                    label="Social Security Number"
-                                    type="password"
+                                <SocialSecurityInput
                                     name="ssn"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
-                                    handleBlur={handleBlur}
-                                    error={errors.ssn}
                                     value={values.ssn}
-                                    showValidationText
+                                    handleChange={handleChange}
+                                    error={errors.ssn}
                                 />
+                                <ActionButton disabled={!values.ssn || !values.employment || values.ssn === '___-__-____'} marginTop={31} marginBottom={20}>
+                                    Submit
+                                </ActionButton>
                             </FormControl>
                         </form>
                     )}
