@@ -32,6 +32,10 @@ const centerText = css`
     text-align: center;
 `
 
+const gridContainer = css`
+    padding: 20px 0 20px 0;
+`
+
 export class FinalDetails extends React.Component {
     onSubmit = () => {
 
@@ -89,7 +93,7 @@ export class FinalDetails extends React.Component {
                                     submitted={ submitCount > 0 }
                                     helperText={submitCount > 0 ? errors.ssn : null}
                                 />
-                                <div style={{padding: '20px 0 20px 0'}}>
+                                <div className={gridContainer}>
                                     <Grid container spacing={1} alignItems="center">
                                         <Grid item xs={4} classes={{ root: centerText }}>
                                             <Image alt="ssl secured" src={ssl} />
