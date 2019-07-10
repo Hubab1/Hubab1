@@ -8,11 +8,9 @@ import PasswordContainer from 'components/password/PasswordContainer';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
-import TermsPage from 'components/TermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
 import ApplicationFeePage from 'components/ApplicationFeePage/ApplicationFeePage';
-import Page from 'components/common/Page/Page';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
@@ -81,20 +79,17 @@ export class Main extends Component {
                 <div>
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage} />
-                            <NavDrawer>
-
-                                <Route path={ROUTES.PROFILE} component={ProfileContainer} />
-                                <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
-                                <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
-                                <Route path={ROUTES.LOGIN} component={LoginPage} />
-                                <Route path={ROUTES.SIGNUP} component={SignupPage} />
-                                <Route path={ROUTES.TOS} component={TermsPage}/>
-                                <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
-                                <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
-                                <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
-                                <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
-
-                            </NavDrawer>
+                        <Route path={ROUTES.LOGIN} component={LoginPage} />
+                        <Route path={ROUTES.SIGNUP} component={SignupPage} />
+                        <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
+                        <NavDrawer>
+                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
+                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
+                            <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
+                            <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
+                            <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
+                            <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
+                        </NavDrawer>
                     </Switch>
                 </div>
             </AppContextProvider>
