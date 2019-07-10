@@ -47,7 +47,7 @@ function ProgressBar (props) {
 }
 
 ProgressBar.propTypes = {
-    logo: PropTypes.number
+    percent: PropTypes.number
 }
 
 export default ProgressBar;

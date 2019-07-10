@@ -21,6 +21,7 @@ import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
 import FinalDetails from 'components/FinalDetails';
+import NavDrawer from 'components/NavDrawer';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -80,18 +81,20 @@ export class Main extends Component {
                 <div>
                     <Switch>
                         <Route path={ROUTES.WELCOME} component={WelcomePage} />
-                        <Page>
-                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
-                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
-                            <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
-                            <Route path={ROUTES.LOGIN} component={LoginPage} />
-                            <Route path={ROUTES.SIGNUP} component={SignupPage} />
-                            <Route path={ROUTES.TOS} component={TermsPage}/>
-                            <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
-                            <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
-                            <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
-                            <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
-                        </Page>
+                            <NavDrawer>
+
+                                <Route path={ROUTES.PROFILE} component={ProfileContainer} />
+                                <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
+                                <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
+                                <Route path={ROUTES.LOGIN} component={LoginPage} />
+                                <Route path={ROUTES.SIGNUP} component={SignupPage} />
+                                <Route path={ROUTES.TOS} component={TermsPage}/>
+                                <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
+                                <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
+                                <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
+                                <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
+
+                            </NavDrawer>
                     </Switch>
                 </div>
             </AppContextProvider>
