@@ -69,6 +69,9 @@ export class ConnectBankPage extends React.Component {
         }
         this.setState({loadingFinicityIframe: true});
         API.createFinicityUrl().then(res => {
+            if (!res || !res.link) {
+                return this.setState({showFinicityIframe: false, errors: ["There was a problem with the request. Please try again."]})
+            }
             this.setState({showFinicityIframe: true, errors: null}, 
                 () => window.finicityConnect.connectIFrame(res.link, {
                     selector: '#finicity-container',
