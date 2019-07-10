@@ -81,7 +81,7 @@ selectors.selectOrderedRoutes = createSelector(
                     addedRoutes.push(ROUTES[key.toUpperCase()]);
                 }
             })
-            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE])
+            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS])
         }
     }
 );
