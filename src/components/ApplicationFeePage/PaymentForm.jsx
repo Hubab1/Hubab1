@@ -8,7 +8,6 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
 import API, { MOCKY } from 'app/api';
-import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
 
