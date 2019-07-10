@@ -23,6 +23,7 @@ export const ROUTES = {
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     APPLICATION_FEE: '/application-fee',
     FINAL_DETAILS: '/final-details',
+    APP_STATUS: '/app-status',
 }
 
 export const BASE_ROUTES = [
