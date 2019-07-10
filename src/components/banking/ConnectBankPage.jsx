@@ -47,6 +47,8 @@ export class ConnectBankPage extends React.Component {
         })
         this.setState({
             reportData: data,
+            loadingReport: false,
+            errors: null
         })
     }
     
@@ -82,13 +84,13 @@ export class ConnectBankPage extends React.Component {
                             this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
                             API.generateFinicityReports().then( (res) => {
                                 window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
-                            }).catch(
+                            }).catch( (res) => {
                                 this.setState({
                                     showFinicityIframe: false, 
                                     loadingFinicityIframe: false, 
                                     errors: ["There was an error generating your income and assets report. Please try again."]
                                 })
-                            );
+                            });
                         } else {
                             this.setState({showFinicityIframe: false, errors: ["There was an error accessing your information. Please try again."], loadingFinicityIframe: false});
                         }
