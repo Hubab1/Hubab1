@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import Lock from '@material-ui/icons/Lock';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
-import API from 'app/api';
-import { ROUTES } from 'app/constants';
+import API, { MOCKY } from 'app/api';
 import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
 
@@ -29,6 +28,10 @@ export class PaymentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        if (MOCKY) {
+            this.props.onSuccess();
+            return;
+        }
         this.setState({submitting: true})
         const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
         this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
@@ -40,7 +43,7 @@ export class PaymentForm extends React.Component {
                     } else {
                         this.setState(
                             {paymentSuccess:true},
-                            () => setTimeout(() => this.props.history.push(ROUTES.FINAL_DETAILS), 3000)
+                            () => setTimeout(this.props.onSuccess, 3000)
                         ); 
                     }
                 });
@@ -87,13 +90,13 @@ export class PaymentForm extends React.Component {
                 >
                     { 
                         paymentSuccess ? 
-                        <CheckCircleRoundedIcon style={{width: 16, marginRight: 8}} /> : 
-                        <Lock style={{width: 16, marginRight: 8}}/>
+                            <CheckCircleRoundedIcon style={{width: 16, marginRight: 8}} /> : 
+                            <Lock style={{width: 16, marginRight: 8}}/>
                     }
                     {
                         paymentSuccess ?
-                        'Payment Success!' :
-                        `Pay ${formatCurrency(this.props.applicationFee)}`}
+                            'Payment Success!' :
+                            `Pay ${formatCurrency(this.props.applicationFee)}`}
                 </ActionButton>
             </form>
         )

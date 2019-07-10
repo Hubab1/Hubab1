@@ -12,6 +12,7 @@ import creditCardImage from 'assets/images/credit-card.png';
 import { H1, H3 } from 'assets/styles';
 import PaymentForm from './PaymentForm';
 import { formatCurrency } from 'utils/misc';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -53,9 +54,13 @@ export class ApplicationFeePage extends React.Component {
                     </div>
                 </div>
                 <Elements>
-                    <PaymentForm applicationFee={applicationFee} history={this.props.history}/>
+                    <PaymentForm
+                        onSuccess={this.props._nextRoute}
+                        applicationFee={applicationFee}
+                        history={this.props.history}
+                    />
                 </Elements> 
-                <BackLink to={ROUTES.CONNECT_BANK}/>
+                <BackLink to={this.props._prev}/>
             </Fragment>
         );
     }
@@ -66,6 +71,6 @@ const mapStateToProps = state => ({
     configuration: state.configuration
 });
 
-export default connect(mapStateToProps, null)(ApplicationFeePage);
+export default connect(mapStateToProps)(withRelativeRoutes(ApplicationFeePage, ROUTES.APPLICATION_FEE));
 
 
