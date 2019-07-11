@@ -3,6 +3,7 @@
     "lease_settings": 2,
     "address_postal_code": "",
     "email": "slkejhfkajshefjkhek@gm.com",
+    "role": "primary_applicant",
     "guarantors": [
         {
             "phone_number": "(555) 123-6456",

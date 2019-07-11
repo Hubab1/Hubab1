@@ -20,6 +20,7 @@ import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
 import FinalDetails from 'components/FinalDetails';
 import NavDrawer from 'components/NavDrawer';
+import AppStatusPage from 'components/AppStatusPage';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -89,6 +90,7 @@ export class Main extends Component {
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
                             <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
+                            <Route path={ROUTES.APP_STATUS} component={AppStatusPage}/>
                         </NavDrawer>
                     </Switch>
                 </div>

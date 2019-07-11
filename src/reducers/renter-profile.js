@@ -4,7 +4,7 @@ import produce from 'immer';
 import { createSelector } from 'reselect';
 
 import API, { MOCKY } from 'app/api';
-import { BASE_ROUTES, ROUTES } from 'app/constants';
+import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
@@ -72,16 +72,21 @@ export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
     state => state.configuration && state.configuration.rental_options_config,
     state => state.renterProfile && state.renterProfile.selected_rental_options,
-    (config, selectedOptions) => {
-        if (selectedOptions && config) {
-            const addedRoutes = [];
-            // temp until api gives us an ordered configuration set
-            Object.keys(config).forEach(key => {
-                if (selectedOptions.indexOf(key) > -1) {
-                    addedRoutes.push(ROUTES[key.toUpperCase()]);
-                }
-            })
-            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE])
+    state => state.applicant,
+    (config, selectedOptions, applicant) => {
+        if (selectedOptions && config && applicant) {
+            if (applicant.role === ROLE_PRIMARY_APPLICANT) {
+                const addedRoutes = [];
+                // temp until api gives us an ordered configuration set
+                Object.keys(config).forEach(key => {
+                    if (selectedOptions.indexOf(key) > -1) {
+                        addedRoutes.push(ROUTES[key.toUpperCase()]);
+                    }
+                })
+                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS])
+            } else {
+                return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS]
+            }
         }
     }
 );
