@@ -19,6 +19,7 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import Page from 'components/common/Page/Page';
 import { subPage } from 'components/common/Page/styles';
 import { NAV_ROUTES } from 'app/constants';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 const drawerWidth = 240;
 
@@ -82,6 +83,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export function PersistentDrawerLeft(props) {
+    if (props.hideNav) {
+        return <UnauthenticatedPage>{props.children}</UnauthenticatedPage>
+    }
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);

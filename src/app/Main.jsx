@@ -82,7 +82,7 @@ export class Main extends Component {
                         <Route path={ROUTES.LOGIN} component={LoginPage} />
                         <Route path={ROUTES.SIGNUP} component={SignupPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
-                        <NavDrawer>
+                        <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
