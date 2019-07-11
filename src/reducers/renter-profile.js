@@ -74,6 +74,7 @@ selectors.selectOrderedRoutes = createSelector(
     state => state.renterProfile && state.renterProfile.selected_rental_options,
     state => state.applicant,
     (config, selectedOptions, applicant) => {
+<<<<<<< HEAD
         if (selectedOptions && config && applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 const addedRoutes = [];
@@ -87,6 +88,19 @@ selectors.selectOrderedRoutes = createSelector(
             } else {
                 return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE]
             }
+=======
+        if (selectedOptions && config && applicant && applicant.role === ROLE_PRIMARY_APPLICANT) {
+            const addedRoutes = [];
+            // temp until api gives us an ordered configuration set
+            Object.keys(config).forEach(key => {
+                if (selectedOptions.indexOf(key) > -1) {
+                    addedRoutes.push(ROUTES[key.toUpperCase()]);
+                }
+            })
+            return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS])
+        } else if (selectedOptions && config && applicant) {
+            return [ROUTES.TELL_US_MORE].concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS])
+>>>>>>> 291f0ee5ecd72856a50d2d0532349fcb40cac81d
         }
     }
 );
