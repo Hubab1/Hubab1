@@ -13,6 +13,7 @@ export const subPage = css`
     text-align: center;
     margin: auto;
     padding-bottom: 25px;
+    min-width: 300px;
 `
 
 export const Banner = styled.div`
