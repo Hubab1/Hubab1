@@ -37,8 +37,8 @@ const gridContainer = css`
 `
 
 export class FinalDetails extends React.Component {
-    onSubmit = () => {
-
+    onSubmit = (values, { setSubmitting }) => {
+        console.log(values)
     }
 
     render () {
@@ -65,6 +65,7 @@ export class FinalDetails extends React.Component {
                         handleBlur,
                         handleSubmit,
                         submitCount,
+                        setFieldValue,
                         errors
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
@@ -86,6 +87,7 @@ export class FinalDetails extends React.Component {
                                 <br/>
                                 <SocialSecurityInput
                                     name="ssn"
+                                    setFieldValue={(val) => setFieldValue('ssn', val)}
                                     handleBlur={handleBlur}
                                     handleChange={handleChange}
                                     value={values.ssn}
