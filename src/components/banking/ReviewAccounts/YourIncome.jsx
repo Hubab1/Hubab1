@@ -97,15 +97,14 @@ YourIncome.propTypes = {
 
 
 const IncomeEntry = (props) => {
-    debugger;
     return (
         <div className={incomeEntry}>
             <TextField
                 label="Employer Name"
                 name={props.id}
-                handleChange={props.handleChange}
-                handleBlur={props.handleBlur}
-                value={props.values[props.id]}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                value={props.value}
             />
             <P bottomAligned>{formatCurrency(props.income)}</P>
         </div>
