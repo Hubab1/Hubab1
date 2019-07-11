@@ -12,7 +12,6 @@ function replaceAt (str, index, character) {
 }
 
 const transformDisplay = (val) => {
-    // if (!val) return;
     if (!val) return '';
     // Strip all non numbers
     let displayVal = val.replace(/[^0-9|\\*]/g, '');
@@ -69,14 +68,14 @@ export default function SocialSecurityInput (props) {
     const [showText, setShowText] = useState(false);
     const [displayVal, setDisplayVal] = useState('');
 
-    const syncInput = (val) => {
-        let vall = val.target.value;
+    const syncInput = (e) => {
+        let val = e.target.value;
         if (!showText) {
-            setDisplayVal(transformDisplay(vall));
+            setDisplayVal(transformDisplay(val));
         } else {
-            setDisplayVal(transformValue(vall, props.value));
+            setDisplayVal(transformValue(val, props.value));
         }
-        props.setFieldValue(transformValue(vall, props.value));
+        props.setFieldValue(transformValue(val, props.value));
     }
 
     const toggleVisibility = () => {
