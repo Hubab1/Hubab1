@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from 'emotion';
 
 import { Banner } from './styles';
@@ -20,7 +19,7 @@ export const subContainer = css`
 `
 
 
-export class Page extends React.Component {
+export class UnauthenticatedPage extends React.Component {
     static contextType = AppTheme;
     render () {
         return (
@@ -39,9 +38,4 @@ export class Page extends React.Component {
     }
 }
 
-Page.propTypes = {
-    logo: PropTypes.string
-}
-
-
-export default Page;
+export default UnauthenticatedPage;

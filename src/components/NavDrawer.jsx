@@ -17,7 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ProgressBar from 'components/common/Page/ProgressBar';
 
 import { AppTheme } from 'contexts/AppContextProvider';
-import Page from 'components/common/Page/Page';
+import BannerLogo from 'components/common/Page/BannerLogo';
 import { subPage } from 'components/common/Page/styles';
 import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
@@ -129,7 +129,7 @@ export function PersistentDrawerLeft(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Page />
+                    <BannerLogo />
                     <div className={clsx(classes.padRight, open && classes.hide)}></div>
                 </Toolbar>
                 <ProgressBar percent={33}/>
