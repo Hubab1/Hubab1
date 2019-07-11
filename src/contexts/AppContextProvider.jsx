@@ -13,6 +13,7 @@ export const AppTheme = React.createContext();
 function getThemeValues (config, materialTheme) {
     if (config.dark_mode) {
         return {
+            dark_mode: true,
             logo: config.logo,
             bannerBackground: materialTheme.palette.primary.main,
             bannerColor: materialTheme.palette.primary.contrastText,
@@ -25,6 +26,7 @@ function getThemeValues (config, materialTheme) {
         }
     } else {
         return {
+            dark_mode: false,
             logo: config.logo,
             bannerBackground: '#ffffff',
             color: '#000000',

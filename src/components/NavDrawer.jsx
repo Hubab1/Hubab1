@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ProgressBar from 'components/common/Page/ProgressBar';
 
+import { AppTheme } from 'contexts/AppContextProvider';
 import Page from 'components/common/Page/Page';
 import { subPage } from 'components/common/Page/styles';
 import { NAV_ROUTES } from 'app/constants';
@@ -32,6 +33,14 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+    },
+    darkThemeAppbar: {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText
+    },
+    liteThemeAppbar: {
+        backgroundColor: '#ffffff',
+        color: '#000000'
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -86,6 +95,7 @@ export function PersistentDrawerLeft(props) {
     if (props.hideNav) {
         return <UnauthenticatedPage>{props.children}</UnauthenticatedPage>
     }
+    const appThemeContext = useContext(AppTheme);
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -102,11 +112,12 @@ export function PersistentDrawerLeft(props) {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
-                color="#000000"
+                color="primary"
                 position="fixed"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
+                classes={{colorPrimary: appThemeContext.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar}}
             >
                 <Toolbar>
                     <IconButton
