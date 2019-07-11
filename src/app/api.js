@@ -131,13 +131,22 @@ API.generateFinicityReports = () => {
     }).then(res => res.json());
 }
 
-
 API.fetchFinicityReports = () => {
     return fetch(chuck('/fetch-finicity-reports/'), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
     });
+}
+
+API.stripePayment = (data) => {
+    return fetch(chuck('/payment/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
 }
 
 export default API;

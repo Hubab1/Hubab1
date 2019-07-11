@@ -10,8 +10,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import * as Yup from 'yup';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import { ROUTES } from 'app/constants';
 import { H1, SpacedH3 } from 'assets/styles';
+import withRelativeRoutes from 'app/withRelativeRoutes';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import portfolioImg from 'assets/images/portfolio.png';
 import SocialSecurityInput from 'components/common/SocialSecurityInput';
 
@@ -121,4 +123,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile
 })
 
-export default connect(mapStateToProps)(FinalDetails);
+export default connect(mapStateToProps)(withRelativeRoutes(FinalDetails, ROUTES.FINAL_DETAILS));
