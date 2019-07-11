@@ -30,6 +30,7 @@ export const NAV_ROUTES = [
     {name: 'Tell Us More', value: ROUTES.TELL_US_MORE},
     {name: 'Profile', value: ROUTES.PROFILE_OPTIONS},
     {name: 'Co-applicants', value: ROUTES.CO_APPLICANTS},
+    {name: 'Guarantor', value: ROUTES.GUARANTOR},
     {name: 'Pets', value: ROUTES.PETS},
     {name: 'Bank', value: ROUTES.CONNECT_BANK},
     {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
