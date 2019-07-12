@@ -43,7 +43,7 @@ export class Main extends Component {
             if (!configuration.client) {
                 history.replace(ROUTES.WELCOME);
             }
-            else if (configuration.client && configuration.client.application_id) {
+            else if (configuration.client && configuration.client.applicant_id) {
                 history.replace(ROUTES.LOGIN);
             } else {
                 history.replace(ROUTES.WELCOME);
