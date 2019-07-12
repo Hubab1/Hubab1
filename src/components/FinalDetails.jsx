@@ -41,6 +41,7 @@ const gridContainer = css`
 export class FinalDetails extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         console.log(values)
+        this.props._nextRoute();
     }
 
     render () {
