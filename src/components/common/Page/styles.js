@@ -1,13 +1,7 @@
 import { css } from 'emotion';
 import styled from '@emotion/styled';
 
-export const page = css`
-  text-align: center;
-  margin: auto;
-  padding: 10px 0;
-`
-
-export const subPage = css`
+export const drawerContent = css`
     padding: 30px 20px;
     max-width: 500px;
     text-align: center;

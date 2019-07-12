@@ -18,7 +18,7 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
-import { subPage } from 'components/common/Page/styles';
+import { drawerContent } from 'components/common/Page/styles';
 import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
@@ -164,7 +164,7 @@ export function PersistentDrawerLeft(props) {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div className={subPage}>
+                <div className={drawerContent}>
                     {props.children}
                 </div>
             </main>

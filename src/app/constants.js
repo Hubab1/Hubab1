@@ -35,6 +35,7 @@ export const NAV_ROUTES = [
     {name: 'Bank', value: ROUTES.CONNECT_BANK},
     {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
     {name: 'Final Application Details', value: ROUTES.FINAL_DETAILS},
+    {name: 'Application Status', value: ROUTES.APP_STATUS}
 ];
 
 export const BASE_ROUTES = [
