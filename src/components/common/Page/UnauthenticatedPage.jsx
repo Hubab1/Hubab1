@@ -1,24 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { css } from 'emotion';
 
-import { Banner, page, subPage } from './styles';
+import { Banner } from './styles';
 import { Logo } from 'assets/styles';
 import { AppTheme } from 'contexts/AppContextProvider';
-import ProgressBar from 'components/common/Page/ProgressBar';
 
-export class Page extends React.Component {
+
+export const container = css`
+  text-align: center;
+  margin: auto;
+  padding-bottom: 25px;
+`
+
+export const subContainer = css`
+    padding: 30px 20px;
+    max-width: 500px;
+    margin: auto;
+`
+
+
+export class UnauthenticatedPage extends React.Component {
     static contextType = AppTheme;
     render () {
         return (
-            <div className={page}>
+            <div className={container}>
                 <Banner style={{
                     backgroundColor: this.context.bannerBackground,
                     color: this.context.bannerColor
                 }}>
                     <Logo src={this.context.logo} alt="company logo" />
                 </Banner>
-                <ProgressBar percent={25} />
-                <div className={subPage}>
+                <div className={subContainer}>
                     {this.props.children}
                 </div>
             </div>
@@ -26,9 +38,4 @@ export class Page extends React.Component {
     }
 }
 
-Page.propTypes = {
-    logo: PropTypes.string
-}
-
-
-export default Page;
+export default UnauthenticatedPage;

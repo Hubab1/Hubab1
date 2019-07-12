@@ -155,7 +155,7 @@ export class TellUsMore extends React.Component {
 
 TellUsMore.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
-    applicant: PropTypes.object.isRequired
+    applicant: PropTypes.object
 }
 
 const mapStateToProps = state => ({

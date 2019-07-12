@@ -26,6 +26,18 @@ export const ROUTES = {
     APP_STATUS: '/app-status',
 }
 
+export const NAV_ROUTES = [
+    {name: 'Tell Us More', value: ROUTES.TELL_US_MORE},
+    {name: 'Profile', value: ROUTES.PROFILE_OPTIONS},
+    {name: 'Co-applicants', value: ROUTES.CO_APPLICANTS},
+    {name: 'Guarantor', value: ROUTES.GUARANTOR},
+    {name: 'Pets', value: ROUTES.PETS},
+    {name: 'Bank', value: ROUTES.CONNECT_BANK},
+    {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
+    {name: 'Final Application Details', value: ROUTES.FINAL_DETAILS},
+    {name: 'Application Status', value: ROUTES.APP_STATUS}
+];
+
 export const BASE_ROUTES = [
     ROUTES.TELL_US_MORE, ROUTES.PROFILE_OPTIONS
 ]

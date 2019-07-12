@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,6 +13,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import GenericFormError from 'components/common/GenericFormError';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 import auth from 'utils/auth';
 
@@ -44,7 +45,7 @@ export class LoginPage extends React.Component {
 
     render () {
         return (
-            <Fragment>
+            <UnauthenticatedPage>
                 <SkinnyH1>
                     Sign In to Continue with Your Application
                 </SkinnyH1>
@@ -105,7 +106,7 @@ export class LoginPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-            </Fragment>
+            </UnauthenticatedPage>
         );
     }
 }

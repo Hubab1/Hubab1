@@ -1,6 +1,7 @@
 {
     "application_fee": 100.0,
     "dark_mode": false,
+    "show_navigation": true,
     "secondary_color": "0fce98",
     "community": {
             "city": "Santa Barbara",

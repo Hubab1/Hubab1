@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
@@ -14,6 +14,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 export class SignupPage extends React.Component {
     state = {errors: null}
@@ -38,7 +39,7 @@ export class SignupPage extends React.Component {
     render () {
         const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
-            <Fragment>
+            <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
                 <Formik
                     initialValues={initialValues}
@@ -123,7 +124,7 @@ export class SignupPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-            </Fragment>
+            </UnauthenticatedPage>
         );
     }
 }
