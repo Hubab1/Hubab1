@@ -55,7 +55,7 @@ export class ApplicationFeePage extends React.Component {
                 </div>
                 <Elements
                     fonts={[{
-                        cssSrc: 'https://use.typekit.net/asb6wyn.css=proxima-nova:300,400,500,600,700'
+                        cssSrc: 'https://use.typekit.net/asb6wyn.css'
                     }]}
                 >
                     <PaymentForm
