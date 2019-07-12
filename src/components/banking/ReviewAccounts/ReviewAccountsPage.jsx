@@ -15,24 +15,28 @@ import API, { MOCKY } from 'app/api';
 export class ReviewAccountsPage extends React.Component {
 
     confirmAccounts = (values, { setSubmitting }) => {
-        if (MOCKY) {
-            const initalValues = this.props.initialIncomeValues;
+        const incomeNamePromises = [];
+        if (!MOCKY) {
+            const initalValues = this.props.incomeNameInitialValues;
+            const incomeNamePromises = [];
             Object.entries(values).forEach( entry => {
-                const entryId = entry[0];
-                const entryName = entry[1]
-                debugger;
-                if (initalValues[entryId] !== entryName){
+                const finicityId = entry[0];
+                const employerName = entry[1]
+
+                if (initalValues[finicityId] !== employerName){
                     const data = {
-                        finicity_income_stream_id: entryId,
-                        name: entryName
+                        finicity_income_stream_id: finicityId,
+                        name: employerName
                     };
-                    API.createIncomeStream(data);
+                    incomeNamePromises.push(API.createIncomeStream(data));
                 }
             });
         }
-        this.props.history.push({
-            pathname: ROUTES.APPLICATION_FEE, 
-        });
+        Promise.all(incomeNamePromises).then( data => {
+            this.props.history.push({
+                pathname: ROUTES.APPLICATION_FEE, 
+            });    
+        })
     }
 
     resetIncomeVerification = () => {
@@ -45,7 +49,7 @@ export class ReviewAccountsPage extends React.Component {
                 <H1>Compare Income & Assets</H1>
                 <SpacedH3>Just arrived: your bank account information. Please review below.</SpacedH3>
                 <Formik
-                    initialValues={this.props.initialIncomeValues}
+                    initialValues={this.props.incomeNameInitialValues}
                     onSubmit={this.confirmAccounts}
                 >
                     {({

@@ -32,11 +32,11 @@ export class ConnectBankPage extends React.Component {
         const assetsTotal = get(reportData, 'voa.assets.currentBalance');
         const incomeData = get(reportData, 'voi.institutions', []);
 
-        const data = {'incomeEntries': [], 'incomeTotal': 0, assetsTotal, 'initialIncomeValues': {}}
+        const data = {'incomeEntries': [], 'incomeTotal': 0, assetsTotal, 'incomeNameInitialValues': {}}
         incomeData.forEach(bank => {
             bank.accounts.forEach(account => {
                 account.incomeStreams.forEach((income) => {
-                    data.initialIncomeValues[income.id] = income.name;
+                    data.incomeNameInitialValues[income.id] = income.name;
                     data.incomeEntries.push({
                         name: income.name,
                         income: income.projectedGrossAnnual,
@@ -113,7 +113,7 @@ export class ConnectBankPage extends React.Component {
     render () {
         if (!!this.state.reportData ) {
             return <ReviewAccountsPage 
-                initialIncomeValues={this.state.reportData.initialIncomeValues}
+                incomeNameInitialValues={this.state.reportData.incomeNameInitialValues}
                 incomeEntries={this.state.reportData.incomeEntries}
                 incomeTotal={this.state.reportData.incomeTotal}
                 assetsTotal={this.state.reportData.assetsTotal}
