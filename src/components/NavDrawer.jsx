@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -21,6 +22,8 @@ import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
+import { actions } from 'reducers/store';
+import { ROUTES } from 'app/constants';
 
 const drawerWidth = 240;
 
@@ -108,6 +111,12 @@ export function PersistentDrawerLeft(props) {
         setOpen(false);
     }
 
+    function logout () {
+        localStorage.clear();
+        props.logout();
+        props.history.push(ROUTES.LOGIN)
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -157,6 +166,9 @@ export function PersistentDrawerLeft(props) {
                     ))}
                 </List>
                 <Divider />
+                <ListItem button onClick={logout}>
+                    <ListItemText primary="Logout" />
+                </ListItem>
             </Drawer>
             <main
                 className={clsx(classes.content, {
@@ -172,4 +184,8 @@ export function PersistentDrawerLeft(props) {
     );
 }
 
-export default withRouter(PersistentDrawerLeft);
+const mapDispatchToProps = {
+    logout: actions.logout
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(PersistentDrawerLeft));
