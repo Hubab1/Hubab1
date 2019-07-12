@@ -16,7 +16,6 @@ const _StripeInput = props => {
 
     const {
         classes: c,
-        theme,
         inputRef,
         component: Component,
         onFocus,
@@ -27,14 +26,13 @@ const _StripeInput = props => {
     const [mountNode, setMountNode] = React.useState(null);
 
     React.useImperativeHandle(
-      inputRef,
-      () => ({
-        focus: () => mountNode.focus()
-      }),
-      [mountNode]
+        inputRef,
+        () => ({
+            focus: () => mountNode.focus()
+        }),
+        [mountNode]
     );
   
-
     return (
         <Component
             onReady={ setMountNode }
@@ -46,14 +44,14 @@ const _StripeInput = props => {
             style={{
                 base: {
                     fontSize: '16px',
-                    fontFamily: theme.typography.fontFamily[0],
+                    fontFamily: 'proxima-nova, sans-serif',
                     color: 'black',
                 },
                 invalid: {
                     color: '#eb1c26'
-                  }
-                }}
-        />
+                }
+            }}
+        />  
     )
 }
 
