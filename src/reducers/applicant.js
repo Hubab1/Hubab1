@@ -17,6 +17,11 @@ const applicant = createSlice({
             const newState = produce(state, draft => Object.assign({}, draft, payload))
             return newState;
         },
+    },
+    extraReducers: {
+        USER_LOGOUT: () => {
+            return null;
+        }
     }
 });
 

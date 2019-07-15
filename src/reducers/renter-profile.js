@@ -25,6 +25,11 @@ const renterProfile = createSlice({
             const newState = produce(state, draft => Object.assign({}, draft, payload))
             return newState;
         },
+    },
+    extraReducers: {
+        USER_LOGOUT: () => {
+            return null;
+        }
     }
 });
 
@@ -83,9 +88,9 @@ selectors.selectOrderedRoutes = createSelector(
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
                     }
                 })
-                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS])
+                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS])
             } else {
-                return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.APP_STATUS]
+                return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS]
             }
         }
     }

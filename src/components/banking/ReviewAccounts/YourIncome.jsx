@@ -27,11 +27,13 @@ export function YourIncome (props) {
                 {
                     props.incomeEntries.map( entry => {
                         return <IncomeEntry 
-                            name={entry.name}   
                             income={entry.income} 
                             key={entry.id}
                             id={entry.id}
-                        />
+                            value={props.values[entry.id]}
+                            handleChange={props.handleChange}
+                            handleBlur={props.handleBlur}
+                        />  
                     })
                 }
                 <AddAnotherButton
@@ -70,6 +72,9 @@ export default connect(mapStateToProps)(YourIncome);
 YourIncome.propTypes = {
     incomeEntries: PropTypes.array,
     incomeTotal: PropTypes.number,
+    values: PropTypes.object,
+    handleChange: PropTypes.func,
+    handleBlur: PropTypes.func,
 }
 
 
@@ -78,8 +83,10 @@ export const IncomeEntry = (props) => {
         <div className={incomeEntry}>
             <TextField
                 label="Employer Name"
-                name={`employer_name_${props.id}`}
-                value={props.name}
+                name={props.id}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                value={props.value}
             />
             <P bottomAligned>{formatCurrency(props.income)}</P>
         </div>
@@ -87,8 +94,9 @@ export const IncomeEntry = (props) => {
 }
 
 YourIncome.propTypes = {
-    name: PropTypes.string,
-    income: PropTypes.number,
     id: PropTypes.string,
+    values: PropTypes.object,
+    handleChange: PropTypes.func,
+    handleBlur: PropTypes.func,
 }
 

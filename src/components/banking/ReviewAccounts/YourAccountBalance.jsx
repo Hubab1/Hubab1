@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
-import { Card, CardSection, totalContainer } from './styles';
+import { Card, CardSection, totalContainer, infoIconRoot } from './styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Info from '@material-ui/icons/Info';
 
@@ -17,13 +17,13 @@ function YourAccountBalance (props) {
                     Your total balance is shown below. It will be used to determine your eligibility to rent.
                 </P>
                 <P fontSize={14}>
-                    How did we get this number?
+                    How did we get this number?&nbsp;
                     <Tooltip
                         enterTouchDelay={100}
                         placement="top-end"
                         title="Lorem ipsum"
                     >
-                        <Info style={{color:'#828796',width:14}}/>
+                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </Tooltip>
                 </P>
                 <div className={totalContainer}>

@@ -53,7 +53,11 @@ export class ApplicationFeePage extends React.Component {
                         This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} to="">privacy policy here.</Link>
                     </div>
                 </div>
-                <Elements>
+                <Elements
+                    fonts={[{
+                        cssSrc: 'https://use.typekit.net/asb6wyn.css'
+                    }]}
+                >
                     <PaymentForm
                         onSuccess={this.props._nextRoute}
                         applicationFee={applicationFee}
