@@ -15,7 +15,8 @@ beforeEach(() => {
         applicant: {role: ROLE_PRIMARY_APPLICANT},
         profile: { unit: { price: 10 } },
         incomeEntries: [ {name: 'White Castle', income: 1234, id:123}, {name:'Nestio', income: 1234, id: 345} ],
-        incomeTotal: 1234
+        incomeTotal: 1234,
+        values: {123: 'White Castle', 345: 'Nestio'}
     };
 })
 
