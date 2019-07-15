@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
-import { formatCurrency } from 'utils/misc';
+import { formatCurrency, getIncomeRequirementText } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import lightbulb from 'assets/images/lightbulb.png';
 
@@ -17,27 +17,8 @@ const Bulb = styled.img`
     height: 46px;
 `
 
-export const getRequirementText = props => {
-    const {config, profile} = props;
-    if (profile.unit) {
-        // use applicant endpoint data for this in the future
-        if (profile.selected_rental_options && profile.selected_rental_options.includes('guarantor')) {
-            return `The total income required for a guarantor on the application is ${config.guarantor_income_requirement_multiplier}x the rent: ${formatCurrency(config.guarantor_income_requirement_multiplier * profile.unit.price)}`;
-        } else {
-            return `The total income required for all members of the application is ${config.applicant_income_requirements}x the rent: ${formatCurrency(config.applicant_income_requirements * profile.unit.price)}`;
-        }
-    } else {
-        if (profile.selected_rental_options && profile.selected_rental_options.includes('guarantor')) {
-            return `The total income required for all members of the application is ${config.guarantor_income_requirement_multiplier}x the rent`;
-        } else {
-            return `The total income required for a guarantor on the application is ${config.applicant_income_requirements}x the rent`;
-        }
-    }
-}
-
-
-function YourIncome (props) {
-    if (!props.profile || !props.config) return null;
+export function YourIncome (props) {
+    if (!props.profile || !props.config || !props.applicant) return null;
     return (
         <Card>
             <CardSection>
@@ -45,8 +26,8 @@ function YourIncome (props) {
                 <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
                 {
                     props.incomeEntries.map( entry => {
-                        return <IncomeEntry
-                            income={entry.income}
+                        return <IncomeEntry 
+                            income={entry.income} 
                             key={entry.id}
                             id={entry.id}
                             value={props.values[entry.id]}
@@ -71,7 +52,7 @@ function YourIncome (props) {
                     </Grid>
                     <Grid item xs>
                         <P>
-                            {getRequirementText(props)}
+                            {getIncomeRequirementText(props)}
                         </P>
                         <AddAnotherButton>Add a guarantor</AddAnotherButton>
                     </Grid>
@@ -84,6 +65,7 @@ function YourIncome (props) {
 const mapStateToProps = state => ({
     config: state.configuration,
     profile: state.renterProfile,
+    applicant: state.applicant,
 })
 export default connect(mapStateToProps)(YourIncome);
 
@@ -96,7 +78,7 @@ YourIncome.propTypes = {
 }
 
 
-const IncomeEntry = (props) => {
+export const IncomeEntry = (props) => {
     return (
         <div className={incomeEntry}>
             <TextField
