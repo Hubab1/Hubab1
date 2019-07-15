@@ -15,9 +15,10 @@ import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
+import TermsPage from 'components/TermsPage';
 
 export class SignupPage extends React.Component {
-    state = {errors: null}
+    state = {errors: null, showTos: true}
 
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
@@ -37,6 +38,9 @@ export class SignupPage extends React.Component {
     }
 
     render () {
+        if (this.state.showTos) {
+            return <TermsPage onAgree={() => this.setState({showTos: false})} />;
+        }
         const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
             <UnauthenticatedPage>

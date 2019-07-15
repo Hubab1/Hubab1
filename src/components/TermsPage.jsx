@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
 import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, Bold } from 'assets/styles';
-import { ROUTES } from 'app/constants';
-import { updateRenterProfile } from 'reducers/renter-profile';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -28,49 +25,34 @@ export const TextReader = styled.div`
     line-height: 17px;
 `
 
-export class TermsPage extends React.Component {
+export default function (props) {
 
-    handleClickNext = () => {
-        const { history } = this.props;
-        this.props.updateRenterProfile({completed_terms_and_conditions: true});
-        history.push(ROUTES.PROFILE_OPTIONS);
-    }
-
-    render () {
-        return (
-            <Fragment>
-                <H1>Terms and Conditions</H1>
+    return (
+        <UnauthenticatedPage>
+            <H1>Terms and Conditions</H1>
+            <br/>
+            <TextReader>
+                <div>Terms and Conditions</div>
+                <div>General Site Usage</div>
+                <div>Last Revised: December 16, 2013</div>
                 <br/>
-                <TextReader>
-                    <div>Terms and Conditions</div>
-                    <div>General Site Usage</div>
-                    <div>Last Revised: December 16, 2013</div>
-                    <br/>
-                    <div>Welcome to 555 Waverly. {LOREM}</div>
-                    <br/>
-                    <Bold>1. YOUR AGREEMENT</Bold>
-                    <br/>
-                    <div>By using this site, {LOREM}</div>
-                    <br/>
-                    <Bold>PLEASE NOTE: </Bold><span>We reserve the right {LOREM}</span>
-                    <br/>
-                    <br/>
-                    <Bold>2. PRIVACY</Bold>
-                    <br/>
-                    <div>Please {LOREM}</div>
-                </TextReader>
+                <div>Welcome to 555 Waverly. {LOREM}</div>
                 <br/>
-                <ActionButton onClick={this.handleClickNext} marginTop={20} marginBottom={10}>
-                    Agree and Continue
-                </ActionButton>
-            </Fragment>
-        );
-    }
+                <Bold>1. YOUR AGREEMENT</Bold>
+                <br/>
+                <div>By using this site, {LOREM}</div>
+                <br/>
+                <Bold>PLEASE NOTE: </Bold><span>We reserve the right {LOREM}</span>
+                <br/>
+                <br/>
+                <Bold>2. PRIVACY</Bold>
+                <br/>
+                <div>Please {LOREM}</div>
+            </TextReader>
+            <br/>
+            <ActionButton onClick={props.onAgree} marginTop={20} marginBottom={10}>
+                Agree and Continue
+            </ActionButton>
+        </UnauthenticatedPage>
+    );
 }
-
-export default connect(null, {updateRenterProfile})(TermsPage);
-
-TermsPage.propTypes = {
-    updateRenterProfile: PropTypes.func,
-    history: PropTypes.object,
-};
