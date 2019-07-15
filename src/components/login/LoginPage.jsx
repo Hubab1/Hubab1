@@ -113,7 +113,9 @@ export class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
-    profile: PropTypes.object
+    profile: PropTypes.object,
+    initialPage: PropTypes.string,
+    communityId: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({

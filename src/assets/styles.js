@@ -66,6 +66,7 @@ export const P = styled.p(props => ({
     fontSize: props.fontSize ? props.fontSize : 16,
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
+    color: props.color ? props.color : 'black',
 }))
 
 
@@ -98,4 +99,16 @@ export const blackLinkRoot = css`
 
 export const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
+`
+
+export const CardSection = styled.div`
+    padding: 15px;
+`
+
+export const Card = styled.div`
+    margin-bottom: 20px;
+    border: 1px solid #EEEEEE;	
+    border-radius: 5px;	
+    box-shadow: 0 2px 4px 0 rgba(197,197,197,0.5);
+    text-align: left;
 `

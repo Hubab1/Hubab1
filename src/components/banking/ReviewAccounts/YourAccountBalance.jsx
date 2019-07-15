@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { P } from 'assets/styles';
+import { Card, CardSection, P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
-import { Card, CardSection, totalContainer, infoIconRoot } from './styles';
+import { totalContainer, infoIconRoot } from './styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Info from '@material-ui/icons/Info';
 
