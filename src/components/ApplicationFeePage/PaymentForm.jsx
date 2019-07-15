@@ -37,7 +37,7 @@ export class PaymentForm extends React.Component {
         return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
             if (res.token) {
                 const data = {token: res.token.id};
-                API.stripePayment(data).then(res => {                    
+                API.stripePayment(data).then(res => {
                     if (res.errors) {
                         this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
@@ -50,7 +50,7 @@ export class PaymentForm extends React.Component {
             } else {
                 this.setState({errors: [genericErrorMessage], submitting: false});        
             }
-        }).catch( res => {            
+        }).catch( res => {
             this.setState({errors: [genericErrorMessage], submitting: false});        
         });
     }
