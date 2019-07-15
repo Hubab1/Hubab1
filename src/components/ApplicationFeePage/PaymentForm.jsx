@@ -34,12 +34,12 @@ export class PaymentForm extends React.Component {
         }
         this.setState({submitting: true})
         const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
-        this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
+        return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
             if (res.token) {
                 const data = {token: res.token.id};
-                API.stripePayment(data).then(res => {
+                API.stripePayment(data).then(res => {                    
                     if (res.errors) {
-                        this.setState({errors: [res.errors.error.message], subitting: false});
+                        this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
                         this.setState(
                             {paymentSuccess:true},
@@ -48,10 +48,10 @@ export class PaymentForm extends React.Component {
                     }
                 });
             } else {
-                this.setState({errors: [genericErrorMessage], subitting: false});        
+                this.setState({errors: [genericErrorMessage], submitting: false});        
             }
-        }).catch( res => {
-            this.setState({errors: [genericErrorMessage], subitting: false});        
+        }).catch( res => {            
+            this.setState({errors: [genericErrorMessage], submitting: false});        
         });
     }
     render() {
