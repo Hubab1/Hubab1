@@ -21,9 +21,10 @@ export class SignupPage extends React.Component {
 
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        const { history } = this.props;
-        const hash = this.props.history.location.state && this.props.history.location.state.hash;
+        const { history, hash } = this.props;
 
+        // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
+        // particularly need this for guarantor and co-applicant to associate with existing application
         return auth.register(values, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
@@ -131,13 +132,16 @@ export class SignupPage extends React.Component {
 
 SignupPage.propTypes = {
     profile: PropTypes.object,
-    fetchRenterProfile: PropTypes.func
+    fetchRenterProfile: PropTypes.func,
+    communityId: PropTypes.string,
+    hash: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
+    hash: state.siteConfig.hash,
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };

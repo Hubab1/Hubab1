@@ -16,16 +16,13 @@ import { AppTheme } from 'contexts/AppContextProvider';
 
 export class WelcomePage extends Component {
     static contextType = AppTheme;
-    getNextLinkUrl () {
-        return ROUTES.SIGNUP;
-    }
 
     getLinkState () {
         const client = this.props.configuration.client;
         if (!client || !client.person) return;
         const { first_name, last_name, email, phone_1 } = client.person;
         const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
-        return { clientValues, hash: this.props.hash};
+        return { clientValues };
     }
     
     render() {
@@ -61,7 +58,7 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link 
-                            to={{pathname: this.getNextLinkUrl(), state: this.getLinkState()}}
+                            to={{pathname: ROUTES.SIGNUP, state: this.getLinkState()}}
                             style={{ textDecoration: 'none' }}
                         >
                             <div>
@@ -87,7 +84,6 @@ WelcomePage.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    hash: state.siteConfig.hash,
     configuration: state.configuration
 });
 
