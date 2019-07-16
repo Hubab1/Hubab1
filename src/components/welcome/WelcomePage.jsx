@@ -19,18 +19,39 @@ export class WelcomePage extends Component {
 
     getLinkState () {
         const client = this.props.configuration.client;
-        if (!client || !client.person) return;
-        const { first_name, last_name, email, phone_1 } = client.person;
-        const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
-        return { clientValues };
+        const invitee = this.props.configuration.invitee;
+
+        if (client && client.person) {
+            const { first_name, last_name, email, phone_1 } = client.person;
+            const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
+            return { clientValues };
+        } else if (invitee && invitee.first_name) {
+            const { first_name, last_name, phone_number } = invitee;
+            const clientValues = { first_name, last_name, phone_number }
+            return { clientValues };
+        } else {
+            return null;
+        }
+    }
+
+    getFirstName () {
+        const { client, invitee } = this.props.configuration;
+        if ( client && client.person ) { 
+            return client.person.first_name;
+        } else if ( invitee && invitee.first_name ) {
+            return invitee.first_name;
+        } else {
+            return null;
+        }
     }
     
     render() {
-        const { client, background, logo, community, unit } = this.props.configuration;
+        const { background, logo, community, unit } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
-        const person = client ? client.person : null;
+
+        const firstName = this.getFirstName();
         const cityStateZip = `${city}, ${state} ${postal_code}`
-        const helloContent = person && person.first_name ? `Hello ${person.first_name},` : 'Hi There,'
+        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,'
         return (
             <Fragment>
                 <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background}/>
