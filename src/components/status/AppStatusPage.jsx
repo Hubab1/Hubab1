@@ -67,10 +67,10 @@ export class AppStatusPage extends React.Component {
     }
 
     render () {
-        if (!this.props.profile) return null;       
+        if (!this.props.profile || ! this.props.configuration) return null;       
         const { profile, configuration } = this.props;
         const { unit, primary_applicant, co_applicants, guarantor } = profile;
-        const buildingName = configuration.community.building_name;
+        const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
         return (
             <Fragment>
                 <H1>Hooray! You're done.</H1>
