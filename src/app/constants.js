@@ -7,7 +7,6 @@ export const ROUTES = {
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
-    TOS: '/terms',
     PASSWORD: '/password',
     TELL_US_MORE: '/additional-info',
     FORGOT_PASSWORD: '/password/forgot',
