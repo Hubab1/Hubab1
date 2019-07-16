@@ -72,7 +72,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow( <Main {...defaultProps} history={history}/>);
 
         const isAuthenticated = false;
-        const configuration = { client: { applicant_id: 123 } }; wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
+        const configuration = { client: { applicant_id: 123 }, invitee: {} }; wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
     }); 
     it('routes to welcome page if not authenticated, and there is a client associated', function() {
         const historyStub = jest.fn();
