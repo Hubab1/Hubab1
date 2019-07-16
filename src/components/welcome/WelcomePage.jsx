@@ -17,23 +17,6 @@ import { AppTheme } from 'contexts/AppContextProvider';
 export class WelcomePage extends Component {
     static contextType = AppTheme;
 
-    getLinkState () {
-        const client = this.props.configuration.client;
-        const invitee = this.props.configuration.invitee;
-
-        if (client && client.person) {
-            const { first_name, last_name, email, phone_1 } = client.person;
-            const clientValues = {first_name, last_name, email, phone_number: phone_1, id: client.id};
-            return { clientValues };
-        } else if (invitee && invitee.first_name) {
-            const { first_name, last_name, phone_number } = invitee;
-            const clientValues = { first_name, last_name, phone_number }
-            return { clientValues };
-        } else {
-            return null;
-        }
-    }
-
     getFirstName () {
         const { client, invitee } = this.props.configuration;
         if ( client && client.person ) { 
@@ -79,7 +62,7 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link 
-                            to={{pathname: ROUTES.SIGNUP, state: this.getLinkState()}}
+                            to={{pathname: ROUTES.SIGNUP}}
                             style={{ textDecoration: 'none' }}
                         >
                             <div>

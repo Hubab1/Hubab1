@@ -19,6 +19,21 @@ import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 export class SignupPage extends React.Component {
     state = {errors: null}
 
+    getApplicantInfo () {
+        const client = this.props.configuration.client;
+        const invitee = this.props.configuration.invitee;
+
+        if (client && client.person) {
+            const { first_name, last_name, email, phone_1 } = client.person;
+            return {first_name, last_name, email, phone_number: phone_1, id: client.id};
+        } else if (invitee && invitee.first_name) {
+            const { first_name, last_name, phone_number } = invitee;
+            return { first_name, last_name, phone_number };
+        } else {
+            return null;
+        }
+    }
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
         const { history, hash } = this.props;
@@ -38,7 +53,8 @@ export class SignupPage extends React.Component {
     }
 
     render () {
-        const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
+        if (!this.props.configuration) return;
+        const initialValues = this.getApplicantInfo();
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
@@ -135,6 +151,7 @@ SignupPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
     communityId: PropTypes.string,
     hash: PropTypes.string,
+    configuration: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
@@ -142,6 +159,7 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
+    configuration: state.configuration
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
