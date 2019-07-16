@@ -66,7 +66,7 @@ export const P = styled.p(props => ({
     fontSize: props.fontSize ? props.fontSize : 16,
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
-    color: props.color ? props.color : 'black',
+    color: props.color ? props.color : 'inherit ',
 }))
 
 
@@ -74,7 +74,7 @@ export const link = css`
 display: inline-block;
 margin-bottom: 20px;
 color: #2B44FF;
-`
+`   
 
 export const LinkButton = styled.button`
     background:none!important;
@@ -110,5 +110,8 @@ export const Card = styled.div`
     border: 1px solid #EEEEEE;	
     border-radius: 5px;	
     box-shadow: 0 2px 4px 0 rgba(197,197,197,0.5);
+    text-align: left;
+`
+export const leftText = css`
     text-align: left;
 `

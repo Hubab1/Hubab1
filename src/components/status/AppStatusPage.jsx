@@ -8,7 +8,7 @@ import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
 
 
-import { H1, SpacedH3, Card, CardSection, P } from 'assets/styles';
+import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 
 const CardRow = styled.div`
     display: flex;
@@ -38,10 +38,6 @@ const statusBlurb = css`
     font-size: 14px;
 `
 
-const leftText = css`
-    text-align: left;
-`
-
 const gridContainer = css`
     padding: 20px 0 20px 0;
 `
@@ -61,8 +57,7 @@ export class AppStatusPage extends React.Component {
 
     renderCoApplicants(coApplicants) {
         return coApplicants.map(coApp => {
-            return this.renderPersonRow(coApp, 'Roommate')
-
+            return this.renderPersonRow(coApp, 'Roommate')  
         })
     }
 
@@ -105,12 +100,8 @@ export class AppStatusPage extends React.Component {
                         <CardRow>
                             <P bold>Applicant Status</P>
                         </CardRow>
-                        { primary_applicant && this.renderPersonRow(primary_applicant, 'Main Applicant')}
-                        { 
-                            co_applicants && co_applicants.map(coApp => {
-                                return this.renderPersonRow(coApp, 'Roommate')
-                            })
-                        }
+                        { primary_applicant && this.renderPersonRow(primary_applicant, 'Main Applicant') }
+                        { co_applicants && this.renderCoApplicants(co_applicants) }
                     </CardSection>
                 </Card>
                 { 
