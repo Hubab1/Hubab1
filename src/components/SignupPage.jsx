@@ -18,7 +18,7 @@ import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import TermsPage from 'components/TermsPage';
 
 export class SignupPage extends React.Component {
-    state = {errors: null, showTos: true}
+    state = {errors: null, showTerms: true}
 
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
@@ -38,8 +38,8 @@ export class SignupPage extends React.Component {
     }
 
     render () {
-        if (this.state.showTos) {
-            return <TermsPage onAgree={() => this.setState({showTos: false})} />;
+        if (this.state.showTerms) {
+            return <TermsPage onAgree={() => this.setState({showTerms: false})} />;
         }
         const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
         return (
