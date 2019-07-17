@@ -68,6 +68,15 @@ it('renders Hi There, when client is not included in configuration', function(){
     expect(wrapper.text().includes('Hi There,')).toBeTruthy();
 });
 
+it('renders Hi <invitee_name>, when invitee is included in configuration', function(){
+    delete defaultProps.configuration.client;
+    defaultProps.configuration.invitee = {first_name: 'Stinky'};
+    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+
+    expect(wrapper.text().includes('Hello Stinky,')).toBeTruthy();
+});
+
+
 it('renders correct info when all client and unit info are passed', () => {
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);
 

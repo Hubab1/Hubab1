@@ -20,11 +20,27 @@ import TermsPage from 'components/TermsPage';
 export class SignupPage extends React.Component {
     state = {errors: null, showTerms: true}
 
+    getApplicantInfo () {
+        const client = this.props.configuration.client;
+        const invitee = this.props.configuration.invitee;
+
+        if (client && client.person) {
+            const { first_name, last_name, email, phone_1 } = client.person;
+            return {first_name, last_name, email, phone_number: phone_1, id: client.id};
+        } else if (invitee && invitee.first_name) {
+            const { first_name, last_name, phone_number } = invitee;
+            return { first_name, last_name, phone_number };
+        } else {
+            return null;
+        }
+    }
+
     auth=auth
     onSubmit = (values, { setSubmitting }) => {
-        const { history } = this.props;
-        const hash = this.props.history.location.state && this.props.history.location.state.hash;
+        const { history, hash } = this.props;
 
+        // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
+        // particularly need this for guarantor and co-applicant to associate with existing application
         return auth.register(values, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
@@ -38,10 +54,11 @@ export class SignupPage extends React.Component {
     }
 
     render () {
+        if (!this.props.configuration) return;
         if (this.state.showTerms) {
             return <TermsPage onAgree={() => this.setState({showTerms: false})} />;
         }
-        const initialValues = this.props.history.location.state && this.props.history.location.state.clientValues;
+        const initialValues = this.getApplicantInfo();
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
@@ -135,13 +152,18 @@ export class SignupPage extends React.Component {
 
 SignupPage.propTypes = {
     profile: PropTypes.object,
-    fetchRenterProfile: PropTypes.func
+    fetchRenterProfile: PropTypes.func,
+    communityId: PropTypes.string,
+    hash: PropTypes.string,
+    configuration: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
+    hash: state.siteConfig.hash,
+    configuration: state.configuration
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };

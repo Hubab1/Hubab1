@@ -37,16 +37,21 @@ export class Main extends Component {
     mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
         const pathname = location.pathname;
+
+        const clientRegistered = configuration.client && configuration.client.applicant_id;
+        const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
+        const hasRegistered = clientRegistered || inviteeRegistered;
+
         if (!isAuthenticated) {
             if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password')) return;
-            if (!configuration.client) {
+            if (!configuration.client || !configuration.invitee) {
                 history.replace(ROUTES.WELCOME);
             }
-            else if (configuration.client && configuration.client.applicant_id) {
+            else if (hasRegistered) {
                 history.replace(ROUTES.LOGIN);
             } else {
                 history.replace(ROUTES.WELCOME);
-            }
+            }   
         } else {
             fetchRenterProfile().then(() => {
                 history.replace(this.props.initialPage);
