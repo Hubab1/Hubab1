@@ -66,7 +66,7 @@ export const P = styled.p(props => ({
     fontSize: props.fontSize ? props.fontSize : 16,
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
-    color: props.color ? props.color : 'inherit ',
+    color: props.color ? props.color : 'inherit',
 }))
 
 
