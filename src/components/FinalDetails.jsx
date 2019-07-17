@@ -26,7 +26,6 @@ const Image = styled.img`
 
 const securityBlurb = css`
     color: #828796;
-    font-style: italic;
     font-size: 13px;
 `
 

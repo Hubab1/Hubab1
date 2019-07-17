@@ -20,7 +20,7 @@ import { selectors as configSelectors } from 'reducers/configuration';
 import TellUsMore from 'components/TellUsMorePage';
 import FinalDetails from 'components/FinalDetails';
 import NavDrawer from 'components/NavDrawer';
-import AppStatusPage from 'components/AppStatusPage';
+import AppStatusPage from 'components/status/AppStatusPage';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {

@@ -9,8 +9,8 @@ import { formatCurrency, getIncomeRequirementText } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import lightbulb from 'assets/images/lightbulb.png';
 
-import { Card, CardSection, totalContainer, incomeEntry } from './styles'
-import { P } from 'assets/styles'
+import {  totalContainer, incomeEntry } from './styles'
+import { Card, CardSection, P } from 'assets/styles'
 
 const Bulb = styled.img`
     width: 50px;
