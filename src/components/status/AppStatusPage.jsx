@@ -4,16 +4,19 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
+
+
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
-
-
+import { ROUTES } from 'app/constants';
 import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 
 const CardRow = styled.div`
     display: flex;
     padding: 10px 0;
     border-bottom: 1px solid #EEEEEE;
+    justify-content: space-between;
     &:first-of-type {
         padding-top: 0;
     }
@@ -45,13 +48,26 @@ const gridContainer = css`
 
 export class AppStatusPage extends React.Component {
 
+    renderResendLink(person, route) {
+        return <Link to={{pathname: route, state: {initialValues: person}}}>
+        Resend Link
+        </Link>
+    }
+
     renderPersonRow(person, label) {
-        return <CardRow>
+        const showLink = !person.is_registered && label !== 'Main Applicant';  
+        const link = label === 'Roommate' ? 
+            this.renderResendLink(person, ROUTES.CO_APPLICANTS) :
+            this.renderResendLink(person, ROUTES.GUARANTOR);
+        return <CardRow key={person.id}>
             <div>
                 <P>{`${person.first_name} ${person.last_name}`}</P>
                 <P fontSize={14} color="#828796" margin="5px 0 0 0">{label}</P>
             </div>
-            <div>{/* Applicant Status to be added here */}</div>
+            <div>
+                {/* Applicant Status to be added here */}
+                { showLink && link }                        
+            </div>
         </CardRow>
     }
 

@@ -159,4 +159,8 @@ API.createIncomeStream = (data) => {
     }).then(res => res.json());
 }
 
+API.updateAppliant = (data) => {
+    return Promise.resolve('you are a garbage gnome');
+}
+
 export default API;
