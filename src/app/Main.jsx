@@ -90,7 +90,7 @@ export class Main extends Component {
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
-                            <Route path={ROUTES.TELL_US_MORE} component={AppStatusPage} />
+                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
