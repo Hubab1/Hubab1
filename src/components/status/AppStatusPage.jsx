@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
-import { ROUTES } from 'app/constants';
+import { ROUTES, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 
 const CardRow = styled.div`
@@ -55,10 +55,13 @@ export class AppStatusPage extends React.Component {
     }
 
     renderPersonRow(person, label) {
-        const showLink = !person.is_registered && label !== 'Main Applicant';  
+        const isPrimaryApplicant = this.props.applicant.role === ROLE_PRIMARY_APPLICANT;
+        const showLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
+
         const link = label === 'Roommate' ? 
             this.renderResendLink(person, ROUTES.CO_APPLICANTS) :
             this.renderResendLink(person, ROUTES.GUARANTOR);
+
         return <CardRow key={person.id}>
             <div>
                 <P>{`${person.first_name} ${person.last_name}`}</P>
@@ -93,7 +96,7 @@ export class AppStatusPage extends React.Component {
                             <BulbImage alt="light bulb" src={lightbulb} />
                         </Grid>
                         <Grid item xs={9} classes={{ root: leftText }}>
-                            <span className={statusBlurb}>Once the application’s reviewed, you’ll get an email detailing next steps.</span>
+                            <span className={statusBlurb}>Once the application is reviewed, you’ll get an email detailing next steps.</span>
                         </Grid>
                     </Grid>
                 </div>
@@ -139,12 +142,14 @@ export class AppStatusPage extends React.Component {
 AppStatusPage.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
+    applicant: PropTypes.object,
 }
 
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    configuration: state.configuration,    
+    configuration: state.configuration,
+    applicant: state.applicant,
 })
 
 export default connect(mapStateToProps, null)(AppStatusPage);

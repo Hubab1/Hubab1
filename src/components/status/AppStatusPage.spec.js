@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AppStatusPage } from './AppStatusPage';
 import mockProfile from 'reducers/mock-profile';
 import mockConfig from 'reducers/mock-config';
+import mockApplicant from 'reducers/applicant-mock';
 
 
 
@@ -13,6 +14,7 @@ beforeEach(() => {
     defaultProps = {
         profile: mockProfile,
         configuration: mockConfig,
+        applicant: mockApplicant,
     }
 });
 
@@ -70,3 +72,12 @@ it('renders resend Links for people (co_applicants and guarantor) who have not r
     expect(roommateLink.props.to).toEqual(expectedRoommateLinkState);
 
 });
+
+it('does not render resend links if applicant is not main applicant', () => {
+    defaultProps.applicant.role = 'not_main_applicant';
+
+    const wrapper = shallow(<AppStatusPage {...defaultProps}/>);
+
+    expect(wrapper.find(Link).length).toEqual(0);
+
+})
