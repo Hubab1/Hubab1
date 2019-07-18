@@ -49,15 +49,18 @@ export class GuarantorPage extends React.Component {
     }
 
     render () {
+        const initialValues = this.props.history.location.state && this.props.history.location.state.initialValues;
+        const confirmationPagebuttonClick = initialValues ? this.props.history.push(ROUTES.APP_STATUS) : this.props._nextRoute;
         if (this.state.confirmSent) {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
-                buttonClick={this.props._nextRoute}
+                buttonClick={confirmationPagebuttonClick}
                 buttonText="Continue"
             />
         }
-        const initialValues = this.props.history.location.state && this.props.history.location.state.initialValues;
+
+        const backLinkRoute = initialValues ? ROUTES.APP_STATUS : this.props._prev;
         return (
             <Fragment>
                 <H1>Let's Invite a Guarantor</H1>
@@ -117,7 +120,7 @@ export class GuarantorPage extends React.Component {
                                 />
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop={31} marginBottom={10}>Send Invite</ActionButton>
                             </div>
-                            <BackLink to={this.props._prev}/>
+                            <BackLink to={backLinkRoute}/>
                         </form>
                     )}
                 </Formik>

@@ -51,18 +51,20 @@ export class InviteRoommatesPage extends React.Component {
     }
 
     render () {
+        const initialValues = this.props.history.location.state && this.props.history.location.state.initialValues;
+        const confirmationPagePrimarybuttonClick = initialValues ? this.props.history.push(ROUTES.APP_STATUS) : this.props._nextRoute;
+        const confirmationPageSecondarybuttonClick = initialValues ? null : () => this.setState({confirmSent: false});
         if (this.state.confirmSent) {
             return <ConfirmationPage 
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={this.props._nextRoute}
+                buttonClick={confirmationPagePrimarybuttonClick}
                 buttonText="Continue"
-                secondaryButtonClick={() => this.setState({confirmSent: false})}
-                secondaryButtonText="Add Another Roommate"
+                secondaryButtonClick={confirmationPageSecondarybuttonClick}
+                secondaryButtonText={!initialValues && "Add Another Roommate"}
                 confirmationImage={inviteConfirm}
             />
         } 
-        const initialValues = this.props.history.location.state && this.props.history.location.state.initialValues;
         return (
             <Fragment>
                 <H1>Invite Your Roommates</H1>
