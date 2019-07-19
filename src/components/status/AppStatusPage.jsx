@@ -1,15 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 
 
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
-import { ROUTES, ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 
 const CardRow = styled.div`
@@ -45,22 +44,24 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
+const resendLink = css`
+    color: #2B44FF;
+    cursor: pointer;
+    text-decoration: underline
+    font-size: 14px;
+`
+
+
 
 export class AppStatusPage extends React.Component {
 
-    renderResendLink(person, route) {
-        return <Link to={{pathname: route, state: {initialValues: person}}}>
-        Resend Link
-        </Link>
-    }
+    const [ resendFormValues, setResendFormValues ] = useState(null);
+
+    state = { resendFormValues: null }
 
     renderPersonRow(person, label) {
         const isPrimaryApplicant = this.props.applicant.role === ROLE_PRIMARY_APPLICANT;
         const showLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
-
-        const link = label === 'Roommate' ? 
-            this.renderResendLink(person, ROUTES.CO_APPLICANTS) :
-            this.renderResendLink(person, ROUTES.GUARANTOR);
 
         return <CardRow key={person.id}>
             <div>
@@ -69,7 +70,15 @@ export class AppStatusPage extends React.Component {
             </div>
             <div>
                 {/* Applicant Status to be added here */}
-                { showLink && link }                        
+                { showLink && 
+                    <span 
+                        role="button" 
+                        onClick={setResendFormValues} 
+                        className={resendLink}
+                    >
+                        Read it now!
+                    </span> 
+                }                        
             </div>
         </CardRow>
     }
