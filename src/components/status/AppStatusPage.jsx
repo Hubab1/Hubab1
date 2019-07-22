@@ -1,151 +1,104 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
 
 
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
-import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 
-const CardRow = styled.div`
-    display: flex;
-    padding: 10px 0;
-    border-bottom: 1px solid #EEEEEE;
-    justify-content: space-between;
-    &:first-of-type {
-        padding-top: 0;
+import { PersonRow } from './PersonRow';
+import { CardRow, FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
+import ResendLinkForm from './ResendLinkForm';
+
+
+export const AppStatusPage = ({profile, configuration, applicant, history}) => {
+
+    const [resendFormValues, setResendFormValues] = useState();
+
+    if (!profile || ! configuration) return null;       
+    if (resendFormValues) {
+        return <ResendLinkForm initialValues={resendFormValues} history={history} handleConfirmationClick={setResendFormValues}/>
     }
-    &:last-of-type {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-`
+    const { unit, primary_applicant, co_applicants, guarantor } = profile;
+    const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
+    const role = applicant.role;
 
-const FolderImage = styled.img`
-width: 89px;
-height: 85px;
-`
-
-const BulbImage = styled.img`
-    width: 46px;
-    height: 42px;
-`
-
-const statusBlurb = css`
-    color: #454B57;
-    font-size: 14px;
-`
-
-const gridContainer = css`
-    padding: 20px 0 20px 0;
-`
-
-const resendLink = css`
-    color: #2B44FF;
-    cursor: pointer;
-    text-decoration: underline
-    font-size: 14px;
-`
-
-
-
-export class AppStatusPage extends React.Component {
-
-    const [ resendFormValues, setResendFormValues ] = useState(null);
-
-    state = { resendFormValues: null }
-
-    renderPersonRow(person, label) {
-        const isPrimaryApplicant = this.props.applicant.role === ROLE_PRIMARY_APPLICANT;
-        const showLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
-
-        return <CardRow key={person.id}>
-            <div>
-                <P>{`${person.first_name} ${person.last_name}`}</P>
-                <P fontSize={14} color="#828796" margin="5px 0 0 0">{label}</P>
-            </div>
-            <div>
-                {/* Applicant Status to be added here */}
-                { showLink && 
-                    <span 
-                        role="button" 
-                        onClick={setResendFormValues} 
-                        className={resendLink}
-                    >
-                        Read it now!
-                    </span> 
-                }                        
-            </div>
-        </CardRow>
-    }
-
-    renderCoApplicants(coApplicants) {
-        return coApplicants.map(coApp => {
-            return this.renderPersonRow(coApp, 'Roommate')  
-        })
-    }
-
-    render () {
-        if (!this.props.profile || ! this.props.configuration) return null;       
-        const { profile, configuration } = this.props;
-        const { unit, primary_applicant, co_applicants, guarantor } = profile;
-        const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-        return (
-            <Fragment>
-                <H1>Hooray! You're done.</H1>
-                <SpacedH3>We'll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
-                <FolderImage src={statusFolder}/>
-                <div className={gridContainer}>
-                    <Grid container spacing={2} alignItems="center">
-                        <Grid item xs={2}>
-                            <BulbImage alt="light bulb" src={lightbulb} />
-                        </Grid>
-                        <Grid item xs={9} classes={{ root: leftText }}>
-                            <span className={statusBlurb}>Once the application is reviewed, you’ll get an email detailing next steps.</span>
-                        </Grid>
+    return (
+        <Fragment>
+            <H1>Hooray! You're done.</H1>
+            <SpacedH3>We'll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
+            <FolderImage src={statusFolder}/>
+            <div className={gridContainer}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={2}>
+                        <BulbImage alt="light bulb" src={lightbulb} />
                     </Grid>
-                </div>
-                <Card>
-                    <CardSection>
-                        <CardRow>
-                            <P bold>Application Status</P>
-                        </CardRow>
-                        <CardRow>
-                            <div>
-                                <P>{buildingName}</P>
-                                <P fontSize={14} color="#828796">{unit && `Unit ${unit}`}</P>
-                            </div>
-                            <div>{/* Application Status to be added here */}</div>
-                        </CardRow>
-                    </CardSection>
-                </Card>
-                <Card>
-                    <CardSection>
-                        <CardRow>
-                            <P bold>Applicant Status</P>
-                        </CardRow>
-                        { primary_applicant && this.renderPersonRow(primary_applicant, 'Main Applicant') }
-                        { co_applicants && this.renderCoApplicants(co_applicants) }
-                    </CardSection>
-                </Card>
-                { 
-                    guarantor && 
-                        <Card>
-                            <CardSection>
-                                <CardRow>
-                                    <P bold>Guarantor Status</P>
-                                </CardRow> 
-                                {this.renderPersonRow(guarantor, 'Guarantor')}
-                            </CardSection>
-                        </Card>
-                }
-            </Fragment>
-        )
-    }
+                    <Grid item xs={9} classes={{ root: leftText }}>
+                        <span className={statusBlurb}>Once the application is reviewed, you’ll get an email detailing next steps.</span>
+                    </Grid>
+                </Grid>
+            </div>
+            <Card>
+                <CardSection>
+                    <CardRow>
+                        <P bold>Application Status</P>
+                    </CardRow>
+                    <CardRow>
+                        <div>
+                            <P>{buildingName}</P>
+                            <P fontSize={14} color="#828796">{unit && `Unit ${unit}`}</P>
+                        </div>
+                        <div>{/* Application Status to be added here */}</div>
+                    </CardRow>
+                </CardSection>
+            </Card>
+            <Card>
+                <CardSection>
+                    <CardRow>
+                        <P bold>Applicant Status</P>
+                    </CardRow>
+                    { primary_applicant && 
+                        <PersonRow 
+                            person={primary_applicant} 
+                            label="Main Applicant" 
+                            role={role}
+                            handleClick={setResendFormValues}
+                        /> }
+                    { 
+                        co_applicants && 
+                            co_applicants.map(coApp => {
+                                return <PersonRow 
+                                    key={coApp.id}
+                                    person={coApp} 
+                                    label="Roommate" 
+                                    role={role}
+                                    handleClick={setResendFormValues}
+                                />
+                            }) 
+                    }
+                </CardSection>
+            </Card>
+            { 
+                guarantor && 
+                    <Card>
+                        <CardSection>
+                            <CardRow>
+                                <P bold>Guarantor Status</P>
+                            </CardRow> 
+                            { guarantor && 
+                                <PersonRow 
+                                    person={guarantor} 
+                                    label="Guarantor" 
+                                    role={role}
+                                    handleClick={setResendFormValues}
+                                /> }
+                        </CardSection>
+                    </Card>
+            }
+        </Fragment>
+    )
 }
 
 AppStatusPage.propTypes = {
