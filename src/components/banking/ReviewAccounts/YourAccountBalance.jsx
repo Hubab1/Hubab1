@@ -5,7 +5,7 @@ import { Card, CardSection, P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 import { totalContainer, infoIconRoot } from './styles';
 import Info from '@material-ui/icons/Info';
-import MouseOverPopover from 'components/common/MouseOverPopover';
+import SimplePopover from 'components/common/SimplePopover';
 
 
 function YourAccountBalance (props) {
@@ -18,9 +18,9 @@ function YourAccountBalance (props) {
                 </P>
                 <P fontSize={14}>
                     How did we get this number?&nbsp;
-                    <MouseOverPopover>
+                    <SimplePopover>
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
-                    </MouseOverPopover>
+                    </SimplePopover>
                 </P>
                 <div className={totalContainer}>
                     <P bold>Total Account Balance</P>

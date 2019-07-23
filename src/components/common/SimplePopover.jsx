@@ -1,55 +1,58 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from 'emotion';
+import Cancel from '@material-ui/icons/Cancel';
+const cancelButton = css`
+    color: #828796;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+`
 
 const useStyles = makeStyles(theme => ({
-    popover: {
-        pointerEvents: 'none',
-    },
-    paper: {
-        padding: theme.spacing(1),
+    typography: {
+        padding: theme.spacing(2, 4, 2, 2),
     },
     root: {
         display: 'inline'
     }
 }));
 
-export default function MouseOverPopover(props) {
+export default function SimplePopover(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    function handlePopoverOpen(event) {
+    function handleClick(event) {
         setAnchorEl(event.currentTarget);
     }
 
-    function handlePopoverClose() {
+    function handleClose() {
         setAnchorEl(null);
     }
 
     const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     return (
         <>
             <Typography
-                aria-owns={open ? 'mouse-over-popover' : undefined}
+                aria-describedby={id}
                 aria-haspopup="true"
                 classes={{
                     root: classes.root
                 }}
-                onMouseEnter={handlePopoverOpen}
-                onMouseLeave={handlePopoverClose}
+                onClick={handleClick}
             >
                 {props.children}
             </Typography>
             <Popover
-                id="mouse-over-popover"
-                className={classes.popover}
-                classes={{
-                    paper: classes.paper
-                }}
+                id={id}
                 open={open}
                 anchorEl={anchorEl}
+                onClose={handleClose}
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'left',
@@ -58,10 +61,10 @@ export default function MouseOverPopover(props) {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
             >
-                <Typography>Lorem ipsum dolor sit amet</Typography>
+                <Typography className={classes.typography}><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
+                    <Cancel onClick={handleClose} role="button" style={{fontSize: 17}} className={cancelButton} />
+                </Typography>
             </Popover>
         </>
     );
