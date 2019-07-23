@@ -90,11 +90,11 @@ LinkButton.displayName = 'LinkButton';
 
 
 export const blackLinkRoot = css`
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 500 !important;
+    font-size: 16px !important;
     text-transform: capitalize;
-    text-decoration: none;
-    color: black;
+    text-decoration: none !important;
+    color: black !important;
 `
 
 export const SpacedH3 = styled(H3)`
