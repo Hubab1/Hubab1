@@ -4,5 +4,5 @@ steps:
     agents:
       queue: docker
     env:
-      BUILDKITE_ASSUME_ROLE: arn:aws:iam::380368738393:role/CI/DemoDeployWoodhouse
+      BUILDKITE_ASSUME_ROLE: arn:aws:iam::597580629174:role/CI/DemoDeployWoodhouse
       S3_BUCKET: s3://woodhouse-sales-demo
