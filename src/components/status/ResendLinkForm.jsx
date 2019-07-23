@@ -1,19 +1,20 @@
 import React, { Fragment } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { css } from 'emotion';
+import styled from '@emotion/styled';
+
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import coin from 'assets/images/coin.png';
-import { H1, formContent, SpacedH3 } from 'assets/styles';
+import { H1, formContent, SpacedH3, LinkButton, blackLinkRoot } from 'assets/styles';
 
-import styled from '@emotion/styled';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import BackLink from 'components/common/BackLink';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import GenericFormError from 'components/common/GenericFormError';
-import { ROUTES } from 'app/constants';
 import API from 'app/api';
 
 const ImageContainer = styled.div`
@@ -23,6 +24,12 @@ const ImageContainer = styled.div`
         max-height: 90px;
         max-width: 90px;
     }
+`
+
+const arrowIcon = css`
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    vertical-align: sub;
 `
 
 export class ResendLinkForm extends React.Component {
@@ -106,7 +113,9 @@ export class ResendLinkForm extends React.Component {
                                 />
                                 <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop={31} marginBottom={10}>Send Invite</ActionButton>
                             </div>
-                            <BackLink to={ROUTES.APP_STATUS}/>
+                            <LinkButton className={blackLinkRoot} onClick={() => this.props.handleConfirmationClick(null)}>
+                                <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
+                            </LinkButton>
                         </form>
                     )}
                 </Formik>

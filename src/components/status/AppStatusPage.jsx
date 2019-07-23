@@ -19,7 +19,7 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
 
     if (!profile || ! configuration) return null;       
     if (resendFormValues) {
-        return <ResendLinkForm initialValues={resendFormValues} history={history} handleConfirmationClick={setResendFormValues}/>
+        return <ResendLinkForm initialValues={resendFormValues} handleConfirmationClick={setResendFormValues}/>
     }
     const { unit, primary_applicant, co_applicants, guarantor } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
@@ -64,7 +64,7 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
                             person={primary_applicant} 
                             label="Main Applicant" 
                             role={role}
-                            handleClick={setResendFormValues}
+                            handleClickLink={setResendFormValues}
                         /> }
                     { 
                         co_applicants && 
@@ -74,7 +74,7 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
                                     person={coApp} 
                                     label="Roommate" 
                                     role={role}
-                                    handleClick={setResendFormValues}
+                                    handleClickLink={setResendFormValues}
                                 />
                             }) 
                     }
@@ -87,13 +87,12 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
                             <CardRow>
                                 <P bold>Guarantor Status</P>
                             </CardRow> 
-                            { guarantor && 
-                                <PersonRow 
-                                    person={guarantor} 
-                                    label="Guarantor" 
-                                    role={role}
-                                    handleClick={setResendFormValues}
-                                /> }
+                            <PersonRow 
+                                person={guarantor} 
+                                label="Guarantor" 
+                                role={role}
+                                handleClickLink={setResendFormValues}
+                            />
                         </CardSection>
                     </Card>
             }

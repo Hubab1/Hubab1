@@ -5,9 +5,9 @@ import {LinkButton, P } from 'assets/styles';
 import { CardRow } from './styles';
 
 
-export const PersonRow = ({person, label, role, handleClick}) => {
+export const PersonRow = ({person, label, role, handleClickLink}) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
-    const showLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
+    const showResendLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
 
     return <CardRow key={person.id}>
         <div>
@@ -16,10 +16,10 @@ export const PersonRow = ({person, label, role, handleClick}) => {
         </div>
         <div>
             {/* Applicant Status to be added here */}
-            { showLink && 
+            { showResendLink && 
                 <LinkButton 
                     role="button" 
-                    onClick={() => handleClick(person)} 
+                    onClick={() => handleClickLink(person)} 
                 >
                     Resend Invite
                 </LinkButton> 
