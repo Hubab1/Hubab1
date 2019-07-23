@@ -14,6 +14,12 @@ main() {
         # nestctl broadcast-deploy-ready
         exit
     fi
+
+    if [[ "${BUILDKITE_BRANCH}" == 'demo' ]]; then
+        echo "Adding demo deploy steps."
+        buildkite-agent pipeline upload .buildkite/deploy-demo.yml
+        exit
+    fi
 }
 
 main
