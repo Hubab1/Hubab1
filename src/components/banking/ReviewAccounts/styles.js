@@ -10,6 +10,7 @@ export const totalContainer = css`
     position: relative;
     left: -15px;
     bottom: -15px;
+    box-sizing: content-box;
 `
 
 export const incomeEntry = css`

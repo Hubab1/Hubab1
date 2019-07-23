@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Card, CardSection, P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 import { totalContainer, infoIconRoot } from './styles';
-import Tooltip from '@material-ui/core/Tooltip';
 import Info from '@material-ui/icons/Info';
+import MouseOverPopover from 'components/common/MouseOverPopover';
 
 
 function YourAccountBalance (props) {
@@ -18,13 +18,9 @@ function YourAccountBalance (props) {
                 </P>
                 <P fontSize={14}>
                     How did we get this number?&nbsp;
-                    <Tooltip
-                        enterTouchDelay={100}
-                        placement="top-end"
-                        title="Lorem ipsum"
-                    >
+                    <MouseOverPopover>
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
-                    </Tooltip>
+                    </MouseOverPopover>
                 </P>
                 <div className={totalContainer}>
                     <P bold>Total Account Balance</P>
