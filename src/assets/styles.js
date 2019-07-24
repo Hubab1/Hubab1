@@ -1,8 +1,6 @@
 import React from 'react';
 import { withTheme } from '@material-ui/styles';
-import {
-    css
-} from 'emotion';
+import { css } from 'emotion';
 import styled from '@emotion/styled';
 
 export const formContent = css`
