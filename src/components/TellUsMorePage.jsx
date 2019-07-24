@@ -26,7 +26,9 @@ const ImageContainer = styled.div`
 
 export class TellUsMore extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        this.props.updateApplicant(values).then((res) => {
+        const serialized = Object.assign({}, values);
+        serialized.birthday = serialized.birthday.toString();
+        this.props.updateApplicant(serialized).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -42,7 +44,8 @@ export class TellUsMore extends React.Component {
             address_street: applicant.address_street,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
-            address_postal_code: applicant.address_postal_code
+            address_postal_code: applicant.address_postal_code,
+            birthday: applicant.birthday
         }
     }
 

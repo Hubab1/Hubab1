@@ -57,7 +57,7 @@ export const updateApplicant = (newData) => {
             }
             return dispatch({
                 type: applicantUpdated.toString(),
-                payload: newData
+                payload: res
             });
         })
     }
