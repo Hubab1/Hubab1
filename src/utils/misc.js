@@ -37,3 +37,15 @@ export const getIncomeRequirementText = props => {
         }
     }
 }
+
+// takes a date object and outputs a date string formatted like "1981-12-27"
+export function serializeDate (date) {
+    if ((date instanceof Date) === false) return undefined;
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+}
+
+export function parseDateISOString(s) {
+    let ds = s.split(/\D/).map(s => parseInt(s));
+    ds[1] = ds[1] - 1; // adjust month
+    return new Date(...ds);
+}

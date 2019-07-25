@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { ROUTES } from 'app/constants';
+import { serializeDate, parseDateISOString } from 'utils/misc';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -26,7 +27,9 @@ const ImageContainer = styled.div`
 
 export class TellUsMore extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        this.props.updateApplicant(values).then((res) => {
+        const serialized = Object.assign({}, values);
+        serialized.birthday = serializeDate(serialized.birthday);
+        this.props.updateApplicant(serialized).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -38,11 +41,17 @@ export class TellUsMore extends React.Component {
 
     initialValues () {
         const applicant = this.props.applicant;
+        let birthday = applicant.birthday;
+        // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
+        if (birthday) {
+            birthday = parseDateISOString(birthday);
+        }
         return {
             address_street: applicant.address_street,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
-            address_postal_code: applicant.address_postal_code
+            address_postal_code: applicant.address_postal_code,
+            birthday: birthday
         }
     }
 
@@ -131,6 +140,7 @@ export class TellUsMore extends React.Component {
                                     <KeyboardDatePicker
                                         id="birthday-picker"
                                         clearable
+                                        disableFuture
                                         format="MM/dd/yyyy"
                                         placeholder="mm/dd/yyyy"
                                         label="Birthday"
