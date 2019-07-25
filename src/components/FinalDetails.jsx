@@ -16,6 +16,7 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import portfolioImg from 'assets/images/portfolio.png';
 import SocialSecurityInput from 'components/common/SocialSecurityInput';
+import API from 'app/api';
 
 import ssl from 'assets/images/ssl-image.png';
 
@@ -40,7 +41,12 @@ const gridContainer = css`
 export class FinalDetails extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         console.log(values)
-        this.props._nextRoute();
+        API.postSSN(values.ssn).then(() => {
+            setSubmitting(false);
+            this.props._nextRoute();
+        }).catch(() => {
+            setSubmitting(false);
+        })
     }
 
     render () {
@@ -67,6 +73,7 @@ export class FinalDetails extends React.Component {
                         handleBlur,
                         handleSubmit,
                         submitCount,
+                        isSubmitting,
                         setFieldValue,
                         errors
                     }) => (
@@ -107,7 +114,7 @@ export class FinalDetails extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <ActionButton disabled={!values.ssn || !values.employment} marginTop={31} marginBottom={20}>
+                                <ActionButton disabled={!values.ssn || !values.employment || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>
                             </FormControl>
