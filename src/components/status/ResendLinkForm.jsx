@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
-import coin from 'assets/images/coin.png';
+import resendEnvelope from 'assets/images/resendEnvelope.png';
 import { H1, formContent, SpacedH3, LinkButton, blackLinkRoot } from 'assets/styles';
 
 
@@ -48,10 +48,10 @@ export class ResendLinkForm extends React.Component {
     render () {
         if (this.state.confirmSent) {
             return <ConfirmationPage
-                successMessage="Invite Sent!"
-                secondarySuccessMessage="OH YEAH!!!!"
+                successMessage="Amazing! Invite Sent"
+                secondarySuccessMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
                 buttonClick={() => this.props.handleConfirmationClick(null)}
-                buttonText="Continue"
+                buttonText="Back to Application Status"
             />
         }
         return (
@@ -59,7 +59,7 @@ export class ResendLinkForm extends React.Component {
                 <H1>Let’s Try This Again</H1>
                 <SpacedH3>Double check all the information below and let’s resend the invite</SpacedH3>
                 <ImageContainer>
-                    <img src={coin} alt="coin"/>
+                    <img src={resendEnvelope} alt="coin"/>
                 </ImageContainer>
                 <Formik
                     validationSchema={Yup.object().shape({
