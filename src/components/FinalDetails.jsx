@@ -16,7 +16,7 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import portfolioImg from 'assets/images/portfolio.png';
 import SocialSecurityInput from 'components/common/SocialSecurityInput';
-import API from 'app/api';
+import API, { MOCKY } from 'app/api';
 
 import ssl from 'assets/images/ssl-image.png';
 
@@ -39,11 +39,15 @@ const gridContainer = css`
 `
 
 export class FinalDetails extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
-        console.log(values)
-        API.postSSN(values.ssn).then(() => {
+    onSubmit = (values, { setSubmitting, setErrors }) => {
+        if (MOCKY) return this.props._nextRoute();
+        API.postPassthrough(values).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                this.props._nextRoute();
+            }
             setSubmitting(false);
-            this.props._nextRoute();
         }).catch(() => {
             setSubmitting(false);
         })
@@ -81,17 +85,17 @@ export class FinalDetails extends React.Component {
                             <FormControl fullWidth>
                                 <InputLabel htmlFor="employment-status">Select Your Employement Status</InputLabel>
                                 <Select
-                                    value={values.employment}
+                                    value={values.employment_status}
                                     onChange={handleChange}
                                     inputProps={{
-                                        name: 'employment',
+                                        name: 'employment_status',
                                         id: 'employment-status',
                                     }}
                                 >
-                                    <MenuItem value="employed">Employed</MenuItem>
-                                    <MenuItem value="student">Student</MenuItem>
-                                    <MenuItem value="retired">Retired</MenuItem>
-                                    <MenuItem value="other">Other</MenuItem>
+                                    <MenuItem value={1}>Employed</MenuItem>
+                                    <MenuItem value={2}>Student</MenuItem>
+                                    <MenuItem value={3}>Retired</MenuItem>
+                                    <MenuItem value={4}>Other</MenuItem>
                                 </Select>
                                 <br/>
                                 <SocialSecurityInput
@@ -102,7 +106,7 @@ export class FinalDetails extends React.Component {
                                     value={values.ssn}
                                     error={errors.ssn}
                                     submitted={ submitCount > 0 }
-                                    helperText={submitCount > 0 ? errors.ssn : null}
+                                    helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
                                 />
                                 <div className={gridContainer}>
                                     <Grid container spacing={1} alignItems="center">
@@ -114,7 +118,7 @@ export class FinalDetails extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <ActionButton disabled={!values.ssn || !values.employment || isSubmitting} marginTop={31} marginBottom={20}>
+                                <ActionButton disabled={!values.ssn || !values.employment_status || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>
                             </FormControl>
