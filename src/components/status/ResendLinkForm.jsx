@@ -30,6 +30,7 @@ export class ResendLinkForm extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        debugger;
         API.updateAppliant(values).then((res) => {
             setSubmitting(false);
             this.setState({confirmSent: true})
