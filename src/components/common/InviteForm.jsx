@@ -20,6 +20,9 @@ export const InviteForm = ({handleOnSubmit, displayedErrors }) => {
             phone_number: Yup.string()
                 .required('Phone Number is required')
                 .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+            email: Yup.string()
+                .required('Email is required')
+                .email()
 
         })}
         onSubmit={handleOnSubmit}
@@ -62,7 +65,16 @@ export const InviteForm = ({handleOnSubmit, displayedErrors }) => {
                         error={submitCount > 0 && !!errors.phone_number}
                         helperText={submitCount > 0 ? errors.phone_number : null}
                     />
-                    <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || isSubmitting} marginTop={31} marginBottom={10}>Send Invite</ActionButton>
+                    <FormTextInput 
+                        label="Email"
+                        name="email"
+                        submitted={submitCount > 0}
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        error={errors.email}
+                        value={values.email}
+                    />
+                    <ActionButton disabled={!values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' || !values.email || isSubmitting} marginTop={31} marginBottom={10}>Send Invite</ActionButton>
                 </div>
             </form>
         )}
