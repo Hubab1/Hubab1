@@ -21,7 +21,8 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
     if (resendFormValues) {
         return <ResendLinkForm initialValues={resendFormValues} handleConfirmationClick={setResendFormValues}/>
     }
-    const { unit, primary_applicant, co_applicants, guarantor } = profile;
+    const { unit, primary_applicant, co_applicants } = profile;
+    const { guarantors } = primary_applicant
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const role = applicant.role;
 
@@ -81,18 +82,24 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
                 </CardSection>
             </Card>
             { 
-                guarantor && 
+                guarantors && 
                     <Card>
                         <CardSection>
                             <CardRow>
                                 <P bold>Guarantor Status</P>
                             </CardRow> 
-                            <PersonRow 
-                                person={guarantor} 
-                                label="Guarantor" 
-                                role={role}
-                                handleClickLink={setResendFormValues}
-                            />
+                            {
+                                guarantors.map(guarantor => {
+                                    return <PersonRow 
+                                        key={guarantor.id}
+                                        person={guarantor} 
+                                        label="Guarantor" 
+                                        role={role}
+                                        handleClickLink={setResendFormValues}
+                                    />
+                                }) 
+
+                            }
                         </CardSection>
                     </Card>
             }

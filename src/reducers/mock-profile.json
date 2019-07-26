@@ -4,6 +4,13 @@
     "selected_rental_options": ["co_applicants", "guarantor", "pets"],
     "lease_start_date": null,
     "primary_applicant": {
+        "guarantors": [{
+            "phone_number": "(222) 111-0000",
+            "first_name": "elvish",
+            "last_name": "parsley",
+            "id": 74,
+            "is_registered": false
+        }],
         "phone_number": "(111) 111-1111",
         "first_name": "frank",
         "last_name": "underwood",
@@ -36,13 +43,7 @@
             "is_registered": true
         }
     ],
-    "guarantor": {
-        "phone_number": "(222) 111-0000",
-        "first_name": "elvish",
-        "last_name": "parsley",
-        "id": 74,
-        "is_registered": false
-    },
+
     "id": 17,
     "unit": null,
     "lease_end_date": null
