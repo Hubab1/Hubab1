@@ -55,7 +55,11 @@ export class ResendLinkForm extends React.Component {
                 <ImageContainer>
                     <img src={resendEnvelope} alt="coin"/>
                 </ImageContainer>
-                <InviteForm handleOnSubmit={this.onSubmit} errors={this.state.errors} />
+                <InviteForm
+                    handleOnSubmit={this.onSubmit}
+                    errors={this.state.errors}
+                    initialValues={this.props.initialValues}
+                />
                 <LinkButton className={blackLinkRoot} onClick={() => this.props.handleConfirmationClick(null)}>
                     <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
                 </LinkButton>

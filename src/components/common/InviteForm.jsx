@@ -92,7 +92,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues}) => 
                         />
                     }
                     <div className={linkContainer}>
-                        <LinkButton onClick={() => toggleSendToPhone(!sendToPhone)}>
+                        <LinkButton type="reset" onClick={() => toggleSendToPhone(!sendToPhone)}>
                             { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                         </LinkButton>
                     </div>
