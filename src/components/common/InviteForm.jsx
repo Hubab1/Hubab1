@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { css } from 'emotion';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
@@ -16,9 +16,23 @@ const linkContainer = css`
 `
 
 
-export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues}) => {
+export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) => {
 
     const [sendToPhone, toggleSendToPhone] = useState(true);
+
+    const [updatedInitialValues, setUpdatedInitialValues] = useState(initialValues)
+
+
+
+    useEffect(() => {
+        const newUpdatedInitialValues = Object.assign({}, updatedInitialValues);
+
+        newUpdatedInitialValues.send_to_phone = sendToPhone;
+        if (!!sendToPhone && !!initialValues.email) delete newUpdatedInitialValues.email;
+        if (!sendToPhone && !!initialValues.phone_number) delete newUpdatedInitialValues.phone_number;
+        setUpdatedInitialValues(newUpdatedInitialValues)
+        
+    },[sendToPhone]);
 
     const validationSchema = sendToPhone ? 
         Yup.object().shape({
@@ -35,12 +49,12 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues}) => 
                 .required('Email is required')
                 .email(),
         })
-    initialValues.send_to_phone = sendToPhone;
-    
+
     return <Formik
         validationSchema={validationSchema}
-        initialValues={initialValues}	
+        initialValues={updatedInitialValues}	
         onSubmit={handleOnSubmit}
+        enableReinitialize
     >
         {({
             values,
