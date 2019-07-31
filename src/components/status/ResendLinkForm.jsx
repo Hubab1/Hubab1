@@ -30,7 +30,6 @@ export class ResendLinkForm extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        debugger;
         API.updateAppliant(values).then((res) => {
             setSubmitting(false);
             this.setState({confirmSent: true})
@@ -58,7 +57,7 @@ export class ResendLinkForm extends React.Component {
                 </ImageContainer>
                 <InviteForm
                     handleOnSubmit={this.onSubmit}
-                    errors={this.state.errors}
+                    displayedErrors={this.state.errors}
                     initialValues={this.props.initialValues}
                 />
                 <LinkButton className={blackLinkRoot} onClick={() => this.props.handleConfirmationClick(null)}>

@@ -53,7 +53,7 @@ export class GuarantorPage extends React.Component {
                 <ImageContainer>
                     <img src={coin} alt="coin"/>
                 </ImageContainer>
-                <InviteForm handleOnSubmit={this.onSubmit} errors={this.state.errors} />
+                <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );

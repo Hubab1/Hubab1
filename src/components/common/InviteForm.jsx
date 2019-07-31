@@ -20,19 +20,13 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
 
     const [sendToPhone, toggleSendToPhone] = useState(true);
 
-    const [updatedInitialValues, setUpdatedInitialValues] = useState(initialValues)
-
-
+    const updatedInitialValues = Object.assign({}, initialValues);
 
     useEffect(() => {
-        const newUpdatedInitialValues = Object.assign({}, updatedInitialValues);
-
-        newUpdatedInitialValues.send_to_phone = sendToPhone;
-        if (!!sendToPhone && !!initialValues.email) delete newUpdatedInitialValues.email;
-        if (!sendToPhone && !!initialValues.phone_number) delete newUpdatedInitialValues.phone_number;
-        setUpdatedInitialValues(newUpdatedInitialValues)
-        
-    },[sendToPhone]);
+        updatedInitialValues.send_to_phone = sendToPhone;
+        if (!!sendToPhone && !!initialValues.email) delete updatedInitialValues.email;
+        if (!sendToPhone && !!initialValues.phone_number) delete updatedInitialValues.phone_number;
+    },[]);
 
     const validationSchema = sendToPhone ? 
         Yup.object().shape({
@@ -50,11 +44,17 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                 .email(),
         })
 
+    const handleToggleClick = (setFieldValue) => {
+        toggleSendToPhone(!sendToPhone)
+        const field = sendToPhone ? 'email' : 'phone_number';
+        setFieldValue(field, null);
+        setFieldValue('send_to_phone', sendToPhone);
+    } 
+
     return <Formik
         validationSchema={validationSchema}
         initialValues={updatedInitialValues}	
         onSubmit={handleOnSubmit}
-        enableReinitialize
     >
         {({
             values,
@@ -63,12 +63,12 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
             submitCount,
             handleBlur,
             handleSubmit,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
         }) => {
             const formFilled = sendToPhone ?
                 !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
                 !values.last_name || !values.first_name || !values.email
-
             return (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <div className={formContent}>
@@ -112,7 +112,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                         }
                         <Field type="hidden" className="form-control" name="send_to_phone" value={sendToPhone} ></Field>
                         <div className={linkContainer}>
-                            <LinkButton type="reset" onClick={() => toggleSendToPhone(!sendToPhone)}>
+                            <LinkButton type="reset" onClick={() => handleToggleClick(setFieldValue)}>
                                 { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                             </LinkButton>
                         </div>
