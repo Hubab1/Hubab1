@@ -28,26 +28,32 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
         if (!sendToPhone && !!initialValues.phone_number) delete updatedInitialValues.phone_number;
     },[]);
 
-    const validationSchema = sendToPhone ? 
-        Yup.object().shape({
-            first_name: Yup.string().required('First Name is required'),
-            last_name: Yup.string().required('Last Name is required'),
-            phone_number: Yup.string()
-                .required('Phone Number is required')
-                .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-        }) :
-        Yup.object().shape({
-            first_name: Yup.string().required('First Name is required'),
-            last_name: Yup.string().required('Last Name is required'),
-            email: Yup.string()
-                .required('Email is required')
-                .email(),
-        })
+    const validationSchema = Yup.object().shape({
+        first_name: Yup.string().required('First Name is required'),
+        last_name: Yup.string().required('Last Name is required'),
+        contact: Yup.object().shape({
+            phone_number: Yup.string().when('email', {
+                is: '',
+                then: Yup.string()
+                    .required('Phone Number is required')
+                    .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+                otherwise: Yup.string()
+            }),
+            email: Yup.string().when('phone_number', {
+                is: '',
+                then: Yup.string()
+                    .required('Email is required')
+                    .email(),
+                otherwise: Yup.string()
+            })
+        }, ['phone_number', 'email'])
+    })
 
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone)
-        const field = sendToPhone ? 'email' : 'phone_number';
-        setFieldValue(field, null);
+        setFieldValue('email', null);
+        setFieldValue('phone_number', null);
+        
         setFieldValue('send_to_phone', sendToPhone);
     } 
 
