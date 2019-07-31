@@ -49,7 +49,7 @@ export const AppStatusPage = ({profile, configuration, applicant, history}) => {
                     <CardRow>
                         <div>
                             <P>{buildingName}</P>
-                            <P fontSize={14} color="#828796">{unit && `Unit ${unit}`}</P>
+                            <P fontSize={14} color="#828796">{unit && unit.unit_number && `Unit ${unit.unit_number}`}</P>
                         </div>
                         <div>{/* Application Status to be added here */}</div>
                     </CardRow>
