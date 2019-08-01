@@ -18,14 +18,13 @@ const linkContainer = css`
 
 export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) => {
 
-    const [sendToPhone, toggleSendToPhone] = useState(true);
+    // the only case where this should be set to false is when when we resend and the initial invite was sent with email
+    const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
 
     const updatedInitialValues = Object.assign({}, initialValues);
 
     useEffect(() => {
         updatedInitialValues.send_to_phone = sendToPhone;
-        if (!!sendToPhone && !!initialValues.email) delete updatedInitialValues.email;
-        if (!sendToPhone && !!initialValues.phone_number) delete updatedInitialValues.phone_number;
     },[]);
 
     const validationSchema = Yup.object().shape({
@@ -33,14 +32,14 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
         last_name: Yup.string().required('Last Name is required'),
         contact: Yup.object().shape({
             phone_number: Yup.string().when('email', {
-                is: '',
+                is: (val) => !val,
                 then: Yup.string()
                     .required('Phone Number is required')
                     .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
                 otherwise: Yup.string()
             }),
             email: Yup.string().when('phone_number', {
-                is: '',
+                is: (val) => !val,
                 then: Yup.string()
                     .required('Email is required')
                     .email(),
@@ -51,9 +50,10 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
 
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone)
+
         setFieldValue('email', null);
         setFieldValue('phone_number', null);
-        
+
         setFieldValue('send_to_phone', sendToPhone);
     } 
 
@@ -74,7 +74,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
         }) => {
             const formFilled = sendToPhone ?
                 !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
-                !values.last_name || !values.first_name || !values.email
+                !values.last_name || !values.first_name || !values.email         
             return (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <div className={formContent}>
