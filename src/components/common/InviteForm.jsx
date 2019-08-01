@@ -43,7 +43,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone)
 
-        const field = sendToPhone ? 'email' : 'phone_number';
+        const field = !sendToPhone ? 'email' : 'phone_number';
         setFieldValue(field, null);
     } 
 
