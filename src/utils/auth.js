@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import history from 'app/history';
 import API, { MOCKY } from 'app/api';
 
@@ -7,8 +9,11 @@ class Auth {
         return API.register(data, leaseSettingsId, clientId).then((res)=>{
             if (res.errors) return Promise.reject({errors: res.errors});
             return Promise.resolve({token: res.token});
-        }).catch((err) => {
-            return Promise.reject({errors: {error: 'There was a problem creating your account.'}});
+        }).catch((e) => {
+            let errorMsg = 'There was a problem creating your account.';
+            const errorType = get(e, 'errors.error._schema[0]');
+            if (errorType === 'ApplicantExists') errorMsg = 'An application with these details already exists.';
+            return Promise.reject({errors: {error: errorMsg}});
         });
     }
     login = (email, password, communityId) => {
