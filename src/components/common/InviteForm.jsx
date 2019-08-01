@@ -24,7 +24,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
     const validationSchema = Yup.object().shape({
         first_name: Yup.string().required('First Name is required'),
         last_name: Yup.string().required('Last Name is required'),
-        phone_number: Yup.string().when('email', {
+        phone_number: Yup.string().nullable().when('email', {
             is: (val) => !val,
             then: Yup.string()
                 .required('Phone Number is required')
