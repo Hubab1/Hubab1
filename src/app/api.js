@@ -163,14 +163,14 @@ API.updateAppliant = (data) => {
     return Promise.resolve('you are a garbage gnome');
 }
 
-API.postSSN = ssn => (
-    fetch(chuck('/finicity-ssn/'), {
+API.postPassthrough = data => (
+    fetch(chuck('/passthrough/'), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
-        body: JSON.stringify({ssn})
-    })
+        body: JSON.stringify(data)
+    }).then(res => res.json())
 )
 
 export default API;
