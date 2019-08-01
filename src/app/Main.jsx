@@ -8,6 +8,7 @@ import PasswordContainer from 'components/password/PasswordContainer';
 import ProfileContainer from 'components/profile/ProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
+import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
 import ApplicationFeePage from 'components/ApplicationFeePage/ApplicationFeePage';
@@ -89,6 +90,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={SignupPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <NavDrawer hideNav={!this.props.configuration.show_navigation}>
+                            <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.PROFILE} component={ProfileContainer} />
                             <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>

@@ -99,6 +99,7 @@ selectors.selectOrderedRoutes = createSelector(
 const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
 const routeMapping = (profile, applicant) => ({
+    [ROUTES.LEASE_TERMS]: true,
     [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
     [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,

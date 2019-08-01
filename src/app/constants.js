@@ -23,9 +23,11 @@ export const ROUTES = {
     APPLICATION_FEE: '/application-fee',
     FINAL_DETAILS: '/final-details',
     APP_STATUS: '/app-status',
+    LEASE_TERMS: '/lease-terms'
 }
 
 export const NAV_ROUTES = [
+    {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
     {name: 'Tell Us More', value: ROUTES.TELL_US_MORE},
     {name: 'Profile', value: ROUTES.PROFILE_OPTIONS},
     {name: 'Co-applicants', value: ROUTES.CO_APPLICANTS},
@@ -38,7 +40,7 @@ export const NAV_ROUTES = [
 ];
 
 export const BASE_ROUTES = [
-    ROUTES.TELL_US_MORE, ROUTES.PROFILE_OPTIONS
+    ROUTES.LEASE_TERMS, ROUTES.TELL_US_MORE, ROUTES.PROFILE_OPTIONS
 ]
 
 export const REPORT_POLL_INTERVAL = 10000;
