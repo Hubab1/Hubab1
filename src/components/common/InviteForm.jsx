@@ -45,8 +45,6 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
 
         const field = sendToPhone ? 'email' : 'phone_number';
         setFieldValue(field, null);
-
-        setFieldValue('send_to_phone', sendToPhone);
     } 
 
     return <Formik
