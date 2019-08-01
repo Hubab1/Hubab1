@@ -30,29 +30,27 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
     const validationSchema = Yup.object().shape({
         first_name: Yup.string().required('First Name is required'),
         last_name: Yup.string().required('Last Name is required'),
-        contact: Yup.object().shape({
-            phone_number: Yup.string().when('email', {
-                is: (val) => !val,
-                then: Yup.string()
-                    .required('Phone Number is required')
-                    .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-                otherwise: Yup.string()
-            }),
-            email: Yup.string().when('phone_number', {
-                is: (val) => !val,
-                then: Yup.string()
-                    .required('Email is required')
-                    .email(),
-                otherwise: Yup.string()
-            })
-        }, ['phone_number', 'email'])
-    })
+        phone_number: Yup.string().when('email', {
+            is: (val) => !val,
+            then: Yup.string()
+                .required('Phone Number is required')
+                .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+            otherwise: Yup.string()
+        }),
+        email: Yup.string().nullable().when('phone_number', {
+            is: (val) => !val,
+            then: Yup.string()
+                .required('Email is required')
+                .email('Email must be a valid email'),
+            otherwise: Yup.string()
+        })
+    }, ['phone_number', 'email'])
 
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone)
 
-        setFieldValue('email', null);
-        setFieldValue('phone_number', null);
+        const field = sendToPhone ? 'email' : 'phone_number';
+        setFieldValue(field, null);
 
         setFieldValue('send_to_phone', sendToPhone);
     } 
