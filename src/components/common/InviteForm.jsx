@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { css } from 'emotion';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { formContent, LinkButton } from 'assets/styles';
@@ -20,12 +20,6 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
 
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
     const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
-
-    const updatedInitialValues = Object.assign({}, initialValues);
-
-    useEffect(() => {
-        updatedInitialValues.send_to_phone = sendToPhone;
-    },[]);
 
     const validationSchema = Yup.object().shape({
         first_name: Yup.string().required('First Name is required'),
@@ -57,7 +51,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
 
     return <Formik
         validationSchema={validationSchema}
-        initialValues={updatedInitialValues}	
+        initialValues={initialValues}	
         onSubmit={handleOnSubmit}
     >
         {({
@@ -114,7 +108,6 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                                 value={values.email}
                             />
                         }
-                        <Field type="hidden" className="form-control" name="send_to_phone" value={sendToPhone} ></Field>
                         <div className={linkContainer}>
                             <LinkButton type="reset" onClick={() => handleToggleClick(setFieldValue)}>
                                 { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
