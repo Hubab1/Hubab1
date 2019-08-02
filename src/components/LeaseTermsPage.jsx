@@ -46,7 +46,6 @@ export class LeaseTermsPage extends React.Component {
                 <Formik
                     onSubmit={this.onSubmit}
                     validationSchema={Yup.object().shape({
-                        move_in_date: Yup.string()
                     })}
                 >
                     {({
