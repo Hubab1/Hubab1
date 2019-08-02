@@ -77,7 +77,7 @@ export class TellUsMore extends React.Component {
                         birthday: Yup.string()
                             .required('required'),
                     })}
-                    initialValues={this.initialValues(this.props.applicant)}
+                    initialValues={this.initialValues()}
                     onSubmit={this.onSubmit}
                 >
                     {({

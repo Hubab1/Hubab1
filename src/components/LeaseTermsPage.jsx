@@ -7,6 +7,7 @@ import {css} from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
+import { serializeDate, parseDateISOString } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -32,7 +33,27 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        this.props._nextRoute();
+        const serialized = Object.assign({}, values);
+        serialized.move_in_date = serializeDate(serialized.move_in_date);
+        this.props.updateRenterProfile(serialized).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                this.props._nextRoute();
+            }
+            setSubmitting(false);
+        });
+    }
+
+    initialValues () {
+        const application = this.props.application;
+        let move_in_date = application.move_in_date;
+        if (application) {
+            move_in_date = parseDateISOString(move_in_date);
+        }
+        return {
+            move_in_date
+        }
     }
 
     render () {
@@ -68,7 +89,7 @@ export class LeaseTermsPage extends React.Component {
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
-                                            value={values.birthday || null}
+                                            value={values.move_in_date || null}
                                             fullWidth
                                             onBlur={handleBlur}
                                             onChange={e => setFieldValue('move_in_date', e)}
