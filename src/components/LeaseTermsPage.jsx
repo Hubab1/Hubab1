@@ -8,11 +8,10 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { H1, SpacedH3 } from 'assets/styles';
-
+import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
-import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 
@@ -20,8 +19,8 @@ const ImageContainer = styled.div`
     margin-top: 31px;
     margin-bottom: 31px;
     img {
-        max-height: 90px;
-        max-width: 90px;
+        max-height: 136px;
+        max-width: 136px;
     }
 `
 
@@ -33,13 +32,7 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteGuarantor({guarantors: [values]}).then((res) => {
-            setSubmitting(false);
-            this.setState({confirmSent: true})
-        }).catch((res) => {
-            this.setState({errors: [res.errors]});
-            setSubmitting(false);
-        });
+        this.props._nextRoute();
     }
 
     render () {
@@ -47,12 +40,13 @@ export class LeaseTermsPage extends React.Component {
             <Fragment>
                 <H1>Lease Terms</H1>
                 <SpacedH3>Please select from the options below to move forward.</SpacedH3>
+                <ImageContainer>
+                    <img src={rent} alt="for rent sign"/>
+                </ImageContainer>
                 <Formik
                     onSubmit={this.onSubmit}
                     validationSchema={Yup.object().shape({
-                        ssn: Yup.string()
-                            .required('Phone Number is required')
-                            .matches(/^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555')
+                        move_in_date: Yup.string()
                     })}
                 >
                     {({
@@ -72,7 +66,6 @@ export class LeaseTermsPage extends React.Component {
                                         <KeyboardDatePicker
                                             id="move-in-date"
                                             clearable
-                                            disableFuture
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
