@@ -57,6 +57,7 @@ export class LeaseTermsPage extends React.Component {
     }
 
     render () {
+        if (!this.props.application) return null;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -66,6 +67,7 @@ export class LeaseTermsPage extends React.Component {
                 </ImageContainer>
                 <Formik
                     onSubmit={this.onSubmit}
+                    initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
                     })}
                 >
@@ -111,4 +113,4 @@ export class LeaseTermsPage extends React.Component {
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect((state) => ({application: state.renterProfile}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
