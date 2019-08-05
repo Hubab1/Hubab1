@@ -7,11 +7,12 @@ import {css} from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
+import { serializeDate, parseDateISOString } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
-import { selectors, updateRenterProfile } from 'reducers/renter-profile';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
 
@@ -32,10 +33,33 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        const serialized = Object.assign({}, values);
+        serialized.move_in_date = serializeDate(serialized.move_in_date);
         this.props._nextRoute();
+        // uncomment when api is up to snuff
+        // this.props.updateRenterProfile(serialized).then((res) => {
+        //     if (res.errors) {
+        //         setErrors(res.errors);
+        //     } else {
+        //         this.props._nextRoute();
+        //     }
+        //     setSubmitting(false);
+        // });
+    }
+
+    initialValues () {
+        const application = this.props.application;
+        let move_in_date = application.move_in_date;
+        if (move_in_date) {
+            move_in_date = parseDateISOString(move_in_date);
+        }
+        return {
+            move_in_date
+        }
     }
 
     render () {
+        if (!this.props.application) return null;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -45,6 +69,7 @@ export class LeaseTermsPage extends React.Component {
                 </ImageContainer>
                 <Formik
                     onSubmit={this.onSubmit}
+                    initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
                     })}
                 >
@@ -68,7 +93,7 @@ export class LeaseTermsPage extends React.Component {
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
-                                            value={values.birthday || null}
+                                            value={values.move_in_date || null}
                                             fullWidth
                                             onBlur={handleBlur}
                                             onChange={e => setFieldValue('move_in_date', e)}
@@ -90,4 +115,4 @@ export class LeaseTermsPage extends React.Component {
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect((state) => ({application: state.renterProfile}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
