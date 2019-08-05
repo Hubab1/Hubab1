@@ -54,7 +54,7 @@ export class FinalDetails extends React.Component {
     }
 
     render () {
-        if (!this.props.profile || !this.props.applicant) return null;
+        if (!this.props.applicant) return null;
 
         return (
             <Fragment>
@@ -131,7 +131,6 @@ export class FinalDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile,
     applicant: state.applicant
 })
 

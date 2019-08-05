@@ -40,7 +40,7 @@ const linkStyle = css`
 export class ApplicationFeePage extends React.Component {
 
     render () {
-        if (!this.props.profile || !this.props.configuration || !this.props.applicant) return <div/>;
+        if (!this.props.configuration || !this.props.applicant) return <div/>;
         const applicationFee = this.props.configuration.application_fee;
         return (
             <Fragment>
@@ -71,7 +71,6 @@ export class ApplicationFeePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant
 });
