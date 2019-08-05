@@ -27,6 +27,15 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
 
+API.fetchAvailableUnits = () => {
+    return fetch(chuck('/available-units/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        }
+    }).then(res => res.json());
+};
+
 API.patchApplication = (data) => {
     return fetch(chuck('/application/'), {
         method: 'PATCH',

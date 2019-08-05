@@ -14,6 +14,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 
 
 const ImageContainer = styled.div`
@@ -97,6 +98,9 @@ export class LeaseTermsPage extends React.Component {
                                                 'aria-label': 'change date',
                                             }}
                                         />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <AvailableUnitsSelector />
                                     </Grid>
                                 </Grid>
                             </div>
