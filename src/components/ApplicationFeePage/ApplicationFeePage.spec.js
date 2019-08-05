@@ -13,7 +13,8 @@ beforeEach(() => {
             primary_applicant: {
                 first_name: "Bob"
             }
-        }
+        },
+        applicant: { client: { person: { first_name: 'Bob' } } }
     }
 })
 
