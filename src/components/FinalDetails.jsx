@@ -54,11 +54,11 @@ export class FinalDetails extends React.Component {
     }
 
     render () {
-        if (!this.props.profile) return null;
+        if (!this.props.applicant) return null;
 
         return (
             <Fragment>
-                <H1>You're almost done, {this.props.profile.primary_applicant.first_name}!</H1>
+                <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
                 <img src={portfolioImg} alt="portfolio"></img>
                 <br/>
@@ -131,7 +131,7 @@ export class FinalDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.renterProfile
+    applicant: state.applicant
 })
 
 export default connect(mapStateToProps)(withRelativeRoutes(FinalDetails, ROUTES.FINAL_DETAILS));
