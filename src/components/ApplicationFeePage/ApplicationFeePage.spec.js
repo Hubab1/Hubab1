@@ -9,11 +9,7 @@ beforeEach(() => {
         configuration: {
             application_fee: 60.567
         },
-        profile: {
-            primary_applicant: {
-                first_name: "Bob"
-            }
-        }
+        applicant: { client: { person: { first_name: 'Bob' } } }
     }
 })
 

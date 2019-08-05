@@ -12,7 +12,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
-import { selectors, updateRenterProfile } from 'reducers/renter-profile';
+import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 
@@ -36,20 +36,22 @@ export class LeaseTermsPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
         serialized.move_in_date = serializeDate(serialized.move_in_date);
-        this.props.updateRenterProfile(serialized).then((res) => {
-            if (res.errors) {
-                setErrors(res.errors);
-            } else {
-                this.props._nextRoute();
-            }
-            setSubmitting(false);
-        });
+        this.props._nextRoute();
+        // uncomment when api is up to snuff
+        // this.props.updateRenterProfile(serialized).then((res) => {
+        //     if (res.errors) {
+        //         setErrors(res.errors);
+        //     } else {
+        //         this.props._nextRoute();
+        //     }
+        //     setSubmitting(false);
+        // });
     }
 
     initialValues () {
         const application = this.props.application;
         let move_in_date = application.move_in_date;
-        if (application) {
+        if (move_in_date) {
             move_in_date = parseDateISOString(move_in_date);
         }
         return {
@@ -58,6 +60,7 @@ export class LeaseTermsPage extends React.Component {
     }
 
     render () {
+        if (!this.props.application) return null;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -67,6 +70,7 @@ export class LeaseTermsPage extends React.Component {
                 </ImageContainer>
                 <Formik
                     onSubmit={this.onSubmit}
+                    initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
                     })}
                 >
@@ -115,4 +119,4 @@ export class LeaseTermsPage extends React.Component {
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect((state) => ({application: state.renterProfile}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
