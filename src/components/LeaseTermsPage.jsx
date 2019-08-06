@@ -14,6 +14,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 
 
 const ImageContainer = styled.div`
@@ -35,6 +36,7 @@ export class LeaseTermsPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
         serialized.move_in_date = serializeDate(serialized.move_in_date);
+
         this.props._nextRoute();
         // uncomment when api is up to snuff
         // this.props.updateRenterProfile(serialized).then((res) => {
@@ -71,6 +73,8 @@ export class LeaseTermsPage extends React.Component {
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
+                        move_in_date: Yup.string().nullable().required('Select a move in date'),
+                        unit: Yup.string().nullable().required('Select a unit'),
                     })}
                 >
                     {({
@@ -85,11 +89,12 @@ export class LeaseTermsPage extends React.Component {
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
-                                <Grid container spacing={1} alignItems="center">
+                                <Grid container spacing={1}>
                                     <Grid item xs={6}>
                                         <KeyboardDatePicker
                                             id="move-in-date"
                                             clearable
+                                            disablePast
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
@@ -100,6 +105,15 @@ export class LeaseTermsPage extends React.Component {
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
+                                            error={submitCount >= 1 && !!errors.move_in_date}
+                                            helperText={submitCount >= 1 && errors.move_in_date}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <AvailableUnitsSelector
+                                            update={val => setFieldValue('unit', val)}
+                                            error={submitCount >= 1 && !!errors.unit}
+                                            helperText={submitCount >= 1 && errors.unit}
                                         />
                                     </Grid>
                                 </Grid>
