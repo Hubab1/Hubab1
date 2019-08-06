@@ -157,6 +157,8 @@ export default function AvailableUnitsSelector (props) {
                                 InputLabelProps: getLabelProps({ shrink: true }),
                                 InputProps: { onBlur, onChange, onFocus },
                                 inputProps,
+                                error: props.error,
+                                helperText: props.helperText,
                             })}
 
                             <div {...getMenuProps()}>
