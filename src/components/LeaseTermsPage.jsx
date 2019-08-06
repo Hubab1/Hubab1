@@ -36,7 +36,8 @@ export class LeaseTermsPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
         serialized.move_in_date = serializeDate(serialized.move_in_date);
-        this.props._nextRoute();
+        debugger;
+        // this.props._nextRoute();
         // uncomment when api is up to snuff
         // this.props.updateRenterProfile(serialized).then((res) => {
         //     if (res.errors) {
@@ -72,6 +73,8 @@ export class LeaseTermsPage extends React.Component {
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
+                        move_in_date: Yup.string().required('Select a move in date'),
+                        unit: Yup.string().required('Select a unit'),
                     })}
                 >
                     {({
@@ -104,7 +107,9 @@ export class LeaseTermsPage extends React.Component {
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <AvailableUnitsSelector />
+                                        <AvailableUnitsSelector
+                                            update={val => setFieldValue('unit', val)}
+                                        />
                                     </Grid>
                                 </Grid>
                             </div>

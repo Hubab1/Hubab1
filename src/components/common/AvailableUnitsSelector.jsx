@@ -22,6 +22,9 @@ function renderInput(inputProps) {
                 ...InputProps,
             }}
             {...other}
+            InputLabelProps={{
+                shrink: undefined,
+            }}
         />
     );
 }
@@ -112,11 +115,18 @@ export default function AvailableUnitsSelector (props) {
             setUnits(units);
         })
     }, [''])
+
+    const handleChange = (val) => {
+        props.update(val);
+    }
     
     const classes = useStyles();
     return (
         <div>
-            <Downshift id="downshift-options">
+            <Downshift
+                id="downshift-options"
+                onChange={handleChange}
+            >
                 {({
                     clearSelection,
                     getInputProps,
