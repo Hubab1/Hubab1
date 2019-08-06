@@ -9,6 +9,10 @@ import fuzzaldrin from "fuzzaldrin-plus"
 
 import API from 'app/api';
 
+
+// Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
+
+
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
     return (
