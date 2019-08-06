@@ -94,6 +94,7 @@ export class LeaseTermsPage extends React.Component {
                                         <KeyboardDatePicker
                                             id="move-in-date"
                                             clearable
+                                            disablePast
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
