@@ -118,7 +118,7 @@ export default function AvailableUnitsSelector (props) {
         API.fetchAvailableUnits().then(units => {
             setUnits(units);
         })
-    }, [''])
+    }, [])
 
     const handleChange = (val) => {
         props.update(val);
