@@ -151,7 +151,19 @@ export default function AvailableUnitsSelector (props) {
                         },
                         onFocus: openMenu,
                     });
-
+                    let suggestions = getSuggestions(units, inputValue, { showEmpty: true }).map((suggestion, index) =>
+                        renderSuggestion({
+                            suggestion,
+                            inputValue,
+                            index,
+                            itemProps: getItemProps({ item: suggestion.unit_number }),
+                            highlightedIndex,
+                            selectedItem,
+                        }),
+                    );
+                    if (suggestions.length === 0) {
+                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>]
+                    }
                     return (
                         <div className={classes.container}>
                             {renderInput({
@@ -168,16 +180,7 @@ export default function AvailableUnitsSelector (props) {
                             <div {...getMenuProps()}>
                                 {isOpen ? (
                                     <Paper className={classes.paper} square>
-                                        {getSuggestions(units, inputValue, { showEmpty: true }).map((suggestion, index) =>
-                                            renderSuggestion({
-                                                suggestion,
-                                                inputValue,
-                                                index,
-                                                itemProps: getItemProps({ item: suggestion.unit_number }),
-                                                highlightedIndex,
-                                                selectedItem,
-                                            }),
-                                        )}
+                                        {suggestions}
                                     </Paper>
                                 ) : null}
                             </div>
