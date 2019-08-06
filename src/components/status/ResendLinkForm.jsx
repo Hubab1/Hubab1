@@ -30,7 +30,7 @@ export class ResendLinkForm extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.updateAppliant(values).then((res) => {
+        API.updateInvitee(values, values.id).then((res) => {
             setSubmitting(false);
             this.setState({confirmSent: true})
         }).catch((res) => {
