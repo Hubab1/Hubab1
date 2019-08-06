@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
+import fuzzaldrin from "fuzzaldrin-plus"
 
 import API from 'app/api';
 
@@ -25,7 +28,8 @@ function renderInput(inputProps) {
 
 
 function renderSuggestion(suggestionProps) {
-    const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
+    const { suggestion, index, itemProps, highlightedIndex, selectedItem, inputValue } = suggestionProps;
+    const inputLength = inputValue.length;
     const isHighlighted = highlightedIndex === index;
     const isSelected = (selectedItem || '').indexOf(suggestion.unit_number) > -1;
 
@@ -36,23 +40,26 @@ function renderSuggestion(suggestionProps) {
             selected={isHighlighted}
             component="div"
             style={{
-                fontWeight: isSelected ? 500 : 400,
+                fontWeight: isSelected ? 600 : 'inherit',
             }}
-        >
-            {suggestion.unit_number}
+        > {
+                inputLength === 0 ?
+                    suggestion.unit_number :
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: fuzzaldrin.wrap(suggestion.unit_number, inputValue)}
+                        }/>
+            }
         </MenuItem>
     );
 }
 
-
 function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
-    let count = 0;
-
-    return inputLength === 0 && !showEmpty
-        ? []
-        : allSuggestions.filter(suggestion => {
+    if (inputLength === 0 && showEmpty) {
+        let count = 0;
+        return allSuggestions.filter(suggestion => {
             const keep =
             count < 5 && suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue;
 
@@ -62,73 +69,106 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
 
             return keep;
         });
+    }
+    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'})
 }
 
-export default class AvailableUnitsSelector extends React.Component {
-    state = {availableUnits: []}
-    componentDidMount() {
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+        height: 250,
+    },
+    container: {
+        flexGrow: 1,
+        position: 'relative',
+    },
+    paper: {
+        position: 'absolute',
+        zIndex: 1,
+        marginTop: theme.spacing(1),
+        left: 0,
+        right: 0,
+    },
+    chip: {
+        margin: theme.spacing(0.5, 0.25),
+    },
+    inputRoot: {
+        flexWrap: 'wrap',
+    },
+    inputInput: {
+        width: 'auto',
+        flexGrow: 1,
+    },
+    divider: {
+        height: theme.spacing(2),
+    },
+}));
+
+export default function AvailableUnitsSelector (props) {
+    const [units, setUnits] = useState([]);
+
+    useEffect(() => {
         API.fetchAvailableUnits().then(units => {
-            this.setState({availableUnits: units});
+            setUnits(units);
         })
-    }
+    }, [''])
     
-    render () {
-        const units = this.state.availableUnits;
-        const classes = {}
-        return (
-            <div>
-                <Downshift id="downshift-options">
-                    {({
-                        clearSelection,
-                        getInputProps,
-                        getItemProps,
-                        getLabelProps,
-                        getMenuProps,
-                        highlightedIndex,
-                        inputValue,
-                        isOpen,
-                        openMenu,
-                        selectedItem,
-                    }) => {
-                        const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
-                            onChange: event => {
-                                if (event.target.value === '') {
-                                    clearSelection();
-                                }
-                            },
-                            onFocus: openMenu,
-                            placeholder: '',
-                        });
+    const classes = useStyles();
+    return (
+        <div>
+            <Downshift id="downshift-options">
+                {({
+                    clearSelection,
+                    getInputProps,
+                    getItemProps,
+                    getLabelProps,
+                    getMenuProps,
+                    highlightedIndex,
+                    inputValue,
+                    isOpen,
+                    openMenu,
+                    selectedItem,
+                }) => {
+                    const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
+                        onChange: event => {
+                            if (event.target.value === '') {
+                                clearSelection();
+                            }
+                        },
+                        onFocus: openMenu,
+                    });
 
-                        return (
-                            <div className={classes.container}>
-                                {renderInput({
-                                    fullWidth: true,
-                                    classes,
-                                    label: 'Available Units',
-                                    InputLabelProps: getLabelProps({ shrink: true }),
-                                    InputProps: { onBlur, onChange, onFocus },
-                                    inputProps,
-                                })}
+                    return (
+                        <div className={classes.container}>
+                            {renderInput({
+                                fullWidth: true,
+                                classes,
+                                label: 'Select Unit',
+                                InputLabelProps: getLabelProps({ shrink: true }),
+                                InputProps: { onBlur, onChange, onFocus },
+                                inputProps,
+                            })}
 
-                                <div {...getMenuProps()}>
-                                    {isOpen ? (
-                                        getSuggestions(units, inputValue, { showEmpty: true }).map((suggestion, index) =>
+                            <div {...getMenuProps()}>
+                                {isOpen ? (
+                                    <Paper className={classes.paper} square>
+                                        {getSuggestions(units, inputValue, { showEmpty: true }).map((suggestion, index) =>
                                             renderSuggestion({
                                                 suggestion,
+                                                inputValue,
                                                 index,
                                                 itemProps: getItemProps({ item: suggestion.unit_number }),
                                                 highlightedIndex,
                                                 selectedItem,
                                             }),
-                                        )
-                                    ) : null}
-                                </div>
+                                        )}
+                                    </Paper>
+                                ) : null}
                             </div>
-                        );
-                    }}
-                </Downshift>
-            </div>
-        );
-    }
+                        </div>
+                    );
+                }}
+            </Downshift>
+        </div>
+    );
 }
