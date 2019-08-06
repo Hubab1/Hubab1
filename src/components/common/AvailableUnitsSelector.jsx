@@ -73,7 +73,7 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
             return keep;
         });
     }
-    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'})
+    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number', maxResults: 5})
 }
 
 const useStyles = makeStyles(theme => ({
