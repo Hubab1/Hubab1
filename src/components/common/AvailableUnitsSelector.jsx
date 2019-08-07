@@ -77,7 +77,7 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
             return keep;
         });
     }
-    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number', maxResults: 5})
+    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'})
 }
 
 const useStyles = makeStyles(theme => ({
@@ -95,6 +95,8 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
         left: 0,
         right: 0,
+        maxHeight: 240,
+        overflow: 'auto'
     },
     chip: {
         margin: theme.spacing(0.5, 0.25),
