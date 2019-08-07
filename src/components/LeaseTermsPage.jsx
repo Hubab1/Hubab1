@@ -130,7 +130,7 @@ export class LeaseTermsPage extends React.Component {
                                                 id: 'lease-term',
                                             }}
                                         >
-                                            {this.props.config.rental_options_config.lease_term_choices.map(choice => (
+                                            {this.props.config.lease_term_options.map(choice => (
                                                 <MenuItem value={choice}>{choice} Months</MenuItem>
                                             ))}
                                         </Select>
