@@ -11,15 +11,21 @@ import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
 import { PersonRow } from './PersonRow';
 import { CardRow, FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
 import ResendLinkForm from './ResendLinkForm';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 
 
-export const AppStatusPage = ({profile, configuration, applicant, history}) => {
+
+export const AppStatusPage = ({profile, configuration, applicant, fetchRenterProfile}) => {
 
     const [resendFormValues, setResendFormValues] = useState();
 
     if (!profile || ! configuration) return null;       
     if (resendFormValues) {
-        return <ResendLinkForm initialValues={resendFormValues} handleConfirmationClick={setResendFormValues}/>
+        return <ResendLinkForm 
+            initialValues={resendFormValues} 
+            handleConfirmationClick={setResendFormValues}
+            fetchRenterProfile={fetchRenterProfile}
+        />
     }
     const { unit, primary_applicant, co_applicants } = profile;
     const { guarantors } = primary_applicant
@@ -120,4 +126,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps, null)(AppStatusPage);
+export default connect(mapStateToProps, {fetchRenterProfile})(AppStatusPage);

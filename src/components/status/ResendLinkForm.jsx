@@ -7,9 +7,9 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 import resendEnvelope from 'assets/images/resendEnvelope.png';
 import { H1, SpacedH3, LinkButton, blackLinkRoot } from 'assets/styles';
 
+import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
-import API from 'app/api';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -32,6 +32,18 @@ export class ResendLinkForm extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         API.updateInvitee(values, values.id).then((res) => {
             setSubmitting(false);
+            if (res.error_type === 'ValidationError') {
+                if (!values.email && !values.phone_number ) {
+                    return this.setState({errors: ['Phone Number or Email are required']})
+                } else if (!values.email) {
+                    return setErrors({phone_number: res.errors.phone_number[0], email: null})
+                } else if (!values.phone_number) {
+                    return setErrors({email: res.errors.email[0], phone_number: null})
+                } else {
+                    return this.setState({errors: ['There was an error with your submission. Please try again.']})
+                }
+            }
+            this.props.fetchRenterProfile();
             this.setState({confirmSent: true})
         }).catch((res) => {
             this.setState({errors: [res.errors]});

@@ -160,7 +160,7 @@ API.createIncomeStream = (data) => {
 }
 
 API.updateInvitee = (data, inviteeId) => {
-    return fetch(chuck(`/invitee/${inviteeId}/`), {
+    return fetch(chuck(`/invitees/${inviteeId}/`), {
         method: 'PUT',
         headers: {
             Authorization: `Token ${auth.getToken()}`
