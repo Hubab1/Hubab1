@@ -59,7 +59,8 @@ export class LeaseTermsPage extends React.Component {
             move_in_date = parseDateISOString(move_in_date);
         }
         return {
-            move_in_date
+            move_in_date,
+            lease_term: application.lease_term
         }
     }
 
@@ -78,6 +79,7 @@ export class LeaseTermsPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         move_in_date: Yup.string().nullable().required('Select a move in date'),
                         unit: Yup.string().nullable().required('Select a unit'),
+                        lease_term: Yup.number().nullable().required('Select a lease term'),
                     })}
                 >
                     {({
@@ -123,7 +125,7 @@ export class LeaseTermsPage extends React.Component {
                                         <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                                         <Select
                                             fullWidth
-                                            value={values.employment_status}
+                                            value={values.lease_term}
                                             onChange={handleChange}
                                             inputProps={{
                                                 name: 'lease_term',
@@ -131,7 +133,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                         >
                                             {this.props.config.lease_term_options.map(choice => (
-                                                <MenuItem value={choice}>{choice} Months</MenuItem>
+                                                <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                             ))}
                                         </Select>
                                     </Grid>
