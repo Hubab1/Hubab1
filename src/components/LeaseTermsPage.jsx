@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import {css} from 'emotion';
@@ -18,6 +19,8 @@ import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
+import { offsetDate } from 'utils/misc';
+
 
 
 const ImageContainer = styled.div`
@@ -136,6 +139,7 @@ export class LeaseTermsPage extends React.Component {
                                                 <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                             ))}
                                         </Select>
+                                        <FormHelperText>{values.move_in_date && values.lease_term && `Ends ${offsetDate(values.move_in_date, values.lease_term)}`}</FormHelperText>
                                     </Grid>
                                 </Grid>
                             </div>
