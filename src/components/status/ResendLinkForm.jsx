@@ -46,7 +46,7 @@ export class ResendLinkForm extends React.Component {
             this.props.fetchRenterProfile();
             this.setState({confirmSent: true})
         }).catch((res) => {
-            this.setState({errors: [res.errors]});
+            this.setState({errors: ['There was an error with your submission. Please try again.']});
             setSubmitting(false);
         });
     }
