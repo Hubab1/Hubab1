@@ -33,9 +33,7 @@ export class ReviewAccountsPage extends React.Component {
             });
         }
         Promise.all(incomeNamePromises).then( data => {
-            this.props.history.push({
-                pathname: ROUTES.APPLICATION_FEE, 
-            });    
+            this.props.pushNextPage()
         })
     }
 

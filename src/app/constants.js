@@ -20,6 +20,7 @@ export const ROUTES = {
     CO_APPLICANTS: '/profile/invite-coapplicants',
     CONNECT_BANK: '/connect-bank',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
+    PAYMENT_OPTIONS: '/payment-options',
     APPLICATION_FEE: '/application-fee',
     FINAL_DETAILS: '/final-details',
     APP_STATUS: '/app-status',
@@ -34,6 +35,7 @@ export const NAV_ROUTES = [
     {name: 'Guarantor', value: ROUTES.GUARANTOR},
     {name: 'Pets', value: ROUTES.PETS},
     {name: 'Bank', value: ROUTES.CONNECT_BANK},
+    {name: 'Payment Options', value: ROUTES.PAYMENT_OPTIONS},
     {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
     {name: 'Final Application Details', value: ROUTES.FINAL_DETAILS},
     {name: 'Application Status', value: ROUTES.APP_STATUS}
