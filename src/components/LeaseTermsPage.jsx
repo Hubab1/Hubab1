@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import {css} from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
@@ -56,12 +59,13 @@ export class LeaseTermsPage extends React.Component {
             move_in_date = parseDateISOString(move_in_date);
         }
         return {
-            move_in_date
+            move_in_date,
+            lease_term: application.lease_term
         }
     }
 
     render () {
-        if (!this.props.application) return null;
+        if (!this.props.application || !this.props.config) return null;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -75,6 +79,7 @@ export class LeaseTermsPage extends React.Component {
                     validationSchema={Yup.object().shape({
                         move_in_date: Yup.string().nullable().required('Select a move in date'),
                         unit: Yup.string().nullable().required('Select a unit'),
+                        lease_term: Yup.number().nullable().required('Select a lease term'),
                     })}
                 >
                     {({
@@ -89,7 +94,7 @@ export class LeaseTermsPage extends React.Component {
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={3}>
                                     <Grid item xs={6}>
                                         <KeyboardDatePicker
                                             id="move-in-date"
@@ -116,6 +121,22 @@ export class LeaseTermsPage extends React.Component {
                                             helperText={submitCount >= 1 && errors.unit}
                                         />
                                     </Grid>
+                                    <Grid item xs={12}>
+                                        <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
+                                        <Select
+                                            fullWidth
+                                            value={values.lease_term}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                name: 'lease_term',
+                                                id: 'lease-term',
+                                            }}
+                                        >
+                                            {this.props.config.lease_term_options.map(choice => (
+                                                <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </Grid>
                                 </Grid>
                             </div>
                             <ActionButton marginTop={31} marginBottom={20}>
@@ -129,4 +150,4 @@ export class LeaseTermsPage extends React.Component {
     }
 }
 
-export default connect((state) => ({application: state.renterProfile}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect((state) => ({application: state.renterProfile, config: state.configuration}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));

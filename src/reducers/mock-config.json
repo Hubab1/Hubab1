@@ -2,6 +2,7 @@
     "application_fee": 100.0,
     "dark_mode": false,
     "show_navigation": true,
+    "lease_term_options": [12, 24],
     "secondary_color": "0fce98",
     "community": {
             "city": "Santa Barbara",
