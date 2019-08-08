@@ -139,7 +139,7 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                            <ActionButton marginTop={31} marginBottom={20}>
+                            <ActionButton disabled={!values.move_in_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
                                     Continue
                             </ActionButton>
                         </form>
