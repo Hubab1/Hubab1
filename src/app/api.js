@@ -168,8 +168,14 @@ API.createIncomeStream = (data) => {
     }).then(res => res.json());
 }
 
-API.updateAppliant = (data) => {
-    return Promise.resolve('you are a garbage gnome');
+API.updateInvitee = (data, inviteeId) => {
+    return fetch(chuck(`/invitees/${inviteeId}/`), {
+        method: 'PUT',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
 }
 
 API.postPassthrough = data => (
