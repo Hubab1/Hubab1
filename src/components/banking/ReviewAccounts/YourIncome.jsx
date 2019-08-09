@@ -1,21 +1,14 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
 import { formatCurrency, getIncomeRequirementText } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
-import lightbulb from 'assets/images/lightbulb.png';
+import Tip from 'components/common/Tip';
 
 import {  totalContainer, incomeEntry } from './styles'
 import { Card, CardSection, P } from 'assets/styles'
-
-const Bulb = styled.img`
-    width: 50px;
-    height: 46px;
-`
 
 export function YourIncome (props) {
     if (!props.profile || !props.config || !props.applicant) return null;
@@ -23,7 +16,7 @@ export function YourIncome (props) {
         <Card>
             <CardSection>
                 <P bold>Your Income</P>
-                <P margin="20px 0">You may edit the employer’s name. The income values shown here are estimates.</P>
+                <P margin="20px 0">You may edit the employer's name. The income values shown here are estimates.</P>
                 {
                     props.incomeEntries.map( entry => {
                         return <IncomeEntry 
@@ -46,17 +39,12 @@ export function YourIncome (props) {
                 </div>
             </CardSection>
             <CardSection>
-                <Grid container spacing={1} alignItems="flex-start">
-                    <Grid item>
-                        <Bulb alt="light bulb" src={lightbulb} />
-                    </Grid>
-                    <Grid item xs>
-                        <P>
-                            {getIncomeRequirementText(props)}
-                        </P>
-                        <AddAnotherButton>Add a guarantor</AddAnotherButton>
-                    </Grid>
-                </Grid>
+                <Tip
+                    text={
+                        <><P>{getIncomeRequirementText(props)}</P>
+                        <AddAnotherButton>Add a guarantor</AddAnotherButton></>
+                    }
+                />
             </CardSection>
         </Card>
     );

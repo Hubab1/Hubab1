@@ -27,8 +27,8 @@ export const Logo = styled.img`
     max-height: 50px;
 `;
 
-export const Bold = styled.span`
-    font-weight: bold;
+export const Bold = styled.b`
+    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
 `
 
 export const H1 = styled.h1`

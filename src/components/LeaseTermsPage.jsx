@@ -12,6 +12,7 @@ import {css} from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
+import Tip from 'components/common/Tip';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
@@ -146,6 +147,12 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
+                            <Tip
+                                header="Monthly Rent"
+                                text={
+                                    <>Based on your selection, your rent will be <b>$2,500/month.</b></>
+                                }
+                            />
                             <ActionButton disabled={!values.move_in_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
                                     Continue
                             </ActionButton>
