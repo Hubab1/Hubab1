@@ -1,3 +1,7 @@
+import memoize from 'lodash/memoize';
+import format from 'date-fns/format';
+import addMonths from 'date-fns/addMonths';
+
 import { ROLE_GUARANTOR } from 'app/constants';
 
 export function hexToRGB(hex, alpha) {
@@ -49,3 +53,8 @@ export function parseDateISOString(s) {
     ds[1] = ds[1] - 1; // adjust month
     return new Date(...ds);
 }
+
+export const offsetDate = memoize((fromDate, offsetMonths) => {
+    const newDate = addMonths(fromDate, offsetMonths);
+    return format(newDate, 'MMMM do, yyyy');
+}, (a, b) => `${a}-${b}`);

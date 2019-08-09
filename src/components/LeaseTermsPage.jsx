@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import {css} from 'emotion';
@@ -18,6 +20,8 @@ import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
+import { offsetDate } from 'utils/misc';
+
 
 
 const ImageContainer = styled.div`
@@ -122,20 +126,23 @@ export class LeaseTermsPage extends React.Component {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
-                                        <Select
-                                            fullWidth
-                                            value={values.lease_term}
-                                            onChange={handleChange}
-                                            inputProps={{
-                                                name: 'lease_term',
-                                                id: 'lease-term',
-                                            }}
-                                        >
-                                            {this.props.config.lease_term_options.map(choice => (
-                                                <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
-                                            ))}
-                                        </Select>
+                                        <FormControl fullWidth>
+                                            <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                value={values.lease_term}
+                                                onChange={handleChange}
+                                                inputProps={{
+                                                    name: 'lease_term',
+                                                    id: 'lease-term',
+                                                }}
+                                            >
+                                                {this.props.config.lease_term_options.map(choice => (
+                                                    <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
+                                                ))}
+                                            </Select>
+                                            <FormHelperText>{values.move_in_date && values.lease_term && `Ends ${offsetDate(values.move_in_date, values.lease_term)}`}</FormHelperText>
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                             </div>
