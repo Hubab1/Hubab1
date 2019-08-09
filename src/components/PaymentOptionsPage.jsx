@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import { Card, CardSection, H1, P } from 'assets/styles';
+import { Card, CardSection, CardRow, H1, P } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
@@ -19,12 +19,6 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-const CardHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #EEEEEE;
-    padding-bottom: 5px;
-`
 
 export class PaymentOptionsPage extends React.Component {
 
@@ -36,10 +30,10 @@ export class PaymentOptionsPage extends React.Component {
                 <SpacedImg src={paymentWallet} alt="wallet"/>
                 <Card>
                     <CardSection>
-                        <CardHeader>
+                        <CardRow>
                             <P bold>Application Fee</P>
                             <P bold>{formatCurrency(this.props.configuration.application_fee)}</P>
-                        </CardHeader>
+                        </CardRow>
                     </CardSection>
                 </Card>
                 <ActionButton onClick={this.props._nextRoute} marginTop={30} marginBottom={20}>Continue</ActionButton>

@@ -6,10 +6,10 @@ import Grid from '@material-ui/core/Grid';
 
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
-import { H1, SpacedH3, Card, CardSection, P, leftText } from 'assets/styles';
+import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/styles';
 
 import { PersonRow } from './PersonRow';
-import { CardRow, FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
+import { FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
 import ResendLinkForm from './ResendLinkForm';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 
