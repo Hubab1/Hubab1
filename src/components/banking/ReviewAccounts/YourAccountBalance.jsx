@@ -24,7 +24,7 @@ function YourAccountBalance (props) {
                 </P>
                 <div className={totalContainer}>
                     <P bold>Total Account Balance</P>
-                    <P bold>{formatCurrency(props.assetsBalance)}</P>
+                    <P bold margin="10px 0">{formatCurrency(props.assetsBalance)}</P>
                 </div>
             </CardSection>
         </Card>

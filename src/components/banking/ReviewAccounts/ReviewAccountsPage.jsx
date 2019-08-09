@@ -6,10 +6,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import YourIncome from './YourIncome';
 import YourAccountBalance from './YourAccountBalance';
 import { H1, SpacedH3, PrimarySpan, cursor } from 'assets/styles';
-import { ROUTES } from 'app/constants';
 import API, { MOCKY } from 'app/api';
-
-
 
 
 export class ReviewAccountsPage extends React.Component {
@@ -33,9 +30,7 @@ export class ReviewAccountsPage extends React.Component {
             });
         }
         Promise.all(incomeNamePromises).then( data => {
-            this.props.history.push({
-                pathname: ROUTES.APPLICATION_FEE, 
-            });    
+            this.props.pushNextPage()
         })
     }
 

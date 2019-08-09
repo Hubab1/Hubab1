@@ -11,6 +11,7 @@ import SignupPage from 'components/SignupPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
+import PaymentOptionsPage from 'components/PaymentOptionsPage';
 import ApplicationFeePage from 'components/ApplicationFeePage/ApplicationFeePage';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -95,6 +96,7 @@ export class Main extends Component {
                             <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
                             <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
+                            <Route path={ROUTES.PAYMENT_OPTIONS} component={PaymentOptionsPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
                             <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
                             <Route path={ROUTES.APP_STATUS} component={AppStatusPage}/>

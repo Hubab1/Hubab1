@@ -117,7 +117,7 @@ export class ConnectBankPage extends React.Component {
                 incomeEntries={this.state.reportData.incomeEntries}
                 incomeTotal={this.state.reportData.incomeTotal}
                 assetsTotal={this.state.reportData.assetsTotal}
-                history={this.props.history}
+                pushNextPage={this.props._nextRoute}
                 resetReportData={() => this.setState({reportData: null})}
             />;
         }

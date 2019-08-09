@@ -113,3 +113,17 @@ export const Card = styled.div`
 export const leftText = css`
     text-align: left;
 `
+
+export const CardRow = styled.div`
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #EEEEEE;
+    justify-content: space-between;
+    &:first-of-type {
+        padding-top: 0;
+    }
+    &:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+`

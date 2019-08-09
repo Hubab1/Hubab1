@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
-import {LinkButton, P } from 'assets/styles';
-import { CardRow } from './styles';
+import {LinkButton, P, CardRow } from 'assets/styles';
 
 
 export const PersonRow = ({person, label, role, handleClickLink}) => {
