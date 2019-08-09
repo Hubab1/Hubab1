@@ -64,7 +64,8 @@ export class LeaseTermsPage extends React.Component {
         }
         return {
             move_in_date,
-            lease_term: application.lease_term
+            lease_term: application.lease_term,
+            unit: application.unit
         }
     }
 
@@ -82,7 +83,7 @@ export class LeaseTermsPage extends React.Component {
                     initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
                         move_in_date: Yup.string().nullable().required('Select a move in date'),
-                        unit: Yup.string().nullable().required('Select a unit'),
+                        unit: Yup.object().nullable().required('Select a Unit'),
                         lease_term: Yup.number().nullable().required('Select a lease term'),
                     })}
                 >
@@ -123,6 +124,8 @@ export class LeaseTermsPage extends React.Component {
                                             update={val => setFieldValue('unit', val)}
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
+                                            errors={errors}
+                                            initialValue={values.unit}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

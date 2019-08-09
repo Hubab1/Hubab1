@@ -38,7 +38,7 @@ function renderSuggestion(suggestionProps) {
     const { suggestion, index, itemProps, highlightedIndex, selectedItem, inputValue } = suggestionProps;
     const inputLength = inputValue.length;
     const isHighlighted = highlightedIndex === index;
-    const isSelected = (selectedItem || '').indexOf(suggestion.unit_number) > -1;
+    const isSelected = (selectedItem ? selectedItem.unit_number : '').indexOf(suggestion.unit_number) > -1;
 
     return (
         <MenuItem
@@ -115,10 +115,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function AvailableUnitsSelector (props) {
     const [units, setUnits] = useState([]);
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         API.fetchAvailableUnits().then(units => {
             setUnits(units);
+            setIsReady(true);
         })
     }, [])
 
@@ -131,7 +133,9 @@ export default function AvailableUnitsSelector (props) {
         <div>
             <Downshift
                 id="downshift-options"
+                itemToString={item => (item ? item.unit_number : '')}
                 onChange={handleChange}
+                initialSelectedItem={props.initialValue}
             >
                 {({
                     clearSelection,
@@ -158,12 +162,14 @@ export default function AvailableUnitsSelector (props) {
                             suggestion,
                             inputValue,
                             index,
-                            itemProps: getItemProps({ item: suggestion.unit_number }),
+                            itemProps: getItemProps({ item: suggestion }),
                             highlightedIndex,
                             selectedItem,
                         }),
                     );
-                    if (suggestions.length === 0) {
+                    if (!isReady) {
+                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>]
+                    } else if  (suggestions.length === 0) {
                         suggestions = [<MenuItem key="no-results">No results found</MenuItem>]
                     }
                     return (
