@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { getIncomeRequirementText } from 'utils/misc';
 import { YourIncome, IncomeEntry } from './YourIncome';
 import { ROLE_GUARANTOR, ROLE_PRIMARY_APPLICANT, ROLE_COAPPLICANT } from 'app/constants';
 
@@ -21,40 +22,36 @@ beforeEach(() => {
 })
 
 it('renders correct text for main applicant with associated unit', function(){
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for all members of the application is 40x the rent: $400')).toBeTruthy();
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for all members of the application is 40x the rent: $400')
 });
 
 it('renders correct text for co-applicant with associated unit', function(){
     defaultProps.applicant.role = ROLE_COAPPLICANT;
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for all members of the application is 40x the rent: $400')).toBeTruthy();
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for all members of the application is 40x the rent: $400')
 });
 
 it('renders correct text for guarantor with associated unit', function(){
     defaultProps.applicant.role = ROLE_GUARANTOR;
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for a guarantor on the application is 80x the rent: $800')).toBeTruthy();
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for a guarantor on the application is 80x the rent: $800')
 });
 
 
 it('renders correct text for main applicant and no associated unit', function(){
     defaultProps.applicant.role = ROLE_PRIMARY_APPLICANT;
     defaultProps.profile.unit = null;
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for all members of the application is 40x the rent')).toBeTruthy();
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for all members of the application is 40x the rent')
 });
 
-it('renders correct text for main applicant and no associated unit', function(){
+it('renders correct text for co-applicant and no associated unit', function(){
     defaultProps.applicant.role = ROLE_COAPPLICANT;
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for all members of the application is 40x the rent')).toBeTruthy();
+    defaultProps.profile.unit = null;
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for all members of the application is 40x the rent')
 });
 
 it('renders correct text for guarantor and no associated unit', function(){
     defaultProps.applicant.role = ROLE_GUARANTOR;
-    const wrapper = shallow(<YourIncome {...defaultProps}/>);
-    expect(wrapper.text().includes('The total income required for a guarantor on the application is 80x the rent')).toBeTruthy();
+    defaultProps.profile.unit = null;
+    expect(getIncomeRequirementText(defaultProps)).toEqual('The total income required for a guarantor on the application is 80x the rent')
 });
 
 it('renders an IncomeEntry for each item in incomeEntry array', () => {
