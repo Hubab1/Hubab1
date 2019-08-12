@@ -19,6 +19,10 @@ export const BackLink = props => {
     </Link>
 };
 
+BackLink.defaultProps = {
+    to: '/'
+}
+
 BackLink.propTypes = {
     to: PropTypes.string,
 };
