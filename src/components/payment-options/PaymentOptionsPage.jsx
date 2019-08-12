@@ -61,20 +61,23 @@ export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) 
                         <P bold>Application Fee</P>
                         <P bold>{formatCurrency(configuration.application_fee)}</P>
                     </CardRow>
-                    <CardRowNoFlex>
-                        <FormControl component="fieldset">
-                            <RadioGroup
-                                aria-label="payment-options"
-                                name="payment-options"
-                                value={value}
-                                onChange={handleChange}
-                            >
-                                <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
-                                <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
-                            </RadioGroup>
-                        </FormControl>
-                        {otherApplicants && otherApplicants.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)}
-                    </CardRowNoFlex>                    
+                    {   
+                        otherApplicants.length > 0 && 
+                            <CardRowNoFlex>
+                                <FormControl component="fieldset">
+                                    <RadioGroup
+                                        aria-label="payment-options"
+                                        name="payment-options"
+                                        value={value}
+                                        onChange={handleChange}
+                                    >
+                                        <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
+                                        <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
+                                    </RadioGroup>
+                                </FormControl>
+                                {otherApplicants && otherApplicants.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)}
+                            </CardRowNoFlex>
+                    }
                 </CardSection>
             </Card>
             <ActionButton onClick={_nextRoute} marginTop={30} marginBottom={20}>Continue</ActionButton>
