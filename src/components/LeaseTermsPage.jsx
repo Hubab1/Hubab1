@@ -14,7 +14,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import Tip from 'components/common/Tip';
 import { serializeDate, parseDateISOString } from 'utils/misc';
-import { H1, SpacedH3 } from 'assets/styles';
+import { H1, P, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
@@ -150,7 +150,7 @@ export class LeaseTermsPage extends React.Component {
                             <Tip
                                 header="Monthly Rent"
                                 text={
-                                    <>Based on your selection, your rent will be <b>$2,500/month.</b></>
+                                    <P>Based on your selection, your rent will be <b>$2,500/month.</b></P>
                                 }
                             />
                             <ActionButton disabled={!values.move_in_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
