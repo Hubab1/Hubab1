@@ -28,6 +28,18 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
 };
 
 API.fetchAvailableUnits = () => {
+    if (MOCKY) return Promise.resolve([
+        {id: 1, unit_number: '1B', price: 1540.50},
+        {id: 2, unit_number: '1C', price: 1999.99},
+        {id: 3, unit_number: '1D', price: 5000.00},
+        {id: 4, unit_number: '1E', price: 2450.99},
+        {id: 5, unit_number: '2E', price: 2450.99},
+        {id: 6, unit_number: '2A', price: 1540.50},
+        {id: 7, unit_number: '2B', price: 1999.99},
+        {id: 8, unit_number: '2C', price: 5000.00},
+        {id: 9, unit_number: '2D', price: 2450.99},
+        {id: 10, unit_number: '2E', price: 2450.99},
+    ])
     return fetch(chuck('/available-units/'), {
         method: 'GET',
         headers: {

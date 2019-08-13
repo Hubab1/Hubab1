@@ -45,16 +45,16 @@ export class LeaseTermsPage extends React.Component {
         const serialized = Object.assign({}, values);
         serialized.move_in_date = serializeDate(serialized.move_in_date);
 
-        this.props._nextRoute();
+        // this.props._nextRoute();
         // uncomment when api is up to snuff
-        // this.props.updateRenterProfile(serialized).then((res) => {
-        //     if (res.errors) {
-        //         setErrors(res.errors);
-        //     } else {
-        //         this.props._nextRoute();
-        //     }
-        //     setSubmitting(false);
-        // });
+        this.props.updateRenterProfile({unit_id: serialized.unit.id, lease_term: serialized.lease_term}).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                this.props._nextRoute();
+            }
+            setSubmitting(false);
+        });
     }
 
     initialValues () {
