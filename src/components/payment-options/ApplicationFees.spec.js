@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ApplicationFees from './ApplicationFees';
+import { ApplicationFees, CardRowNoFlex } from './ApplicationFees';
 
 
 let defaultProps;
@@ -37,12 +37,29 @@ beforeEach(() => {
     }
 })
 
-it('renders all other applicants', () => {
+it('renders row with radio select and all other applicants names when everyone selected', () => {
     let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
-    expect(wrapper.text()).toEqual('shut up');
 
+    expect(wrapper.find(CardRowNoFlex)).toBeTruthy()
     expect(wrapper.text().includes('elvish parsley')).toBeTruthy();
     expect(wrapper.text().includes('kreebs mcgreebs')).toBeTruthy();
     expect(wrapper.text().includes('jerry maguire')).toBeTruthy();
+})
 
+it('renders row with radio select, but no names when self is selected', () => {
+    defaultProps.applicationFeesSelected = 'self';
+    let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
+
+    expect(wrapper.find(CardRowNoFlex)).toBeTruthy()
+    expect(wrapper.text().includes('elvish parsley')).not.toBeTruthy();
+    expect(wrapper.text().includes('kreebs mcgreebs')).not.toBeTruthy();
+    expect(wrapper.text().includes('jerry maguire')).not.toBeTruthy();
+
+})
+
+it('renders row with radio select, but no names when self is selected', () => {
+    defaultProps.otherApplicants = [];
+    let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
+
+    expect(wrapper.find(CardRowNoFlex).length).not.toBeTruthy()
 })

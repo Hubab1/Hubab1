@@ -25,20 +25,13 @@ export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) 
 
     if (!configuration || !profile)  return <div/>;
 
-    const otherApplicants = [];
-    const reduceFunction = (acc, current) => {
-        acc.push(`${current.first_name} ${current.last_name}`);
-        return acc
-    }
-    profile.primary_applicant.guarantors && 
-        profile.primary_applicant.guarantors.reduce(reduceFunction, otherApplicants);
-    profile.co_applicants && 
-        profile.co_applicants.reduce(reduceFunction, otherApplicants);
+    const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+
     const baseAppFee = configuration.application_fee;
     const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * (otherApplicants.length+1);
 
     const holdingDepositAmount = (configuration.holding_deposit_value && !profile.paid_deposit) ? configuration.holding_deposit_value : 0;
-
+    
     const totalPaymentAmount = totalApplicationFee + holdingDepositAmount;
     return (
         <Fragment>
@@ -53,7 +46,7 @@ export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) 
                         otherApplicants={otherApplicants}
                     />
                     {   
-                        !!holdingDepositAmount &&
+                        holdingDepositAmount > 0 &&
                             <CardRow>
                                 <P bold>Holding Deposit</P>
                                 <P bold>{formatCurrency(holdingDepositAmount)}</P>

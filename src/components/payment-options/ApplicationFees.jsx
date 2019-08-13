@@ -9,7 +9,7 @@ import { CardRow, P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
 
-const CardRowNoFlex = styled.div`
+export const CardRowNoFlex = styled.div`
     padding: 10px 0;
     border-bottom: 1px solid #EEEEEE;
 `
@@ -20,6 +20,14 @@ const OtherApplicant = styled.div`
 
 
 export const ApplicationFees = ({totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants}) => {
+
+    const otherApplicantNames = [];
+    const reduceFunction = (acc, current) => {
+        acc.push(`${current.first_name} ${current.last_name}`);
+        return acc
+    }
+    otherApplicants.reduce(reduceFunction, otherApplicantNames);
+
     return (
         <Fragment>
             <CardRow>
@@ -42,7 +50,7 @@ export const ApplicationFees = ({totalApplicationFee, applicationFeesSelected, h
                         </FormControl>
                         {
                             applicationFeesSelected === 'everyone' && 
-                                otherApplicants.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)
+                                otherApplicantNames.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)
                         }
                     </CardRowNoFlex>
             }
