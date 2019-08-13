@@ -33,5 +33,4 @@ it('does not render Holding Deposit when there is no holding deposit with correc
     let wrapper = shallow( <PaymentOptionsPage {...defaultProps} /> );
     expect(wrapper.text().includes('Holding Deposit$1,000.00')).not.toBeTruthy();
     expect(wrapper.text().includes('Total$100.00')).toBeTruthy();
-
 })
