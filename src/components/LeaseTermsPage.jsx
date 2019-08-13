@@ -38,16 +38,22 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
+function serializeData(values) {
+    const serialized = Object.assign({}, values);
+    serialized.unit_id = serialized.unit.id;
+    serialized.lease_start_date = serializeDate(serialized.lease_start_date);
+    delete serialized.unit;
+    return serialized;
+}
+
 export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const serialized = Object.assign({}, values);
-        serialized.move_in_date = serializeDate(serialized.move_in_date);
+        const stateUpdate = Object.assign({}, values);
+        stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
 
-        // this.props._nextRoute();
-        // uncomment when api is up to snuff
-        this.props.updateRenterProfile({unit_id: serialized.unit.id, lease_term: serialized.lease_term}).then((res) => {
+        return this.props.updateRenterProfile(serializeData(values), stateUpdate).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -59,12 +65,12 @@ export class LeaseTermsPage extends React.Component {
 
     initialValues () {
         const application = this.props.application;
-        let move_in_date = application.move_in_date;
-        if (move_in_date) {
-            move_in_date = parseDateISOString(move_in_date);
+        let lease_start_date = application.lease_start_date;
+        if (lease_start_date) {
+            lease_start_date = parseDateISOString(lease_start_date);
         }
         return {
-            move_in_date,
+            lease_start_date,
             lease_term: application.lease_term,
             unit: application.unit
         }
@@ -83,7 +89,7 @@ export class LeaseTermsPage extends React.Component {
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
                     validationSchema={Yup.object().shape({
-                        move_in_date: Yup.string().nullable().required('Select a move in date'),
+                        lease_start_date: Yup.string().nullable().required('Select a move in date'),
                         unit: Yup.object().nullable().required('Select a Unit'),
                         lease_term: Yup.number().nullable().required('Select a lease term'),
                     })}
@@ -109,15 +115,15 @@ export class LeaseTermsPage extends React.Component {
                                             format="MM/dd/yyyy"
                                             placeholder="mm/dd/yyyy"
                                             label="Move In Date"
-                                            value={values.move_in_date || null}
+                                            value={values.lease_start_date || null}
                                             fullWidth
                                             onBlur={handleBlur}
-                                            onChange={e => setFieldValue('move_in_date', e)}
+                                            onChange={e => setFieldValue('lease_start_date', e)}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
-                                            error={submitCount >= 1 && !!errors.move_in_date}
-                                            helperText={submitCount >= 1 && errors.move_in_date}
+                                            error={submitCount >= 1 && !!errors.lease_start_date}
+                                            helperText={submitCount >= 1 && errors.lease_start_date}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
@@ -145,7 +151,7 @@ export class LeaseTermsPage extends React.Component {
                                                     <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                                 ))}
                                             </Select>
-                                            <FormHelperText>{values.move_in_date && values.lease_term && `Ends ${offsetDate(values.move_in_date, values.lease_term)}`}</FormHelperText>
+                                            <FormHelperText>{values.lease_start_date && values.lease_term && `Ends ${offsetDate(values.lease_start_date, values.lease_term)}`}</FormHelperText>
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -156,7 +162,7 @@ export class LeaseTermsPage extends React.Component {
                                     <P>Based on your selection, your rent will be <b>$2,500/month.</b></P>
                                 }
                             />
-                            <ActionButton disabled={!values.move_in_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
+                            <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
                                     Continue
                             </ActionButton>
                         </form>
