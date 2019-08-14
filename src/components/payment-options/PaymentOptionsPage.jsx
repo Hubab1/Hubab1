@@ -1,19 +1,15 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-
 
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import { Card, CardSection, CardRow, H1, P } from 'assets/styles';
+import { Card, CardSection, CardRow, P, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
+import { ApplicationFees } from './ApplicationFees';
 
 
 const SpacedH1 = styled(H1)`
@@ -24,60 +20,42 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-const CardRowNoFlex = styled.div`
-    padding: 10px 0;
-    border-bottom: 1px solid #EEEEEE;
-`
-
-const OtherApplicant = styled.div`
-    margin: -2px 0 10px 32px;
-`
-
 export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) => {
-    const [value, setValue] = React.useState('self');
-
-    function handleChange(event) {
-        setValue(event.target.value);
-    }
+    const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile)  return <div/>;
-    const otherApplicants = [];
-    const reduceFunction = (acc, current) => {
-        acc.push(`${current.first_name} ${current.last_name}`);
-        return acc
-    }
-    profile.primary_applicant.guarantors && 
-        profile.primary_applicant.guarantors.reduce(reduceFunction, otherApplicants);
-    profile.co_applicants && 
-        profile.co_applicants.reduce(reduceFunction, otherApplicants);
 
+    const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+
+    const baseAppFee = configuration.application_fee;
+    const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * (otherApplicants.length+1);
+
+    const holdingDepositAmount = (configuration.holding_deposit_value && !profile.paid_deposit) ? configuration.holding_deposit_value : 0;
+    
+    const totalPaymentAmount = totalApplicationFee + holdingDepositAmount;
     return (
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
             <SpacedImg src={paymentWallet} alt="wallet"/>
             <Card>
                 <CardSection>
-                    <CardRow>
-                        <P bold>Application Fee</P>
-                        <P bold>{formatCurrency(configuration.application_fee)}</P>
-                    </CardRow>
+                    <ApplicationFees
+                        totalApplicationFee={totalApplicationFee}
+                        applicationFeesSelected={applicationFeesSelected}
+                        handleChange={setApplicationFees}
+                        otherApplicants={otherApplicants}
+                    />
                     {   
-                        otherApplicants.length > 0 && 
-                            <CardRowNoFlex>
-                                <FormControl component="fieldset">
-                                    <RadioGroup
-                                        aria-label="payment-options"
-                                        name="payment-options"
-                                        value={value}
-                                        onChange={handleChange}
-                                    >
-                                        <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
-                                        <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
-                                    </RadioGroup>
-                                </FormControl>
-                                {otherApplicants && otherApplicants.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)}
-                            </CardRowNoFlex>
+                        holdingDepositAmount > 0 &&
+                            <CardRow>
+                                <P bold>Holding Deposit</P>
+                                <P bold>{formatCurrency(holdingDepositAmount)}</P>
+                            </CardRow>
                     }
+                    <CardRow>
+                        <P bold color="#56BA82">Total</P>
+                        <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
+                    </CardRow>
                 </CardSection>
             </Card>
             <ActionButton onClick={_nextRoute} marginTop={30} marginBottom={20}>Continue</ActionButton>

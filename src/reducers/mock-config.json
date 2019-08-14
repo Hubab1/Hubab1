@@ -5,23 +5,25 @@
     "lease_term_options": [12, 24],
     "secondary_color": "0fce98",
     "community": {
-            "city": "Santa Barbara",
-            "building_number": "3732",
-            "state": "CA",
-            "postal_code": "93105",
-            "normalized_street_address": "3732 MONTEREY PINES ST",
-            "building_name": "Monterey Pines Apartments"
+        "city": "Santa Barbara",
+        "building_number": "3732",
+        "state": "CA",
+        "postal_code": "93105",
+        "normalized_street_address": "3732 MONTEREY PINES ST",
+        "building_name": "Monterey Pines Apartments"
     },
     "background": "https://assets.nestiostatic.com/onlineleasing_background/471d6c07176b12c869acd43d0088c334.jpg",
     "rental_options_config": {
-        "co_applicants": {"limit": 3},
-        "guarantor": {"limit": 1},
+        "co_applicants": { "limit": 3 },
+        "guarantor": { "limit": 1 },
         "pets": {
             "pet_policy_details": "We allow cats and puppers up to 25lbs",
             "limit": 1,
-            "types_allowed": ["dogs", "cats", "other"]}
+            "types_allowed": ["dogs", "cats", "other"]
+        }
     },
     "logo": "https://assets.nestiostatic.com/onlineleasing_logos/2e3bcd81cee6beee8b5c7c55ceb2c337.png",
     "primary_color": "1a9b6e",
-    "id": 2
+    "id": 2,
+    "holding_deposit_value": 1000.00
 }
