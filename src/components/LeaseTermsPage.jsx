@@ -13,6 +13,7 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import Tip from 'components/common/Tip';
+import { formatCurrency } from 'utils/misc';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import { H1, P, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
@@ -38,7 +39,7 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
-function serializeData(values) {
+function serializeValues(values) {
     const serialized = Object.assign({}, values);
     serialized.unit_id = serialized.unit.id;
     serialized.lease_start_date = serializeDate(serialized.lease_start_date);
@@ -53,7 +54,7 @@ export class LeaseTermsPage extends React.Component {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
 
-        return this.props.updateRenterProfile(serializeData(values), stateUpdate).then((res) => {
+        return this.props.updateRenterProfile(serializeValues(values), stateUpdate).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -156,12 +157,16 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                            <Tip
-                                header="Monthly Rent"
-                                text={
-                                    <P>Based on your selection, your rent will be <b>$2,500/month.</b></P>
-                                }
-                            />
+                            {
+                                values.unit && (
+                                    <Tip
+                                        header="Monthly Rent"
+                                        text={
+                                            <P>Based on your selection, your rent will be <b>{formatCurrency(values.unit.price)}/month.</b></P>
+                                        }
+                                    />
+                                )
+                            }
                             <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
                                     Continue
                             </ActionButton>
