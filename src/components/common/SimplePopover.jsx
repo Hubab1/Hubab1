@@ -62,10 +62,15 @@ export default function SimplePopover(props) {
                     horizontal: 'center',
                 }}
             >
-                <Typography className={classes.typography}>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                <Typography className={classes.typography}>
+                    {props.text}
                     <Cancel onClick={handleClose} role="button" style={{fontSize: 17}} className={cancelButton} />
                 </Typography>
             </Popover>
         </>
     );
+}
+
+SimplePopover.defaultProps = {
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
 }

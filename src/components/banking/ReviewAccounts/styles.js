@@ -18,7 +18,3 @@ export const incomeEntry = css`
     justify-content: space-between;
     margin: 0 0 15px 0;
 `
-
-export const infoIconRoot = css`
-    height: inherit !important;
-`
