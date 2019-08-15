@@ -82,7 +82,6 @@ selectors.selectOrderedRoutes = createSelector(
         if (selectedOptions && config && applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 const addedRoutes = [];
-                // temp until api gives us an ordered configuration set
                 Object.keys(config).forEach(key => {
                     if (selectedOptions.indexOf(key) > -1) {
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
