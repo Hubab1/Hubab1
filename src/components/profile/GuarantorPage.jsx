@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import get from 'lodash/get';
 
 import coin from 'assets/images/coin.png';
 import { H1, SpacedH3 } from 'assets/styles';
@@ -30,6 +31,10 @@ export class GuarantorPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         API.inviteGuarantor({guarantors: [values]}).then((res) => {
             setSubmitting(false);
+            if (res.errors) {
+                const errors = get(res, 'errors.guarantors[0]');
+                return setErrors(errors);
+            }
             this.setState({confirmSent: true})
         }).catch((res) => {
             this.setState({errors: [res.errors]});

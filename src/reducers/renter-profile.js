@@ -4,7 +4,7 @@ import produce from 'immer';
 import { createSelector } from 'reselect';
 
 import API, { MOCKY } from 'app/api';
-import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS } from 'app/constants';
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
@@ -96,26 +96,30 @@ selectors.selectOrderedRoutes = createSelector(
     }
 );
 
-const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
+const findEvent = (events, eventType) => events.find( event => event.event === String(eventType))
 
-const routeMapping = (profile, applicant) => ({
-    [ROUTES.LEASE_TERMS]: true,
-    [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]),
-    [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
-    [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,
-    [ROUTES.GUARANTOR]: !applicant.guarantors.length,
-    [ROUTES.PETS]: !profile.pets,
+const routeMapping = (events, selectedRentalOptions) => ({
+    [ROUTES.LEASE_TERMS]: false, // TODO: update when we have event for completed lease terms
+    [ROUTES.TELL_US_MORE]: false, // TODO: update when we have event for completed MORE INFO PAGE
+    [ROUTES.PROFILE_OPTIONS]: !(findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
+    [ROUTES.CO_APPLICANTS]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.find(option => option === "co_applicants"),
+    [ROUTES.GUARANTOR]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.find(option => option === "guarantor"),
+    [ROUTES.PETS]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.find(option => option === "pets"),
+    [ROUTES.CONNECT_BANK]: !findEvent(events, APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
+    [ROUTES.PAYMENT_OPTIONS]: !findEvent(events, APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.FINAL_DETAILS]: false, // TODO: not sure if we should just delete this or what? 
+    [ROUTES.APP_STATUS]: true
 });
 
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
-    state => state.renterProfile,
-    state => state.applicant,
-    (orderedRoutes, profile, applicant) => {
-        if (orderedRoutes && profile && applicant) {
+    state => state.applicant && state.applicant.events,
+    state => state.renterProfile && state.renterProfile.selected_rental_options,
+    (orderedRoutes, events, selectedRentalOptions) => {
+        if (orderedRoutes && events && selectedRentalOptions) {
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(profile, applicant)[route]) {
+                if (i === orderedRoutes.length -1 || routeMapping(events, selectedRentalOptions)[route]) {
                     return route;
                 }
             }
