@@ -4,7 +4,7 @@ import produce from 'immer';
 import { createSelector } from 'reselect';
 
 import API, { MOCKY } from 'app/api';
-import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS } from 'app/constants';
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
@@ -82,7 +82,6 @@ selectors.selectOrderedRoutes = createSelector(
         if (selectedOptions && config && applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 const addedRoutes = [];
-                // temp until api gives us an ordered configuration set
                 Object.keys(config).forEach(key => {
                     if (selectedOptions.indexOf(key) > -1) {
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
@@ -98,24 +97,32 @@ selectors.selectOrderedRoutes = createSelector(
 
 const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
-const routeMapping = (profile, applicant) => ({
-    [ROUTES.LEASE_TERMS]: true,
-    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]),
-    [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
-    [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,
-    [ROUTES.GUARANTOR]: !applicant.guarantors.length,
-    [ROUTES.PETS]: !profile.pets,
+const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
+    [ROUTES.LEASE_TERMS]: !renterProfile.lease_term, // TODO: update when we have event for completed lease terms
+    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), // TODO: update when we have event for completed MORE INFO PAGE
+    [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
+    [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
+    [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
+    [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
+    [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
+    [ROUTES.FEES_AND_DEPOSITS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.SCREENING]: false, // TODO: update when we have event for screening
+    [ROUTES.APP_COMPLETE]: true
 });
 
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
+    state => state.applicant && state.applicant.events,
+    state => state.renterProfile && state.renterProfile.selected_rental_options,
     state => state.renterProfile,
     state => state.applicant,
-    (orderedRoutes, profile, applicant) => {
-        if (orderedRoutes && profile && applicant) {
+    (orderedRoutes, events, selectedRentalOptions, renterProfile, applicant) => {
+        if (orderedRoutes && events && selectedRentalOptions) {
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(profile, applicant)[route]) {
+                const eventsSet = new Set(events.map(event => parseInt(event.event)));
+                const selectedRentalOptionsSet = new Set(selectedRentalOptions);
+                if (i === orderedRoutes.length -1 || routeMapping(eventsSet, selectedRentalOptionsSet, renterProfile, applicant)[route]) {
                     return route;
                 }
             }
