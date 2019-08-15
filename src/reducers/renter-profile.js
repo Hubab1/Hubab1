@@ -88,19 +88,19 @@ selectors.selectOrderedRoutes = createSelector(
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
                     }
                 })
-                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.PAYMENT_OPTIONS, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS])
+                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {
-                return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.PAYMENT_OPTIONS, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS]
+                return [ROUTES.PROFILE, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
             }
         }
     }
 );
 
-const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
+const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
 const routeMapping = (profile, applicant) => ({
     [ROUTES.LEASE_TERMS]: true,
-    [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]),
+    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.PROFILE_OPTIONS]: profile.selected_rental_options == null || profile.selected_rental_options.length === 0,
     [ROUTES.CO_APPLICANTS]: !profile.co_applicants.length,
     [ROUTES.GUARANTOR]: !applicant.guarantors.length,

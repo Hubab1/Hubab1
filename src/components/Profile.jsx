@@ -25,7 +25,7 @@ const ImageContainer = styled.div`
     }
 `
 
-export class TellUsMore extends React.Component {
+export class Profile extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
         serialized.birthday = serializeDate(serialized.birthday);
@@ -163,7 +163,7 @@ export class TellUsMore extends React.Component {
     }
 }
 
-TellUsMore.propTypes = {
+Profile.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
     applicant: PropTypes.object
 }
@@ -172,4 +172,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant
 })
 
-export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(TellUsMore, ROUTES.TELL_US_MORE));
+export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(Profile, ROUTES.PROFILE));
