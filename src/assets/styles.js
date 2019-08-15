@@ -127,3 +127,7 @@ export const CardRow = styled.div`
         padding-bottom: 0;
     }
 `
+
+export const infoIconRoot = css`
+    height: inherit !important;
+`

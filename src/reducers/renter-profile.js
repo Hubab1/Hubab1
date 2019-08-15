@@ -51,12 +51,12 @@ export const fetchRenterProfile = () => {
 };
 
 
-export const updateRenterProfile = (newData) => {
+export const updateRenterProfile = (newData, stateUpdate=null) => {
     return dispatch => {
         if (MOCKY) {
             dispatch({
                 type: renterProfileUpdated.toString(),
-                payload: newData
+                payload: stateUpdate || newData
             });
             return Promise.resolve({});
         }
@@ -66,7 +66,7 @@ export const updateRenterProfile = (newData) => {
             }
             return dispatch({
                 type: renterProfileUpdated.toString(),
-                payload: newData
+                payload: stateUpdate || newData
             });
         })
     }
