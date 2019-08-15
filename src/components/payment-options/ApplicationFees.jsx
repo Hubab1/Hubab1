@@ -37,7 +37,8 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
         <Fragment>
             <CardRow>
                 <P bold>
-                    Application Fee
+                    Application Fee 
+                    {" "}
                     <SimplePopover text={applicationFeeCopy}>
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>

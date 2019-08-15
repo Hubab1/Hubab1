@@ -56,6 +56,7 @@ export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) 
                             <CardRow>
                                 <P bold>
                                     Holding Deposit
+                                    {" "}
                                     <SimplePopover text={holdingDepositCopy}>
                                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
                                     </SimplePopover>
