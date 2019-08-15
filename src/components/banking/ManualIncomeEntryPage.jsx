@@ -28,7 +28,7 @@ export class ManualIncomeEntryPage extends React.Component {
                 <ActionButton onClick={this.linkBankAccount} marginTop={30} marginBottom={20}>
                     Enter Info Manually
                 </ActionButton>
-                <BackLink to={ROUTES.CONNECT_BANK}/>
+                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT}/>
             </Fragment>
         );
     }

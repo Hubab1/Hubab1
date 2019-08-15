@@ -15,7 +15,7 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 
 
 
-export const AppStatusPage = ({profile, configuration, applicant, fetchRenterProfile}) => {
+export const AppComplete = ({profile, configuration, applicant, fetchRenterProfile}) => {
 
     const [resendFormValues, setResendFormValues] = useState();
 
@@ -113,7 +113,7 @@ export const AppStatusPage = ({profile, configuration, applicant, fetchRenterPro
     )
 }
 
-AppStatusPage.propTypes = {
+AppComplete.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
     applicant: PropTypes.object,
@@ -126,4 +126,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps, {fetchRenterProfile})(AppStatusPage);
+export default connect(mapStateToProps, {fetchRenterProfile})(AppComplete);

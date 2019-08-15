@@ -87,27 +87,27 @@ selectors.selectOrderedRoutes = createSelector(
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
                     }
                 })
-                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.CONNECT_BANK, ROUTES.PAYMENT_OPTIONS, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS])
+                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {
-                return [ROUTES.TELL_US_MORE, ROUTES.CONNECT_BANK, ROUTES.PAYMENT_OPTIONS, ROUTES.APPLICATION_FEE, ROUTES.FINAL_DETAILS, ROUTES.APP_STATUS]
+                return [ROUTES.PROFILE, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
             }
         }
     }
 );
 
-const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
+const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
 const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
     [ROUTES.LEASE_TERMS]: !renterProfile.lease_term, // TODO: update when we have event for completed lease terms
-    [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]), // TODO: update when we have event for completed MORE INFO PAGE
+    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), // TODO: update when we have event for completed MORE INFO PAGE
     [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
     [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
     [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
     [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
-    [ROUTES.CONNECT_BANK]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
-    [ROUTES.PAYMENT_OPTIONS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.FINAL_DETAILS]: false, // TODO: update when we have event for screening
-    [ROUTES.APP_STATUS]: true
+    [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
+    [ROUTES.FEES_AND_DEPOSITS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.SCREENING]: false, // TODO: update when we have event for screening
+    [ROUTES.APP_COMPLETE]: true
 });
 
 selectors.selectInitialPage = createSelector(

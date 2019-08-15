@@ -23,7 +23,7 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-export const PaymentOptionsPage = ({configuration, _nextRoute, _prev, profile}) => {
+export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile)  return <div/>;
@@ -82,4 +82,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(withRelativeRoutes(PaymentOptionsPage, ROUTES.PAYMENT_OPTIONS));
+export default connect(mapStateToProps)(withRelativeRoutes(FeesDeposits, ROUTES.FEES_AND_DEPOSITS));

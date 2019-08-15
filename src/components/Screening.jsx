@@ -38,7 +38,7 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
-export class FinalDetails extends React.Component {
+export class Screening extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
         API.postPassthrough(values).then((res) => {
@@ -134,4 +134,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant
 })
 
-export default connect(mapStateToProps)(withRelativeRoutes(FinalDetails, ROUTES.FINAL_DETAILS));
+export default connect(mapStateToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));

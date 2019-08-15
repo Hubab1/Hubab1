@@ -8,41 +8,41 @@ export const ROUTES = {
     LOGIN: '/login',
     SIGNUP: '/signup',
     PASSWORD: '/password',
-    TELL_US_MORE: '/additional-info',
+    PROFILE: '/profile',
     FORGOT_PASSWORD: '/password/forgot',
     VERIFY_PASSWORD_CODE: '/password/verify',
     RESET_PASSWORD: '/password/reset',
-    PROFILE: '/profile',
-    PROFILE_OPTIONS: '/profile/options',
-    GUARANTOR: '/profile/guarantor',
+    RENTAL_PROFILE: '/rental-profile',
+    PROFILE_OPTIONS: '/rental-profile/options',
+    GUARANTOR: '/rental-profile/invite-guarantor',
     PARKING: '/parking/parking',
-    PETS: '/profile/pets',
-    CO_APPLICANTS: '/profile/invite-coapplicants',
-    CONNECT_BANK: '/connect-bank',
+    PETS: '/rental-profile/pets',
+    CO_APPLICANTS: '/rental-profile/invite-roommates',
+    INCOME_AND_EMPLOYMENT: '/income-employment',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
-    PAYMENT_OPTIONS: '/payment-options',
+    FEES_AND_DEPOSITS: '/fees-deposits',
     APPLICATION_FEE: '/application-fee',
-    FINAL_DETAILS: '/final-details',
-    APP_STATUS: '/app-status',
+    SCREENING: '/screening',
+    APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms'
 }
 
 export const NAV_ROUTES = [
     {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-    {name: 'Tell Us More', value: ROUTES.TELL_US_MORE},
-    {name: 'Profile', value: ROUTES.PROFILE_OPTIONS},
-    {name: 'Co-applicants', value: ROUTES.CO_APPLICANTS},
+    {name: 'Your Profile', value: ROUTES.PROFILE},
+    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
+    {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
     {name: 'Guarantor', value: ROUTES.GUARANTOR},
     {name: 'Pets', value: ROUTES.PETS},
-    {name: 'Bank', value: ROUTES.CONNECT_BANK},
-    {name: 'Payment Options', value: ROUTES.PAYMENT_OPTIONS},
+    {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
+    {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
     {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
-    {name: 'Final Application Details', value: ROUTES.FINAL_DETAILS},
-    {name: 'Application Status', value: ROUTES.APP_STATUS}
+    {name: 'Screening', value: ROUTES.SCREENING},
+    {name: 'Application Complete', value: ROUTES.APP_COMPLETE}
 ];
 
 export const BASE_ROUTES = [
-    ROUTES.LEASE_TERMS, ROUTES.TELL_US_MORE, ROUTES.PROFILE_OPTIONS
+    ROUTES.LEASE_TERMS, ROUTES.PROFILE, ROUTES.PROFILE_OPTIONS
 ]
 
 export const REPORT_POLL_INTERVAL = 10000;

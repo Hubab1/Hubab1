@@ -135,4 +135,4 @@ export class ConnectBankPage extends React.Component {
     }
 }
 
-export default withRelativeRoutes(ConnectBankPage, ROUTES.CONNECT_BANK);
+export default withRelativeRoutes(ConnectBankPage, ROUTES.INCOME_AND_EMPLOYMENT);
