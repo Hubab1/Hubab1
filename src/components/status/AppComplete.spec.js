@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { AppStatusPage } from './AppStatusPage';
+import { AppComplete } from './AppComplete';
 import { PersonRow } from './PersonRow';
 import mockProfile from 'reducers/mock-profile';
 import mockConfig from 'reducers/mock-config';
@@ -18,7 +18,7 @@ beforeEach(() => {
 });
 
 it('renders a PersonRow for each applicant and guarantor', () => {
-    const wrapper = shallow(<AppStatusPage {...defaultProps}/>);
+    const wrapper = shallow(<AppComplete {...defaultProps}/>);
 
     expect(wrapper.find(PersonRow).length).toEqual(4);
 });

@@ -7,7 +7,7 @@ import GuarantorPage from 'components/profile/GuarantorPage';
 import InviteRoommatesPage from 'components/profile/InviteRoommatesPage';
 import PetsPage from 'components/profile/pets/PetsPage';
 
-class ProfileContainer extends Component {
+class RentalProfileContainer extends Component {
     render() {
         return (
             <Switch>
@@ -20,4 +20,4 @@ class ProfileContainer extends Component {
     }
 };
 
-export default ProfileContainer;
+export default RentalProfileContainer;

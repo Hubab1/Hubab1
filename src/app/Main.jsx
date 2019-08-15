@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import AppContextProvider from 'contexts/AppContextProvider';
 import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
-import ProfileContainer from 'components/profile/ProfileContainer';
+import RentalProfileContainer from 'components/profile/RentalProfileContainer';
 import LoginPage from 'components/login/LoginPage';
 import SignupPage from 'components/SignupPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
@@ -19,10 +19,10 @@ import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
-import TellUsMore from 'components/TellUsMorePage';
-import FinalDetails from 'components/FinalDetails';
+import Profile from 'components/Profile';
+import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
-import AppStatusPage from 'components/status/AppStatusPage';
+import AppComplete from 'components/status/AppComplete';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -92,14 +92,14 @@ export class Main extends Component {
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
-                            <Route path={ROUTES.PROFILE} component={ProfileContainer} />
-                            <Route path={ROUTES.TELL_US_MORE} component={TellUsMore} />
-                            <Route path={ROUTES.CONNECT_BANK} component={ConnectBankPage}/>
+                            <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
+                            <Route path={ROUTES.PROFILE} component={Profile} />
+                            <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.PAYMENT_OPTIONS} component={PaymentOptionsPage}/>
                             <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
-                            <Route path={ROUTES.FINAL_DETAILS} component={FinalDetails}/>
-                            <Route path={ROUTES.APP_STATUS} component={AppStatusPage}/>
+                            <Route path={ROUTES.SCREENING} component={SCREENING}/>
+                            <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
                         </NavDrawer>
                     </Switch>
                 </div>
