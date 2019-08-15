@@ -47,7 +47,7 @@ export const BASE_ROUTES = [
 
 export const REPORT_POLL_INTERVAL = 10000;
 
-export const STRIPE_PUBLISHABLE_KEY = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j'
+export const STRIPE_PUBLISHABLE_KEY = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
 
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
 export const ROLE_CO_APPLICANT = 'co_applicant';

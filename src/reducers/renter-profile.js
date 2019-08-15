@@ -95,18 +95,18 @@ selectors.selectOrderedRoutes = createSelector(
     }
 );
 
-const findEvent = (events, eventType) => events.find( event => event.event === String(eventType))
+const TELL_US_MORE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
-const routeMapping = (events, selectedRentalOptions) => ({
-    [ROUTES.LEASE_TERMS]: false, // TODO: update when we have event for completed lease terms
-    [ROUTES.TELL_US_MORE]: false, // TODO: update when we have event for completed MORE INFO PAGE
-    [ROUTES.PROFILE_OPTIONS]: !(findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
-    [ROUTES.CO_APPLICANTS]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.find(option => option === "co_applicants"),
-    [ROUTES.GUARANTOR]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.find(option => option === "guarantor"),
-    [ROUTES.PETS]: !findEvent(events, APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.find(option => option === "pets"),
-    [ROUTES.CONNECT_BANK]: !findEvent(events, APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
-    [ROUTES.PAYMENT_OPTIONS]: !findEvent(events, APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.FINAL_DETAILS]: false, // TODO: not sure if we should just delete this or what? 
+const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
+    [ROUTES.LEASE_TERMS]: !renterProfile.lease_term, // TODO: update when we have event for completed lease terms
+    [ROUTES.TELL_US_MORE]: !TELL_US_MORE_FIELDS.some((field) => !!applicant[field]), // TODO: update when we have event for completed MORE INFO PAGE
+    [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
+    [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
+    [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
+    [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
+    [ROUTES.CONNECT_BANK]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
+    [ROUTES.PAYMENT_OPTIONS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.FINAL_DETAILS]: false, // TODO: update when we have event for screening
     [ROUTES.APP_STATUS]: true
 });
 
@@ -114,11 +114,15 @@ selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
     state => state.renterProfile && state.renterProfile.selected_rental_options,
-    (orderedRoutes, events, selectedRentalOptions) => {
+    state => state.renterProfile,
+    state => state.applicant,
+    (orderedRoutes, events, selectedRentalOptions, renterProfile, applicant) => {
         if (orderedRoutes && events && selectedRentalOptions) {
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(events, selectedRentalOptions)[route]) {
+                const eventsSet = new Set(events.map(event => parseInt(event.event)));
+                const selectedRentalOptionsSet = new Set(selectedRentalOptions);
+                if (i === orderedRoutes.length -1 || routeMapping(eventsSet, selectedRentalOptionsSet, renterProfile, applicant)[route]) {
                     return route;
                 }
             }
