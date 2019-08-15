@@ -46,5 +46,6 @@
 
     "id": 17,
     "unit": null,
-    "lease_end_date": null
+    "lease_end_date": null,
+    "holding_deposit_paid": true
 }

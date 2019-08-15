@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import Info from '@material-ui/icons/Info';
+import DoneRoundedIcon from '@material-ui/icons/CheckRounded';
+
 import SimplePopover from 'components/common/SimplePopover';
-
-
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import paymentWallet from 'assets/images/payment-wallet.png';
@@ -23,10 +23,12 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
+export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applicant}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile)  return <div/>;
+
+    const applicantFeePaid = applicant.application_fee_paid;
 
     const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
 
@@ -50,20 +52,26 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
                         handleChange={setApplicationFees}
                         otherApplicants={otherApplicants}
                         baseAppFee={baseAppFee}
+                        applicantFeePaid={applicantFeePaid}
                     />
-                    {   
-                        holdingDepositAmount > 0 &&
-                            <CardRow>
-                                <P bold>
-                                    Holding Deposit
-                                    {" "}
-                                    <SimplePopover text={holdingDepositCopy}>
-                                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
-                                    </SimplePopover>
-                                </P>
-                                <P bold>{formatCurrency(holdingDepositAmount)}</P>
-                            </CardRow>
-                    }
+                    <CardRow>
+                        <P bold>
+                            Holding Deposit
+                            {" "}
+                            <SimplePopover text={holdingDepositCopy}>
+                                <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
+                            </SimplePopover>
+                        </P>
+                        {   
+                            holdingDepositAmount > 0 &&
+                                profile.holding_deposit_paid ?
+                                    <P bold color="#56BA82">
+                                        <DoneRoundedIcon style={{color:'#56BA82', width:18, verticalAlign:'top', position:'relative', top:-2}}/>
+                                        {" "}Paid
+                                    </P> :
+                                    <P bold>{formatCurrency(holdingDepositAmount)}</P>
+                        }
+                    </CardRow>
                     <CardRow>
                         <P bold color="#56BA82">Total</P>
                         <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
@@ -79,6 +87,7 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
 const mapStateToProps = state => ({
     configuration: state.configuration,
     profile: state.renterProfile,
+    applicant: state.applicant,
 });
 
 

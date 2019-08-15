@@ -5,9 +5,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Info from '@material-ui/icons/Info';
+import DoneRoundedIcon from '@material-ui/icons/CheckRounded';
+
+
 import SimplePopover from 'components/common/SimplePopover';
-
-
 import { CardRow, P, infoIconRoot } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
@@ -22,7 +23,7 @@ const OtherApplicant = styled.div`
 `
 
 
-export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee }) => {
+export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee, applicantFeePaid }) => {
 
     const otherApplicantNames = [];
     const reduceFunction = (acc, current) => {
@@ -43,10 +44,10 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>
                 </P>
-                <P bold>{formatCurrency(totalApplicationFee)}</P>
+                { applicantFeePaid ? <P bold color="#56BA82"><DoneRoundedIcon style={{color:'#56BA82', width:18, verticalAlign:'top', position:'relative', top:-2}}/>{" "}Paid</P> : <P bold>{formatCurrency(totalApplicationFee)}</P>}
             </CardRow>
             {   
-                otherApplicants.length > 0 && 
+                !applicantFeePaid && otherApplicants.length > 0 && 
                     <CardRowNoFlex>
                         <FormControl component="fieldset">
                             <RadioGroup
