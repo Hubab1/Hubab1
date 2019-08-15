@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Card, CardSection, P } from 'assets/styles';
+import { Card, CardSection, P, infoIconRoot } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
-import { totalContainer, infoIconRoot } from './styles';
+import { totalContainer } from './styles';
 import Info from '@material-ui/icons/Info';
 import SimplePopover from 'components/common/SimplePopover';
 
