@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
+import Info from '@material-ui/icons/Info';
+import SimplePopover from 'components/common/SimplePopover';
+
 
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import { Card, CardSection, CardRow, P, H1 } from 'assets/styles';
+import { Card, CardSection, CardRow, P, H1, infoIconRoot } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
@@ -33,6 +36,8 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
     const holdingDepositAmount = (configuration.holding_deposit_value && !profile.paid_deposit) ? configuration.holding_deposit_value : 0;
     
     const totalPaymentAmount = totalApplicationFee + holdingDepositAmount;
+
+    const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
     return (
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
@@ -44,11 +49,18 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile}) => {
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
                         otherApplicants={otherApplicants}
+                        baseAppFee={baseAppFee}
                     />
                     {   
                         holdingDepositAmount > 0 &&
                             <CardRow>
-                                <P bold>Holding Deposit</P>
+                                <P bold>
+                                    Holding Deposit
+                                    {" "}
+                                    <SimplePopover text={holdingDepositCopy}>
+                                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
+                                    </SimplePopover>
+                                </P>
                                 <P bold>{formatCurrency(holdingDepositAmount)}</P>
                             </CardRow>
                     }

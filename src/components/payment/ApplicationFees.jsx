@@ -4,8 +4,11 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Info from '@material-ui/icons/Info';
+import SimplePopover from 'components/common/SimplePopover';
 
-import { CardRow, P } from 'assets/styles';
+
+import { CardRow, P, infoIconRoot } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
 
@@ -19,7 +22,7 @@ const OtherApplicant = styled.div`
 `
 
 
-export const ApplicationFees = ({totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants}) => {
+export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee }) => {
 
     const otherApplicantNames = [];
     const reduceFunction = (acc, current) => {
@@ -28,10 +31,18 @@ export const ApplicationFees = ({totalApplicationFee, applicationFeesSelected, h
     }
     otherApplicants.reduce(reduceFunction, otherApplicantNames);
 
+    const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`
+
     return (
         <Fragment>
             <CardRow>
-                <P bold>Application Fee</P>
+                <P bold>
+                    Application Fee 
+                    {" "}
+                    <SimplePopover text={applicationFeeCopy}>
+                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
+                    </SimplePopover>
+                </P>
                 <P bold>{formatCurrency(totalApplicationFee)}</P>
             </CardRow>
             {   
@@ -50,7 +61,7 @@ export const ApplicationFees = ({totalApplicationFee, applicationFeesSelected, h
                         </FormControl>
                         {
                             applicationFeesSelected === 'everyone' && 
-                                otherApplicantNames.map((name, index) => <OtherApplicant key={`${name}${index}`}>{name}</OtherApplicant>)
+                                otherApplicantNames.map((name, index) => <OtherApplicant key={index}>{name}</OtherApplicant>)
                         }
                     </CardRowNoFlex>
             }
