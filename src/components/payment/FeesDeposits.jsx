@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import Info from '@material-ui/icons/Info';
-import DoneRoundedIcon from '@material-ui/icons/CheckRounded';
 
+import PaidText from './PaidText';
 import SimplePopover from 'components/common/SimplePopover';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -23,6 +23,11 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
+const AmountContainer = styled.div`
+    width: 90px;
+    text-align: left;
+`
+
 export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applicant}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
@@ -35,11 +40,12 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
     const baseAppFee = configuration.application_fee;
     const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * (otherApplicants.length+1);
 
-    const holdingDepositAmount = (configuration.holding_deposit_value && !profile.paid_deposit) ? configuration.holding_deposit_value : 0;
+    const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     
-    const totalPaymentAmount = totalApplicationFee + holdingDepositAmount;
+    const totalPaymentAmount = totalApplicationFee + ( !profile.holding_deposit_paid && holdingDepositAmount);
 
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
+
     return (
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
@@ -62,19 +68,18 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
                                 <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
                             </SimplePopover>
                         </P>
-                        {   
-                            holdingDepositAmount > 0 &&
-                                profile.holding_deposit_paid ?
-                                    <P bold color="#56BA82">
-                                        <DoneRoundedIcon style={{color:'#56BA82', width:18, verticalAlign:'top', position:'relative', top:-2}}/>
-                                        {" "}Paid
-                                    </P> :
-                                    <P bold>{formatCurrency(holdingDepositAmount)}</P>
-                        }
+                        <AmountContainer>
+                            {   
+                                holdingDepositAmount > 0 &&
+                                    ( profile.holding_deposit_paid ? <PaidText/> : <P bold>{formatCurrency(holdingDepositAmount)}</P> )
+                            }
+                        </AmountContainer>
                     </CardRow>
                     <CardRow>
                         <P bold color="#56BA82">Total</P>
-                        <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
+                        <AmountContainer>
+                            <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
+                        </AmountContainer>
                     </CardRow>
                 </CardSection>
             </Card>

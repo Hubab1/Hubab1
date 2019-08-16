@@ -65,6 +65,7 @@ export const P = styled.p(props => ({
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
     color: props.color ? props.color : 'inherit',
+    textDecoration: props.decoration || 'none'
 }))
 
 
@@ -127,6 +128,7 @@ export const CardRow = styled.div`
         padding-bottom: 0;
     }
 `
+CardRow.displayName = 'CardRow';
 
 export const infoIconRoot = css`
     height: inherit !important;
