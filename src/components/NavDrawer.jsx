@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ProgressBar from 'components/common/Page/ProgressBar';
@@ -19,7 +17,6 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
-import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { actions } from 'reducers/store';
 import { ROUTES } from 'app/constants';
@@ -109,7 +106,7 @@ export function PersistentDrawerLeft(props) {
                         </IconButton>
                     </div>
                     <Divider />
-                    <NavStepper/>
+                    <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
                     <ListItem button onClick={logout}>
                         <ListItemText primary="Logout" />
@@ -130,4 +127,4 @@ const mapDispatchToProps = {
     logout: actions.logout
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(PersistentDrawerLeft));
+export default connect(null, mapDispatchToProps)(PersistentDrawerLeft);

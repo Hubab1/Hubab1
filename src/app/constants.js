@@ -30,10 +30,11 @@ export const ROUTES = {
 export const NAV_ROUTES = [
     {name: 'Your Profile', value: ROUTES.PROFILE},
     {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
-    {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
-    {name: 'Guarantor', value: ROUTES.GUARANTOR},
-    {name: 'Pets', value: ROUTES.PETS},
+    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
+        {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
+        {name: 'Guarantor', value: ROUTES.GUARANTOR},
+        {name: 'Pets', value: ROUTES.PETS},
+    ]},
     {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
     {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
     {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
