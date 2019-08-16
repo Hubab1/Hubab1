@@ -1,18 +1,17 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ProgressBar from 'components/common/Page/ProgressBar';
@@ -24,6 +23,8 @@ import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { actions } from 'reducers/store';
 import { ROUTES } from 'app/constants';
+
+import NavStepper from './NavStepper';
 const useStyles = makeStyles(theme => ({
     list: {
         width: 240,
@@ -101,8 +102,6 @@ export function PersistentDrawerLeft(props) {
                 <div
                     className={classes.list}
                     role="presentation"
-                    onClick={handleDrawerClose}
-                    onKeyDown={handleDrawerClose}
                 >
                     <div className={classes.drawerHeader}>
                         <IconButton onClick={handleDrawerClose}>
@@ -110,13 +109,7 @@ export function PersistentDrawerLeft(props) {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>
-                        {NAV_ROUTES.map((route) => (
-                            <ListItem button key={route.value} onClick={() => props.history.push(route.value)}>
-                                <ListItemText primary={route.name} />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <NavStepper/>
                     <Divider />
                     <ListItem button onClick={logout}>
                         <ListItemText primary="Logout" />
