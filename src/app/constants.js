@@ -28,8 +28,8 @@ export const ROUTES = {
 }
 
 export const NAV_ROUTES = [
-    {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
     {name: 'Your Profile', value: ROUTES.PROFILE},
+    {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
     {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
     {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
     {name: 'Guarantor', value: ROUTES.GUARANTOR},
@@ -42,7 +42,7 @@ export const NAV_ROUTES = [
 ];
 
 export const BASE_ROUTES = [
-    ROUTES.LEASE_TERMS, ROUTES.PROFILE, ROUTES.PROFILE_OPTIONS
+    ROUTES.PROFILE, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
 ]
 
 export const REPORT_POLL_INTERVAL = 10000;
