@@ -24,50 +24,12 @@ import { NAV_ROUTES } from 'app/constants';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { actions } from 'reducers/store';
 import { ROUTES } from 'app/constants';
-
-const drawerWidth = 240;
-
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    darkThemeAppbar: {
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText
-    },
-    liteThemeAppbar: {
-        backgroundColor: '#ffffff',
-        color: '#000000'
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
+    list: {
+        width: 240,
     },
     padRight: {
         width: 48
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
     },
     drawerHeader: {
         display: 'flex',
@@ -76,21 +38,13 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3, 0),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
+    darkThemeAppbar: {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText
     },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
+    liteThemeAppbar: {
+        backgroundColor: '#ffffff',
+        color: '#000000'
     },
 }));
 
@@ -123,9 +77,6 @@ export function PersistentDrawerLeft(props) {
             <AppBar
                 color="primary"
                 position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
                 classes={{colorPrimary: appThemeContext.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar}}
             >
                 <Toolbar>
@@ -134,47 +85,45 @@ export function PersistentDrawerLeft(props) {
                         aria-label="Open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
                     >
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
-                    <div className={clsx(classes.padRight, open && classes.hide)}></div>
+                    <div className={classes.padRight}></div>
                 </Toolbar>
                 <ProgressBar percent={33}/>
             </AppBar>
             <Drawer
-                className={classes.drawer}
-                variant="persistent"
                 anchor="left"
                 open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
+                onClose={handleDrawerClose}
             >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
+                <div
+                    className={classes.list}
+                    role="presentation"
+                    onClick={handleDrawerClose}
+                    onKeyDown={handleDrawerClose}
+                >
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>
+                        {NAV_ROUTES.map((route) => (
+                            <ListItem button key={route.value} onClick={() => props.history.push(route.value)}>
+                                <ListItemText primary={route.name} />
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Divider />
+                    <ListItem button onClick={logout}>
+                        <ListItemText primary="Logout" />
+                    </ListItem>
                 </div>
-                <Divider />
-                <List>
-                    {NAV_ROUTES.map((route) => (
-                        <ListItem button key={route.value} onClick={() => props.history.push(route.value)}>
-                            <ListItemText primary={route.name} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <ListItem button onClick={logout}>
-                    <ListItemText primary="Logout" />
-                </ListItem>
             </Drawer>
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
+            <main>
                 <div className={classes.drawerHeader} />
                 <div className={drawerContent}>
                     {props.children}
