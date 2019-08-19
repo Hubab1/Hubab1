@@ -17,7 +17,7 @@ const AmountContainer = styled.div`
     text-align: left;
 `    
 
-export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee, applicantFeePaid }) => {
+export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee, applicantFeePaid, unpaidApplicants }) => {
 
     const otherApplicantNames = [];
     const reduceFunction = (acc, current) => {
@@ -26,8 +26,7 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
     }
     otherApplicants.reduce(reduceFunction, otherApplicantNames);
 
-    const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`
-
+    const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
         <Fragment>
             <CardRow>
@@ -42,8 +41,8 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
                     { applicantFeePaid ? <PaidText/> : <P bold>{formatCurrency(totalApplicationFee)}</P>}
                 </AmountContainer>
             </CardRow>
-            {   
-                !applicantFeePaid && otherApplicants.length > 0 && 
+            {
+                !applicantFeePaid && otherApplicants.length > 0 && !!unpaidApplicants &&
                     <CardRow style={{border:'none'}}>
                         <FormControl component="fieldset">
                             <RadioGroup

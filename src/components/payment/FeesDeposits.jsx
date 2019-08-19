@@ -38,12 +38,17 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
     const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
 
     const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = otherApplicants.filter(app => !app.application_fee_paid).length + 1;
-    const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * unpaidApplicants;
+    const unpaidApplicants = otherApplicants.filter(app => !app.application_fee_paid).length;
+
+    const totalApplicationFee = applicationFeesSelected === 'self' ? 
+        baseAppFee : 
+        baseAppFee * (unpaidApplicants + 1);
 
     const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     
-    const totalPaymentAmount = totalApplicationFee + ( !profile.holding_deposit_paid && holdingDepositAmount);
+    const totalPaymentAmount = applicantFeePaid ?
+        !profile.holding_deposit_paid && holdingDepositAmount :
+        totalApplicationFee + ( !profile.holding_deposit_paid && holdingDepositAmount);
 
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
@@ -60,6 +65,7 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
                         otherApplicants={otherApplicants}
                         baseAppFee={baseAppFee}
                         applicantFeePaid={applicantFeePaid}
+                        unpaidApplicants={unpaidApplicants}
                     />
                     {
                         !!holdingDepositAmount &&
