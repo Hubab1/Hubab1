@@ -1,0 +1,14 @@
+steps:
+- label: ":rocket: Deploying to Staging"
+  command: './.buildkite/steps/deploy.sh'
+  env:
+    BUILDKITE_ASSUME_ROLE: arn:aws:iam::597580629174:role/CI/DemoDeployWoodhouse
+    DEPLOY_ENVIRONMENT: staging
+    PR_ABBR: ${PR_ABBR}
+    S3_BUCKET: "s3://woodhouse-${PR_ABBR}"
+  agents:
+    queue: docker
+
+  # Ensure only a single staging deploy job will run at once
+  concurrency: 1
+  concurrency_group: 'woodhouse-staging/deploy'
