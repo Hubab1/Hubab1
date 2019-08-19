@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import styled from '@emotion/styled';
 
 export const drawerContent = css`
-    padding: 30px 20px;
+    padding: 45px 20px;
     max-width: 500px;
     text-align: center;
     margin: auto;
