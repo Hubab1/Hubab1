@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { selectors } from 'reducers/renter-profile';
 import { NAV_ROUTES } from 'app/constants';
 
 const useStyles = makeStyles(theme => ({
@@ -18,11 +19,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export function getActiveStep(routes, currentRoute) {
+export function getStepperIndex(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.value === currentRoute) return i;
-        if (route.subRoutes && getActiveStep(route.subRoutes, currentRoute) !== -1) return i;
+        if (route.subRoutes && getStepperIndex(route.subRoutes, currentRoute) !== -1) return i;
     }
     return -1;
 }
@@ -30,18 +31,21 @@ export function getActiveStep(routes, currentRoute) {
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
+    const activeStep = getStepperIndex(NAV_ROUTES, props.currentRoute);
+    const firstUncompletedStep = getStepperIndex(NAV_ROUTES, props.initialPage);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
-        props.history.push(route.value)
+        if (i <= firstUncompletedStep) {
+            props.history.push(route.value);
+        }
     }
-    const activeStep = getActiveStep(NAV_ROUTES, props.currentRoute);
 
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
                 {NAV_ROUTES.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)}>
-                        <StepLabel>{route.name}</StepLabel>
+                        <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                         <StepContent>
                             {
                                 !!route.subRoutes && (
@@ -64,4 +68,4 @@ export function VerticalLinearStepper(props) {
     );
 }
 
-export default connect(state => ({currentRoute: state.siteConfig.currentRoute}))(withRouter(VerticalLinearStepper));
+export default connect(state => ({currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state)}))(withRouter(VerticalLinearStepper));
