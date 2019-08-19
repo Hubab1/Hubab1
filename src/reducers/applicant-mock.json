@@ -1,5 +1,5 @@
 {
-    "address_city": "",
+    "address_city": "abc",
     "lease_settings": 2,
     "address_postal_code": "",
     "email": "slkejhfkajshefjkhek@gm.com",
@@ -24,5 +24,6 @@
     },
     "address_state": "",
     "address_street": "",
-    "id": 18
+    "id": 18,
+    "events": []
 }
