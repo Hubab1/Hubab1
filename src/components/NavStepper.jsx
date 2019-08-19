@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { selectors } from 'reducers/renter-profile';
-import { NAV_ROUTES } from 'app/constants';
+import { NAV_ROUTES, routeToOptionName } from 'app/constants';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -51,11 +51,16 @@ export function VerticalLinearStepper(props) {
                                 !!route.subRoutes && (
                                     <List>
                                         {
-                                            route.subRoutes.map((subRoute) => (
-                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute)}>
-                                                    <ListItemText primary={subRoute.name} />
-                                                </ListItem>
-                                            ))
+                                            route.subRoutes.reduce((routes, subRoute) => {
+                                                if (props.renterProfile.selected_rental_options.includes(routeToOptionName[subRoute.value])) {
+                                                    routes.push(
+                                                        <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
+                                                            <ListItemText primary={subRoute.name} />
+                                                        </ListItem>
+                                                    )
+                                                }
+                                                return routes;
+                                            }, [])
                                         }
                                     </List>
                                 )
@@ -68,4 +73,4 @@ export function VerticalLinearStepper(props) {
     );
 }
 
-export default connect(state => ({currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state)}))(withRouter(VerticalLinearStepper));
+export default connect(state => ({currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state), renterProfile: state.renterProfile}))(withRouter(VerticalLinearStepper));
