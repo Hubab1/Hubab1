@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
@@ -17,17 +18,23 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+export function getActiveStep(routes, currentRoute) {
+    for (let i = 0; i < routes.length; i++) {
+        const route = routes[i];
+        if (route.value === currentRoute) return i;
+        if (route.subRoutes && getActiveStep(route.subRoutes, currentRoute) !== -1) return i;
+    }
+    return -1;
+}
+
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
 
     function onClickRoute (e, route, i) {
         e.stopPropagation();
         props.history.push(route.value)
-        if (i != null) {
-            setActiveStep(i);
-        }
     }
+    const activeStep = getActiveStep(NAV_ROUTES, props.currentRoute);
 
     return (
         <div className={classes.root}>
@@ -57,4 +64,4 @@ export function VerticalLinearStepper(props) {
     );
 }
 
-export default withRouter(VerticalLinearStepper)
+export default connect(state => ({currentRoute: state.siteConfig.currentRoute}))(withRouter(VerticalLinearStepper));
