@@ -98,8 +98,8 @@ selectors.selectOrderedRoutes = createSelector(
 const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
 
 const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
-    [ROUTES.LEASE_TERMS]: !renterProfile.lease_term, // TODO: update when we have event for completed lease terms
-    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), // TODO: update when we have event for completed MORE INFO PAGE
+    [ROUTES.LEASE_TERMS]: !renterProfile.lease_term, 
+    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), 
     [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
     [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
     [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
