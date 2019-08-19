@@ -38,7 +38,8 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
     const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
 
     const baseAppFee = configuration.application_fee;
-    const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * (otherApplicants.length+1);
+    const unpaidApplicants = otherApplicants.filter(app => !app.application_fee_paid).length + 1;
+    const totalApplicationFee = applicationFeesSelected === 'self' ? baseAppFee : baseAppFee * unpaidApplicants;
 
     const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     
