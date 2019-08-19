@@ -44,3 +44,17 @@ it('does not render Holding Deposit when there is no holding deposit with correc
     expect(wrapper.text().includes('Holding Deposit <SimplePopover />$1,000.00')).not.toBeTruthy();
     expect(wrapper.text().includes('Total$100.00')).toBeTruthy();
 })
+
+it('does not render Total when no holding deposit and fees are paid', () => {
+    defaultProps.configuration.holding_deposit_value = '';
+    defaultProps.applicant.application_fee_paid = true;
+    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    expect(wrapper.text().includes('Total')).not.toBeTruthy();
+})
+
+it('does not render Total when holding deposit paid and fees are paid', () => {
+    defaultProps.configuration.holding_deposit_value = 1000;
+    defaultProps.applicant.application_fee_paid = true;
+    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    expect(wrapper.text().includes('Total')).not.toBeTruthy();
+})

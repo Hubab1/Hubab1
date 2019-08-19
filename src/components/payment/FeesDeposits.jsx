@@ -60,22 +60,25 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
                         baseAppFee={baseAppFee}
                         applicantFeePaid={applicantFeePaid}
                     />
-                    <CardRow>
-                        <P bold>
-                            Holding Deposit
-                            {" "}
-                            <SimplePopover text={holdingDepositCopy}>
-                                <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
-                            </SimplePopover>
-                        </P>
-                        <AmountContainer>
-                            {   
-                                holdingDepositAmount > 0 &&
-                                    ( profile.holding_deposit_paid ? <PaidText/> : <P bold>{formatCurrency(holdingDepositAmount)}</P> )
-                            }
-                        </AmountContainer>
-                    </CardRow>
-                    {   ( !profile.holding_deposit_paid || !applicantFeePaid ) &&
+                    {
+                        !!holdingDepositAmount &&
+                            <CardRow>
+                                <P bold>
+                                    Holding Deposit
+                                    {" "}
+                                    <SimplePopover text={holdingDepositCopy}>
+                                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
+                                    </SimplePopover>
+                                </P>
+                                <AmountContainer>
+                                    {   
+                                        ( profile.holding_deposit_paid ? <PaidText/> : <P bold>{formatCurrency(holdingDepositAmount)}</P> )
+                                    }
+                                </AmountContainer>
+                            </CardRow>
+                    }
+                    {   
+                        ( ( !!holdingDepositAmount && !profile.holding_deposit_paid) || !applicantFeePaid ) &&
                             <CardRow>
                                 <P bold color="#56BA82">Total</P>
                                 <AmountContainer>
