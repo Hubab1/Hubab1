@@ -87,9 +87,9 @@ selectors.selectOrderedRoutes = createSelector(
                         addedRoutes.push(ROUTES[key.toUpperCase()]);
                     }
                 })
-                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
+                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {
-                return [ROUTES.PROFILE, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.APPLICATION_FEE, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
+                return [ROUTES.PROFILE, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
             }
         }
     }

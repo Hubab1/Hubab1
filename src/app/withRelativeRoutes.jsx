@@ -13,7 +13,9 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
         render() {
             return <WrappedComponent {...this.props}
-                _nextRoute={()=>this.props.history.push(this.props._next)}
+                _nextRoute={()=>{
+                    return this.props.history.push(this.props._next)
+                }}
                 _prevRoute={()=>this.props.history.push(this.props._prev)} 
             />;
         }

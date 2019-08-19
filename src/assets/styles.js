@@ -131,3 +131,9 @@ export const CardRow = styled.div`
 export const infoIconRoot = css`
     height: inherit !important;
 `
+
+export const arrowIcon = css`
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    vertical-align: sub;
+`

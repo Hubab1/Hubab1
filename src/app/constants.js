@@ -21,7 +21,6 @@ export const ROUTES = {
     INCOME_AND_EMPLOYMENT: '/income-employment',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
-    APPLICATION_FEE: '/application-fee',
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms'
@@ -37,7 +36,6 @@ export const NAV_ROUTES = [
     ]},
     {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
     {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
-    {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
     {name: 'Screening', value: ROUTES.SCREENING},
     {name: 'Application Complete', value: ROUTES.APP_COMPLETE}
 ];

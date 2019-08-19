@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
-import { css } from 'emotion';
 import styled from '@emotion/styled';
 
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import resendEnvelope from 'assets/images/resendEnvelope.png';
-import { H1, SpacedH3, LinkButton, blackLinkRoot } from 'assets/styles';
+import { H1, SpacedH3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
@@ -18,12 +17,6 @@ const ImageContainer = styled.div`
         max-height: 90px;
         max-width: 90px;
     }
-`
-
-const arrowIcon = css`
-    font-weight: 500 !important;
-    font-size: 16px !important;
-    vertical-align: sub;
 `
 
 export class ResendLinkForm extends React.Component {

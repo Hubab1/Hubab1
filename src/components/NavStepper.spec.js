@@ -7,12 +7,11 @@ describe('getActiveStep', function(){
             {name: 'Your Profile', value: ROUTES.PROFILE},
             {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
             {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
-            {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
             {name: 'Screening', value: ROUTES.SCREENING},
         ];
         
-        const currentRoute = ROUTES.APPLICATION_FEE;
-        expect(getActiveStep(routes, currentRoute)).toEqual(3);
+        const currentRoute = ROUTES.INCOME_AND_EMPLOYMENT;
+        expect(getActiveStep(routes, currentRoute)).toEqual(2);
     });
 
     it('gets the correct index for a nested route', function() {
@@ -25,7 +24,6 @@ describe('getActiveStep', function(){
                 {name: 'Pets', value: ROUTES.PETS},
             ]},
             {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
-            {name: 'Application Fee', value: ROUTES.APPLICATION_FEE},
             {name: 'Screening', value: ROUTES.SCREENING},
         ];
         
