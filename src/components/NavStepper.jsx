@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function getActiveStep(routes, currentRoute) {
+export function getActiveStep(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.value === currentRoute) return i;
