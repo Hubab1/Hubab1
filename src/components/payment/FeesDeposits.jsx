@@ -75,12 +75,14 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
                             }
                         </AmountContainer>
                     </CardRow>
-                    <CardRow>
-                        <P bold color="#56BA82">Total</P>
-                        <AmountContainer>
-                            <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
-                        </AmountContainer>
-                    </CardRow>
+                    {   !profile.holding_deposit_paid || !applicantFeePaid &&
+                        <CardRow>
+                            <P bold color="#56BA82">Total</P>
+                            <AmountContainer>
+                                <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
+                            </AmountContainer>
+                        </CardRow>
+                    }
                 </CardSection>
             </Card>
             <ActionButton onClick={_nextRoute} marginTop={30} marginBottom={20}>Continue</ActionButton>
