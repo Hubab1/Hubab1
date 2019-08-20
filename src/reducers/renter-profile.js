@@ -107,7 +107,7 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.SCREENING]: false, // TODO: update when we have event for screening
+    [ROUTES.SCREENING]: !events.has(APPLICATION_EVENTS.EVENT_SCREENING_COMPLETED),
     [ROUTES.APP_COMPLETE]: true
 });
 
