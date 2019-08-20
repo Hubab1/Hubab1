@@ -16,7 +16,7 @@ import { actions } from 'reducers/store';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '90%',
+        width: '100%',
     },
 }));
 
