@@ -25,5 +25,6 @@
     "address_state": "",
     "address_street": "",
     "id": 18,
-    "application_fee_paid": false "events": []
+    "application_fee_paid": false,
+    "events": []
 }
