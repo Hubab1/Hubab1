@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
+import { NAV_ROUTES, routeToOptionName } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS } from 'app/constants';
 import mock from './mock-profile';
@@ -146,6 +147,44 @@ selectors.selectPrevRoute = createSelector(
     (orderedRoutes, currentRoute) => {
         if (orderedRoutes && currentRoute) {
             return orderedRoutes[orderedRoutes.indexOf(currentRoute)-1];
+        }
+    }
+);
+
+const shouldHideNavRouteIf = (selectedRentalOptions, applicantRole) => ({
+    [ROUTES.PROFILE_OPTIONS]: applicantRole !== ROLE_PRIMARY_APPLICANT,
+    [ROUTES.CO_APPLICANTS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
+    [ROUTES.GUARANTOR]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
+    [ROUTES.PETS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PETS]),
+});
+
+selectors.selectNav = createSelector(
+    state => state.renterProfile && state.renterProfile.selected_rental_options,
+    state => state.applicant && state.applicant.role,
+    (selectedOptions, applicantRole) => {
+        if (selectedOptions && applicantRole) {
+            const selectedRentalOptionsSet = new Set(selectedOptions);
+            const NAV_RULES = shouldHideNavRouteIf(selectedRentalOptionsSet, applicantRole);
+            function buildNav(routes) {
+                const nav = [];
+                // pick nav items that can be shown
+                for (let i = 0; i < routes.length; i++) {
+                    const route = routes[i];
+                    const copy = {};
+                    // nav item can be shown
+                    if (NAV_RULES[route.value] == null || NAV_RULES[route.value] === false) {
+                        copy.value = route.value;
+                        copy.name = route.name;
+                        nav.push(copy);
+                    }
+                    // build routes for route's subRoutes
+                    if (copy && route.subRoutes) {
+                        copy.subRoutes = buildNav(route.subRoutes);
+                    }
+                }
+                return nav.length > 0 ? nav : null;
+            }
+            return buildNav(NAV_ROUTES) || [];
         }
     }
 );

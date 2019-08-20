@@ -11,7 +11,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { selectors } from 'reducers/renter-profile';
-import { NAV_ROUTES, routeToOptionName } from 'app/constants';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,8 +30,8 @@ export function getStepperIndex(routes, currentRoute) {
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
-    const activeStep = getStepperIndex(NAV_ROUTES, props.currentRoute);
-    const firstUncompletedStep = getStepperIndex(NAV_ROUTES, props.initialPage);
+    const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
+    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep) {
@@ -43,7 +42,7 @@ export function VerticalLinearStepper(props) {
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {NAV_ROUTES.map((route, i) => (
+                {props.navRoutes.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)}>
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                         <StepContent>
@@ -51,16 +50,11 @@ export function VerticalLinearStepper(props) {
                                 !!route.subRoutes && (
                                     <List>
                                         {
-                                            route.subRoutes.reduce((routes, subRoute) => {
-                                                if (props.renterProfile.selected_rental_options.includes(routeToOptionName[subRoute.value])) {
-                                                    routes.push(
-                                                        <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
-                                                            <ListItemText primary={subRoute.name} />
-                                                        </ListItem>
-                                                    )
-                                                }
-                                                return routes;
-                                            }, [])
+                                            route.subRoutes.map(subRoute => (
+                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
+                                                    <ListItemText primary={subRoute.name} />
+                                                </ListItem>
+                                            ))
                                         }
                                     </List>
                                 )
@@ -73,4 +67,4 @@ export function VerticalLinearStepper(props) {
     );
 }
 
-export default connect(state => ({currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state), renterProfile: state.renterProfile}))(withRouter(VerticalLinearStepper));
+export default connect(state => ({navRoutes: selectors.selectNav(state), currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state), renterProfile: state.renterProfile}))(withRouter(VerticalLinearStepper));
