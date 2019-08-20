@@ -41,7 +41,7 @@ export const NAV_ROUTES = [
 ];
 
 export const routeToOptionName = {
-    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR]: 'guarantor', [ROUTES.PETS]: 'pets'
+    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR      ]: 'guarantor', [ROUTES.PETS]: 'pets'
 }
 
 export const BASE_ROUTES = [
