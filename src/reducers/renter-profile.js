@@ -154,7 +154,7 @@ selectors.selectPrevRoute = createSelector(
 const shouldHideNavRouteIf = (selectedRentalOptions, applicantRole) => ({
     [ROUTES.PROFILE_OPTIONS]: applicantRole !== ROLE_PRIMARY_APPLICANT,
     [ROUTES.CO_APPLICANTS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
-    [ROUTES.GUARANTOR]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
+    [ROUTES.GUARANTOR]: !selectedRentalOptions.has(routeToOptionName[ROUTES.GUARANTOR]),
     [ROUTES.PETS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PETS]),
 });
 

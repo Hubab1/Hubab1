@@ -63,8 +63,18 @@ export function VerticalLinearStepper(props) {
                     </Step>
                 ))}
             </Stepper>
+            <ListItem button onClick={()=>props.logout(props.history)}>
+                <ListItemText primary="Logout" />
+            </ListItem>
         </div>
     );
 }
 
-export default connect(state => ({navRoutes: selectors.selectNav(state), currentRoute: state.siteConfig.currentRoute, initialPage: selectors.selectInitialPage(state), renterProfile: state.renterProfile}))(withRouter(VerticalLinearStepper));
+const mapStateToProps = state => ({
+    navRoutes: selectors.selectNav(state),
+    currentRoute: state.siteConfig.currentRoute,
+    initialPage: selectors.selectInitialPage(state),
+    renterProfile: state.renterProfile
+});
+
+export default connect(mapStateToProps)(withRouter(VerticalLinearStepper));

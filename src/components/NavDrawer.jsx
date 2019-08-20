@@ -63,10 +63,10 @@ export function PersistentDrawerLeft(props) {
         setOpen(false);
     }
 
-    function logout () {
+    function logout (history) {
         localStorage.clear();
         props.logout();
-        props.history.push(ROUTES.LOGIN)
+        history.push(ROUTES.LOGIN)
     }
 
     return (
@@ -106,11 +106,11 @@ export function PersistentDrawerLeft(props) {
                         </IconButton>
                     </div>
                     <Divider />
-                    <NavStepper onRouteClicked={handleDrawerClose}/>
+                    <NavStepper
+                        onRouteClicked={handleDrawerClose}
+                        logout={logout}
+                    />
                     <Divider />
-                    <ListItem button onClick={logout}>
-                        <ListItemText primary="Logout" />
-                    </ListItem>
                 </div>
             </Drawer>
             <main>
