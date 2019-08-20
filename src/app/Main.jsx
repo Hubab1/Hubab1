@@ -11,8 +11,7 @@ import SignupPage from 'components/SignupPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
-import FeesDeposits from 'components/payment/FeesDeposits';
-import ApplicationFeePage from 'components/ApplicationFeePage/ApplicationFeePage';
+import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
@@ -96,8 +95,7 @@ export class Main extends Component {
                             <Route path={ROUTES.PROFILE} component={Profile} />
                             <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
-                            <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDeposits}/>
-                            <Route path={ROUTES.APPLICATION_FEE} component={ApplicationFeePage}/>
+                            <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
                         </NavDrawer>

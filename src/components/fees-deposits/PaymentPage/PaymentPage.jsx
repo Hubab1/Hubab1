@@ -1,18 +1,15 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
 import { Elements } from  'react-stripe-elements';
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
-import { ROUTES } from 'app/constants';
-import { BackLink } from 'components/common/BackLink';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
-import { H1, H3 } from 'assets/styles';
+import { H1, H3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
 import PaymentForm from './PaymentForm';
 import { formatCurrency } from 'utils/misc';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -37,10 +34,9 @@ const linkStyle = css`
     font-weight: 300;
 `
 
-export class ApplicationFeePage extends React.Component {
+export class PaymentPage extends React.Component {
 
     render () {
-        if (!this.props.configuration || !this.props.applicant) return <div/>;
         const applicationFee = this.props.configuration.application_fee;
         return (
             <Fragment>
@@ -61,20 +57,17 @@ export class ApplicationFeePage extends React.Component {
                     <PaymentForm
                         onSuccess={this.props._nextRoute}
                         applicationFee={applicationFee}
-                        history={this.props.history}
                     />
                 </Elements> 
-                <BackLink to={this.props._prev}/>
+                <LinkButton className={blackLinkRoot} onClick={this.props.handleClickBack}>
+                    <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
+                </LinkButton>
             </Fragment>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    configuration: state.configuration,
-    applicant: state.applicant
-});
 
-export default connect(mapStateToProps)(withRelativeRoutes(ApplicationFeePage, ROUTES.APPLICATION_FEE));
+export default PaymentPage;
 
 
