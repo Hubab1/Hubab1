@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,18 +9,14 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ProgressBar from 'components/common/Page/ProgressBar';
 
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
-import { actions } from 'reducers/store';
-import { ROUTES } from 'app/constants';
-
 import NavStepper from './NavStepper';
+
 const useStyles = makeStyles(theme => ({
     list: {
         width: 240,
@@ -63,12 +58,6 @@ export function PersistentDrawerLeft(props) {
         setOpen(false);
     }
 
-    function logout (history) {
-        localStorage.clear();
-        props.logout();
-        history.push(ROUTES.LOGIN)
-    }
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -106,10 +95,7 @@ export function PersistentDrawerLeft(props) {
                         </IconButton>
                     </div>
                     <Divider />
-                    <NavStepper
-                        onRouteClicked={handleDrawerClose}
-                        logout={logout}
-                    />
+                    <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
                 </div>
             </Drawer>
@@ -123,8 +109,4 @@ export function PersistentDrawerLeft(props) {
     );
 }
 
-const mapDispatchToProps = {
-    logout: actions.logout
-};
-
-export default connect(null, mapDispatchToProps)(PersistentDrawerLeft);
+export default PersistentDrawerLeft;

@@ -10,7 +10,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
+import { actions } from 'reducers/store';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,6 +31,12 @@ export function getStepperIndex(routes, currentRoute) {
 
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
+
+    function logout () {
+        localStorage.clear();
+        props.logout();
+        props.history.push(ROUTES.LOGIN)
+    }
 
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
@@ -63,12 +71,16 @@ export function VerticalLinearStepper(props) {
                     </Step>
                 ))}
             </Stepper>
-            <ListItem button onClick={()=>props.logout(props.history)}>
+            <ListItem button onClick={logout}>
                 <ListItemText primary="Logout" />
             </ListItem>
         </div>
     );
 }
+
+const mapDispatchToProps = {
+    logout: actions.logout
+};
 
 const mapStateToProps = state => ({
     navRoutes: selectors.selectNav(state),
@@ -77,4 +89,4 @@ const mapStateToProps = state => ({
     renterProfile: state.renterProfile
 });
 
-export default connect(mapStateToProps)(withRouter(VerticalLinearStepper));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(VerticalLinearStepper));
