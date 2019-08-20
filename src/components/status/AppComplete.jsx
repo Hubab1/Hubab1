@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
 
+import { ROUTES } from 'app/constants';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 import lightbulb from 'assets/images/lightbulb.png';
 import statusFolder from 'assets/images/statusFolder.png';
 import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/styles';
@@ -126,4 +128,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps, {fetchRenterProfile})(AppComplete);
+export default connect(mapStateToProps, {fetchRenterProfile})(withRelativeRoutes(AppComplete, ROUTES.APP_COMPLETE));
