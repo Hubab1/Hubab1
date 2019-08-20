@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { MOCKY } from 'app/api';
 import { ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
@@ -42,7 +43,7 @@ export function VerticalLinearStepper(props) {
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
-        if (i <= firstUncompletedStep) {
+        if (i <= firstUncompletedStep || MOCKY) {
             props.history.push(route.value);
         }
     }
