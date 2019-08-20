@@ -23,7 +23,9 @@ export class ResendLinkForm extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.updateInvitee(values, values.id).then((res) => {
+        const resendValues = Object.assign({}, values);
+        resendValues.resend_invite = true;
+        API.updateInvitee(resendValues, values.id).then((res) => {
             setSubmitting(false);
             if (res.error_type === 'ValidationError') {
                 if (!values.email && !values.phone_number ) {
