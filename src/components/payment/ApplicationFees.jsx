@@ -5,24 +5,19 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Info from '@material-ui/icons/Info';
+
 import SimplePopover from 'components/common/SimplePopover';
-
-
+import PaidText from './PaidText';
 import { CardRow, P, infoIconRoot } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
 
-export const CardRowNoFlex = styled.div`
-    padding: 10px 0;
-    border-bottom: 1px solid #EEEEEE;
-`
+const AmountContainer = styled.div`
+    width: 90px;
+    text-align: left;
+`    
 
-const OtherApplicant = styled.div`
-    margin: -2px 0 10px 32px;
-`
-
-
-export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee }) => {
+export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee, applicantFeePaid, unpaidApplicants }) => {
 
     const otherApplicantNames = [];
     const reduceFunction = (acc, current) => {
@@ -31,8 +26,7 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
     }
     otherApplicants.reduce(reduceFunction, otherApplicantNames);
 
-    const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`
-
+    const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
         <Fragment>
             <CardRow>
@@ -43,11 +37,13 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>
                 </P>
-                <P bold>{formatCurrency(totalApplicationFee)}</P>
+                <AmountContainer>
+                    { applicantFeePaid ? <PaidText/> : <P bold>{formatCurrency(totalApplicationFee)}</P>}
+                </AmountContainer>
             </CardRow>
-            {   
-                otherApplicants.length > 0 && 
-                    <CardRowNoFlex>
+            {
+                !applicantFeePaid && otherApplicants.length > 0 && !!unpaidApplicants &&
+                    <CardRow style={{border:'none'}}>
                         <FormControl component="fieldset">
                             <RadioGroup
                                 aria-label="payment-options"
@@ -59,14 +55,32 @@ export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, 
                                 <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
                             </RadioGroup>
                         </FormControl>
-                        {
-                            applicationFeesSelected === 'everyone' && 
-                                otherApplicantNames.map((name, index) => <OtherApplicant key={index}>{name}</OtherApplicant>)
-                        }
-                    </CardRowNoFlex>
+                    </CardRow>
+            }
+            {
+                applicationFeesSelected === 'everyone' && 
+                    otherApplicants.map((person, index) => 
+                        <OtherApplicantRow 
+                            key={index} 
+                            name={`${person.first_name} ${person.last_name}`}
+                            applicantFeePaid={person.application_fee_paid}
+                        />
+                    )
             }
         </Fragment>
     )
+}
+
+
+export const OtherApplicantRow = ({name, applicantFeePaid}) => {
+    return <CardRow style={{border:'none'}}>
+        { applicantFeePaid ? <P color="#828796" decoration="line-through" margin="-20px 0 0 32px" fontSize="14px">{name}</P> : <P fontSize="14px" margin="-20px 0 0 32px">{name}</P> }
+        <AmountContainer>
+            { 
+                applicantFeePaid ? <PaidText margin="-20px 0 0 0"/> : null
+            }
+        </AmountContainer>
+    </CardRow>
 }
 
 export default ApplicationFees;

@@ -40,7 +40,7 @@ const ConnectFinicity = props => {
                     <P><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</P>
                 </div>
                 <div className={bodyRow}>
-                    <DoneRoundedIcon style={{color:'#00CAB1',width:'18px'}}/>
+                    <DoneRoundedIcon style={{color:'#56BA82',width:'18px'}}/>
                     <P><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</P>
                 </div>
             </div>
