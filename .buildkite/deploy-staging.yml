@@ -5,7 +5,7 @@ steps:
     BUILDKITE_ASSUME_ROLE: arn:aws:iam::597580629174:role/CI/DemoDeployWoodhouse
     DEPLOY_ENVIRONMENT: staging
     PR_ABBR: ${PR_ABBR}
-    S3_BUCKET: "s3://woodhouse-${PR_ABBR}"
+    S3_BUCKET: "s3://woodhouse-${PR_ABBR}.nestiostaging.com"
   agents:
     queue: docker
 
