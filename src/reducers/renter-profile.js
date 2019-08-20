@@ -164,15 +164,15 @@ selectors.selectNav = createSelector(
     (selectedOptions, applicantRole) => {
         if (selectedOptions && applicantRole) {
             const selectedRentalOptionsSet = new Set(selectedOptions);
-            const NAV_RULES = shouldHideNavRouteIf(selectedRentalOptionsSet, applicantRole);
+            const HIDE_ROUTE = shouldHideNavRouteIf(selectedRentalOptionsSet, applicantRole);
             function buildNav(routes) {
                 const nav = [];
-                // pick nav items that can be shown
+                // pick nav routes that can be shown
                 for (let i = 0; i < routes.length; i++) {
                     const route = routes[i];
                     const copy = {};
-                    // nav item can be shown
-                    if (NAV_RULES[route.value] == null || NAV_RULES[route.value] === false) {
+                    // nav route can be shown
+                    if (HIDE_ROUTE[route.value] !== true) {
                         copy.value = route.value;
                         copy.name = route.name;
                         nav.push(copy);
