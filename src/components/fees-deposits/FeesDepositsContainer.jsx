@@ -14,6 +14,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile
         return <FeesDepositsOptions
             _prev={_prev}
             goToPayment={() => setCurrentPage('payment')}
+            applicant={applicant}
             configuration={configuration}
             profile={profile}
         />
