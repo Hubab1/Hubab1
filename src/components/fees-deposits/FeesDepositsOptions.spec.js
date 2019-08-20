@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import mockProfile from 'reducers/mock-profile';
 import mockConfig from 'reducers/mock-config';
 import mockApplicant from 'reducers/applicant-mock';
-import { FeesDeposits } from './FeesDeposits';
+import { FeesDepositsOptions } from './FeesDepositsOptions';
 import { ApplicationFees } from './ApplicationFees';
 import { PaidText } from './PaidText';
 
@@ -20,12 +20,12 @@ beforeEach(() => {
 })
 
 it('renders ApplicationFees', function() {
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.find(ApplicationFees)).toBeTruthy();
 });
 
 it('renders Holding Deposit when there is a holding deposit with correct total fees and holding_deposit_paid is false', () => {
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Holding Deposit <SimplePopover />$1,000.00')).toBeTruthy();
     expect(wrapper.text().includes('Total$1,100.00')).toBeTruthy();
     expect(wrapper.find(PaidText).length).toBe(0);
@@ -33,14 +33,14 @@ it('renders Holding Deposit when there is a holding deposit with correct total f
 
 it('renders Holding Deposit Paid when there is a holding deposit with correct total fees and holding_deposit_paid is true', () => {
     defaultProps.profile.holding_deposit_paid = true;
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Holding Deposit <SimplePopover /><PaidText />Total$100.00')).toBeTruthy();
     expect(wrapper.find(PaidText).length).toBe(1);
 })
 
 it('does not render Holding Deposit when there is no holding deposit with correct total fees', () => {
     defaultProps.configuration.holding_deposit_value = '';
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Holding Deposit <SimplePopover />$1,000.00')).not.toBeTruthy();
     expect(wrapper.text().includes('Total$100.00')).toBeTruthy();
 })
@@ -48,13 +48,13 @@ it('does not render Holding Deposit when there is no holding deposit with correc
 it('does not render Total when no holding deposit and fees are paid', () => {
     defaultProps.configuration.holding_deposit_value = '';
     defaultProps.applicant.application_fee_paid = true;
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
 })
 
 it('does not render Total when holding deposit paid and fees are paid', () => {
     defaultProps.configuration.holding_deposit_value = 1000;
     defaultProps.applicant.application_fee_paid = true;
-    let wrapper = shallow( <FeesDeposits {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
 })

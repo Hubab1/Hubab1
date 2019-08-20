@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-import { connect } from 'react-redux';
 import Info from '@material-ui/icons/Info';
 
 import PaidText from './PaidText';
 import SimplePopover from 'components/common/SimplePopover';
-import { ROUTES } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import paymentWallet from 'assets/images/payment-wallet.png';
 import { Card, CardSection, CardRow, P, H1, infoIconRoot } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -28,7 +25,7 @@ const AmountContainer = styled.div`
     text-align: left;
 `
 
-export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applicant}) => {
+export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile, applicant, history}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile)  return <div/>;
@@ -95,17 +92,12 @@ export const FeesDeposits = ({configuration, _nextRoute, _prev, profile, applica
                     }
                 </CardSection>
             </Card>
-            <ActionButton onClick={_nextRoute} marginTop={30} marginBottom={20}>Continue</ActionButton>
+            <ActionButton onClick={goToPayment} marginTop={30} marginBottom={20}>Continue</ActionButton>
             <BackLink to={_prev}/>
         </Fragment>
     )
 }
 
-const mapStateToProps = state => ({
-    configuration: state.configuration,
-    profile: state.renterProfile,
-    applicant: state.applicant,
-});
 
 
-export default connect(mapStateToProps)(withRelativeRoutes(FeesDeposits, ROUTES.FEES_AND_DEPOSITS));
+export default FeesDepositsOptions;

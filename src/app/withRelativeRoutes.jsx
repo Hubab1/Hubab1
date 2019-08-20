@@ -19,9 +19,9 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                     if (!MOCKY) {
                         this.props.fetchApplicant();
                     }
-                    this.props.history.push(this.props._next)}
-                }
-                _prevRoute={()=>this.props.history.push(this.props._prev)}
+                    return this.props.history.push(this.props._next)
+                }}
+                _prevRoute={()=>this.props.history.push(this.props._prev)} 
             />;
         }
     };

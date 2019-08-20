@@ -29,6 +29,7 @@ export class PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (MOCKY) {
+            debugger;
             this.props.onSuccess();
             return;
         }
