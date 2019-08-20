@@ -1,7 +1,7 @@
-import { getActiveStep } from 'components/NavStepper';
+import { getStepperIndex } from 'components/NavStepper';
 import { ROUTES } from 'app/constants';
 
-describe('getActiveStep', function(){
+describe('getStepperIndex', function(){
     it('gets the correct index for an unnested route', function() {
         const routes = [
             {name: 'Your Profile', value: ROUTES.PROFILE},
@@ -11,7 +11,7 @@ describe('getActiveStep', function(){
         ];
         
         const currentRoute = ROUTES.INCOME_AND_EMPLOYMENT;
-        expect(getActiveStep(routes, currentRoute)).toEqual(2);
+        expect(getStepperIndex(routes, currentRoute)).toEqual(2);
     });
 
     it('gets the correct index for a nested route', function() {
@@ -28,7 +28,7 @@ describe('getActiveStep', function(){
         ];
         
         const currentRoute = ROUTES.GUARANTOR;
-        expect(getActiveStep(routes, currentRoute)).toEqual(2);
+        expect(getStepperIndex(routes, currentRoute)).toEqual(2);
     });
 
     it('returns -1 if route not found', function() {
@@ -42,6 +42,6 @@ describe('getActiveStep', function(){
         ];
         
         const currentRoute = 'FAKEROUTE';
-        expect(getActiveStep(routes, currentRoute)).toEqual(-1);
+        expect(getStepperIndex(routes, currentRoute)).toEqual(-1);
     });
 });

@@ -10,19 +10,21 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { NAV_ROUTES } from 'app/constants';
+import { ROUTES } from 'app/constants';
+import { selectors } from 'reducers/renter-profile';
+import { actions } from 'reducers/store';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '90%',
+        width: '100%',
     },
 }));
 
-export function getActiveStep(routes, currentRoute) {
+export function getStepperIndex(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.value === currentRoute) return i;
-        if (route.subRoutes && getActiveStep(route.subRoutes, currentRoute) !== -1) return i;
+        if (route.subRoutes && getStepperIndex(route.subRoutes, currentRoute) !== -1) return i;
     }
     return -1;
 }
@@ -30,25 +32,34 @@ export function getActiveStep(routes, currentRoute) {
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
+    function logout () {
+        localStorage.clear();
+        props.logout();
+        props.history.push(ROUTES.LOGIN)
+    }
+
+    const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
+    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
-        props.history.push(route.value)
+        if (i <= firstUncompletedStep) {
+            props.history.push(route.value);
+        }
     }
-    const activeStep = getActiveStep(NAV_ROUTES, props.currentRoute);
 
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {NAV_ROUTES.map((route, i) => (
+                {props.navRoutes.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)}>
-                        <StepLabel>{route.name}</StepLabel>
+                        <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                         <StepContent>
                             {
                                 !!route.subRoutes && (
                                     <List>
                                         {
-                                            route.subRoutes.map((subRoute) => (
-                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute)}>
+                                            route.subRoutes.map(subRoute => (
+                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
                                                     <ListItemText primary={subRoute.name} />
                                                 </ListItem>
                                             ))
@@ -60,8 +71,22 @@ export function VerticalLinearStepper(props) {
                     </Step>
                 ))}
             </Stepper>
+            <ListItem button onClick={logout}>
+                <ListItemText primary="Logout" />
+            </ListItem>
         </div>
     );
 }
 
-export default connect(state => ({currentRoute: state.siteConfig.currentRoute}))(withRouter(VerticalLinearStepper));
+const mapDispatchToProps = {
+    logout: actions.logout
+};
+
+const mapStateToProps = state => ({
+    navRoutes: selectors.selectNav(state),
+    currentRoute: state.siteConfig.currentRoute,
+    initialPage: selectors.selectInitialPage(state),
+    renterProfile: state.renterProfile
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(VerticalLinearStepper));
