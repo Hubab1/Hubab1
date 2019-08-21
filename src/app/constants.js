@@ -23,7 +23,8 @@ export const ROUTES = {
     FEES_AND_DEPOSITS: '/fees-deposits',
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
-    LEASE_TERMS: '/lease-terms'
+    LEASE_TERMS: '/lease-terms',
+    PAYMENT_TERMS: '/payment-terms'
 }
 
 export const NAV_ROUTES = [
