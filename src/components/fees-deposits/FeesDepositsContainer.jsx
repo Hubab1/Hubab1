@@ -5,6 +5,7 @@ import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
+import PaymentTerms from './PaymentTerms';
 
 
 export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile, applicant}) => {
@@ -13,17 +14,22 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile
     if (currentPage === 'options') {
         return <FeesDepositsOptions
             _prev={_prev}
-            goToPayment={() => setCurrentPage('payment')}
+            goToPayment={() => setCurrentPage('terms')}
             applicant={applicant}
             configuration={configuration}
             profile={profile}
+        />
+    } else if (currentPage === 'terms') {
+        return <PaymentTerms 
+            handleClickBack={() => setCurrentPage('options')}
+            goToPayment={() => setCurrentPage('payment')}
         />
     } else if (currentPage === 'payment') {
         return <PaymentPage
             _nextRoute={_nextRoute}
             configuration={configuration}
             applicant={applicant}
-            handleClickBack={() => setCurrentPage('options')}
+            handleClickBack={() => setCurrentPage('terms')}
         />
     }
 
