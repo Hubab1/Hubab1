@@ -26,5 +26,5 @@
     "address_street": "",
     "id": 18,
     "application_fee_paid": false,
-    "events": []
+    "events": [{ "event": "45" }]
 }

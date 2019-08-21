@@ -6,7 +6,7 @@ import API from 'app/api';
 
 beforeEach(() => {
     global.finicityConnect = {
-        connectIFrame: jest.fn()
+        connectIFrame: jest.fn(),
     }
 })
 
@@ -86,4 +86,32 @@ it('this.parseReportData updates state with correct data', () => {
     expect(wrapper.state().reportData.incomeEntries).toEqual(expectedIncomeEntries);    
     expect(wrapper.state().reportData.incomeTotal).toEqual(7618);    
     expect(wrapper.state().reportData.assetsTotal).toEqual(38362.3);    
+})
+
+it('if EVENT_INCOME_REPORTS_GENERATED is in applicant.events on mount, sets state.loadingReport = true', () => {
+    const defaultProps = {applicant : {events: [{ "event": "45" }]}}
+    const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
+
+    wrapper.instance().checkReportsGenerated = jest.fn();
+
+    wrapper.instance().componentDidMount()
+
+    expect(wrapper.instance().checkReportsGenerated).toHaveBeenCalled();
+    expect(wrapper.state().loadingReport).toBeTruthy();
+
+})
+
+it('if EVENT_INCOME_REPORTS_GENERATED is not in applicant.events on mount, does not set state.loadingReport = true', () => {
+    const defaultProps = {applicant : {events: [{ "event": "22" }]}}
+
+    const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
+
+    wrapper.instance().checkReportsGenerated = jest.fn();
+
+    wrapper.instance().componentDidMount()
+
+    expect(wrapper.instance().checkReportsGenerated).toHaveBeenCalled();
+    expect(wrapper.state().loadingReport).not.toBeTruthy();
+
+
 })

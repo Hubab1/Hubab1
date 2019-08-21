@@ -25,23 +25,30 @@ export class ConnectBankPage extends React.Component {
         reportData: null,
     }
 
+    checkReportsGenerated = () => {
+        const eventsSet = new Set(this.props.applicant.events.map(event => parseInt(event.event)));
+        if (eventsSet.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED)) {
+            this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
+            window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
+        }
+    }
+
     componentDidMount () {
         if (this.props.applicant && this.props.applicant.events) {
-            const eventsSet = new Set(this.props.applicant.events.map(event => parseInt(event.event)));
-            if (eventsSet.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED)) {
-                this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
-                window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
+            if (MOCKY) {
+                return this.parseReportData(reports);
             }
+            this.checkReportsGenerated();
         }
     }
 
     componentDidUpdate (prevProps, prevState) {
         if (prevProps.applicant === null && this.props.applicant && prevState === this.state) {
-            const eventsSet = new Set(this.props.applicant.events.map(event => parseInt(event.event)));
-            if (eventsSet.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED)) {
-                this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
-                window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
+            if (MOCKY) {
+                return this.parseReportData(reports);
             }
+
+            this.checkReportsGenerated();
         }
     }
 
