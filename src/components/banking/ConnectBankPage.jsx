@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { css } from 'emotion';
 import get from 'lodash/get';
 
-import { ROUTES, REPORT_POLL_INTERVAL } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL, APPLICATION_EVENTS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
@@ -22,6 +23,33 @@ export class ConnectBankPage extends React.Component {
         loadingFinicityIframe: false, 
         loadingReport: false, 
         reportData: null,
+    }
+
+    checkReportsGenerated = () => {
+        const eventsSet = new Set(this.props.applicant.events.map(event => parseInt(event.event)));
+        if (eventsSet.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED)) {
+            this.setState({showFinicityIframe: null, errors: null, loadingReport: true, loadingFinicityIframe: false});
+            window.fetchReportsInterval = window.setInterval(this.handleFetchReports, REPORT_POLL_INTERVAL);
+        }
+    }
+
+    componentDidMount () {
+        if (this.props.applicant && this.props.applicant.events) {
+            if (MOCKY) {
+                return this.parseReportData(reports);
+            }
+            this.checkReportsGenerated();
+        }
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        if (prevProps.applicant === null && this.props.applicant && prevState === this.state) {
+            if (MOCKY) {
+                return this.parseReportData(reports);
+            }
+
+            this.checkReportsGenerated();
+        }
     }
 
     componentWillUnmount () {
@@ -111,6 +139,7 @@ export class ConnectBankPage extends React.Component {
     }
 
     render () {
+        if (!this.props.applicant) {return <div/>}
         if (!!this.state.reportData ) {
             return <ReviewAccountsPage 
                 incomeNameInitialValues={this.state.reportData.incomeNameInitialValues}
@@ -135,4 +164,8 @@ export class ConnectBankPage extends React.Component {
     }
 }
 
-export default withRelativeRoutes(ConnectBankPage, ROUTES.INCOME_AND_EMPLOYMENT);
+const mapStateToProps = state => ({
+    applicant: state.applicant,
+})
+
+export default connect(mapStateToProps)(withRelativeRoutes(ConnectBankPage, ROUTES.INCOME_AND_EMPLOYMENT));
