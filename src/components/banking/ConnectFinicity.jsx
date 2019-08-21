@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 // import { Link } from 'react-router-dom';
-import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 
+import GreenCheckIcon from 'components/common/GreenCheckIcon';
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -40,7 +40,7 @@ const ConnectFinicity = props => {
                     <P><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</P>
                 </div>
                 <div className={bodyRow}>
-                    <DoneRoundedIcon style={{color:'#56BA82',width:'18px'}}/>
+                    <GreenCheckIcon/>
                     <P><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</P>
                 </div>
             </div>
