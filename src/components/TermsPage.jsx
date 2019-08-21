@@ -25,6 +25,7 @@ export const TextReader = styled.div`
     line-height: 17px;
 `
 
+// TODO: Make this consistent with PaymentTerms once we get designs
 export default function (props) {
 
     return (
