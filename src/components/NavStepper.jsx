@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -54,21 +53,19 @@ export function VerticalLinearStepper(props) {
                 {props.navRoutes.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)}>
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
-                        <StepContent>
-                            {
-                                !!route.subRoutes && (
-                                    <List>
-                                        {
-                                            route.subRoutes.map(subRoute => (
-                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
-                                                    <ListItemText primary={subRoute.name} />
-                                                </ListItem>
-                                            ))
-                                        }
-                                    </List>
-                                )
-                            }
-                        </StepContent>
+                        {
+                            !!route.subRoutes && (
+                                <List>
+                                    {
+                                        route.subRoutes.map(subRoute => (
+                                            <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
+                                                <ListItemText primary={subRoute.name} />
+                                            </ListItem>
+                                        ))
+                                    }
+                                </List>
+                            )
+                        }
                     </Step>
                 ))}
             </Stepper>
