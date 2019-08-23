@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { LinkButton } from 'assets/styles';
 import PaymentTerms from './PaymentTerms';
 
 let defaultProps;

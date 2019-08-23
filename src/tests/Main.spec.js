@@ -72,7 +72,8 @@ describe('mountNavigation', () => {
         const wrapper = shallow( <Main {...defaultProps} history={history}/>);
 
         const isAuthenticated = false;
-        const configuration = { client: { applicant_id: 123 }, invitee: {} }; wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
+        const configuration = { client: { applicant_id: 123 }, invitee: {} }; 
+        wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
     }); 
     it('routes to login page if not authenticated, but there is an associated registered invitee', function() {
         const historyStub = jest.fn();
@@ -81,7 +82,9 @@ describe('mountNavigation', () => {
         const wrapper = shallow( <Main {...defaultProps} history={history}/>);
 
         const isAuthenticated = false;
-        const configuration = { client: {}, invitee: { is_registered: true } }; wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
+        const configuration = { client: {}, invitee: { is_registered: true } }; 
+        wrapper.instance().mountNavigation(isAuthenticated, configuration); 
+        expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
     }); 
     it('routes to welcome page if not authenticated, and there is a client associated', function() {
         const historyStub = jest.fn();
@@ -89,7 +92,8 @@ describe('mountNavigation', () => {
 
         const wrapper = shallow( <Main {...defaultProps} history={history}/>);
         const isAuthenticated = false;
-        const configuration = { client: {} }; wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        const configuration = { client: {} }; 
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1); 
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -111,8 +115,24 @@ describe('mountNavigation', () => {
 
         const wrapper = shallow( <Main {...defaultProps} history={history}/>);
         const isAuthenticated = false;
-        const configuration = {}; wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        const configuration = {}; 
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
-        expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/welcome');
+        expect(historyStub).toHaveBeenCalledTimes(1); 
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
+
+    it('does not reroute if unauthenticated and path is payment-terms', function() {
+        const location = {pathname: "/payment-terms", search: "", hash: "", state: undefined};
+        const historyStub = jest.fn();
+        const history = { push: historyStub, replace: historyStub }
+
+        const wrapper = shallow( <Main {...defaultProps} location={location} history={history}/>);
+        const isAuthenticated = false;
+        const configuration = {}; 
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+
+        expect(historyStub).toHaveBeenCalledTimes(0); 
+    });
+
 });

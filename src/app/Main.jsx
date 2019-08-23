@@ -12,6 +12,7 @@ import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
 import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
 import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
+import UnauthenticatedPaymentTerms from 'components/fees-deposits/UnauthenticatedPaymentTerms';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
@@ -44,7 +45,7 @@ export class Main extends Component {
         const hasRegistered = clientRegistered || inviteeRegistered;
 
         if (!isAuthenticated) {
-            if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password')) return;
+            if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password') || pathname.includes('payment-terms')) return;
             if (!configuration.client || !configuration.invitee) {
                 history.replace(ROUTES.WELCOME);
             }
@@ -73,7 +74,6 @@ export class Main extends Component {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
-
         this.mountNavigation(isLoggedIn, configuration);
     }
 
@@ -89,6 +89,7 @@ export class Main extends Component {
                         <Route path={ROUTES.LOGIN} component={LoginPage} />
                         <Route path={ROUTES.SIGNUP} component={SignupPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
+                        <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
                         <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
