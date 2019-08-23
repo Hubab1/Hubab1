@@ -52,7 +52,7 @@ export function VerticalLinearStepper(props) {
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
                 {props.navRoutes.map((route, i) => (
-                    <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)}>
+                    <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={!!route.subRoutes || activeStep === i}>
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                         <StepContent>
                             {
