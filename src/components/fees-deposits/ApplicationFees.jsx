@@ -24,6 +24,7 @@ const IndentedRow = styled(CardRowBorderless)`
 
 const root = css`
     width: 100%;
+    margin-top: 10px !important;
 `
 
 const ApplicationFeesContainer = styled.div`
