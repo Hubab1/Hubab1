@@ -5,7 +5,7 @@ import Info from '@material-ui/icons/Info';
 import PaidText from './PaidText';
 import SimplePopover from 'components/common/SimplePopover';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import { Card, CardSection, CardRow, P, H1, infoIconRoot } from 'assets/styles';
+import { Card, CardSection, CardRowBorderless, CardRow, CardRowTotal, P, H1, infoIconRoot } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
@@ -20,9 +20,8 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-const AmountContainer = styled.div`
-    width: 90px;
-    text-align: left;
+const CardRowBorderlessPadded = styled(CardRowBorderless)`
+    padding: 15px 0;
 `
 
 export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile, applicant, history}) => {
@@ -32,14 +31,15 @@ export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile,
 
     const applicantFeePaid = applicant.application_fee_paid;
 
-    const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+    const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+    everyone.unshift(applicant);
 
     const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = otherApplicants.filter(app => !app.application_fee_paid).length;
+    const unpaidApplicants = everyone.filter(app => !app.application_fee_paid).length;
 
     const totalApplicationFee = applicationFeesSelected === 'self' ? 
         baseAppFee : 
-        baseAppFee * (unpaidApplicants + 1);
+        baseAppFee * (unpaidApplicants);
 
     const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     
@@ -55,40 +55,43 @@ export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile,
             <SpacedImg src={paymentWallet} alt="wallet"/>
             <Card>
                 <CardSection>
+                    <CardRow>
+                        <P bold>Fees and Deposits</P>
+                    </CardRow>
                     <ApplicationFees
                         totalApplicationFee={totalApplicationFee}
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
-                        otherApplicants={otherApplicants}
+                        everyone={everyone}
                         baseAppFee={baseAppFee}
                         applicantFeePaid={applicantFeePaid}
                         unpaidApplicants={unpaidApplicants}
                     />
                     {
                         !!holdingDepositAmount &&
-                            <CardRow>
-                                <P bold>
+                            <CardRowBorderlessPadded>
+                                <P>
                                     Holding Deposit
                                     {" "}
                                     <SimplePopover text={holdingDepositCopy}>
                                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
                                     </SimplePopover>
                                 </P>
-                                <AmountContainer>
+                                <div>
                                     {   
-                                        ( profile.holding_deposit_paid ? <PaidText/> : <P bold>{formatCurrency(holdingDepositAmount)}</P> )
+                                        ( profile.holding_deposit_paid ? <PaidText/> : <P >{formatCurrency(holdingDepositAmount, 0)}</P> )
                                     }
-                                </AmountContainer>
-                            </CardRow>
+                                </div>
+                            </CardRowBorderlessPadded>
                     }
                     {   
                         ( ( !!holdingDepositAmount && !profile.holding_deposit_paid) || !applicantFeePaid ) &&
-                            <CardRow>
-                                <P bold color="#56BA82">Total</P>
-                                <AmountContainer>
-                                    <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
-                                </AmountContainer>
-                            </CardRow>
+                            <CardRowTotal>
+                                <P bold>Total</P>
+                                <div>
+                                    <P bold>{formatCurrency(totalPaymentAmount, 0)}</P>
+                                </div>
+                            </CardRowTotal>
                     }
                 </CardSection>
             </Card>
