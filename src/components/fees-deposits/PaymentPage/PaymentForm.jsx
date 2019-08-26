@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
 import Lock from '@material-ui/icons/Lock';
-import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
@@ -17,7 +16,6 @@ export class PaymentForm extends React.Component {
         cardNumber: false,
         cardExpiry: false,
         cardCvc: false,
-        paymentSuccess: false,
         submitting: false,
         errors: null
     }
@@ -42,10 +40,8 @@ export class PaymentForm extends React.Component {
                     if (res.errors) {
                         this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
-                        this.setState(
-                            {paymentSuccess:true},
-                            () => setTimeout(this.props.onSuccess, 3000)
-                        ); 
+                        this.setState({submitting: false}); 
+                        this.props.onSuccess();
                     }
                 });
             } else {
@@ -56,7 +52,7 @@ export class PaymentForm extends React.Component {
         });
     }
     render() {
-        const { cardNumber, cardExpiry, cardCvc, paymentSuccess, submitting } = this.state;
+        const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
@@ -87,17 +83,9 @@ export class PaymentForm extends React.Component {
                     marginTop={25}
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
-                    successGreen={paymentSuccess}
                 >
-                    { 
-                        paymentSuccess ? 
-                            <CheckCircleRoundedIcon style={{width: 16, marginRight: 8}} /> : 
-                            <Lock style={{width: 16, marginRight: 8}}/>
-                    }
-                    {
-                        paymentSuccess ?
-                            'Payment Success!' :
-                            `Pay ${formatCurrency(this.props.applicationFee)}`}
+                    <Lock style={{width: 16, marginRight: 8}}/>
+                    { `Pay ${formatCurrency(this.props.applicationFee)}` }
                 </ActionButton>
             </form>
         )
