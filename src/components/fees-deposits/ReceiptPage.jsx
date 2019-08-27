@@ -4,8 +4,6 @@ import Info from '@material-ui/icons/Info';
 
 import PaidText from './PaidText';
 import SimplePopover from 'components/common/SimplePopover';
-import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
-import paymentWallet from 'assets/images/payment-wallet.png';
 import receipt from 'assets/images/receipt.png';
 import { Card, CardSection, CardRow, P, H1, SpacedH3, infoIconRoot } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -27,47 +25,35 @@ const AmountContainer = styled.div`
     text-align: left;
 `
 
-export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile, applicant, payments, receiptView=false}) => {
+export const ReceiptPage = ({configuration, goToPayment, _prev, profile, applicant, history}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile)  return <div/>;
-    debugger;
-    const applicantFeePaid = !!payments.find(payment => (
-        parseInt(payment.applicant) === applicant.id &&
-        parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
-        payment.paid
-    ));
 
-    const allApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
-    allApplicants.unshift(profile.primary_appicant)
+    const applicantFeePaid = applicant.application_fee_paid;
+
+    const otherApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
 
     const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
+    const unpaidApplicants = otherApplicants.filter(app => !app.application_fee_paid).length;
 
     const totalApplicationFee = applicationFeesSelected === 'self' ? 
         baseAppFee : 
-        baseAppFee * unpaidApplicants;
+        baseAppFee * (unpaidApplicants + 1);
 
     const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
-    const holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
     
     const totalPaymentAmount = applicantFeePaid ?
         !profile.holding_deposit_paid && holdingDepositAmount :
-        totalApplicationFee + ( !holdingDepositPaid && holdingDepositAmount);
+        totalApplicationFee + ( !profile.holding_deposit_paid && holdingDepositAmount);
 
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
-    const header = receiptView ? 
-        <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3> :
-        <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
-
-    const image = receiptView ? receipt : paymentWallet;
-    const altText = receiptView ? "receipt" : "wallet";
-    debugger;
     return (
         <Fragment>
-            { header }
-            <SpacedImg src={image} alt={altText}/>
+            <SpacedH1>Payment Successful!</SpacedH1>
+            <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3>
+            <SpacedImg src={receipt} alt="receipt"/>
             <Card>
                 <CardSection>
                     <ApplicationFees
@@ -115,4 +101,4 @@ export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile,
 
 
 
-export default FeesDepositsOptions;
+export default ReceiptPage;

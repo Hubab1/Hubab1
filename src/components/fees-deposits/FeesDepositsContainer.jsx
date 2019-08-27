@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import API from 'app/api';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
@@ -9,8 +10,19 @@ import PaymentTerms from './PaymentTerms';
 
 
 export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile, applicant}) => {
-    const [currentPage, setCurrentPage] = React.useState('options');
-    if (!configuration || !profile || !applicant)  return <div/>;
+
+    const [currentPage, setCurrentPage] = useState('options');
+    const [payments, setPayments] = useState({});
+
+    useEffect(() => {
+        API.fetchPaymentOptions().then(data => {
+            debugger;
+            setPayments(data.payables);
+        })
+    }, [])
+
+
+    if (!configuration || !profile || !applicant || !payments)  return <div/>;
     if (currentPage === 'options') {
         return <FeesDepositsOptions
             _prev={_prev}
@@ -18,6 +30,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile
             applicant={applicant}
             configuration={configuration}
             profile={profile}
+            payments={payments}
         />
     } else if (currentPage === 'terms') {
         return <PaymentTerms 
@@ -26,7 +39,14 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, profile
         />
     } else if (currentPage === 'payment') {
         return <PaymentPage
-            _nextRoute={_nextRoute}
+            goToReceipt={() => setCurrentPage('receipt')}
+            configuration={configuration}
+            applicant={applicant}
+            handleClickBack={() => setCurrentPage('terms')}
+        />
+    } else if (currentPage === 'receipt') {
+        return <PaymentPage
+            handleContinue={() => setCurrentPage('receipt')}
             configuration={configuration}
             applicant={applicant}
             handleClickBack={() => setCurrentPage('terms')}

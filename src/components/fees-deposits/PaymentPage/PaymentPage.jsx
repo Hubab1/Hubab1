@@ -55,7 +55,7 @@ export class PaymentPage extends React.Component {
                     }]}
                 >
                     <PaymentForm
-                        onSuccess={this.props._nextRoute}
+                        onSuccess={this.props.goToReceipt}
                         applicationFee={applicationFee}
                     />
                 </Elements> 
