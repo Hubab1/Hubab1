@@ -1,5 +1,7 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
+import { css } from 'emotion';
+
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -8,79 +10,81 @@ import Info from '@material-ui/icons/Info';
 
 import SimplePopover from 'components/common/SimplePopover';
 import PaidText from './PaidText';
-import { CardRow, P, infoIconRoot } from 'assets/styles';
+import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
 
-const AmountContainer = styled.div`
-    width: 90px;
-    text-align: left;
-`    
+const SelfSelectedAmountContainer = styled.div`
+    margin: auto 0;
+`
 
-export const ApplicationFees = ({ totalApplicationFee, applicationFeesSelected, handleChange, otherApplicants, baseAppFee, applicantFeePaid, unpaidApplicants }) => {
+const IndentedRow = styled(CardRowBorderless)`
+    margin: 0 0 5px 32px;
+`
 
-    const otherApplicantNames = [];
-    const reduceFunction = (acc, current) => {
-        acc.push(`${current.first_name} ${current.last_name}`);
-        return acc
-    }
-    otherApplicants.reduce(reduceFunction, otherApplicantNames);
+const root = css`
+    width: 100%;
+    margin-top: 10px !important;
+`
+
+const ApplicationFeesContainer = styled.div`
+    padding: 15px 0;
+    border-bottom: 1px solid #EEEEEE;
+`
+
+export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone, baseAppFee, applicantFeePaid, unpaidApplicants }) => {
 
     const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
-        <Fragment>
-            <CardRow>
-                <P bold>
+        <ApplicationFeesContainer>
+            <CardRowBorderless>
+                <P>
                     Application Fee 
                     {" "}
                     <SimplePopover text={applicationFeeCopy}>
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>
                 </P>
-                <AmountContainer>
-                    { applicantFeePaid ? <PaidText/> : <P bold>{formatCurrency(totalApplicationFee)}</P>}
-                </AmountContainer>
-            </CardRow>
+                { everyone.length > 1 ? <P/> : <P>{formatCurrency(baseAppFee, 0)}</P>}
+            </CardRowBorderless>
             {
-                !applicantFeePaid && otherApplicants.length > 0 && !!unpaidApplicants &&
-                    <CardRow style={{border:'none'}}>
-                        <FormControl component="fieldset">
+                !applicantFeePaid && everyone.length > 0 && !!unpaidApplicants &&
+                    <CardRowBorderless style={{border:'none', paddingBottom:0}}>
+                        <FormControl component="fieldset" classes={{root}}>
                             <RadioGroup
                                 aria-label="payment-options"
                                 name="payment-options"
                                 value={applicationFeesSelected}
                                 onChange={(event) => handleChange(event.target.value)}
                             >
-                                <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
+                                <CardRowBorderless>
+                                    <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
+                                    <SelfSelectedAmountContainer>
+                                        { applicationFeesSelected === 'self' ? <P>{formatCurrency(baseAppFee, 0)}</P> : <P/> }
+                                    </SelfSelectedAmountContainer>
+                                </CardRowBorderless>
                                 <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
                             </RadioGroup>
                         </FormControl>
-                    </CardRow>
+                    </CardRowBorderless>
             }
             {
                 applicationFeesSelected === 'everyone' && 
-                    otherApplicants.map((person, index) => 
-                        <OtherApplicantRow 
-                            key={index} 
-                            name={`${person.first_name} ${person.last_name}`}
-                            applicantFeePaid={person.application_fee_paid}
-                        />
-                    )
+                    everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
             }
-        </Fragment>
+        </ApplicationFeesContainer>
     )
 }
 
-
-export const OtherApplicantRow = ({name, applicantFeePaid}) => {
-    return <CardRow style={{border:'none'}}>
-        { applicantFeePaid ? <P color="#828796" decoration="line-through" margin="-20px 0 0 32px" fontSize="14px">{name}</P> : <P fontSize="14px" margin="-20px 0 0 32px">{name}</P> }
-        <AmountContainer>
-            { 
-                applicantFeePaid ? <PaidText margin="-20px 0 0 0"/> : null
-            }
-        </AmountContainer>
-    </CardRow>
+export const EveryoneRow = ({person, baseAppFee}) => {
+    const name = person.client ? 
+        person.client.person.name : 
+        `${person.first_name} ${person.last_name}`
+    return <IndentedRow>
+        <P color="#454B57">{name}</P>
+        <div>{ person.application_fee_paid ? <PaidText/> : <P>{formatCurrency(baseAppFee, 0)}</P> } </div>
+    </IndentedRow>
 }
+
 
 export default ApplicationFees;

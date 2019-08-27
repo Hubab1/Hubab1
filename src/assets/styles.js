@@ -129,6 +129,19 @@ export const CardRow = styled.div`
     }
 `
 
+export const CardRowBorderless = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+export const CardRowTotal = styled(CardRow)`
+    width: 100%;
+    box-sizing: content-box;
+    background-color: rgba(86,186,130,0.1);
+    margin: 0 0 -15px -15px;
+    padding: 15px !important;
+`
+
 export const infoIconRoot = css`
     height: inherit !important;
 `
@@ -138,3 +151,4 @@ export const arrowIcon = css`
     font-size: 16px !important;
     vertical-align: sub;
 `
+

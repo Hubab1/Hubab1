@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ApplicationFees, OtherApplicantRow } from './ApplicationFees';
+import { ApplicationFees, EveryoneRow } from './ApplicationFees';
 import { PaidText } from './PaidText';
 
 
@@ -9,7 +9,37 @@ let defaultProps;
 
 beforeEach(() => {
     defaultProps = {
-        otherApplicants: [
+        everyone: [
+            {
+                "address_city": "abc",
+                "lease_settings": 2,
+                "address_postal_code": "",
+                "email": "slkejhfkajshefjkhek@gm.com",
+                "role": "primary_applicant",
+                "guarantors": [{
+                    "phone_number": "(555) 123-6456",
+                    "first_name": "scotty",
+                    "last_name": "2hotty",
+                    "id": 5,
+                    "is_registered": false
+                }],
+                "application": 16,
+                "client": {
+                    "person": {
+                        "id": 346785,
+                        "email": "slkejhfkajshefjkhek@gm.com",
+                        "name": "Spanky McDanky",
+                        "phone_1": "(555) 555-5555",
+                        "first_name": "Spanky"
+                    },
+                    "id": 337136
+                },
+                "address_state": "",
+                "address_street": "",
+                "id": 18,
+                "application_fee_paid": false,
+                "events": [{ "event": "45" }]
+            },
             {
                 "phone_number": "(383) 838-4849",
                 "first_name": "kreebs",
@@ -35,9 +65,9 @@ beforeEach(() => {
                 "application_fee_paid": false,
             }
         ],
-        totalApplicationFee: 2222,
         applicationFeesSelected: "everyone",
-        handleChange: jest.fn()
+        handleChange: jest.fn(),
+        baseAppFee: 75
     }
 })
 
@@ -45,7 +75,7 @@ it('renders row with radio select and all other applicants when everyone selecte
     let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
 
     expect(wrapper.text().includes('Application Fee')).toBeTruthy();
-    expect(wrapper.find(OtherApplicantRow).length).toEqual(3);
+    expect(wrapper.find(EveryoneRow).length).toEqual(4);
 })
 
 it('renders row with radio select, but no other Applicants when self is selected', () => {
@@ -54,26 +84,30 @@ it('renders row with radio select, but no other Applicants when self is selected
 
     expect(wrapper.text().includes('Application Fee')).toBeTruthy();
 
-    expect(wrapper.find(OtherApplicantRow).length).toEqual(0);
+    expect(wrapper.find(EveryoneRow).length).toEqual(0);
 
 })
 
-it('renders OtherApplicantRows with full names', () => {
+it('renders EveryoneRows with full names', () => {
     let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
 
-    expect(wrapper.find(OtherApplicantRow).first().props().name).toEqual('kreebs mcgreebs');
-    expect(wrapper.find(OtherApplicantRow).at(1).props().name).toEqual('jerry maguire');
-    expect(wrapper.find(OtherApplicantRow).last().props().name).toEqual('elvish parsley');
+    expect(wrapper.find(EveryoneRow).first().props().person.client.person.name).toEqual('Spanky McDanky');
+    expect(wrapper.find(EveryoneRow).at(1).props().person.first_name).toEqual('kreebs');
+    expect(wrapper.find(EveryoneRow).at(2).props().person.first_name).toEqual('jerry');
+    expect(wrapper.find(EveryoneRow).last().props().person.first_name).toEqual('elvish');
 })
 
-it('renders OtherApplicantRow with PaidText when fees have been paid', () => {
-    let wrapper = shallow(<OtherApplicantRow name="steve" applicantFeePaid={true}/>);
+it('renders EveryoneRow without $75, but with PaidText when fees have been paid', () => {
+    let wrapper = shallow(<EveryoneRow person={defaultProps.everyone[1]} baseAppFee={defaultProps.baseAppFee}/>);
 
     expect(wrapper.find(PaidText).length).toBeTruthy();
+    expect(wrapper.text().includes('$75')).not.toBeTruthy();
 })
 
-it('renders OtherApplicantRow without PaidText when fees have not been paid', () => {
-    let wrapper = shallow(<OtherApplicantRow name="steve" applicantFeePaid={false}/>);
+it('renders EveryoneRow without PaidText, but with $75, when fees have not been paid', () => {
+    let wrapper = shallow(<EveryoneRow person={defaultProps.everyone[0]} baseAppFee={defaultProps.baseAppFee}/>);
 
     expect(wrapper.find(PaidText).length).not.toBeTruthy();
+    expect(wrapper.text().includes('$75')).toBeTruthy();
+
 })
