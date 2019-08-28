@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, Bold } from 'assets/styles';
+import { H1, Bold, Card, ScrollableTermsCardSection } from 'assets/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -16,10 +16,9 @@ mollit anim id est laborum.`;
 export const TextReader = styled.div`
     text-align: left;
     background-color: rgba(238,238,238,0.4);
-    max-height: 350px;
+    height: 60vh;
     overflow: auto;
-    padding: 20px;
-    color: #454B57;
+    
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -32,26 +31,27 @@ export default function (props) {
         <UnauthenticatedPage>
             <H1>Terms and Conditions</H1>
             <br/>
-            <TextReader>
-                <div>Terms and Conditions</div>
-                <div>General Site Usage</div>
-                <div>Last Revised: December 16, 2013</div>
-                <br/>
-                <div>Welcome to 555 Waverly. {LOREM}</div>
-                <br/>
-                <Bold>1. YOUR AGREEMENT</Bold>
-                <br/>
-                <div>By using this site, {LOREM}</div>
-                <br/>
-                <Bold>PLEASE NOTE: </Bold><span>We reserve the right {LOREM}</span>
-                <br/>
-                <br/>
-                <Bold>2. PRIVACY</Bold>
-                <br/>
-                <div>Please {LOREM}</div>
-            </TextReader>
-            <br/>
-            <ActionButton onClick={props.onAgree} marginTop={20} marginBottom={10}>
+            <Card>
+                <ScrollableTermsCardSection>
+                    <div>Terms and Conditions</div>
+                    <div>General Site Usage</div>
+                    <div>Last Revised: December 16, 2013</div>
+                    <br/>
+                    <div>Welcome to 555 Waverly. {LOREM}</div>
+                    <br/>
+                    <Bold>1. YOUR AGREEMENT</Bold>
+                    <br/>
+                    <div>By using this site, {LOREM}</div>
+                    <br/>
+                    <Bold>PLEASE NOTE: </Bold><span>We reserve the right {LOREM}</span>
+                    <br/>
+                    <br/>
+                    <Bold>2. PRIVACY</Bold>
+                    <br/>
+                    <div>Please {LOREM}</div>
+                </ScrollableTermsCardSection>
+            </Card>
+            <ActionButton onClick={props.onAgree}>
                 Agree and Continue
             </ActionButton>
         </UnauthenticatedPage>

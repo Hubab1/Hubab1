@@ -5,7 +5,7 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import GreenCheckIcon from 'components/common/GreenCheckIcon';
-import { Card, CardSection, P, H1, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
+import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
@@ -24,18 +24,12 @@ const BodyP = styled(P)`
     margin: 0 0 12px 0;
 `
 
-const ScrollableCardSection = styled(CardSection)`
-    max-height: 350px;
-    overflow: auto;
-    padding: 40px;
-`
-
 // TODO: Make this consistent with TermsPage once we get designs
 export const PaymentTerms = ({handleClickBack, goToPayment}) => {
     return <Fragment>
         <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
         <Card>
-            <ScrollableCardSection>
+            <ScrollableTermsCardSection>
                 <div className={bulletBox}>
                     <BulletP>
                         <GreenCheckIcon/>
@@ -58,7 +52,7 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
                 <BodyP>3) Holding deposit shall be fully refunded (not application fee) in case of denial of application.</BodyP>
                 <BodyP>4) Applicant agrees to take financial responsibility of the premises onMay1,2018and pay the balance of rentdue and security deposits in full, on that date.</BodyP>
                 <BodyP>5) Applicant  agrees  to  provide  proof  of$100,000.00liability  insurance  by  lease  commencement  date.  Thepreferred provider is: erenterplan.com (888) 205-8118.6)A non-refundable application processing fee is required to prepare the rental agreement documents and toverify applicant’s credit history, rental reference and employment.7)If said premises are not vacated by present resident on proposed move-out date and the present resident isstill  in  possession,  the  holding  deposit  will  be  returned  in  full  to  applicant.  The  holding  deposit  does  notguarantee occupancy.8)Credit  approval  is  based  on:  (1)  one  year  positive  rental  history;  (2)  good  credit  (note:  late  mortgagepayments, foreclosure, or bankruptcy may result in denial); (3) one year current employment history</BodyP>
-            </ScrollableCardSection>
+            </ScrollableTermsCardSection>
         </Card>
         { !!handleClickBack && 
             <Fragment>
