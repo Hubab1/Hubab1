@@ -20,7 +20,7 @@ const BulletP = styled(P)`
 `
 
 const BodyP = styled(P)`
-    font-size: 12px;
+    font-size: 14px;
     margin: 0 0 12px 0;
 `
 
@@ -30,6 +30,8 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
         <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
         <Card>
             <ScrollableTermsCardSection>
+                {/*
+                    removing these for now, since the mocks removed them
                 <div className={bulletBox}>
                     <BulletP>
                         <GreenCheckIcon/>
@@ -45,7 +47,7 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
                         {' '}
                         Refundable if denied
                     </BulletP>
-                </div>
+                </div>*/}
                 <BodyP>Applicant has deposited, with owner’s agent a holding deposit as specified below to secure the rental of the below described residential unit, subject to the following conditions:</BodyP>
                 <BodyP>1) If accepted, the holding deposit shall be applied to the security deposit due at move-in.</BodyP>
                 <BodyP>2) Applicant shall have 24hours following the date of this application to withdraw the application and receive fullrefund  of  said  holding  deposit.  (If  applicant  cancels  rental  after  24  hours  and  was  otherwise  approved,  theholding deposit is forfeited.)</BodyP>
