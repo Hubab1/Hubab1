@@ -60,23 +60,28 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
 
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
-    const header = receiptView ? 
-        <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3> :
+    // receiptView conditonal variables
+    const mainHeader = receiptView ?
+        <Fragment>
+            <SpacedH1>Payment Success!</SpacedH1>
+            <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3>
+        </Fragment> :
         <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
 
+    const cardHeader = receiptView ? 'Payment Summary' : 'Fees and Deposits';
+
     const image = receiptView ? receipt : paymentWallet;
-    const altText = receiptView ? "receipt" : "wallet";
+    const altText = receiptView ? 'receipt' : 'wallet';
 
     const continueHandler = receiptView ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
-    
     return (
         <Fragment>
-            { header }
+            { mainHeader }
             <SpacedImg src={image} alt={altText}/>
             <Card>
                 <CardSection>
                     <CardRow>
-                        <P bold>Fees and Deposits</P>
+                        <P bold>{cardHeader}</P>
                     </CardRow>
                     <ApplicationFees
                         totalApplicationFee={totalApplicationFee}
@@ -105,7 +110,7 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                             </CardRowBorderlessPadded>
                     }
                     {   
-                        ( ( !!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
+                        ( receiptView || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>

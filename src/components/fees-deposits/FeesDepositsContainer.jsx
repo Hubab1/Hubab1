@@ -73,6 +73,8 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             handleContinue={_nextRoute}
             configuration={configuration}
             applicant={applicant}
+            payments={payments}
+            profile={profile}
         />
     }
 
