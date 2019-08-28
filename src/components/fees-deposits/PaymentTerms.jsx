@@ -24,7 +24,6 @@ const BodyP = styled(P)`
     margin: 0 0 12px 0;
 `
 
-// TODO: Make this consistent with TermsPage once we get designs
 export const PaymentTerms = ({handleClickBack, goToPayment}) => {
     return <Fragment>
         <SpacedH1>Application Fees and Holding Deposit</SpacedH1>

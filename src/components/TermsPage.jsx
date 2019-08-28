@@ -13,18 +13,7 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
 mollit anim id est laborum.`;
 
-export const TextReader = styled.div`
-    text-align: left;
-    background-color: rgba(238,238,238,0.4);
-    height: 60vh;
-    overflow: auto;
-    
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-`
 
-// TODO: Make this consistent with PaymentTerms once we get designs
 export default function (props) {
 
     return (
