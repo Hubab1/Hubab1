@@ -27,7 +27,6 @@ export class PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (MOCKY) {
-            debugger;
             this.props.onSuccess();
             return;
         }
@@ -35,7 +34,11 @@ export class PaymentForm extends React.Component {
         const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
         return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
             if (res.token) {
-                const data = {token: res.token.id};
+                const data = {
+                    token: res.token.id,
+                    payables: this.props.payments,
+                    total: this.props.totalPayment
+                };
                 API.stripePayment(data).then(res => {
                     if (res.errors) {
                         this.setState({errors: [res.errors.error.message], submitting: false});
@@ -85,7 +88,7 @@ export class PaymentForm extends React.Component {
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >
                     <Lock style={{width: 16, marginRight: 8}}/>
-                    { `Pay ${formatCurrency(this.props.applicationFee)}` }
+                    { `Pay ${formatCurrency(this.props.totalPayment)}` }
                 </ActionButton>
             </form>
         )
@@ -93,7 +96,9 @@ export class PaymentForm extends React.Component {
 }
 
 PaymentForm.propTypes = {
-    applicationFee: PropTypes.number,
+    onSuccess: PropTypes.func,
+    totalPayment: PropTypes.number,
+    payments: PropTypes.array
 };
 
 export default injectStripe(PaymentForm);

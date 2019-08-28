@@ -1,4 +1,3 @@
-import mockPayment from 'reducers/mock-payments';
 import auth from 'utils/auth';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
@@ -203,12 +202,11 @@ API.postPassthrough = data => (
 )
 
 API.fetchPaymentOptions = () => {
-    // return fetch(chuck('/payment-options/'), {
-    //     headers: {
-    //         Authorization: `Token ${auth.getToken()}`
-    //     },
-    // }).then(res => res.json());
-    return Promise.resolve(mockPayment)
+    return fetch(chuck('/payment-options/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => res.json());
 }
 
 export default API;

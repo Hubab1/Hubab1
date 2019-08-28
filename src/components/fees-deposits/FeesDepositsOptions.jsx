@@ -7,7 +7,7 @@ import SimplePopover from 'components/common/SimplePopover';
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import paymentWallet from 'assets/images/payment-wallet.png';
 import receipt from 'assets/images/receipt.png';
-import { Card, CardSection, CardRow, P, H1, SpacedH3, infoIconRoot } from 'assets/styles';
+import { Card, CardSection, CardRowBorderless, CardRow, CardRowTotal, P, H1, SpacedH3, infoIconRoot } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
@@ -22,25 +22,28 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-const AmountContainer = styled.div`
-    width: 90px;
-    text-align: left;
+const CardRowBorderlessPadded = styled(CardRowBorderless)`
+    padding: 15px 0;
 `
 
-export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile, applicant, payments, receiptView=false}) => {
+export const FeesDepositsOptions = ({configuration, handleContinue, handleClickBack, profile, applicant, payments, receiptView=false}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
-    if (!configuration || !profile)  return <div/>;
-    debugger;
-    const applicantFeePaid = !!payments.find(payment => (
-        parseInt(payment.applicant) === applicant.id &&
-        parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
-        payment.paid
-    ));
+    if (!configuration || !profile )  return <div/>;
 
-    const allApplicants = profile.primary_applicant.guarantors.concat(profile.co_applicants);
-    allApplicants.unshift(profile.primary_appicant)
+    const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+    everyone.unshift(applicant);
+    const everyoneWithPaid = everyone.map(person => {
+        const applicationFeePaid = !!payments.find(payment => (
+            ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
+            parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
+            payment.paid
+        ));
+        return Object.assign({}, person, {applicationFeePaid})
+    });
 
+    
+    const applicantFeePaid = everyoneWithPaid.find( person => person.id === applicant.id ).applicationFeePaid;
     const baseAppFee = configuration.application_fee;
     const unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
 
@@ -63,56 +66,59 @@ export const FeesDepositsOptions = ({configuration, goToPayment, _prev, profile,
 
     const image = receiptView ? receipt : paymentWallet;
     const altText = receiptView ? "receipt" : "wallet";
-    debugger;
+
+    const continueHandler = receiptView ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
+    
     return (
         <Fragment>
             { header }
             <SpacedImg src={image} alt={altText}/>
             <Card>
                 <CardSection>
+                    <CardRow>
+                        <P bold>Fees and Deposits</P>
+                    </CardRow>
                     <ApplicationFees
                         totalApplicationFee={totalApplicationFee}
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
-                        otherApplicants={otherApplicants}
+                        everyone={everyoneWithPaid}
                         baseAppFee={baseAppFee}
                         applicantFeePaid={applicantFeePaid}
                         unpaidApplicants={unpaidApplicants}
                     />
                     {
-                        !!holdingDepositAmount &&
-                            <CardRow>
-                                <P bold>
+                        !!holdingDepositAmount && 
+                            <CardRowBorderlessPadded>
+                                <P>
                                     Holding Deposit
                                     {" "}
                                     <SimplePopover text={holdingDepositCopy}>
                                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
                                     </SimplePopover>
                                 </P>
-                                <AmountContainer>
+                                <div>
                                     {   
-                                        ( profile.holding_deposit_paid ? <PaidText/> : <P bold>{formatCurrency(holdingDepositAmount)}</P> )
+                                        ( holdingDepositPaid ? <PaidText/> : <P >{formatCurrency(holdingDepositAmount, 0)}</P> )
                                     }
-                                </AmountContainer>
-                            </CardRow>
+                                </div>
+                            </CardRowBorderlessPadded>
                     }
                     {   
-                        ( ( !!holdingDepositAmount && !profile.holding_deposit_paid) || !applicantFeePaid ) &&
-                            <CardRow>
-                                <P bold color="#56BA82">Total</P>
-                                <AmountContainer>
-                                    <P bold color="#56BA82">{formatCurrency(totalPaymentAmount)}</P>
-                                </AmountContainer>
-                            </CardRow>
+                        ( ( !!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
+                            <CardRowTotal>
+                                <P bold>Total</P>
+                                <div>
+                                    <P bold>{formatCurrency(totalPaymentAmount, 0)}</P>
+                                </div>
+                            </CardRowTotal>
                     }
                 </CardSection>
             </Card>
-            <ActionButton onClick={goToPayment} marginTop={30} marginBottom={20}>Continue</ActionButton>
-            <BackLink to={_prev}/>
+            <ActionButton onClick={continueHandler} marginTop={30} marginBottom={20}>Continue</ActionButton>
+            { !receiptView && <BackLink to={handleClickBack}/> }
         </Fragment>
     )
 }
-
-
 
 export default FeesDepositsOptions;
