@@ -104,6 +104,13 @@ export const CardSection = styled.div`
     padding: 15px;
 `
 
+export const ScrollableTermsCardSection = styled(CardSection)`
+    overflow: auto;
+    padding: 30px;
+    height: 60vh;
+    font-size: 14px;
+`
+
 export const Card = styled.div`
     margin-bottom: 20px;
     border: 1px solid #EEEEEE;	
