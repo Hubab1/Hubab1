@@ -65,8 +65,8 @@ class StripeElementWrapper extends PureComponent {
                         </FormHelperText>
                     }
                 </FormControl>
-        </div>
-      )
+            </div>
+        )
     }
 }
 

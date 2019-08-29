@@ -48,6 +48,7 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
                 </div>
             </div>
             <Elements
+                /* elements requires direct import of fonts */
                 fonts={[{
                     cssSrc: 'https://use.typekit.net/asb6wyn.css'
                 }]}
