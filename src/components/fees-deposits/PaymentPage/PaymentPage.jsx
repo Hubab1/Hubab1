@@ -43,6 +43,7 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
             <div className={bodyRow}>
                 <img src={padlockImage} alt="padlock" width="18" height="28"/>
                 <div className={bodyText}>
+                    {/* TODO: design owes us updated copy on this... at the very least, the link should go somewhere */}
                     This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} to="">privacy policy here.</Link>
                 </div>
             </div>

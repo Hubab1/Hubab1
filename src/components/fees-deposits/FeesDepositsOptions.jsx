@@ -1,17 +1,16 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-import Info from '@material-ui/icons/Info';
 
-import PaidText from './PaidText';
-import SimplePopover from 'components/common/SimplePopover';
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import paymentWallet from 'assets/images/payment-wallet.png';
 import receipt from 'assets/images/receipt.png';
-import { Card, CardSection, CardRowBorderless, CardRow, CardRowTotal, P, H1, SpacedH3, infoIconRoot } from 'assets/styles';
+import { Card, CardSection, CardRow, CardRowTotal, P, H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
 import { ApplicationFees } from './ApplicationFees';
+import { HoldingDeposit } from './HoldingDeposit';
+
 
 
 const SpacedH1 = styled(H1)`
@@ -20,10 +19,6 @@ const SpacedH1 = styled(H1)`
 
 const SpacedImg = styled.img`
     margin: 15px 0;
-`
-
-const CardRowBorderlessPadded = styled(CardRowBorderless)`
-    padding: 15px 0;
 `
 
 export const FeesDepositsOptions = ({configuration, handleContinue, handleClickBack, profile, applicant, payments, receiptView=false}) => {
@@ -94,20 +89,12 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                     />
                     {
                         !!holdingDepositAmount && 
-                            <CardRowBorderlessPadded>
-                                <P>
-                                    Holding Deposit
-                                    {" "}
-                                    <SimplePopover text={holdingDepositCopy}>
-                                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}} />
-                                    </SimplePopover>
-                                </P>
-                                <div>
-                                    {   
-                                        ( holdingDepositPaid ? <PaidText/> : <P >{formatCurrency(holdingDepositAmount, 0)}</P> )
-                                    }
-                                </div>
-                            </CardRowBorderlessPadded>
+                            <HoldingDeposit
+                                holdingDepositCopy={holdingDepositCopy}
+                                holdingDepositPaid={holdingDepositPaid}
+                                formatCurrency={formatCurrency}
+                                holdingDepositAmount={holdingDepositAmount}  
+                            />
                     }
                     {   
                         ( receiptView || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&

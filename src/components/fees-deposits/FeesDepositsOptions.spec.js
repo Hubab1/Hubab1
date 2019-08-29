@@ -8,6 +8,8 @@ import mockPayments from 'reducers/mock-payments';
 import { FeesDepositsOptions } from './FeesDepositsOptions';
 import { ApplicationFees } from './ApplicationFees';
 import { PaidText } from './PaidText';
+import { HoldingDeposit } from './HoldingDeposit';
+
 
 
 let defaultProps;
@@ -39,12 +41,12 @@ it('renders Holding Deposit when there is a holding deposit with correct total f
         "stripe_id": ""
     }];
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} /> );
-    expect(wrapper.text().includes('Holding Deposit <SimplePopover />$1000')).toBeTruthy();
+    expect(wrapper.find(HoldingDeposit)).toBeTruthy();
     expect(wrapper.text().includes('Total$1100')).toBeTruthy();
     expect(wrapper.find(PaidText).length).toBe(0);
 })
 
-it('renders Holding Deposit Paid when there is a holding deposit with correct total fees and holding_deposit_paid is true', () => {
+it('renders Holding Deposit Paid when there is a holding deposit with correct total fees and holding deposit payment paid is true', () => {
     const payments = [{
         "id": "12",
         "type": "10",
@@ -67,8 +69,9 @@ it('renders Holding Deposit Paid when there is a holding deposit with correct to
     }]
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} /> );
 
-    expect(wrapper.text().includes('Holding Deposit <SimplePopover /><PaidText />Total$100')).toBeTruthy();
-    expect(wrapper.find(PaidText).length).toBe(1);
+    expect(wrapper.find(HoldingDeposit)).toBeTruthy();
+    expect(wrapper.find(HoldingDeposit).props().holdingDepositPaid).toEqual(true);
+    expect(wrapper.text().includes('Total$100')).toBeTruthy();
 })
 
 it('does not render Holding Deposit when there is no holding deposit with correct total fees', () => {
@@ -112,4 +115,18 @@ it('does not render Total when holding deposit paid and fees are paid', () => {
     defaultProps.payments[1].paid = true;
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
+})
+
+it('renders expected conditional text when passed receiptView=true', () => {
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} receiptView={true} /> );
+
+    expect(wrapper.text().includes('Payment Success!')).toBeTruthy();
+    expect(wrapper.text().includes('Payment Summary')).toBeTruthy();
+})
+
+it('renders expected conditional text when passed receiptView=false', () => {
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
+
+    expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
+    expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();
 })
