@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, Bold, Card, ScrollableTermsCardSection } from 'assets/styles';

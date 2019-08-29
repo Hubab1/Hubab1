@@ -1,28 +1,19 @@
 import React, {Fragment} from 'react';
-import { css } from 'emotion';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import GreenCheckIcon from 'components/common/GreenCheckIcon';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
 `
 
-const bulletBox = css`
-    margin-bottom: 30px
-`
-
-const BulletP = styled(P)`
-    font-size: 15px
-`
-
 const BodyP = styled(P)`
     font-size: 14px;
     margin: 0 0 12px 0;
 `
+
 
 export const PaymentTerms = ({handleClickBack, goToPayment}) => {
     return <Fragment>
