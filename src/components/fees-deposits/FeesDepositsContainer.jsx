@@ -13,7 +13,8 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
 
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
-    const [totalPayment, setTotalPayment] = useState(null)
+    const [totalPayment, setTotalPayment] = useState(null);
+    const [receipt, setReceipt] = useState(null);
 
     useEffect( () => {
         fetchPayments();
@@ -44,6 +45,11 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setCurrentPage('terms');
     }
 
+    const handlePaymentSuccess = (receipt) => {
+        setReceipt(receipt);
+        setCurrentPage('receipt')
+    }
+
     if (!configuration || !profile || !applicant || !payments)  return <div/>;
     if (currentPage === 'options') {
         return <FeesDepositsOptions
@@ -61,7 +67,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         />
     } else if (currentPage === 'payment') {
         return <PaymentPage
-            handleSuccess={() => setCurrentPage('receipt')}
+            handleSuccess={handlePaymentSuccess}
             applicant={applicant}
             handleClickBack={() => setCurrentPage('terms')}
             payments={payments}
@@ -69,11 +75,10 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         />
     } else if (currentPage === 'receipt') {
         return <FeesDepositsOptions
-            receiptView={true}
+            receipt={receipt}
             handleContinue={_nextRoute}
             configuration={configuration}
             applicant={applicant}
-            payments={payments}
             profile={profile}
         />
     }

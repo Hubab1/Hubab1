@@ -9,6 +9,7 @@ import StripeElementWrapper from './StripeElementWrapper';
 import API, { MOCKY } from 'app/api';
 import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
+import mockReceipt from 'reducers/mock-receipt';
 
 
 export class PaymentForm extends React.Component {
@@ -27,8 +28,8 @@ export class PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (MOCKY) {
-            this.props.onSuccess();
-            return;
+            this.setState({submitting: false});
+            return this.props.onSuccess(mockReceipt);
         }
         this.setState({submitting: true})
         const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
@@ -43,8 +44,9 @@ export class PaymentForm extends React.Component {
                     if (res.errors) {
                         this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
-                        this.setState({submitting: false}); 
-                        this.props.onSuccess();
+                        this.setState({submitting: false});
+                        // TODO: update this to read in the receipt payload when endpoint is ready
+                        this.props.onSuccess(mockReceipt);
                     }
                 });
             } else {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import receipt from 'assets/images/receipt.png';
+import receiptImage from 'assets/images/receipt.png';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
@@ -21,14 +21,14 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-export const FeesDepositsOptions = ({configuration, handleContinue, handleClickBack, profile, applicant, payments, receiptView=false}) => {
+export const FeesDepositsOptions = ({configuration, handleContinue, handleClickBack, profile, applicant, payments, receipt}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
     if (!configuration || !profile )  return <div/>;
 
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
     everyone.unshift(applicant);
-    const everyoneWithPaid = everyone.map(person => {
+    const everyoneWithPaid = payments && everyone.map(person => {
         const applicationFeePaid = !!payments.find(payment => (
             ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
             parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
@@ -37,17 +37,22 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
         return Object.assign({}, person, {applicationFeePaid})
     });
 
+    const receiptPersonIds = receipt && receipt.line_items.map(item =>  (item.applicant || item.invitee) );
+    debugger;
+    const everyoneReceipt = receipt && everyone.filter(person => 
+        !!receiptPersonIds.find(id => id === person.id)
+    );
     
     const applicantFeePaid = everyoneWithPaid.find( person => person.id === applicant.id ).applicationFeePaid;
     const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
+    const unpaidApplicants = !receipt && payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
 
     const totalApplicationFee = applicationFeesSelected === 'self' ? 
         baseAppFee : 
         baseAppFee * unpaidApplicants;
 
     const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
-    const holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
+    const holdingDepositPaid = !receipt && !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
     
     const totalPaymentAmount = applicantFeePaid ?
         !profile.holding_deposit_paid && holdingDepositAmount :
@@ -55,20 +60,20 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
 
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
-    // receiptView conditonal variables
-    const mainHeader = receiptView ?
+    // receipt conditonal variables
+    const mainHeader = receipt ?
         <Fragment>
             <SpacedH1>Payment Success!</SpacedH1>
             <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3>
         </Fragment> :
         <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
 
-    const cardHeader = receiptView ? 'Payment Summary' : 'Fees and Deposits';
+    const cardHeader = receipt ? 'Payment Summary' : 'Fees and Deposits';
 
-    const image = receiptView ? receipt : paymentWallet;
-    const altText = receiptView ? 'receipt' : 'wallet';
+    const image = receipt ? receiptImage : paymentWallet;
+    const altText = receipt ? 'receipt' : 'wallet';
 
-    const continueHandler = receiptView ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
+    const continueHandler = receipt ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
     return (
         <Fragment>
             { mainHeader }
@@ -82,10 +87,11 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                         totalApplicationFee={totalApplicationFee}
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
-                        everyone={everyoneWithPaid}
+                        everyone={receipt ? everyoneReceipt : everyoneWithPaid}
                         baseAppFee={baseAppFee}
                         applicantFeePaid={applicantFeePaid}
                         unpaidApplicants={unpaidApplicants}
+                        receipt={!!receipt}
                     />
                     {
                         !!holdingDepositAmount && 
@@ -97,7 +103,7 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                             />
                     }
                     {   
-                        ( receiptView || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
+                        ( receipt || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
@@ -108,7 +114,7 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                 </CardSection>
             </Card>
             <ActionButton onClick={continueHandler} marginTop={30} marginBottom={20}>Continue</ActionButton>
-            { !receiptView && <BackLink to={handleClickBack}/> }
+            { !receipt && <BackLink to={handleClickBack}/> }
         </Fragment>
     )
 }
