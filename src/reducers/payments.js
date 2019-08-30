@@ -22,12 +22,12 @@ export const fetchPayments = () => {
     return async dispatch => {
         let payments;
         if (MOCKY) {
-            payments = mock.payables;
+            payments = mock;
         } else {
-            payments = await API.fetchPaymentOptions().payables;
+            payments = await API.fetchPaymentOptions();
         }
-        dispatch(paymentsReceived(payments));
-        return payments
+        dispatch(paymentsReceived(payments.payables));
+        return payments.payables
     }
 };
 

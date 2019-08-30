@@ -203,10 +203,13 @@ API.postPassthrough = data => (
 
 API.fetchPaymentOptions = () => {
     return fetch(chuck('/payment-options/'), {
+        method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
-    }).then(res => res.json());
+    }).then(res => {
+        return res.json()
+    });
 }
 
 export default API;
