@@ -5,6 +5,7 @@ import mockProfile from 'reducers/mock-profile';
 import mockConfig from 'reducers/mock-config';
 import mockApplicant from 'reducers/applicant-mock';
 import mockPayments from 'reducers/mock-payments';
+import mockReceipt from 'reducers/mock-receipt';
 import { FeesDepositsOptions } from './FeesDepositsOptions';
 import { ApplicationFees } from './ApplicationFees';
 import { PaidText } from './PaidText';
@@ -117,15 +118,26 @@ it('does not render Total when holding deposit paid and fees are paid', () => {
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
 })
 
-it('renders expected conditional text when passed receiptView=true', () => {
-    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} receiptView={true} /> );
+it('renders expected conditional text when passed receipt and no payment', () => {
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} receipt={mockReceipt} payments={null}/> );
 
     expect(wrapper.text().includes('Payment Success!')).toBeTruthy();
     expect(wrapper.text().includes('Payment Summary')).toBeTruthy();
 })
 
-it('renders expected conditional text when passed receiptView=false', () => {
-    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
+it('renders expected conditional text when passed payments and no receipt', () => {
+    const payments = [{
+        "id": "12",
+        "type": "10",
+        "invoice": "666",
+        "applicant": "18",
+        "invitee": null,
+        "amount": 100.00,
+        "paid": true,
+        "stripe_id": ""
+    }]
+
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} receipt={null} /> );
 
     expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
     expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();

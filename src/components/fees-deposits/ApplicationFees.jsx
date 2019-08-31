@@ -69,7 +69,7 @@ export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone
                     </CardRowBorderless>
             }
             {
-                applicationFeesSelected === 'everyone' && 
+                (applicationFeesSelected === 'everyone' || receipt) && 
                     everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
             }
         </ApplicationFeesContainer>

@@ -44,7 +44,7 @@
     "paid": true,
     "id": 123,
     "application": {"id": 234},
-    "total": 48294.00,
+    "total": 4894.00,
     "stripe_id": "932923482jdf33",
     "paid_by": 18
 }

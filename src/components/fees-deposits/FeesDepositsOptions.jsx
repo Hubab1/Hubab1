@@ -26,54 +26,81 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
 
     if (!configuration || !profile )  return <div/>;
 
+
+
+    const baseAppFee = configuration.application_fee;
+    const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
     everyone.unshift(applicant);
-    const everyoneWithPaid = payments && everyone.map(person => {
-        const applicationFeePaid = !!payments.find(payment => (
-            ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
-            parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
-            payment.paid
-        ));
-        return Object.assign({}, person, {applicationFeePaid})
-    });
 
-    const receiptPersonIds = receipt && receipt.line_items.map(item =>  (item.applicant || item.invitee) );
-    debugger;
-    const everyoneReceipt = receipt && everyone.filter(person => 
-        !!receiptPersonIds.find(id => id === person.id)
-    );
+    // payment logic
+    let applicationFeesPeople = [];
+    let activeApplicantFeePaid = false;
+    let unpaidApplicants = 0;
+    let totalApplicationFee = 0;
+    let holdingDepositPaid = false;
+    let showHoldingDeposit = !!holdingDepositAmount;
+    let totalPaymentAmount = 0;
+
+    // structural
+    let mainHeader;
+    let cardHeader;
+    let image;
+    let altText;
+    let continueHandler
+
     
-    const applicantFeePaid = everyoneWithPaid.find( person => person.id === applicant.id ).applicationFeePaid;
-    const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = !receipt && payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
+    if (payments) {
+        applicationFeesPeople = everyone.map(person => {
+            const applicationFeePaid = !!payments.find(payment => (
+                ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
+                parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
+                payment.paid
+            ));
+            return Object.assign({}, person, {applicationFeePaid})
+        });
+        
+        activeApplicantFeePaid = applicationFeesPeople.find( person => person.id === applicant.id ).applicationFeePaid;
+        unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length;
+        
+        totalApplicationFee = applicationFeesSelected === 'self' ? 
+            baseAppFee : 
+            baseAppFee * unpaidApplicants;
 
-    const totalApplicationFee = applicationFeesSelected === 'self' ? 
-        baseAppFee : 
-        baseAppFee * unpaidApplicants;
+        holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
+        totalPaymentAmount = activeApplicantFeePaid ?
+            !holdingDepositPaid && holdingDepositAmount :
+            totalApplicationFee + ( !holdingDepositPaid && holdingDepositAmount);
 
-    const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
-    const holdingDepositPaid = !receipt && !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
-    
-    const totalPaymentAmount = applicantFeePaid ?
-        !profile.holding_deposit_paid && holdingDepositAmount :
-        totalApplicationFee + ( !holdingDepositPaid && holdingDepositAmount);
+        mainHeader = <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
+        cardHeader = 'Fees and Deposits';
+        image = paymentWallet;
+        altText = 'wallet';
+        continueHandler = () => handleContinue(applicationFeesSelected, totalPaymentAmount);
 
-    const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
-    // receipt conditonal variables
-    const mainHeader = receipt ?
-        <Fragment>
+    } else if (receipt) {
+        const receiptPersonIds = receipt.line_items.map(item =>  (item.applicant || item.invitee) );
+        applicationFeesPeople = everyone.filter(person => 
+            !!receiptPersonIds.find(id => parseInt(id) === person.id)
+        );
+
+        totalApplicationFee = baseAppFee * applicationFeesPeople.length;
+
+        showHoldingDeposit = !!receipt.line_items.find(item => parseInt(item.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT)
+        holdingDepositPaid = !!showHoldingDeposit
+        totalPaymentAmount = receipt.total;
+
+        mainHeader = <Fragment>
             <SpacedH1>Payment Success!</SpacedH1>
             <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3>
-        </Fragment> :
-        <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
+        </Fragment>;
+        cardHeader = 'Payment Summary';
+        image = receiptImage;
+        altText = 'receipt';
+        continueHandler = handleContinue;
+    }
 
-    const cardHeader = receipt ? 'Payment Summary' : 'Fees and Deposits';
-
-    const image = receipt ? receiptImage : paymentWallet;
-    const altText = receipt ? 'receipt' : 'wallet';
-
-    const continueHandler = receipt ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
     return (
         <Fragment>
             { mainHeader }
@@ -87,23 +114,23 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
                         totalApplicationFee={totalApplicationFee}
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
-                        everyone={receipt ? everyoneReceipt : everyoneWithPaid}
+                        everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
-                        applicantFeePaid={applicantFeePaid}
+                        applicantFeePaid={activeApplicantFeePaid}
                         unpaidApplicants={unpaidApplicants}
                         receipt={!!receipt}
                     />
                     {
-                        !!holdingDepositAmount && 
+                        showHoldingDeposit && 
                             <HoldingDeposit
-                                holdingDepositCopy={holdingDepositCopy}
                                 holdingDepositPaid={holdingDepositPaid}
                                 formatCurrency={formatCurrency}
-                                holdingDepositAmount={holdingDepositAmount}  
+                                holdingDepositAmount={holdingDepositAmount}
+                                receipt={!!receipt}
                             />
                     }
                     {   
-                        ( receipt || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
+                        (receipt || (!holdingDepositPaid && showHoldingDeposit)  || !activeApplicantFeePaid) &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
