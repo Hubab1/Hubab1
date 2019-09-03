@@ -59,7 +59,6 @@ export class PaymentForm extends React.Component {
     render() {
         const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (
-            <React.Fragment>
             <form onSubmit={this.handleSubmit}>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
                 <Grid container justify="space-between">
@@ -94,8 +93,6 @@ export class PaymentForm extends React.Component {
                     { `Pay ${formatCurrency(this.props.totalPayment)}` }
                 </ActionButton>
             </form>
-            <button onClick={()=>this.handleSubmit({preventDefault:()=>{console.log('you clict')}})}>skip payment</button>
-            </React.Fragment>
         )
     }
 }

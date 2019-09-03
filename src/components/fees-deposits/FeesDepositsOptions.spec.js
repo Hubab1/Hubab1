@@ -142,3 +142,39 @@ it('renders expected conditional text when passed payments and no receipt', () =
     expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
     expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();
 })
+
+it('renders receipt information as expected with holding deposit', () => {
+    let wrapper = shallow(<FeesDepositsOptions {...defaultProps} payments={null} receipt={mockReceipt} />);
+
+    expect(wrapper.text().includes('Payment Success!Thank you! We emailed a receipt to slkejhfkajshefjkhek@gm.comPayment Summary')).toBeTruthy();
+
+    expect(wrapper.text().includes('Total$1300')).toBeTruthy();
+    expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(3);
+    expect(wrapper.find(HoldingDeposit).props().holdingDepositAmount).toEqual(1000);
+})
+
+it('renders receipt information as expected when one applicant fee on receipt, no holding deposit', () => {
+    let receipt = {
+        "line_items": [{
+            "id": "12",
+            "type": "10",
+            "invoice": "666",
+            "applicant": "18",
+            "invitee": null,
+            "amount": 100.00,
+            "paid": true,
+            "stripe_id": "932923482jdf33"
+        }],
+        "paid": true,
+        "id": 123,
+        "application": {"id": 234},
+        "total": 100.00,
+        "stripe_id": "932923482jdf33",
+        "paid_by": 18
+
+    }
+    let wrapper = shallow(<FeesDepositsOptions {...defaultProps} payments={null} receipt={receipt} />);
+    expect(wrapper.text().includes('Total$100')).toBeTruthy();
+    expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(1);
+    expect(wrapper.find(HoldingDeposit).length).toEqual(0);
+})
