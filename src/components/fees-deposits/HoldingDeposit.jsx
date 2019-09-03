@@ -12,10 +12,9 @@ const CardRowBorderlessPadded = styled(CardRowBorderless)`
 `
 
 export const HoldingDeposit = ({
-    holdingDepositPaid,
-    formatCurrency,
+    holdingDepositPaid=false,
     holdingDepositAmount,
-    receipt
+    receipt=false
 }) => {
     const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
@@ -28,7 +27,7 @@ export const HoldingDeposit = ({
             </SimplePopover>
         </P>
         <div>
-            {holdingDepositPaid && !receipt ? <PaidText /> : <P>{formatCurrency(holdingDepositAmount, 0)}</P>}
+            {holdingDepositPaid && !receipt ? <PaidText /> : <P>{holdingDepositAmount}</P>}
         </div>
     </CardRowBorderlessPadded>;
 }

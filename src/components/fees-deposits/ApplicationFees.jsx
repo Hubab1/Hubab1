@@ -32,7 +32,7 @@ const ApplicationFeesContainer = styled.div`
     border-bottom: 1px solid #EEEEEE;
 `
 
-export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone, baseAppFee, applicantFeePaid, unpaidApplicants, receipt }) => {
+export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, applicantFeePaid=false, unpaidApplicants=0, receipt }) => {
 
     const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
