@@ -45,14 +45,13 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                         totalApplicationFee={totalApplicationFee}
                         everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
-                        receipt={!!receipt}
                     />
                     {
                         !!holdingDepositAmount && 
                             <HoldingDeposit
                                 formatCurrency={formatCurrency}
                                 holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
-                                receipt={!!receipt}
+                                receipt={true}
                             />
                     }
                     {   
