@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import paymentWallet from 'assets/images/payment-wallet.png';
-import receipt from 'assets/images/receipt.png';
-import { Card, CardSection, CardRow, CardRowTotal, P, H1, SpacedH3 } from 'assets/styles';
+import { Card, CardSection, CardRow, CardRowTotal, P, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { formatCurrency } from 'utils/misc';
@@ -21,14 +20,10 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-export const FeesDepositsOptions = ({configuration, handleContinue, handleClickBack, profile, applicant, payments, receiptView=false}) => {
+export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleContinue, handleClickBack, everyone, applicant, payments}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
 
-    if (!configuration || !profile )  return <div/>;
-
-    const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
-    everyone.unshift(applicant);
-    const everyoneWithPaid = everyone.map(person => {
+    const applicationFeesPeople = everyone.map(person => {
         const applicationFeePaid = !!payments.find(payment => (
             ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
             parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
@@ -36,79 +31,58 @@ export const FeesDepositsOptions = ({configuration, handleContinue, handleClickB
         ));
         return Object.assign({}, person, {applicationFeePaid})
     });
-
     
-    const applicantFeePaid = everyoneWithPaid.find( person => person.id === applicant.id ).applicationFeePaid;
-    const baseAppFee = configuration.application_fee;
-    const unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length
-
+    const activeApplicantFeePaid = applicationFeesPeople.find( person => person.id === applicant.id ).applicationFeePaid;
+    const numUnpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length;
+    
     const totalApplicationFee = applicationFeesSelected === 'self' ? 
         baseAppFee : 
-        baseAppFee * unpaidApplicants;
+        baseAppFee * numUnpaidApplicants;
 
-    const holdingDepositAmount = configuration.holding_deposit_value ? configuration.holding_deposit_value : 0;
     const holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
     
-    const totalPaymentAmount = applicantFeePaid ?
-        !profile.holding_deposit_paid && holdingDepositAmount :
+    const totalPaymentAmount = activeApplicantFeePaid ?
+        !holdingDepositPaid && holdingDepositAmount :
         totalApplicationFee + ( !holdingDepositPaid && holdingDepositAmount);
-
-    const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
-
-    // receiptView conditonal variables
-    const mainHeader = receiptView ?
-        <Fragment>
-            <SpacedH1>Payment Success!</SpacedH1>
-            <SpacedH3>{`Thank you! We emailed a receipt to ${applicant.client.person.email}`}</SpacedH3>
-        </Fragment> :
-        <SpacedH1>Application Fees and Holding Deposit</SpacedH1>;
-
-    const cardHeader = receiptView ? 'Payment Summary' : 'Fees and Deposits';
-
-    const image = receiptView ? receipt : paymentWallet;
-    const altText = receiptView ? 'receipt' : 'wallet';
-
-    const continueHandler = receiptView ? handleContinue : () => handleContinue(applicationFeesSelected, totalPaymentAmount);
+    
     return (
         <Fragment>
-            { mainHeader }
-            <SpacedImg src={image} alt={altText}/>
+            <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
+            <SpacedImg src={paymentWallet} alt={"wallet"}/>
             <Card>
                 <CardSection>
                     <CardRow>
-                        <P bold>{cardHeader}</P>
+                        <P bold>Fees and Deposits</P>
                     </CardRow>
                     <ApplicationFees
                         totalApplicationFee={totalApplicationFee}
                         applicationFeesSelected={applicationFeesSelected}
                         handleChange={setApplicationFees}
-                        everyone={everyoneWithPaid}
+                        everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
-                        applicantFeePaid={applicantFeePaid}
-                        unpaidApplicants={unpaidApplicants}
+                        applicantFeePaid={activeApplicantFeePaid}
+                        numUnpaidApplicants={numUnpaidApplicants}
                     />
                     {
                         !!holdingDepositAmount && 
                             <HoldingDeposit
-                                holdingDepositCopy={holdingDepositCopy}
                                 holdingDepositPaid={holdingDepositPaid}
-                                formatCurrency={formatCurrency}
-                                holdingDepositAmount={holdingDepositAmount}  
+                                holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
                             />
                     }
                     {   
-                        ( receiptView || (!!holdingDepositAmount && !holdingDepositPaid) || !applicantFeePaid ) &&
+                        ( (!holdingDepositPaid && !!holdingDepositAmount) || !activeApplicantFeePaid ) &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
-                                    <P bold>{formatCurrency(totalPaymentAmount, 0)}</P>
+                                    <P bold>{formatCurrency(parseInt(totalPaymentAmount), 0)}</P>
                                 </div>
                             </CardRowTotal>
                     }
                 </CardSection>
             </Card>
-            <ActionButton onClick={continueHandler} marginTop={30} marginBottom={20}>Continue</ActionButton>
-            { !receiptView && <BackLink to={handleClickBack}/> }
+            <ActionButton onClick={() => handleContinue(applicationFeesSelected, totalPaymentAmount)} marginTop={30} marginBottom={20}>Continue</ActionButton>
+            <BackLink to={handleClickBack}/>
         </Fragment>
     )
 }

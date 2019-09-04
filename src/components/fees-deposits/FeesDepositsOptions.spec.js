@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import mockProfile from 'reducers/mock-profile';
-import mockConfig from 'reducers/mock-config';
 import mockApplicant from 'reducers/applicant-mock';
 import mockPayments from 'reducers/mock-payments';
 import { FeesDepositsOptions } from './FeesDepositsOptions';
@@ -13,13 +12,19 @@ import { HoldingDeposit } from './HoldingDeposit';
 
 
 let defaultProps;
+const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);
+everyone.unshift(mockApplicant);
 
 beforeEach(() => {
     defaultProps = {
         profile: mockProfile,
-        configuration: mockConfig,
+        holdingDepositAmount: 1000.0,
         applicant: mockApplicant,
-        payments: mockPayments.payables
+        payments: mockPayments.payables,
+        everyone: everyone,
+        baseAppFee: 100,
+        handleContinue: jest.fn(),
+
     }
 })
 
@@ -29,7 +34,7 @@ it('renders ApplicationFees', function() {
 });
 
 it('renders Holding Deposit when there is a holding deposit with correct total fees and paid holding deposit in payments', () => {
-    defaultProps.configuration.holding_deposit_value = 1000.0;
+    defaultProps.holdingDepositAmount = 1000.0;
     const payments = [{
         "id": "12",
         "type": "10",
@@ -75,7 +80,7 @@ it('renders Holding Deposit Paid when there is a holding deposit with correct to
 })
 
 it('does not render Holding Deposit when there is no holding deposit with correct total fees', () => {
-    defaultProps.configuration.holding_deposit_value = '';
+    defaultProps.holdingDepositAmount = '';
     const payments = [{
         "id": "12",
         "type": "10",
@@ -93,7 +98,7 @@ it('does not render Holding Deposit when there is no holding deposit with correc
 })
 
 it('does not render Total when no holding deposit and fees are paid', () => {
-    defaultProps.configuration.holding_deposit_value = '';
+    defaultProps.holdingDepositAmount = '';
     const payments = [{
         "id": "12",
         "type": "10",
@@ -110,22 +115,26 @@ it('does not render Total when no holding deposit and fees are paid', () => {
 })
 
 it('does not render Total when holding deposit paid and fees are paid', () => {
-    defaultProps.configuration.holding_deposit_value = 1000;
+    defaultProps.holdingDepositAmount = 1000;
     defaultProps.payments[0].paid = true;
     defaultProps.payments[1].paid = true;
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
 })
 
-it('renders expected conditional text when passed receiptView=true', () => {
-    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} receiptView={true} /> );
+it('renders expected header text', () => {
+    const payments = [{
+        "id": "12",
+        "type": "10",
+        "invoice": "666",
+        "applicant": "18",
+        "invitee": null,
+        "amount": 100.00,
+        "paid": true,
+        "stripe_id": ""
+    }]
 
-    expect(wrapper.text().includes('Payment Success!')).toBeTruthy();
-    expect(wrapper.text().includes('Payment Summary')).toBeTruthy();
-})
-
-it('renders expected conditional text when passed receiptView=false', () => {
-    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
+    let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} receipt={null} /> );
 
     expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
     expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();

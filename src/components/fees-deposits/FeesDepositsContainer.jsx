@@ -6,6 +6,7 @@ import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
+import FeesDepositsReceipt from './FeesDepositsReceipt';
 import PaymentTerms from './PaymentTerms';
 
 
@@ -13,7 +14,8 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
 
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
-    const [totalPayment, setTotalPayment] = useState(null)
+    const [totalPayment, setTotalPayment] = useState(null);
+    const [receipt, setReceipt] = useState(null);
 
     useEffect( () => {
         fetchPayments();
@@ -44,14 +46,23 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setCurrentPage('terms');
     }
 
+    const handlePaymentSuccess = (receipt) => {
+        setReceipt(receipt);
+        setCurrentPage('receipt')
+    }
+
     if (!configuration || !profile || !applicant || !payments)  return <div/>;
+    const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
+    everyone.unshift(applicant);
+
     if (currentPage === 'options') {
         return <FeesDepositsOptions
+            baseAppFee={configuration.application_fee}
             handleClickBack={_prev}
             handleContinue={handlePaymentOptionsContinue}
             applicant={applicant}
-            configuration={configuration}
-            profile={profile}
+            holdingDepositAmount={configuration.holding_deposit_value || 0}
+            everyone={everyone}
             payments={payments}
         />
     } else if (currentPage === 'terms') {
@@ -61,20 +72,20 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         />
     } else if (currentPage === 'payment') {
         return <PaymentPage
-            handleSuccess={() => setCurrentPage('receipt')}
+            handleSuccess={handlePaymentSuccess}
             applicant={applicant}
             handleClickBack={() => setCurrentPage('terms')}
             payments={payments}
             totalPayment={totalPayment}
         />
     } else if (currentPage === 'receipt') {
-        return <FeesDepositsOptions
-            receiptView={true}
+        return <FeesDepositsReceipt
+            receipt={receipt}
             handleContinue={_nextRoute}
-            configuration={configuration}
+            baseAppFee={configuration.application_fee}
             applicant={applicant}
-            payments={payments}
-            profile={profile}
+            everyone={everyone}
+            email={applicant.client.person.email}
         />
     }
 
