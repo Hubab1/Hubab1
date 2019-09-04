@@ -32,7 +32,7 @@ const ApplicationFeesContainer = styled.div`
     border-bottom: 1px solid #EEEEEE;
 `
 
-export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, applicantFeePaid=false, unpaidApplicants=0 }) => {
+export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, applicantFeePaid=false, numUnpaidApplicants=0 }) => {
 
     const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
@@ -48,7 +48,7 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                 { everyone.length > 1 ? <P/> : <P>{formatCurrency(baseAppFee, 0)}</P>}
             </CardRowBorderless>
             {
-                !applicantFeePaid && everyone.length > 0 && !!unpaidApplicants &&
+                !applicantFeePaid && everyone.length > 0 && !!numUnpaidApplicants &&
                     <CardRowBorderless style={{border:'none', paddingBottom:0}}>
                         <FormControl component="fieldset" classes={{root}}>
                             <RadioGroup

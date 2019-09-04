@@ -24,10 +24,8 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
     const holdingDepositEntry = receipt.line_items.find(item => parseInt(item.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT);
     const holdingDepositAmount = !!holdingDepositEntry && holdingDepositEntry.amount ? holdingDepositEntry.amount : 0;
 
-    const receiptPersonIds = receipt.line_items.map(item =>  (item.applicant || item.invitee) );
-    const applicationFeesPeople = everyone.filter(person => 
-        !!receiptPersonIds.find(id => parseInt(id) === person.id)
-    );
+    const receiptPersonIds = new Set(receipt.line_items.map(item =>  parseInt(item.applicant || item.invitee) ));
+    const applicationFeesPeople = everyone.filter(person => !!receiptPersonIds.has(person.id));
 
     const totalApplicationFee = baseAppFee * applicationFeesPeople.length;
 

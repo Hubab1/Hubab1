@@ -33,13 +33,12 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
     });
     
     const activeApplicantFeePaid = applicationFeesPeople.find( person => person.id === applicant.id ).applicationFeePaid;
-    const unpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length;
+    const numUnpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length;
     
     const totalApplicationFee = applicationFeesSelected === 'self' ? 
         baseAppFee : 
-        baseAppFee * unpaidApplicants;
+        baseAppFee * numUnpaidApplicants;
 
-    const showHoldingDeposit = !!holdingDepositAmount;
     const holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid))
     
     const totalPaymentAmount = activeApplicantFeePaid ?
@@ -62,17 +61,17 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
                         everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
                         applicantFeePaid={activeApplicantFeePaid}
-                        unpaidApplicants={unpaidApplicants}
+                        numUnpaidApplicants={numUnpaidApplicants}
                     />
                     {
-                        showHoldingDeposit && 
+                        !!holdingDepositAmount && 
                             <HoldingDeposit
                                 holdingDepositPaid={holdingDepositPaid}
                                 holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
                             />
                     }
                     {   
-                        ( (!holdingDepositPaid && showHoldingDeposit) || !activeApplicantFeePaid ) &&
+                        ( (!holdingDepositPaid && !!holdingDepositAmount) || !activeApplicantFeePaid ) &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
