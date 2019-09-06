@@ -45,8 +45,7 @@ export class PaymentForm extends React.Component {
                         this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
                         this.setState({submitting: false});
-                        debugger;
-                        this.props.onSuccess();
+                        this.props.onSuccess(res);
                     }
                 });
             } else {
