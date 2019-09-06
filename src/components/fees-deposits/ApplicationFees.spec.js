@@ -111,3 +111,10 @@ it('renders EveryoneRow without PaidText, but with $75, when fees have not been 
     expect(wrapper.text().includes('$75')).toBeTruthy();
 
 })
+
+it('renders PaidText when activeApplicantPaid is true', () => {
+    let wrapper = shallow( <ApplicationFees {...defaultProps} activeApplicantFeePaid={true} /> );
+
+    expect(wrapper.find(PaidText).length).toEqual(1);
+    expect(wrapper.find(EveryoneRow).length).toEqual(0);
+})

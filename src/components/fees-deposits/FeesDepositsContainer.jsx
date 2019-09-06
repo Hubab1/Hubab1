@@ -15,10 +15,14 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
     const [totalPayment, setTotalPayment] = useState(null);
-    const [receipt, setReceipt] = useState(null);
+    const [receipt, setReceipt] = useState(applicant && applicant.receipt);
 
     useEffect( () => {
-        fetchPayments();
+        if (receipt) {
+            setCurrentPage('receipt');
+        } else {
+            fetchPayments();
+        }
     }, [])
 
     useEffect( () => {
@@ -50,11 +54,9 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setReceipt(receipt);
         setCurrentPage('receipt')
     }
-
-    if (!configuration || !profile || !applicant || !payments)  return <div/>;
+    if (!configuration || !profile || !applicant || (!payments && !receipt))  return <div/>;
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
     everyone.unshift(applicant);
-
     if (currentPage === 'options') {
         return <FeesDepositsOptions
             baseAppFee={configuration.application_fee}
@@ -86,6 +88,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             applicant={applicant}
             everyone={everyone}
             email={applicant.client.person.email}
+            paidByAnother={receipt.paid_by !== applicant.id}
         />
     }
 
