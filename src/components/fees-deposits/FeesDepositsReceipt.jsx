@@ -55,12 +55,13 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                             />
                     }
                     {   
-                        <CardRowTotal>
-                            <P bold>Total</P>
-                            <div>
-                                <P bold>{formatCurrency(receipt.total, 0)}</P>
-                            </div>
-                        </CardRowTotal>
+                        !paidByAnother && 
+                            <CardRowTotal>
+                                <P bold>Total</P>
+                                <div>
+                                    <P bold>{formatCurrency(receipt.total, 0)}</P>
+                                </div>
+                            </CardRowTotal>
                     }
                 </CardSection>
             </Card>
