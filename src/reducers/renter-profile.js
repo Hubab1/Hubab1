@@ -106,7 +106,7 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
     [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
-    [ROUTES.FEES_AND_DEPOSITS]: !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.SCREENING]: !events.has(APPLICATION_EVENTS.EVENT_SCREENING_COMPLETED),
     [ROUTES.APP_COMPLETE]: true
 });
