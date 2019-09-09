@@ -52,7 +52,7 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                 }
             </CardRowBorderless>
             {
-                !activeApplicantFeePaid && everyone.length > 0 && !!numUnpaidApplicants &&
+                !activeApplicantFeePaid && everyone.length > 1 && !!numUnpaidApplicants &&
                     <CardRowBorderless style={{border:'none', paddingBottom:0}}>
                         <FormControl component="fieldset" classes={{root}}>
                             <RadioGroup

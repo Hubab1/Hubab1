@@ -67,16 +67,56 @@ beforeEach(() => {
         ],
         applicationFeesSelected: "everyone",
         handleChange: jest.fn(),
-        baseAppFee: 75
+        baseAppFee: 75,
+        numUnpaidApplicants: 3
     }
 })
 
 it('renders row with radio select and all other applicants when everyone selected', () => {
     let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
 
+    expect(wrapper.html().includes('input')).toBeTruthy();
     expect(wrapper.text().includes('Application Fee')).toBeTruthy();
     expect(wrapper.find(EveryoneRow).length).toEqual(4);
 })
+
+it('renders does not render radio select when everyone is only the logged in applicant', () => {
+    const mainApplicant = [{
+        "address_city": "abc",
+        "lease_settings": 2,
+        "address_postal_code": "",
+        "email": "slkejhfkajshefjkhek@gm.com",
+        "role": "primary_applicant",
+        "guarantors": [{
+            "phone_number": "(555) 123-6456",
+            "first_name": "scotty",
+            "last_name": "2hotty",
+            "id": 5,
+            "is_registered": false
+        }],
+        "application": 16,
+        "client": {
+            "person": {
+                "id": 346785,
+                "email": "slkejhfkajshefjkhek@gm.com",
+                "name": "Spanky McDanky",
+                "phone_1": "(555) 555-5555",
+                "first_name": "Spanky"
+            },
+            "id": 337136
+        },
+        "address_state": "",
+        "address_street": "",
+        "id": 18,
+        "applicationFeePaid": false,
+        "events": [{ "event": "45" }]
+    }];
+    let wrapper = shallow( <ApplicationFees {...defaultProps} everyone={mainApplicant} applicationFeesSelected="myself" /> );
+
+    expect(wrapper.html().includes('input')).not.toBeTruthy();
+    expect(wrapper.text()).toEqual('Application Fee <SimplePopover />$75');
+})
+
 
 it('renders row with radio select, but no other Applicants when self is selected', () => {
     defaultProps.applicationFeesSelected = 'self';
