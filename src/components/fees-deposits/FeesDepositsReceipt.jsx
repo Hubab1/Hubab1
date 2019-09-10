@@ -29,11 +29,11 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
 
     const totalApplicationFee = baseAppFee * applicationFeesPeople.length;
 
-    const h3Text = paidByAnother ? 'Your roommates have paid all the application fees!' : `Thank you! We emailed a receipt to ${email}`;
+    const descriptionText = paidByAnother ? 'Your roommates have paid all the application fees!' : `Thank you! We emailed a receipt to ${email}`;
     return (
         <Fragment>
             <SpacedH1>Payment Success!</SpacedH1>
-            <SpacedH3>{h3Text}</SpacedH3>
+            <SpacedH3>{descriptionText}</SpacedH3>
             <SpacedImg src={receiptImage} alt="receipt"/>
             <Card>
                 <CardSection>
