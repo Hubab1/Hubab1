@@ -45,8 +45,7 @@ export class PaymentForm extends React.Component {
                         this.setState({errors: [res.errors.error.message], submitting: false});
                     } else {
                         this.setState({submitting: false});
-                        // TODO: update this to read in the receipt payload when endpoint is ready
-                        this.props.onSuccess(mockReceipt);
+                        this.props.onSuccess(res);
                     }
                 });
             } else {

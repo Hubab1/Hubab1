@@ -22,6 +22,7 @@ const SpacedImg = styled.img`
 
 export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleContinue, handleClickBack, everyone, applicant, payments}) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
+    if (!payments) return <div/>;
 
     const applicationFeesPeople = everyone.map(person => {
         const applicationFeePaid = !!payments.find(payment => (
@@ -60,7 +61,7 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
                         handleChange={setApplicationFees}
                         everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
-                        applicantFeePaid={activeApplicantFeePaid}
+                        activeApplicantFeePaid={activeApplicantFeePaid}
                         numUnpaidApplicants={numUnpaidApplicants}
                     />
                     {

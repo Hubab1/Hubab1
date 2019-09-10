@@ -19,8 +19,8 @@ const SpacedImg = styled.img`
     margin: 15px 0;
 `
 
-export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email, receipt}) => {
-
+export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email, receipt, paidByAnother}) => {
+    if (!receipt) return <div/>;
     const holdingDepositEntry = receipt.line_items.find(item => parseInt(item.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT);
     const holdingDepositAmount = !!holdingDepositEntry && holdingDepositEntry.amount ? holdingDepositEntry.amount : 0;
 
@@ -29,10 +29,11 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
 
     const totalApplicationFee = baseAppFee * applicationFeesPeople.length;
 
+    const descriptionText = paidByAnother ? 'Your roommates have paid all the application fees!' : `Thank you! We emailed a receipt to ${email}`;
     return (
         <Fragment>
             <SpacedH1>Payment Success!</SpacedH1>
-            <SpacedH3>{`Thank you! We emailed a receipt to ${email}`}</SpacedH3>
+            <SpacedH3>{descriptionText}</SpacedH3>
             <SpacedImg src={receiptImage} alt="receipt"/>
             <Card>
                 <CardSection>
@@ -43,22 +44,24 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                         totalApplicationFee={totalApplicationFee}
                         everyone={applicationFeesPeople}
                         baseAppFee={baseAppFee}
+                        activeApplicantFeePaid={paidByAnother}
                     />
                     {
                         !!holdingDepositAmount && 
                             <HoldingDeposit
                                 formatCurrency={formatCurrency}
                                 holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
-                                receipt={true}
+                                holdingDepositPaid={paidByAnother}
                             />
                     }
                     {   
-                        <CardRowTotal>
-                            <P bold>Total</P>
-                            <div>
-                                <P bold>{formatCurrency(receipt.total, 0)}</P>
-                            </div>
-                        </CardRowTotal>
+                        !paidByAnother && 
+                            <CardRowTotal>
+                                <P bold>Total</P>
+                                <div>
+                                    <P bold>{formatCurrency(receipt.total, 0)}</P>
+                                </div>
+                            </CardRowTotal>
                     }
                 </CardSection>
             </Card>

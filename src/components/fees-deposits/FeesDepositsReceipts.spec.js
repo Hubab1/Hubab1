@@ -6,6 +6,7 @@ import mockApplicant from 'reducers/applicant-mock';
 import { FeesDepositsReceipt } from './FeesDepositsReceipt';
 import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
+import PaidText from './PaidText';
 
 
 
@@ -66,4 +67,11 @@ it('renders receipt information as expected when one applicant fee on receipt, n
     expect(wrapper.text().includes('Total$100')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(1);
     expect(wrapper.find(HoldingDeposit).length).toEqual(0);
+})
+
+it('does not render total when passed paidByAnother, and shows correct alternate h3 text', () => {
+    let wrapper = shallow( <FeesDepositsReceipt {...defaultProps} paidByAnother={true}/> );
+
+    expect(wrapper.text().includes('Your roommates have paid all the application fees!')).toBeTruthy();
+    expect(wrapper.text().includes('Total')).not.toBeTruthy();
 })

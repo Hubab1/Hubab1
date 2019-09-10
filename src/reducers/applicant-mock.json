@@ -25,5 +25,6 @@
     "address_state": "",
     "address_street": "",
     "id": 18,
-    "events": [{ "event": "45" }]
+    "events": [{ "event": "45" }],
+    "receipt": null
 }
