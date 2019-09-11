@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
@@ -7,6 +8,8 @@ import Lock from '@material-ui/icons/Lock';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
 import API, { MOCKY } from 'app/api';
+import { fetchApplicant } from 'reducers/applicant';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
@@ -41,10 +44,17 @@ export class PaymentForm extends React.Component {
                     total: this.props.totalPayment
                 };
                 API.stripePayment(data).then(res => {
+                    debugger;
                     if (res.errors) {
-                        this.setState({errors: [res.errors.error.message], submitting: false});
+                        if (res.errors.error) {
+                            this.setState({errors: [res.errors.error.message], submitting: false});
+                        } else {
+                            this.setState({errors: ["There was an error with your payment submission. Please try again."], submitting: false});
+                        }
                     } else {
                         this.setState({submitting: false});
+                        this.props.fetchApplicant();
+                        this.props.fetchRenterProfile();
                         this.props.onSuccess(res);
                     }
                 });
@@ -102,4 +112,4 @@ PaymentForm.propTypes = {
     payments: PropTypes.array
 };
 
-export default injectStripe(PaymentForm);
+export default connect(null, {fetchApplicant,  fetchRenterProfile})(injectStripe(PaymentForm));
