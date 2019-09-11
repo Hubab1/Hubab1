@@ -1,6 +1,7 @@
 import auth from 'utils/auth';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
+
 const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 function chuck(path) {
@@ -199,5 +200,16 @@ API.postPassthrough = data => (
         body: JSON.stringify(data)
     }).then(res => res.json())
 )
+
+API.fetchPaymentOptions = () => {
+    return fetch(chuck('/payment-options/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => {
+        return res.json()
+    });
+}
 
 export default API;

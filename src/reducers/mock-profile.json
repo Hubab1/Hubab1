@@ -9,13 +9,12 @@
             "first_name": "elvish",
             "last_name": "parsley",
             "id": 74,
-            "is_registered": false,
-            "application_fee_paid": false
+            "is_registered": false
         }],
         "phone_number": "(111) 111-1111",
         "first_name": "frank",
         "last_name": "underwood",
-        "id": 19,
+        "id": 18,
         "client": {
             "person": {
                 "id": 351422,
@@ -34,21 +33,18 @@
             "first_name": "kreebs",
             "last_name": "mcgreebs",
             "id": 71,
-            "is_registered": false,
-            "application_fee_paid": false
+            "is_registered": false
         },
         {
             "phone_number": "(333) 888-4449",
             "first_name": "jerry",
             "last_name": "maguire",
             "id": 73,
-            "is_registered": true,
-            "application_fee_paid": true
+            "is_registered": true
         }
     ],
 
     "id": 17,
     "unit": null,
-    "lease_end_date": null,
-    "holding_deposit_paid": false
+    "lease_end_date": null
 }

@@ -1,0 +1,53 @@
+{
+    "payables": [{
+            "id": "12",
+            "type": "10",
+            "invoice": "666",
+            "applicant": "18",
+            "invitee": null,
+            "amount": 100.00,
+            "paid": false,
+            "stripe_id": ""
+        },
+        {
+            "id": "13",
+            "type": "20",
+            "invoice": "666",
+            "applicant": "18",
+            "invitee": null,
+            "amount": 1000.00,
+            "paid": false,
+            "stripe_id": ""
+        },
+        {
+            "id": "14",
+            "type": "10",
+            "invoice": "666",
+            "applicant": null,
+            "invitee": "74",
+            "amount": 100.00,
+            "paid": false,
+            "stripe_id": ""
+        },
+        {
+            "id": "15",
+            "type": "10",
+            "invoice": "666",
+            "applicant": null,
+            "invitee": "71",
+            "amount": 100.00,
+            "paid": false,
+            "stripe_id": ""
+        },
+        {
+            "id": "16",
+            "type": "10",
+            "invoice": "666",
+            "applicant": "73",
+            "invitee": null,
+            "amount": 100.00,
+            "paid": true,
+            "stripe_id": ""
+        }
+    ]
+}

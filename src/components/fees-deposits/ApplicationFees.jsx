@@ -32,7 +32,7 @@ const ApplicationFeesContainer = styled.div`
     border-bottom: 1px solid #EEEEEE;
 `
 
-export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone, baseAppFee, applicantFeePaid, unpaidApplicants }) => {
+export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, activeApplicantFeePaid=false, numUnpaidApplicants=0 }) => {
 
     const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
@@ -45,10 +45,14 @@ export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>
                 </P>
-                { everyone.length > 1 ? <P/> : <P>{formatCurrency(baseAppFee, 0)}</P>}
+                { 
+                    activeApplicantFeePaid ?
+                        <PaidText/> :
+                        everyone.length > 1 ? <P/> : <P>{formatCurrency(baseAppFee, 0)}</P>
+                }
             </CardRowBorderless>
             {
-                !applicantFeePaid && everyone.length > 0 && !!unpaidApplicants &&
+                !activeApplicantFeePaid && everyone.length > 1 && !!numUnpaidApplicants &&
                     <CardRowBorderless style={{border:'none', paddingBottom:0}}>
                         <FormControl component="fieldset" classes={{root}}>
                             <RadioGroup
@@ -69,7 +73,7 @@ export const ApplicationFees = ({applicationFeesSelected, handleChange, everyone
                     </CardRowBorderless>
             }
             {
-                applicationFeesSelected === 'everyone' && 
+                !activeApplicantFeePaid && applicationFeesSelected === 'everyone' && 
                     everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
             }
         </ApplicationFeesContainer>
@@ -82,7 +86,7 @@ export const EveryoneRow = ({person, baseAppFee}) => {
         `${person.first_name} ${person.last_name}`
     return <IndentedRow>
         <P color="#454B57">{name}</P>
-        <div>{ person.application_fee_paid ? <PaidText/> : <P>{formatCurrency(baseAppFee, 0)}</P> } </div>
+        <div>{ person.applicationFeePaid ? <PaidText/> : <P>{formatCurrency(baseAppFee, 0)}</P> } </div>
     </IndentedRow>
 }
 

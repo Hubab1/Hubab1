@@ -34,39 +34,37 @@ const linkStyle = css`
     font-weight: 300;
 `
 
-export class PaymentPage extends React.Component {
-
-    render () {
-        const applicationFee = this.props.configuration.application_fee;
-        return (
-            <Fragment>
-                <H1>Almost There, {this.props.applicant.client.person.first_name}!</H1>
-                <SpacedH3>The application fee for this apartment is {applicationFee ? formatCurrency(applicationFee) : '$0'}. After payment, we’ll collect your SSN for screening.</SpacedH3>
-                <img src={creditCardImage} alt="credit card"></img>
-                <div className={bodyRow}>
-                    <img src={padlockImage} alt="padlock" width="18" height="28"/>
-                    <div className={bodyText}>
-                        This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} to="">privacy policy here.</Link>
-                    </div>
+export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, handleClickBack}) =>  {
+    return (
+        <Fragment>
+            <H1>Almost There, {applicant.client.person.first_name}!</H1>
+            <SpacedH3>The application fee and holding deposit for this apartment is {totalPayment ? formatCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for screening.</SpacedH3>
+            <img src={creditCardImage} alt="credit card"></img>
+            <div className={bodyRow}>
+                <img src={padlockImage} alt="padlock" width="18" height="28"/>
+                <div className={bodyText}>
+                    {/* TODO: design owes us updated copy on this... at the very least, the link should go somewhere */}
+                    This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} to="">privacy policy here.</Link>
                 </div>
-                <Elements
-                    fonts={[{
-                        cssSrc: 'https://use.typekit.net/asb6wyn.css'
-                    }]}
-                >
-                    <PaymentForm
-                        onSuccess={this.props._nextRoute}
-                        applicationFee={applicationFee}
-                    />
-                </Elements> 
-                <LinkButton className={blackLinkRoot} onClick={this.props.handleClickBack}>
-                    <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
-                </LinkButton>
-            </Fragment>
-        );
-    }
+            </div>
+            <Elements
+                /* elements requires direct import of fonts */
+                fonts={[{
+                    cssSrc: 'https://use.typekit.net/asb6wyn.css'
+                }]}
+            >
+                <PaymentForm
+                    onSuccess={handleSuccess}
+                    totalPayment={totalPayment}
+                    payments={payments}
+                />
+            </Elements> 
+            <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
+                <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
+            </LinkButton>
+        </Fragment>
+    );
 }
-
 
 export default PaymentPage;
 

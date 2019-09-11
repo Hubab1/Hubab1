@@ -1,15 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
 import Lock from '@material-ui/icons/Lock';
-import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
 import API, { MOCKY } from 'app/api';
+import { fetchApplicant } from 'reducers/applicant';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormError from 'components/common/GenericFormError';
 import { formatCurrency } from 'utils/misc';
+import mockReceipt from 'reducers/mock-receipt';
 
 
 export class PaymentForm extends React.Component {
@@ -17,7 +20,6 @@ export class PaymentForm extends React.Component {
         cardNumber: false,
         cardExpiry: false,
         cardCvc: false,
-        paymentSuccess: false,
         submitting: false,
         errors: null
     }
@@ -29,23 +31,30 @@ export class PaymentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (MOCKY) {
-            debugger;
-            this.props.onSuccess();
-            return;
+            this.setState({submitting: false});
+            return this.props.onSuccess(mockReceipt);
         }
         this.setState({submitting: true})
         const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
         return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
             if (res.token) {
-                const data = {token: res.token.id};
+                const data = {
+                    token: res.token.id,
+                    payables: this.props.payments,
+                    total: this.props.totalPayment
+                };
                 API.stripePayment(data).then(res => {
                     if (res.errors) {
-                        this.setState({errors: [res.errors.error.message], submitting: false});
+                        if (res.errors.error) {
+                            this.setState({errors: [res.errors.error.message], submitting: false});
+                        } else {
+                            this.setState({errors: ["There was an error with your payment submission. Please try again."], submitting: false});
+                        }
                     } else {
-                        this.setState(
-                            {paymentSuccess:true},
-                            () => setTimeout(this.props.onSuccess, 3000)
-                        ); 
+                        this.setState({submitting: false});
+                        this.props.fetchApplicant();
+                        this.props.fetchRenterProfile();
+                        this.props.onSuccess(res);
                     }
                 });
             } else {
@@ -56,7 +65,7 @@ export class PaymentForm extends React.Component {
         });
     }
     render() {
-        const { cardNumber, cardExpiry, cardCvc, paymentSuccess, submitting } = this.state;
+        const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
@@ -87,17 +96,9 @@ export class PaymentForm extends React.Component {
                     marginTop={25}
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
-                    successGreen={paymentSuccess}
                 >
-                    { 
-                        paymentSuccess ? 
-                            <CheckCircleRoundedIcon style={{width: 16, marginRight: 8}} /> : 
-                            <Lock style={{width: 16, marginRight: 8}}/>
-                    }
-                    {
-                        paymentSuccess ?
-                            'Payment Success!' :
-                            `Pay ${formatCurrency(this.props.applicationFee)}`}
+                    <Lock style={{width: 16, marginRight: 8}}/>
+                    { `Pay ${formatCurrency(this.props.totalPayment)}` }
                 </ActionButton>
             </form>
         )
@@ -105,7 +106,9 @@ export class PaymentForm extends React.Component {
 }
 
 PaymentForm.propTypes = {
-    applicationFee: PropTypes.number,
+    onSuccess: PropTypes.func,
+    totalPayment: PropTypes.number,
+    payments: PropTypes.array
 };
 
-export default injectStripe(PaymentForm);
+export default connect(null, {fetchApplicant,  fetchRenterProfile})(injectStripe(PaymentForm));
