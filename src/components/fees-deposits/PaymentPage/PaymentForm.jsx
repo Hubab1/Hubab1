@@ -44,7 +44,6 @@ export class PaymentForm extends React.Component {
                     total: this.props.totalPayment
                 };
                 API.stripePayment(data).then(res => {
-                    debugger;
                     if (res.errors) {
                         if (res.errors.error) {
                             this.setState({errors: [res.errors.error.message], submitting: false});
