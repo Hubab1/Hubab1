@@ -29,6 +29,11 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setPayments(payables);
     }, [payables])
 
+    useEffect( () => {
+        applicant && setReceipt(applicant.receipt);
+    }, [applicant])
+
+
 
     const handlePaymentOptionsContinue = (feesSelected, totalPayment) => {
         if (feesSelected === 'everyone') {
@@ -50,13 +55,9 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setCurrentPage('terms');
     }
 
-    const handlePaymentSuccess = (receipt) => {
-        setReceipt(receipt);
-        setCurrentPage('receipt')
-    }
     if (!configuration || !profile || !applicant || (!payments && !receipt))  return <div/>;
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
-    everyone.unshift(applicant);
+    everyone.unshift(profile.primary_applicant);
     if (currentPage === 'options') {
         return <FeesDepositsOptions
             baseAppFee={configuration.application_fee}
@@ -74,13 +75,14 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         />
     } else if (currentPage === 'payment') {
         return <PaymentPage
-            handleSuccess={handlePaymentSuccess}
+            handleSuccess={() => setCurrentPage('receipt')}
             applicant={applicant}
             handleClickBack={() => setCurrentPage('terms')}
             payments={payments}
             totalPayment={totalPayment}
         />
     } else if (currentPage === 'receipt') {
+        if (!receipt) return <div/>
         return <FeesDepositsReceipt
             receipt={receipt}
             handleContinue={_nextRoute}

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { MOCKY } from 'app/api';
 import { fetchApplicant } from 'reducers/applicant';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
 
@@ -18,6 +19,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                 _nextRoute={()=>{
                     if (!MOCKY) {
                         this.props.fetchApplicant();
+                        this.props.fetchRenterProfile();
                     }
                     return this.props.history.push(this.props._next)
                 }}
@@ -35,5 +37,5 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         _prev: selectors.selectPrevRoute(state),
     });
 
-    return connect(mapStateToProps, {currentRouteReceived, fetchApplicant})(Component);
+    return connect(mapStateToProps, {currentRouteReceived, fetchApplicant,  fetchRenterProfile})(Component);
 }
