@@ -5,5 +5,4 @@ steps:
       queue: docker
     env:
       BUILDKITE_ASSUME_ROLE: arn:aws:iam::380368738393:role/CI/ProductionDeployWoodhouse
-      # TODO: This needs to be changed to woodhouse-prod to keep naming consistent
-      S3_BUCKET: s3://woodhouse-dev
+      S3_BUCKET: s3://apply.funnelleasing.com
