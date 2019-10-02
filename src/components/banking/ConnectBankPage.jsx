@@ -12,7 +12,8 @@ import ConnectFinicity from './ConnectFinicity';
 import reports from 'reports.json';
 
 const finicityContainer = css`
-    height: 500px;
+    height: 100%;
+    max-width: 450px;
 `   
 
 
