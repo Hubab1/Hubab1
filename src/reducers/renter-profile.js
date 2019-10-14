@@ -67,7 +67,7 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
             }
             return dispatch({
                 type: renterProfileUpdated.toString(),
-                payload: stateUpdate || newData
+                payload: stateUpdate || res
             });
         })
     }

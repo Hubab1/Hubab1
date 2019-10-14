@@ -38,6 +38,13 @@ export class InviteRoommatesPage extends React.Component {
         });
     }
 
+    canInviteMore () {
+        if (this.props.profile.co_applicants.length >= this.props.config.rental_options_config.co_applicants.limit) {
+            return false;
+        }
+        return true;
+    }
+
     render () {
         if (this.state.confirmSent) {
             return <ConfirmationPage 
@@ -45,7 +52,7 @@ export class InviteRoommatesPage extends React.Component {
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
                 buttonClick={this.props._nextRoute}
                 buttonText="Continue"
-                secondaryButtonClick={() => this.setState({confirmSent: false})}
+                secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
                 secondaryButtonText="Add Another Roommate"
                 confirmationImage={inviteConfirm}
             />
@@ -64,6 +71,7 @@ export class InviteRoommatesPage extends React.Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    config: state.configuration,
 })
 
 export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.CO_APPLICANTS));
