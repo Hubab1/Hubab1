@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { LeaseTermsPage } from './LeaseTermsPage';
+import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 
 
 let defaultProps, updateRenterProfile;
@@ -9,7 +10,10 @@ beforeEach(() => {
     updateRenterProfile = jest.fn();
     defaultProps = {
         updateRenterProfile: updateRenterProfile,
-        _nextRoute: jest.fn()
+        _nextRoute: jest.fn(),
+        applicant: {
+            role: ROLE_PRIMARY_APPLICANT
+        }
     }
 });
 
