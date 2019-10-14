@@ -115,10 +115,12 @@ export class PetsPage extends React.Component {
                                                 />
                                             ))
                                         }
-                                        <AddAnotherButton
-                                            thing="Pet"
-                                            onClick={() => arrayHelpers.push({key: uuidv4()})}
-                                        />
+                                        {values.petOptions.length < this.props.configuration.rental_options_config.pets.limit ?
+                                            <AddAnotherButton
+                                                thing="Pet"
+                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                            />: null
+                                        }
                                     </div>
                                 )}
                             />
