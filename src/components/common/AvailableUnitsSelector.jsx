@@ -183,6 +183,7 @@ export default function AvailableUnitsSelector (props) {
                                 inputProps,
                                 error: props.error,
                                 helperText: props.helperText,
+                                disabled: props.disabled,
                             })}
 
                             <div {...getMenuProps()}>
