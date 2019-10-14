@@ -87,7 +87,8 @@ export class LeaseTermsPage extends React.Component {
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
-                <SpacedH3>Please select from the options below to move forward.</SpacedH3>
+                {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
+                {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
                 <ImageContainer>
                     <img src={rent} alt="for rent sign"/>
                 </ImageContainer>
