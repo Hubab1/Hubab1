@@ -124,7 +124,7 @@ export class PetsPage extends React.Component {
                                     </div>
                                 )}
                             />
-                            <ActionButton disabled={isSubmitting} marginTop={55} marginBottom={20}>Next</ActionButton>
+                            <ActionButton disabled={isSubmitting} marginTop={55} marginBottom={20}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
