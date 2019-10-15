@@ -96,7 +96,7 @@ selectors.selectOrderedRoutes = createSelector(
     }
 );
 
-const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code', 'birthday'];
+const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
 const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
     [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), 

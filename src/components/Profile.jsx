@@ -28,7 +28,6 @@ const ImageContainer = styled.div`
 export class Profile extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
-        serialized.birthday = serializeDate(serialized.birthday);
         this.props.updateApplicant(serialized).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
@@ -41,17 +40,11 @@ export class Profile extends React.Component {
 
     initialValues () {
         const applicant = this.props.applicant;
-        let birthday = applicant.birthday;
-        // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
-        if (birthday) {
-            birthday = parseDateISOString(birthday);
-        }
         return {
             address_street: applicant.address_street,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
             address_postal_code: applicant.address_postal_code,
-            birthday: birthday
         }
     }
 
@@ -73,8 +66,6 @@ export class Profile extends React.Component {
                         address_state: Yup.string()
                             .required('required'),
                         address_postal_code: Yup.string()
-                            .required('required'),
-                        birthday: Yup.string()
                             .required('required'),
                     })}
                     initialValues={this.initialValues()}
@@ -125,7 +116,7 @@ export class Profile extends React.Component {
                                         value={values.address_state}
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6}>
                                     <FormTextInput
                                         label="Zip"
                                         name="address_postal_code"
@@ -136,25 +127,8 @@ export class Profile extends React.Component {
                                         value={values.address_postal_code}
                                     />
                                 </Grid>
-                                <Grid item xs={8}>
-                                    <KeyboardDatePicker
-                                        id="birthday-picker"
-                                        clearable
-                                        disableFuture
-                                        format="MM/dd/yyyy"
-                                        placeholder="mm/dd/yyyy"
-                                        label="Birthday"
-                                        value={values.birthday || null}
-                                        fullWidth
-                                        onBlur={handleBlur}
-                                        onChange={e => setFieldValue('birthday', e)}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!values.address_street || !values.address_city || !values.address_state || !values.address_postal_code || !values.birthday || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!values.address_street || !values.address_city || !values.address_state || !values.address_postal_code || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
