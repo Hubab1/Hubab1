@@ -13,6 +13,8 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
 import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
+import { BackLink } from 'components/common/BackLink';
+
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -93,10 +95,11 @@ export class RentalProfileOptions extends React.Component {
                                     />
                                 ))}
                             </MultiSelect>
-                            <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={10}>Continue</ActionButton>
+                            <ActionButton disabled={isSubmitting} marginTop={60} marginBottom={27}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
+                <BackLink to={this.props._prev}/>
             </Fragment>
         );
     }
