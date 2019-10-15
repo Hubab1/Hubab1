@@ -5,10 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { ROUTES } from 'app/constants';
-import { serializeDate, parseDateISOString } from 'utils/misc';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
