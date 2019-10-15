@@ -4,10 +4,8 @@ import { Formik } from 'formik';
 import styled from '@emotion/styled';
 import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Checkbox from '@material-ui/core/Checkbox';
 import * as Yup from 'yup';
 
 import { ROUTES } from 'app/constants';
@@ -29,9 +27,16 @@ const securityBlurb = css`
     color: #828796;
     font-size: 13px;
 `
+const checkboxText = css`
+    font-size: 12px;
+`
 
 const centerText = css`
     text-align: center;
+`
+
+const noPaddingTop = css`
+    padding-top: 0 !important;
 `
 
 const gridContainer = css`
@@ -54,7 +59,8 @@ export class Screening extends React.Component {
     }
 
     render () {
-        if (!this.props.applicant) return null;
+        if (!this.props.applicant || !this.props.configuration) return null;
+        const buildingName = this.props.configuration.community.building_name || this.props.configuration.community.normalized_street_address;
 
         return (
             <Fragment>
@@ -67,8 +73,10 @@ export class Screening extends React.Component {
                     onSubmit={this.onSubmit}
                     validationSchema={Yup.object().shape({
                         ssn: Yup.string()
-                            .required('Phone Number is required')
-                            .matches(/^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555')
+                            .required('Social Security Number is required')
+                            .matches(/^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
+                        disclaimer: Yup.string()
+                            .required('You must click the checkbox to agree to the terms')
                     })}
                 >
                     {({
@@ -83,21 +91,16 @@ export class Screening extends React.Component {
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <FormControl fullWidth>
-                                <InputLabel htmlFor="employment-status">Select Your Employement Status</InputLabel>
-                                <Select
-                                    value={values.employment_status}
-                                    onChange={handleChange}
-                                    inputProps={{
-                                        name: 'employment_status',
-                                        id: 'employment-status',
-                                    }}
-                                >
-                                    <MenuItem value={1}>Employed</MenuItem>
-                                    <MenuItem value={2}>Student</MenuItem>
-                                    <MenuItem value={3}>Retired</MenuItem>
-                                    <MenuItem value={4}>Other</MenuItem>
-                                </Select>
-                                <br/>
+                                <div className={gridContainer}>
+                                    <Grid container spacing={1} alignItems="center">
+                                        <Grid item xs={4} classes={{ root: centerText }}>
+                                            <Image alt="ssl secured" src={ssl} />
+                                        </Grid>
+                                        <Grid item xs={8}>
+                                            <span className={securityBlurb}>We use industry leading encryption software to secure your data</span>
+                                        </Grid>
+                                    </Grid>
+                                </div>
                                 <SocialSecurityInput
                                     name="ssn"
                                     setFieldValue={(val) => setFieldValue('ssn', val)}
@@ -109,16 +112,23 @@ export class Screening extends React.Component {
                                     helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
                                 />
                                 <div className={gridContainer}>
-                                    <Grid container spacing={1} alignItems="center">
-                                        <Grid item xs={4} classes={{ root: centerText }}>
-                                            <Image alt="ssl secured" src={ssl} />
+                                    <Grid container spacing={0} alignItems="flex-start">
+                                        <Grid item xs={2}>
+                                            <Checkbox 
+                                                name="disclaimer"
+                                                onChange={handleChange}
+                                                checked={values.disclaimer}
+                                                value={values.disclaimer}
+                                                error={errors.disclaimer}
+                                                classes={{ root: noPaddingTop }}
+                                            />
                                         </Grid>
-                                        <Grid item xs={8}>
-                                            <span className={securityBlurb}>We use industry leading encryption software to secure your data</span>
+                                        <Grid item xs={10}>
+                                            <span className={checkboxText}>{`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${buildingName} to request a consumer report.`}</span>
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <ActionButton disabled={!values.ssn || !values.employment_status || isSubmitting} marginTop={31} marginBottom={20}>
+                                <ActionButton disabled={!values.ssn || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>
                             </FormControl>
@@ -131,7 +141,8 @@ export class Screening extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    applicant: state.applicant
+    applicant: state.applicant,
+    configuration: state.configuration
 })
 
 export default connect(mapStateToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));
