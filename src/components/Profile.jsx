@@ -13,6 +13,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import sticky from 'assets/images/sticky.png';
+import { allValuesSet } from 'utils/misc';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -22,6 +23,7 @@ const ImageContainer = styled.div`
         max-width: 114px;
     }
 `
+
 
 export class Profile extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
@@ -76,7 +78,6 @@ export class Profile extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        setFieldValue,
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
@@ -126,7 +127,7 @@ export class Profile extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!values.address_street || !values.address_city || !values.address_state || !values.address_postal_code || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!allValuesSet(values) || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
