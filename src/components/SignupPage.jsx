@@ -28,8 +28,8 @@ export class SignupPage extends React.Component {
             const { first_name, last_name, email, phone_1 } = client.person;
             return {first_name, last_name, email, phone_number: phone_1, id: client.id};
         } else if (invitee && invitee.first_name) {
-            const { first_name, last_name, phone_number } = invitee;
-            return { first_name, last_name, phone_number };
+            const { first_name, last_name, phone_number, email } = invitee;
+            return { first_name, last_name, phone_number, email };
         } else {
             return null;
         }
