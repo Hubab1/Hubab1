@@ -13,7 +13,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import sticky from 'assets/images/sticky.png';
-import { allValuesSet } from 'utils/misc';
+import { allValuesSet } from 'utils/formik';
 
 const ImageContainer = styled.div`
     margin-top: 31px;

@@ -13,22 +13,29 @@ beforeEach(() => {
             address_city: 'New York',
             address_state: 'NY',
             address_postal_code: '10038',
-        }
+        },
+        updateApplicant: jest.fn()
     }
 });
 
 describe('<ActionButton/>', () => {
-    it('disabled if form is incomplete', function () {
-        let wrapper = mount(<Profile {...defaultProps}/>);
-        expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
+    describe('all form fields filled in', () => {
+        it('ActionButton is not disabled', function () {
+            let wrapper = mount(<Profile {...defaultProps}/>);
+            expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
+        });
+    });
 
+    describe('missing form value', () => {
         let applicant = {
             address_street: '123 Fulton st',
             address_city: 'New York',
             address_state: '',
             address_postal_code: '10038',
         };
-        wrapper = mount(<Profile {...defaultProps} applicant={applicant} />);
-        expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+        it('disabled if form is incomplete', function () {
+            const wrapper = mount(<Profile {...defaultProps} applicant={applicant} />);
+            expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+        });
     });
 });

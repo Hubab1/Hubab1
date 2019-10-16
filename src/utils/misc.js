@@ -58,11 +58,3 @@ export const offsetDate = memoize((fromDate, offsetMonths) => {
     const newDate = addMonths(fromDate, offsetMonths);
     return format(newDate, 'MMMM do, yyyy');
 }, (a, b) => `${a}-${b}`);
-
-// If using with Formik ensure all values are set in initialValues
-export function allValuesSet (values) {
-    for (let key in values) {
-        if (!values[key]) return false;
-    }
-    return true;
-}
