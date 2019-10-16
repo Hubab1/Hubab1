@@ -5,16 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { ROUTES } from 'app/constants';
-import { serializeDate, parseDateISOString } from 'utils/misc';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import sticky from 'assets/images/sticky.png';
+import { allValuesSet } from 'utils/formik';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -25,10 +24,10 @@ const ImageContainer = styled.div`
     }
 `
 
+
 export class Profile extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
-        serialized.birthday = serializeDate(serialized.birthday);
         this.props.updateApplicant(serialized).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
@@ -41,17 +40,11 @@ export class Profile extends React.Component {
 
     initialValues () {
         const applicant = this.props.applicant;
-        let birthday = applicant.birthday;
-        // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
-        if (birthday) {
-            birthday = parseDateISOString(birthday);
-        }
         return {
             address_street: applicant.address_street,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
             address_postal_code: applicant.address_postal_code,
-            birthday: birthday
         }
     }
 
@@ -74,8 +67,6 @@ export class Profile extends React.Component {
                             .required('required'),
                         address_postal_code: Yup.string()
                             .required('required'),
-                        birthday: Yup.string()
-                            .required('required'),
                     })}
                     initialValues={this.initialValues()}
                     onSubmit={this.onSubmit}
@@ -87,7 +78,6 @@ export class Profile extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        setFieldValue,
                         isSubmitting
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
@@ -125,7 +115,7 @@ export class Profile extends React.Component {
                                         value={values.address_state}
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6}>
                                     <FormTextInput
                                         label="Zip"
                                         name="address_postal_code"
@@ -136,25 +126,8 @@ export class Profile extends React.Component {
                                         value={values.address_postal_code}
                                     />
                                 </Grid>
-                                <Grid item xs={8}>
-                                    <KeyboardDatePicker
-                                        id="birthday-picker"
-                                        clearable
-                                        disableFuture
-                                        format="MM/dd/yyyy"
-                                        placeholder="mm/dd/yyyy"
-                                        label="Birthday"
-                                        value={values.birthday || null}
-                                        fullWidth
-                                        onBlur={handleBlur}
-                                        onChange={e => setFieldValue('birthday', e)}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!values.address_street || !values.address_city || !values.address_state || !values.address_postal_code || !values.birthday || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!allValuesSet(values) || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
