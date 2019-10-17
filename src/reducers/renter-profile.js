@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 
 import { NAV_ROUTES, routeToOptionName } from 'app/constants';
 import API, { MOCKY } from 'app/api';
-import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS } from 'app/constants';
+import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED } from 'app/constants';
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
@@ -107,7 +107,7 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.SCREENING]: !events.has(APPLICATION_EVENTS.EVENT_SCREENING_COMPLETED),
+    [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
     [ROUTES.APP_COMPLETE]: true
 });
 
