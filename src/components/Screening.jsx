@@ -59,8 +59,7 @@ export class Screening extends React.Component {
     }
 
     render () {
-        if (!this.props.applicant || !this.props.configuration) return null;
-        const buildingName = this.props.configuration.community.building_name || this.props.configuration.community.normalized_street_address;
+        if (!this.props.applicant) return null;
 
         return (
             <Fragment>
@@ -124,7 +123,7 @@ export class Screening extends React.Component {
                                             />
                                         </Grid>
                                         <Grid item xs={10}>
-                                            <span className={checkboxText}>{`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${buildingName} to request a consumer report.`}</span>
+                                            <span className={checkboxText}>{`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${this.props.buildingName} to request a consumer report.`}</span>
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -142,7 +141,7 @@ export class Screening extends React.Component {
 
 const mapStateToProps = state => ({
     applicant: state.applicant,
-    configuration: state.configuration
+    buildingName: state.configuration.community.building_name || state.configuration.community.normalized_street_address
 })
 
 export default connect(mapStateToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));
