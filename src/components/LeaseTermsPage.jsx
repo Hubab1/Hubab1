@@ -52,8 +52,7 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const isPrimaryApplicant = this.props.applicant.role === ROLE_PRIMARY_APPLICANT;
-        if (!isPrimaryApplicant) return this.props._nextRoute();
+        if (!this.props.isPrimaryApplicant) return this.props._nextRoute();
 
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
@@ -82,8 +81,8 @@ export class LeaseTermsPage extends React.Component {
     }
 
     render () {
-        if (!this.props.application || !this.props.config || !this.props.applicant) return null;
-        const isPrimaryApplicant = this.props.applicant.role === ROLE_PRIMARY_APPLICANT;
+        if (!this.props.application) return null;
+        const { isPrimaryApplicant } = this.props;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -188,7 +187,7 @@ export class LeaseTermsPage extends React.Component {
 }
 
 export default connect((state) => ({
-    applicant: state.applicant,
+    isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
     application: state.renterProfile,
     config: state.configuration,
 }),

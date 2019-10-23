@@ -78,9 +78,9 @@ export class Main extends Component {
     }
 
     render() {
-        const theme = this.props.theme;
+        const { theme, hasApplicant } = this.props;
         if (this.state.hasError) return <div>Error getting application form</div>;
-        if (!theme) return null;
+        if (!theme || !hasApplicant) return null;
         return (
             <AppContextProvider theme={theme}>
                 <div>
@@ -109,6 +109,7 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    hasApplicant: !!state.applicant,
     configuration: state.configuration,
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
