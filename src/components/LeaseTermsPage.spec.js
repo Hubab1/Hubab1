@@ -9,6 +9,7 @@ let defaultProps, updateRenterProfile;
 beforeEach(() => {
     updateRenterProfile = jest.fn();
     defaultProps = {
+        isPrimaryApplicant: true,
         updateRenterProfile: updateRenterProfile,
         _nextRoute: jest.fn(),
         applicant: {
