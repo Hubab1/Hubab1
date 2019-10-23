@@ -60,7 +60,7 @@ export class InviteRoommatesPage extends React.Component {
         return (
             <Fragment>
                 <H1>Invite Your Roommates</H1>
-                <SpacedH3>Tell us the basics and we’ll send them an invite to tell us the rest.</SpacedH3>
+                <SpacedH3>Send your roommate an application link via text or email.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
                 <BackLink to={this.props._prev}/>
