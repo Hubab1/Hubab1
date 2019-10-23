@@ -33,6 +33,7 @@ beforeEach(() => {
     fetchRenterProfilePromise = Promise.resolve({});
 
     defaultProps = {
+        hasApplicant: true,
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
         fetchConfiguration: jest.fn().mockReturnValue(fetchConfigurationPromise),
         configuration: configurationObject,

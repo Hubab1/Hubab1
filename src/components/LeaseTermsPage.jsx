@@ -23,6 +23,7 @@ import { updateRenterProfile } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import { offsetDate } from 'utils/misc';
+import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 
 
 
@@ -51,6 +52,8 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        if (!this.props.isPrimaryApplicant) return this.props._nextRoute();
+
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
 
@@ -78,11 +81,13 @@ export class LeaseTermsPage extends React.Component {
     }
 
     render () {
-        if (!this.props.application || !this.props.config) return null;
+        if (!this.props.application) return null;
+        const { isPrimaryApplicant } = this.props;
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
-                <SpacedH3>Please select from the options below to move forward.</SpacedH3>
+                {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
+                {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
                 <ImageContainer>
                     <img src={rent} alt="for rent sign"/>
                 </ImageContainer>
@@ -118,6 +123,7 @@ export class LeaseTermsPage extends React.Component {
                                             label="Move In Date"
                                             value={values.lease_start_date || null}
                                             fullWidth
+                                            disabled={!isPrimaryApplicant}
                                             onBlur={handleBlur}
                                             onChange={e => setFieldValue('lease_start_date', e)}
                                             KeyboardButtonProps={{
@@ -133,6 +139,7 @@ export class LeaseTermsPage extends React.Component {
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
                                             errors={errors}
+                                            disabled={!isPrimaryApplicant}
                                             initialValue={values.unit}
                                         />
                                     </Grid>
@@ -143,6 +150,7 @@ export class LeaseTermsPage extends React.Component {
                                                 fullWidth
                                                 value={values.lease_term}
                                                 onChange={handleChange}
+                                                disabled={!isPrimaryApplicant}
                                                 inputProps={{
                                                     name: 'lease_term',
                                                     id: 'lease-term',
@@ -178,4 +186,11 @@ export class LeaseTermsPage extends React.Component {
     }
 }
 
-export default connect((state) => ({application: state.renterProfile, config: state.configuration}), {updateRenterProfile})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect((state) => ({
+    isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
+    application: state.renterProfile,
+    config: state.configuration,
+}),
+{
+    updateRenterProfile
+})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
