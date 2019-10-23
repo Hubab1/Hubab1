@@ -80,7 +80,7 @@ export class Main extends Component {
     render() {
         const { theme, hasApplicant } = this.props;
         if (this.state.hasError) return <div>Error getting application form</div>;
-        if (!theme || !hasApplicant) return null;
+        if (!theme) return null;
         return (
             <AppContextProvider theme={theme}>
                 <div>
@@ -90,7 +90,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={SignupPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
-                        <NavDrawer hideNav={!this.props.configuration.show_navigation}>
+                        {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                             <Route path={ROUTES.PROFILE} component={Profile} />
@@ -99,7 +99,7 @@ export class Main extends Component {
                             <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
-                        </NavDrawer>
+                        </NavDrawer>}
                     </Switch>
                 </div>
             </AppContextProvider>

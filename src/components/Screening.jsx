@@ -54,8 +54,6 @@ export class Screening extends React.Component {
     }
 
     render () {
-        if (!this.props.applicant) return null;
-
         return (
             <Fragment>
                 <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
