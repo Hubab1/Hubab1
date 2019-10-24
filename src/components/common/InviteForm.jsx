@@ -114,7 +114,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                                 { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                             </LinkButton>
                         </div>
-                        <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Send {sendToPhone ? 'Text' : 'Email'}</ActionButton>
+                        <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Send {sendToPhone ? 'Text' : 'Email'} Invite</ActionButton>
                     </div>
                 </form>
             )
