@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#ffffff',
         color: '#000000'
     },
+    toolbar: { 
+        minHeight: 76
+    }
 }));
 
 export function PersistentDrawerLeft(props) {
@@ -66,7 +69,7 @@ export function PersistentDrawerLeft(props) {
                 position="fixed"
                 classes={{colorPrimary: appThemeContext.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar}}
             >
-                <Toolbar>
+                <Toolbar className={classes.toolbar}>
                     <IconButton
                         color="inherit"
                         aria-label="Open drawer"
