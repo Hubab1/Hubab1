@@ -14,7 +14,7 @@ import reports from 'reports.json';
 const finicityContainer = css`
     height: calc(100vh - 66px);
     max-width: 450px;
-    margin: 0 -20px -45px -20px;
+    margin: -15px -20px -45px -20px;
 `   
 
 
