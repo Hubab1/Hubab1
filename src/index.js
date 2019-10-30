@@ -3,9 +3,12 @@ import './assets/sass/styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+
+import 'app/configureSentry';
 import store from 'reducers/store';
 import App from 'app/App';
 import TagManager from 'react-gtm-module';
+
 
 const GTM_AUTH = process.env.GTM_AUTH;
 
