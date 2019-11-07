@@ -56,7 +56,10 @@ export class Main extends Component {
             }   
         } else {
             fetchRenterProfile().then(() => {
-                history.replace(this.props.initialPage);
+                if (!this.props.canAccessCurrentRoute()) {
+                    history.replace(this.props.initialPage);
+
+                }
             });
         }
     }
@@ -114,6 +117,7 @@ const mapStateToProps = state => ({
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
     initialPage: selectors.selectInitialPage(state),
+    canAccessCurrentRoute: () => selectors.canAccessRoute(state, state.siteConfig.currentRoute),
     theme: configSelectors.selectTheme(state),
 });
 

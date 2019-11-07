@@ -111,6 +111,12 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.APP_COMPLETE]: true
 });
 
+selectors.canAccessRoute = (state, route) => {
+    const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
+    const selectedRentalOptionsSet = new Set(state.renterProfile.selected_rental_options.selectedRentalOptions);
+    return !routeMapping(eventsSet, selectedRentalOptionsSet, state.renterProfile, state.applicant)[route];
+};
+
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
@@ -119,10 +125,10 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     (orderedRoutes, events, selectedRentalOptions, renterProfile, applicant) => {
         if (orderedRoutes && events && selectedRentalOptions) {
+            const eventsSet = new Set(events.map(event => parseInt(event.event)));
+            const selectedRentalOptionsSet = new Set(selectedRentalOptions);
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                const eventsSet = new Set(events.map(event => parseInt(event.event)));
-                const selectedRentalOptionsSet = new Set(selectedRentalOptions);
                 if (i === orderedRoutes.length -1 || routeMapping(eventsSet, selectedRentalOptionsSet, renterProfile, applicant)[route]) {
                     return route;
                 }
