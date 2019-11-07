@@ -114,7 +114,7 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
 selectors.canAccessRoute = (state, route) => {
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
     const selectedRentalOptionsSet = new Set(state.renterProfile.selected_rental_options.selectedRentalOptions);
-    return !routeMapping(eventsSet, selectedRentalOptionsSet, state.renterProfile, state.applicant)[route];
+    return routeMapping(eventsSet, selectedRentalOptionsSet, state.renterProfile, state.applicant)[route] === false;
 };
 
 selectors.selectInitialPage = createSelector(
