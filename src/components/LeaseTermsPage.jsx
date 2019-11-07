@@ -52,8 +52,6 @@ export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        if (!this.props.isPrimaryApplicant) return this.props._nextRoute();
-
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
 
