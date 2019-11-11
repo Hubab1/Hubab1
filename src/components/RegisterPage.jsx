@@ -57,7 +57,7 @@ export class RegisterPage extends React.Component {
 
         // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
         // particularly need this for guarantor and co-applicant to associate with existing application
-        return auth.register(values, this.props.communityId, hash).then((res) => {
+        return auth.register(serialized, this.props.communityId, hash).then((res) => {
             auth.setSession(res.token, this.props.communityId);
             setSubmitting(false);
             Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
