@@ -16,7 +16,7 @@ import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
-export const petsSchema = Yup.object().shape({
+export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array()
         .of(
             Yup.object({
@@ -31,7 +31,7 @@ export const petsSchema = Yup.object().shape({
                 weight: Yup.number().when('pet_type', {
                     is: (value) => ['Dog', 'Cat'].includes(value),
                     then: Yup.number().typeError('Please enter numbers only')
-                        .required('Required'),
+                        .required('Required').max(config.petMaxWeight, `This exceeds the maximum allowed weight of ${config.petMaxWeight}.`),
                     otherwise: Yup.number().notRequired()
                 }),
                 breed: Yup.string().when('pet_type', {
@@ -88,7 +88,9 @@ export class PetsPage extends React.Component {
                     <P fontSize={14}>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicy}>Read it now!</span></P>
                 </div>
                 <Formik
-                    validationSchema={petsSchema}
+                    validationSchema={petsSchema({
+                        petMaxWeight: this.props.configuration.pet_max_weight == null ? Infinity : this.props.configuration.pet_max_weight
+                    })}
                     onSubmit={this.onSubmit}
                     initialValues={{petOptions: selectedPetOptions}}
                 >
