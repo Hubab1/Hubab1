@@ -93,7 +93,7 @@ export class Profile extends React.Component {
                                         value={values.address_street}
                                     />
                                 </Grid>
-                                <Grid item xs={8}>
+                                <Grid item xs={12}>
                                     <FormTextInput
                                         label="City"
                                         name="address_city"
@@ -104,7 +104,7 @@ export class Profile extends React.Component {
                                         value={values.address_city}
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6}>
                                     <FormTextInput
                                         label="State"
                                         name="address_state"
