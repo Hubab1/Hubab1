@@ -89,7 +89,7 @@ export class PetsPage extends React.Component {
                 </div>
                 <Formik
                     validationSchema={petsSchema({
-                        petMaxWeight: this.props.configuration.pet_max_weight == null ? Infinity : this.props.configuration.pet_max_weight
+                        petMaxWeight: this.props.configuration.community.pets_max_weight == null ? Infinity : this.props.configuration.community.pets_max_weight
                     })}
                     onSubmit={this.onSubmit}
                     initialValues={{petOptions: selectedPetOptions}}
