@@ -2,6 +2,11 @@ import React, { Fragment } from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import { css } from 'emotion';
 import { getIn, Field } from 'formik';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { ErrorDetail } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -10,6 +15,10 @@ import PetTypeSelect from './PetTypeSelect';
 const cancelButton = css`
     color: #828796;
     cursor: pointer;
+`
+
+const root = css`
+    flex-direction: row !important;
 `
 
 const ErrorMessage = ({ name }) => (
@@ -55,6 +64,19 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
+                <FormControl component="fieldset">
+                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
+                    <RadioGroup
+                        classes={{root}}
+                        aria-label="service-animal"
+                        name="service-animal"
+                        onChange={handleChange}
+                        value={petOption['service-animal']}
+                    >
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                    </RadioGroup>
+                </FormControl>
             </Fragment>
         );
     }
@@ -79,6 +101,19 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
+                <FormControl component="fieldset">
+                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
+                    <RadioGroup
+                        classes={{root}}
+                        aria-label="service-animal"
+                        name="service-animal"
+                        onChange={handleChange}
+                        value={petOption['service-animal']}
+                    >
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                    </RadioGroup>
+                </FormControl>
             </Fragment>
         );
     }
@@ -95,6 +130,19 @@ export default class PetItem extends React.Component {
                     helperText="Please share a bit about your pet"
                 />
                 <ErrorMessage name={`petOptions[${index}].description`} />
+                <FormControl component="fieldset">
+                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
+                    <RadioGroup
+                        classes={{root}}
+                        aria-label="service-animal"
+                        name="service-animal"
+                        onChange={handleChange}
+                        value={petOption['service-animal']}
+                    >
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                    </RadioGroup>
+                </FormControl>
             </Fragment>
         );
     }
