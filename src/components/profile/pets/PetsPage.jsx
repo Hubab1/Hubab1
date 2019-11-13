@@ -10,6 +10,7 @@ import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
+import PetBreedPolicy from 'components/profile/pets/PetBreedPolicy';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
@@ -54,11 +55,16 @@ export const petsSchema = (config) => Yup.object().shape({
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
+        viewBreedPolicy: false,
         errors: null
     }
 
     toggleViewPetPolicy = () => {
         this.setState({viewPetPolicy: !this.state.viewPetPolicy})
+    }
+
+    toggleViewBreedPolicy = () => {
+        this.setState({viewBreedPolicy: !this.state.viewBreedPolicy})
     }
 
     onSubmit = (values, { setSubmitting }) => {
@@ -75,8 +81,12 @@ export class PetsPage extends React.Component {
 
     render () {
         if (!this.props.profile || !this.props.configuration) return null;
+        const { configuration } = this.props;
+        const { community, rental_options_config } = configuration;
         if (this.state.viewPetPolicy) {
-            return <PetPolicy date="April 2019" policy={this.props.configuration.rental_options_config.pets.pet_policy_details} onAgree={this.toggleViewPetPolicy}/>
+            return <PetPolicy date="April 2019" policy={rental_options_config.pets.pet_policy_details} onAgree={this.toggleViewPetPolicy}/>
+        } else if (this.state.viewBreedPolicy) {
+            return <PetBreedPolicy breedPolicy={community.pets_restrictions} contactPhone={community.contact_phone} onAgree={this.toggleViewBreedPolicy}/>
         }
         const selectedPetOptions = this.props.profile.pets || [{key:'first-pet'}];
         return (
@@ -89,7 +99,7 @@ export class PetsPage extends React.Component {
                 </div>
                 <Formik
                     validationSchema={petsSchema({
-                        petMaxWeight: this.props.configuration.community.pets_max_weight == null ? Infinity : this.props.configuration.community.pets_max_weight
+                        petMaxWeight: community.pets_max_weight == null ? Infinity : community.pets_max_weight
                     })}
                     onSubmit={this.onSubmit}
                     initialValues={{petOptions: selectedPetOptions}}
@@ -114,10 +124,11 @@ export class PetsPage extends React.Component {
                                                     petOption={petOption}
                                                     handleChange={handleChange}
                                                     handleBlur={handleBlur}
+                                                    toggleViewBreedPolicy={this.toggleViewBreedPolicy}
                                                 />
                                             ))
                                         }
-                                        {values.petOptions.length < this.props.configuration.rental_options_config.pets.limit ?
+                                        {values.petOptions.length < rental_options_config.pets.limit ?
                                             <AddAnotherButton
                                                 thing="Pet"
                                                 onClick={() => arrayHelpers.push({key: uuidv4()})}
