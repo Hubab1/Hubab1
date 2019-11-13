@@ -51,6 +51,18 @@ export const petsSchema = (config) => Yup.object().shape({
         .required('Select a Pet')
 });
 
+function serializePetsForPost(petOptions) {
+    return petOptions.reduce((options, item) => {
+        if (item.pet_type) {
+            const data = Object.assign({}, item);
+            if (data.service_animal == null) data.service_animal = 'false';
+            options.push(data);
+            return options;
+        }
+        return options;
+    }, []);
+}
+
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
@@ -62,9 +74,8 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        // ignore form values without pet type
-        const payload = values.petOptions.filter(option => !!option.pet_type);
-        this.props.updateRenterProfile({pets: payload}).then((res) => {
+        const pets = serializePetsForPost(values.petOptions);
+        this.props.updateRenterProfile({pets}).then((res) => {
             setSubmitting(false);
             this.props._nextRoute();
         }).catch((res) => {
@@ -78,7 +89,7 @@ export class PetsPage extends React.Component {
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy={this.props.configuration.rental_options_config.pets.pet_policy_details} onAgree={this.toggleViewPetPolicy}/>
         }
-        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet'}];
+        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
@@ -120,7 +131,7 @@ export class PetsPage extends React.Component {
                                         {values.petOptions.length < this.props.configuration.rental_options_config.pets.limit ?
                                             <AddAnotherButton
                                                 thing="Pet"
-                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                onClick={() => arrayHelpers.push({key: uuidv4(), 'service_animal': 'false'})}
                                             />: null
                                         }
                                     </div>
