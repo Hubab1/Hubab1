@@ -131,7 +131,7 @@ export default class PetItem extends React.Component {
                     <RadioGroup
                         classes={{root}}
                         aria-label="service-animal"
-                        name="service_animal"
+                        name={`petOptions[${index}].service_animal`}
                         onChange={handleChange}
                         value={petOption['service_animal']}
                     >

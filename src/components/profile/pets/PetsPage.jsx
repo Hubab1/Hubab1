@@ -78,7 +78,7 @@ export class PetsPage extends React.Component {
         if (this.state.viewPetPolicy) {
             return <PetPolicy date="April 2019" policy={this.props.configuration.rental_options_config.pets.pet_policy_details} onAgree={this.toggleViewPetPolicy}/>
         }
-        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet'}];
+        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
                 <H1>Tell Us About Your Pets</H1>
