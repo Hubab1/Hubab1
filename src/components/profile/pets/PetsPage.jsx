@@ -59,6 +59,7 @@ function serializePetsForPost(petOptions) {
             options.push(data);
             return options;
         }
+        return options;
     }, []);
 }
 

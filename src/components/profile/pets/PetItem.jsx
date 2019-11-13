@@ -111,7 +111,7 @@ export default class PetItem extends React.Component {
     onChangePetType = (value) => {
         const { petOption, arrayHelpers, index } = this.props;
         this.cache[petOption.pet_type] = Object.assign({}, petOption);
-        arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key}, this.cache[value])));
+        arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key, service_animal: 'false'}, this.cache[value])));
     }
     render () {
         const { index, arrayHelpers, petOption, handleChange, handleBlur } = this.props;
