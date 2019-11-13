@@ -64,19 +64,6 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
-                <FormControl component="fieldset">
-                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
-                    <RadioGroup
-                        classes={{root}}
-                        aria-label="service-animal"
-                        name="service-animal"
-                        onChange={handleChange}
-                        value={petOption['service-animal']}
-                    >
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                    </RadioGroup>
-                </FormControl>
             </Fragment>
         );
     }
@@ -101,19 +88,6 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
-                <FormControl component="fieldset">
-                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
-                    <RadioGroup
-                        classes={{root}}
-                        aria-label="service-animal"
-                        name="service-animal"
-                        onChange={handleChange}
-                        value={petOption['service-animal']}
-                    >
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                    </RadioGroup>
-                </FormControl>
             </Fragment>
         );
     }
@@ -130,19 +104,6 @@ export default class PetItem extends React.Component {
                     helperText="Please share a bit about your pet"
                 />
                 <ErrorMessage name={`petOptions[${index}].description`} />
-                <FormControl component="fieldset">
-                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
-                    <RadioGroup
-                        classes={{root}}
-                        aria-label="service-animal"
-                        name="service-animal"
-                        onChange={handleChange}
-                        value={petOption['service-animal']}
-                    >
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                    </RadioGroup>
-                </FormControl>
             </Fragment>
         );
     }
@@ -165,6 +126,19 @@ export default class PetItem extends React.Component {
                 {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
                 {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
                 {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
+                <FormControl component="fieldset">
+                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
+                    <RadioGroup
+                        classes={{root}}
+                        aria-label="service-animal"
+                        name="service_animal"
+                        onChange={handleChange}
+                        value={petOption['service_animal']}
+                    >
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                    </RadioGroup>
+                </FormControl>
             </div>
         )
     }

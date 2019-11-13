@@ -118,7 +118,7 @@ export class PetsPage extends React.Component {
                                         {values.petOptions.length < this.props.configuration.rental_options_config.pets.limit ?
                                             <AddAnotherButton
                                                 thing="Pet"
-                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                onClick={() => arrayHelpers.push({key: uuidv4(), 'service_animal': 'false'})}
                                             />: null
                                         }
                                     </div>
