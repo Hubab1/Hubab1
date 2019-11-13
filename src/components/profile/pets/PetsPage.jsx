@@ -51,6 +51,26 @@ export const petsSchema = (config) => Yup.object().shape({
         .required('Select a Pet')
 });
 
+function serializeForPost(values) {
+    const options = values.petOptions.reduce((options, item) => {
+        if (item.pet_type) {
+            const data = Object.assign({}, item);
+            if (data.service_animal == null) {
+                data.service_animal = false;
+            } else {
+                try {
+                    data.service_animal = JSON.parse(data.service_animal);
+                } catch {
+                    data.service_animal = false;
+                }
+            }
+            options.push(data);
+            return options;
+        }
+    }, []);
+    return Object.assign({}, values, {petOptions: options});
+}
+
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
@@ -63,7 +83,9 @@ export class PetsPage extends React.Component {
 
     onSubmit = (values, { setSubmitting }) => {
         // ignore form values without pet type
-        const payload = values.petOptions.filter(option => !!option.pet_type);
+        // const payload = 
+        const payload = serializeForPost(values);
+        debugger;
         this.props.updateRenterProfile({pets: payload}).then((res) => {
             setSubmitting(false);
             this.props._nextRoute();
