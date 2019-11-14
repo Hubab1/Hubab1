@@ -42,7 +42,7 @@ export class Profile extends React.Component {
         const applicant = this.props.applicant;
         return {
             address_street: applicant.address_street,
-            address_unit_number: applicant.address_unit_number,
+            address_line_2: applicant.address_line_2,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
             address_postal_code: applicant.address_postal_code,
@@ -62,7 +62,7 @@ export class Profile extends React.Component {
                     validationSchema={Yup.object().shape({
                         address_street: Yup.string()
                             .required('required'),
-                        address_unit_number: Yup.string(),
+                        address_line_2: Yup.string(),
                         address_city: Yup.string()
                             .required('required'),
                         address_state: Yup.string()
@@ -97,13 +97,13 @@ export class Profile extends React.Component {
                                 </Grid>
                                 <Grid item xs={3}>
                                     <FormTextInput
-                                        label="Apartment"
-                                        name="address_unit_number"
+                                        label="Apt/Ste/Floor"
+                                        name="address_line_2"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.address_unit_number}
-                                        value={values.address_unit_number}
+                                        error={errors.address_line_2}
+                                        value={values.address_line_2}
                                     />
                                 </Grid>
                                 <Grid item xs={9}>
@@ -140,7 +140,7 @@ export class Profile extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!allValuesSet(values, {exclude: ['address_unit_number']}) || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!allValuesSet(values, {exclude: ['address_line_2']}) || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>

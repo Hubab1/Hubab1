@@ -10,7 +10,7 @@ beforeEach(() => {
     defaultProps = {
         applicant: {
             address_street: '123 Fulton st',
-            address_unit_number: '1F',
+            address_line_2: '1F',
             address_city: 'New York',
             address_state: 'NY',
             address_postal_code: '10038',
@@ -39,7 +39,7 @@ describe('<ActionButton/>', () => {
             expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
         });
     });
-    describe('missing optional form value address_unit_number', () => {
+    describe('missing optional form value address_line_2', () => {
         let applicant = {
             address_street: '123 Fulton st',
             address_city: 'New York',
