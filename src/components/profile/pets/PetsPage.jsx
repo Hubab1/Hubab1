@@ -33,7 +33,7 @@ export const petsSchema = (config) => Yup.object().shape({
                 weight: Yup.number().when('pet_type', {
                     is: (value) => ['Dog', 'Cat'].includes(value),
                     then: Yup.number().typeError('Please enter numbers only')
-                        .required('Required').max(config.petMaxWeight, `This exceeds the maximum allowed weight of ${config.petMaxWeight}.`),
+                        .required('Required').max(config.petMaxWeight, `Your pet exceeds the maximum allowed weight of ${config.petMaxWeight} lb. Please call us at ${config.communityPhoneNumber} before continuing your application.`),
                     otherwise: Yup.number().notRequired()
                 }),
                 breed: Yup.string().when('pet_type', {
@@ -108,7 +108,8 @@ export class PetsPage extends React.Component {
                     </div>
                     <Formik
                         validationSchema={petsSchema({
-                            petMaxWeight: community.pets_max_weight == null ? Infinity : community.pets_max_weight
+                            petMaxWeight: this.props.configuration.community.pets_max_weight == null ? Infinity : this.props.configuration.community.pets_max_weight,
+                            communityPhoneNumber: this.props.configuration.community.contact_phone
                         })}
                         onSubmit={this.onSubmit}
                         initialValues={{petOptions: selectedPetOptions}}

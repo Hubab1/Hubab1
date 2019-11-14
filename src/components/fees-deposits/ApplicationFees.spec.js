@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import { ApplicationFees, EveryoneRow } from './ApplicationFees';
 import { PaidText } from './PaidText';
@@ -75,7 +76,7 @@ beforeEach(() => {
 it('renders row with radio select and all other applicants when everyone selected', () => {
     let wrapper = shallow( <ApplicationFees {...defaultProps} /> );
 
-    expect(wrapper.html().includes('input')).toBeTruthy();
+    expect(wrapper.find(RadioGroup).length).toEqual(1);
     expect(wrapper.text().includes('Application Fee')).toBeTruthy();
     expect(wrapper.find(EveryoneRow).length).toEqual(4);
 })
@@ -113,7 +114,7 @@ it('renders does not render radio select when everyone is only the logged in app
     }];
     let wrapper = shallow( <ApplicationFees {...defaultProps} everyone={mainApplicant} applicationFeesSelected="myself" /> );
 
-    expect(wrapper.html().includes('input')).not.toBeTruthy();
+    expect(wrapper.find(RadioGroup).length).toEqual(0);
     expect(wrapper.text()).toEqual('Application Fee <SimplePopover />$75');
 })
 
