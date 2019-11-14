@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import clsx from  'clsx';
 import { Formik, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 
 import { H1, P, SpacedH3 } from 'assets/styles';
-import { viewPetPolicy as viewPetPolicyClassName, petsImageMargin, policyDiv, PetsFormWrapper } from './styles';
+import { viewPetPolicy as viewPetPolicyClassName, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
@@ -98,7 +99,7 @@ export class PetsPage extends React.Component {
         const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
-                <PetsFormWrapper hide={viewPetPolicy || viewBreedPolicy}>
+                <div className={clsx({'hide-pets-form': (viewPetPolicy || viewBreedPolicy)})}>
                     <H1>Tell Us About Your Pets</H1>
                     <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                     <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
@@ -150,7 +151,7 @@ export class PetsPage extends React.Component {
                         )}
                     </Formik>
                     <BackLink to={this.props._prev || '/'}/>
-                </PetsFormWrapper>
+                </div>
                 { viewPetPolicy &&
                     <PetPolicy 
                         date="April 2019" 
