@@ -19,7 +19,7 @@ import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
-import Profile from 'components/Profile';
+import Address from 'components/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
@@ -96,7 +96,7 @@ export class Main extends Component {
                         {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
-                            <Route path={ROUTES.PROFILE} component={Profile} />
+                            <Route path={ROUTES.ADDRESS} component={Address} />
                             <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage}/>
                             <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>

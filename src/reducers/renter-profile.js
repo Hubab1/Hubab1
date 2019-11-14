@@ -90,16 +90,16 @@ selectors.selectOrderedRoutes = createSelector(
                 })
                 return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {
-                return [ROUTES.PROFILE, ROUTES.LEASE_TERMS, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
+                return [ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
             }
         }
     }
 );
 
-const PROFILE_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
+const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
 const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
-    [ROUTES.PROFILE]: !PROFILE_FIELDS.some((field) => !!applicant[field]), 
+    [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]), 
     [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED, 
     [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
     [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),

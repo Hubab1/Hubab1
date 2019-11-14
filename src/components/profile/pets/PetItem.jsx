@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { ErrorDetail } from 'assets/styles';
+import { viewPetPolicy } from './styles';
+
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PetTypeSelect from './PetTypeSelect';
 
@@ -36,7 +38,7 @@ const ErrorMessage = ({ name }) => (
 export default class PetItem extends React.Component {
     cache = {}
     
-    renderDogFields (petOption, handleChange, handleBlur, index) {
+    renderDogFields (petOption, handleChange, handleBlur, index, toggleViewBreedPolicy) {
         return (
             <Fragment>
                 <FormTextInput
@@ -54,6 +56,7 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.breed}
                 />
+                <span role="button" onClick={toggleViewBreedPolicy} className={viewPetPolicy}>View Restricted Breeds</span>
                 <ErrorMessage name={`petOptions[${index}].breed`} />
                 <FormTextInput
                     label="Weight"
@@ -114,7 +117,7 @@ export default class PetItem extends React.Component {
         arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key, service_animal: 'false'}, this.cache[value])));
     }
     render () {
-        const { index, arrayHelpers, petOption, handleChange, handleBlur } = this.props;
+        const { index, arrayHelpers, petOption, handleChange, handleBlur, toggleViewBreedPolicy } = this.props;
         return (
             <div>
                 <PetTypeSelect
@@ -123,7 +126,7 @@ export default class PetItem extends React.Component {
                     value={petOption.pet_type}
                 />
                 <ErrorMessage name={`petOptions[${index}].pet_type`} />
-                {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index)}
+                {petOption.pet_type === 'Dog' && this.renderDogFields(petOption, handleChange, handleBlur, index, toggleViewBreedPolicy)}
                 {petOption.pet_type === 'Cat' && this.renderCatFields(petOption, handleChange, handleBlur, index)}
                 {petOption.pet_type === 'Other' && this.renderOtherFields(petOption, handleChange, handleBlur, index)}
                 <FormControl component="fieldset">
