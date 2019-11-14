@@ -52,6 +52,18 @@ export const petsSchema = (config) => Yup.object().shape({
         .required('Select a Pet')
 });
 
+function serializePetsForPost(petOptions) {
+    return petOptions.reduce((options, item) => {
+        if (item.pet_type) {
+            const data = Object.assign({}, item);
+            if (data.service_animal == null) data.service_animal = 'false';
+            options.push(data);
+            return options;
+        }
+        return options;
+    }, []);
+}
+
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
@@ -68,9 +80,8 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        // ignore form values without pet type
-        const payload = values.petOptions.filter(option => !!option.pet_type);
-        this.props.updateRenterProfile({pets: payload}).then((res) => {
+        const pets = serializePetsForPost(values.petOptions);
+        this.props.updateRenterProfile({pets}).then((res) => {
             setSubmitting(false);
             this.props._nextRoute();
         }).catch((res) => {
@@ -84,7 +95,7 @@ export class PetsPage extends React.Component {
         const { configuration } = this.props;
         const { community, rental_options_config } = configuration;
         const { viewPetPolicy, viewBreedPolicy } = this.state;
-        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet'}];
+        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
                 <PetsFormWrapper hide={viewPetPolicy || viewBreedPolicy}>
