@@ -1,4 +1,5 @@
 import { css } from 'emotion';
+import styled from '@emotion/styled';
 
 
 export const viewPetPolicy = css`
@@ -55,3 +56,7 @@ export const petTypeLabelHeader = css`
     justify-content: space-between;
     display: flex;
 `
+
+export const PetsFormWrapper = styled.div(props=> ({
+    display: props.hide ? 'none' : 'block'
+}))
