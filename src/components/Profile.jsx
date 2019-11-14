@@ -42,6 +42,7 @@ export class Profile extends React.Component {
         const applicant = this.props.applicant;
         return {
             address_street: applicant.address_street,
+            address_line_2: applicant.address_line_2,
             address_city: applicant.address_city,
             address_state: applicant.address_state,
             address_postal_code: applicant.address_postal_code,
@@ -61,6 +62,7 @@ export class Profile extends React.Component {
                     validationSchema={Yup.object().shape({
                         address_street: Yup.string()
                             .required('required'),
+                        address_line_2: Yup.string(),
                         address_city: Yup.string()
                             .required('required'),
                         address_state: Yup.string()
@@ -82,7 +84,7 @@ export class Profile extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <Grid container spacing={1}>
-                                <Grid item xs={12}>
+                                <Grid item xs={9}>
                                     <FormTextInput
                                         label="Street Address"
                                         name="address_street"
@@ -93,7 +95,18 @@ export class Profile extends React.Component {
                                         value={values.address_street}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={3}>
+                                    <FormTextInput
+                                        label="Apt/Ste/Floor"
+                                        name="address_line_2"
+                                        submitted={submitCount > 0}
+                                        handleChange={handleChange}
+                                        handleBlur={handleBlur}
+                                        error={errors.address_line_2}
+                                        value={values.address_line_2}
+                                    />
+                                </Grid>
+                                <Grid item xs={9}>
                                     <FormTextInput
                                         label="City"
                                         name="address_city"
@@ -104,7 +117,7 @@ export class Profile extends React.Component {
                                         value={values.address_city}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={3}>
                                     <FormTextInput
                                         label="State"
                                         name="address_state"
@@ -115,7 +128,7 @@ export class Profile extends React.Component {
                                         value={values.address_state}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={3}>
                                     <FormTextInput
                                         label="Zip"
                                         name="address_postal_code"
@@ -127,7 +140,7 @@ export class Profile extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!allValuesSet(values) || isSubmitting}>Continue</ActionButton>
+                            <ActionButton marginTop={50} disabled={!allValuesSet(values, {exclude: ['address_line_2']}) || isSubmitting}>Continue</ActionButton>
                         </form>
                     )}
                 </Formik>
