@@ -8,7 +8,7 @@ export const ROUTES = {
     LOGIN: '/login',
     SIGNUP: '/signup',
     PASSWORD: '/password',
-    PROFILE: '/profile',
+    ADDRESS: '/address',
     FORGOT_PASSWORD: '/password/forgot',
     VERIFY_PASSWORD_CODE: '/password/verify',
     RESET_PASSWORD: '/password/reset',
@@ -28,7 +28,7 @@ export const ROUTES = {
 }
 
 export const NAV_ROUTES = [
-    {name: 'Your Profile', value: ROUTES.PROFILE},
+    {name: 'Current Address', value: ROUTES.ADDRESS},
     {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
     {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
         {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
@@ -46,7 +46,7 @@ export const routeToOptionName = {
 }
 
 export const BASE_ROUTES = [
-    ROUTES.PROFILE, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
+    ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
 ]
 
 export const REPORT_POLL_INTERVAL = 10000;

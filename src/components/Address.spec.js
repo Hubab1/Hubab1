@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { Profile } from './Profile';
+import { Address } from './Address';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 
@@ -22,7 +22,7 @@ beforeEach(() => {
 describe('<ActionButton/>', () => {
     describe('all form fields filled in', () => {
         it('ActionButton is not disabled', function () {
-            let wrapper = mount(<Profile {...defaultProps}/>);
+            let wrapper = mount(<Address {...defaultProps}/>);
             expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
         });
     });
@@ -35,7 +35,7 @@ describe('<ActionButton/>', () => {
             address_postal_code: '10038',
         };
         it('disabled if form is incomplete', function () {
-            const wrapper = mount(<Profile {...defaultProps} applicant={applicant} />);
+            const wrapper = mount(<Address {...defaultProps} applicant={applicant} />);
             expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
         });
     });
@@ -47,7 +47,7 @@ describe('<ActionButton/>', () => {
             address_postal_code: '10038',
         };
         it('disabled if form is incomplete', function () {
-            const wrapper = mount(<Profile {...defaultProps} applicant={applicant} />);
+            const wrapper = mount(<Address {...defaultProps} applicant={applicant} />);
             expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
         });
     });
