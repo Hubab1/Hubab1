@@ -4,7 +4,7 @@ import { ROUTES } from 'app/constants';
 describe('getStepperIndex', function(){
     it('gets the correct index for an unnested route', function() {
         const routes = [
-            {name: 'Your Profile', value: ROUTES.PROFILE},
+            {name: 'Current Address', value: ROUTES.ADDRESS},
             {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
             {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
             {name: 'Screening', value: ROUTES.SCREENING},
@@ -16,7 +16,7 @@ describe('getStepperIndex', function(){
 
     it('gets the correct index for a nested route', function() {
         const routes = [
-            {name: 'Your Profile', value: ROUTES.PROFILE},
+            {name: 'Current Address', value: ROUTES.ADDRESS},
             {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
             {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
                 {name: 'Roommates', value: ROUTES.CO_APPLICANTS},

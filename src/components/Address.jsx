@@ -25,7 +25,7 @@ const ImageContainer = styled.div`
 `
 
 
-export class Profile extends React.Component {
+export class Address extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
         this.props.updateApplicant(serialized).then((res) => {
@@ -149,7 +149,7 @@ export class Profile extends React.Component {
     }
 }
 
-Profile.propTypes = {
+Address.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
     applicant: PropTypes.object
 }
@@ -158,4 +158,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant
 })
 
-export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(Profile, ROUTES.PROFILE));
+export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(Address, ROUTES.ADDRESS));
