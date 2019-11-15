@@ -7,6 +7,7 @@ import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
 import RentalProfileContainer from 'components/profile/RentalProfileContainer';
 import LoginPage from 'components/login/LoginPage';
+import AccountPage from 'components/AccountPage';
 import RegisterPage from 'components/RegisterPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
@@ -95,6 +96,7 @@ export class Main extends Component {
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
                         {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
+                            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                             <Route path={ROUTES.ADDRESS} component={Address} />
                             <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage}/>

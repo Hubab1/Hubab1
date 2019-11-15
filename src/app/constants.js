@@ -24,7 +24,8 @@ export const ROUTES = {
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms',
-    PAYMENT_TERMS: '/payment-terms'
+    PAYMENT_TERMS: '/payment-terms',
+    ACCOUNT: '/account',
 }
 
 export const NAV_ROUTES = [
