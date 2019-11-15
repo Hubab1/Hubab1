@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { updateApplicant } from 'reducers/applicant';
 import captureRoute from 'app/captureRoute';
-import { H1, P, formContent, link } from 'assets/styles';
+import { H1, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormError from 'components/common/GenericFormError';
@@ -18,8 +17,6 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
-import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
-import TermsPage from 'components/TermsPage';
 import { allValuesSet } from 'utils/formik';
 import { serializeDate, parseDateISOString } from 'utils/misc';	
 
@@ -44,8 +41,9 @@ export class AccountPage extends React.Component {
 
     auth=auth
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const serialized = Object.assign({}, values);
-        this.props.updateApplicant(serialized).then((res) => {
+        const stateUpdate = Object.assign({}, values);
+        stateUpdate.birthday = serializeDate(stateUpdate.birthday);
+        this.props.updateApplicant(stateUpdate, stateUpdate).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
