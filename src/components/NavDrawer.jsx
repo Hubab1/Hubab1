@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import styled from '@emotion/styled';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,8 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 
@@ -46,23 +43,23 @@ const useStyles = makeStyles(theme => ({
     toolbar: { 
         minHeight: 76
     },
+    accountDetails: {
+        padding: '28px 15px 15px 15px',
+        borderBottom: '1px solid #EEEEEE',
+    },
+    initialsContainer: {
+        color: '#828796',
+        backgroundColor: '#EFEFEF',
+        borderRadius: 50,
+        textAlign: 'center',
+        fontSize: 17,
+        height: 40,
+        width: 40,
+        lineHeight: '40px',
+
+    }
 }));
 
-const AccountDetailsContainer = styled.div`
-    padding: 15px;
-    border-bottom: 1px solid #EEEEEE;
-`
-
-const InitialsContainer = styled.div`
-    color: #828796;
-    background-color: #EFEFEF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 17px;
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-`;
 
 export function PersistentDrawerLeft(props) {
     if (props.hideNav) {
@@ -70,7 +67,6 @@ export function PersistentDrawerLeft(props) {
     }
     const appThemeContext = useContext(AppTheme);
     const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
     function handleDrawerOpen() {
@@ -114,15 +110,10 @@ export function PersistentDrawerLeft(props) {
                     className={classes.list}
                     role="presentation"
                 >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </div>
-                    <AccountDetailsContainer>
+                    <div className={classes.accountDetails}>
                         <Grid container spacing={1}>
                             <Grid item xs={3}>
-                                <InitialsContainer>{initials}</InitialsContainer>
+                                <div className={classes.initialsContainer}>{initials}</div>
                             </Grid>
                             <Grid item xs={9}>
                                 <Grid item xs>
@@ -136,7 +127,7 @@ export function PersistentDrawerLeft(props) {
                                 <Link to='/'>Account Details</Link>
                             </Grid>
                         </Grid>
-                    </AccountDetailsContainer>
+                    </div>
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
