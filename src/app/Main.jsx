@@ -81,7 +81,8 @@ export class Main extends Component {
     }
 
     render() {
-        const { theme, hasApplicant } = this.props;
+        const { theme, applicant } = this.props;
+        const hasApplicant = !!applicant;
         if (this.state.hasError) return <div>Error getting application form</div>;
         if (!theme) return null;
         return (
@@ -93,7 +94,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
-                        {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation}>
+                        {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation} name={applicant.client.person.name} email={applicant.client.person.email}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                             <Route path={ROUTES.ADDRESS} component={Address} />
@@ -112,7 +113,7 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    hasApplicant: !!state.applicant,
+    applicant: state.applicant,
     configuration: state.configuration,
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import styled from '@emotion/styled';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,8 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ProgressBar from 'components/common/Page/ProgressBar';
+import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
+import { Bold } from 'assets/styles';
+import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
@@ -41,8 +45,24 @@ const useStyles = makeStyles(theme => ({
     },
     toolbar: { 
         minHeight: 76
-    }
+    },
 }));
+
+const AccountDetailsContainer = styled.div`
+    padding: 15px;
+    border-bottom: 1px solid #EEEEEE;
+`
+
+const InitialsContainer = styled.div`
+    color: #828796;
+    background-color: #EFEFEF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 17px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+`;
 
 export function PersistentDrawerLeft(props) {
     if (props.hideNav) {
@@ -60,6 +80,8 @@ export function PersistentDrawerLeft(props) {
     function handleDrawerClose() {
         setOpen(false);
     }
+
+    const initials = props.name.split(' ').map(word => word[0].toUpperCase());
 
     return (
         <div className={classes.root}>
@@ -97,6 +119,24 @@ export function PersistentDrawerLeft(props) {
                             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                         </IconButton>
                     </div>
+                    <AccountDetailsContainer>
+                        <Grid container spacing={1}>
+                            <Grid item xs={3}>
+                                <InitialsContainer>{initials}</InitialsContainer>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Grid item xs>
+                                    <Bold fontSize={18}>{props.name}</Bold>
+                                </Grid>
+                                <Grid item xs>
+                                    {props.email}
+                                </Grid>
+                            </Grid>
+                            <Grid item>
+                                <Link to='/'>Account Details</Link>
+                            </Grid>
+                        </Grid>
+                    </AccountDetailsContainer>
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
