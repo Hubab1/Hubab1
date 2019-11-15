@@ -13,8 +13,6 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormError from 'components/common/GenericFormError';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 import { allValuesSet } from 'utils/formik';
@@ -160,21 +158,13 @@ export class AccountPage extends React.Component {
 }
 
 AccountPage.propTypes = {
-    profile: PropTypes.object,
-    fetchRenterProfile: PropTypes.func,
-    communityId: PropTypes.string,
-    hash: PropTypes.string,
-    configuration: PropTypes.object
+    updateApplicant: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
-    profile: state.renterProfile,
-    initialPage: selectors.selectInitialPage(state),
-    communityId: state.siteConfig.basename,
-    configuration: state.configuration,
     applicant: state.applicant,
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchApplicant, updateApplicant };
+const mapDispatchToProps = { updateApplicant };
 
 export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AccountPage, ROUTES.ACCOUNT));
