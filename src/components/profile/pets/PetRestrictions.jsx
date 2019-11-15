@@ -10,27 +10,27 @@ export const Subtitle = styled.small`
     font-size: 15px;
     line-height: 18px;
     text-align: center;
-`
+`;
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
     padding: 20px;
-`
+`;
 
 const Policy = styled.div`
     margin-top: 30px;
     white-space: pre-line;
     text-align: left;
     overflow-wrap: normal;
-`
+`;
 
 const Contact = styled.div`
     margin-bottom: 36px;
     text-align: left;
     font-weight: 600;
-`
+`;
 
-export default function PetBreedPolicy (props) {
+export default function PetRestrictions (props) {
     return (
         <div>
             <Header>
@@ -48,8 +48,8 @@ export default function PetBreedPolicy (props) {
     )
 }
 
-PetBreedPolicy.propTypes = {
+PetRestrictions.propTypes = {
     breedPolicy: PropTypes.string,
     onAgree: PropTypes.func.isRequired,
     contactPhone: PropTypes.string,
-}
+};
