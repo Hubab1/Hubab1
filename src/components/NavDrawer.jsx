@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,10 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ProgressBar from 'components/common/Page/ProgressBar';
+import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
 
+import { Bold } from 'assets/styles';
+import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
@@ -19,7 +20,7 @@ import NavStepper from './NavStepper';
 
 const useStyles = makeStyles(theme => ({
     list: {
-        width: 240,
+        width: 300,
     },
     padRight: {
         width: 48
@@ -41,8 +42,24 @@ const useStyles = makeStyles(theme => ({
     },
     toolbar: { 
         minHeight: 76
+    },
+    accountDetails: {
+        padding: '28px 15px 15px 15px',
+        borderBottom: '1px solid #EEEEEE',
+    },
+    initialsContainer: {
+        color: '#828796',
+        backgroundColor: '#EFEFEF',
+        borderRadius: 50,
+        textAlign: 'center',
+        fontSize: 17,
+        height: 40,
+        width: 40,
+        lineHeight: '40px',
+        margin: '0 10px 10px 0',
     }
 }));
+
 
 export function PersistentDrawerLeft(props) {
     if (props.hideNav) {
@@ -50,7 +67,6 @@ export function PersistentDrawerLeft(props) {
     }
     const appThemeContext = useContext(AppTheme);
     const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
     function handleDrawerOpen() {
@@ -60,6 +76,8 @@ export function PersistentDrawerLeft(props) {
     function handleDrawerClose() {
         setOpen(false);
     }
+
+    const initials = props.name.split(' ').map(word => word[0].toUpperCase());
 
     return (
         <div className={classes.root}>
@@ -92,11 +110,22 @@ export function PersistentDrawerLeft(props) {
                     className={classes.list}
                     role="presentation"
                 >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </div>
+                    <Box className={classes.accountDetails} >
+                        <Box display="flex">
+                            <Box className={classes.initialsContainer}>{initials}</Box>
+                            <Box display="flex" flexDirection="column">
+                                <Box>
+                                    <Bold fontSize={18}>{props.name}</Bold>
+                                </Box>
+                                <Box>
+                                    {props.email}
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box>
+                            <Link to='/'>Account Details</Link>
+                        </Box>
+                    </Box>
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
