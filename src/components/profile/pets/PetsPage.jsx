@@ -11,7 +11,7 @@ import { updateRenterProfile } from 'reducers/renter-profile';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
-import PetBreedPolicy from 'components/profile/pets/PetBreedPolicy';
+import PetRestrictions from 'components/profile/pets/PetRestrictions';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
@@ -68,7 +68,7 @@ function serializePetsForPost(petOptions) {
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
-        viewBreedPolicy: false,
+        viewPetRestrictions: false,
         errors: null
     }
 
@@ -76,8 +76,8 @@ export class PetsPage extends React.Component {
         this.setState({viewPetPolicy: !this.state.viewPetPolicy})
     }
 
-    toggleViewBreedPolicy = () => {
-        this.setState({viewBreedPolicy: !this.state.viewBreedPolicy})
+    toggleViewPetRestrictions = () => {
+        this.setState({viewPetRestrictions: !this.state.viewPetRestrictions})
     }
 
     onSubmit = (values, { setSubmitting }) => {
@@ -95,11 +95,11 @@ export class PetsPage extends React.Component {
         if (!this.props.profile || !this.props.configuration) return null;
         const { configuration } = this.props;
         const { community, rental_options_config } = configuration;
-        const { viewPetPolicy, viewBreedPolicy } = this.state;
+        const { viewPetPolicy, viewPetRestrictions } = this.state;
         const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
-                <div className={clsx({'hide-pets-form': (viewPetPolicy || viewBreedPolicy)})}>
+                <div className={clsx({'hide-pets-form': (viewPetPolicy || viewPetRestrictions)})}>
                     <H1>Tell Us About Your Pets</H1>
                     <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                     <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
@@ -134,7 +134,7 @@ export class PetsPage extends React.Component {
                                                         petOption={petOption}
                                                         handleChange={handleChange}
                                                         handleBlur={handleBlur}
-                                                        toggleViewBreedPolicy={this.toggleViewBreedPolicy}
+                                                        toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                     />
                                                 ))
                                             }
@@ -160,11 +160,11 @@ export class PetsPage extends React.Component {
                         onAgree={this.toggleViewPetPolicy}
                     />
                 }
-                { viewBreedPolicy &&
-                    <PetBreedPolicy 
+                { viewPetRestrictions &&
+                    <PetRestrictions 
                         breedPolicy={community.pets_restrictions} 
                         contactPhone={community.contact_phone} 
-                        onAgree={this.toggleViewBreedPolicy}
+                        onAgree={this.toggleViewPetRestrictions}
                     />
                 }
             </Fragment>
