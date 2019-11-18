@@ -14,7 +14,6 @@ import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormError from 'components/common/GenericFormError';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
-import auth from 'utils/auth';
 import { allValuesSet } from 'utils/formik';
 import { serializeDate, parseDateISOString } from 'utils/misc';	
 
@@ -37,7 +36,6 @@ export class AccountPage extends React.Component {
         }
     }
 
-    auth=auth
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.birthday = serializeDate(stateUpdate.birthday);
