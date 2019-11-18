@@ -10,7 +10,7 @@ import StripeElementWrapper from './StripeElementWrapper';
 import API, { MOCKY } from 'app/api';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import { formatCurrency } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
 
@@ -68,7 +68,7 @@ export class PaymentForm extends React.Component {
         const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
-                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
+                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
                 <Grid container justify="space-between">
                     <Grid item xs={12}>
                         <StripeElementWrapper 
