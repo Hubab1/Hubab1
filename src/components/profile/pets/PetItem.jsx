@@ -57,7 +57,7 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.breed}
                 />
-                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>View Restricted Breeds</span>
+                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>View pet restrictions</span>
                 <ErrorMessage name={`petOptions[${index}].breed`} />
                 <FormTextInput
                     label="Weight"
