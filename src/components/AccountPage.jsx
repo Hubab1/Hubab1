@@ -55,7 +55,7 @@ export class AccountPage extends React.Component {
             this.setState({
                 status: {
                     type: 'error',
-                    detail: 'We couldn’t save your information. Please try again.'
+                    detail: "We couldn't save your information. Please try again."
                 }
             });
             setSubmitting(false);
