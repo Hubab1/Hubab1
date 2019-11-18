@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 
 import { Bold } from 'assets/styles';
@@ -20,7 +20,7 @@ import NavStepper from './NavStepper';
 
 const useStyles = makeStyles(theme => ({
     list: {
-        width: 240,
+        width: 300,
     },
     padRight: {
         width: 48
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
         height: 40,
         width: 40,
         lineHeight: '40px',
-
+        margin: '0 10px 10px 0',
     }
 }));
 
@@ -110,24 +110,22 @@ export function PersistentDrawerLeft(props) {
                     className={classes.list}
                     role="presentation"
                 >
-                    <div className={classes.accountDetails}>
-                        <Grid container spacing={1}>
-                            <Grid item xs={3}>
-                                <div className={classes.initialsContainer}>{initials}</div>
-                            </Grid>
-                            <Grid item xs={9}>
-                                <Grid item xs>
+                    <Box className={classes.accountDetails} >
+                        <Box display="flex">
+                            <Box className={classes.initialsContainer}>{initials}</Box>
+                            <Box display="flex" flexDirection="column">
+                                <Box>
                                     <Bold fontSize={18}>{props.name}</Bold>
-                                </Grid>
-                                <Grid item xs>
+                                </Box>
+                                <Box>
                                     {props.email}
-                                </Grid>
-                            </Grid>
-                            <Grid item>
-                                <Link to='/'>Account Details</Link>
-                            </Grid>
-                        </Grid>
-                    </div>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box>
+                            <Link to='/'>Account Details</Link>
+                        </Box>
+                    </Box>
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose}/>
                     <Divider />
