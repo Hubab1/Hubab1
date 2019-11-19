@@ -1,24 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import { H1, P, formContent, link } from 'assets/styles';
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormMessage from 'components/common/GenericFormMessage';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1, P, link } from 'assets/styles';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import TermsPage from 'components/TermsPage';
-import { allValuesSet } from 'utils/formik';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import AccountForm from 'components/common/AccountForm';
 
@@ -85,7 +76,13 @@ export class RegisterPage extends React.Component {
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
-                <AccountForm submitText="Create Account" withPassword status={this.status} initialValues={this.applicantInfo} messages={this.state.errors} onSubmit={this.onSubmit} />
+                <AccountForm
+                    submitText="Create Account"
+                    withPassword status={this.status}
+                    initialValues={this.applicantInfo}
+                    messages={this.state.errors}
+                    onSubmit={this.onSubmit}
+                />
                 <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
             </UnauthenticatedPage>
         );

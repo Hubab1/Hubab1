@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import Grid from '@material-ui/core/Grid';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { updateApplicant } from 'reducers/applicant';
 import captureRoute from 'app/captureRoute';
-import { H1, formContent } from 'assets/styles';
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormMessage from 'components/common/GenericFormMessage';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1 } from 'assets/styles';
 import { ROUTES } from 'app/constants';
-import { allValuesSet } from 'utils/formik';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import AccountForm from 'components/common/AccountForm';
 
@@ -67,7 +58,12 @@ export class AccountPage extends React.Component {
         return (
             <>
                 <H1>Your Account Details</H1>
-                <AccountForm submitText="Save Changes" initialValues={this.initialValues} status={this.state.status} onSubmit={this.onSubmit} />
+                <AccountForm
+                    submitText="Save Changes"
+                    initialValues={this.initialValues}
+                    status={this.state.status}
+                    onSubmit={this.onSubmit}
+                />
             </>
         );
     }
