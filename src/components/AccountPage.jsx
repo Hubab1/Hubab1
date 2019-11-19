@@ -11,7 +11,7 @@ import captureRoute from 'app/captureRoute';
 import { H1, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { allValuesSet } from 'utils/formik';
@@ -20,7 +20,7 @@ import AccountForm from 'components/common/AccountForm';
 
 
 export class AccountPage extends React.Component {
-    state = {errors: null}
+    state = {status: null}
 
     get initialValues () {
         const applicant = this.props.applicant;
@@ -44,8 +44,21 @@ export class AccountPage extends React.Component {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                
+                this.setState({
+                    status: {
+                        type: 'success',
+                        detail: 'Changes saved'
+                    }
+                });
             }
+            setSubmitting(false);
+        }).catch(() => {
+            this.setState({
+                status: {
+                    type: 'error',
+                    detail: "We couldn't save your information. Please try again."
+                }
+            });
             setSubmitting(false);
         });
     }
@@ -54,7 +67,7 @@ export class AccountPage extends React.Component {
         return (
             <>
                 <H1>Your Account Details</H1>
-                <AccountForm initialValues={this.initialValues} messages={this.state.errors} onSubmit={this.onSubmit} />
+                <AccountForm submitText="Save Changes" initialValues={this.initialValues} status={this.state.status} onSubmit={this.onSubmit} />
             </>
         );
     }

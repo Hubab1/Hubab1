@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import forgotPassword from 'assets/images/forgot-password.png';
 import { formContent, H1, H3 } from 'assets/styles';
 import { fetchRenterProfile } from 'reducers/renter-profile';
@@ -69,7 +69,7 @@ export class ForgotPasswordPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
+                                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
                                 <PhoneNumberInput 
                                     label="Phone Number"
                                     name="phone"

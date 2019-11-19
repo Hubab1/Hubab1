@@ -7,14 +7,16 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import { formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { allValuesSet } from 'utils/formik';
 
 export default ({
     initialValues,
-    messages,
-    onSubmit
+    onSubmit,
+    status,
+    withPassword,
+    submitText
 }) => (
     <Formik
     initialValues={initialValues}
@@ -29,9 +31,9 @@ export default ({
             .required('Email is required'),
         birthday: Yup.string()	
             .required('required'),
-        password: Yup.string()
+        ...(withPassword && {password: Yup.string()
             .required('Password must be at least 8 characters')
-            .min(8, 'Password must be at least 8 characters')
+            .min(8, 'Password must be at least 8 characters')})
     })}
     onSubmit={onSubmit}
 >
@@ -48,7 +50,7 @@ export default ({
     }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
             <div className={formContent}>
-                { messages && <GenericFormError errors={messages}/> }
+                { status && <GenericFormMessage type={status.type} messages={status.detail}/> }
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <FormTextInput
@@ -111,6 +113,8 @@ export default ({
                         />	
                     </Grid>
                     <Grid item xs={12}>
+                        {
+                        withPassword &&
                         <FormTextInput
                             label="Password"
                             name="password"
@@ -123,9 +127,10 @@ export default ({
                             showValidationText
                             touched={touched && touched.password}
                         />
+                        }
                     </Grid>
                 </Grid>
-                <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={20} marginBottom={20}>Create Account</ActionButton>
+                <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={20} marginBottom={20}>{submitText}</ActionButton>
             </div>
         </form>
     )}

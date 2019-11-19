@@ -10,7 +10,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import { H1, P, formContent, link } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
@@ -70,6 +70,13 @@ export class RegisterPage extends React.Component {
         });
     }
 
+    get status () {
+        return this.state.errors ? {
+            type: 'error',
+            detail: this.state.errors
+        } : null;
+    }
+
     render () {
         if (!this.props.configuration) return;
         if (this.state.showTerms) {
@@ -78,7 +85,7 @@ export class RegisterPage extends React.Component {
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
-                <AccountForm initialValues={this.applicantInfo} messages={this.state.errors} onSubmit={this.onSubmit} />
+                <AccountForm submitText="Create Account" withPassword status={this.status} initialValues={this.applicantInfo} messages={this.state.errors} onSubmit={this.onSubmit} />
                 <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
             </UnauthenticatedPage>
         );
