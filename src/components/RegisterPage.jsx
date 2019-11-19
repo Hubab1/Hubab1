@@ -19,13 +19,14 @@ import auth from 'utils/auth';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import TermsPage from 'components/TermsPage';
 import { allValuesSet } from 'utils/formik';
-import { serializeDate, parseDateISOString } from 'utils/misc';	
+import { serializeDate, parseDateISOString } from 'utils/misc';
+import AccountForm from 'components/common/AccountForm';
 
 
 export class RegisterPage extends React.Component {
     state = {errors: null, showTerms: true}
 
-    getApplicantInfo () {
+    get applicantInfo () {
         const client = this.props.configuration.client;
         const invitee = this.props.configuration.invitee;
         const baseInitialValues = {first_name: '', last_name: '', phone_number: '', email: '', birthday: '', password: ''}
@@ -74,125 +75,11 @@ export class RegisterPage extends React.Component {
         if (this.state.showTerms) {
             return <TermsPage onAgree={() => this.setState({showTerms: false})} />;
         }
-        const initialValues = this.getApplicantInfo();
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={Yup.object().shape({
-                        first_name: Yup.string().required('First Name is required'),
-                        last_name: Yup.string().required('Last Name is required'),
-                        phone_number: Yup.string()
-                            .required('Phone Number is required')
-                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-                        email: Yup.string()
-                            .email()
-                            .required('Email is required'),
-                        birthday: Yup.string()	
-                            .required('required'),
-                        password: Yup.string()
-                            .required('Password must be at least 8 characters')
-                            .min(8, 'Password must be at least 8 characters')
-                    })}
-                    onSubmit={this.onSubmit}
-                >
-                    {({
-                        values,
-                        errors,
-                        handleChange,
-                        submitCount,
-                        handleBlur,
-                        handleSubmit,
-                        isSubmitting,
-                        touched,
-                        setFieldValue,
-                    }) => (
-                        <form onSubmit={handleSubmit} autoComplete="off">
-                            <div className={formContent}>
-                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <FormTextInput
-                                            label="First Name"
-                                            name="first_name"
-                                            submitted={submitCount > 0}
-                                            handleChange={handleChange}
-                                            handleBlur={handleBlur}
-                                            error={errors.first_name}
-                                            value={values.first_name}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormTextInput
-                                            label="Last Name"
-                                            name="last_name"
-                                            submitted={submitCount > 0}
-                                            handleChange={handleChange}
-                                            handleBlur={handleBlur}
-                                            error={errors.last_name}
-                                            value={values.last_name}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormTextInput
-                                            label="Email"
-                                            name="email"
-                                            submitted={submitCount > 0}
-                                            handleChange={handleChange}
-                                            handleBlur={handleBlur}
-                                            error={errors.email}
-                                            value={values.email}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <PhoneNumberInput 
-                                            label="Phone Number"
-                                            name="phone_number"
-                                            value={values.phone_number}
-                                            handleChange={handleChange}
-                                            error={submitCount > 0 && !!errors.phone_number}
-                                            helperText={submitCount > 0 ? errors.phone_number : null}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <KeyboardDatePicker	
-                                            id="birthday-picker"	
-                                            clearable	
-                                            disableFuture	
-                                            format="MM/dd/yyyy"	
-                                            placeholder="mm/dd/yyyy"	
-                                            label="Birthday"	
-                                            value={values.birthday || null}	
-                                            fullWidth	
-                                            onBlur={handleBlur}	
-                                            onChange={e => setFieldValue('birthday', e)}	
-                                            KeyboardButtonProps={{	
-                                                'aria-label': 'change date',	
-                                            }}	
-                                        />	
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormTextInput
-                                            label="Password"
-                                            name="password"
-                                            type="password"
-                                            submitted={submitCount > 0}
-                                            handleChange={handleChange}
-                                            handleBlur={handleBlur}
-                                            error={errors.password}
-                                            value={values.password}
-                                            showValidationText
-                                            touched={touched && touched.password}
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={20} marginBottom={20}>Create Account</ActionButton>
-                            </div>
-                            <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
-                        </form>
-                    )}
-                </Formik>
+                <AccountForm initialValues={this.applicantInfo} messages={this.state.errors} onSubmit={this.onSubmit} />
+                <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
             </UnauthenticatedPage>
         );
     }
