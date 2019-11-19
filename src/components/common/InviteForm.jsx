@@ -9,7 +9,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 const linkContainer = css`
     text-align: left !important
@@ -71,7 +71,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
             return (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <div className={formContent}>
-                        { displayedErrors && <GenericFormError errors={displayedErrors}/> }
+                        { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
                         <FormTextInput
                             label="First Name"
                             name="first_name"

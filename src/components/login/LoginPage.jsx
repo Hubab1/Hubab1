@@ -12,7 +12,7 @@ import { formContent, H1, link } from 'assets/styles';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 import auth from 'utils/auth';
@@ -71,7 +71,7 @@ export class LoginPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                {!!this.state.errors && <GenericFormError errors={this.state.errors}/>}
+                                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
                                 <div>
                                     <FormTextInput
                                         label="Email"

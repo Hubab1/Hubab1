@@ -9,7 +9,7 @@ import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
 // import { ROUTES } from 'app/constants';
-import GenericFormError from 'components/common/GenericFormError';  
+import GenericFormMessage from 'components/common/GenericFormMessage';  
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
@@ -44,7 +44,7 @@ const ConnectFinicity = props => {
                     <P><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</P>
                 </div>
             </div>
-            {!!props.errors && <GenericFormError errors={props.errors}/>}
+            {!!props.errors && <GenericFormMessage type="error" messages={props.errors}/>}
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>

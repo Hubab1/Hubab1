@@ -10,7 +10,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import { H1, P, formContent, link } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
@@ -110,7 +110,7 @@ export class RegisterPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
+                                { this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/> }
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
                                         <FormTextInput

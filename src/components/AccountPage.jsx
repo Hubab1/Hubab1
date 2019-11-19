@@ -11,7 +11,7 @@ import captureRoute from 'app/captureRoute';
 import { H1, formContent } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
 import { allValuesSet } from 'utils/formik';
@@ -19,7 +19,7 @@ import { serializeDate, parseDateISOString } from 'utils/misc';
 
 
 export class AccountPage extends React.Component {
-    state = {errors: null}
+    state = {status: null}
 
     get initialValues () {
         const applicant = this.props.applicant;
@@ -43,8 +43,21 @@ export class AccountPage extends React.Component {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                
+                this.setState({
+                    status: {
+                        type: 'success',
+                        detail: 'Changes saved'
+                    }
+                });
             }
+            setSubmitting(false);
+        }).catch(() => {
+            this.setState({
+                status: {
+                    type: 'error',
+                    detail: "We couldn't save your information. Please try again."
+                }
+            });
             setSubmitting(false);
         });
     }
@@ -82,7 +95,7 @@ export class AccountPage extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
+                                {!!this.state.status && <GenericFormMessage type={this.state.status.type} messages={this.state.status.detail}/>}
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
                                         <FormTextInput
