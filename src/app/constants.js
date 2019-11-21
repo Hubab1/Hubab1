@@ -15,8 +15,9 @@ export const ROUTES = {
     RENTAL_PROFILE: '/rental-profile',
     PROFILE_OPTIONS: '/rental-profile/options',
     GUARANTOR: '/rental-profile/invite-guarantor',
-    PARKING: '/parking/parking',
+    PARKING: '/rental-profile/parking',
     PETS: '/rental-profile/pets',
+    STORAGE: '/rental-profile/storage',
     CO_APPLICANTS: '/rental-profile/invite-roommates',
     INCOME_AND_EMPLOYMENT: '/income-employment',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
@@ -34,6 +35,8 @@ export const NAV_ROUTES = [
         {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
         {name: 'Guarantor', value: ROUTES.GUARANTOR},
         {name: 'Pets', value: ROUTES.PETS},
+        {name: 'Storage', value: ROUTES.STORAGE},
+        {name: 'Parking', value: ROUTES.PARKING},
     ]},
     {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
     {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
@@ -42,7 +45,7 @@ export const NAV_ROUTES = [
 ];
 
 export const routeToOptionName = {
-    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR]: 'guarantor', [ROUTES.PETS]: 'pets'
+    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR]: 'guarantor', [ROUTES.PETS]: 'pets', [ROUTES.STORAGE]: 'storage', [ROUTES.PARKING]: 'parking'
 }
 
 export const BASE_ROUTES = [

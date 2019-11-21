@@ -105,6 +105,8 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
     [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
     [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
+    [ROUTES.STORAGE]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_STORAGE_ADDED) && selectedRentalOptions.has("storage"),
+    [ROUTES.PARKING]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PARKING_ADDED) && selectedRentalOptions.has("parking"),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
@@ -162,6 +164,8 @@ const shouldHideNavRouteIf = (selectedRentalOptions, applicantRole) => ({
     [ROUTES.CO_APPLICANTS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
     [ROUTES.GUARANTOR]: !selectedRentalOptions.has(routeToOptionName[ROUTES.GUARANTOR]),
     [ROUTES.PETS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PETS]),
+    [ROUTES.STORAGE]: !selectedRentalOptions.has(routeToOptionName[ROUTES.STORAGE]),
+    [ROUTES.PARKING]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PARKING]),
 });
 
 selectors.selectNav = createSelector(
