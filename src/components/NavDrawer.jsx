@@ -17,6 +17,7 @@ import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import NavStepper from './NavStepper';
+import { ROUTES } from 'app/constants';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -123,7 +124,7 @@ export function PersistentDrawerLeft(props) {
                             </Box>
                         </Box>
                         <Box>
-                            <Link to='/'>Account Details</Link>
+                            <Link to={ROUTES.ACCOUNT}>Account Details</Link>
                         </Box>
                     </Box>
                     <Divider />

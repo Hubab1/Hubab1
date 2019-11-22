@@ -10,7 +10,7 @@ import { formContent, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import GenericFormError from 'components/common/GenericFormError';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 
 export default class ResetPassword extends React.Component {
@@ -71,7 +71,7 @@ export default class ResetPassword extends React.Component {
                     }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                { this.state.errors && <GenericFormError errors={this.state.errors}/> }
+                                { this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/> }
                                 <div>
                                     <FormTextInput
                                         label="Enter new password"

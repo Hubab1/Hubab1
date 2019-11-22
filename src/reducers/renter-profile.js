@@ -108,7 +108,8 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
-    [ROUTES.APP_COMPLETE]: true
+    [ROUTES.APP_COMPLETE]: true,
+    [ROUTES.ACCOUNT]: false,
 });
 
 selectors.canAccessRoute = (state, route) => {
