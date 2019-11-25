@@ -5,9 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveCircleOutlineSharpIcon from '@material-ui/icons/RemoveCircleOutlineSharp';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 
-export const root = css`
-
-`
 
 const valueDisplay = css`
     width: 30px;
@@ -30,11 +27,11 @@ export default function Adder(props) {
         }
     }
     return <Box display="flex" alignItems="center">
-        <IconButton disabled={onFloor} classes={{root}} onClick={decrement}>
+        <IconButton disabled={onFloor} onClick={decrement}>
             <RemoveCircleOutlineSharpIcon fontSize="large" />
         </IconButton>
         <div className={valueDisplay}>{props.value}</div>
-        <IconButton disabled={onCeil} classes={{root}} onClick={increment}>
+        <IconButton disabled={onCeil} onClick={increment}>
             <AddCircleOutlineSharpIcon fontSize="large"/>
         </IconButton>
     </Box>
