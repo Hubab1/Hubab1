@@ -17,8 +17,8 @@ const ImageContainer = styled.div`
     margin-top: 31px;
     margin-bottom: 31px;
     img {
-        max-height: 90px;
-        max-width: 90px;
+        max-height: 123px;
+        max-width: 123px;
     }
 `
 
