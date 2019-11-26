@@ -23,9 +23,12 @@ const ImageContainer = styled.div`
 `
 
 export const Storage = props => {
-    const onSubmit = (e) => {
+    if (!props.config) return null;
+
+    const onSubmit = (values) => {
         props._nextRoute();
     };
+    const storageOptions = props.config.rental_options_config.storage.options;
     return <>
         <H1>Storage</H1>
         <SpacedH3>We help you make room for what matters most.</SpacedH3>
@@ -42,13 +45,16 @@ export const Storage = props => {
                 errors
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    <ItemAdder
-                        title="Small - 14sqft"
-                        subtitle="$5/mo per storage space"
-                        value={values.small_storage}
-                        limit={3}
-                        onChange={e => setFieldValue('small_storage', e)}
-                    />
+                    { storageOptions.map(option => 
+                        <ItemAdder
+                            key={option.id}
+                            title={option.name}
+                            subtitle={`$${option.monthly_amount}/mo per storage space`}
+                            value={values[option.name]}
+                            limit={option.maximum_count}
+                            onChange={e => setFieldValue(option.name, e)}
+                        />
+                    )}
                     <Box padding="30px 0">
                         <Tip
                             text={
@@ -66,5 +72,8 @@ export const Storage = props => {
     </>
 };
 
+const mapStateToProps = state => ({
+    config: state.configuration,
+});
 
-export default connect()(withRelativeRoutes(Storage, ROUTES.STORAGE));
+export default connect(mapStateToProps)(withRelativeRoutes(Storage, ROUTES.STORAGE));

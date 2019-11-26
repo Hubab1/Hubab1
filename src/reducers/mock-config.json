@@ -23,6 +23,22 @@
             "pet_policy_details": "We allow cats and puppers up to 25lbs",
             "limit": 1,
             "types_allowed": ["dogs", "cats", "other"]
+        },
+        "storage": {
+            "options": [
+                {
+                    "monthly_amount": "75.00",
+                    "maximum_count": 5,
+                    "id": 123,
+                    "name": "Storage 6x10"
+                },
+                {
+                    "monthly_amount": "25.00",
+                    "maximum_count": 5,
+                    "id": 234,
+                    "name": "Storage 3x5"
+                }
+            ]
         }
     },
     "logo": "https://assets.nestiostatic.com/onlineleasing_logos/2e3bcd81cee6beee8b5c7c55ceb2c337.png",
