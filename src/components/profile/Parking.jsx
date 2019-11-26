@@ -23,9 +23,12 @@ const ImageContainer = styled.div`
 `
 
 export const Parking = props => {
-    const onSubmit = (e) => {
+    if (!props.config) return null;
+
+    const onSubmit = (values) => {
         props._nextRoute();
     };
+    const parkingOptions = props.config.rental_options_config.parking.options;
     return <>
         <H1>Parking</H1>
         <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
@@ -42,20 +45,16 @@ export const Parking = props => {
                 errors
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    <ItemAdder
-                        title="Covered Parking"
-                        subtitle="$5/mo per parking space"
-                        value={values.covered_parking}
-                        limit={3}
-                        onChange={e => setFieldValue('covered_parking', e)}
-                    />
-                    <ItemAdder
-                        title="Detached Garage"
-                        subtitle="$25/mo per parking space"
-                        value={values.detached_garage}
-                        limit={4}
-                        onChange={e => setFieldValue('detached_garage', e)}
-                    />
+                    { parkingOptions.map(option => 
+                        <ItemAdder
+                            key={option.id}
+                            title={option.name}
+                            subtitle={`$${option.monthly_amount}/mo per parking space`}
+                            value={values[option.name]}
+                            limit={option.maximum_count}
+                            onChange={e => setFieldValue(option.name, e)}
+                        />
+                    )}
                     <Box padding="30px 0">
                         <Tip
                             text={
@@ -73,5 +72,8 @@ export const Parking = props => {
     </>
 };
 
+const mapStateToProps = state => ({
+    config: state.configuration,
+});
 
-export default connect()(withRelativeRoutes(Parking, ROUTES.PARKING));
+export default connect(mapStateToProps, null)(withRelativeRoutes(Parking, ROUTES.PARKING));
