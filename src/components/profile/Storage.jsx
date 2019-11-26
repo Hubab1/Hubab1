@@ -47,6 +47,7 @@ export const Storage = props => {
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                     { storageOptions.map(option => 
                         <ItemAdder
+                            key={option.id}
                             title={option.name}
                             subtitle={`$${option.monthly_amount}/mo per storage space`}
                             value={values[option.name]}
