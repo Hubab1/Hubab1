@@ -61,9 +61,19 @@ export class RentalProfileOptions extends React.Component {
         });
     }
 
+
+
     render () {
         if (this.props.config == null || this.props.profile == null) return null;
-        const options = Object.keys(this.props.config.rental_options_config);
+        const MASTER_SORTED_CONFIG_OPTIONS = ['co_applicants', 'guarantor', 'pets', 'parking', 'storage']
+        const unsortedOptionsSet = new Set(Object.keys(this.props.config.rental_options_config));
+        const sortedConfigOptions = MASTER_SORTED_CONFIG_OPTIONS.reduce((options, item) => {
+            if (unsortedOptionsSet.has(item)){
+                options.push(item);
+            }
+            return options;
+        }, []);
+        
         return (
             <Fragment>
                 <SkinnyH1>Let's Talk About Your New Place</SkinnyH1>
@@ -88,7 +98,7 @@ export class RentalProfileOptions extends React.Component {
                                 onChange={(value) => setFieldValue('options', value)}
                                 value={values.options}
                             >
-                                {options.map(option => (
+                                {sortedConfigOptions.map(option => (
                                     <MultiSelectChoice
                                         key={option}
                                         {...optionConfig[option]}
