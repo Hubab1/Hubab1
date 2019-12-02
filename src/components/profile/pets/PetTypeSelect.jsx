@@ -20,7 +20,6 @@ function PetTypeSelect(props) {
                             variant="contained"
                             color="primary"
                             classes={{root: petButtonRoot}}
-                            onClick={() => onChange('')}
                         >
                             {type}
                         </Button>
