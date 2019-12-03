@@ -35,6 +35,7 @@ export const H1 = styled.h1`
     font-weight:600;
     font-size:23px;
     margin: 0 auto;
+    padding: 0;
 `
 
 export const H2 = styled.h2`

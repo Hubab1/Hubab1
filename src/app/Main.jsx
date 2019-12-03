@@ -7,7 +7,7 @@ import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
 import RentalProfileContainer from 'components/profile/RentalProfileContainer';
 import LoginPage from 'components/login/LoginPage';
-import AccountPage from 'components/AccountPage';
+import AccountPage from 'components/account/AccountPage';
 import RegisterPage from 'components/RegisterPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import ConnectBankPage from 'components/banking/ConnectBankPage';
