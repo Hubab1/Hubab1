@@ -37,6 +37,25 @@ const ErrorMessage = ({ name }) => (
 
 export default class PetItem extends React.Component {
     cache = {}
+
+    renderServiceAnimalField () {
+        const { petOption, handleChange, index } = this.props;
+        return (
+            <FormControl component="fieldset">
+                <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
+                <RadioGroup
+                    classes={{root}}
+                    aria-label="service-animal"
+                    name={`petOptions[${index}].service_animal`}
+                    onChange={handleChange}
+                    value={String(petOption.service_animal)}
+                >
+                    <FormControlLabel value="false" control={<Radio />} label="No" />
+                    <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                </RadioGroup>
+            </FormControl>
+        );
+    }
     
     renderDogFields () {
         const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
@@ -68,6 +87,7 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
+                {this.renderServiceAnimalField()}
             </Fragment>
         );
     }
@@ -93,6 +113,7 @@ export default class PetItem extends React.Component {
                     endAdornment={<span style={{color: '#828796'}}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
+                {this.renderServiceAnimalField()}
             </Fragment>
         );
     }
@@ -111,6 +132,7 @@ export default class PetItem extends React.Component {
                 />
                 <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>View pet restrictions</span>
                 <ErrorMessage name={`petOptions[${index}].description`} />
+                {this.renderServiceAnimalField()}
             </Fragment>
         );
     }
@@ -121,7 +143,7 @@ export default class PetItem extends React.Component {
         arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key, service_animal: 'false'}, this.cache[value])));
     }
     render () {
-        const { index, arrayHelpers, petOption, handleChange } = this.props;
+        const { index, arrayHelpers, petOption } = this.props;
         return (
             <div>
                 <PetTypeSelect
@@ -133,19 +155,6 @@ export default class PetItem extends React.Component {
                 {petOption.pet_type === 'Dog' && this.renderDogFields()}
                 {petOption.pet_type === 'Cat' && this.renderCatFields()}
                 {petOption.pet_type === 'Other' && this.renderOtherFields()}
-                <FormControl component="fieldset">
-                    <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
-                    <RadioGroup
-                        classes={{root}}
-                        aria-label="service-animal"
-                        name={`petOptions[${index}].service_animal`}
-                        onChange={handleChange}
-                        value={String(petOption.service_animal)}
-                    >
-                        <FormControlLabel value="false" control={<Radio />} label="No" />
-                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
-                    </RadioGroup>
-                </FormControl>
             </div>
         )
     }

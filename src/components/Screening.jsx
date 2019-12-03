@@ -71,7 +71,8 @@ export class Screening extends React.Component {
                     validationSchema={Yup.object().shape({
                         ssn: Yup.string()
                             .required('Social Security Number is required')
-                            .matches(/^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
+                            // some test numbers are not valid and break some ssn rules. we may want to update with this more precise validation in the future /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/
+                            .matches(/^\d{3}-\d{2}-\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
                         disclaimer: Yup.string()
                             .required('You must click the checkbox to agree to the terms')
                     })}

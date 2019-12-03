@@ -46,13 +46,13 @@
                     "monthly_amount": "75.00",
                     "maximum_count": 5,
                     "id": 123,
-                    "name": "Detached Garage"
+                    "name": "Covered Parking"
                 },
                 {
                     "monthly_amount": "25.00",
                     "maximum_count": 5,
                     "id": 234,
-                    "name": "Covered Parking"
+                    "name": "Detatched Parking"
                 }
             ]
         }
