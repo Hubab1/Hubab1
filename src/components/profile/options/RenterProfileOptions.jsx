@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES } from 'app/constants';
+import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { MultiSelect, MultiSelectChoice } from './MultiSelect';
 import { H1, H3 } from 'assets/styles';
@@ -61,9 +61,18 @@ export class RentalProfileOptions extends React.Component {
         });
     }
 
+
+
     render () {
         if (this.props.config == null || this.props.profile == null) return null;
-        const options = Object.keys(this.props.config.rental_options_config);
+        const unsortedOptionsSet = new Set(Object.keys(this.props.config.rental_options_config));
+        const sortedRentalOptions = SORTED_CONFIG_OPTIONS.reduce((options, item) => {
+            if (unsortedOptionsSet.has(item)){
+                options.push(item);
+            }
+            return options;
+        }, []);
+        
         return (
             <Fragment>
                 <SkinnyH1>Let's Talk About Your New Place</SkinnyH1>
@@ -88,7 +97,7 @@ export class RentalProfileOptions extends React.Component {
                                 onChange={(value) => setFieldValue('options', value)}
                                 value={values.options}
                             >
-                                {options.map(option => (
+                                {sortedRentalOptions.map(option => (
                                     <MultiSelectChoice
                                         key={option}
                                         {...optionConfig[option]}

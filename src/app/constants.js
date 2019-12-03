@@ -91,3 +91,5 @@ export const APPLICATION_EVENTS = {
 // payments constants
 export const LINE_ITEM_TYPE_APPLICATION_FEE = 10;
 export const LINE_ITEM_TYPE_HOLDING_DEPOSIT = 20;
+
+export const SORTED_CONFIG_OPTIONS = ['co_applicants', 'guarantor', 'pets', 'parking', 'storage']
