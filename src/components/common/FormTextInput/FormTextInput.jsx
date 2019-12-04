@@ -12,7 +12,7 @@ import { root } from './styles';
 export default function FormTextInput (props) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const { error, handleChange, handleBlur, value, label, name, type, submitted, showValidationText, touched, endAdornment, helperText } = props;
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showValidationText, touched, endAdornment, helperText, disabled } = props;
     const showValidationTextBeforeSubmit = showValidationText && (touched || value);
 
     const InputProps = (() => {
@@ -68,6 +68,7 @@ export default function FormTextInput (props) {
             onBlur={handleBlur}
             value={value}
             InputProps={InputProps}
+            disabled={disabled}
         />
     );
 }
@@ -81,6 +82,7 @@ FormTextInput.propTypes = {
     value: PropTypes.string,
     showValidationText: PropTypes.bool,
     touched: PropTypes.bool,
+    disabled: PropTypes.bool,
 }
 
 FormTextInput.defaultProps = {

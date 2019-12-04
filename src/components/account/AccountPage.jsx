@@ -8,10 +8,11 @@ import { H1 } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import AccountForm from 'components/common/AccountForm';
+import VerifyAccount from 'components/account/VerifyAccount';
 
 
 export class AccountPage extends React.Component {
-    state = {status: null}
+    state = {status: null, verified: false}
 
     get initialValues () {
         const applicant = this.props.applicant;
@@ -28,7 +29,7 @@ export class AccountPage extends React.Component {
         }
     }
 
-    onSubmit = (values, { setSubmitting, setErrors }) => {
+    onAccountDetailsSubmit = (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.birthday = serializeDate(stateUpdate.birthday);
         this.props.updateApplicant(stateUpdate, stateUpdate).then((res) => {
@@ -55,6 +56,13 @@ export class AccountPage extends React.Component {
     }
 
     render () {
+        if (!this.state.verified) {
+            return <VerifyAccount
+                communityId={this.props.communityId}
+                setVerified={() => this.setState({verified: true})}
+                email={this.initialValues.email}
+            />
+        }
         return (
             <>
                 <H1>Your Account Details</H1>
@@ -62,7 +70,7 @@ export class AccountPage extends React.Component {
                     submitText="Save Changes"
                     initialValues={this.initialValues}
                     status={this.state.status}
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onAccountDetailsSubmit}
                 />
             </>
         );
@@ -71,10 +79,13 @@ export class AccountPage extends React.Component {
 
 AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
+    communityId: PropTypes.string,
+    applicant: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    communityId: state.siteConfig.basename,
 });
 
 const mapDispatchToProps = { updateApplicant };
