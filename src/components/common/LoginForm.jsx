@@ -66,8 +66,8 @@ export function LoginForm ({handleOnSubmit, includeRegister=false, buttonText, f
                         <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={50}>
                             {buttonText}
                         </ActionButton>
-                        <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>
                         {includeRegister && <Fragment>
+                            <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>
                             <br/>
                             <Link to={ROUTES.SIGNUP} className={link}>Need an account?</Link>
                         </Fragment>}
