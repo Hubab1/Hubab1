@@ -7,6 +7,10 @@ import ChangePasswordForm from 'components/common/ChangePasswordForm';
 import AccountForm from 'components/common/AccountForm';
 import VerifyAccount from 'components/account/VerifyAccount';
 import mockApplicant from 'reducers/applicant-mock.json';
+import auth from 'utils/auth';
+
+import API from 'app/api';
+
 
 
 let defaultProps;
@@ -40,4 +44,33 @@ it('renders ChangePasswordForm when password has been verified and Change Passwo
 
     wrapper.find(LinkButton).simulate('click');
     expect(wrapper.find(ChangePasswordForm).exists()).toBeTruthy();
+});
+
+it('calls API.passwordReset onChangePasswordSubmit', function() {
+    const token = '123';
+
+    auth.getToken = jest.fn().mockReturnValue('123');
+
+    const wrapper = shallow( <AccountPage {...defaultProps}/> );
+    API.passwordReset = jest.fn().mockReturnValue(Promise.resolve());
+    return wrapper.instance().onChangePasswordSubmit({password: 'Abagail'}, { setSubmitting: function() {} }).then(() => {
+        expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token);
+    });
+});
+
+it('renders errors if has errors', function() {
+    const errorMessage = 'There was an error with resetting your password. Please try again.'
+
+    auth.getToken = jest.fn().mockReturnValue('123');
+
+    const wrapper = shallow( <AccountPage {...defaultProps}/> );
+    API.passwordReset = jest.fn().mockReturnValue(
+        Promise.resolve( 
+            {errors: [errorMessage]}
+        )
+    );
+    return wrapper.instance().onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function() {} }).then(() => {
+        expect(wrapper.state('resetPasswordErrors')).toEqual([errorMessage]);
+    });
+
 });
