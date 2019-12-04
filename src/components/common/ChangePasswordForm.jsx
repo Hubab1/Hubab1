@@ -65,7 +65,7 @@ export function ChangePasswordForm(props) {
                             />
                         </div>
                         <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={153}>
-                            Save Changes
+                            Save Password
                         </ActionButton>
                     </div>
                 </form>
