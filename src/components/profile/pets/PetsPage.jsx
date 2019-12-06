@@ -156,7 +156,7 @@ export class PetsPage extends React.Component {
                 { viewPetPolicy &&
                     <PetPolicy 
                         date="April 2019" 
-                        policy={rental_options_config.pets.pet_policy_details} 
+                        policy={community.pets_notes} 
                         onAgree={this.toggleViewPetPolicy}
                     />
                 }
