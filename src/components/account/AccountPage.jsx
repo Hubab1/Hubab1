@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
-import { H1, LinkButton } from 'assets/styles';
+import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 import VerifyAccount from 'components/account/VerifyAccount';
 import AccountForm from 'components/common/AccountForm';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
@@ -12,7 +13,6 @@ import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import auth from 'utils/auth';
 import { serializeDate, parseDateISOString } from 'utils/misc';
-
 
 export class AccountPage extends React.Component {
     state = {status: null, verified: false, showChangePassword: false, resetPasswordErrors: null}
@@ -93,10 +93,21 @@ export class AccountPage extends React.Component {
             />
         }
         if (this.state.showChangePassword) {
-            return <ChangePasswordForm
-                onSubmit={this.onChangePasswordSubmit}
-                errors={this.state.resetPasswordErrors}
-            />
+            return <>
+            <H1>Change Password</H1>
+                <ChangePasswordForm
+                    onSubmit={this.onChangePasswordSubmit}
+                    errors={this.state.resetPasswordErrors}
+                />
+                <span 
+                    className={blackLinkRoot}
+                    onClick={() => this.setState({showChangePassword: false})}
+                >
+                    <ArrowBackIos classes={{root: arrowIcon}}/>
+                    {" "}
+                    Go Back
+                </span>
+            </>
         }
         return (
             <>
@@ -106,10 +117,8 @@ export class AccountPage extends React.Component {
                     initialValues={this.initialValues}
                     status={this.state.status}
                     onSubmit={this.onAccountDetailsSubmit}
+                    resetPassword={() => this.setState({showChangePassword: true})}
                 />
-                <LinkButton onClick={() => this.setState({showChangePassword: true})}>
-                    Change Password
-                </LinkButton>
             </>
         );
     }

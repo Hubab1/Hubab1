@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { css } from 'emotion';
+
 
 import changePassword from 'assets/images/change-password.jpeg';
 import { formContent } from 'assets/styles';
@@ -9,6 +11,10 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
+const imgSpacing = css`
+    margin-top: 20px;
+    margin-bottom: 10px;
+`
 
 export function ChangePasswordForm(props) {
 
@@ -35,7 +41,7 @@ export function ChangePasswordForm(props) {
                 isSubmitting
             }) => (
                 <form onSubmit={handleSubmit} autoComplete="off">
-                    <img src={changePassword} alt="welcome sign" width="101" height="91"/>
+                    <img className={imgSpacing} src={changePassword} alt="welcome sign" width="101" height="91" />
                     <div className={formContent}>
                         { props.errors && <GenericFormMessage type="error" messages={props.errors}/> }
                         <div>
@@ -64,7 +70,7 @@ export function ChangePasswordForm(props) {
                                 showValidationText
                             />
                         </div>
-                        <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={153}>
+                        <ActionButton disabled={isSubmitting} marginTop={80} marginBottom={20}>
                             Save Password
                         </ActionButton>
                     </div>
