@@ -42,7 +42,7 @@ it('renders ChangePasswordForm when password has been verified and Change Passwo
     wrapper.setState({verified:true});
     expect(wrapper.find(ChangePasswordForm).exists()).not.toBeTruthy();
 
-    wrapper.find(LinkButton).simulate('click');
+    wrapper.setState({showChangePassword: true});
     expect(wrapper.find(ChangePasswordForm).exists()).toBeTruthy();
 });
 
