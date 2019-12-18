@@ -12,6 +12,8 @@ import ItemAdder from 'components/common/ItemAdder';
 import storageImage from 'assets/images/storage.png';
 import { H1, SpacedH3, P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
+import { updateRenterProfile } from 'reducers/renter-profile';
+import { rentalOptionsInitialValues } from 'utils/misc';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -23,11 +25,27 @@ const ImageContainer = styled.div`
 `
 
 export const Storage = props => {
-    if (!props.config) return null;
+    if (!props.config || !props.application) return null;
 
-    const onSubmit = (values) => {
-        props._nextRoute();
+    const onSubmit = (values, { setSubmitting, setErrors }) => {
+        const selectedOptionsArray = []
+        Object.entries(values).forEach(option => {
+            if (option[1] === 0) { return }
+            selectedOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]})
+        });
+        const selectedOptions = Object.assign({}, {selected_options: selectedOptionsArray});
+        return props.updateRenterProfile(selectedOptions).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                props._nextRoute();
+            }
+            setSubmitting(false);
+        });
     };
+
+    const initialStorageOptions = props.application.selected_options.storage;
+
     const storageOptions = props.config.options.storage;
     return <>
         <H1>Storage</H1>
@@ -37,12 +55,12 @@ export const Storage = props => {
         </ImageContainer>
         <Formik
             onSubmit={onSubmit}
+            initialValues={rentalOptionsInitialValues(initialStorageOptions)}
         >
             {({
                 values,
                 handleSubmit,
                 setFieldValue,
-                errors
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                     { storageOptions.map(option => 
@@ -74,6 +92,7 @@ export const Storage = props => {
 
 const mapStateToProps = state => ({
     config: state.configuration,
+    application: state.renterProfile,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(Storage, ROUTES.STORAGE));
+export default connect(mapStateToProps, { updateRenterProfile })(withRelativeRoutes(Storage, ROUTES.STORAGE));

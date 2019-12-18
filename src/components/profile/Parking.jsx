@@ -12,6 +12,9 @@ import ItemAdder from 'components/common/ItemAdder';
 import parkingImage from 'assets/images/parking.png';
 import { H1, SpacedH3, P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
+import { updateRenterProfile } from 'reducers/renter-profile';
+import { rentalOptionsInitialValues } from 'utils/misc';
+
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -23,11 +26,27 @@ const ImageContainer = styled.div`
 `
 
 export const Parking = props => {
-    if (!props.config) return null;
+    if (!props.config || !props.application) return null;
 
-    const onSubmit = (values) => {
-        props._nextRoute();
+    const onSubmit = (values, { setSubmitting, setErrors }) => {
+        const selectedOptionsArray = []
+        Object.entries(values).forEach(option => {
+            if (option[1] === 0) { return }
+            selectedOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]})
+        });
+        const selectedOptions = Object.assign({}, {selected_options: selectedOptionsArray});
+
+        return props.updateRenterProfile(selectedOptions).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                props._nextRoute();
+            }
+            setSubmitting(false);
+        });
     };
+
+    const initialParkingOptions = props.application.selected_options.parking;
     const parkingOptions = props.config.options.parking;
     return <>
         <H1>Parking</H1>
@@ -37,12 +56,12 @@ export const Parking = props => {
         </ImageContainer>
         <Formik
             onSubmit={onSubmit}
+            initialValues={rentalOptionsInitialValues(initialParkingOptions)}
         >
             {({
                 values,
                 handleSubmit,
                 setFieldValue,
-                errors
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                     { parkingOptions.map(option => 
@@ -74,6 +93,7 @@ export const Parking = props => {
 
 const mapStateToProps = state => ({
     config: state.configuration,
+    application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, null)(withRelativeRoutes(Parking, ROUTES.PARKING));
+export default connect(mapStateToProps, { updateRenterProfile })(withRelativeRoutes(Parking, ROUTES.PARKING));
