@@ -15,14 +15,14 @@ beforeEach(() => {
         profile: {
             selected_rental_options: []
         },
-        config: null
+        config: mockConfig
     }
 })
 
 it('renders a MultiSelectChoice component for each option in rental_options_config', function() {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} config={{rental_options_config: {guarantor: {limit: 1}, co_applicants: {limit: 1}}}}/> );
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
     const formikWrapper = wrapper.find(Formik).dive();
-    expect(formikWrapper.find(MultiSelectChoice).length).toEqual(2);
+    expect(formikWrapper.find(MultiSelectChoice).length).toEqual(5);
 });
 
 it('renders rental_option_config choices in correct order', () => {

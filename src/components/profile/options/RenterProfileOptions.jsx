@@ -65,14 +65,11 @@ export class RentalProfileOptions extends React.Component {
 
     render () {
         if (this.props.config == null || this.props.profile == null) return null;
-        const unsortedOptionsSet = new Set(Object.keys(this.props.config.rental_options_config));
-        const sortedRentalOptions = SORTED_CONFIG_OPTIONS.reduce((options, item) => {
-            if (unsortedOptionsSet.has(item)){
-                options.push(item);
-            }
-            return options;
-        }, []);
-        
+        const unsortedOptionsSet = new Set(Object.keys(this.props.config.options).map(key => key.toLowerCase()));
+        // for now we assume all require co_appplicants and guarantor... might want to do something smarter with RentalOptions in the future, but okie for now
+        const sortedRentalOptions = ['co_applicants', 'guarantor'].concat(SORTED_CONFIG_OPTIONS.filter(option => unsortedOptionsSet.has(option))
+        );
+
         return (
             <Fragment>
                 <SkinnyH1>Let's Talk About Your New Place</SkinnyH1>

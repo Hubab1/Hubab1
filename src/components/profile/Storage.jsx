@@ -28,7 +28,7 @@ export const Storage = props => {
     const onSubmit = (values) => {
         props._nextRoute();
     };
-    const storageOptions = props.config.rental_options_config.storage.options;
+    const storageOptions = props.config.options.storage;
     return <>
         <H1>Storage</H1>
         <SpacedH3>We help you make room for what matters most.</SpacedH3>
@@ -50,9 +50,9 @@ export const Storage = props => {
                             key={option.id}
                             title={option.name}
                             subtitle={`$${option.monthly_amount}/mo per storage space`}
-                            value={values[option.name]}
-                            limit={option.maximum_count}
-                            onChange={e => setFieldValue(option.name, e)}
+                            value={values[option.id]}
+                            limit={option.limit}
+                            onChange={e => setFieldValue(option.id, e)}
                         />
                     )}
                     <Box padding="30px 0">

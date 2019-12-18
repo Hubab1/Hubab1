@@ -28,7 +28,7 @@ export const Parking = props => {
     const onSubmit = (values) => {
         props._nextRoute();
     };
-    const parkingOptions = props.config.rental_options_config.parking.options;
+    const parkingOptions = props.config.options.parking;
     return <>
         <H1>Parking</H1>
         <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
@@ -50,9 +50,9 @@ export const Parking = props => {
                             key={option.id}
                             title={option.name}
                             subtitle={`$${option.monthly_amount}/mo per parking space`}
-                            value={values[option.name]}
-                            limit={option.maximum_count}
-                            onChange={e => setFieldValue(option.name, e)}
+                            value={values[option.id]}
+                            limit={option.limit}
+                            onChange={e => setFieldValue(option.id, e)}
                         />
                     )}
                     <Box padding="30px 0">
