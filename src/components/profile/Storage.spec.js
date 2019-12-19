@@ -5,12 +5,15 @@ import { Formik } from 'formik';
 import ItemAdder from 'components/common/ItemAdder';
 import { Storage } from 'components/profile/Storage';
 import mockConfig from 'reducers/mock-config.json';
+import mockApplication from 'reducers/mock-profile.json';
+
 
 let defaultProps;
 
 beforeEach(() => {
     defaultProps = {
-        config: mockConfig
+        config: mockConfig,
+        application: mockApplication,
     }
 })
 

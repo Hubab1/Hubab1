@@ -58,3 +58,16 @@ export const offsetDate = memoize((fromDate, offsetMonths) => {
     const newDate = addMonths(fromDate, offsetMonths);
     return format(newDate, 'MMMM do, yyyy');
 }, (a, b) => `${a}-${b}`);
+
+export const rentalOptionsInitialValues = (rawSelectedOptions) => {
+    const initialValues = {};
+    if (!!rawSelectedOptions) {
+        rawSelectedOptions.forEach(option => {
+            initialValues[option.rental_option.id] = option.quantity;
+        });
+    }
+    return initialValues
+}
+
+
+

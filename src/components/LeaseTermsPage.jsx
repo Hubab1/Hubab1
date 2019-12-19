@@ -54,7 +54,6 @@ export class LeaseTermsPage extends React.Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
-
         return this.props.updateRenterProfile(serializeValues(values), stateUpdate).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
