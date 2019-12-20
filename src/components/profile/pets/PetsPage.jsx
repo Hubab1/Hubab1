@@ -4,6 +4,7 @@ import clsx from  'clsx';
 import { Formik, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
+import groupBy from 'lodash/groupBy';
 
 import { H1, P, SpacedH3 } from 'assets/styles';
 import { viewPetPolicy as viewPetPolicyClassName, petsImageMargin, policyDiv } from './styles';
@@ -17,6 +18,20 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+
+const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
+const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
+const RENTAL_OPTIONS_PETS_OTHER = 'pets-other';
+const rentalOptiontoLabelMap = {
+    [RENTAL_OPTIONS_PETS_DOGS]: "Dog",
+    [RENTAL_OPTIONS_PETS_CATS]: "Cat",
+    [RENTAL_OPTIONS_PETS_OTHER]: "Other",
+};
+const labeltoRentalOptionMap = {
+    "Dog": RENTAL_OPTIONS_PETS_DOGS,
+    "Cat": RENTAL_OPTIONS_PETS_CATS,
+    "Other": RENTAL_OPTIONS_PETS_OTHER,
+};
 
 export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array()
@@ -53,23 +68,43 @@ export const petsSchema = (config) => Yup.object().shape({
         .required('Select a Pet')
 });
 
-function serializePetsForPost(petOptions) {
-    return petOptions.reduce((options, item) => {
-        if (item.pet_type) {
-            const data = Object.assign({}, item);
-            if (data.service_animal == null) data.service_animal = 'false';
-            options.push(data);
-            return options;
-        }
-        return options;
-    }, []);
-}
 
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
         errors: null
+    }
+
+    serializePetsForPost = (petOptions) => {
+        const petRentalOptions = this.props.configuration.options.pets;
+        const cleanedPetOptions = petOptions.reduce((options, item) => {
+            if (item.pet_type) {
+                const data = Object.assign({}, item);
+                if (data.service_animal == null) data.service_animal = 'false';
+                options.push(data);
+                return options;
+            }
+            return options;
+        }, []);
+        const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
+        const selectedOptionsArray = [];
+        Object.entries(groupedPets).forEach(petType => {
+            const petLabel = petType[0];
+            const petsObject = petType[1];
+            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id
+            selectedOptionsArray.push({ rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}})
+        });
+
+        // need to add a selected option with zero if none are selected to handle removal
+        petRentalOptions.forEach(rentalOption => {
+            const rentalOptionId = parseInt(rentalOption.id)
+            if (!selectedOptionsArray.find(option => option.rental_option.id === rentalOptionId)) {
+                selectedOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}})
+            }
+        });
+
+        return selectedOptionsArray;
     }
 
     toggleViewPetPolicy = () => {
@@ -81,8 +116,8 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        const pets = serializePetsForPost(values.petOptions);
-        this.props.updateRenterProfile({pets}).then((res) => {
+        const pets = this.serializePetsForPost(values.petOptions);
+        this.props.updateRenterProfile({selected_options: pets}).then((res) => {
             setSubmitting(false);
             this.props._nextRoute();
         }).catch((res) => {
@@ -93,10 +128,16 @@ export class PetsPage extends React.Component {
 
     render () {
         if (!this.props.profile || !this.props.configuration) return null;
-        const { configuration } = this.props;
-        const { community, rental_options_config } = configuration;
+        const { configuration, profile } = this.props;
+        const { community, options } = configuration;
+        const petTypeOptions = options.pets.map(option => rentalOptiontoLabelMap[option.leasing_category]);
         const { viewPetPolicy, viewPetRestrictions } = this.state;
-        const selectedPetOptions = this.props.profile.pets || [{key:'first-pet', service_animal: 'false'}];
+
+        const selectedPetOptions = [];
+        if (profile.selected_options.pets) { 
+            profile.selected_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets))
+        }
+        const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
                 <div className={clsx({'hide-pets-form': (viewPetPolicy || viewPetRestrictions)})}>
@@ -108,11 +149,11 @@ export class PetsPage extends React.Component {
                     </div>
                     <Formik
                         validationSchema={petsSchema({
-                            petMaxWeight: this.props.configuration.community.pets_max_weight == null ? Infinity : this.props.configuration.community.pets_max_weight,
-                            communityPhoneNumber: this.props.configuration.community.contact_phone
+                            petMaxWeight: configuration.community.pets_max_weight == null ? Infinity : configuration.community.pets_max_weight,
+                            communityPhoneNumber: configuration.community.contact_phone
                         })}
                         onSubmit={this.onSubmit}
-                        initialValues={{petOptions: selectedPetOptions}}
+                        initialValues={{petOptions: initialOptions}}
                     >
                         {({
                             values,
@@ -135,15 +176,22 @@ export class PetsPage extends React.Component {
                                                         handleChange={handleChange}
                                                         handleBlur={handleBlur}
                                                         toggleViewPetRestrictions={this.toggleViewPetRestrictions}
+                                                        petTypeOptions={petTypeOptions}
+                                                        totalPets={values.petOptions.length}
                                                     />
                                                 ))
                                             }
-                                            {values.petOptions.length < rental_options_config.pets.limit ?
+                                            {/* this does not address limits. i'll do that in a separate pr bc it's gonna suuuuck.
+                                            values.petOptions.length < rental_options_config.pets.limit ?
                                                 <AddAnotherButton
                                                     thing="Pet"
                                                     onClick={() => arrayHelpers.push({key: uuidv4()})}
                                                 />: null
-                                            }
+                                            */}
+                                            <AddAnotherButton
+                                                thing="Pet"
+                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                            />
                                         </div>
                                     )}
                                 />

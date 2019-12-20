@@ -143,13 +143,14 @@ export default class PetItem extends React.Component {
         arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key, service_animal: 'false'}, this.cache[value])));
     }
     render () {
-        const { index, arrayHelpers, petOption } = this.props;
+        const { index, arrayHelpers, petOption, petTypeOptions, totalPets } = this.props;
         return (
             <div>
                 <PetTypeSelect
-                    topAdornment={index > 0 && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
+                    topAdornment={(totalPets > 1 || index > 0) && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
+                    petTypeOptions={petTypeOptions}
                 />
                 <ErrorMessage name={`petOptions[${index}].pet_type`} />
                 {petOption.pet_type === 'Dog' && this.renderDogFields()}
