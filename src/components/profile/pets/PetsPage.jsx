@@ -91,6 +91,7 @@ export class PetsPage extends React.Component {
                 }
                 return [...options, newPetOption]
             }
+            return options;
         }, []);
 
         const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
