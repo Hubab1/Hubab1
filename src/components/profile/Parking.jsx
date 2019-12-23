@@ -29,7 +29,7 @@ export const Parking = props => {
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
-        const selectedOptionsArray = []
+        const selectedOptionsArray = [];
         Object.entries(values).forEach(option => {
             selectedOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]})
         });
