@@ -78,23 +78,29 @@ export class PetsPage extends React.Component {
 
     serializePetsForPost = (petOptions) => {
         const petRentalOptions = this.props.configuration.options.pets;
-        const cleanedPetOptions = petOptions.reduce((options, item) => {
-            if (item.pet_type) {
-                const data = Object.assign({}, item);
-                if (data.service_animal == null) data.service_animal = 'false';
-                options.push(data);
-                return options;
+        const cleanedPetOptions = petOptions.reduce((options, petOption) => {
+            const { pet_type } = petOption;
+            if (pet_type) {
+                const service_animal = petOption.service_animal ?
+                    petOption.service_animal :
+                    'false';
+
+                const newPetOption = {
+                    ...petOption,
+                    service_animal
+                }
+                return [...options, newPetOption]
             }
-            return options;
         }, []);
+
         const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
-        const selectedOptionsArray = [];
-        Object.entries(groupedPets).forEach(petType => {
+        const selectedOptionsArray = Object.entries(groupedPets).reduce((selectdOptions, petType) => {
             const petLabel = petType[0];
             const petsObject = petType[1];
             const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id
-            selectedOptionsArray.push({ rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}})
-        });
+            const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
+            return [...selectdOptions, formattedSelectedOption]
+        }, []);
 
         // need to add a selected option with zero if none are selected to handle removal
         petRentalOptions.forEach(rentalOption => {

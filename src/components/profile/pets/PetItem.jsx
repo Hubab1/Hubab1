@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Cancel from '@material-ui/icons/Cancel';
 import { css } from 'emotion';
 import { getIn, Field } from 'formik';
 import Radio from '@material-ui/core/Radio';
@@ -13,11 +12,6 @@ import { viewPetPolicy } from './styles';
 
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PetTypeSelect from './PetTypeSelect';
-
-const cancelButton = css`
-    color: #828796;
-    cursor: pointer;
-`
 
 const root = css`
     flex-direction: row !important;
@@ -147,7 +141,8 @@ export default class PetItem extends React.Component {
         return (
             <div>
                 <PetTypeSelect
-                    topAdornment={(totalPets > 1 || index > 0) && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={() => arrayHelpers.remove(index)}/>}
+                    showCancelButton={totalPets > 1 || index > 0}
+                    onCancel={() => arrayHelpers.remove(index)}
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
                     petTypeOptions={petTypeOptions}
