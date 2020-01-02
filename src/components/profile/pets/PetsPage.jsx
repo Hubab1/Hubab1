@@ -88,8 +88,8 @@ export class PetsPage extends React.Component {
                 const newPetOption = {
                     ...petOption,
                     service_animal
-                }
-                return [...options, newPetOption]
+                };
+                return [...options, newPetOption];
             }
             return options;
         }, []);
@@ -98,16 +98,16 @@ export class PetsPage extends React.Component {
         const selectedOptionsArray = Object.entries(groupedPets).reduce((selectdOptions, petType) => {
             const petLabel = petType[0];
             const petsObject = petType[1];
-            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id
+            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id;
             const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
-            return [...selectdOptions, formattedSelectedOption]
+            return [...selectdOptions, formattedSelectedOption];
         }, []);
 
         // need to add a selected option with zero if none are selected to handle removal
         petRentalOptions.forEach(rentalOption => {
-            const rentalOptionId = parseInt(rentalOption.id)
+            const rentalOptionId = parseInt(rentalOption.id);
             if (!selectedOptionsArray.find(option => option.rental_option.id === rentalOptionId)) {
-                selectedOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}})
+                selectedOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}});
             }
         });
 
@@ -115,11 +115,11 @@ export class PetsPage extends React.Component {
     }
 
     toggleViewPetPolicy = () => {
-        this.setState({viewPetPolicy: !this.state.viewPetPolicy})
+        this.setState({viewPetPolicy: !this.state.viewPetPolicy});
     }
 
     toggleViewPetRestrictions = () => {
-        this.setState({viewPetRestrictions: !this.state.viewPetRestrictions})
+        this.setState({viewPetRestrictions: !this.state.viewPetRestrictions});
     }
 
     onSubmit = (values, { setSubmitting }) => {
@@ -141,8 +141,8 @@ export class PetsPage extends React.Component {
         const { viewPetPolicy, viewPetRestrictions } = this.state;
 
         const selectedPetOptions = [];
-        if (profile.selected_options.pets) { 
-            profile.selected_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets))
+        if (profile.selected_options.pets) {
+            profile.selected_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets));
         }
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
         return (
@@ -209,16 +209,16 @@ export class PetsPage extends React.Component {
                     <BackLink to={this.props._prev || '/'}/>
                 </div>
                 { viewPetPolicy &&
-                    <PetPolicy 
-                        date="April 2019" 
-                        policy={community.pets_notes} 
+                    <PetPolicy
+                        date="April 2019"
+                        policy={community.pets_notes}
                         onAgree={this.toggleViewPetPolicy}
                     />
                 }
                 { viewPetRestrictions &&
-                    <PetRestrictions 
-                        breedPolicy={community.pets_restrictions} 
-                        contactPhone={community.contact_phone} 
+                    <PetRestrictions
+                        breedPolicy={community.pets_restrictions}
+                        contactPhone={community.contact_phone}
                         onAgree={this.toggleViewPetRestrictions}
                     />
                 }
@@ -230,7 +230,7 @@ export class PetsPage extends React.Component {
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration
-})
+});
 
 const connectedPetsPage = connect(mapStateToProps, {updateRenterProfile})(PetsPage);
 export default withRelativeRoutes(connectedPetsPage, ROUTES.PETS);
