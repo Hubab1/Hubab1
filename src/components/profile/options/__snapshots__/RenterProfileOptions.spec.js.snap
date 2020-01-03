@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Let's Set Up Your Rental Profile
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Complete the sections that apply to you and skip the ones that don't.
+  </ForwardRef(render)>
+  <Formik
+    enableReinitialize={false}
+    initialValues={
+      Object {
+        "options": Array [],
+      }
+    }
+    isInitialValid={false}
+    onSubmit={[Function]}
+    validate={[Function]}
+    validateOnBlur={true}
+    validateOnChange={true}
+  >
+    [Function]
+  </Formik>
+  <BackLink
+    to="/"
+  />
+</React.Fragment>
+`;

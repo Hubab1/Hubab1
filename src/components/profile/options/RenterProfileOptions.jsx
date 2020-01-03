@@ -72,8 +72,8 @@ export class RentalProfileOptions extends React.Component {
 
         return (
             <Fragment>
-                <SkinnyH1>Let's Talk About Your New Place</SkinnyH1>
-                <SpacedH3>Select all that apply</SpacedH3>
+                <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
+                <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
                 <Formik
                     initialValues={{ options: this.props.profile.selected_rental_options }}
                     validate={values => {

@@ -25,6 +25,11 @@ it('renders a MultiSelectChoice component for each option in rental_options_conf
     expect(formikWrapper.find(MultiSelectChoice).length).toEqual(5);
 });
 
+it('matches snapshot', () => {
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
 it('renders rental_option_config choices in correct order', () => {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} config={mockConfig}/> );
     const formikWrapper = wrapper.find(Formik).dive();
