@@ -95,7 +95,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
-                        {hasApplicant && <NavDrawer hideNav={!this.props.configuration.show_navigation} name={applicant.client.person.name} email={applicant.client.person.email}>
+                        {hasApplicant && <NavDrawer name={applicant.client.person.name} email={applicant.client.person.email}>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
