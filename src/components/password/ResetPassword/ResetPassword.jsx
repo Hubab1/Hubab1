@@ -11,7 +11,7 @@ import ChangePasswordForm from 'components/common/ChangePasswordForm';
 
 export default class ResetPassword extends React.Component {
     state = {
-        confirmReset: false, 
+        confirmReset: false,
         errors: null
     }
     onSubmit = (values, { setSubmitting }) => {
@@ -22,7 +22,7 @@ export default class ResetPassword extends React.Component {
                 this.setState({errors: res.errors});
             } else {
                 this.setState({confirmReset: true})
-            }   
+            }
             setSubmitting(false);
         }).catch((res) => {
             this.setState({errors: ['There was an error with resetting your password. Please try again.']})
@@ -32,13 +32,13 @@ export default class ResetPassword extends React.Component {
 
     render () {
         if (this.state.confirmReset) {
-            return <ConfirmationPage 
+            return <ConfirmationPage
                 successMessage="Success! Your Password Has Been Reset."
                 confirmationImage={thumbsUp}
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
             />
-        } 
+        }
         return (
             <Fragment>
                 <H1>

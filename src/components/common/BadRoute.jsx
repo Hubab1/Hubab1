@@ -1,11 +1,13 @@
 import React from 'react';
 import { css } from 'emotion';
 import styled from '@emotion/styled';
+import Img404 from 'assets/images/404.png';
+import { H1, H3 } from 'assets/styles';
 
-const BigText = styled.div`	
-    font-size: 50px;	
-    font-weight: bold;	
-` 	
+
+const SpacedH3 = styled(H3)`
+    margin: 20px 20% 25px 20%;
+`
 
 const centerAlign = css`
     text-align: center;
@@ -15,7 +17,9 @@ const centerAlign = css`
 export default function BadRoute () {
     return (
         <div className={centerAlign}>
-            <BigText>404</BigText>
+            <H1>Page Not Found</H1>
+            <SpacedH3>The requested URL was not found on this server.</SpacedH3>
+            <img alt='404 page' src={Img404} />
         </div>
     );
 }
