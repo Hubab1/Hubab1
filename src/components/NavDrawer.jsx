@@ -15,7 +15,6 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
-import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import NavStepper from './NavStepper';
 import { ROUTES } from 'app/constants';
 
@@ -63,9 +62,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export function PersistentDrawerLeft(props) {
-    if (props.hideNav) {
-        return <UnauthenticatedPage>{props.children}</UnauthenticatedPage>
-    }
     const appThemeContext = useContext(AppTheme);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
