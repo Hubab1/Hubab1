@@ -125,7 +125,7 @@ export class PetsPage extends React.Component {
         const pets = this.serializePetsForPost(values.petOptions);
         this.props.updateRenterProfile({selected_options: pets}).then((res) => {
             setSubmitting(false);
-            this.props._nextRoute();
+            this.props.history.push(ROUTES.PROFILE_OPTIONS);
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -136,7 +136,7 @@ export class PetsPage extends React.Component {
         if (!this.props.profile || !this.props.configuration) return null;
         const { configuration, profile } = this.props;
         const { community, options } = configuration;
-        const petTypeOptions = options.pets.map(option => rentalOptiontoLabelMap[option.leasing_category]);
+        const petTypeOptions = (options.pets || []).map(option => rentalOptiontoLabelMap[option.leasing_category]);
         const { viewPetPolicy, viewPetRestrictions } = this.state;
 
         const selectedPetOptions = [];

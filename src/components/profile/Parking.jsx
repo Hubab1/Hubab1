@@ -38,14 +38,14 @@ export const Parking = props => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                props._nextRoute();
+                props.history.push(ROUTES.PROFILE_OPTIONS);
             }
             setSubmitting(false);
         });
     };
 
     const initialParkingOptions = props.application.selected_options.parking;
-    const parkingOptions = props.config.options.parking;
+    const parkingOptions = props.config.options.parking || [];
     return <>
         <H1>Parking</H1>
         <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>

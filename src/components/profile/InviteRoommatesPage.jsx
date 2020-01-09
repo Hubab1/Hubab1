@@ -49,7 +49,7 @@ export class InviteRoommatesPage extends React.Component {
             return <ConfirmationPage 
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={this.props._nextRoute}
+                buttonClick={()=>this.props.history.push(ROUTES.PROFILE_OPTIONS)}
                 buttonText="Continue"
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
                 secondaryButtonText="Add Another Roommate"

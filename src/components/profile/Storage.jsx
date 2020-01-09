@@ -36,7 +36,7 @@ export const Storage = props => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                props._nextRoute();
+                props.history.push(ROUTES.PROFILE_OPTIONS);
             }
             setSubmitting(false);
         });
@@ -44,7 +44,7 @@ export const Storage = props => {
 
     const initialStorageOptions = props.application.selected_options.storage;
 
-    const storageOptions = props.config.options.storage;
+    const storageOptions = props.config.options.storage || [];
     return <>
         <H1>Storage</H1>
         <SpacedH3>We help you make room for what matters most.</SpacedH3>
