@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
+import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createStyles } from '@material-ui/styles';
 
 import MultiSelectContext from './context';
-import { contentContainer, label, prefix, selected, unselected, multiSelectChoiceContainer } from './styles';
+import { contentContainer, label, prefix, buttonRoot, unselected, multiSelectChoiceContainer } from './styles';
 import  { hexToRGB } from 'utils/misc';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -19,19 +20,33 @@ function MultiSelectChoice (props) {
     const classes = useStyles();
     return (
         <div className={multiSelectChoiceContainer}>
-            <Button
+            <Paper
                 onClick={()=>context._onClick(props.name)}
-                variant="outlined"
-                color="primary"
                 fullWidth
                 classes={{
-                    root: props._selected ? selected + ' ' + classes.selected : unselected,
-                    label: contentContainer
+                    // root: props._selected ? selected + ' ' + classes.selected : unselected,
+                    root: unselected,
+                    // label: contentContainer
                 }}
             >
-                <div className={prefix}>{props.prefix}</div>
-                <div className={label}>{props.label}</div>
-            </Button>
+                <div>
+                    <div className={contentContainer}>
+                        <div className={prefix}>{props.prefix}</div>
+                        <div className={label}>{props.label}</div>
+                    </div>
+                    <Button
+                        onClick={()=>context._onClick(props.name)}
+                        variant="outlined"
+                        color="primary"
+                        fullWidth
+                        classes={{
+                            root: buttonRoot
+                            // label: contentContainer
+
+                        }}
+                    >Invite a roommate</Button>
+                </div>
+            </Paper>
         </div>
     );
 }
