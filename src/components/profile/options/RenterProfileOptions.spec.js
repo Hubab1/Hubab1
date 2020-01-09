@@ -12,7 +12,6 @@ beforeEach(() => {
     defaultProps = {
         updateRenterProfile: jest.fn(),
         profile: {
-            selected_rental_options: []
         },
         config: mockConfig
     }

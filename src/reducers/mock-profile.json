@@ -1,7 +1,6 @@
 {
     "lease_term": 12,
     "lease_settings": 2,
-    "selected_rental_options": ["co_applicants", "guarantor", "pets"],
     "lease_start_date": null,
     "primary_applicant": {
         "guarantors": [{

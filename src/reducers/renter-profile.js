@@ -110,11 +110,9 @@ selectors.canAccessRoute = (state, route) => {
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
-    state => state.renterProfile && state.renterProfile.selected_rental_options,
-    state => state.renterProfile,
     state => state.applicant,
-    (orderedRoutes, events, selectedRentalOptions, renterProfile, applicant) => {
-        if (orderedRoutes && events && selectedRentalOptions) {
+    (orderedRoutes, events, applicant) => {
+        if (orderedRoutes && events) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];

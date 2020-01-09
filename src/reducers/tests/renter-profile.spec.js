@@ -15,55 +15,6 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: ['co_applicants', 'pets'],
-                co_applicants: null,
-                pets: null,
-                lease_term: 6,
-            },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}]}
-        });
-        expect(initialPage).toEqual(ROUTES.CO_APPLICANTS);
-        initialPage = selectors.selectInitialPage({
-            configuration,
-            renterProfile: {
-                selected_rental_options: ['co_applicants', 'pets'],
-                co_applicants: [{name: 'bob'}],
-                pets: null,
-                lease_term: 6,
-            },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}]}
-        });
-        expect(initialPage).toEqual(ROUTES.PETS);
-        initialPage = selectors.selectInitialPage({
-            configuration,
-            renterProfile: {
-                selected_rental_options: ['co_applicants', 'pets'],
-                co_applicants: [{name: 'bob'}],
-                pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
-                lease_term: 6,
-            },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
-        });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
-
-        initialPage = selectors.selectInitialPage({
-            configuration,
-            renterProfile: {
-                selected_rental_options: ['guarantor', 'pets'],
-                co_applicants: null,
-                guarantor: null,
-                pets: null,
-                lease_term: 6,
-            },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
-        });
-
-        expect(initialPage).toEqual(ROUTES.GUARANTOR);
-
-        initialPage = selectors.selectInitialPage({
-            configuration,
-            renterProfile: {
-                selected_rental_options: [],
                 co_applicants: null,
                 guarantor: null,
                 pets: null,
@@ -76,7 +27,17 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: [],
+                co_applicants: [{name: 'bob'}],
+                pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
+        });
+        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+
+        initialPage = selectors.selectInitialPage({
+            configuration,
+            renterProfile: {
                 co_applicants: null,
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
                 lease_term: 6,
@@ -88,7 +49,6 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: [],
                 co_applicants: null,
                 guarantor: null,
                 pets: null,
@@ -101,7 +61,6 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration,
             renterProfile: {
-                selected_rental_options: [],
                 co_applicants: null,
                 guarantor: null,
                 pets: null,

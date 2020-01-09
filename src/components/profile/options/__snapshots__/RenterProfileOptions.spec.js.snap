@@ -64,6 +64,7 @@ exports[`matches snapshot 1`] = `
     color="primary"
     marginBottom={27}
     marginTop={60}
+    onClick={[Function]}
     successGreen={false}
     variant="contained"
   >
