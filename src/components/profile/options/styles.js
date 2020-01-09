@@ -38,7 +38,7 @@ export const buttonRoot = css`
     text-transform: none !important;
     font-size: 16px !important;
 `
-export const unselected = css`
+export const paperRoot = css`
     box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
     border-width: 0px !important;
 

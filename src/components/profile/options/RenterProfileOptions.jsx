@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { MultiSelect, MultiSelectChoice } from './MultiSelect';
+// import { MultiSelect, MultiSelectChoice } from './MultiSelect';
+import RenterProfileListOption from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
@@ -74,37 +75,15 @@ export class RentalProfileOptions extends React.Component {
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
-                <Formik
-                    initialValues={{ options: this.props.profile.selected_rental_options }}
-                    validate={values => {
-                        let errors = {};
-                        // todo
-                        return errors;
-                    }}
-                    onSubmit={this.onSubmit}
-                >
-                    {({
-                        values,
-                        setFieldValue,
-                        isSubmitting,
-                        handleSubmit,
-                    }) => (
-                        <form onSubmit={handleSubmit} autoComplete="off">
-                            <MultiSelect
-                                onChange={(value) => setFieldValue('options', value)}
-                                value={values.options}
-                            >
-                                {sortedRentalOptions.map(option => (
-                                    <MultiSelectChoice
-                                        key={option}
-                                        {...optionConfig[option]}
-                                    />
-                                ))}
-                            </MultiSelect>
-                            <ActionButton disabled={isSubmitting} marginTop={60} marginBottom={27}>Continue</ActionButton>
-                        </form>
-                    )}
-                </Formik>
+                <div>
+                    {sortedRentalOptions.map(option => (
+                        <RenterProfileListOption
+                            key={option}
+                            {...optionConfig[option]}
+                        />
+                    ))}
+                </div>
+                <ActionButton marginTop={60} marginBottom={27}>Continue</ActionButton>
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );

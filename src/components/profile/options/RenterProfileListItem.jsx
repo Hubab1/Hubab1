@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createStyles } from '@material-ui/styles';
 
-import MultiSelectContext from './context';
-import { contentContainer, label, prefix, buttonRoot, unselected, multiSelectChoiceContainer } from './styles';
+
+import { contentContainer, label, prefix, buttonRoot, paperRoot, multiSelectChoiceContainer } from './styles';
 import  { hexToRGB } from 'utils/misc';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -15,18 +15,11 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 function MultiSelectChoice (props) {
-    
-    const context = useContext(MultiSelectContext);
-    const classes = useStyles();
     return (
         <div className={multiSelectChoiceContainer}>
             <Paper
-                onClick={()=>context._onClick(props.name)}
-                fullWidth
                 classes={{
-                    // root: props._selected ? selected + ' ' + classes.selected : unselected,
-                    root: unselected,
-                    // label: contentContainer
+                    root: paperRoot
                 }}
             >
                 <div>
@@ -35,13 +28,11 @@ function MultiSelectChoice (props) {
                         <div className={label}>{props.label}</div>
                     </div>
                     <Button
-                        onClick={()=>context._onClick(props.name)}
                         variant="outlined"
                         color="primary"
                         fullWidth
                         classes={{
                             root: buttonRoot
-                            // label: contentContainer
 
                         }}
                     >Invite a roommate</Button>
