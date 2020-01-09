@@ -27,7 +27,7 @@ function RenterProfileListItem (props) {
                             root: buttonRoot
 
                         }}
-                    >Invite a roommate</Button>
+                    >{props.buttonLabel}</Button>
                 </div>
             </Paper>
         </div>
@@ -36,7 +36,8 @@ function RenterProfileListItem (props) {
 
 RenterProfileListItem.propTypes = {
     prefix: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    label: PropTypes.string
+    label: PropTypes.string,
+    buttonLabel: PropTypes.string,
 }
 
 export default RenterProfileListItem;
