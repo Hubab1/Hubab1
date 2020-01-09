@@ -12,7 +12,6 @@ import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 
 
 const SpacedH3 = styled(H3)`
@@ -63,7 +62,7 @@ export class InviteRoommatesPage extends React.Component {
                 <SpacedH3>Send your roommate an application link via text or email.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
-                <BackLink to={this.props._prev}/>
+                <BackLink to={ROUTES.PROFILE_OPTIONS}/>
             </Fragment>
         );
     }
@@ -74,4 +73,4 @@ const mapStateToProps = state => ({
     config: state.configuration,
 })
 
-export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.CO_APPLICANTS));
+export default connect(mapStateToProps, {updateRenterProfile})(InviteRoommatesPage, ROUTES.CO_APPLICANTS);

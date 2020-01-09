@@ -98,15 +98,10 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
-const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) => ({
+const routeMapping = (events, applicant) => ({
     [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]), 
     [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED, 
     [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
-    [ROUTES.CO_APPLICANTS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED) && selectedRentalOptions.has("co_applicants"),
-    [ROUTES.GUARANTOR]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_GUARANTOR_INVITED) && selectedRentalOptions.has("guarantor"),
-    [ROUTES.PETS]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED) && selectedRentalOptions.has("pets"),
-    [ROUTES.STORAGE]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_STORAGE_ADDED) && selectedRentalOptions.has("storage"),
-    [ROUTES.PARKING]: !events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PARKING_ADDED) && selectedRentalOptions.has("parking"),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
@@ -116,8 +111,7 @@ const routeMapping = (events, selectedRentalOptions, renterProfile, applicant) =
 
 selectors.canAccessRoute = (state, route) => {
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
-    const selectedRentalOptionsSet = new Set(state.renterProfile.selected_rental_options.selectedRentalOptions);
-    return routeMapping(eventsSet, selectedRentalOptionsSet, state.renterProfile, state.applicant)[route] === false;
+    return routeMapping(eventsSet, state.applicant)[route] === false;
 };
 
 selectors.selectInitialPage = createSelector(
@@ -129,10 +123,9 @@ selectors.selectInitialPage = createSelector(
     (orderedRoutes, events, selectedRentalOptions, renterProfile, applicant) => {
         if (orderedRoutes && events && selectedRentalOptions) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
-            const selectedRentalOptionsSet = new Set(selectedRentalOptions);
             for (let i = 0; i < orderedRoutes.length; i++) {
                 const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(eventsSet, selectedRentalOptionsSet, renterProfile, applicant)[route]) {
+                if (i === orderedRoutes.length -1 || routeMapping(eventsSet, applicant)[route]) {
                     return route;
                 }
             }
