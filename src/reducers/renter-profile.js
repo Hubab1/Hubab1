@@ -3,7 +3,7 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import { NAV_ROUTES, routeToOptionName } from 'app/constants';
+import { NAV_ROUTES } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED } from 'app/constants';
 import mock from './mock-profile';
@@ -77,18 +77,11 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
     state => state.configuration && state.configuration.rental_options_config,
-    state => state.renterProfile && state.renterProfile.selected_rental_options,
     state => state.applicant,
-    (config, selectedOptions, applicant) => {
-        if (selectedOptions && config && applicant) {
+    (config, applicant) => {
+        if (config && applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
-                const addedRoutes = [];
-                Object.keys(config).forEach(key => {
-                    if (selectedOptions.indexOf(key) > -1) {
-                        addedRoutes.push(ROUTES[key.toUpperCase()]);
-                    }
-                })
-                return BASE_ROUTES.concat(addedRoutes).concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
+                return BASE_ROUTES.concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {
                 return [ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
             }
@@ -153,37 +146,26 @@ selectors.selectPrevRoute = createSelector(
     }
 );
 
-const shouldHideNavRouteIf = (selectedRentalOptions, applicantRole) => ({
+const shouldHideNavRouteIf = (applicantRole) => ({
     [ROUTES.PROFILE_OPTIONS]: applicantRole !== ROLE_PRIMARY_APPLICANT,
-    [ROUTES.CO_APPLICANTS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.CO_APPLICANTS]),
-    [ROUTES.GUARANTOR]: !selectedRentalOptions.has(routeToOptionName[ROUTES.GUARANTOR]),
-    [ROUTES.PETS]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PETS]),
-    [ROUTES.STORAGE]: !selectedRentalOptions.has(routeToOptionName[ROUTES.STORAGE]),
-    [ROUTES.PARKING]: !selectedRentalOptions.has(routeToOptionName[ROUTES.PARKING]),
 });
 
 selectors.selectNav = createSelector(
-    state => state.renterProfile && state.renterProfile.selected_rental_options,
     state => state.applicant && state.applicant.role,
-    (selectedOptions, applicantRole) => {
-        if (selectedOptions && applicantRole) {
-            const selectedRentalOptionsSet = new Set(selectedOptions);
-            const HIDE_ROUTE = shouldHideNavRouteIf(selectedRentalOptionsSet, applicantRole);
+    (applicantRole) => {
+        if (applicantRole) {
+            const HIDE_ROUTE = shouldHideNavRouteIf(applicantRole);
             function buildNav(routes) {
                 const nav = [];
-                // pick nav routes that can be shown
+                // pick nav routes that can be shown to current user
                 for (let i = 0; i < routes.length; i++) {
                     const route = routes[i];
-                    const copy = {};
                     // nav route can be shown
                     if (HIDE_ROUTE[route.value] !== true) {
-                        copy.value = route.value;
-                        copy.name = route.name;
-                        nav.push(copy);
-                    }
-                    // build routes for route's subRoutes
-                    if (copy && route.subRoutes) {
-                        copy.subRoutes = buildNav(route.subRoutes);
+                        nav.push({
+                            name: route.name,
+                            value: route.value
+                        });
                     }
                 }
                 return nav.length > 0 ? nav : null;

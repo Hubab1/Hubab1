@@ -63,11 +63,9 @@ const optionConfig = {
 }
 
 export class RentalProfileOptions extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
-        this.props.updateRenterProfile({selected_rental_options: values.options}).then(() => {
-            this.props._nextRoute();
-            setSubmitting(false);
-        });
+    onContinue = () => {
+        // TODO: API call that makes some milestone?
+        this.props._nextRoute();
     }
 
 
@@ -91,7 +89,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     ))}
                 </div>
-                <ActionButton marginTop={60} marginBottom={27}>Continue</ActionButton>
+                <ActionButton onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );

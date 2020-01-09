@@ -39,10 +39,6 @@ export const NAV_ROUTES = [
     {name: 'Application Complete', value: ROUTES.APP_COMPLETE}
 ];
 
-export const routeToOptionName = {
-    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR]: 'guarantor', [ROUTES.PETS]: 'pets', [ROUTES.STORAGE]: 'storage', [ROUTES.PARKING]: 'parking'
-}
-
 export const BASE_ROUTES = [
     ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
 ]
