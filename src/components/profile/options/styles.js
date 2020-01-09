@@ -12,7 +12,7 @@ export const contentContainer = css`
     padding-bottom: 16px;
 `
 
-export const multiSelectChoiceContainer = css`
+export const renterProfileListItemContainer = css`
     margin-bottom: 10px;
 `
 export const label = css`

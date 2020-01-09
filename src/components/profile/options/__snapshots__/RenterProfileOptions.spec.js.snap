@@ -8,21 +8,57 @@ exports[`matches snapshot 1`] = `
   <ForwardRef(render)>
     Complete the sections that apply to you and skip the ones that don't.
   </ForwardRef(render)>
-  <Formik
-    enableReinitialize={false}
-    initialValues={
-      Object {
-        "options": Array [],
+  <div>
+    <RenterProfileListItem
+      label="Other adults will live here"
+      name="co_applicants"
+      prefix={
+        <img
+          alt="coapplicants"
+          src="coapplicants.png"
+        />
       }
-    }
-    isInitialValid={false}
-    onSubmit={[Function]}
-    validate={[Function]}
-    validateOnBlur={true}
-    validateOnChange={true}
+    />
+    <RenterProfileListItem
+      label="I'll need a guarantor"
+      name="guarantor"
+      prefix={
+        <img
+          alt="coins"
+          src="guarantor.png"
+        />
+      }
+    />
+    <RenterProfileListItem
+      label="Pets will live here"
+      name="pets"
+      prefix={
+        <img
+          alt="dog"
+          src="doggie.png"
+        />
+      }
+    />
+    <RenterProfileListItem
+      label="I'd like a parking space"
+      name="parking"
+      prefix="🚗"
+    />
+    <RenterProfileListItem
+      label="I'll need extra storage"
+      name="storage"
+      prefix="🛍️"
+    />
+  </div>
+  <ActionButton
+    color="primary"
+    marginBottom={27}
+    marginTop={60}
+    successGreen={false}
+    variant="contained"
   >
-    [Function]
-  </Formik>
+    Continue
+  </ActionButton>
   <BackLink
     to="/"
   />

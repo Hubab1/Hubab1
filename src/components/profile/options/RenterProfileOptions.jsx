@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-// import { MultiSelect, MultiSelectChoice } from './MultiSelect';
-import RenterProfileListOption from './RenterProfileListItem';
+import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
@@ -77,7 +75,7 @@ export class RentalProfileOptions extends React.Component {
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
                 <div>
                     {sortedRentalOptions.map(option => (
-                        <RenterProfileListOption
+                        <RenterProfileListItem
                             key={option}
                             {...optionConfig[option]}
                         />
