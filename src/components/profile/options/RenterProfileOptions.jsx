@@ -29,31 +29,36 @@ const optionConfig = {
         prefix: <img alt="coapplicants" src={coapplicants}></img>,
         name: 'co_applicants',
         label: 'Other adults will live here',
-        buttonLabel: 'Invite a roommate'
+        buttonLabel: 'Invite a roommate',
+        route: ROUTES.CO_APPLICANTS
     },
     pets: {
         prefix: <img alt="dog" src={doggie}></img>,
         name: 'pets',
         label: 'Pets will live here',
-        buttonLabel: 'Add a pet'
+        buttonLabel: 'Add a pet',
+        route: ROUTES.PETS
     },
     guarantor: {
         prefix: <img alt="coins" src={guarantor}></img>,
         name: 'guarantor',
         label: 'I\'ll need a guarantor',
-        buttonLabel: 'Invite a guarantor'
+        buttonLabel: 'Invite a guarantor',
+        route: ROUTES.GUARANTOR
     },
     parking: {
         prefix: '🚗',
         name: 'parking',
         label: 'I\'d like a parking space',
-        buttonLabel: 'Add parking'
+        buttonLabel: 'Add parking',
+        route: ROUTES.PARKING
     },
     storage: {
         prefix: '🛍️',
         name: 'storage',
         label: 'I\'ll need extra storage',
-        buttonLabel: 'Add storage'
+        buttonLabel: 'Add storage',
+        route: ROUTES.STORAGE
     }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
@@ -9,16 +9,12 @@ import { contentContainer, label, prefix, buttonRoot, paperRoot, renterProfileLi
 function RenterProfileListItem (props) {
     return (
         <div className={renterProfileListItemContainer}>
-            <Paper
-                classes={{
-                    root: paperRoot
-                }}
-            >
-                <div>
-                    <div className={contentContainer}>
-                        <div className={prefix}>{props.prefix}</div>
-                        <div className={label}>{props.label}</div>
-                    </div>
+            <div className={paperRoot}>
+                <div className={contentContainer}>
+                    <div className={prefix}>{props.prefix}</div>
+                    <div className={label}>{props.label}</div>
+                </div>
+                <Link to={props.route}>
                     <Button
                         variant="outlined"
                         color="primary"
@@ -28,8 +24,8 @@ function RenterProfileListItem (props) {
 
                         }}
                     >{props.buttonLabel}</Button>
-                </div>
-            </Paper>
+                </Link>
+            </div>
         </div>
     );
 }
@@ -38,6 +34,7 @@ RenterProfileListItem.propTypes = {
     prefix: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     label: PropTypes.string,
     buttonLabel: PropTypes.string,
+    route: PropTypes.string,
 }
 
 export default RenterProfileListItem;

@@ -6,14 +6,15 @@ export const contentContainer = css`
     display: flex;
     flex: 1;
     align-items: center;
-    // height: 100%;
     text-transform: none;
-    // padding: 14px 0;
     padding-bottom: 16px;
 `
 
 export const renterProfileListItemContainer = css`
     margin-bottom: 10px;
+    a {
+        text-decoration: none;
+    }
 `
 export const label = css`
     flex: 1;
@@ -41,9 +42,7 @@ export const buttonRoot = css`
 export const paperRoot = css`
     box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
     border-width: 0px !important;
-
     padding: 15px !important;
-    // height: 80px;
     font-size: 16px !important;
 `
 

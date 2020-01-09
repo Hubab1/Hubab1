@@ -10,6 +10,7 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
   <div>
     <RenterProfileListItem
+      buttonLabel="Invite a roommate"
       label="Other adults will live here"
       name="co_applicants"
       prefix={
@@ -18,8 +19,10 @@ exports[`matches snapshot 1`] = `
           src="coapplicants.png"
         />
       }
+      route="/rental-profile/invite-roommates"
     />
     <RenterProfileListItem
+      buttonLabel="Invite a guarantor"
       label="I'll need a guarantor"
       name="guarantor"
       prefix={
@@ -28,8 +31,10 @@ exports[`matches snapshot 1`] = `
           src="guarantor.png"
         />
       }
+      route="/rental-profile/invite-guarantor"
     />
     <RenterProfileListItem
+      buttonLabel="Add a pet"
       label="Pets will live here"
       name="pets"
       prefix={
@@ -38,16 +43,21 @@ exports[`matches snapshot 1`] = `
           src="doggie.png"
         />
       }
+      route="/rental-profile/pets"
     />
     <RenterProfileListItem
+      buttonLabel="Add parking"
       label="I'd like a parking space"
       name="parking"
       prefix="🚗"
+      route="/rental-profile/parking"
     />
     <RenterProfileListItem
+      buttonLabel="Add storage"
       label="I'll need extra storage"
       name="storage"
       prefix="🛍️"
+      route="/rental-profile/storage"
     />
   </div>
   <ActionButton
