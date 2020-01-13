@@ -32,6 +32,7 @@ exports[`matches snapshot 1`] = `
         />
       }
       route="/rental-profile/invite-guarantor"
+      tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
     />
     <RenterProfileListItem
       buttonLabel="Add a pet"

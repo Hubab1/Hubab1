@@ -44,7 +44,8 @@ const optionConfig = {
         name: 'guarantor',
         label: 'I\'ll need a guarantor',
         buttonLabel: 'Invite a guarantor',
-        route: ROUTES.GUARANTOR
+        route: ROUTES.GUARANTOR,
+        tip: 'This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay.'
     },
     parking: {
         prefix: '🚗',
