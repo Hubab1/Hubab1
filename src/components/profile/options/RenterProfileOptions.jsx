@@ -28,14 +28,14 @@ const optionConfig = {
     co_applicants: {
         prefix: <img alt="coapplicants" src={coapplicants}></img>,
         name: 'co_applicants',
-        label: 'Other adults will live here',
+        label: 'I\'ll be living with roommates',
         buttonLabel: 'Invite a roommate',
         route: ROUTES.CO_APPLICANTS
     },
     pets: {
         prefix: <img alt="dog" src={doggie}></img>,
         name: 'pets',
-        label: 'Pets will live here',
+        label: 'I\'ll be living with pets',
         buttonLabel: 'Add a pet',
         route: ROUTES.PETS
     },
@@ -50,14 +50,14 @@ const optionConfig = {
     parking: {
         prefix: '🚗',
         name: 'parking',
-        label: 'I\'d like a parking space',
+        label: 'I\'ll need parking',
         buttonLabel: 'Add parking',
         route: ROUTES.PARKING
     },
     storage: {
         prefix: '🛍️',
         name: 'storage',
-        label: 'I\'ll need extra storage',
+        label: 'I\'ll need storage',
         buttonLabel: 'Add storage',
         route: ROUTES.STORAGE
     }

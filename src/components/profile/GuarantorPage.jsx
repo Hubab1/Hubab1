@@ -64,4 +64,6 @@ export class GuarantorPage extends React.Component {
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(GuarantorPage);
+const mapStateToProps = (state) => ({routes: selectors.selectOrderedRoutes(state)});
+
+export default connect(mapStateToProps, {updateRenterProfile})(GuarantorPage);
