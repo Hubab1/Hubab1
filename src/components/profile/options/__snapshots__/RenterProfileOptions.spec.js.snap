@@ -11,7 +11,7 @@ exports[`matches snapshot 1`] = `
   <div>
     <RenterProfileListItem
       buttonLabel="Invite a roommate"
-      label="Other adults will live here"
+      label="I'll be living with roommates"
       name="co_applicants"
       prefix={
         <img
@@ -36,7 +36,7 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add a pet"
-      label="Pets will live here"
+      label="I'll be living with pets"
       name="pets"
       prefix={
         <img
@@ -48,14 +48,14 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add parking"
-      label="I'd like a parking space"
+      label="I'll need parking"
       name="parking"
       prefix="🚗"
       route="/rental-profile/parking"
     />
     <RenterProfileListItem
       buttonLabel="Add storage"
-      label="I'll need extra storage"
+      label="I'll need storage"
       name="storage"
       prefix="🛍️"
       route="/rental-profile/storage"
