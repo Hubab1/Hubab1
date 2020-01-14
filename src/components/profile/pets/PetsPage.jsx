@@ -22,15 +22,19 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
 const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
 const RENTAL_OPTIONS_PETS_OTHER = 'pets-other';
+const PET_DOG_LABEL = 'Dog'
+const PET_CAT_LABEL = 'Cat'
+const PET_OTHER_LABEL = 'Other'
+
 const rentalOptiontoLabelMap = {
-    [RENTAL_OPTIONS_PETS_DOGS]: "Dog",
-    [RENTAL_OPTIONS_PETS_CATS]: "Cat",
-    [RENTAL_OPTIONS_PETS_OTHER]: "Other",
+    [RENTAL_OPTIONS_PETS_DOGS]: PET_DOG_LABEL,
+    [RENTAL_OPTIONS_PETS_CATS]: PET_CAT_LABEL,
+    [RENTAL_OPTIONS_PETS_OTHER]: PET_OTHER_LABEL,
 };
 const labeltoRentalOptionMap = {
-    "Dog": RENTAL_OPTIONS_PETS_DOGS,
-    "Cat": RENTAL_OPTIONS_PETS_CATS,
-    "Other": RENTAL_OPTIONS_PETS_OTHER,
+    [PET_DOG_LABEL]: RENTAL_OPTIONS_PETS_DOGS,
+    [PET_CAT_LABEL]: RENTAL_OPTIONS_PETS_CATS,
+    [PET_OTHER_LABEL]: RENTAL_OPTIONS_PETS_OTHER,
 };
 
 export const petsSchema = (config) => Yup.object().shape({
