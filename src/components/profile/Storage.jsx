@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tip from 'components/common/Tip';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import ItemAdder from 'components/common/ItemAdder';
 import storageImage from 'assets/images/storage.png';
 import { H1, SpacedH3, P } from 'assets/styles';
@@ -37,7 +36,7 @@ export const Storage = props => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                props._nextRoute();
+                props.history.push(ROUTES.PROFILE_OPTIONS);
             }
             setSubmitting(false);
         });
@@ -45,7 +44,7 @@ export const Storage = props => {
 
     const initialStorageOptions = props.application.selected_options.storage;
 
-    const storageOptions = props.config.options.storage;
+    const storageOptions = props.config.options.storage || [];
     return <>
         <H1>Storage</H1>
         <SpacedH3>We help you make room for what matters most.</SpacedH3>
@@ -84,7 +83,7 @@ export const Storage = props => {
             )}
         </Formik>
         <Box padding="20px">
-            <BackLink to={props._prev}/>
+            <BackLink to={ROUTES.PROFILE_OPTIONS}/>
         </Box>
     </>
 };
@@ -94,4 +93,4 @@ const mapStateToProps = state => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(withRelativeRoutes(Storage, ROUTES.STORAGE));
+export default connect(mapStateToProps, { updateRenterProfile })(Storage);

@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Formik } from 'formik';
 
-import { MultiSelectChoice } from 'components/profile/options/MultiSelect';
+import RenterProfileListItem from 'components/profile/options/RenterProfileListItem';
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
 
@@ -13,16 +12,14 @@ beforeEach(() => {
     defaultProps = {
         updateRenterProfile: jest.fn(),
         profile: {
-            selected_rental_options: []
         },
         config: mockConfig
     }
 })
 
-it('renders a MultiSelectChoice component for each option in rental_options_config', function() {
+it('renders a RenterProfileListItem component for each option in rental_options_config', function() {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
-    const formikWrapper = wrapper.find(Formik).dive();
-    expect(formikWrapper.find(MultiSelectChoice).length).toEqual(5);
+    expect(wrapper.find(RenterProfileListItem).length).toEqual(5);
 });
 
 it('matches snapshot', () => {
@@ -32,12 +29,11 @@ it('matches snapshot', () => {
 
 it('renders rental_option_config choices in correct order', () => {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} config={mockConfig}/> );
-    const formikWrapper = wrapper.find(Formik).dive();
 
-    expect(formikWrapper.find(MultiSelectChoice).first().props()['name']).toEqual('co_applicants');
-    expect(formikWrapper.find(MultiSelectChoice).at(1).props()['name']).toEqual('guarantor');
-    expect(formikWrapper.find(MultiSelectChoice).at(2).props()['name']).toEqual('pets');
-    expect(formikWrapper.find(MultiSelectChoice).at(3).props()['name']).toEqual('parking');
-    expect(formikWrapper.find(MultiSelectChoice).last().props()['name']).toEqual('storage');
+    expect(wrapper.find(RenterProfileListItem).first().props()['name']).toEqual('co_applicants');
+    expect(wrapper.find(RenterProfileListItem).at(1).props()['name']).toEqual('guarantor');
+    expect(wrapper.find(RenterProfileListItem).at(2).props()['name']).toEqual('pets');
+    expect(wrapper.find(RenterProfileListItem).at(3).props()['name']).toEqual('parking');
+    expect(wrapper.find(RenterProfileListItem).last().props()['name']).toEqual('storage');
 
 });

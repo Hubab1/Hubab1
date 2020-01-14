@@ -8,21 +8,69 @@ exports[`matches snapshot 1`] = `
   <ForwardRef(render)>
     Complete the sections that apply to you and skip the ones that don't.
   </ForwardRef(render)>
-  <Formik
-    enableReinitialize={false}
-    initialValues={
-      Object {
-        "options": Array [],
+  <div>
+    <RenterProfileListItem
+      buttonLabel="Invite a roommate"
+      label="I'll be living with roommates"
+      name="co_applicants"
+      prefix={
+        <img
+          alt="coapplicants"
+          src="coapplicants.png"
+        />
       }
-    }
-    isInitialValid={false}
-    onSubmit={[Function]}
-    validate={[Function]}
-    validateOnBlur={true}
-    validateOnChange={true}
+      route="/rental-profile/invite-roommates"
+    />
+    <RenterProfileListItem
+      buttonLabel="Invite a guarantor"
+      label="I'll need a guarantor"
+      name="guarantor"
+      prefix={
+        <img
+          alt="coins"
+          src="guarantor.png"
+        />
+      }
+      route="/rental-profile/invite-guarantor"
+      tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
+    />
+    <RenterProfileListItem
+      buttonLabel="Add a pet"
+      label="I'll be living with pets"
+      name="pets"
+      prefix={
+        <img
+          alt="dog"
+          src="doggie.png"
+        />
+      }
+      route="/rental-profile/pets"
+    />
+    <RenterProfileListItem
+      buttonLabel="Add parking"
+      label="I'll need parking"
+      name="parking"
+      prefix="🚗"
+      route="/rental-profile/parking"
+    />
+    <RenterProfileListItem
+      buttonLabel="Add storage"
+      label="I'll need storage"
+      name="storage"
+      prefix="🛍️"
+      route="/rental-profile/storage"
+    />
+  </div>
+  <ActionButton
+    color="primary"
+    marginBottom={27}
+    marginTop={60}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
   >
-    [Function]
-  </Formik>
+    Continue
+  </ActionButton>
   <BackLink
     to="/"
   />

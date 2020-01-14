@@ -17,7 +17,6 @@ import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 
 const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
 const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
@@ -126,7 +125,7 @@ export class PetsPage extends React.Component {
         const pets = this.serializePetsForPost(values.petOptions);
         this.props.updateRenterProfile({selected_options: pets}).then((res) => {
             setSubmitting(false);
-            this.props._nextRoute();
+            this.props.history.push(ROUTES.PROFILE_OPTIONS);
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -137,7 +136,7 @@ export class PetsPage extends React.Component {
         if (!this.props.profile || !this.props.configuration) return null;
         const { configuration, profile } = this.props;
         const { community, options } = configuration;
-        const petTypeOptions = options.pets.map(option => rentalOptiontoLabelMap[option.leasing_category]);
+        const petTypeOptions = (options.pets || []).map(option => rentalOptiontoLabelMap[option.leasing_category]);
         const { viewPetPolicy, viewPetRestrictions } = this.state;
 
         const selectedPetOptions = [];
@@ -206,7 +205,7 @@ export class PetsPage extends React.Component {
                             </form>
                         )}
                     </Formik>
-                    <BackLink to={this.props._prev || '/'}/>
+                    <BackLink to={ROUTES.PROFILE_OPTIONS}/>
                 </div>
                 { viewPetPolicy &&
                     <PetPolicy
@@ -232,5 +231,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration
 });
 
-const connectedPetsPage = connect(mapStateToProps, {updateRenterProfile})(PetsPage);
-export default withRelativeRoutes(connectedPetsPage, ROUTES.PETS);
+export default connect(mapStateToProps, {updateRenterProfile})(PetsPage);

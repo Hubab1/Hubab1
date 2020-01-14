@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tip from 'components/common/Tip';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import ItemAdder from 'components/common/ItemAdder';
 import parkingImage from 'assets/images/parking.png';
 import { H1, SpacedH3, P } from 'assets/styles';
@@ -39,14 +38,14 @@ export const Parking = props => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                props._nextRoute();
+                props.history.push(ROUTES.PROFILE_OPTIONS);
             }
             setSubmitting(false);
         });
     };
 
     const initialParkingOptions = props.application.selected_options.parking;
-    const parkingOptions = props.config.options.parking;
+    const parkingOptions = props.config.options.parking || [];
     return <>
         <H1>Parking</H1>
         <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
@@ -85,7 +84,7 @@ export const Parking = props => {
             )}
         </Formik>
         <Box padding="20px">
-            <BackLink to={props._prev}/>
+            <BackLink to={ROUTES.PROFILE_OPTIONS}/>
         </Box>
     </>
 };
@@ -95,4 +94,4 @@ const mapStateToProps = state => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(withRelativeRoutes(Parking, ROUTES.PARKING));
+export default connect(mapStateToProps, { updateRenterProfile })(Parking);

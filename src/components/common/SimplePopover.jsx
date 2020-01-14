@@ -15,9 +15,11 @@ const cancelButton = css`
 const useStyles = makeStyles(theme => ({
     typography: {
         padding: theme.spacing(2, 4, 2, 2),
+        maxWidth: '500px !important'
+
     },
     root: {
-        display: 'inline'
+        display: 'inline',
     }
 }));
 

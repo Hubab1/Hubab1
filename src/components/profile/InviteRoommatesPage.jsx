@@ -12,7 +12,6 @@ import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 
 
 const SpacedH3 = styled(H3)`
@@ -50,7 +49,7 @@ export class InviteRoommatesPage extends React.Component {
             return <ConfirmationPage 
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={this.props._nextRoute}
+                buttonClick={()=>this.props.history.push(ROUTES.PROFILE_OPTIONS)}
                 buttonText="Continue"
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
                 secondaryButtonText="Add Another Roommate"
@@ -63,7 +62,7 @@ export class InviteRoommatesPage extends React.Component {
                 <SpacedH3>Send your roommate an application link via text or email.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
-                <BackLink to={this.props._prev}/>
+                <BackLink to={ROUTES.PROFILE_OPTIONS}/>
             </Fragment>
         );
     }
@@ -74,4 +73,4 @@ const mapStateToProps = state => ({
     config: state.configuration,
 })
 
-export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(InviteRoommatesPage, ROUTES.CO_APPLICANTS));
+export default connect(mapStateToProps, {updateRenterProfile})(InviteRoommatesPage);

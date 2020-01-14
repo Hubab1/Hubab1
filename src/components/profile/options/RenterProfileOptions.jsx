@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { MultiSelect, MultiSelectChoice } from './MultiSelect';
+import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
@@ -29,36 +28,45 @@ const optionConfig = {
     co_applicants: {
         prefix: <img alt="coapplicants" src={coapplicants}></img>,
         name: 'co_applicants',
-        label: 'Other adults will live here'
+        label: 'I\'ll be living with roommates',
+        buttonLabel: 'Invite a roommate',
+        route: ROUTES.CO_APPLICANTS
     },
     pets: {
         prefix: <img alt="dog" src={doggie}></img>,
         name: 'pets',
-        label: 'Pets will live here'
+        label: 'I\'ll be living with pets',
+        buttonLabel: 'Add a pet',
+        route: ROUTES.PETS
     },
     guarantor: {
         prefix: <img alt="coins" src={guarantor}></img>,
         name: 'guarantor',
-        label: 'I\'ll need a guarantor'
+        label: 'I\'ll need a guarantor',
+        buttonLabel: 'Invite a guarantor',
+        route: ROUTES.GUARANTOR,
+        tip: 'This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay.'
     },
     parking: {
         prefix: '🚗',
         name: 'parking',
-        label: 'I\'d like a parking space'
+        label: 'I\'ll need parking',
+        buttonLabel: 'Add parking',
+        route: ROUTES.PARKING
     },
     storage: {
         prefix: '🛍️',
         name: 'storage',
-        label: 'I\'ll need extra storage'
+        label: 'I\'ll need storage',
+        buttonLabel: 'Add storage',
+        route: ROUTES.STORAGE
     }
 }
 
 export class RentalProfileOptions extends React.Component {
-    onSubmit = (values, { setSubmitting }) => {
-        this.props.updateRenterProfile({selected_rental_options: values.options}).then(() => {
-            this.props._nextRoute();
-            setSubmitting(false);
-        });
+    onContinue = () => {
+        // TODO: API call that makes some milestone?
+        this.props._nextRoute();
     }
 
 
@@ -74,37 +82,15 @@ export class RentalProfileOptions extends React.Component {
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
-                <Formik
-                    initialValues={{ options: this.props.profile.selected_rental_options }}
-                    validate={values => {
-                        let errors = {};
-                        // todo
-                        return errors;
-                    }}
-                    onSubmit={this.onSubmit}
-                >
-                    {({
-                        values,
-                        setFieldValue,
-                        isSubmitting,
-                        handleSubmit,
-                    }) => (
-                        <form onSubmit={handleSubmit} autoComplete="off">
-                            <MultiSelect
-                                onChange={(value) => setFieldValue('options', value)}
-                                value={values.options}
-                            >
-                                {sortedRentalOptions.map(option => (
-                                    <MultiSelectChoice
-                                        key={option}
-                                        {...optionConfig[option]}
-                                    />
-                                ))}
-                            </MultiSelect>
-                            <ActionButton disabled={isSubmitting} marginTop={60} marginBottom={27}>Continue</ActionButton>
-                        </form>
-                    )}
-                </Formik>
+                <div>
+                    {sortedRentalOptions.map(option => (
+                        <RenterProfileListItem
+                            key={option}
+                            {...optionConfig[option]}
+                        />
+                    ))}
+                </div>
+                <ActionButton onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );

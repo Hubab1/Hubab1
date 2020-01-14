@@ -32,22 +32,12 @@ export const ROUTES = {
 export const NAV_ROUTES = [
     {name: 'Current Address', value: ROUTES.ADDRESS},
     {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
-        {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
-        {name: 'Guarantor', value: ROUTES.GUARANTOR},
-        {name: 'Pets', value: ROUTES.PETS},
-        {name: 'Storage', value: ROUTES.STORAGE},
-        {name: 'Parking', value: ROUTES.PARKING},
-    ]},
+    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
     {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
     {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
     {name: 'Screening', value: ROUTES.SCREENING},
     {name: 'Application Complete', value: ROUTES.APP_COMPLETE}
 ];
-
-export const routeToOptionName = {
-    [ROUTES.CO_APPLICANTS]: 'co_applicants', [ROUTES.GUARANTOR]: 'guarantor', [ROUTES.PETS]: 'pets', [ROUTES.STORAGE]: 'storage', [ROUTES.PARKING]: 'parking'
-}
 
 export const BASE_ROUTES = [
     ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS

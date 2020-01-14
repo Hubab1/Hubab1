@@ -11,7 +11,6 @@ import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPag
 import { ROUTES } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import { InviteForm } from 'components/common/InviteForm';
 import BackLink from 'components/common/BackLink';
 
@@ -47,7 +46,7 @@ export class GuarantorPage extends React.Component {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
-                buttonClick={this.props._nextRoute}
+                buttonClick={()=>this.props.history.push(ROUTES.PROFILE_OPTIONS)}
                 buttonText="Continue"
             />
         }
@@ -59,10 +58,12 @@ export class GuarantorPage extends React.Component {
                     <img src={coin} alt="coin"/>
                 </ImageContainer>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
-                <BackLink to={this.props._prev}/>
+                <BackLink to={ROUTES.PROFILE_OPTIONS}/>
             </Fragment>
         );
     }
 }
 
-export default connect((state) => ({routes: selectors.selectOrderedRoutes(state)}), {updateRenterProfile})(withRelativeRoutes(GuarantorPage, ROUTES.GUARANTOR));
+const mapStateToProps = (state) => ({routes: selectors.selectOrderedRoutes(state)});
+
+export default connect(mapStateToProps, {updateRenterProfile})(GuarantorPage);
