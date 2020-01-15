@@ -13,7 +13,9 @@ beforeEach(() => {
         updateRenterProfile: jest.fn(),
         profile: {
         },
-        config: mockConfig
+        config: mockConfig,
+        _nextRoute: jest.fn(),
+        pageComplete: jest.fn().mockResolvedValue({})
     }
 })
 
@@ -35,5 +37,14 @@ it('renders rental_option_config choices in correct order', () => {
     expect(wrapper.find(RenterProfileListItem).at(2).props()['name']).toEqual('pets');
     expect(wrapper.find(RenterProfileListItem).at(3).props()['name']).toEqual('parking');
     expect(wrapper.find(RenterProfileListItem).last().props()['name']).toEqual('storage');
-
 });
+
+describe('onContinue', function () {
+    it('marks page complete on continue and calls next route', function() {
+        const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+        return wrapper.instance().onContinue().then(() => {
+            expect(defaultProps.pageComplete).toHaveBeenCalledWith('renter_profile')
+            expect(defaultProps._nextRoute).toHaveBeenCalled()
+        })
+    });
+})

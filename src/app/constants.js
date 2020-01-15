@@ -43,6 +43,9 @@ export const BASE_ROUTES = [
     ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
 ]
 
+export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
+export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
+
 export const REPORT_POLL_INTERVAL = 10000;
 
 export const STRIPE_PUBLISHABLE_KEY = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';

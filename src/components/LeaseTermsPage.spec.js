@@ -14,13 +14,14 @@ beforeEach(() => {
         _nextRoute: jest.fn(),
         applicant: {
             role: ROLE_PRIMARY_APPLICANT
-        }
+        },
+        pageComplete: jest.fn().mockResolvedValue({})
     }
 });
 
 describe('onSubmit', () => {
     it ('calls updateRenterProfile with valid parameters', function () {
-        updateRenterProfile.mockReturnValue(Promise.resolve({}));
+        updateRenterProfile.mockResolvedValue({});
         const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
         return wrapper.instance().onSubmit({lease_start_date: new Date('2019-8-15'), unit: {id: 123}, lease_term: 12}, 
             {setSubmitting: jest.fn(), setErrors: jest.fn()}
@@ -29,6 +30,26 @@ describe('onSubmit', () => {
                 {'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit_id': 123},
                 {'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit': {id: 123}}
             )
+        })
+    })
+    it ('calls pageComplete with lease_terms and nextRoute', function () {
+        updateRenterProfile.mockResolvedValue({});
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
+        return wrapper.instance().onSubmit({unit: {id: 123}},
+            {setSubmitting: jest.fn(), setErrors: jest.fn()}
+        ).then(() => {
+            expect(defaultProps.pageComplete).toHaveBeenCalledWith('lease_terms')
+            expect(defaultProps._nextRoute).toHaveBeenCalled()
+        })
+    })
+    it ('doesnt call pageComplete if if updateRenterProfile returns errors', function () {
+        updateRenterProfile.mockResolvedValue({errors: 'you messed up'});
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
+        return wrapper.instance().onSubmit({unit: {id: 123}},
+            {setSubmitting: jest.fn(), setErrors: jest.fn()}
+        ).then(() => {
+            expect(defaultProps.pageComplete).not.toHaveBeenCalled()
+            expect(defaultProps._nextRoute).not.toHaveBeenCalled()
         })
     })
 });
