@@ -62,3 +62,7 @@ export const applicationStatus = css`
     color: #828796;
     font-size: 12px;
 `
+
+export const existingItemsContainer = css`
+    margin-bottom: 15px;
+`

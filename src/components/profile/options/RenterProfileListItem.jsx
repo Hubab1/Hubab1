@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Info from '@material-ui/icons/Info';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import { makeStyles } from '@material-ui/core/styles';
 
 import pluralize from 'pluralize';
 
@@ -12,35 +15,60 @@ import { infoIconRoot, P } from 'assets/styles';
 import SimplePopover from 'components/common/SimplePopover';
 
 
-import { applicationStatus, buttonRoot, contentContainer, existingItemRow, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
+import { applicationStatus, buttonRoot, contentContainer, existingItemsContainer, existingItemRow, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
 
-function ExistingRoommate({item}) {
-    const statusColor = !!item.status ? '#DB5963' : '#FAC700';
-    return <div className={existingItemRow}>
-        <div>{`${item.first_name} ${item.last_name}`}</div>
-        <div>
-            <span className={applicationStatus}>Application Status:</span>
-            <br/>
-            <P color={statusColor}>{!!item.status ? item.status : 'Not Started'}</P>
+function ExistingRoommates({items}) {
+    return items.map(item => {
+        const statusColor = !!item.status ? '#DB5963' : '#FAC700';
+        return <div key={item.id} className={existingItemRow}>
+            <div>{`${item.first_name} ${item.last_name}`}</div>
+            <div>
+                <span className={applicationStatus}>Application Status:</span>
+                <br/>
+                <P color={statusColor}>{!!item.status ? item.status : 'Not Started'}</P>
+            </div>
         </div>
-    </div>
+    });
 }
 
+ExistingRoommates.propTypes = { items: PropTypes.array }
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'block',
+        padding: 0
+    },
+}));
+
 function ExistingItems({existingItems, nameLabel}) {
-    const [showItems, setShowItems] = useState(false);
+    const classes = useStyles();
     const toggleLabel = `${existingItems.length} ${pluralize(nameLabel, existingItems.length)}`;
-    const toggleIcon = !!showItems ? <ExpandLessIcon/> : <ExpandMoreIcon/>
     const existingItemComponentMap = {
-        'Roommates': ExistingRoommate,
+        'Roommates': ExistingRoommates,
     }
-    const ExistingItemComponent = existingItemComponentMap[nameLabel];
+    const ExistingItemsComponent = existingItemComponentMap[nameLabel];
     return (
-        <div className="existingItemsContainer">
-            <div onClick={() => setShowItems(!showItems)} className={existingItemRow}>{toggleLabel}&nbsp;Added&nbsp;{toggleIcon}</div>
-            {showItems && existingItems.map(item => <ExistingItemComponent item={item} key={item.id}/>)}
+        <div className={existingItemsContainer}>
+            <ExpansionPanel elevation={0}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                >
+                    {toggleLabel}&nbsp;Added
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails classes={{root:classes.root}}>
+                    <ExistingItemsComponent items={existingItems}/>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
         </div>
     )
 }
+
+ExistingItems.propTypes = {
+    existingItems: PropTypes.array,
+    nameLabel: PropTypes.string,
+}
+
+
 
 function RenterProfileListItem (props) {
     return (
