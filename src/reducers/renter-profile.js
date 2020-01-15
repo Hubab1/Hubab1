@@ -73,6 +73,14 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
     }
 };
 
+export const pageComplete = (page) => {
+    return dispatch => {
+        return API.postPageComplete(page).then(() => {
+            dispatch(fetchRenterProfile());
+        })
+    }
+}
+
 // selectors
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(

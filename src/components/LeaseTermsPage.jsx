@@ -19,7 +19,7 @@ import { H1, P, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
-import { updateRenterProfile } from 'reducers/renter-profile';
+import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import { offsetDate } from 'utils/misc';
@@ -51,17 +51,17 @@ function serializeValues(values) {
 export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
-    onSubmit = (values, { setSubmitting, setErrors }) => {
+    onSubmit = async (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
-        return this.props.updateRenterProfile(serializeValues(values), stateUpdate).then((res) => {
-            if (res.errors) {
-                setErrors(res.errors);
-            } else {
-                this.props._nextRoute();
-            }
+        const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
+        if (renterProfileRes.errors) {
+            setErrors(renterProfileRes.errors);
+        } else {
             setSubmitting(false);
-        });
+            await this.props.pageComplete('lease_terms');
+            this.props._nextRoute();
+        }
     }
 
     initialValues () {
@@ -189,5 +189,6 @@ export default connect((state) => ({
     config: state.configuration,
 }),
 {
-    updateRenterProfile
+    updateRenterProfile,
+    pageComplete,
 })(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));

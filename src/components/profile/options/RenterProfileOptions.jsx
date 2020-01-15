@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
-import { updateRenterProfile } from 'reducers/renter-profile';
+import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -64,8 +64,9 @@ const optionConfig = {
 }
 
 export class RentalProfileOptions extends React.Component {
-    onContinue = () => {
+        onContinue = async () => {
         // TODO: API call that makes some milestone?
+        await this.props.pageComplete('renter_profile');
         this.props._nextRoute();
     }
 
@@ -106,4 +107,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 })
 
-export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+export default connect(mapStateToProps, {updateRenterProfile, pageComplete})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
