@@ -24,43 +24,48 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `
 
-const optionConfig = {
-    co_applicants: {
-        prefix: <img alt="coapplicants" src={coapplicants}></img>,
-        name: 'co_applicants',
-        label: 'I\'ll be living with roommates',
-        buttonLabel: 'Invite a roommate',
-        route: ROUTES.CO_APPLICANTS
-    },
-    pets: {
-        prefix: <img alt="dog" src={doggie}></img>,
-        name: 'pets',
-        label: 'I\'ll be living with pets',
-        buttonLabel: 'Add a pet',
-        route: ROUTES.PETS
-    },
-    guarantor: {
-        prefix: <img alt="coins" src={guarantor}></img>,
-        name: 'guarantor',
-        label: 'I\'ll need a guarantor',
-        buttonLabel: 'Invite a guarantor',
-        route: ROUTES.GUARANTOR,
-        tip: 'This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay.'
-    },
-    parking: {
-        prefix: '🚗',
-        name: 'parking',
-        label: 'I\'ll need parking',
-        buttonLabel: 'Add parking',
-        route: ROUTES.PARKING
-    },
-    storage: {
-        prefix: '🛍️',
-        name: 'storage',
-        label: 'I\'ll need storage',
-        buttonLabel: 'Add storage',
-        route: ROUTES.STORAGE
-    }
+const getOptionConfig = (option, profile) => {
+    const optionConfigObj = {
+        co_applicants: {
+            prefix: <img alt="coapplicants" src={coapplicants}></img>,
+            name: 'co_applicants',
+            nameLabel: 'Roommates',
+            label: 'I\'ll be living with roommates',
+            buttonLabel: (!!profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'),
+            route: ROUTES.CO_APPLICANTS,
+            existingItems: profile.co_applicants
+        },
+        pets: {
+            prefix: <img alt="dog" src={doggie}></img>,
+            name: 'pets',
+            label: 'I\'ll be living with pets',
+            buttonLabel: 'Add a pet',
+            route: ROUTES.PETS
+        },
+        guarantor: {
+            prefix: <img alt="coins" src={guarantor}></img>,
+            name: 'guarantor',
+            label: 'I\'ll need a guarantor',
+            buttonLabel: 'Invite a guarantor',
+            route: ROUTES.GUARANTOR,
+            tip: 'This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay.'
+        },
+        parking: {
+            prefix: '🚗',
+            name: 'parking',
+            label: 'I\'ll need parking',
+            buttonLabel: 'Add parking',
+            route: ROUTES.PARKING
+        },
+        storage: {
+            prefix: '🛍️',
+            name: 'storage',
+            label: 'I\'ll need storage',
+            buttonLabel: 'Add storage',
+            route: ROUTES.STORAGE
+        }
+    };
+    return optionConfigObj[option];
 }
 
 export class RentalProfileOptions extends React.Component {
@@ -86,7 +91,7 @@ export class RentalProfileOptions extends React.Component {
                     {sortedRentalOptions.map(option => (
                         <RenterProfileListItem
                             key={option}
-                            {...optionConfig[option]}
+                            {...getOptionConfig(option, this.props.profile)}
                         />
                     ))}
                 </div>
