@@ -28,6 +28,16 @@ API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
 
+API.postPageComplete = (page) => {
+    return fetch(chuck(`/page-complete/`), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify({ page })
+    }).then(res => res.json());
+};
+
 API.fetchAvailableUnits = () => {
     if (MOCKY) return Promise.resolve([
         {id: 1, unit_number: '1B', price: 1540.50},

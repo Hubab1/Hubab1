@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
-import { updateRenterProfile } from 'reducers/renter-profile';
+import { ROUTES, SORTED_CONFIG_OPTIONS, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
+import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -69,8 +69,14 @@ const getOptionConfig = (option, profile) => {
 }
 
 export class RentalProfileOptions extends React.Component {
-    onContinue = () => {
-        // TODO: API call that makes some milestone?
+    state = { submitting: false }
+    onContinue = async () => {
+        try {
+            this.setState({submitting: true});
+            await this.props.pageComplete(RENTER_PROFILE_IDENTIFIER);
+        } finally {
+            this.setState({submitting: false});
+        }
         this.props._nextRoute();
     }
 
@@ -95,7 +101,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     ))}
                 </div>
-                <ActionButton onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
+                <ActionButton disabled={this.state.submitting} onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );
@@ -111,4 +117,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 })
 
-export default connect(mapStateToProps, {updateRenterProfile})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+export default connect(mapStateToProps, {updateRenterProfile, pageComplete})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
