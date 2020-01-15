@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES, SORTED_CONFIG_OPTIONS } from 'app/constants';
+import { ROUTES, SORTED_CONFIG_OPTIONS, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
@@ -64,9 +64,14 @@ const optionConfig = {
 }
 
 export class RentalProfileOptions extends React.Component {
-        onContinue = async () => {
-        // TODO: API call that makes some milestone?
-        await this.props.pageComplete('renter_profile');
+    state = { submitting: false }
+    onContinue = async () => {
+        try {
+            this.setState({submitting: true});
+            await this.props.pageComplete(RENTER_PROFILE_IDENTIFIER);
+        } finally {
+            this.setState({submitting: false});
+        }
         this.props._nextRoute();
     }
 
@@ -91,7 +96,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     ))}
                 </div>
-                <ActionButton onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
+                <ActionButton disabled={this.state.submitting} onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
                 <BackLink to={this.props._prev}/>
             </Fragment>
         );

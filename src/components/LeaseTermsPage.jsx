@@ -23,7 +23,7 @@ import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import { offsetDate } from 'utils/misc';
-import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import { ROLE_PRIMARY_APPLICANT, LEASE_TERMS_IDENTIFIER } from 'app/constants';
 
 
 
@@ -54,13 +54,17 @@ export class LeaseTermsPage extends React.Component {
     onSubmit = async (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
-        const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
-        if (renterProfileRes.errors) {
-            setErrors(renterProfileRes.errors);
-        } else {
+        setSubmitting(true);
+        try {
+            const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
+            if (renterProfileRes.errors) {
+                setErrors(renterProfileRes.errors);
+            } else {
+                await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
+                this.props._nextRoute();
+            }
+        } finally {
             setSubmitting(false);
-            await this.props.pageComplete('lease_terms');
-            this.props._nextRoute();
         }
     }
 
