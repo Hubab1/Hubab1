@@ -66,3 +66,9 @@ export const applicationStatus = css`
 export const existingItemsContainer = css`
     margin-bottom: 15px;
 `
+
+export const resendLink = css`
+    font-size: 14px;
+    color: #2B44FF;
+    text-decoration: underline;
+`

@@ -28,7 +28,11 @@ function RenterProfileListItem (props) {
                     <ExistingItemsExpansionPanel 
                         label={props.existingItemsLabel}
                     >
-                        {props.existingItems.map(item => <ExistingItemRowComponent key={item.id} item={item}/>)}
+                        {props.existingItems.map(item => 
+                            <ExistingItemRowComponent 
+                                key={item.id} 
+                                item={item} 
+                            />)}
                     </ExistingItemsExpansionPanel>
                 }
                 <Link to={props.route}>
@@ -54,7 +58,6 @@ RenterProfileListItem.propTypes = {
     route: PropTypes.string,
     existingItemsLabel: PropTypes.string,
     existingItems: PropTypes.array,
-    existingItemsComponent: PropTypes.object,
 }
 
 export default RenterProfileListItem;

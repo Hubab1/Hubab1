@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
@@ -9,6 +10,7 @@ import { H1, SpacedH3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/style
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -75,4 +77,4 @@ export class ResendLinkForm extends React.Component {
     }
 }
 
-export default ResendLinkForm;
+export default connect(null, {fetchRenterProfile})(ResendLinkForm);

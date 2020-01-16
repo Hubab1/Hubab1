@@ -12,7 +12,7 @@ import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/st
 
 import { PersonRow } from './PersonRow';
 import { FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
-import ResendLinkForm from './ResendLinkForm';
+import ResendLinkForm from 'components/common//ResendLinkForm';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 
 

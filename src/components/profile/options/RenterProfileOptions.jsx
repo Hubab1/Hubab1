@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
-import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
+import {    updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import ExistingRoommate from './ExistingRoommate';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
@@ -111,12 +111,20 @@ export class RentalProfileOptions extends React.Component {
 }
 
 RentalProfileOptions.propTypes = {
-    updateRenterProfile: PropTypes.func.isRequired
-}
+    updateRenterProfile: PropTypes.func.isRequired,
+    pageComplete: PropTypes.func,
+    config: PropTypes.object,
+    profile: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     config: state.configuration,
     profile: state.renterProfile,
-})
+});
 
-export default connect(mapStateToProps, {updateRenterProfile, pageComplete})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+const mapDispatchToProps = {
+    updateRenterProfile, 
+    pageComplete,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
