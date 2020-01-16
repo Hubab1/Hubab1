@@ -11,6 +11,7 @@ exports[`matches snapshot 1`] = `
   <div>
     <RenterProfileListItem
       buttonLabel="Invite another roommate"
+      existingItemComponent={[Function]}
       existingItems={
         Array [
           Object {
@@ -29,9 +30,9 @@ exports[`matches snapshot 1`] = `
           },
         ]
       }
+      existingItemsLabel="Roommates"
       label="I'll be living with roommates"
       name="co_applicants"
-      nameLabel="Roommates"
       prefix={
         <img
           alt="coapplicants"
