@@ -56,9 +56,13 @@ export class LeaseTermsPage extends React.Component {
         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
         setSubmitting(true);
         try {
-            const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
-            if (renterProfileRes.errors) {
-                setErrors(renterProfileRes.errors);
+            let errors;
+            if (this.props.isPrimaryApplicant) {
+                const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
+                errors = renterProfileRes.errors;
+            }
+            if (errors) {
+                setErrors(errors);
             } else {
                 await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
                 this.props._nextRoute();
