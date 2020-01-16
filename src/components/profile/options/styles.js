@@ -46,8 +46,23 @@ export const paperRoot = css`
     font-size: 16px !important;
 `
 
-export const selected = css`
-    border-width: 1px !important;
-    padding-left: 0px !important;
-    height: 80px;
+export const existingItemRow = css`
+    border-top: 1px solid #EEEEEE;
+    padding: 10px 0;
+    display: flex;
+    margin: 0 20px;
+    justify-content: space-between;
+    :last-of-type {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #EEEEEE;
+    }
+`
+
+export const applicationStatus = css`
+    color: #828796;
+    font-size: 12px;
+`
+
+export const existingItemsContainer = css`
+    margin-bottom: 15px;
 `

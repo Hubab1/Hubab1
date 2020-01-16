@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import RenterProfileListItem from 'components/profile/options/RenterProfileListItem';
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
+import mockProfile from 'reducers/mock-profile.json';
 
 
 let defaultProps;
@@ -11,8 +12,7 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         updateRenterProfile: jest.fn(),
-        profile: {
-        },
+        profile: mockProfile,
         config: mockConfig,
         _nextRoute: jest.fn(),
         pageComplete: jest.fn().mockResolvedValue({})

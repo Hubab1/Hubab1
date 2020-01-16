@@ -10,7 +10,27 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
   <div>
     <RenterProfileListItem
-      buttonLabel="Invite a roommate"
+      buttonLabel="Invite another roommate"
+      existingItemComponent={[Function]}
+      existingItems={
+        Array [
+          Object {
+            "first_name": "kreebs",
+            "id": 71,
+            "is_registered": false,
+            "last_name": "mcgreebs",
+            "phone_number": "(383) 838-4849",
+          },
+          Object {
+            "first_name": "jerry",
+            "id": 73,
+            "is_registered": true,
+            "last_name": "maguire",
+            "phone_number": "(333) 888-4449",
+          },
+        ]
+      }
+      existingItemsLabel="Roommates"
       label="I'll be living with roommates"
       name="co_applicants"
       prefix={

@@ -7,10 +7,12 @@ import Info from '@material-ui/icons/Info';
 import { infoIconRoot } from 'assets/styles';
 import SimplePopover from 'components/common/SimplePopover';
 
+import { buttonRoot, contentContainer, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
+import ExistingItems from './ExistingItems';
 
-import { contentContainer, label, prefix, buttonRoot, paperRoot, renterProfileListItemContainer } from './styles';
 
 function RenterProfileListItem (props) {
+    const ExistingItemComponent = props.existingItemComponent;
     return (
         <div className={renterProfileListItemContainer}>
             <div className={paperRoot}>
@@ -22,6 +24,13 @@ function RenterProfileListItem (props) {
                         </SimplePopover>}
                     </div>
                 </div>
+                {!!props.existingItems && 
+                    <ExistingItems 
+                        existingItemsLabel={props.existingItemsLabel}
+                    >
+                        {props.existingItems.map(item => <ExistingItemComponent key={item.id} item={item}/>)}
+                    </ExistingItems>
+                }
                 <Link to={props.route}>
                     <Button
                         variant="outlined"
@@ -43,6 +52,9 @@ RenterProfileListItem.propTypes = {
     label: PropTypes.string,
     buttonLabel: PropTypes.string,
     route: PropTypes.string,
+    existingItemsLabel: PropTypes.string,
+    existingItems: PropTypes.array,
+    existingItemsComponent: PropTypes.object,
 }
 
 export default RenterProfileListItem;
