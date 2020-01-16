@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
+import { ExistingRoommate } from './ExistingItems';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -29,11 +30,12 @@ const getOptionConfig = (option, profile) => {
         co_applicants: {
             prefix: <img alt="coapplicants" src={coapplicants}></img>,
             name: 'co_applicants',
-            nameLabel: 'Roommates',
             label: 'I\'ll be living with roommates',
             buttonLabel: (!!profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'),
             route: ROUTES.CO_APPLICANTS,
-            existingItems: profile.co_applicants
+            existingItems: profile.co_applicants,
+            existingItemsLabel: 'Roommates',
+            existingItemComponent: ExistingRoommate
         },
         pets: {
             prefix: <img alt="dog" src={doggie}></img>,
