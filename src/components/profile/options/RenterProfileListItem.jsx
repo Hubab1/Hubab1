@@ -8,11 +8,11 @@ import { infoIconRoot } from 'assets/styles';
 import SimplePopover from 'components/common/SimplePopover';
 
 import { buttonRoot, contentContainer, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
-import ExistingItems from './ExistingItems';
+import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
 
 
 function RenterProfileListItem (props) {
-    const ExistingItemComponent = props.existingItemComponent;
+    const ExistingItemRowComponent = props.existingItemComponent;
     return (
         <div className={renterProfileListItemContainer}>
             <div className={paperRoot}>
@@ -25,11 +25,11 @@ function RenterProfileListItem (props) {
                     </div>
                 </div>
                 {!!props.existingItems && 
-                    <ExistingItems 
-                        existingItemsLabel={props.existingItemsLabel}
+                    <ExistingItemsExpansionPanel 
+                        label={props.existingItemsLabel}
                     >
-                        {props.existingItems.map(item => <ExistingItemComponent key={item.id} item={item}/>)}
-                    </ExistingItems>
+                        {props.existingItems.map(item => <ExistingItemRowComponent key={item.id} item={item}/>)}
+                    </ExistingItemsExpansionPanel>
                 }
                 <Link to={props.route}>
                     <Button
