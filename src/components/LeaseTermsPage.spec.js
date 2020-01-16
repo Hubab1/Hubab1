@@ -32,6 +32,16 @@ describe('onSubmit', () => {
             )
         })
     })
+    it ('does NOT call updateRenterProfile if isPrimaryApplicant == false', function () {
+        updateRenterProfile.mockResolvedValue({});
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} isPrimaryApplicant={false}/>);
+        return wrapper.instance().onSubmit({lease_start_date: new Date('2019-8-15'), unit: {id: 123}, lease_term: 12}, 
+            {setSubmitting: jest.fn(), setErrors: jest.fn()}
+        ).then(() => {
+            expect(defaultProps.updateRenterProfile).not.toHaveBeenCalled();
+            expect(defaultProps.pageComplete).toHaveBeenCalled();
+        })
+    })
     it ('calls pageComplete with lease_terms and nextRoute', function () {
         updateRenterProfile.mockResolvedValue({});
         const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
