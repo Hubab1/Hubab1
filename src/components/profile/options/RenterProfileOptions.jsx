@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, SORTED_CONFIG_OPTIONS, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
-import { ExistingRoommate } from './ExistingItems';
+import ExistingRoommate from './ExistingRoommate';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';

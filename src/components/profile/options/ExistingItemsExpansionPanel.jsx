@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -7,8 +7,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { makeStyles } from '@material-ui/core/styles';
 import pluralize from 'pluralize';
 
-import { P } from 'assets/styles';
-import { applicationStatus, existingItemsContainer, existingItemRow  } from './styles';
+import { existingItemsContainer, existingItemRow } from './styles';
 
 
 const useStyles = makeStyles(theme => ({
@@ -18,9 +17,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ExistingItems({children, existingItemsLabel}) {
+function ExistingItemsExpansionPanel({children, label}) {
     const classes = useStyles();
-    const toggleLabel = `${children.length} ${pluralize(existingItemsLabel, children.length)}`;
+    const toggleLabel = `${children.length} ${pluralize(label, children.length)}`;
     return (
         <div className={existingItemsContainer}>
             <ExpansionPanel elevation={0}>
@@ -39,24 +38,9 @@ function ExistingItems({children, existingItemsLabel}) {
     )
 }
 
-ExistingItems.propTypes = {
+ExistingItemsExpansionPanel.propTypes = {
     children: PropTypes.array,
-    existingItemsLabel: PropTypes.string,
+    label: PropTypes.string,
 };
 
-export function ExistingRoommate({item}) {
-    const statusColor = !!item.status ? '#FAC700' : '#DB5963';
-    return <Fragment>
-        <div>{`${item.first_name} ${item.last_name}`}</div>
-        <div>
-            <span className={applicationStatus}>Application Status:</span>
-            <br/>
-            <P color={statusColor}>{!!item.status ? item.status : 'Not Started'}</P>
-        </div>
-    </Fragment>
-}
-
-ExistingRoommate.propTypes = { item: PropTypes.object };
-
-
-export default ExistingItems;
+export default ExistingItemsExpansionPanel;
