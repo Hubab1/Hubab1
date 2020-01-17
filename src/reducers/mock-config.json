@@ -3,6 +3,7 @@
     "dark_mode": false,
     "lease_term_options": [12, 24],
     "secondary_color": "0fce98",
+    "allow_guarantors": true,
     "community": {
         "city": "Santa Barbara",
         "building_number": "3732",
@@ -15,47 +16,6 @@
         "pets_restrictions": "We accept most pets, with the following restrictions.\n\nWe cannot accept these breeds: Pomeranians, Chihuahua, Yorkies, and other tiny fluffs.\n\nJust kidding, we love them all, small or large."
     },
     "background": "https://assets.nestiostatic.com/onlineleasing_background/471d6c07176b12c869acd43d0088c334.jpg",
-    "rental_options_config": {
-        "co_applicants": { "limit": 3 },
-        "guarantor": { "limit": 1 },
-        "pets": {
-            "pet_policy_details": "We allow cats and puppers up to 25lbs",
-            "limit": 1,
-            "types_allowed": ["dogs", "cats", "other"]
-        },
-        "storage": {
-            "options": [
-                {
-                    "monthly_amount": "75.00",
-                    "maximum_count": 5,
-                    "id": 123,
-                    "name": "Storage 6x10"
-                },
-                {
-                    "monthly_amount": "25.00",
-                    "maximum_count": 5,
-                    "id": 234,
-                    "name": "Storage 3x5"
-                }
-            ]
-        },
-        "parking": {
-            "options": [
-                {
-                    "monthly_amount": "75.00",
-                    "maximum_count": 5,
-                    "id": 123,
-                    "name": "Covered Parking"
-                },
-                {
-                    "monthly_amount": "25.00",
-                    "maximum_count": 5,
-                    "id": 234,
-                    "name": "Detatched Parking"
-                }
-            ]
-        }
-    },
     "options": {
         "parking": [
             {

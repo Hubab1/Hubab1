@@ -84,10 +84,9 @@ export const pageComplete = (page) => {
 // selectors
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
-    state => state.configuration && state.configuration.rental_options_config,
     state => state.applicant,
-    (config, applicant) => {
-        if (config && applicant) {
+    (applicant) => {
+        if (applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 return BASE_ROUTES.concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
             } else {

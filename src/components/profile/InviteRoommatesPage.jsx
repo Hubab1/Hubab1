@@ -38,7 +38,8 @@ export class InviteRoommatesPage extends React.Component {
     }
 
     canInviteMore () {
-        if (this.props.profile.co_applicants.length >= this.props.config.rental_options_config.co_applicants.limit) {
+        // manually setting this until product figures out how we want to determine the limit
+        if (this.props.profile.co_applicants.length >= 10) {
             return false;
         }
         return true;

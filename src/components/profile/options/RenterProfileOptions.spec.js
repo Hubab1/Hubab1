@@ -19,7 +19,7 @@ beforeEach(() => {
     }
 })
 
-it('renders a RenterProfileListItem component for each option in rental_options_config', function() {
+it('renders a RenterProfileListItem component for each option in config.options', function() {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
     expect(wrapper.find(RenterProfileListItem).length).toEqual(5);
 });

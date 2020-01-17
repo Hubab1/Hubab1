@@ -191,7 +191,7 @@ export class PetsPage extends React.Component {
                                                     />
                                                 ))
                                             }
-                                            {/* this does not address limits. i'll do that in a separate pr bc it's gonna suuuuck.
+                                            {/* we do not currently address limits. we will need to get limit for each type of pet.
                                             values.petOptions.length < rental_options_config.pets.limit ?
                                                 <AddAnotherButton
                                                     thing="Pet"
