@@ -52,7 +52,6 @@ exports[`matches snapshot 1`] = `
         />
       }
       route="/rental-profile/invite-roommates"
-      showExpansionPanel={true}
     />
     <RenterProfileListItem
       buttonLabel="Invite a guarantor"
