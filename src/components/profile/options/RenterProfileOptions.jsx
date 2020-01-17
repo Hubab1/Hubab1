@@ -7,6 +7,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import ExistingRoommate from './ExistingRoommate';
+import ExistingPet from './ExistingPet';
 import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -80,8 +81,11 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={doggie}></img>}
                             name="pets"
                             label="I'll be living with pets"
-                            buttonLabel="Add a pet"
+                            buttonLabel={this.props.profile.selected_options.pets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
+                            existingItems={this.props.profile.selected_options.pets}
+                            existingItemsLabel={'Pets'}
+                            existingItemComponent={ExistingPet}
                         />
                     }
                     {options.has('parking') &&

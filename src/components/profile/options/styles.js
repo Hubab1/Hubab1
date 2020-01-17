@@ -21,7 +21,6 @@ export const label = css`
     padding-left: 0;
     color: #454B57;
     font-weight: 400;
-    text-align: left;
     display: flex;
     font-size: 16px;
 `
@@ -51,6 +50,7 @@ export const existingItemRow = css`
     padding: 10px 0;
     display: flex;
     margin: 0 20px;
+    text-align: left;
     justify-content: space-between;
     :last-of-type {
         margin-bottom: 15px;
