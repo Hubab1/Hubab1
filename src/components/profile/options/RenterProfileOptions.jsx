@@ -72,7 +72,6 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll be living with roommates"
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
-                            showExpansionPanel={!!this.props.profile.co_applicants.length}
                             expansionPanel={!!this.props.profile.co_applicants.length &&
                                 <ExistingItemsExpansionPanel 
                                     label="Roommates"
