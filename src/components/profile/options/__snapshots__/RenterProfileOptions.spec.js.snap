@@ -20,6 +20,7 @@ exports[`matches snapshot 1`] = `
             "is_registered": false,
             "last_name": "mcgreebs",
             "phone_number": "(383) 838-4849",
+            "status": "Not Started",
           },
           Object {
             "first_name": "jerry",
@@ -27,6 +28,7 @@ exports[`matches snapshot 1`] = `
             "is_registered": true,
             "last_name": "maguire",
             "phone_number": "(333) 888-4449",
+            "status": "Completed",
           },
         ]
       }
@@ -40,6 +42,7 @@ exports[`matches snapshot 1`] = `
         />
       }
       route="/rental-profile/invite-roommates"
+      setResendInviteValues={[Function]}
     />
     <RenterProfileListItem
       buttonLabel="Invite a guarantor"
@@ -96,4 +99,20 @@ exports[`matches snapshot 1`] = `
     to="/"
   />
 </React.Fragment>
+`;
+
+exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
+<ExistingRoommate
+  item={
+    Object {
+      "first_name": "kreebs",
+      "id": 71,
+      "is_registered": false,
+      "last_name": "mcgreebs",
+      "phone_number": "(383) 838-4849",
+      "status": "Not Started",
+    }
+  }
+  setResendInviteValues={[Function]}
+/>
 `;

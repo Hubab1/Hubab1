@@ -31,7 +31,8 @@ function RenterProfileListItem (props) {
                         {props.existingItems.map(item => 
                             <ExistingItemRowComponent 
                                 key={item.id} 
-                                item={item} 
+                                item={item}
+                                setResendInviteValues={props.setResendInviteValues}
                             />)}
                     </ExistingItemsExpansionPanel>
                 }
@@ -58,6 +59,7 @@ RenterProfileListItem.propTypes = {
     route: PropTypes.string,
     existingItemsLabel: PropTypes.string,
     existingItems: PropTypes.array,
+    setResendInviteValues: PropTypes.func,
 }
 
 export default RenterProfileListItem;

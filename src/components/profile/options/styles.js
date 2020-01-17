@@ -50,7 +50,7 @@ export const existingItemRow = css`
     border-top: 1px solid #EEEEEE;
     padding: 10px 0;
     display: flex;
-    margin: 0 20px;
+    margin: 0 24px;
     justify-content: space-between;
     :last-of-type {
         margin-bottom: 15px;

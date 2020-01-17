@@ -85,8 +85,6 @@ export const APPLICATION_EVENTS = {
 export const LINE_ITEM_TYPE_APPLICATION_FEE = 10;
 export const LINE_ITEM_TYPE_HOLDING_DEPOSIT = 20;
 
-export const SORTED_CONFIG_OPTIONS = ['co_applicants', 'guarantor', 'pets', 'parking', 'storage'];
-
 export const CO_APPLICANT_STATUS_NOT_STARTED = 'Not Started';
 export const CO_APPLICANT_STATUS_IN_PROGRESS = 'In Progress';
 export const CO_APPLICANT_STATUS_COMPLETED = 'Completed';

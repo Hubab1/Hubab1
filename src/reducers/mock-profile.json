@@ -32,14 +32,16 @@
             "first_name": "kreebs",
             "last_name": "mcgreebs",
             "id": 71,
-            "is_registered": false
+            "is_registered": false,
+            "status": "Not Started"
         },
         {
             "phone_number": "(333) 888-4449",
             "first_name": "jerry",
             "last_name": "maguire",
             "id": 73,
-            "is_registered": true
+            "is_registered": true,
+            "status": "Completed"
         }
     ],
 

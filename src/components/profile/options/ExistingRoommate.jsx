@@ -1,23 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
-import ResendLinkForm from 'components/common//ResendLinkForm';
 
 import { P } from 'assets/styles';
 import { applicationStatus, inviteeContact, nameContainer, resendLink } from './styles';
 import { APPLICANT_STATUS_COLOR_MAP } from 'app/constants';
 
 
-export default function ExistingRoommate({item}) {
-    const [resendFormValues, setResendFormValues] = useState();
-
-    if (resendFormValues) {
-        return <ResendLinkForm 
-            initialValues={resendFormValues} 
-            handleConfirmationClick={setResendFormValues}
-        />
-    }
-
+export default function ExistingRoommate({item, setResendInviteValues}) {
     const statusColor = APPLICANT_STATUS_COLOR_MAP[item.status];
     return <Fragment>
         <div className={nameContainer}>
@@ -29,7 +18,7 @@ export default function ExistingRoommate({item}) {
             </div>
             {!item.is_registered && <div>
                 <br/>
-                <span className={resendLink} onClick={() => setResendFormValues(item)}>
+                <span className={resendLink} onClick={() => setResendInviteValues(item)}>
                     Edit/Resend
                 </span>
             </div>}
@@ -43,4 +32,7 @@ export default function ExistingRoommate({item}) {
     </Fragment>
 }
 
-ExistingRoommate.propTypes = { item: PropTypes.object };
+ExistingRoommate.propTypes = { 
+    item: PropTypes.object,
+    setResendInviteValues: PropTypes.func,
+};
