@@ -72,6 +72,7 @@ const getOptionConfig = (option, profile) => {
 
 export class RentalProfileOptions extends React.Component {
     state = { submitting: false }
+    
     onContinue = async () => {
         try {
             this.setState({submitting: true});

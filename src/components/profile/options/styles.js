@@ -72,3 +72,12 @@ export const resendLink = css`
     color: #2B44FF;
     text-decoration: underline;
 `
+
+export const nameContainer = css`
+    text-align: left;
+`
+
+export const inviteeContact = css`
+    font-size: 14px;
+    color: #828796;
+`
