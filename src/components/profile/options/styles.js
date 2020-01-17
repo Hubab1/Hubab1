@@ -64,12 +64,6 @@ export const existingItemsContainer = css`
     border-bottom: 1px solid #EEEEEE;
 `
 
-export const resendLink = css`
-    font-size: 14px;
-    color: #2B44FF;
-    text-decoration: underline;
-`
-
 export const nameContainer = css`
     text-align: left;
 `
