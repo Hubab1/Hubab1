@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { P } from 'assets/styles';
-import { applicationStatus, inviteeContact, nameContainer, resendLink } from './styles';
+import { LinkButton, P } from 'assets/styles';
+import { applicationStatus, inviteeContact, nameContainer } from './styles';
 import { APPLICANT_STATUS_COLOR_MAP } from 'app/constants';
 
 
@@ -18,9 +18,9 @@ export default function ExistingRoommate({item, setResendInviteValues}) {
             </div>
             {!item.is_registered && <div>
                 <br/>
-                <span className={resendLink} onClick={() => setResendInviteValues(item)}>
+                <LinkButton onClick={() => setResendInviteValues(item)}>
                     Edit/Resend
-                </span>
+                </LinkButton>
             </div>}
 
         </div>

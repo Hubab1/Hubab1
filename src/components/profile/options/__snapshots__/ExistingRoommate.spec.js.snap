@@ -42,12 +42,11 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     </div>
     <div>
       <br />
-      <span
-        className="css-wc6q3t"
+      <ForwardRef(render)
         onClick={[Function]}
       >
         Edit/Resend
-      </span>
+      </ForwardRef(render)>
     </div>
   </div>
   <div>

@@ -85,6 +85,7 @@ export const LinkButton = styled.button`
     cursor: pointer;
     text-decoration: underline;
     label: link-button;
+    font-size: 14px;
 `
 LinkButton.displayName = 'LinkButton';
 

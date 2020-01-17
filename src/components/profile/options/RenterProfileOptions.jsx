@@ -14,6 +14,7 @@ import guarantor from 'assets/images/guarantor.png';
 import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
 
+import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
 import ExistingRoommate from './ExistingRoommate';
 import RenterProfileListItem from './RenterProfileListItem';
 
@@ -70,10 +71,19 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll be living with roommates"
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
-                            existingItems={this.props.profile.co_applicants}
-                            existingItemsLabel={'Roommates'}
-                            existingItemComponent={ExistingRoommate}
-                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                            showExpansionPanel={!!this.props.profile.co_applicants.length}
+                            expansionPanel={!!this.props.profile.co_applicants.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Roommates"
+                                >
+                                    {this.props.profile.co_applicants.map(item => 
+                                        <ExistingRoommate 
+                                            key={item.id} 
+                                            item={item}
+                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
                         />
                     }
                     {options.has('guarantor') &&
