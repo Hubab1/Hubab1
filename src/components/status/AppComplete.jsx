@@ -12,12 +12,11 @@ import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/st
 
 import { PersonRow } from './PersonRow';
 import { FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
-import ResendLinkForm from './ResendLinkForm';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import ResendLinkForm from 'components/common//ResendLinkForm';
 
 
 
-export const AppComplete = ({profile, configuration, applicant, fetchRenterProfile}) => {
+export const AppComplete = ({profile, configuration, applicant}) => {
 
     const [resendFormValues, setResendFormValues] = useState();
 
@@ -26,7 +25,7 @@ export const AppComplete = ({profile, configuration, applicant, fetchRenterProfi
         return <ResendLinkForm 
             initialValues={resendFormValues} 
             handleConfirmationClick={setResendFormValues}
-            fetchRenterProfile={fetchRenterProfile}
+            confirmationButtonText="Back to Application Status"
         />
     }
     const { unit, primary_applicant, co_applicants } = profile;
@@ -128,4 +127,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps, {fetchRenterProfile})(withRelativeRoutes(AppComplete, ROUTES.APP_COMPLETE));
+export default connect(mapStateToProps, null)(withRelativeRoutes(AppComplete, ROUTES.APP_COMPLETE));

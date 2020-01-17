@@ -4,18 +4,20 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import { BackLink } from 'components/common/BackLink';
+import ResendLinkForm from 'components/common//ResendLinkForm';
 import { ROUTES, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
-import ExistingRoommate from './ExistingRoommate';
-import ExistingPet from './ExistingPet';
-import RenterProfileListItem from './RenterProfileListItem';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
 import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
-import { BackLink } from 'components/common/BackLink';
 
+import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
+import ExistingPet from './ExistingPet';
+import ExistingRoommate from './ExistingRoommate';
+import RenterProfileListItem from './RenterProfileListItem';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -27,7 +29,8 @@ const SpacedH3 = styled(H3)`
 `
 
 export class RentalProfileOptions extends React.Component {
-    state = { submitting: false }
+    state = { submitting: false, resendInviteValues: null }
+    
     onContinue = async () => {
         try {
             this.setState({submitting: true});
@@ -49,6 +52,14 @@ export class RentalProfileOptions extends React.Component {
         if (this.props.profile == null) return null;
         const options = this.configurableRentalOptions;
 
+
+        if (this.state.resendInviteValues) {
+            return <ResendLinkForm
+                initialValues={this.state.resendInviteValues}
+                handleConfirmationClick={() => this.setState({resendInviteValues: null})}
+                confirmationButtonText="Back to Rental Profile"
+            />;
+        }
         return (
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
@@ -61,9 +72,19 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll be living with roommates"
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
-                            existingItems={this.props.profile.co_applicants}
-                            existingItemsLabel={'Roommates'}
-                            existingItemComponent={ExistingRoommate}
+                            showExpansionPanel={!!this.props.profile.co_applicants.length}
+                            expansionPanel={!!this.props.profile.co_applicants.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Roommates"
+                                >
+                                    {this.props.profile.co_applicants.map(item => 
+                                        <ExistingRoommate 
+                                            key={item.id} 
+                                            item={item}
+                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
                         />
                     }
                     {options.has('guarantor') &&
@@ -81,11 +102,21 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={doggie}></img>}
                             name="pets"
                             label="I'll be living with pets"
-                            buttonLabel={this.props.profile.selected_options.pets.length ? "Manage pets" : "Add a pet"}
+                            buttonLabel={this.props.profile.selected_options.pets && this.props.profile.selected_options.pets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
-                            existingItems={this.props.profile.selected_options.pets}
-                            existingItemsLabel={'Pets'}
-                            existingItemComponent={ExistingPet}
+                            expansionPanel={this.props.profile.selected_options.pets && this.props.profile.selected_options.pets.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Pets"
+                                >
+                                    {this.props.profile.selected_options.pets.map(item => 
+                                        <ExistingPet 
+                                            key={item.id} 
+                                            item={item}
+                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
+
                         />
                     }
                     {options.has('parking') &&
@@ -115,12 +146,20 @@ export class RentalProfileOptions extends React.Component {
 }
 
 RentalProfileOptions.propTypes = {
-    updateRenterProfile: PropTypes.func.isRequired
-}
+    updateRenterProfile: PropTypes.func.isRequired,
+    pageComplete: PropTypes.func,
+    config: PropTypes.object,
+    profile: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     config: state.configuration,
     profile: state.renterProfile,
-})
+});
 
-export default connect(mapStateToProps, {updateRenterProfile, pageComplete})(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+const mapDispatchToProps = {
+    updateRenterProfile, 
+    pageComplete,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));

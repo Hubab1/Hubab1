@@ -11,26 +11,38 @@ exports[`matches snapshot 1`] = `
   <div>
     <RenterProfileListItem
       buttonLabel="Invite another roommate"
-      existingItemComponent={[Function]}
-      existingItems={
-        Array [
-          Object {
-            "first_name": "kreebs",
-            "id": 71,
-            "is_registered": false,
-            "last_name": "mcgreebs",
-            "phone_number": "(383) 838-4849",
-          },
-          Object {
-            "first_name": "jerry",
-            "id": 73,
-            "is_registered": true,
-            "last_name": "maguire",
-            "phone_number": "(333) 888-4449",
-          },
-        ]
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Roommates"
+        >
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "kreebs",
+                "id": 71,
+                "is_registered": false,
+                "last_name": "mcgreebs",
+                "phone_number": "(383) 838-4849",
+                "status": "Not Started",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "jerry",
+                "id": 73,
+                "is_registered": true,
+                "last_name": "maguire",
+                "phone_number": "(333) 888-4449",
+                "status": "Completed",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+        </ExistingItemsExpansionPanel>
       }
-      existingItemsLabel="Roommates"
       label="I'll be living with roommates"
       name="co_applicants"
       prefix={
@@ -40,6 +52,7 @@ exports[`matches snapshot 1`] = `
         />
       }
       route="/rental-profile/invite-roommates"
+      showExpansionPanel={true}
     />
     <RenterProfileListItem
       buttonLabel="Invite a guarantor"
@@ -96,4 +109,20 @@ exports[`matches snapshot 1`] = `
     to="/"
   />
 </React.Fragment>
+`;
+
+exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
+<ExistingRoommate
+  item={
+    Object {
+      "first_name": "kreebs",
+      "id": 71,
+      "is_registered": false,
+      "last_name": "mcgreebs",
+      "phone_number": "(383) 838-4849",
+      "status": "Not Started",
+    }
+  }
+  setResendInviteValues={[Function]}
+/>
 `;
