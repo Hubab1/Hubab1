@@ -1,6 +1,5 @@
 import { selectors } from 'reducers/renter-profile';
 import { ROUTES, APPLICATION_EVENTS, ROLE_PRIMARY_APPLICANT, MILESTONE_APPLICATION_SUBMITTED } from 'app/constants';
-import mockConfig from 'reducers/mock-config.json';
 
 
 describe('selectInitialPage', () => {
