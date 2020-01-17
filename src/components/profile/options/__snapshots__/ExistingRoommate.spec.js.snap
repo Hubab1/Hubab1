@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot for registered roommate 1`] = `
+<React.Fragment>
+  <div
+    className="css-14c5xr0"
+  >
+    <div>
+      kreebs mcgreebs
+      <br />
+    </div>
+  </div>
+  <div>
+    <span
+      className="css-1rn2trc"
+    >
+      Application Status:
+    </span>
+    <br />
+    <ForwardRef(render)
+      color="#67C18B"
+    >
+      Completed
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;
+
+exports[`matches snapshot for unregistered roommate 1`] = `
+<React.Fragment>
+  <div
+    className="css-14c5xr0"
+  >
+    <div>
+      kreebs mcgreebs
+      <br />
+      <span
+        className="css-1d2tdb8"
+      >
+        (383) 838-4849
+      </span>
+    </div>
+    <div>
+      <br />
+      <ForwardRef(render)
+        onClick={[Function]}
+      >
+        Edit/Resend
+      </ForwardRef(render)>
+    </div>
+  </div>
+  <div>
+    <span
+      className="css-1rn2trc"
+    >
+      Application Status:
+    </span>
+    <br />
+    <ForwardRef(render)
+      color="#DB5963"
+    >
+      Not Started
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;

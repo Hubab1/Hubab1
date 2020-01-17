@@ -48,14 +48,9 @@ export const paperRoot = css`
 
 export const existingItemRow = css`
     border-top: 1px solid #EEEEEE;
-    padding: 10px 0;
+    padding: 10px 24px;
     display: flex;
-    margin: 0 20px;
     justify-content: space-between;
-    :last-of-type {
-        margin-bottom: 15px;
-        border-bottom: 1px solid #EEEEEE;
-    }
 `
 
 export const applicationStatus = css`
@@ -65,4 +60,15 @@ export const applicationStatus = css`
 
 export const existingItemsContainer = css`
     margin-bottom: 15px;
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+`
+
+export const nameContainer = css`
+    text-align: left;
+`
+
+export const inviteeContact = css`
+    font-size: 14px;
+    color: #828796;
 `

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import ExistingRoommate from 'components/profile/options/ExistingRoommate';
+import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
 import RenterProfileListItem from 'components/profile/options/RenterProfileListItem';
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
@@ -37,6 +39,15 @@ it('renders rental_option_config choices in correct order', () => {
     expect(wrapper.find(RenterProfileListItem).at(2).props()['name']).toEqual('pets');
     expect(wrapper.find(RenterProfileListItem).at(3).props()['name']).toEqual('parking');
     expect(wrapper.find(RenterProfileListItem).last().props()['name']).toEqual('storage');
+});
+
+it('renders ExistingItemsExpansionPanel with coapplicants as existing items', () => {
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+    const coApplicantsProps = wrapper.find(RenterProfileListItem).first().props();
+    const coApplicantsWrapper = shallow(<RenterProfileListItem {...coApplicantsProps}/>);
+    const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
+    expect(coApplicantsPanel.props()['children'].length).toEqual(2);
+    expect(coApplicantsPanel.props()['children'][0]).toMatchSnapshot();
 });
 
 describe('onContinue', function () {
