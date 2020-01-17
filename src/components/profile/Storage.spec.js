@@ -17,7 +17,7 @@ beforeEach(() => {
     }
 })
 
-it('renders a ItemAdder component for each option in rental_options_config.storage', function() {
+it('renders a ItemAdder component for each option in config.options.storage', function() {
     let wrapper = shallow( <Storage {...defaultProps}/> );
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(ItemAdder).length).toEqual(2);

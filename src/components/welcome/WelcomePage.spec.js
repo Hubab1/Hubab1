@@ -21,17 +21,6 @@ beforeEach(() => {
             id: 1,
             logo: 'logo of a pegasus flying over the moon',
             primary_color: "286165",
-            rental_options_config: {
-                guarantor: {
-                    limit: 1
-                },
-                pets: {
-                    limit: 1
-                },
-                co_applicants:{
-                    limit: 3
-                }
-            },
             secondary_color: "FFFFFF",
             client: {
                 person: {

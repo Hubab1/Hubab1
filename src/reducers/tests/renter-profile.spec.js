@@ -4,16 +4,8 @@ import { ROUTES, APPLICATION_EVENTS, ROLE_PRIMARY_APPLICANT, MILESTONE_APPLICATI
 
 describe('selectInitialPage', () => {
     it('computes initial page based on profile data', () => {
-        const configuration = {
-            rental_options_config: {
-                co_applicants: {limit: 3},
-                guarantor: {limit: 3},
-                pets: {limit: 3}
-            }
-        };
         let initialPage;
         initialPage = selectors.selectInitialPage({
-            configuration,
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -25,7 +17,6 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
 
         initialPage = selectors.selectInitialPage({
-            configuration,
             renterProfile: {
                 co_applicants: [{name: 'bob'}],
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
@@ -36,7 +27,6 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
         initialPage = selectors.selectInitialPage({
-            configuration,
             renterProfile: {
                 co_applicants: null,
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
@@ -47,7 +37,6 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.FEES_AND_DEPOSITS);
 
         initialPage = selectors.selectInitialPage({
-            configuration,
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -59,7 +48,6 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.SCREENING);
 
         initialPage = selectors.selectInitialPage({
-            configuration,
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
