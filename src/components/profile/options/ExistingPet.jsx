@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import { P } from 'assets/styles';
 
 export default function ExistingPet({item}) {
-    const pet = item.leasing_context.pets[0];
-
-    const typeLabel = pet.service_animal ? `${pet.pet_type} - Service Animal` : pet.pet_type;
+    const typeLabel = item.service_animal ? `${item.pet_type} - Service Animal` : item.pet_type;
 
     const strBuilder = [];
-    if (pet.name) strBuilder.push(pet.name);
-    if (pet.breed) strBuilder.push(pet.breed);
-    if (pet.weight) strBuilder.push(`${pet.weight}lbs`);
-    if (pet.description) strBuilder.push(pet.description);
+    if (item.name) strBuilder.push(item.name);
+    if (item.breed) strBuilder.push(item.breed);
+    if (item.weight) strBuilder.push(`${item.weight}lbs`);
+    if (item.description) strBuilder.push(item.description);
     const petDetails = strBuilder.join(', ');
 
     return <div>

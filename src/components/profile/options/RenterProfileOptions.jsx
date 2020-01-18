@@ -48,10 +48,17 @@ export class RentalProfileOptions extends React.Component {
         return activeRentalOptions;
     }
 
+    get existingPets () {
+        const existingPets = [];
+        if (this.props.profile.selected_options.pets) {
+            this.props.profile.selected_options.pets.forEach(item => existingPets.push(...item.leasing_context.pets));
+        }
+        return existingPets;
+    }
+
     render () {
         if (this.props.profile == null) return null;
         const options = this.configurableRentalOptions;
-
 
         if (this.state.resendInviteValues) {
             return <ResendLinkForm
@@ -101,13 +108,13 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={doggie}></img>}
                             name="pets"
                             label="I'll be living with pets"
-                            buttonLabel={this.props.profile.selected_options.pets && this.props.profile.selected_options.pets.length ? "Manage pets" : "Add a pet"}
+                            buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
-                            expansionPanel={this.props.profile.selected_options.pets && this.props.profile.selected_options.pets.length &&
+                            expansionPanel={this.existingPets.length &&
                                 <ExistingItemsExpansionPanel 
                                     label="Pets"
                                 >
-                                    {this.props.profile.selected_options.pets.map(item => 
+                                    {this.existingPets.map(item => 
                                         <ExistingPet 
                                             key={item.id} 
                                             item={item}
