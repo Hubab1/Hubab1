@@ -98,12 +98,12 @@ export class PetsPage extends React.Component {
         }, []);
 
         const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
-        const selectedOptionsArray = Object.entries(groupedPets).reduce((selectdOptions, petType) => {
+        const selectedOptionsArray = Object.entries(groupedPets).reduce((selectedOptions, petType) => {
             const petLabel = petType[0];
             const petsObject = petType[1];
             const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id;
             const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
-            return [...selectdOptions, formattedSelectedOption];
+            return [...selectedOptions, formattedSelectedOption];
         }, []);
 
         // need to add a selected option with zero if none are selected to handle removal

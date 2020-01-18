@@ -22,7 +22,7 @@ function RenterProfileListItem (props) {
                         </SimplePopover>}
                     </div>
                 </div>
-                {!!props.expansionPanel && props.expansionPanel}
+                {props.expansionPanel}
                 <Link to={props.route}>
                     <Button
                         variant="outlined"
