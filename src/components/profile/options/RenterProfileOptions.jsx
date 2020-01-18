@@ -15,7 +15,9 @@ import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
+import ExistingParking from './ExistingParking'
 import ExistingRoommate from './ExistingRoommate';
+import ExistingStorage from './ExistingStorage'
 import RenterProfileListItem from './RenterProfileListItem';
 
 const SkinnyH1 = styled(H1)`
@@ -115,6 +117,17 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll need parking"
                             buttonLabel="Add parking"
                             route={ROUTES.PARKING}
+                            expansionPanel={this.props.profile.selected_options.parking && !!this.props.profile.selected_options.parking.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Parking"
+                                >
+                                    {this.props.profile.selected_options.parking.map(item => 
+                                        <ExistingParking
+                                            key={item.id} 
+                                            item={item}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
                         />
                     }
                     {options.has('storage') &&
@@ -124,6 +137,18 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll need storage"
                             buttonLabel="Add storage"
                             route={ROUTES.STORAGE}
+                            expansionPanel={this.props.profile.selected_options.storage && !!this.props.profile.selected_options.storage.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Storage"
+                                >
+                                    {this.props.profile.selected_options.storage.map(item => 
+                                        <ExistingStorage
+                                            key={item.id} 
+                                            item={item}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
+
                         />
                     }
                 </div>
