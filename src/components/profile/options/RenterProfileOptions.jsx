@@ -110,7 +110,7 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll be living with pets"
                             buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
-                            expansionPanel={this.existingPets.length &&
+                            expansionPanel={!!this.existingPets.length &&
                                 <ExistingItemsExpansionPanel 
                                     label="Pets"
                                 >
