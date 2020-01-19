@@ -68,6 +68,7 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add a pet"
+      expansionPanel={false}
       label="I'll be living with pets"
       name="pets"
       prefix={
