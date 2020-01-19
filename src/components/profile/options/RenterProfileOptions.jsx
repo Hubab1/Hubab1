@@ -15,10 +15,9 @@ import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
-import ExistingParking from './ExistingParking'
+import ExistingParkingOrStorage from './ExistingParkingOrStorage'
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
-import ExistingStorage from './ExistingStorage'
 import RenterProfileListItem from './RenterProfileListItem';
 
 const SkinnyH1 = styled(H1)`
@@ -139,12 +138,13 @@ export class RentalProfileOptions extends React.Component {
                             route={ROUTES.PARKING}
                             expansionPanel={this.props.profile.selected_options.parking && !!this.props.profile.selected_options.parking.length &&
                                 <ExistingItemsExpansionPanel 
-                                    label="Parking"
+                                    label="Parking Space"
                                 >
                                     {this.props.profile.selected_options.parking.map(item => 
-                                        <ExistingParking
+                                        <ExistingParkingOrStorage
                                             key={item.id} 
                                             item={item}
+                                            options={this.props.config.options.parking}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
@@ -162,9 +162,10 @@ export class RentalProfileOptions extends React.Component {
                                     label="Storage"
                                 >
                                     {this.props.profile.selected_options.storage.map(item => 
-                                        <ExistingStorage
+                                        <ExistingParkingOrStorage
                                             key={item.id} 
                                             item={item}
+                                            options={this.props.config.options.storage}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
