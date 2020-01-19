@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ExistingPet from 'components/profile/options/ExistingPet';
+import { RENTAL_OPTIONS_PETS_DOGS } from 'app/constants';
+
 
 it('renders pet info correctly', () => {
     const petItem = {
@@ -9,7 +11,7 @@ it('renders pet info correctly', () => {
                 name:"stuart",
                 weight:"12",
                 breed:"chiwowzerz",
-                pet_type:"Dog",
+                pet_type:RENTAL_OPTIONS_PETS_DOGS,
                 service_animal:"true",
     };
     const wrapper = shallow(<ExistingPet item={petItem}/>);

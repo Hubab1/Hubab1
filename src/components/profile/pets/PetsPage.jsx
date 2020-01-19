@@ -18,24 +18,6 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import { ROUTES } from 'app/constants';
 
-const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
-const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
-const RENTAL_OPTIONS_PETS_OTHER = 'pets-other';
-const PET_DOG_LABEL = 'Dog'
-const PET_CAT_LABEL = 'Cat'
-const PET_OTHER_LABEL = 'Other'
-
-const rentalOptiontoLabelMap = {
-    [RENTAL_OPTIONS_PETS_DOGS]: PET_DOG_LABEL,
-    [RENTAL_OPTIONS_PETS_CATS]: PET_CAT_LABEL,
-    [RENTAL_OPTIONS_PETS_OTHER]: PET_OTHER_LABEL,
-};
-const labeltoRentalOptionMap = {
-    [PET_DOG_LABEL]: RENTAL_OPTIONS_PETS_DOGS,
-    [PET_CAT_LABEL]: RENTAL_OPTIONS_PETS_CATS,
-    [PET_OTHER_LABEL]: RENTAL_OPTIONS_PETS_OTHER,
-};
-
 export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array()
         .of(
@@ -99,9 +81,9 @@ export class PetsPage extends React.Component {
 
         const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
         const selectedOptionsArray = Object.entries(groupedPets).reduce((selectedOptions, petType) => {
-            const petLabel = petType[0];
+            const selectedPetType = petType[0];
             const petsObject = petType[1];
-            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === labeltoRentalOptionMap[petLabel]).id;
+            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === selectedPetType).id;
             const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
             return [...selectedOptions, formattedSelectedOption];
         }, []);
@@ -140,7 +122,7 @@ export class PetsPage extends React.Component {
         if (!this.props.profile || !this.props.configuration) return null;
         const { configuration, profile } = this.props;
         const { community, options } = configuration;
-        const petTypeOptions = (options.pets || []).map(option => rentalOptiontoLabelMap[option.leasing_category]);
+        const petTypeOptions = (options.pets || []).map(option => option.leasing_category);
         const { viewPetPolicy, viewPetRestrictions } = this.state;
 
         const selectedPetOptions = [];

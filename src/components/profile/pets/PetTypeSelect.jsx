@@ -6,6 +6,8 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import { petTypeContainer, petTypeLabel, petButtonRoot, petTypeLabelHeader } from './styles';
 
+import { RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP } from 'app/constants';
+
 const cancelButton = css`
     color: #828796;
     cursor: pointer;
@@ -37,7 +39,7 @@ function PetTypeSelect(props) {
                             variant="outlined"
                             onClick={() => onChange(type)}
                         >
-                            {type}
+                            {PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type]}
                         </Button>
                     }
                 })}
@@ -53,7 +55,7 @@ PetTypeSelect.propTypes = {
 };
 
 PetTypeSelect.defaultProps = {
-    petTypeOptions: ['Dog', 'Cat', 'Other'],
+    petTypeOptions: [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER],
 };
 
 export default PetTypeSelect;

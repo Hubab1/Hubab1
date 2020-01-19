@@ -85,6 +85,8 @@ export const APPLICATION_EVENTS = {
 export const LINE_ITEM_TYPE_APPLICATION_FEE = 10;
 export const LINE_ITEM_TYPE_HOLDING_DEPOSIT = 20;
 
+
+// applicant status constants
 export const CO_APPLICANT_STATUS_NOT_STARTED = 'Not Started';
 export const CO_APPLICANT_STATUS_IN_PROGRESS = 'In Progress';
 export const CO_APPLICANT_STATUS_COMPLETED = 'Completed';
@@ -94,3 +96,19 @@ export const APPLICANT_STATUS_COLOR_MAP = {
     [CO_APPLICANT_STATUS_IN_PROGRESS]: '#FAC700',
     [CO_APPLICANT_STATUS_COMPLETED]: '#67C18B',
 };
+
+// pets constants
+
+export const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
+export const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
+export const RENTAL_OPTIONS_PETS_OTHER = 'pets-other';
+export const PET_DOG_LABEL = 'Dog'
+export const PET_CAT_LABEL = 'Cat'
+export const PET_OTHER_LABEL = 'Other'
+
+export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
+    [RENTAL_OPTIONS_PETS_DOGS]: PET_DOG_LABEL,
+    [RENTAL_OPTIONS_PETS_CATS]: PET_CAT_LABEL,
+    [RENTAL_OPTIONS_PETS_OTHER]: PET_OTHER_LABEL,
+};
+

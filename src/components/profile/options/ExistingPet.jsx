@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
+import { PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP } from 'app/constants';
 
 export default function ExistingPet({item}) {
-    const typeLabel = item.service_animal ? `${item.pet_type} - Service Animal` : item.pet_type;
+    const typeLabel = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[item.pet_type]
+    const mainLabel = item.service_animal ? `${typeLabel} - Service Animal` : typeLabel;
 
     const strBuilder = [];
     if (item.name) strBuilder.push(item.name);
@@ -14,7 +16,7 @@ export default function ExistingPet({item}) {
     const petDetails = strBuilder.join(', ');
 
     return <div>
-        {typeLabel}
+        {mainLabel}
         <br/>
         <P color="#828796" fontSize={14}>{petDetails}</P>
     </div>;
