@@ -84,8 +84,9 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
                             expansionPanel={!!this.props.profile.co_applicants.length &&
-                                <ExistingItemsExpansionPanel 
+                                <ExistingItemsExpansionPanel
                                     label="Roommates"
+                                    labelQuantity={this.props.profile.co_applicants.length}
                                 >
                                     {this.props.profile.co_applicants.map(item => 
                                         <ExistingRoommate 
@@ -117,6 +118,7 @@ export class RentalProfileOptions extends React.Component {
                             expansionPanel={!!this.existingPets.length &&
                                 <ExistingItemsExpansionPanel 
                                     label="Pets"
+                                    labelQuantity={this.existingPets.length}
                                 >
                                     {this.existingPets.map(item => 
                                         <ExistingPet 
@@ -139,6 +141,9 @@ export class RentalProfileOptions extends React.Component {
                             expansionPanel={this.props.profile.selected_options.parking && !!this.props.profile.selected_options.parking.length &&
                                 <ExistingItemsExpansionPanel 
                                     label="Parking Space"
+                                    labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
+                                        return totalSelected += selectedOption.quantity;
+                                    }, 0)}
                                 >
                                     {this.props.profile.selected_options.parking.map(item => 
                                         <ExistingParkingOrStorage
@@ -159,7 +164,10 @@ export class RentalProfileOptions extends React.Component {
                             route={ROUTES.STORAGE}
                             expansionPanel={this.props.profile.selected_options.storage && !!this.props.profile.selected_options.storage.length &&
                                 <ExistingItemsExpansionPanel 
-                                    label="Storage"
+                                    label="Storage Space"
+                                    labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
+                                        return totalSelected += selectedOption.quantity;
+                                    }, 0)}
                                 >
                                     {this.props.profile.selected_options.storage.map(item => 
                                         <ExistingParkingOrStorage

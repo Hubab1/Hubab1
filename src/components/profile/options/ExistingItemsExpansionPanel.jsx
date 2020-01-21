@@ -17,9 +17,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ExistingItemsExpansionPanel({children, label}) {
+function ExistingItemsExpansionPanel({children, label, labelQuantity}) {
     const classes = useStyles();
-    const toggleLabel = `${children.length} ${pluralize(label, children.length)}`;
+    const toggleLabel = `${labelQuantity} ${pluralize(label, labelQuantity)}`;
     return (
         <div className={existingItemsContainer}>
             <ExpansionPanel elevation={0}>
@@ -41,6 +41,7 @@ function ExistingItemsExpansionPanel({children, label}) {
 ExistingItemsExpansionPanel.propTypes = {
     children: PropTypes.array,
     label: PropTypes.string,
+    labelQuantity: PropTypes.number,
 };
 
 export default ExistingItemsExpansionPanel;
