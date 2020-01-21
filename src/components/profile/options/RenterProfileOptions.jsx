@@ -136,9 +136,11 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🚗"
                             name="parking"
                             label="I'll need parking"
-                            buttonLabel="Add parking"
+                            buttonLabel={this.props.profile.selected_options.parking.length &&
+                                this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add parking"}
                             route={ROUTES.PARKING}
-                            expansionPanel={this.props.profile.selected_options.parking && !!this.props.profile.selected_options.parking.length &&
+                            expansionPanel={this.props.profile.selected_options.parking && 
+                                !!this.props.profile.selected_options.parking.find(option => option.quantity > 0) &&
                                 <ExistingItemsExpansionPanel 
                                     label="Parking Space"
                                     labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
@@ -160,9 +162,11 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🛍️"
                             name="storage"
                             label="I'll need storage"
-                            buttonLabel="Add storage"
+                            buttonLabel={this.props.profile.selected_options.storage.length &&
+                                this.props.profile.selected_options.storage.find(option => option.quantity > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
-                            expansionPanel={this.props.profile.selected_options.storage && !!this.props.profile.selected_options.storage.length &&
+                            expansionPanel={this.props.profile.selected_options.storage &&
+                                !!this.props.profile.selected_options.storage.find(option => option.quantity > 0) &&
                                 <ExistingItemsExpansionPanel 
                                     label="Storage Space"
                                     labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
