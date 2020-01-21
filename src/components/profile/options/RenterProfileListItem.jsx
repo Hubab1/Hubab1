@@ -44,7 +44,7 @@ RenterProfileListItem.propTypes = {
     label: PropTypes.string,
     buttonLabel: PropTypes.string,
     route: PropTypes.string,
-    expansionPanel: PropTypes.object,
+    expansionPanel: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }
 
 export default RenterProfileListItem;
