@@ -81,14 +81,14 @@ exports[`matches snapshot 1`] = `
       route="/rental-profile/pets"
     />
     <RenterProfileListItem
-      buttonLabel="Add parking"
+      buttonLabel="Add Parking"
       label="I'll need parking"
       name="parking"
       prefix="🚗"
       route="/rental-profile/parking"
     />
     <RenterProfileListItem
-      buttonLabel="Add storage"
+      buttonLabel="Add Storage"
       label="I'll need storage"
       name="storage"
       prefix="🛍️"

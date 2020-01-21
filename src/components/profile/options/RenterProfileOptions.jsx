@@ -136,8 +136,8 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🚗"
                             name="parking"
                             label="I'll need parking"
-                            buttonLabel={this.props.profile.selected_options.parking.length &&
-                                this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add parking"}
+                            buttonLabel={this.props.profile.selected_options.parking &&
+                                this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add Parking"}
                             route={ROUTES.PARKING}
                             expansionPanel={this.props.profile.selected_options.parking && 
                                 !!this.props.profile.selected_options.parking.find(option => option.quantity > 0) &&
@@ -162,7 +162,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🛍️"
                             name="storage"
                             label="I'll need storage"
-                            buttonLabel={this.props.profile.selected_options.storage.length &&
+                            buttonLabel={this.props.profile.selected_options.storage &&
                                 this.props.profile.selected_options.storage.find(option => option.quantity > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
                             expansionPanel={this.props.profile.selected_options.storage &&
