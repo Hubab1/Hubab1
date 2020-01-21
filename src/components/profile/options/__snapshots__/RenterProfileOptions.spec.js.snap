@@ -56,6 +56,25 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Invite a guarantor"
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Guarantor"
+          labelQuantity={1}
+        >
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "elvish",
+                "id": 74,
+                "is_registered": false,
+                "last_name": "parsley",
+                "phone_number": "(222) 111-0000",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+        </ExistingItemsExpansionPanel>
+      }
       label="I'll need a guarantor"
       name="guarantor"
       prefix={
