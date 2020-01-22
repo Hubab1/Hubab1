@@ -164,8 +164,8 @@ export class RentalProfileOptions extends React.Component {
                                     {this.props.profile.selected_options.parking.map(item => 
                                         <ExistingParkingOrStorage
                                             key={item.id} 
-                                            item={item}
-                                            options={this.props.config.options.parking}
+                                            quantity={item.quantity}
+                                            rentalOption={this.props.config.options.parking.find(option => option.id === item.rental_option.id)}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
@@ -190,8 +190,8 @@ export class RentalProfileOptions extends React.Component {
                                     {this.props.profile.selected_options.storage.map(item => 
                                         <ExistingParkingOrStorage
                                             key={item.id} 
-                                            item={item}
-                                            options={this.props.config.options.storage}
+                                            quantity={item.quantity}
+                                            rentalOption={this.props.config.options.storage.find(option => option.id === item.rental_option.id)}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }

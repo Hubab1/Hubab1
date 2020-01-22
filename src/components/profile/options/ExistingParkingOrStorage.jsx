@@ -5,28 +5,26 @@ import { P } from 'assets/styles';
 import { formatCurrency } from 'utils/misc';
 
 
-export default function ExistingParkingOrStorage({item, options}) {
-    const { quantity, rental_option } = item;
-    const rentalOption = options.find(option => option.id === rental_option.id);
+export default function ExistingParkingOrStorage({quantity, rentalOption}) {
 
     const { included, monthly_amount, name } = rentalOption;
     
-    let details = '';
+    let detailsArray = [];
     let additionalPaymentQuantity = quantity;
-
+ 
     if (!!included) {
         const includedQuantity = (included >= quantity) ? quantity : (quantity - included);
-        details = `${includedQuantity} Included`;
+        detailsArray = [`${includedQuantity} Included`];
         additionalPaymentQuantity = (included > quantity) ? 0 : quantity - included;
     }
 
     if (additionalPaymentQuantity > 0) {
         const priceShouldShowDecimal = monthly_amount.substring(monthly_amount.length-2) !== '00';
         const priceLabel = priceShouldShowDecimal ? `$${monthly_amount}` : formatCurrency(parseInt(monthly_amount), 0);
-        const additionalPaymentDetails = included ? `, ${additionalPaymentQuantity} x ${priceLabel}/mo` : `${additionalPaymentQuantity} x ${priceLabel}/mo`;
-        details += additionalPaymentDetails;
+        const additionalPaymentDetails = `${additionalPaymentQuantity} x ${priceLabel}/mo`;
+        detailsArray.push(additionalPaymentDetails);
     }
-
+    const details = detailsArray.join(', ');
 
 
     return <div>
@@ -36,7 +34,11 @@ export default function ExistingParkingOrStorage({item, options}) {
     </div>;
 }
 
-ExistingParkingOrStorage.propTypes = { 
-    item: PropTypes.object,
-    options: PropTypes.array,
+ExistingParkingOrStorage.propTypes = {
+    quantity: PropTypes.number,
+    rentalOption: PropTypes.shape({
+        included: PropTypes.number,
+        monthly_amount: PropTypes.string,
+        name: PropTypes.string,
+    }),
 };
