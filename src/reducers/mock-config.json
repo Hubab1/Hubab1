@@ -27,7 +27,8 @@
                 "monthly_amount": "75.00",
                 "name": "Garage (12x9)",
                 "payment_time": 10,
-                "type": 10
+                "type": 10,
+                "included": 0
             },
             {
                 "deposit_amount": null,
@@ -38,7 +39,8 @@
                 "monthly_amount": "25.00",
                 "name": "Covered Parking",
                 "payment_time": 10,
-                "type": 10
+                "type": 10,
+                "included": 0
             }
         ],
         "pets": {"pet_policy_details": "We love all pets, and most of them are welcome at ... are not permitted due to water damage concerns.", "limit": 2, "types_allowed": ["Dog", "Cat", "Other"]},

@@ -26,7 +26,6 @@
         "email": "johnjenkins@nestio.com"
     },
     "rent": null,
-    "pets": null,
     "co_applicants": [{
             "phone_number": "(383) 838-4849",
             "first_name": "kreebs",
@@ -44,7 +43,6 @@
             "status": "Completed"
         }
     ],
-
     "id": 17,
     "unit": null,
     "lease_end_date": null,

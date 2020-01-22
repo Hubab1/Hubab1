@@ -14,6 +14,7 @@ exports[`matches snapshot 1`] = `
       expansionPanel={
         <ExistingItemsExpansionPanel
           label="Roommates"
+          labelQuantity={2}
         >
           <ExistingRoommate
             item={
@@ -44,6 +45,7 @@ exports[`matches snapshot 1`] = `
         </ExistingItemsExpansionPanel>
       }
       label="I'll be living with roommates"
+      limitReached={false}
       name="co_applicants"
       prefix={
         <img
@@ -52,11 +54,30 @@ exports[`matches snapshot 1`] = `
         />
       }
       route="/rental-profile/invite-roommates"
-      showExpansionPanel={true}
     />
     <RenterProfileListItem
       buttonLabel="Invite a guarantor"
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Guarantor"
+          labelQuantity={1}
+        >
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "elvish",
+                "id": 74,
+                "is_registered": false,
+                "last_name": "parsley",
+                "phone_number": "(222) 111-0000",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+        </ExistingItemsExpansionPanel>
+      }
       label="I'll need a guarantor"
+      limitReached={true}
       name="guarantor"
       prefix={
         <img
@@ -69,7 +90,9 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add a pet"
+      expansionPanel={false}
       label="I'll be living with pets"
+      limitReached={false}
       name="pets"
       prefix={
         <img
@@ -80,15 +103,177 @@ exports[`matches snapshot 1`] = `
       route="/rental-profile/pets"
     />
     <RenterProfileListItem
-      buttonLabel="Add parking"
+      buttonLabel="Add Parking"
       label="I'll need parking"
+      limitReached={false}
       name="parking"
       prefix="🚗"
       route="/rental-profile/parking"
     />
     <RenterProfileListItem
-      buttonLabel="Add storage"
+      buttonLabel="Add Storage"
       label="I'll need storage"
+      limitReached={false}
+      name="storage"
+      prefix="🛍️"
+      route="/rental-profile/storage"
+    />
+  </div>
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={27}
+    marginTop={60}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <BackLink
+    to="/"
+  />
+</React.Fragment>
+`;
+
+exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Let's Set Up Your Rental Profile
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Complete the sections that apply to you and skip the ones that don't.
+  </ForwardRef(render)>
+  <div>
+    <RenterProfileListItem
+      buttonLabel="Invite another roommate"
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Roommates"
+          labelQuantity={2}
+        >
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "kreebs",
+                "id": 71,
+                "is_registered": false,
+                "last_name": "mcgreebs",
+                "phone_number": "(383) 838-4849",
+                "status": "Not Started",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "jerry",
+                "id": 73,
+                "is_registered": true,
+                "last_name": "maguire",
+                "phone_number": "(333) 888-4449",
+                "status": "Completed",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+        </ExistingItemsExpansionPanel>
+      }
+      label="I'll be living with roommates"
+      limitReached={false}
+      name="co_applicants"
+      prefix={
+        <img
+          alt="coapplicants"
+          src="coapplicants.png"
+        />
+      }
+      route="/rental-profile/invite-roommates"
+    />
+    <RenterProfileListItem
+      buttonLabel="Invite a guarantor"
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Guarantor"
+          labelQuantity={1}
+        >
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "elvish",
+                "id": 74,
+                "is_registered": false,
+                "last_name": "parsley",
+                "phone_number": "(222) 111-0000",
+              }
+            }
+            setResendInviteValues={[Function]}
+          />
+        </ExistingItemsExpansionPanel>
+      }
+      label="I'll need a guarantor"
+      limitReached={true}
+      name="guarantor"
+      prefix={
+        <img
+          alt="coins"
+          src="guarantor.png"
+        />
+      }
+      route="/rental-profile/invite-guarantor"
+      tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
+    />
+    <RenterProfileListItem
+      buttonLabel="Add a pet"
+      expansionPanel={false}
+      label="I'll be living with pets"
+      limitReached={false}
+      name="pets"
+      prefix={
+        <img
+          alt="dog"
+          src="doggie.png"
+        />
+      }
+      route="/rental-profile/pets"
+    />
+    <RenterProfileListItem
+      buttonLabel="Manage Parking"
+      expansionPanel={
+        <ExistingItemsExpansionPanel
+          label="Parking Space"
+          labelQuantity={2}
+        >
+          <ExistingParkingOrStorage
+            quantity={2}
+            rentalOption={
+              Object {
+                "deposit_amount": null,
+                "fee_amount": null,
+                "id": 102,
+                "included": 0,
+                "limit": 6,
+                "mandatory": true,
+                "monthly_amount": "75.00",
+                "name": "Garage (12x9)",
+                "payment_time": 10,
+                "type": 10,
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      }
+      label="I'll need parking"
+      limitReached={false}
+      name="parking"
+      prefix="🚗"
+      route="/rental-profile/parking"
+    />
+    <RenterProfileListItem
+      buttonLabel="Add Storage"
+      label="I'll need storage"
+      limitReached={false}
       name="storage"
       prefix="🛍️"
       route="/rental-profile/storage"

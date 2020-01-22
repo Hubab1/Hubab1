@@ -15,6 +15,8 @@ import coapplicants from 'assets/images/coapplicants.png';
 import doggie from 'assets/images/doggie.png';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
+import ExistingParkingOrStorage from './ExistingParkingOrStorage'
+import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
 import RenterProfileListItem from './RenterProfileListItem';
 
@@ -50,10 +52,17 @@ export class RentalProfileOptions extends React.Component {
         return activeRentalOptions;
     }
 
+    get existingPets () {
+        const existingPets = [];
+        if (this.props.profile.selected_options.pets) {
+            this.props.profile.selected_options.pets.forEach(item => existingPets.push(...item.leasing_context.pets));
+        }
+        return existingPets;
+    }
+
     render () {
         if (this.props.profile == null) return null;
         const options = this.configurableRentalOptions;
-
 
         if (this.state.resendInviteValues) {
             return <ResendLinkForm
@@ -74,10 +83,10 @@ export class RentalProfileOptions extends React.Component {
                             label="I'll be living with roommates"
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
-                            showExpansionPanel={!!this.props.profile.co_applicants.length}
                             expansionPanel={!!this.props.profile.co_applicants.length &&
-                                <ExistingItemsExpansionPanel 
+                                <ExistingItemsExpansionPanel
                                     label="Roommates"
+                                    labelQuantity={this.props.profile.co_applicants.length}
                                 >
                                     {this.props.profile.co_applicants.map(item => 
                                         <ExistingRoommate 
@@ -97,6 +106,20 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel="Invite a guarantor"
                             route={ROUTES.GUARANTOR}
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
+                            limitReached={!!this.props.profile.primary_applicant.guarantors.length}
+                            expansionPanel={!!this.props.profile.primary_applicant.guarantors.length &&
+                                <ExistingItemsExpansionPanel
+                                    label="Guarantor"
+                                    labelQuantity={this.props.profile.primary_applicant.guarantors.length}
+                                >
+                                    {this.props.profile.primary_applicant.guarantors.map(item => 
+                                        <ExistingRoommate 
+                                            key={item.id} 
+                                            item={item}
+                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
                         />
                     }
                     {options.has('pets') &&
@@ -104,8 +127,22 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={doggie}></img>}
                             name="pets"
                             label="I'll be living with pets"
-                            buttonLabel="Add a pet"
+                            buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
+                            expansionPanel={!!this.existingPets.length &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Pets"
+                                    labelQuantity={this.existingPets.length}
+                                >
+                                    {this.existingPets.map(item => 
+                                        <ExistingPet 
+                                            key={item.key} 
+                                            item={item}
+                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
+
                         />
                     }
                     {options.has('parking') &&
@@ -113,8 +150,25 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🚗"
                             name="parking"
                             label="I'll need parking"
-                            buttonLabel="Add parking"
+                            buttonLabel={this.props.profile.selected_options.parking &&
+                                this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add Parking"}
                             route={ROUTES.PARKING}
+                            expansionPanel={this.props.profile.selected_options.parking && 
+                                !!this.props.profile.selected_options.parking.find(option => option.quantity > 0) &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Parking Space"
+                                    labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
+                                        return totalSelected += selectedOption.quantity;
+                                    }, 0)}
+                                >
+                                    {this.props.profile.selected_options.parking.map(item => 
+                                        <ExistingParkingOrStorage
+                                            key={item.id} 
+                                            quantity={item.quantity}
+                                            rentalOption={this.props.config.options.parking.find(option => option.id === item.rental_option.id)}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
                         />
                     }
                     {options.has('storage') &&
@@ -122,8 +176,26 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🛍️"
                             name="storage"
                             label="I'll need storage"
-                            buttonLabel="Add storage"
+                            buttonLabel={this.props.profile.selected_options.storage &&
+                                this.props.profile.selected_options.storage.find(option => option.quantity > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
+                            expansionPanel={this.props.profile.selected_options.storage &&
+                                !!this.props.profile.selected_options.storage.find(option => option.quantity > 0) &&
+                                <ExistingItemsExpansionPanel 
+                                    label="Storage Space"
+                                    labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
+                                        return totalSelected += selectedOption.quantity;
+                                    }, 0)}
+                                >
+                                    {this.props.profile.selected_options.storage.map(item => 
+                                        <ExistingParkingOrStorage
+                                            key={item.id} 
+                                            quantity={item.quantity}
+                                            rentalOption={this.props.config.options.storage.find(option => option.id === item.rental_option.id)}
+                                        />)}
+                                </ExistingItemsExpansionPanel>
+                            }
+
                         />
                     }
                 </div>

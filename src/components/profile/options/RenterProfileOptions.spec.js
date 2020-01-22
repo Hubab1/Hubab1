@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ExistingRoommate from 'components/profile/options/ExistingRoommate';
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
 import RenterProfileListItem from 'components/profile/options/RenterProfileListItem';
 import { RentalProfileOptions } from './RenterProfileOptions';
@@ -48,6 +47,29 @@ it('renders ExistingItemsExpansionPanel with coapplicants as existing items', ()
     const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
     expect(coApplicantsPanel.props()['children'].length).toEqual(2);
     expect(coApplicantsPanel.props()['children'][0]).toMatchSnapshot();
+
+    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
+    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(0);
+});
+
+it('renders ExistingItemsExpansionPanel for parking when there are selected_options', () => {
+    const selectedParking = {parking: [{
+        leasing_context: {},
+        rental_option: {id: 102},
+        quoted_fee_amount:null,
+        quoted_monthly_amount:"55.00",
+        quoted_deposit_amount:null,
+        id: 19002,
+        quantity: 2,
+    }]};
+    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_options: selectedParking})
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} /> );
+    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
+    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
+    expect(wrapper.getElement()).toMatchSnapshot();
+
 });
 
 describe('onContinue', function () {

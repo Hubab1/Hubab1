@@ -13,6 +13,8 @@ import { viewPetPolicy } from './styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PetTypeSelect from './PetTypeSelect';
 
+import { RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER } from 'app/constants';
+
 const root = css`
     flex-direction: row !important;
 `
@@ -42,7 +44,7 @@ export default class PetItem extends React.Component {
                     aria-label="service-animal"
                     name={`petOptions[${index}].service_animal`}
                     onChange={handleChange}
-                    value={String(petOption.service_animal)}
+                    value={petOption.service_animal}
                 >
                     <FormControlLabel value="false" control={<Radio />} label="No" />
                     <FormControlLabel value="true" control={<Radio />} label="Yes" />
@@ -148,9 +150,9 @@ export default class PetItem extends React.Component {
                     petTypeOptions={petTypeOptions}
                 />
                 <ErrorMessage name={`petOptions[${index}].pet_type`} />
-                {petOption.pet_type === 'Dog' && this.renderDogFields()}
-                {petOption.pet_type === 'Cat' && this.renderCatFields()}
-                {petOption.pet_type === 'Other' && this.renderOtherFields()}
+                {petOption.pet_type === RENTAL_OPTIONS_PETS_DOGS && this.renderDogFields()}
+                {petOption.pet_type === RENTAL_OPTIONS_PETS_CATS && this.renderCatFields()}
+                {petOption.pet_type === RENTAL_OPTIONS_PETS_OTHER && this.renderOtherFields()}
             </div>
         )
     }
