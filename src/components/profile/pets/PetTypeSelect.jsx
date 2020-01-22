@@ -15,12 +15,7 @@ const cancelButton = css`
 
 function PetTypeSelect(props) {
     const { onCancel, onChange, petTypeOptions, showCancelButton, value } = props;
-    const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].reduce((sortedOptions, petType) =>{
-        if (petTypeOptions.find( option => option === petType)){
-            return [ ...sortedOptions, petType]
-        }
-        return sortedOptions
-    }, []);
+    const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].filter(petType => petTypeOptions.includes(petType))
 
     return (
         <Fragment>
