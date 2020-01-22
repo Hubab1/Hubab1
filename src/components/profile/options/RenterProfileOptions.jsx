@@ -106,6 +106,7 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel="Invite a guarantor"
                             route={ROUTES.GUARANTOR}
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
+                            limitReached={!!this.props.profile.primary_applicant.guarantors.length}
                             expansionPanel={!!this.props.profile.primary_applicant.guarantors.length &&
                                 <ExistingItemsExpansionPanel
                                     label="Guarantor"
@@ -135,7 +136,7 @@ export class RentalProfileOptions extends React.Component {
                                 >
                                     {this.existingPets.map(item => 
                                         <ExistingPet 
-                                            key={item.id} 
+                                            key={item.key} 
                                             item={item}
                                             setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
                                         />)}

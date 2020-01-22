@@ -42,5 +42,3 @@ ExistingParkingOrStorage.propTypes = {
     item: PropTypes.object,
     options: PropTypes.array,
 };
-
-
