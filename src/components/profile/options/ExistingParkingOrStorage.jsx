@@ -12,14 +12,12 @@ export default function ExistingParkingOrStorage({item, options}) {
     const { included, monthly_amount, name } = rentalOption;
     
     let details = '';
-    let additionalPaymentQuantity = 0;
+    let additionalPaymentQuantity = quantity;
 
     if (!!included) {
         const includedQuantity = (included >= quantity) ? quantity : (quantity - included);
-        details += `${includedQuantity} Included`;
+        details = `${includedQuantity} Included`;
         additionalPaymentQuantity = (included > quantity) ? 0 : quantity - included;
-    } else {
-        additionalPaymentQuantity = quantity;
     }
 
     if (additionalPaymentQuantity > 0) {
