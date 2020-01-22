@@ -15,6 +15,13 @@ const cancelButton = css`
 
 function PetTypeSelect(props) {
     const { onCancel, onChange, petTypeOptions, showCancelButton, value } = props;
+    const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].reduce((sortedOptions, petType) =>{
+        if (petTypeOptions.find( option => option === petType)){
+            return [ ...sortedOptions, petType]
+        }
+        return sortedOptions
+    }, []);
+
     return (
         <Fragment>
             <div className={petTypeLabelHeader}>
@@ -22,7 +29,8 @@ function PetTypeSelect(props) {
                 {showCancelButton && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={onCancel}/>}
             </div>
             <div className={petTypeContainer}>
-                {petTypeOptions.map(type => {
+                {sortedPetTypeOptions.map(type => {
+                    const label = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type]
                     if (value === type) {
                         return <Button 
                             key={type}
@@ -30,7 +38,7 @@ function PetTypeSelect(props) {
                             color="primary"
                             classes={{root: petButtonRoot}}
                         >
-                            {type}
+                            {label}
                         </Button>
                     } else {
                         return <Button 
@@ -39,7 +47,7 @@ function PetTypeSelect(props) {
                             variant="outlined"
                             onClick={() => onChange(type)}
                         >
-                            {PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type]}
+                            {label}
                         </Button>
                     }
                 })}

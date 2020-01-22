@@ -6,7 +6,7 @@ import { PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP } from 'app/constants';
 
 export default function ExistingPet({item}) {
     const typeLabel = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[item.pet_type]
-    const mainLabel = item.service_animal ? `${typeLabel} - Service Animal` : typeLabel;
+    const mainLabel = JSON.parse(item.service_animal) ? `${typeLabel} - Service Animal` : typeLabel;
 
     const strBuilder = [];
     if (item.name) strBuilder.push(item.name);
