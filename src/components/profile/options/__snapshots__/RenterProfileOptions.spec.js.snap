@@ -45,6 +45,7 @@ exports[`matches snapshot 1`] = `
         </ExistingItemsExpansionPanel>
       }
       label="I'll be living with roommates"
+      limitReached={false}
       name="co_applicants"
       prefix={
         <img
@@ -76,6 +77,7 @@ exports[`matches snapshot 1`] = `
         </ExistingItemsExpansionPanel>
       }
       label="I'll need a guarantor"
+      limitReached={true}
       name="guarantor"
       prefix={
         <img
@@ -90,6 +92,7 @@ exports[`matches snapshot 1`] = `
       buttonLabel="Add a pet"
       expansionPanel={false}
       label="I'll be living with pets"
+      limitReached={false}
       name="pets"
       prefix={
         <img
@@ -102,6 +105,7 @@ exports[`matches snapshot 1`] = `
     <RenterProfileListItem
       buttonLabel="Add Parking"
       label="I'll need parking"
+      limitReached={false}
       name="parking"
       prefix="🚗"
       route="/rental-profile/parking"
@@ -109,6 +113,7 @@ exports[`matches snapshot 1`] = `
     <RenterProfileListItem
       buttonLabel="Add Storage"
       label="I'll need storage"
+      limitReached={false}
       name="storage"
       prefix="🛍️"
       route="/rental-profile/storage"
