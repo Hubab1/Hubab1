@@ -63,23 +63,8 @@ export class PetsPage extends React.Component {
 
     serializePetsForPost = (petOptions) => {
         const petRentalOptions = this.props.configuration.options.pets;
-        const cleanedPetOptions = petOptions.reduce((options, petOption) => {
-            const { pet_type } = petOption;
-            if (pet_type) {
-                const service_animal = petOption.service_animal ?
-                    petOption.service_animal :
-                    'false';
 
-                const newPetOption = {
-                    ...petOption,
-                    service_animal
-                };
-                return [...options, newPetOption];
-            }
-            return options;
-        }, []);
-
-        const groupedPets = groupBy(cleanedPetOptions, 'pet_type');
+        const groupedPets = groupBy(petOptions, 'pet_type');
         const selectedOptionsArray = Object.entries(groupedPets).reduce((selectedOptions, petType) => {
             const selectedPetType = petType[0];
             const petsObject = petType[1];

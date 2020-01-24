@@ -44,10 +44,10 @@ export default class PetItem extends React.Component {
                     aria-label="service-animal"
                     name={`petOptions[${index}].service_animal`}
                     onChange={handleChange}
-                    value={petOption.service_animal}
+                    value={JSON.parse(petOption.service_animal)}
                 >
-                    <FormControlLabel value="false" control={<Radio />} label="No" />
-                    <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                    <FormControlLabel value={false} control={<Radio />} label="No" />
+                    <FormControlLabel value={true} control={<Radio />} label="Yes" />
                 </RadioGroup>
             </FormControl>
         );
