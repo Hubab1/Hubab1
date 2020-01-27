@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import { blackLinkRoot, arrowIcon } from 'assets/styles'
 
 
 export const BackLink = props => {
-    return <Link to={props.to} className={blackLinkRoot}>
+    return <HashLink to={props.to} className={blackLinkRoot}>
         <ArrowBackIos classes={{root: arrowIcon}}/>Go Back 
-    </Link>
+    </HashLink>
 };
 
 BackLink.defaultProps = {

@@ -10,7 +10,7 @@ import BackLink from 'components/common/BackLink';
 import { InviteForm } from 'components/common/InviteForm';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
-import { ROUTES } from 'app/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
 
@@ -50,7 +50,7 @@ export class InviteRoommatesPage extends React.Component {
             return <ConfirmationPage 
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                buttonClick={()=>this.props.history.push(ROUTES.PROFILE_OPTIONS)}
+                buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)}
                 buttonText="Continue"
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
                 secondaryButtonText="Add Another Roommate"

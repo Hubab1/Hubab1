@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ResendLinkForm from 'components/common//ResendLinkForm';
-import { ROUTES, RENTER_PROFILE_IDENTIFIER } from 'app/constants';
+import { ROUTES, RENTER_PROFILE_IDENTIFIER, RENTER_PROFILE_TYPE_CO_APPLICANTS, RENTER_PROFILE_TYPE_GUARANTOR,
+    RENTER_PROFILE_TYPE_PETS, RENTER_PROFILE_TYPE_PARKING, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -44,7 +45,7 @@ export class RentalProfileOptions extends React.Component {
 
     get configurableRentalOptions () {
         // for now we assume all require co_appplicants and guarantor... might want to do something smarter with RentalOptions in the future, but okie for now
-        const activeRentalOptions = new Set(['co_applicants']);
+        const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
         Object.keys(this.props.config.options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
         if (this.props.config.allow_guarantors) {
             activeRentalOptions.add('guarantor');
@@ -76,10 +77,10 @@ export class RentalProfileOptions extends React.Component {
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
                 <div>
-                    {options.has('co_applicants') &&
+                    {options.has(RENTER_PROFILE_TYPE_CO_APPLICANTS) &&
                         <RenterProfileListItem
                             prefix={<img alt="coapplicants" src={coapplicants}></img>}
-                            name="co_applicants"
+                            name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                             label="I'll be living with roommates"
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
@@ -98,10 +99,10 @@ export class RentalProfileOptions extends React.Component {
                             }
                         />
                     }
-                    {options.has('guarantor') &&
+                    {options.has(RENTER_PROFILE_TYPE_GUARANTOR) &&
                         <RenterProfileListItem
                             prefix={<img alt="coins" src={guarantor}></img>}
-                            name="guarantor"
+                            name={RENTER_PROFILE_TYPE_GUARANTOR}
                             label="I'll need a guarantor"
                             buttonLabel="Invite a guarantor"
                             route={ROUTES.GUARANTOR}
@@ -122,10 +123,10 @@ export class RentalProfileOptions extends React.Component {
                             }
                         />
                     }
-                    {options.has('pets') &&
+                    {options.has(RENTER_PROFILE_TYPE_PETS) &&
                         <RenterProfileListItem
                             prefix={<img alt="dog" src={doggie}></img>}
-                            name="pets"
+                            name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
                             buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
@@ -145,10 +146,10 @@ export class RentalProfileOptions extends React.Component {
 
                         />
                     }
-                    {options.has('parking') &&
+                    {options.has(RENTER_PROFILE_TYPE_PARKING) &&
                         <RenterProfileListItem
                             prefix="🚗"
-                            name="parking"
+                            name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
                             buttonLabel={this.props.profile.selected_options.parking &&
                                 this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add Parking"}
@@ -171,10 +172,10 @@ export class RentalProfileOptions extends React.Component {
                             }
                         />
                     }
-                    {options.has('storage') &&
+                    {options.has(RENTER_PROFILE_TYPE_STORAGE) &&
                         <RenterProfileListItem
                             prefix="🛍️"
-                            name="storage"
+                            name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
                             buttonLabel={this.props.profile.selected_options.storage &&
                                 this.props.profile.selected_options.storage.find(option => option.quantity > 0) ? "Manage Storage" : "Add Storage"}

@@ -72,3 +72,8 @@ export const inviteeContact = css`
     font-size: 14px;
     color: #828796;
 `
+
+export const anchor = css`
+    position: relative;
+    top: -90px;
+`
