@@ -58,7 +58,7 @@ export class GuarantorPage extends React.Component {
                     <img src={coin} alt="coin"/>
                 </ImageContainer>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
-                <BackLink to={ROUTES.PROFILE_OPTIONS}/>
+                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`}/>
             </Fragment>
         );
     }

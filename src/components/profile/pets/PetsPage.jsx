@@ -191,7 +191,7 @@ export class PetsPage extends React.Component {
                             </form>
                         )}
                     </Formik>
-                    <BackLink to={`${ROUTES.PROFILE_OPTIONS}#guarantors`}/>
+                    <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
                 </div>
                 { viewPetPolicy &&
                     <PetPolicy

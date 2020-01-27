@@ -218,6 +218,7 @@ RentalProfileOptions.propTypes = {
     pageComplete: PropTypes.func,
     config: PropTypes.object,
     profile: PropTypes.object,
+    location: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

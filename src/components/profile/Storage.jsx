@@ -83,7 +83,7 @@ export const Storage = props => {
             )}
         </Formik>
         <Box padding="20px">
-            <BackLink to={ROUTES.PROFILE_OPTIONS}/>
+            <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
         </Box>
     </>
 };
