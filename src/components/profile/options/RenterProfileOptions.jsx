@@ -64,6 +64,7 @@ export class RentalProfileOptions extends React.Component {
     render () {
         if (this.props.profile == null) return null;
         const options = this.configurableRentalOptions;
+        const hashValue = this.props.location.hash.substr(1);
 
         if (this.state.resendInviteValues) {
             return <ResendLinkForm
@@ -88,6 +89,7 @@ export class RentalProfileOptions extends React.Component {
                                 <ExistingItemsExpansionPanel
                                     label="Roommates"
                                     labelQuantity={this.props.profile.co_applicants.length}
+                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
                                     {this.props.profile.co_applicants.map(item => 
                                         <ExistingRoommate 
@@ -112,6 +114,7 @@ export class RentalProfileOptions extends React.Component {
                                 <ExistingItemsExpansionPanel
                                     label="Guarantor"
                                     labelQuantity={this.props.profile.primary_applicant.guarantors.length}
+                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
                                 >
                                     {this.props.profile.primary_applicant.guarantors.map(item => 
                                         <ExistingRoommate 
@@ -134,6 +137,7 @@ export class RentalProfileOptions extends React.Component {
                                 <ExistingItemsExpansionPanel 
                                     label="Pets"
                                     labelQuantity={this.existingPets.length}
+                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
                                 >
                                     {this.existingPets.map(item => 
                                         <ExistingPet 
@@ -161,6 +165,7 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
                                         return totalSelected += selectedOption.quantity;
                                     }, 0)}
+                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
                                 >
                                     {this.props.profile.selected_options.parking.map(item => 
                                         <ExistingParkingOrStorage
@@ -187,6 +192,7 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
                                         return totalSelected += selectedOption.quantity;
                                     }, 0)}
+                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
                                 >
                                     {this.props.profile.selected_options.storage.map(item => 
                                         <ExistingParkingOrStorage
