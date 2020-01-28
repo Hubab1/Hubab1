@@ -79,6 +79,7 @@ export const anchor = css`
 `
 
 export const link = css`
-display: inline-block;
-color: #2B44FF;
+    display: inline-block;
+    color: #2B44FF;
+    font-size: 14px
 `   

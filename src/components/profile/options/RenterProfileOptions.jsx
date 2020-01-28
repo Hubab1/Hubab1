@@ -30,7 +30,7 @@ const SpacedH3 = styled(H3)`
 `
 
 export class RentalProfileOptions extends React.Component {
-    state = { submitting: false, hashValue: null }
+    state = { submitting: false }
 
     setScrollPosition = () => {
         window.location.hash = window.decodeURIComponent(window.location.hash);
@@ -38,7 +38,6 @@ export class RentalProfileOptions extends React.Component {
             const hashParts = window.location.hash.split('#');
             if (hashParts.length > 1) {
                 const hash = hashParts[1];
-                this.setState({hashValue: hash});
                 document.querySelector(`#${hash}`).scrollIntoView();
             }
         };
@@ -87,9 +86,8 @@ export class RentalProfileOptions extends React.Component {
 
     render () {
         if (this.props.profile == null) return null;
-        const { hashValue } = this.state;
+        const hashValue = this.props.location.hash.substring(1);
         const options = this.configurableRentalOptions;
-        debugger;
         return (
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
@@ -103,8 +101,6 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
                             route={ROUTES.CO_APPLICANTS}
                             expansionPanel={!!this.props.profile.co_applicants.length &&
-                                /* on initial load state is not set, so we need this check */
-                                ( !this.props.location.hash || hashValue === this.props.location.hash.substring(1) ) &&
                                 <ExistingItemsExpansionPanel
                                     label="Roommates"
                                     labelQuantity={this.props.profile.co_applicants.length}
@@ -131,8 +127,6 @@ export class RentalProfileOptions extends React.Component {
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
                             limitReached={!!this.props.profile.primary_applicant.guarantors.length}
                             expansionPanel={!!this.props.profile.primary_applicant.guarantors.length &&
-                                /* on initial load state is not set, so we need this check */
-                                ( !this.props.location.hash || hashValue === this.props.location.hash.substring(1) ) &&
                                 <ExistingItemsExpansionPanel
                                     label="Guarantor"
                                     labelQuantity={this.props.profile.primary_applicant.guarantors.length}
@@ -156,8 +150,6 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
                             expansionPanel={!!this.existingPets.length &&
-                                /* on initial load state is not set, so we need this check */
-                                ( !this.props.location.hash || hashValue === this.props.location.hash.substring(1) ) &&
                                 <ExistingItemsExpansionPanel 
                                     label="Pets"
                                     labelQuantity={this.existingPets.length}
@@ -184,8 +176,6 @@ export class RentalProfileOptions extends React.Component {
                             route={ROUTES.PARKING}
                             expansionPanel={this.props.profile.selected_options.parking && 
                                 !!this.props.profile.selected_options.parking.find(option => option.quantity > 0) &&
-                                /* on initial load state is not set, so we need this check */
-                                ( !this.props.location.hash || hashValue === this.props.location.hash.substring(1) ) &&
                                 <ExistingItemsExpansionPanel 
                                     label="Parking Space"
                                     labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
@@ -213,8 +203,6 @@ export class RentalProfileOptions extends React.Component {
                             route={ROUTES.STORAGE}
                             expansionPanel={this.props.profile.selected_options.storage &&
                                 !!this.props.profile.selected_options.storage.find(option => option.quantity > 0) &&
-                                /* on initial load state is not set, so we need this check */
-                                ( !this.props.location.hash || hashValue === this.props.location.hash.substring(1) ) &&
                                 <ExistingItemsExpansionPanel 
                                     label="Storage Space"
                                     labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
@@ -230,7 +218,6 @@ export class RentalProfileOptions extends React.Component {
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
-
                         />
                     }
                 </div>
