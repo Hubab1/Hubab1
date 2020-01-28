@@ -33,6 +33,7 @@ export class RentalProfileOptions extends React.Component {
     state = { submitting: false }
 
     setScrollPosition = () => {
+        // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
         window.location.hash = window.decodeURIComponent(window.location.hash);
         const scrollToAnchor = () => {
             const hashParts = window.location.hash.split('#');
@@ -67,7 +68,6 @@ export class RentalProfileOptions extends React.Component {
     }
 
     get configurableRentalOptions () {
-        // for now we assume all require co_appplicants and guarantor... might want to do something smarter with RentalOptions in the future, but okie for now
         const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
         Object.keys(this.props.config.options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
         if (this.props.config.allow_guarantors) {
@@ -159,7 +159,6 @@ export class RentalProfileOptions extends React.Component {
                                         <ExistingPet 
                                             key={item.key} 
                                             item={item}
-                                            setResendInviteValues={(values) => this.setState({resendInviteValues: values})}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }

@@ -16,6 +16,7 @@ exports[`matches snapshot 1`] = `
           defaultExpanded={false}
           label="Roommates"
           labelQuantity={2}
+          onChange={[Function]}
         >
           <ExistingRoommate
             item={
@@ -28,7 +29,7 @@ exports[`matches snapshot 1`] = `
                 "status": "Not Started",
               }
             }
-            setResendInviteValues={[Function]}
+            type="co_applicants"
           />
           <ExistingRoommate
             item={
@@ -41,7 +42,7 @@ exports[`matches snapshot 1`] = `
                 "status": "Completed",
               }
             }
-            setResendInviteValues={[Function]}
+            type="co_applicants"
           />
         </ExistingItemsExpansionPanel>
       }
@@ -74,7 +75,7 @@ exports[`matches snapshot 1`] = `
                 "phone_number": "(222) 111-0000",
               }
             }
-            setResendInviteValues={[Function]}
+            type="guarantor"
           />
         </ExistingItemsExpansionPanel>
       }
@@ -154,6 +155,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           defaultExpanded={false}
           label="Roommates"
           labelQuantity={2}
+          onChange={[Function]}
         >
           <ExistingRoommate
             item={
@@ -166,7 +168,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
                 "status": "Not Started",
               }
             }
-            setResendInviteValues={[Function]}
+            type="co_applicants"
           />
           <ExistingRoommate
             item={
@@ -179,7 +181,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
                 "status": "Completed",
               }
             }
-            setResendInviteValues={[Function]}
+            type="co_applicants"
           />
         </ExistingItemsExpansionPanel>
       }
@@ -212,7 +214,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
                 "phone_number": "(222) 111-0000",
               }
             }
-            setResendInviteValues={[Function]}
+            type="guarantor"
           />
         </ExistingItemsExpansionPanel>
       }
@@ -313,6 +315,6 @@ exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items
       "status": "Not Started",
     }
   }
-  setResendInviteValues={[Function]}
+  type="co_applicants"
 />
 `;
