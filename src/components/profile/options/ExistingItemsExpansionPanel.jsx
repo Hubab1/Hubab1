@@ -17,12 +17,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ExistingItemsExpansionPanel({children, label, labelQuantity}) {
+function ExistingItemsExpansionPanel({children, defaultExpanded, label, labelQuantity}) {
     const classes = useStyles();
     const toggleLabel = `${labelQuantity} ${pluralize(label, labelQuantity)}`;
     return (
         <div className={existingItemsContainer}>
-            <ExpansionPanel elevation={0}>
+            <ExpansionPanel elevation={0} defaultExpanded={defaultExpanded}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                 >
@@ -42,6 +42,7 @@ ExistingItemsExpansionPanel.propTypes = {
     children: PropTypes.array,
     label: PropTypes.string,
     labelQuantity: PropTypes.number,
+    defaultExpanded: PropTypes.bool,
 };
 
 export default ExistingItemsExpansionPanel;

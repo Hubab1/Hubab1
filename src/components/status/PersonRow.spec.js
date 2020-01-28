@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Link } from 'react-router-dom';
+
 
 import { PersonRow } from './PersonRow';
 import { ROLE_PRIMARY_APPLICANT, ROLE_COAPPLICANT } from 'app/constants';
-import { LinkButton } from 'assets/styles';
 
 
 let defaultProps;
@@ -25,47 +26,47 @@ beforeEach( () => {
 })
 
 describe('When logged in applicant is primary applicant, ', () => {
-    it('renders PersonRow for co_applicant who has not registered with appropriate text and LinkButton', () => {
+    it('renders PersonRow for co_applicant who has not registered with appropriate text and Link', () => {
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(1);
+        expect(wrapper.find(Link).length).toEqual(1);
         expect(wrapper.text().includes('kreebs mcgreebsRoommate')).toBeTruthy();
     })
 
-    it('renders PersonRow for co_applicant who has registered with appropriate text and no LinkButton', () => {
+    it('renders PersonRow for co_applicant who has registered with appropriate text and no Link', () => {
         defaultProps.person.is_registered = true;
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(0);
+        expect(wrapper.find(Link).length).toEqual(0);
         expect(wrapper.text().includes('kreebs mcgreebsRoommate')).toBeTruthy();
     })
 
-    it('renders PersonRow for guarantor who has registered with appropriate text and no LinkButton', () => {
+    it('renders PersonRow for guarantor who has registered with appropriate text and no Link', () => {
         defaultProps.person.is_registered = true;
         defaultProps.label = "Guarantor";
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(0);
+        expect(wrapper.find(Link).length).toEqual(0);
         expect(wrapper.text().includes('kreebs mcgreebsGuarantor')).toBeTruthy();
     })
 
-    it('renders PersonRow for guarantor who has not registered with appropriate text and LinkButton', () => {
+    it('renders PersonRow for guarantor who has not registered with appropriate text and Link', () => {
         defaultProps.person.is_registered = false;
         defaultProps.label = "Guarantor";
 
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(1);
+        expect(wrapper.find(Link).length).toEqual(1);
         expect(wrapper.text().includes('kreebs mcgreebsGuarantor')).toBeTruthy();
     })
 
-    it('renders PersonRow for main applicant with appropriate text and no LinkButton', () => {
+    it('renders PersonRow for main applicant with appropriate text and no Link', () => {
         defaultProps.person.is_registered = false;
         defaultProps.label = "Main Applicant";
 
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(0);
+        expect(wrapper.find(Link).length).toEqual(0);
         expect(wrapper.text().includes('kreebs mcgreebsMain Applicant')).toBeTruthy();
     })
 });
@@ -75,6 +76,6 @@ describe('When logged in applicant is not primary applicant, ', () => {
         defaultProps.role = ROLE_COAPPLICANT;
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
-        expect(wrapper.find(LinkButton).length).toEqual(0);
+        expect(wrapper.find(Link).length).toEqual(0);
     })
 });

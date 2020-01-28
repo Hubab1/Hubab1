@@ -16,7 +16,7 @@ import PetRestrictions from 'components/profile/pets/PetRestrictions';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
-import { ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER } from 'app/constants';
+import { ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, RENTER_PROFILE_TYPE_PETS } from 'app/constants';
 
 export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array()
@@ -111,7 +111,7 @@ export class PetsPage extends React.Component {
         const pets = this.serializePetsForPost(values.petOptions);
         this.props.updateRenterProfile({selected_options: pets}).then((res) => {
             setSubmitting(false);
-            this.props.history.push(ROUTES.PROFILE_OPTIONS);
+            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
@@ -191,7 +191,7 @@ export class PetsPage extends React.Component {
                             </form>
                         )}
                     </Formik>
-                    <BackLink to={ROUTES.PROFILE_OPTIONS}/>
+                    <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
                 </div>
                 { viewPetPolicy &&
                     <PetPolicy

@@ -36,7 +36,7 @@ export default function ConfirmationPage (props) {
 
 ConfirmationPage.defaultProps = {
     confirmationImage: inviteConfirm
-}
+};
 
 ConfirmationPage.propTypes = {
     successMessage: PropTypes.string,
@@ -46,4 +46,4 @@ ConfirmationPage.propTypes = {
     secondaryButtonClick: PropTypes.func,
     secondaryButtonText: PropTypes.string,
     confirmationImage: PropTypes.string,
-}
+};
