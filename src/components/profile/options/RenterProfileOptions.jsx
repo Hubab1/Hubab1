@@ -87,9 +87,15 @@ export class RentalProfileOptions extends React.Component {
         return existingPets;
     }
 
+    filterOptions = options => options.filter(option => option.quantity > 0)
+
     render () {
         if (this.props.profile == null) return null;
         const hashValue = !!this.props.location.hash ? this.props.location.hash.substring(1) : '';
+        const filteredParking = this.props.profile.selected_options.parking && 
+            this.filterOptions(this.props.profile.selected_options.parking);
+        const filteredStorage = this.props.profile.selected_options.storage && 
+            this.filterOptions(this.props.profile.selected_options.storage);
         const options = this.configurableRentalOptions;
         return (
             <Fragment>
@@ -172,11 +178,9 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🚗"
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
-                            buttonLabel={this.props.profile.selected_options.parking &&
-                                this.props.profile.selected_options.parking.find(option => option.quantity > 0) ? "Manage Parking" : "Add Parking"}
+                            buttonLabel={(filteredParking && filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
                             route={ROUTES.PARKING}
-                            expansionPanel={this.props.profile.selected_options.parking && 
-                                !!this.props.profile.selected_options.parking.find(option => option.quantity > 0) &&
+                            expansionPanel={filteredParking && filteredParking.length > 0 &&
                                 <ExistingItemsExpansionPanel 
                                     label="Parking Space"
                                     labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
@@ -184,7 +188,7 @@ export class RentalProfileOptions extends React.Component {
                                     }, 0)}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
                                 >
-                                    {this.props.profile.selected_options.parking.map(item => 
+                                    {filteredParking.map(item => 
                                         <ExistingParkingOrStorage
                                             key={item.id} 
                                             quantity={item.quantity}
@@ -199,11 +203,9 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🛍️"
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
-                            buttonLabel={this.props.profile.selected_options.storage &&
-                                this.props.profile.selected_options.storage.find(option => option.quantity > 0) ? "Manage Storage" : "Add Storage"}
+                            buttonLabel={(filteredStorage && filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
-                            expansionPanel={this.props.profile.selected_options.storage &&
-                                !!this.props.profile.selected_options.storage.find(option => option.quantity > 0) &&
+                            expansionPanel={filteredStorage && filteredStorage.length > 0 &&
                                 <ExistingItemsExpansionPanel 
                                     label="Storage Space"
                                     labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
@@ -211,7 +213,7 @@ export class RentalProfileOptions extends React.Component {
                                     }, 0)}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
                                 >
-                                    {this.props.profile.selected_options.storage.map(item => 
+                                    {filteredStorage.map(item => 
                                         <ExistingParkingOrStorage
                                             key={item.id} 
                                             quantity={item.quantity}

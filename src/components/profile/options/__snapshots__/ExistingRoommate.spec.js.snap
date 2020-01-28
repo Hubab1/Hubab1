@@ -10,7 +10,9 @@ exports[`matches snapshot for registered roommate 1`] = `
       <br />
     </div>
   </div>
-  <div>
+  <div
+    className="css-1u4p759"
+  >
     <span
       className="css-1rn2trc"
     >
@@ -18,6 +20,7 @@ exports[`matches snapshot for registered roommate 1`] = `
     </span>
     <br />
     <ForwardRef(render)
+      bold={true}
       color="#67C18B"
     >
       Completed
@@ -43,7 +46,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     <div>
       <br />
       <ForwardRef
-        className="css-1kh7cgm"
+        className="css-3v3cqv"
         to={
           Object {
             "pathname": "/resend-invite",
@@ -66,7 +69,9 @@ exports[`matches snapshot for unregistered roommate 1`] = `
       </ForwardRef>
     </div>
   </div>
-  <div>
+  <div
+    className="css-1u4p759"
+  >
     <span
       className="css-1rn2trc"
     >
@@ -74,6 +79,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     </span>
     <br />
     <ForwardRef(render)
+      bold={true}
       color="#DB5963"
     >
       Not Started

@@ -138,7 +138,7 @@ exports[`matches snapshot 1`] = `
 </React.Fragment>
 `;
 
-exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options 1`] = `
+exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Let's Set Up Your Rental Profile
@@ -299,6 +299,26 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
     to="/"
   />
 </React.Fragment>
+`;
+
+exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0 2`] = `
+<ExistingParkingOrStorage
+  quantity={2}
+  rentalOption={
+    Object {
+      "deposit_amount": null,
+      "fee_amount": null,
+      "id": 102,
+      "included": 0,
+      "limit": 6,
+      "mandatory": true,
+      "monthly_amount": "75.00",
+      "name": "Garage (12x9)",
+      "payment_time": 10,
+      "type": 10,
+    }
+  }
+/>
 `;
 
 exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
