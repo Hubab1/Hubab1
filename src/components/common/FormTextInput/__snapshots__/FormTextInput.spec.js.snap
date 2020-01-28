@@ -16,9 +16,11 @@ exports[`FormTextInput password input Matches snapshot 1`] = `
   >
     <input
       aria-invalid={false}
+      autoFocus={false}
       className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
       disabled={false}
       name="fun_field"
+      onAnimationStart={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -78,8 +80,8 @@ exports[`FormTextInput password input showValidationText shows validation text b
   className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
 >
   <label
-    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-    data-shrink={true}
+    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+    data-shrink={false}
   >
     fruits
   </label>
@@ -89,9 +91,11 @@ exports[`FormTextInput password input showValidationText shows validation text b
   >
     <input
       aria-invalid={false}
+      autoFocus={false}
       className="MuiInputBase-input MuiInput-input"
       disabled={false}
       name="fun_field"
+      onAnimationStart={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -101,7 +105,7 @@ exports[`FormTextInput password input showValidationText shows validation text b
     />
   </div>
   <p
-    className="MuiFormHelperText-root MuiFormHelperText-filled"
+    className="MuiFormHelperText-root"
   >
     Invalid password!
   </p>
@@ -124,9 +128,11 @@ exports[`FormTextInput regular text input Matches snapshot 1`] = `
   >
     <input
       aria-invalid={false}
+      autoFocus={false}
       className="MuiInputBase-input MuiInput-input"
       disabled={false}
       name="fun_field"
+      onAnimationStart={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -143,8 +149,8 @@ exports[`FormTextInput regular text input can add endAdornment 1`] = `
   className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
 >
   <label
-    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-    data-shrink={true}
+    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+    data-shrink={false}
   >
     fruits
   </label>
@@ -154,9 +160,11 @@ exports[`FormTextInput regular text input can add endAdornment 1`] = `
   >
     <input
       aria-invalid={false}
+      autoFocus={false}
       className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
       disabled={false}
       name="fun_field"
+      onAnimationStart={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
