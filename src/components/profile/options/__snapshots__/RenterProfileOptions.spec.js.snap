@@ -99,7 +99,7 @@ exports[`matches snapshot 1`] = `
       prefix={
         <img
           alt="dog"
-          src="doggie.png"
+          src="cat.svg"
         />
       }
       route="/rental-profile/pets"
@@ -109,7 +109,12 @@ exports[`matches snapshot 1`] = `
       label="I'll need parking"
       limitReached={false}
       name="parking"
-      prefix="🚗"
+      prefix={
+        <img
+          alt="car parking"
+          src="addparking.svg"
+        />
+      }
       route="/rental-profile/parking"
     />
     <RenterProfileListItem
@@ -117,7 +122,12 @@ exports[`matches snapshot 1`] = `
       label="I'll need storage"
       limitReached={false}
       name="storage"
-      prefix="🛍️"
+      prefix={
+        <img
+          alt="storage"
+          src="addstorage.svg"
+        />
+      }
       route="/rental-profile/storage"
     />
   </div>
@@ -237,7 +247,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       prefix={
         <img
           alt="dog"
-          src="doggie.png"
+          src="cat.svg"
         />
       }
       route="/rental-profile/pets"
@@ -272,7 +282,12 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       label="I'll need parking"
       limitReached={false}
       name="parking"
-      prefix="🚗"
+      prefix={
+        <img
+          alt="car parking"
+          src="addparking.svg"
+        />
+      }
       route="/rental-profile/parking"
     />
     <RenterProfileListItem
@@ -280,7 +295,12 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       label="I'll need storage"
       limitReached={false}
       name="storage"
-      prefix="🛍️"
+      prefix={
+        <img
+          alt="storage"
+          src="addstorage.svg"
+        />
+      }
       route="/rental-profile/storage"
     />
   </div>

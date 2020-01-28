@@ -12,7 +12,9 @@ import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import guarantor from 'assets/images/guarantor.png';
 import coapplicants from 'assets/images/coapplicants.png';
-import doggie from 'assets/images/doggie.png';
+import cat from 'assets/images/cat.svg';
+import addparking from 'assets/images/addparking.svg';
+import addstorage from 'assets/images/addstorage.svg';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
 import ExistingParkingOrStorage from './ExistingParkingOrStorage'
@@ -146,7 +148,7 @@ export class RentalProfileOptions extends React.Component {
                     }
                     {options.has(RENTER_PROFILE_TYPE_PETS) &&
                         <RenterProfileListItem
-                            prefix={<img alt="dog" src={doggie}></img>}
+                            prefix={<img alt="dog" src={cat} />}
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
                             buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
@@ -169,7 +171,7 @@ export class RentalProfileOptions extends React.Component {
                     }
                     {options.has(RENTER_PROFILE_TYPE_PARKING) &&
                         <RenterProfileListItem
-                            prefix="🚗"
+                            prefix={<img src={addparking} alt="car parking"/>}
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
                             buttonLabel={this.props.profile.selected_options.parking &&
@@ -196,7 +198,7 @@ export class RentalProfileOptions extends React.Component {
                     }
                     {options.has(RENTER_PROFILE_TYPE_STORAGE) &&
                         <RenterProfileListItem
-                            prefix="🛍️"
+                            prefix={<img src={addstorage} alt="storage" />}
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
                             buttonLabel={this.props.profile.selected_options.storage &&
