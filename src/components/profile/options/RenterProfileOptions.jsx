@@ -30,7 +30,7 @@ const SpacedH3 = styled(H3)`
 `
 
 export class RentalProfileOptions extends React.Component {
-    state = { submitting: false }
+    state = { submitting: false };
 
     setScrollPosition = () => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
@@ -39,7 +39,9 @@ export class RentalProfileOptions extends React.Component {
             const hashParts = window.location.hash.split('#');
             if (hashParts.length > 1) {
                 const hash = hashParts[1];
-                document.querySelector(`#${hash}`).scrollIntoView();
+                if (this.configurableRentalOptions.has(hash)) {
+                    document.querySelector(`#${hash}`).scrollIntoView();
+                }
             }
         };
         scrollToAnchor();
