@@ -6,6 +6,8 @@ import { H1, H3 } from 'assets/styles';
 import { ImageContainer } from './styles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import { HashLink } from 'react-router-hash-link';
+
 
 const SpacedH3 = styled(H3)`
     margin: 15px 15% 20px 15%;
@@ -24,7 +26,14 @@ export default function ConfirmationPage (props) {
                     <img src={confirmationImage} alt="confirmation"/> 
                 </ImageContainer>
             }
-            <ActionButton marginTop={30} onClick={buttonClick}>{buttonText}</ActionButton>
+            { props.buttonClick && 
+                <ActionButton marginTop={30} onClick={buttonClick}>{buttonText}</ActionButton>
+            }
+            { props.linkButtonRoute &&
+                <HashLink to={props.linkButtonRoute} style={{textDecoration:'none'}}>
+                    <ActionButton marginTop={30}>{buttonText}</ActionButton>
+                </HashLink>
+            }
             { 
                 secondaryButtonClick && 
                 <ActionButton marginTop={15} onClick={secondaryButtonClick} variant="outlined">
@@ -46,4 +55,5 @@ ConfirmationPage.propTypes = {
     secondaryButtonClick: PropTypes.func,
     secondaryButtonText: PropTypes.string,
     confirmationImage: PropTypes.string,
+    linkButtonRoute: PropTypes.string
 }

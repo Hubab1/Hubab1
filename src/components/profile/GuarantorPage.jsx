@@ -46,7 +46,7 @@ export class GuarantorPage extends React.Component {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
-                buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)}
+                linkButtonRoute={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`}
                 buttonText="Continue"
             />
         }

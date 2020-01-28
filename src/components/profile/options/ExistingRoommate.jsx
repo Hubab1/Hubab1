@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import { LinkButton, P } from 'assets/styles';
-import { applicationStatus, inviteeContact, nameContainer } from './styles';
-import { APPLICANT_STATUS_COLOR_MAP } from 'app/constants';
+import { P } from 'assets/styles';
+import { link, applicationStatus, inviteeContact, nameContainer } from './styles';
+import { APPLICANT_STATUS_COLOR_MAP, ROUTES } from 'app/constants';
 
 
-export default function ExistingRoommate({item, setResendInviteValues}) {
+export default function ExistingRoommate({item, type}) {
     const statusColor = APPLICANT_STATUS_COLOR_MAP[item.status];
     return <Fragment>
         <div className={nameContainer}>
@@ -18,9 +19,19 @@ export default function ExistingRoommate({item, setResendInviteValues}) {
             </div>
             {!item.is_registered && <div>
                 <br/>
-                <LinkButton onClick={() => setResendInviteValues(item)}>
+                <Link 
+                    className={link}
+                    to={{
+                        pathname: ROUTES.RESEND_INVITE,
+                        state: {
+                            initialValues: item,
+                            confirmationButtonText: "Back to Rental Profile",
+                            returnRoute: `${ROUTES.PROFILE_OPTIONS}#${type}`
+                        }
+                    }}
+                >
                     Edit/Resend
-                </LinkButton>
+                </Link>
             </div>}
 
         </div>
@@ -34,5 +45,5 @@ export default function ExistingRoommate({item, setResendInviteValues}) {
 
 ExistingRoommate.propTypes = { 
     item: PropTypes.object,
-    setResendInviteValues: PropTypes.func,
+    type: PropTypes.string,
 };

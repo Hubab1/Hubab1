@@ -27,6 +27,7 @@ export const ROUTES = {
     LEASE_TERMS: '/lease-terms',
     PAYMENT_TERMS: '/payment-terms',
     ACCOUNT: '/account',
+    RESEND_INVITE: '/resend-invite',
 }
 
 export const NAV_ROUTES = [

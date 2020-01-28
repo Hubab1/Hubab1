@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
 import resendEnvelope from 'assets/images/resendEnvelope.png';
-import { H1, SpacedH3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
+import { H1, SpacedH3 } from 'assets/styles';
 
 import API from 'app/api';
+import { BackLink } from 'components/common/BackLink';
 import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
@@ -53,8 +53,8 @@ export class ResendLinkForm extends React.Component {
             return <ConfirmationPage
                 successMessage="Amazing! Invite Sent"
                 secondarySuccessMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
-                buttonClick={() => this.props.handleConfirmationClick(null)}
-                buttonText={this.props.confirmationButtonText}
+                linkButtonRoute={this.props.location.state.returnRoute}
+                buttonText={this.props.location.state.confirmationButtonText}
             />
         }
         return (
@@ -67,11 +67,9 @@ export class ResendLinkForm extends React.Component {
                 <InviteForm
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
-                    initialValues={this.props.initialValues}
+                    initialValues={this.props.location.state.initialValues}
                 />
-                <LinkButton className={blackLinkRoot} onClick={() => this.props.handleConfirmationClick(null)}>
-                    <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
-                </LinkButton>
+                <BackLink to={this.props.location.state.returnRoute}/>
             </Fragment>
         );
     }
