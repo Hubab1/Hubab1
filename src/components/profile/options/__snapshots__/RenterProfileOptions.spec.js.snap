@@ -16,7 +16,6 @@ exports[`matches snapshot 1`] = `
           defaultExpanded={false}
           label="Roommates"
           labelQuantity={2}
-          onChange={[Function]}
         >
           <ExistingRoommate
             item={
@@ -155,7 +154,6 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           defaultExpanded={false}
           label="Roommates"
           labelQuantity={2}
-          onChange={[Function]}
         >
           <ExistingRoommate
             item={

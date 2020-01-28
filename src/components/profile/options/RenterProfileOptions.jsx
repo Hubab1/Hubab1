@@ -39,8 +39,9 @@ export class RentalProfileOptions extends React.Component {
             const hashParts = window.location.hash.split('#');
             if (hashParts.length > 1) {
                 const hash = hashParts[1];
-                if (this.configurableRentalOptions.has(hash)) {
-                    document.querySelector(`#${hash}`).scrollIntoView();
+                const hashElement = document.querySelector(`#${hash}`);
+                if (!!hashElement) {
+                    hashElement.scrollIntoView();
                 }
             }
         };
@@ -73,7 +74,7 @@ export class RentalProfileOptions extends React.Component {
         const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
         Object.keys(this.props.config.options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
         if (this.props.config.allow_guarantors) {
-            activeRentalOptions.add('guarantor');
+            activeRentalOptions.add(RENTER_PROFILE_TYPE_GUARANTOR);
         }
         return activeRentalOptions;
     }
@@ -88,7 +89,7 @@ export class RentalProfileOptions extends React.Component {
 
     render () {
         if (this.props.profile == null) return null;
-        const hashValue = this.props.location.hash.substring(1);
+        const hashValue = !!this.props.location.hash ? this.props.location.hash.substring(1) : '';
         const options = this.configurableRentalOptions;
         return (
             <Fragment>
@@ -107,7 +108,6 @@ export class RentalProfileOptions extends React.Component {
                                     label="Roommates"
                                     labelQuantity={this.props.profile.co_applicants.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
-                                    onChange={() => this.setState({hashValue: null})}
                                 >
                                     {this.props.profile.co_applicants.map(item => 
                                         <ExistingRoommate 
