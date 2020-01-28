@@ -7,12 +7,13 @@ import Info from '@material-ui/icons/Info';
 import { infoIconRoot, P } from 'assets/styles';
 import SimplePopover from 'components/common/SimplePopover';
 
-import { buttonRoot, contentContainer, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
+import { anchor, buttonRoot, contentContainer, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
 
 
 function RenterProfileListItem (props) {
     return (
         <div className={renterProfileListItemContainer}>
+            <div id={props.name} className={anchor}/>
             <div className={paperRoot}>
                 <div className={contentContainer}>
                     <div className={prefix}>{props.prefix}</div>

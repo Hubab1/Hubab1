@@ -10,7 +10,7 @@ import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
 import parkingImage from 'assets/images/parking.png';
 import { H1, SpacedH3, P } from 'assets/styles';
-import { ROUTES } from 'app/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
 
@@ -38,7 +38,7 @@ export const Parking = props => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
-                props.history.push(ROUTES.PROFILE_OPTIONS);
+                props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`);
             }
             setSubmitting(false);
         });
@@ -84,7 +84,7 @@ export const Parking = props => {
             )}
         </Formik>
         <Box padding="20px">
-            <BackLink to={ROUTES.PROFILE_OPTIONS}/>
+            <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`}/>
         </Box>
     </>
 };

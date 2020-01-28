@@ -8,7 +8,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import styled from '@emotion/styled';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
-import { ROUTES } from 'app/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
 import { selectors, updateRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
@@ -46,7 +46,7 @@ export class GuarantorPage extends React.Component {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
-                buttonClick={()=>this.props.history.push(ROUTES.PROFILE_OPTIONS)}
+                buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)}
                 buttonText="Continue"
             />
         }
@@ -58,7 +58,7 @@ export class GuarantorPage extends React.Component {
                     <img src={coin} alt="coin"/>
                 </ImageContainer>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
-                <BackLink to={ROUTES.PROFILE_OPTIONS}/>
+                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`}/>
             </Fragment>
         );
     }

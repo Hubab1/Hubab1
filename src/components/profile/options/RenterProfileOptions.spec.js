@@ -6,6 +6,7 @@ import RenterProfileListItem from 'components/profile/options/RenterProfileListI
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
 import mockProfile from 'reducers/mock-profile.json';
+import { RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 
 
 let defaultProps;
@@ -16,7 +17,8 @@ beforeEach(() => {
         profile: mockProfile,
         config: mockConfig,
         _nextRoute: jest.fn(),
-        pageComplete: jest.fn().mockResolvedValue({})
+        pageComplete: jest.fn().mockResolvedValue({}),
+        location: { hash: '' },
     }
 })
 
@@ -69,6 +71,32 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_opti
     const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
     expect(wrapper.getElement()).toMatchSnapshot();
+
+});
+
+it('passes expansion panel defaultExpanded=True if anchor hash for rental option matches', () => {
+    const selectedParking = {parking: [{
+        leasing_context: {},
+        rental_option: {id: 102},
+        quoted_fee_amount:null,
+        quoted_monthly_amount:"55.00",
+        quoted_deposit_amount:null,
+        id: 19002,
+        quantity: 2,
+    }]};
+    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_options: selectedParking})
+
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} location={{hash: `#${RENTER_PROFILE_TYPE_PARKING}`}} /> );
+
+    const coApplicantsProps = wrapper.find(RenterProfileListItem).first().props();
+    const coApplicantsWrapper = shallow(<RenterProfileListItem {...coApplicantsProps}/>);
+    const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
+    expect(coApplicantsPanel.props()['defaultExpanded']).toEqual(false);
+
+    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
+    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    const parkingPanel = parkingWrapper.find(ExistingItemsExpansionPanel);
+    expect(parkingPanel.props()['defaultExpanded']).toEqual(true);
 
 });
 

@@ -42,11 +42,28 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     </div>
     <div>
       <br />
-      <ForwardRef(render)
-        onClick={[Function]}
+      <ForwardRef
+        className="css-1kh7cgm"
+        to={
+          Object {
+            "pathname": "/resend-invite",
+            "state": Object {
+              "confirmationButtonText": "Back to Rental Profile",
+              "initialValues": Object {
+                "first_name": "kreebs",
+                "id": 71,
+                "is_registered": false,
+                "last_name": "mcgreebs",
+                "phone_number": "(383) 838-4849",
+                "status": "Not Started",
+              },
+              "returnRoute": "/rental-profile/options#undefined",
+            },
+          }
+        }
       >
         Edit/Resend
-      </ForwardRef(render)>
+      </ForwardRef>
     </div>
   </div>
   <div>

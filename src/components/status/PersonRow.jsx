@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
-import {LinkButton, P, CardRow } from 'assets/styles';
+import { ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
+import {link, P, CardRow } from 'assets/styles';
 
 
-export const PersonRow = ({person, label, role, handleClickLink}) => {
+export const PersonRow = ({person, label, role}) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
     const showResendLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
 
@@ -16,12 +17,19 @@ export const PersonRow = ({person, label, role, handleClickLink}) => {
         <div>
             {/* Applicant Status to be added here */}
             { showResendLink && 
-                <LinkButton 
-                    role="button" 
-                    onClick={() => handleClickLink(person)} 
+                <Link 
+                    className={link}
+                    to={{
+                        pathname: ROUTES.RESEND_INVITE,
+                        state: {
+                            initialValues: person,
+                            confirmationButtonText: "Back to Application Status",
+                            returnRoute: ROUTES.APP_COMPLETE
+                        }
+                    }}
                 >
-                    Resend Invite
-                </LinkButton> 
+                    Edit/Resend
+                </Link>
             }                        
         </div>
     </CardRow>

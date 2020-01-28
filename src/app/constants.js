@@ -27,6 +27,7 @@ export const ROUTES = {
     LEASE_TERMS: '/lease-terms',
     PAYMENT_TERMS: '/payment-terms',
     ACCOUNT: '/account',
+    RESEND_INVITE: '/resend-invite',
 }
 
 export const NAV_ROUTES = [
@@ -112,3 +113,8 @@ export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
     [RENTAL_OPTIONS_PETS_OTHER]: PET_OTHER_LABEL,
 };
 
+export const RENTER_PROFILE_TYPE_CO_APPLICANTS = 'co_applicants';
+export const RENTER_PROFILE_TYPE_GUARANTOR = 'guarantor';
+export const RENTER_PROFILE_TYPE_PETS = 'pets';
+export const RENTER_PROFILE_TYPE_PARKING = 'parking';
+export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
