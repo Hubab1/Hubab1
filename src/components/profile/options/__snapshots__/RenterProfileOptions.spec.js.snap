@@ -106,6 +106,7 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add Parking"
+      expansionPanel={false}
       label="I'll need parking"
       limitReached={false}
       name="parking"
@@ -114,6 +115,7 @@ exports[`matches snapshot 1`] = `
     />
     <RenterProfileListItem
       buttonLabel="Add Storage"
+      expansionPanel={false}
       label="I'll need storage"
       limitReached={false}
       name="storage"
@@ -277,6 +279,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
     />
     <RenterProfileListItem
       buttonLabel="Add Storage"
+      expansionPanel={false}
       label="I'll need storage"
       limitReached={false}
       name="storage"

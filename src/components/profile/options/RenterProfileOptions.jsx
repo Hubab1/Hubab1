@@ -87,8 +87,9 @@ export class RentalProfileOptions extends React.Component {
         return existingPets;
     }
 
-    filterOptions = option => this.props.profile.selected_options[option] && 
-        this.props.profile.selected_options[option].filter(option => option.quantity > 0);
+    filterOptions = option => this.props.profile.selected_options[option] ? 
+        this.props.profile.selected_options[option].filter(option => option.quantity > 0) :
+        []
 
     render () {
         if (this.props.profile == null) return null;
@@ -177,9 +178,9 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🚗"
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
-                            buttonLabel={(filteredParking && filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
+                            buttonLabel={(filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
                             route={ROUTES.PARKING}
-                            expansionPanel={filteredParking && filteredParking.length > 0 &&
+                            expansionPanel={filteredParking.length > 0 &&
                                 <ExistingItemsExpansionPanel 
                                     label="Parking Space"
                                     labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
@@ -202,9 +203,9 @@ export class RentalProfileOptions extends React.Component {
                             prefix="🛍️"
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
-                            buttonLabel={(filteredStorage && filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
+                            buttonLabel={(filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
-                            expansionPanel={filteredStorage && filteredStorage.length > 0 &&
+                            expansionPanel={filteredStorage.length > 0 &&
                                 <ExistingItemsExpansionPanel 
                                     label="Storage Space"
                                     labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
