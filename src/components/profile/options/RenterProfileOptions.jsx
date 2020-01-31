@@ -87,15 +87,14 @@ export class RentalProfileOptions extends React.Component {
         return existingPets;
     }
 
-    filterOptions = options => options.filter(option => option.quantity > 0)
+    filterOptions = option => this.props.profile.selected_options[option] && 
+        this.props.profile.selected_options[option].filter(option => option.quantity > 0);
 
     render () {
         if (this.props.profile == null) return null;
         const hashValue = !!this.props.location.hash ? this.props.location.hash.substring(1) : '';
-        const filteredParking = this.props.profile.selected_options.parking && 
-            this.filterOptions(this.props.profile.selected_options.parking);
-        const filteredStorage = this.props.profile.selected_options.storage && 
-            this.filterOptions(this.props.profile.selected_options.storage);
+        const filteredParking = this.filterOptions(RENTER_PROFILE_TYPE_PARKING);
+        const filteredStorage = this.filterOptions(RENTER_PROFILE_TYPE_STORAGE);
         const options = this.configurableRentalOptions;
         return (
             <Fragment>
