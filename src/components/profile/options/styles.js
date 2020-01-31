@@ -81,5 +81,10 @@ export const anchor = css`
 export const link = css`
     display: inline-block;
     color: #2B44FF;
-    font-size: 14px
+    font-size: 14px;
+    text-decoration: underline !important;
 `   
+
+export const rightAlign = css`
+    text-align: right;
+`

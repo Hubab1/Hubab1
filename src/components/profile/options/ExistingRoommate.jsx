@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { P } from 'assets/styles';
-import { link, applicationStatus, inviteeContact, nameContainer } from './styles';
+import { link, applicationStatus, inviteeContact, nameContainer, rightAlign } from './styles';
 import { APPLICANT_STATUS_COLOR_MAP, ROUTES } from 'app/constants';
 
 
@@ -35,10 +35,10 @@ export default function ExistingRoommate({item, type}) {
             </div>}
 
         </div>
-        <div>
+        <div className={rightAlign}>
             <span className={applicationStatus}>Application Status:</span>
             <br/>
-            <P color={statusColor}>{!!item.status ? item.status : 'Not Started'}</P>
+            <P bold color={statusColor}>{!!item.status ? item.status : 'Not Started'}</P>
         </div>
     </Fragment>
 }

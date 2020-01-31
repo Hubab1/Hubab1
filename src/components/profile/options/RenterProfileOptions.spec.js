@@ -55,23 +55,38 @@ it('renders ExistingItemsExpansionPanel with coapplicants as existing items', ()
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(0);
 });
 
-it('renders ExistingItemsExpansionPanel for parking when there are selected_options', () => {
-    const selectedParking = {parking: [{
-        leasing_context: {},
-        rental_option: {id: 102},
-        quoted_fee_amount:null,
-        quoted_monthly_amount:"55.00",
-        quoted_deposit_amount:null,
-        id: 19002,
-        quantity: 2,
-    }]};
+it('renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0', () => {
+    const selectedParking = {parking: [
+        {
+            leasing_context: {},
+            rental_option: {id: 102},
+            quoted_fee_amount:null,
+            quoted_monthly_amount:"55.00",
+            quoted_deposit_amount:null,
+            id: 19002,
+            quantity: 2,
+        },
+        {
+            leasing_context: {},
+            rental_option: {id: 63},
+            quoted_fee_amount:null,
+            quoted_monthly_amount:"75.00",
+            quoted_deposit_amount:null,
+            id: 19002,
+            quantity: 0,
+        }
+    ]};
     const selectedParkingProfile = Object.assign({}, mockProfile, {selected_options: selectedParking})
     const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} /> );
     const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
     const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
     expect(wrapper.getElement()).toMatchSnapshot();
-
+    
+    const parkingPanel = parkingWrapper.find(ExistingItemsExpansionPanel);
+    expect(parkingPanel.props()['children'].length).toEqual(1);
+    expect(parkingPanel.props()['children'][0]).toMatchSnapshot();
 });
 
 it('passes expansion panel defaultExpanded=True if anchor hash for rental option matches', () => {
