@@ -43,11 +43,15 @@ export const paperRoot = css`
     border-width: 0px !important;
     padding: 15px !important;
     font-size: 16px !important;
+    border-radius: 5px;
+    .MuiButton-root {
+        font-weight: 600;
+    }
 `
 
 export const existingItemRow = css`
     border-top: 1px solid #EEEEEE;
-    padding: 10px 24px;
+    padding: 10px 0;
     display: flex;
     text-align: left;
     justify-content: space-between;
@@ -62,6 +66,9 @@ export const existingItemsContainer = css`
     margin-bottom: 15px;
     border-top: 1px solid #EEEEEE;
     border-bottom: 1px solid #EEEEEE;
+    .MuiExpansionPanelSummary-root {
+        padding: 0;
+    }
 `
 
 export const nameContainer = css`
