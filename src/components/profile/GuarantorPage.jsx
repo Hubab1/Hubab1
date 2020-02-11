@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
-import { selectors, updateRenterProfile } from 'reducers/renter-profile';
+import { selectors, fetchRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
 import BackLink from 'components/common/BackLink';
@@ -28,11 +28,13 @@ export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        API.inviteGuarantor({guarantors: [values]}).then((res) => {
+        return API.inviteGuarantor({guarantors: [values]}).then((res) => {
             setSubmitting(false);
             if (res.errors) {
                 const errors = get(res, 'errors.guarantors[0]');
-                return setErrors(errors);
+                setErrors(errors);
+            } else {
+                this.props.fetchRenterProfile();
             }
             this.setState({confirmSent: true})
         }).catch((res) => {
@@ -66,4 +68,4 @@ export class GuarantorPage extends React.Component {
 
 const mapStateToProps = (state) => ({routes: selectors.selectOrderedRoutes(state)});
 
-export default connect(mapStateToProps, {updateRenterProfile})(GuarantorPage);
+export default connect(mapStateToProps, {fetchRenterProfile})(GuarantorPage);
