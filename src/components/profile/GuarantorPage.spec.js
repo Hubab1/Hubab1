@@ -9,7 +9,7 @@ let defaultProps;
 
 beforeEach(() => {
     defaultProps = {
-        fetchRenterProfile: jest.fn()
+        fetchRenterProfile: jest.fn(),
     }
 })
 
