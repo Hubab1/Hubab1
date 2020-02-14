@@ -27,7 +27,7 @@ export const getIncomeRequirementText = props => {
 
     if (profile.unit) {
         const guarantor_income_amount = guarantor_income_requirement_multiplier * profile.unit.price;
-        const applicant_income_amount = applicant_income_requirements * profile.unit.price;    
+        const applicant_income_amount = applicant_income_requirements * profile.unit.price;
         if (applicant.role === ROLE_GUARANTOR) {
             return `The total income required for a guarantor on the application is ${guarantor_income_requirement_multiplier}x the rent: ${formatCurrency(guarantor_income_amount, 0)}`;
         } else {
@@ -40,7 +40,7 @@ export const getIncomeRequirementText = props => {
             return `The total income required for all members of the application is ${applicant_income_requirements}x the rent`;
         }
     }
-}
+};
 
 // takes a date object and outputs a date string formatted like "1981-12-27"
 export function serializeDate (date) {
@@ -59,14 +59,14 @@ export const offsetDate = memoize((fromDate, offsetMonths) => {
     return format(newDate, 'MMMM do, yyyy');
 }, (a, b) => `${a}-${b}`);
 
-export const rentalOptionsInitialValues = (rawSelectedOptions) => {
+export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
     const initialValues = {};
-    if (!!rawSelectedOptions) {
-        rawSelectedOptions.forEach(option => {
+    if (!!rawSelectedRentalOptions) {
+        rawSelectedRentalOptions.forEach(option => {
             initialValues[option.rental_option.id] = option.quantity;
         });
     }
-    return initialValues
+    return initialValues;
 }
 
 

@@ -22,19 +22,19 @@ const ImageContainer = styled.div`
         max-height: 123px;
         max-width: 123px;
     }
-`
+`;
 
 export const Parking = props => {
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
-        const selectedOptionsArray = [];
+        const selectedRentalOptionsArray = [];
         Object.entries(values).forEach(option => {
-            selectedOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]})
+            selectedRentalOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]});
         });
-        const selectedOptions = Object.assign({}, {selected_options: selectedOptionsArray});
+        const selectedRentalOptions = Object.assign({}, {selected_rental_options: selectedRentalOptionsArray});
 
-        return props.updateRenterProfile(selectedOptions).then((res) => {
+        return props.updateRenterProfile(selectedRentalOptions).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -44,8 +44,8 @@ export const Parking = props => {
         });
     };
 
-    const initialParkingOptions = props.application.selected_options.parking;
-    const parkingOptions = props.config.options.parking || [];
+    const initialParkingOptions = props.application.selected_rental_options.parking;
+    const parkingOptions = props.config.rental_options.parking || [];
     return <>
         <H1>Parking</H1>
         <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
@@ -62,7 +62,7 @@ export const Parking = props => {
                 setFieldValue,
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    { parkingOptions.map(option => 
+                    { parkingOptions.map(option =>
                         <ItemAdder
                             key={option.id}
                             title={option.name}
@@ -86,7 +86,7 @@ export const Parking = props => {
         <Box padding="20px">
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`}/>
         </Box>
-    </>
+    </>;
 };
 
 const mapStateToProps = state => ({

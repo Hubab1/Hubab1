@@ -17,19 +17,19 @@ import addparking from 'assets/images/addparking.svg';
 import addstorage from 'assets/images/addstorage.svg';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
-import ExistingParkingOrStorage from './ExistingParkingOrStorage'
+import ExistingParkingOrStorage from './ExistingParkingOrStorage';
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
 import RenterProfileListItem from './RenterProfileListItem';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
-`
+`;
 
 const SpacedH3 = styled(H3)`
     margin-top: 15px;
     margin-bottom: 30px;
-`
+`;
 
 export class RentalProfileOptions extends React.Component {
     state = { submitting: false };
@@ -54,6 +54,7 @@ export class RentalProfileOptions extends React.Component {
     componentDidMount() {
         if (!this.props.profile) return null;
         this.setScrollPosition();
+        return null;
     }
 
     componentDidUpdate(prevProps) {
@@ -61,7 +62,6 @@ export class RentalProfileOptions extends React.Component {
             this.setScrollPosition();
         }
     }
-    
     onContinue = async () => {
         try {
             this.setState({submitting: true});
@@ -74,7 +74,7 @@ export class RentalProfileOptions extends React.Component {
 
     get configurableRentalOptions () {
         const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
-        Object.keys(this.props.config.options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
+        Object.keys(this.props.config.rental_options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
         if (this.props.config.allow_guarantors) {
             activeRentalOptions.add(RENTER_PROFILE_TYPE_GUARANTOR);
         }
@@ -83,14 +83,14 @@ export class RentalProfileOptions extends React.Component {
 
     get existingPets () {
         const existingPets = [];
-        if (this.props.profile.selected_options.pets) {
-            this.props.profile.selected_options.pets.forEach(item => existingPets.push(...item.leasing_context.pets));
+        if (this.props.profile.selected_rental_options.pets) {
+            this.props.profile.selected_rental_options.pets.forEach(item => existingPets.push(...item.leasing_context.pets));
         }
         return existingPets;
     }
 
-    filterOptions = option => this.props.profile.selected_options[option] ? 
-        this.props.profile.selected_options[option].filter(option => option.quantity > 0) :
+    filterOptions = option => this.props.profile.selected_rental_options[option] ?
+        this.props.profile.selected_rental_options[option].filter(option => option.quantity > 0) :
         []
 
     render () {
@@ -117,8 +117,8 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.co_applicants.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
-                                    {this.props.profile.co_applicants.map(item => 
-                                        <ExistingRoommate 
+                                    {this.props.profile.co_applicants.map(item =>
+                                        <ExistingRoommate
                                             key={item.id}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
@@ -142,9 +142,9 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.primary_applicant.guarantors.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
                                 >
-                                    {this.props.profile.primary_applicant.guarantors.map(item => 
-                                        <ExistingRoommate 
-                                            key={item.id} 
+                                    {this.props.profile.primary_applicant.guarantors.map(item =>
+                                        <ExistingRoommate
+                                            key={item.id}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_GUARANTOR}
                                         />)}
@@ -160,14 +160,14 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
                             route={ROUTES.PETS}
                             expansionPanel={!!this.existingPets.length &&
-                                <ExistingItemsExpansionPanel 
+                                <ExistingItemsExpansionPanel
                                     label="Pets"
                                     labelQuantity={this.existingPets.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
                                 >
-                                    {this.existingPets.map(item => 
-                                        <ExistingPet 
-                                            key={item.key} 
+                                    {this.existingPets.map(item =>
+                                        <ExistingPet
+                                            key={item.key}
                                             item={item}
                                         />)}
                                 </ExistingItemsExpansionPanel>
@@ -183,18 +183,18 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={(filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
                             route={ROUTES.PARKING}
                             expansionPanel={filteredParking.length > 0 &&
-                                <ExistingItemsExpansionPanel 
+                                <ExistingItemsExpansionPanel
                                     label="Parking Space"
-                                    labelQuantity={this.props.profile.selected_options.parking.reduce((totalSelected, selectedOption) => {
+                                    labelQuantity={this.props.profile.selected_rental_options.parking.reduce((totalSelected, selectedOption) => {
                                         return totalSelected += selectedOption.quantity;
                                     }, 0)}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
                                 >
-                                    {filteredParking.map(item => 
+                                    {filteredParking.map(item =>
                                         <ExistingParkingOrStorage
-                                            key={item.id} 
+                                            key={item.id}
                                             quantity={item.quantity}
-                                            rentalOption={this.props.config.options.parking.find(option => option.id === item.rental_option.id)}
+                                            rentalOption={this.props.config.rental_options.parking.find(option => option.id === item.rental_option.id)}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
@@ -208,18 +208,18 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel={(filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
                             route={ROUTES.STORAGE}
                             expansionPanel={filteredStorage.length > 0 &&
-                                <ExistingItemsExpansionPanel 
+                                <ExistingItemsExpansionPanel
                                     label="Storage Space"
-                                    labelQuantity={this.props.profile.selected_options.storage.reduce((totalSelected, selectedOption) => {
+                                    labelQuantity={this.props.profile.selected_rental_options.storage.reduce((totalSelected, selectedOption) => {
                                         return totalSelected += selectedOption.quantity;
                                     }, 0)}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
                                 >
-                                    {filteredStorage.map(item => 
+                                    {filteredStorage.map(item =>
                                         <ExistingParkingOrStorage
-                                            key={item.id} 
+                                            key={item.id}
                                             quantity={item.quantity}
-                                            rentalOption={this.props.config.options.storage.find(option => option.id === item.rental_option.id)}
+                                            rentalOption={this.props.config.rental_options.storage.find(option => option.id === item.rental_option.id)}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
@@ -247,7 +247,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateRenterProfile, 
+    updateRenterProfile,
     pageComplete,
 };
 
