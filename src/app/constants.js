@@ -28,7 +28,8 @@ export const ROUTES = {
     PAYMENT_TERMS: '/payment-terms',
     ACCOUNT: '/account',
     RESEND_INVITE: '/resend-invite',
-}
+    APP_APPROVED: '/application-approved',
+};
 
 export const NAV_ROUTES = [
     {name: 'Current Address', value: ROUTES.ADDRESS},
@@ -37,12 +38,12 @@ export const NAV_ROUTES = [
     {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
     {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
     {name: 'Screening', value: ROUTES.SCREENING},
-    {name: 'Application Complete', value: ROUTES.APP_COMPLETE}
+    {name: 'Application Complete', value: ROUTES.APP_COMPLETE},
 ];
 
 export const BASE_ROUTES = [
     ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
-]
+];
 
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
@@ -75,6 +76,13 @@ export const MILESTONE_INCOME_COMPLETED = 210;
 export const MILESTONE_APPLICATION_FEE_COMPLETED = 215;
 export const MILESTONE_APPLICATION_SUBMITTED = 220;
 
+export const APPLICATION_STATUS_APPROVED = 10;
+export const APPLICATION_STATUS_CONDITIONALLY_APPROVED = 30;
+
+export const APPLICATION_APPROVED_STATUSES = [
+    APPLICATION_STATUS_APPROVED,
+    APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+];
 
 export const APPLICATION_EVENTS = {
     EVENT_APPLICANT_REGISTERED, EVENT_LEASE_TERMS_COMPLETED, EVENT_RENTAL_OPTIONS_SELECTED, EVENT_RENTAL_OPTIONS_NOT_SELECTED, EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED,
@@ -103,9 +111,9 @@ export const APPLICANT_STATUS_COLOR_MAP = {
 export const RENTAL_OPTIONS_PETS_DOGS = 'pets-dogs';
 export const RENTAL_OPTIONS_PETS_CATS = 'pets-cats';
 export const RENTAL_OPTIONS_PETS_OTHER = 'pets-other';
-export const PET_DOG_LABEL = 'Dog'
-export const PET_CAT_LABEL = 'Cat'
-export const PET_OTHER_LABEL = 'Other'
+export const PET_DOG_LABEL = 'Dog';
+export const PET_CAT_LABEL = 'Cat';
+export const PET_OTHER_LABEL = 'Other';
 
 export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
     [RENTAL_OPTIONS_PETS_DOGS]: PET_DOG_LABEL,
