@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppContextProvider from 'contexts/AppContextProvider';
+import ResendLinkForm from 'components/common/ResendLinkForm';
 import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
 import RentalProfileContainer from 'components/profile/RentalProfileContainer';
@@ -106,6 +107,7 @@ export class Main extends Component {
                             <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
+                            <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm}/>
                             <Route path={ROUTES.APP_APPROVED} component={AppApproved}/>
                         </NavDrawer>}
                     </Switch>

@@ -142,14 +142,8 @@ selectors.selectInitialPage = createSelector(
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const accessibleRoutes = routeMapping(eventsSet, applicant, profile);
 
-            for (let i = 0; i < orderedRoutes.length; i++) {
-                const route = orderedRoutes[i];
-                if (accessibleRoutes[route]) {
-                    return route;
-                }
-            }
-
-            return orderedRoutes[orderedRoutes.length - 1];
+            const route = orderedRoutes.find(r => accessibleRoutes[r]);
+            return route ? route : orderedRoutes[orderedRoutes.length - 1];
         }
     }
 );
