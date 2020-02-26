@@ -113,7 +113,8 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
-// Determines which routes the applicant has submitted/completed
+// Determines which routes the applicant still needs to submit/complete
+// A route returning true here indicates that the user has not completed it
 const routeMapping = (events, applicant, profile) => ({
     [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED,
