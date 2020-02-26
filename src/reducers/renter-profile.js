@@ -6,8 +6,8 @@ import { createSelector } from 'reselect';
 import { NAV_ROUTES } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
-    BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED,
-    APPLICATION_APPROVED_STATUSES,
+    BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED,
+    APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -111,22 +111,37 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
-const pageCompleted = (events, applicant, profile) => ({
+// Determines which routes the applicant still needs to submit/complete
+// A route returning FALSE here indicates that the user has not completed it
+const pageCompleted = (events, applicant) => ({
     [ROUTES.ADDRESS]: ADDRESS_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.LEASE_TERMS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
     [ROUTES.PROFILE_OPTIONS]: events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.SCREENING]: events.has(MILESTONE_APPLICATION_SUBMITTED),
+    [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
 });
 
 selectors.canAccessRoute = (state, route) => {
-    // route is accessible if it's been completed OR it's the next page following the last completed page.
-    const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
+    /*
+     We have a concept of ordered screens and generally
+     these ordered screens can't be completed out of order.
+     This function contains logic for determing permission
+     for accessing certain pages. This is ran only once on
+     initial page load.
+
+    In general a route is accessible IF:
+    - Route has been completed (viewed, modified, acknowledged, etc).
+    - Route is the next page to be completed in the liner flow.
+    - Route is Account page. Account page is a non-linear flow page.
+    */
+
+    // Account page should always be accessible
     if (route === ROUTES.ACCOUNT) {
         return true;
     }
-    // check if route completed
+    const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
+    // check if page was completed
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
         return true;
     }
@@ -142,17 +157,20 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
-        if (orderedRoutes && events) {
+        if (orderedRoutes && events && profile) {
+            // eslint-disable-next-line default-case
+            switch (profile.status) {
+            case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
+            case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
+                return ROUTES.APP_APPROVED;
+            }
+
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
             const route = orderedRoutes.find(r => !accessibleRoutes[r]);
             if (route) return route;
-            if (APPLICATION_APPROVED_STATUSES.includes(profile.status)) {
-                return ROUTES.APP_APPROVED;
-            } else {
-                return ROUTES.APP_COMPLETE;
-            }
+            return ROUTES.APP_COMPLETE;
         }
     }
 );

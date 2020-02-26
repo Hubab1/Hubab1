@@ -3,7 +3,7 @@ import {
     ROUTES,
     APPLICATION_EVENTS,
     ROLE_PRIMARY_APPLICANT,
-    MILESTONE_APPLICATION_SUBMITTED,
+    MILESTONE_APPLICANT_SUBMITTED,
     APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED
 } from 'app/constants';
 
@@ -60,7 +60,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}, {event: MILESTONE_APPLICATION_SUBMITTED}], receipt: {id: 123}}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}, {event: MILESTONE_APPLICANT_SUBMITTED}], receipt: {id: 123}}
         });
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
 
