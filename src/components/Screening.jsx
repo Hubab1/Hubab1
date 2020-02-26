@@ -81,7 +81,7 @@ export class Screening extends React.Component {
     render () {
         const initialValues = {
             have_ssn: true,
-            ssn: null,
+            ssn: '',
             disclaimer: false,
         };
         return (
