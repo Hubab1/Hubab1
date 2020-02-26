@@ -7,7 +7,7 @@ import { NAV_ROUTES } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
     BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED,
-    APPLICATION_APPROVED_STATUSES,
+    APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -92,7 +92,6 @@ selectors.selectOrderedRoutes = createSelector(
         if (applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 return BASE_ROUTES.concat([
-                    ROUTES.APP_APPROVED,
                     ROUTES.INCOME_AND_EMPLOYMENT,
                     ROUTES.FEES_AND_DEPOSITS,
                     ROUTES.SCREENING,
@@ -100,7 +99,6 @@ selectors.selectOrderedRoutes = createSelector(
                 ])
             } else {
                 return [
-                    ROUTES.APP_APPROVED,
                     ROUTES.ADDRESS,
                     ROUTES.LEASE_TERMS,
                     ROUTES.INCOME_AND_EMPLOYMENT,
@@ -115,6 +113,7 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
+// Determines which routes the applicant has submitted/completed
 const routeMapping = (events, applicant, profile) => ({
     [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED,
@@ -124,7 +123,6 @@ const routeMapping = (events, applicant, profile) => ({
     [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
     [ROUTES.APP_COMPLETE]: true,
     [ROUTES.ACCOUNT]: false,
-    [ROUTES.APP_APPROVED]: profile && APPLICATION_APPROVED_STATUSES.includes(profile.status),
 });
 
 selectors.canAccessRoute = (state, route) => {
@@ -138,10 +136,16 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
-        if (orderedRoutes && events) {
+        if (orderedRoutes && events && profile) {
+            // eslint-disable-next-line default-case
+            switch (profile.status) {
+            case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
+            case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
+                return ROUTES.APP_APPROVED;
+            }
+
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const accessibleRoutes = routeMapping(eventsSet, applicant, profile);
-
             const route = orderedRoutes.find(r => accessibleRoutes[r]);
             return route ? route : orderedRoutes[orderedRoutes.length - 1];
         }
