@@ -17,6 +17,9 @@ import SocialSecurityInput from 'components/common/SocialSecurityInput';
 import API, { MOCKY } from 'app/api';
 
 import ssl from 'assets/images/ssl-image.png';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 const Image = styled.img`
     width: 91px;
@@ -43,89 +46,27 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
-const SocialSecurityPrompt = styled.form`
-    [type="radio"]:checked,
-    [type="radio"]:not(:checked) {
-        position: absolute;
-        left: -9999px;
+const socialSecurityPrompt = css`
+    margin-bottom: 15px;
+    .MuiRadio-root {
+        color: #26305B;
     }
-    [type="radio"]:checked + label,
-    [type="radio"]:not(:checked) + label
-    {
-        position: relative;
-        padding-left: 28px;
-        cursor: pointer;
-        line-height: 20px;
-        display: inline-block;
-        color: #666;
+    .MuiRadio-colorSecondary.Mui-checked {
+        color: #26305B;
     }
-    [type="radio"]:checked + label:before,
-    [type="radio"]:not(:checked) + label:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 22px;
-        height: 22px;
-        border: 2px solid #26305B;
-        border-radius: 100%;
-        background: #fff;
-        box-sizing: border-box;
+    p {
+        margin-bottom: 0;
     }
-    [type="radio"]:checked + label:after,
-    [type="radio"]:not(:checked) + label:after {
-        content: '';
-        width: 14px;
-        height: 14px;
-        background: #26305B;
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        border-radius: 100%;
-        -webkit-transition: all 0.2s ease;
-        transition: all 0.2s ease;
-    }
-    [type="radio"]:not(:checked) + label:after {
-        opacity: 0;
-        -webkit-transform: scale(0);
-        transform: scale(0);
-    }
-    [type="radio"]:checked + label:after {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-    .prompt-label {
-        height: 20px;
-        width: 27px;
-        color: #000000;
-        font-size: 16px;
-        line-height: 20px;
-    }
-    .prompt-choice {
-        margin-right: 39px;
-        
-    }
-    margin-bottom: 20px;
 `
 
-
 export class Screening extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            haveSocialSecurityNumber: true,
-        };
-        this.handleOptionChange = this.handleOptionChange.bind(this);
-    }
-
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
-        if (!this.state.haveSocialSecurityNumber) {
-            values.ssn = '000-00-0000';
+        let body = {...values};
+        if (!values.have_ssn) {
+            body.ssn = '000-00-0000';
         }
-        values.have_ssn = this.state.haveSocialSecurityNumber;
-        API.postPassthrough(values).then((res) => {
+        API.postPassthrough(body).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -137,35 +78,28 @@ export class Screening extends React.Component {
         })
     };
 
-    handleOptionChange(changeEvent) {
-        this.setState({
-            haveSocialSecurityNumber: changeEvent.target.value === 'true',
-        });
-    }
-
     render () {
-        const requestSocialSecurityNumber = this.state.haveSocialSecurityNumber;
         const initialValues = {
-            haveSocialSecurityNumber: requestSocialSecurityNumber,
+            have_ssn: true,
             ssn: null,
             disclaimer: false,
         };
         return (
-            <Fragment
-                enableReinitialize
-                initialValues={initialValues}>
+            <Fragment>
                 <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
                 <img src={portfolioImg} alt="portfolio"></img>
                 <br/>
                 <br/>
                 <Formik
+                    enableReinitialize
+                    initialValues={initialValues}
                     onSubmit={this.onSubmit}
                     validationSchema={Yup.object().shape({
-                        haveSocialSecurityNumber: Yup.boolean(),
+                        have_ssn: Yup.boolean(),
                         // some test numbers are not valid and break some ssn rules. we may want to update with this more precise validation in the future /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/
                         ssn: Yup.string()
-                            .when('haveSocialSecurityNumber', {
+                            .when('have_ssn', {
                                 is: true,
                                 then: Yup.string().required('Social Security Number is required')
                             }).matches(/^\d{3}-\d{2}-\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
@@ -195,31 +129,23 @@ export class Screening extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <SocialSecurityPrompt>
-                                    <p className={securityBlurb}>Do you hae a social security number?</p>
-                                    <span className="prompt-choice">
-                                        <input
-                                            type="radio"
-                                            id="haveSSN"
-                                            name="radio-group"
-                                            value={true}
-                                            defaultChecked={true}
-                                            onChange={this.handleOptionChange}
-                                        />
-                                        <label htmlFor="haveSSN" className="prompt-label">Yes</label>
-                                    </span>
-                                    <span className="prompt-choice">
-                                        <input
-                                            type="radio"
-                                            id="dontHaveSSN"
-                                            name="radio-group"
-                                            value={false}
-                                            onChange={this.handleOptionChange}
-                                        />
-                                        <label htmlFor="dontHaveSSN" className="prompt-label">No</label>
-                                    </span>
-                                </SocialSecurityPrompt>
-                                { requestSocialSecurityNumber && (
+                                <div className={socialSecurityPrompt}>
+                                    <p className={securityBlurb}>Do you have a social security number?</p>
+                                    <RadioGroup
+                                        aria-label="haveSSN"
+                                        name={'have_ssn'}
+                                        error={errors.have_ssn}
+                                        value={values.have_ssn}
+                                        row={true}
+                                        defaultValue={true}
+                                        onChange={(val) =>
+                                            setFieldValue('have_ssn', val.target.value === 'true')}
+                                    >
+                                        <FormControlLabel value={true} control={<Radio />} label="Yes" />
+                                        <FormControlLabel value={false} control={<Radio />} label="No"  />
+                                    </RadioGroup>
+                                </div>
+                                { values.have_ssn && (
                                     <SocialSecurityInput
                                         name="ssn"
                                         setFieldValue={(val) => setFieldValue('ssn', val)}
@@ -248,7 +174,7 @@ export class Screening extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <ActionButton disabled={(!values.ssn && requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
+                                <ActionButton disabled={(!values.ssn && values.requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>
                             </FormControl>

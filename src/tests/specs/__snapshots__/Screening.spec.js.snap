@@ -1,16 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Match initial snapshot 1`] = `
-<React.Fragment
-  enableReinitialize={true}
-  initialValues={
-    Object {
-      "disclaimer": false,
-      "haveSocialSecurityNumber": true,
-      "ssn": null,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef(render)>
     You're almost done, 
     Chakib
@@ -26,7 +17,14 @@ exports[`Match initial snapshot 1`] = `
   <br />
   <br />
   <Formik
-    enableReinitialize={false}
+    enableReinitialize={true}
+    initialValues={
+      Object {
+        "disclaimer": false,
+        "have_ssn": true,
+        "ssn": null,
+      }
+    }
     isInitialValid={false}
     onSubmit={[Function]}
     validateOnBlur={true}
@@ -45,7 +43,7 @@ exports[`Match initial snapshot 1`] = `
         "_mutate": undefined,
         "_nodes": Array [
           "disclaimer",
-          "haveSocialSecurityNumber",
+          "have_ssn",
           "ssn",
         ],
         "_options": Object {
@@ -87,7 +85,7 @@ exports[`Match initial snapshot 1`] = `
               [Function],
             ],
           },
-          "haveSocialSecurityNumber": BooleanSchema {
+          "have_ssn": BooleanSchema {
             "_blacklist": RefSet {
               "list": Set {},
               "refs": Map {},
@@ -125,15 +123,15 @@ exports[`Match initial snapshot 1`] = `
                     "isContext": false,
                     "isSibling": true,
                     "isValue": false,
-                    "key": "haveSocialSecurityNumber",
+                    "key": "have_ssn",
                     "map": undefined,
-                    "path": "haveSocialSecurityNumber",
+                    "path": "have_ssn",
                   },
                 ],
               },
             ],
             "_deps": Array [
-              "haveSocialSecurityNumber",
+              "have_ssn",
             ],
             "_exclusive": Object {
               "undefined": false,
