@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from 'react';
+import HelloSign from 'hellosign-embedded';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { ROUTES } from 'app/constants';
@@ -27,25 +28,39 @@ export const gridContainer = css`
     padding: 20px 0 20px 0;
 `;
 
-export const AppApproved = ({profile, configuration}) => {
+export const AppApproved = ({profile, configuration, applicant}) => {
     if (!profile || ! configuration) return null;
+    const [client, setClient] = useState(null);
 
     const { unit } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
 
+    useEffect(() => {
+        setClient(new HelloSign({
+            clientId: '530b26fda96d75b4abef002d9876fb7c'
+        }));
+    }, []);
+
+    function openEmbeddedSigning () {
+        client && client.open(`https://app.hellosign.com/editor/embeddedSign?signature_id=${applicant.signature_id}`, {
+            testMode: true,
+            debug: true,
+        });
+    }
+
     return (
-        <Fragment>
+        <>
             <H1>You've Been Approved!</H1>
             <SpacedH3>All that's left to do is sign the lease.</SpacedH3>
             <ApprovedImage src={approvedSign}/>
             <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
             <div className={gridContainer}>
-                <ActionButton marginTop={80} marginBottom={20}>
+                <ActionButton onClick={openEmbeddedSigning} marginTop={80} marginBottom={20}>
                     Review &amp; Sign Lease
                 </ActionButton>
             </div>
-        </Fragment>
+        </>
     )
 };
 
@@ -58,6 +73,7 @@ AppApproved.propTypes = {
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
+    applicant: state.applicant,
 });
 
 export default connect(mapStateToProps, null)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
