@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import * as Yup from 'yup';
 
 import { ROUTES } from 'app/constants';
-import { H1, SpacedH3 } from 'assets/styles';
+import { H1, SpacedH3, SocialSecurityPrompt } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import portfolioImg from 'assets/images/portfolio.png';
@@ -44,8 +44,20 @@ const gridContainer = css`
 `
 
 export class Screening extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            haveSocialSecurityNumber: true,
+        };
+        this.handleOptionChange = this.handleOptionChange.bind(this);
+    }
+
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
+        if (!this.state.haveSocialSecurityNumber) {
+            values.ssn = '000-00-0000';
+        }
+        values.have_ssn = this.state.haveSocialSecurityNumber;
         API.postPassthrough(values).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
@@ -56,11 +68,25 @@ export class Screening extends React.Component {
         }).catch(() => {
             setSubmitting(false);
         })
+    };
+
+    handleOptionChange(changeEvent) {
+        this.setState({
+            haveSocialSecurityNumber: changeEvent.target.value === 'true',
+        });
     }
 
     render () {
+        const requestSocialSecurityNumber = this.state.haveSocialSecurityNumber;
+        const initialValues = {
+            haveSocialSecurityNumber: requestSocialSecurityNumber,
+            ssn: null,
+            disclaimer: false,
+        };
         return (
-            <Fragment>
+            <Fragment
+                enableReinitialize
+                initialValues={initialValues}>
                 <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
                 <img src={portfolioImg} alt="portfolio"></img>
@@ -69,10 +95,13 @@ export class Screening extends React.Component {
                 <Formik
                     onSubmit={this.onSubmit}
                     validationSchema={Yup.object().shape({
+                        haveSocialSecurityNumber: Yup.boolean(),
+                        // some test numbers are not valid and break some ssn rules. we may want to update with this more precise validation in the future /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/
                         ssn: Yup.string()
-                            .required('Social Security Number is required')
-                            // some test numbers are not valid and break some ssn rules. we may want to update with this more precise validation in the future /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/
-                            .matches(/^\d{3}-\d{2}-\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
+                            .when('haveSocialSecurityNumber', {
+                                is: true,
+                                then: Yup.string().required('Social Security Number is required')
+                            }).matches(/^\d{3}-\d{2}-\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
                         disclaimer: Yup.string()
                             .required('You must click the checkbox to agree to the terms')
                     })}
@@ -99,16 +128,42 @@ export class Screening extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <SocialSecurityInput
-                                    name="ssn"
-                                    setFieldValue={(val) => setFieldValue('ssn', val)}
-                                    handleBlur={handleBlur}
-                                    handleChange={handleChange}
-                                    value={values.ssn}
-                                    error={errors.ssn}
-                                    submitted={ submitCount > 0 }
-                                    helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
-                                />
+                                <SocialSecurityPrompt>
+                                    <p className={securityBlurb}>Do you hae a social security number?</p>
+                                    <span className="prompt-choice">
+                                        <input
+                                            type="radio"
+                                            id="haveSSN"
+                                            name="radio-group"
+                                            value={true}
+                                            defaultChecked={true}
+                                            onChange={this.handleOptionChange}
+                                        />
+                                        <label htmlFor="haveSSN" className="prompt-label">Yes</label>
+                                    </span>
+                                    <span className="prompt-choice">
+                                        <input
+                                            type="radio"
+                                            id="dontHaveSSN"
+                                            name="radio-group"
+                                            value={false}
+                                            onChange={this.handleOptionChange}
+                                        />
+                                        <label htmlFor="dontHaveSSN" className="prompt-label">No</label>
+                                    </span>
+                                </SocialSecurityPrompt>
+                                { requestSocialSecurityNumber && (
+                                    <SocialSecurityInput
+                                        name="ssn"
+                                        setFieldValue={(val) => setFieldValue('ssn', val)}
+                                        handleBlur={handleBlur}
+                                        handleChange={handleChange}
+                                        value={values.ssn}
+                                        error={errors.ssn}
+                                        submitted={ submitCount > 0 }
+                                        helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
+                                    />
+                                )}
                                 <div className={gridContainer}>
                                     <Grid container spacing={0} alignItems="flex-start">
                                         <Grid item xs={2}>
@@ -126,7 +181,7 @@ export class Screening extends React.Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                                <ActionButton disabled={!values.ssn || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
+                                <ActionButton disabled={(!values.ssn && requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>
                             </FormControl>

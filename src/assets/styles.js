@@ -161,3 +161,68 @@ export const arrowIcon = css`
     vertical-align: sub;
 `
 
+export const SocialSecurityPrompt = styled.form`
+    [type="radio"]:checked,
+    [type="radio"]:not(:checked) {
+        position: absolute;
+        left: -9999px;
+    }
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label
+    {
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+        line-height: 20px;
+        display: inline-block;
+        color: #666;
+    }
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 22px;
+        height: 22px;
+        border: 2px solid #26305B;
+        border-radius: 100%;
+        background: #fff;
+        box-sizing: border-box;
+    }
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        background: #26305B;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-radius: 100%;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+    [type="radio"]:not(:checked) + label:after {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    [type="radio"]:checked + label:after {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    .prompt-label {
+        height: 20px;
+        width: 27px;
+        color: #000000;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .prompt-choice {
+        margin-right: 39px;
+        
+    }
+    margin-bottom: 20px;
+`
