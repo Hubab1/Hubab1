@@ -92,21 +92,17 @@ selectors.selectOrderedRoutes = createSelector(
         if (applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
                 return BASE_ROUTES.concat([
-                    ROUTES.APP_APPROVED,
                     ROUTES.INCOME_AND_EMPLOYMENT,
                     ROUTES.FEES_AND_DEPOSITS,
                     ROUTES.SCREENING,
-                    ROUTES.APP_COMPLETE,
                 ])
             } else {
                 return [
-                    ROUTES.APP_APPROVED,
                     ROUTES.ADDRESS,
                     ROUTES.LEASE_TERMS,
                     ROUTES.INCOME_AND_EMPLOYMENT,
                     ROUTES.FEES_AND_DEPOSITS,
                     ROUTES.SCREENING,
-                    ROUTES.APP_COMPLETE,
                 ]
             }
         }
@@ -115,21 +111,29 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
-const routeMapping = (events, applicant, profile) => ({
-    [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]),
-    [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED,
-    [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
-    [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
-    [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.SCREENING]: !events.has(MILESTONE_APPLICATION_SUBMITTED),
-    [ROUTES.APP_COMPLETE]: true,
-    [ROUTES.ACCOUNT]: false,
-    [ROUTES.APP_APPROVED]: profile && APPLICATION_APPROVED_STATUSES.includes(profile.status),
+const pageCompleted = (events, applicant, profile) => ({
+    [ROUTES.ADDRESS]: ADDRESS_FIELDS.some((field) => !!applicant[field]),
+    [ROUTES.LEASE_TERMS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
+    [ROUTES.PROFILE_OPTIONS]: events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
+    [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
+    [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.SCREENING]: events.has(MILESTONE_APPLICATION_SUBMITTED),
 });
 
 selectors.canAccessRoute = (state, route) => {
+    // route is accessible if it's been completed OR it's the next page following the last completed page.
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
-    return routeMapping(eventsSet, state.applicant, state.renterProfile)[route] === false;
+    if (route === ROUTES.ACCOUNT) {
+        return true;
+    }
+    // check if route completed
+    if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
+        return true;
+    }
+    if (route === selectors.selectInitialPage(state)) {
+        return true;
+    }
+    return false;
 };
 
 selectors.selectInitialPage = createSelector(
@@ -140,10 +144,15 @@ selectors.selectInitialPage = createSelector(
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
-            const accessibleRoutes = routeMapping(eventsSet, applicant, profile);
+            const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
-            const route = orderedRoutes.find(r => accessibleRoutes[r]);
-            return route ? route : orderedRoutes[orderedRoutes.length - 1];
+            const route = orderedRoutes.find(r => !accessibleRoutes[r]);
+            if (route) return route;
+            if (APPLICATION_APPROVED_STATUSES.includes(profile.status)) {
+                return ROUTES.APP_APPROVED;
+            } else {
+                return ROUTES.APP_COMPLETE;
+            }
         }
     }
 );
