@@ -22,7 +22,7 @@ exports[`Match initial snapshot 1`] = `
       Object {
         "disclaimer": false,
         "have_ssn": true,
-        "ssn": null,
+        "ssn": "",
       }
     }
     isInitialValid={false}
