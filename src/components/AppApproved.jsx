@@ -5,6 +5,7 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import API from 'app/api';
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
@@ -42,11 +43,14 @@ export const AppApproved = ({profile, configuration, applicant}) => {
         }));
     }, []);
 
-    function openEmbeddedSigning () {
-        client && client.open(`https://app.hellosign.com/editor/embeddedSign?signature_id=${applicant.signature_id}`, {
-            testMode: true,
-            debug: true,
-        });
+    const openEmbeddedSigning = async () => {
+        const data = await API.embeddedSignUrl();
+        if (data.url) {
+            client && client.open(data.url, {
+                testMode: true,
+                debug: true,
+            });
+        }
     }
 
     return (
