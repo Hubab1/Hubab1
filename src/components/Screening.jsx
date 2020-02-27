@@ -48,12 +48,6 @@ const gridContainer = css`
 
 const socialSecurityPrompt = css`
     margin-bottom: 15px;
-    .MuiRadio-root {
-        color: #26305B;
-    }
-    .MuiRadio-colorSecondary.Mui-checked {
-        color: #26305B;
-    }
     p {
         margin-bottom: 0;
     }
