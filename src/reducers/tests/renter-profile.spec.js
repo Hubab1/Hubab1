@@ -1,5 +1,11 @@
 import { selectors } from 'reducers/renter-profile';
-import { ROUTES, APPLICATION_EVENTS, ROLE_PRIMARY_APPLICANT, MILESTONE_APPLICATION_SUBMITTED } from 'app/constants';
+import {
+    ROUTES,
+    APPLICATION_EVENTS,
+    ROLE_PRIMARY_APPLICANT,
+    MILESTONE_APPLICATION_SUBMITTED,
+    APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED
+} from 'app/constants';
 
 
 describe('selectInitialPage', () => {
@@ -58,5 +64,28 @@ describe('selectInitialPage', () => {
         });
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
 
+        initialPage = selectors.selectInitialPage({
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_APPROVED,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+        });
+        expect(initialPage).toEqual(ROUTES.APP_APPROVED);
+
+        initialPage = selectors.selectInitialPage({
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+        });
+        expect(initialPage).toEqual(ROUTES.APP_APPROVED);
     });
 });

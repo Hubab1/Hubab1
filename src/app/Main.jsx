@@ -3,7 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppContextProvider from 'contexts/AppContextProvider';
-import ResendLinkForm from 'components/common//ResendLinkForm';
+import ResendLinkForm from 'components/common/ResendLinkForm';
 import WelcomePage from 'components/welcome/WelcomePage';
 import PasswordContainer from 'components/password/PasswordContainer';
 import RentalProfileContainer from 'components/profile/RentalProfileContainer';
@@ -25,6 +25,7 @@ import Address from 'components/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
+import AppApproved from 'components/AppApproved';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -36,7 +37,7 @@ function sessionIsValidForCommunityId (communityId) {
 }
 
 export class Main extends Component {
-    state = {error: null}
+    state = {error: null};
 
     mountNavigation(isAuthenticated, configuration) {
         const { fetchRenterProfile, history, location } = this.props;
@@ -55,7 +56,7 @@ export class Main extends Component {
                 history.replace(ROUTES.LOGIN);
             } else {
                 history.replace(ROUTES.WELCOME);
-            }   
+            }
         } else {
             fetchRenterProfile().then(() => {
                 if (!this.props.canAccessCurrentRoute()) {
@@ -107,6 +108,7 @@ export class Main extends Component {
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
                             <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm}/>
+                            <Route path={ROUTES.APP_APPROVED} component={AppApproved}/>
                         </NavDrawer>}
                     </Switch>
                 </div>
