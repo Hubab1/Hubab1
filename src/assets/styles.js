@@ -160,4 +160,3 @@ export const arrowIcon = css`
     font-size: 16px !important;
     vertical-align: sub;
 `
-
