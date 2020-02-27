@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import * as Yup from 'yup';
 
 import { ROUTES } from 'app/constants';
-import { H1, SpacedH3 } from 'assets/styles';
+import { H1, SpacedH3, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import portfolioImg from 'assets/images/portfolio.png';
@@ -48,9 +48,6 @@ const gridContainer = css`
 
 const socialSecurityPrompt = css`
     margin-bottom: 15px;
-    p {
-        margin-bottom: 0;
-    }
 `
 
 export class Screening extends React.Component {
@@ -124,7 +121,7 @@ export class Screening extends React.Component {
                                     </Grid>
                                 </div>
                                 <div className={socialSecurityPrompt}>
-                                    <p className={securityBlurb}>Do you have a social security number?</p>
+                                    <P  margin="0" className={securityBlurb}>Do you have a social security number?</P>
                                     <RadioGroup
                                         aria-label="haveSSN"
                                         name={'have_ssn'}
