@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import API from 'app/api';
-import { ROUTES, DEV } from 'app/constants';
+import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { H1, leftText, SpacedH3 } from 'assets/styles';
@@ -63,7 +63,7 @@ export const AppApproved = ({profile, configuration}) => {
         const data = await API.embeddedSigningUrl();
         if (data.url) {
             client && client.open(data.url, {
-                testMode: DEV,
+                testMode: true,
             });
         }
     }
