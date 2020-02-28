@@ -1,3 +1,5 @@
+export const DEV = process.env.REACT_APP_DEV === 'yes';
+
 export const community = {
     name: '555 Waverly'
 };

@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import HelloSign from 'hellosign-embedded';
 import styled from '@emotion/styled';
+import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import API from 'app/api';
-import { ROUTES } from 'app/constants';
+import { ROUTES, DEV } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
-import { H1, SpacedH3 } from 'assets/styles';
+import { H1, leftText, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import lightbulb from 'assets/images/lightbulb.png';
+import { prettyCurrency } from 'utils/misc';
 
 export const ApprovedImage = styled.img`
-    padding-top: 20px;
+    padding-top: 10px;
     height: 200px;
 `;
 
@@ -25,30 +28,43 @@ export const applicationUnit = css`
   padding-top: 10px;
 `;
 
+export const BulbImage = styled.img`
+  width: 46px;
+  height: 42px;
+`;
+
+export const securityDepositHelpText = css`
+  color: #454B57;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: left;
+`;
+
 export const gridContainer = css`
-    padding: 20px 0 20px 0;
+    padding-top: 35px;
+    min-height: 100px;
 `;
 
 export const AppApproved = ({profile, configuration, applicant}) => {
     if (!profile || ! configuration) return null;
-    const [client, setClient] = useState(null);
+    // const [client, setClient] = useState(null);
 
-    const { unit } = profile;
+    const {
+        unit,
+        security_deposit: securityDeposit,
+        security_deposit_multiplier: securityDepositMultiplier,
+    } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
 
-    useEffect(() => {
-        setClient(new HelloSign({
-            clientId: '530b26fda96d75b4abef002d9876fb7c'
-        }));
-    }, []);
-
     const openEmbeddedSigning = async () => {
-        const data = await API.embeddedSignUrl();
+        const client = new HelloSign({
+            clientId: '530b26fda96d75b4abef002d9876fb7c'
+        });
+        const data = await API.embeddedSigningUrl();
         if (data.url) {
             client && client.open(data.url, {
-                testMode: true,
-                debug: true,
+                testMode: DEV,
             });
         }
     }
@@ -60,7 +76,20 @@ export const AppApproved = ({profile, configuration, applicant}) => {
             <ApprovedImage src={approvedSign}/>
             <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
             <div className={gridContainer}>
-                <ActionButton onClick={openEmbeddedSigning} marginTop={80} marginBottom={20}>
+                {securityDeposit &&
+                <Grid container justify={'center'} className="security-deposit-container">
+                    <Grid item xs={2}>
+                        <BulbImage alt="light bulb" src={lightbulb} />
+                    </Grid>
+                    <Grid item xs={9} classes={{ root: leftText }}>
+                        <span className={securityDepositHelpText}>
+                            You've been approved under the condition that you agree to
+                            a {prettyCurrency(securityDeposit)} security deposit
+                            ({securityDepositMultiplier}x the rent).
+                        </span>
+                    </Grid>
+                </Grid>}
+                <ActionButton onClick={openEmbeddedSigning} marginTop={securityDeposit ? 30 : 90}>
                     Review &amp; Sign Lease
                 </ActionButton>
             </div>

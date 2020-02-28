@@ -163,7 +163,7 @@ API.generateFinicityReports = () => {
     }).then(res => res.json());
 }
 
-API.embeddedSignUrl = () => {
+API.embeddedSigningUrl = () => {
     return fetch(chuck('/embedded-signing-url/'), {
         headers: {
             Authorization: `Token ${auth.getToken()}`

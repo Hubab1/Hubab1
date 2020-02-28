@@ -14,10 +14,10 @@ beforeEach(() => {
     defaultProps = {
         config: mockConfig,
         application: mockApplication,
-    }
-})
+    };
+});
 
-it('renders a ItemAdder component for each option in config.options.storage', function() {
+it('renders a ItemAdder component for each option in config.rental_options.storage', function() {
     let wrapper = shallow( <Storage {...defaultProps}/> );
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(ItemAdder).length).toEqual(2);
