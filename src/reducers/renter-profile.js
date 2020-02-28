@@ -5,7 +5,10 @@ import { createSelector } from 'reselect';
 
 import { NAV_ROUTES } from 'app/constants';
 import API, { MOCKY } from 'app/api';
-import { BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED } from 'app/constants';
+import {
+    BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICATION_SUBMITTED,
+    APPLICATION_STATUSES,
+} from 'app/constants';
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
@@ -23,7 +26,7 @@ const renterProfile = createSlice({
         },
         renterProfileUpdated(state, action) {
             const payload = action.payload;
-            const newState = produce(state, draft => Object.assign({}, draft, payload))
+            const newState = produce(state, draft => Object.assign({}, draft, payload));
             return newState;
         },
     },
@@ -79,7 +82,7 @@ export const pageComplete = (page) => {
             dispatch(fetchRenterProfile());
         })
     }
-}
+};
 
 // selectors
 export const selectors = {};
@@ -88,9 +91,21 @@ selectors.selectOrderedRoutes = createSelector(
     (applicant) => {
         if (applicant) {
             if (applicant.role === ROLE_PRIMARY_APPLICANT) {
-                return BASE_ROUTES.concat([ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE])
+                return BASE_ROUTES.concat([
+                    ROUTES.INCOME_AND_EMPLOYMENT,
+                    ROUTES.FEES_AND_DEPOSITS,
+                    ROUTES.SCREENING,
+                    ROUTES.APP_COMPLETE,
+                ])
             } else {
-                return [ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.INCOME_AND_EMPLOYMENT, ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE]
+                return [
+                    ROUTES.ADDRESS,
+                    ROUTES.LEASE_TERMS,
+                    ROUTES.INCOME_AND_EMPLOYMENT,
+                    ROUTES.FEES_AND_DEPOSITS,
+                    ROUTES.SCREENING,
+                    ROUTES.APP_COMPLETE,
+                ]
             }
         }
     }
@@ -98,9 +113,11 @@ selectors.selectOrderedRoutes = createSelector(
 
 const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'address_postal_code'];
 
-const routeMapping = (events, applicant) => ({
-    [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]), 
-    [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED, 
+// Determines which routes the applicant still needs to submit/complete
+// A route returning true here indicates that the user has not completed it
+const routeMapping = (events, applicant, profile) => ({
+    [ROUTES.ADDRESS]: !ADDRESS_FIELDS.some((field) => !!applicant[field]),
+    [ROUTES.LEASE_TERMS]: !APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED,
     [ROUTES.PROFILE_OPTIONS]: !(events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)),
     [ROUTES.INCOME_AND_EMPLOYMENT]: !events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
@@ -111,22 +128,27 @@ const routeMapping = (events, applicant) => ({
 
 selectors.canAccessRoute = (state, route) => {
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
-    return routeMapping(eventsSet, state.applicant)[route] === false;
+    return routeMapping(eventsSet, state.applicant, state.renterProfile)[route] === false;
 };
 
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
     state => state.applicant,
-    (orderedRoutes, events, applicant) => {
-        if (orderedRoutes && events) {
-            const eventsSet = new Set(events.map(event => parseInt(event.event)));
-            for (let i = 0; i < orderedRoutes.length; i++) {
-                const route = orderedRoutes[i];
-                if (i === orderedRoutes.length -1 || routeMapping(eventsSet, applicant)[route]) {
-                    return route;
-                }
+    state => state.renterProfile,
+    (orderedRoutes, events, applicant, profile) => {
+        if (orderedRoutes && events && profile) {
+            // eslint-disable-next-line default-case
+            switch (profile.status) {
+            case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
+            case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
+                return ROUTES.APP_APPROVED;
             }
+
+            const eventsSet = new Set(events.map(event => parseInt(event.event)));
+            const accessibleRoutes = routeMapping(eventsSet, applicant, profile);
+            const route = orderedRoutes.find(r => accessibleRoutes[r]);
+            return route ? route : orderedRoutes[orderedRoutes.length - 1];
         }
     }
 );

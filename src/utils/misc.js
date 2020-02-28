@@ -21,6 +21,10 @@ export function formatCurrency(number, decimalPlaces=2) {
     return '$' + number.toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
+export function prettyCurrency(number, decimalPlaces = 2) {
+    return formatCurrency(number, decimalPlaces).replace('.00', '')
+}
+
 export const getIncomeRequirementText = props => {
     const {config, profile, applicant} = props;
     const { guarantor_income_requirement_multiplier, applicant_income_requirements } = config;
