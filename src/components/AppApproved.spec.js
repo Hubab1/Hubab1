@@ -6,13 +6,7 @@ import API from 'app/api';
 
 jest.mock('hellosign-embedded', () => {
     class HelloSign {
-        constructor(params) {
-            // super();
-            this.clientId = params.clientId;
-        }
-        open = (url) => {
-
-        }
+        open = () => {}
     }
     return HelloSign;
 });
