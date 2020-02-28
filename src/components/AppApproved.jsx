@@ -45,9 +45,8 @@ export const gridContainer = css`
     min-height: 100px;
 `;
 
-export const AppApproved = ({profile, configuration, applicant}) => {
+export const AppApproved = ({profile, configuration}) => {
     if (!profile || ! configuration) return null;
-    // const [client, setClient] = useState(null);
 
     const {
         unit,
@@ -106,7 +105,6 @@ AppApproved.propTypes = {
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
-    applicant: state.applicant,
 });
 
 export default connect(mapStateToProps, null)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));

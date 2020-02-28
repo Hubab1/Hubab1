@@ -138,8 +138,6 @@ selectors.selectInitialPage = createSelector(
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && profile) {
-            // TMP REMOVE!
-            return ROUTES.APP_APPROVED;
             // eslint-disable-next-line default-case
             switch (profile.status) {
             case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
