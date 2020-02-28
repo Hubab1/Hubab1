@@ -44,7 +44,7 @@ export const getIncomeRequirementText = props => {
             return `The total income required for all members of the application is ${applicant_income_requirements}x the rent`;
         }
     }
-}
+};
 
 // takes a date object and outputs a date string formatted like "1981-12-27"
 export function serializeDate (date) {
@@ -63,14 +63,14 @@ export const offsetDate = memoize((fromDate, offsetMonths) => {
     return format(newDate, 'MMMM do, yyyy');
 }, (a, b) => `${a}-${b}`);
 
-export const rentalOptionsInitialValues = (rawSelectedOptions) => {
+export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
     const initialValues = {};
-    if (!!rawSelectedOptions) {
-        rawSelectedOptions.forEach(option => {
+    if (!!rawSelectedRentalOptions) {
+        rawSelectedRentalOptions.forEach(option => {
             initialValues[option.rental_option.id] = option.quantity;
         });
     }
-    return initialValues
+    return initialValues;
 }
 
 

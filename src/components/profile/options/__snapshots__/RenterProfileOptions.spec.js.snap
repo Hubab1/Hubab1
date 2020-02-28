@@ -150,7 +150,7 @@ exports[`matches snapshot 1`] = `
 </React.Fragment>
 `;
 
-exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0 1`] = `
+exports[`renders ExistingItemsExpansionPanel for parking when there are selected_rental_options with quantity greater than 0 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Let's Set Up Your Rental Profile
@@ -324,7 +324,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
 </React.Fragment>
 `;
 
-exports[`renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0 2`] = `
+exports[`renders ExistingItemsExpansionPanel for parking when there are selected_rental_options with quantity greater than 0 2`] = `
 <ExistingParkingOrStorage
   quantity={2}
   rentalOption={

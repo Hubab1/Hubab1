@@ -21,18 +21,18 @@ const ImageContainer = styled.div`
         max-height: 123px;
         max-width: 123px;
     }
-`
+`;
 
 export const Storage = props => {
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
-        const selectedOptionsArray = []
+        const selectedRentalOptionsArray = [];
         Object.entries(values).forEach(option => {
-            selectedOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]})
+            selectedRentalOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]});
         });
-        const selectedOptions = Object.assign({}, {selected_options: selectedOptionsArray});
-        return props.updateRenterProfile(selectedOptions).then((res) => {
+        const selectedRentalOptions = Object.assign({}, {selected_rental_options: selectedRentalOptionsArray});
+        return props.updateRenterProfile(selectedRentalOptions).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
             } else {
@@ -42,9 +42,9 @@ export const Storage = props => {
         });
     };
 
-    const initialStorageOptions = props.application.selected_options.storage;
+    const initialStorageOptions = props.application.selected_rental_options.storage;
 
-    const storageOptions = props.config.options.storage || [];
+    const storageOptions = props.config.rental_options.storage || [];
     return <>
         <H1>Storage</H1>
         <SpacedH3>We help you make room for what matters most.</SpacedH3>
@@ -61,7 +61,7 @@ export const Storage = props => {
                 setFieldValue,
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    { storageOptions.map(option => 
+                    { storageOptions.map(option =>
                         <ItemAdder
                             key={option.id}
                             title={option.name}
@@ -85,7 +85,7 @@ export const Storage = props => {
         <Box padding="20px">
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
         </Box>
-    </>
+    </>;
 };
 
 const mapStateToProps = state => ({
