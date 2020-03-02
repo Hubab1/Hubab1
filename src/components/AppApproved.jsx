@@ -64,6 +64,7 @@ export const AppApproved = ({profile, configuration}) => {
         if (data.url) {
             client && client.open(data.url, {
                 testMode: HELLOSIGN_TEST_MODE,
+                skipDomainVerification: HELLOSIGN_TEST_MODE,
             });
         }
     }
