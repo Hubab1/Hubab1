@@ -124,16 +124,10 @@ const pageCompleted = (events, applicant) => ({
 
 selectors.canAccessRoute = (state, route) => {
     /*
-     We have a concept of ordered screens and generally
-     these ordered screens can't be completed out of order.
-     This function contains logic for determing permission
-     for accessing certain pages. This is ran only once on
-     initial page load.
-
-    In general a route is accessible IF:
-    - Route has been completed (viewed, modified, acknowledged, etc).
-    - Route is the next page to be completed in the liner flow.
-    - Route is Account page. Account page is a non-linear flow page.
+     Ordered screens and generally can't be completed out of order.
+     Some pages can always be accessed no matter what.
+     Here contains logic around access permissions for certain pages.
+     This is not totally comprehensive.
     */
 
     // Account page should always be accessible
@@ -145,6 +139,7 @@ selectors.canAccessRoute = (state, route) => {
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
         return true;
     }
+    //  route is next page
     if (route === selectors.selectInitialPage(state)) {
         return true;
     }
@@ -158,6 +153,10 @@ selectors.selectInitialPage = createSelector(
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && profile) {
+            const eventsSet = new Set(events.map(event => parseInt(event.event)));
+            if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
+                return ROUTES.LEASE_SIGNED;
+            }
             // eslint-disable-next-line default-case
             switch (profile.status) {
             case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
@@ -165,7 +164,6 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.APP_APPROVED;
             }
 
-            const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
             const route = orderedRoutes.find(r => !accessibleRoutes[r]);
