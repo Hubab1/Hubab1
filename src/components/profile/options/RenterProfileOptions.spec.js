@@ -19,10 +19,10 @@ beforeEach(() => {
         _nextRoute: jest.fn(),
         pageComplete: jest.fn().mockResolvedValue({}),
         location: { hash: '' },
-    }
-})
+    };
+});
 
-it('renders a RenterProfileListItem component for each option in config.options', function() {
+it('renders a RenterProfileListItem component for each option in config.rental_options', function() {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
     expect(wrapper.find(RenterProfileListItem).length).toEqual(5);
 });
@@ -55,7 +55,7 @@ it('renders ExistingItemsExpansionPanel with coapplicants as existing items', ()
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(0);
 });
 
-it('renders ExistingItemsExpansionPanel for parking when there are selected_options with quantity greater than 0', () => {
+it('renders ExistingItemsExpansionPanel for parking when there are selected_rental_options with quantity greater than 0', () => {
     const selectedParking = {parking: [
         {
             leasing_context: {},
@@ -76,14 +76,14 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_opti
             quantity: 0,
         }
     ]};
-    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_options: selectedParking})
+    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_rental_options: selectedParking});
     const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} /> );
     const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
     const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
 
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
     expect(wrapper.getElement()).toMatchSnapshot();
-    
+
     const parkingPanel = parkingWrapper.find(ExistingItemsExpansionPanel);
     expect(parkingPanel.props()['children'].length).toEqual(1);
     expect(parkingPanel.props()['children'][0]).toMatchSnapshot();
@@ -99,7 +99,7 @@ it('passes expansion panel defaultExpanded=True if anchor hash for rental option
         id: 19002,
         quantity: 2,
     }]};
-    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_options: selectedParking})
+    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_rental_options: selectedParking});
 
     const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} location={{hash: `#${RENTER_PROFILE_TYPE_PARKING}`}} /> );
 
@@ -119,8 +119,8 @@ describe('onContinue', function () {
     it('marks page complete on continue and calls next route', function() {
         const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
         return wrapper.instance().onContinue().then(() => {
-            expect(defaultProps.pageComplete).toHaveBeenCalledWith('renter_profile')
-            expect(defaultProps._nextRoute).toHaveBeenCalled()
-        })
+            expect(defaultProps.pageComplete).toHaveBeenCalledWith('renter_profile');
+            expect(defaultProps._nextRoute).toHaveBeenCalled();
+        });
     });
 })

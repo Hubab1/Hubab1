@@ -62,26 +62,26 @@ export class PetsPage extends React.Component {
     }
 
     serializePetsForPost = (petOptions) => {
-        const petRentalOptions = this.props.configuration.options.pets;
+        const petRentalOptions = this.props.configuration.rental_options.pets;
 
         const groupedPets = groupBy(petOptions, 'pet_type');
-        const selectedOptionsArray = Object.entries(groupedPets).reduce((selectedOptions, petType) => {
+        const selectedRentalOptionsArray = Object.entries(groupedPets).reduce((selectedRentalOptions, petType) => {
             const selectedPetType = petType[0];
             const petsObject = petType[1];
             const rentalOptionId = petRentalOptions.find(option => option.leasing_category === selectedPetType).id;
             const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
-            return [...selectedOptions, formattedSelectedOption];
+            return [...selectedRentalOptions, formattedSelectedOption];
         }, []);
 
-        // need to add a selected option with zero if none are selected to handle removal
+        // need to add a selected rental option with zero if none are selected to handle removal
         petRentalOptions.forEach(rentalOption => {
             const rentalOptionId = parseInt(rentalOption.id);
-            if (!selectedOptionsArray.find(option => option.rental_option.id === rentalOptionId)) {
-                selectedOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}});
+            if (!selectedRentalOptionsArray.find(option => option.rental_option.id === rentalOptionId)) {
+                selectedRentalOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}});
             }
         });
 
-        return selectedOptionsArray;
+        return selectedRentalOptionsArray;
     }
 
     toggleViewPetPolicy = () => {
@@ -94,7 +94,7 @@ export class PetsPage extends React.Component {
 
     onSubmit = (values, { setSubmitting }) => {
         const pets = this.serializePetsForPost(values.petOptions);
-        this.props.updateRenterProfile({selected_options: pets}).then((res) => {
+        this.props.updateRenterProfile({selected_rental_options: pets}).then((res) => {
             setSubmitting(false);
             this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
         }).catch((res) => {
@@ -106,13 +106,13 @@ export class PetsPage extends React.Component {
     render () {
         if (!this.props.profile || !this.props.configuration) return null;
         const { configuration, profile } = this.props;
-        const { community, options } = configuration;
-        const petTypeOptions = (options.pets || []).map(option => option.leasing_category);
+        const { community, rental_options } = configuration;
+        const petTypeOptions = (rental_options.pets || []).map(option => option.leasing_category);
         const { viewPetPolicy, viewPetRestrictions } = this.state;
 
         const selectedPetOptions = [];
-        if (profile.selected_options.pets) {
-            profile.selected_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets));
+        if (profile.selected_rental_options.pets) {
+            profile.selected_rental_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets));
         }
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
         return (

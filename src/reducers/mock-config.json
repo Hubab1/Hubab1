@@ -16,7 +16,7 @@
         "pets_restrictions": "We accept most pets, with the following restrictions.\n\nWe cannot accept these breeds: Pomeranians, Chihuahua, Yorkies, and other tiny fluffs.\n\nJust kidding, we love them all, small or large."
     },
     "background": "https://assets.nestiostatic.com/onlineleasing_background/471d6c07176b12c869acd43d0088c334.jpg",
-    "options": {
+    "rental_options": {
         "parking": [
             {
                 "deposit_amount": null,
