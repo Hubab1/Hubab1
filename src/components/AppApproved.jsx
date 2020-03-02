@@ -1,11 +1,13 @@
+import React from 'react';
+import HelloSign from 'hellosign-embedded';
 import styled from '@emotion/styled';
 import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES } from 'app/constants';
+import API from 'app/api';
+import { ROUTES, HELLOSIGN_TEST_MODE, HELLOSIGN_CLIENT_ID } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { H1, leftText, SpacedH3 } from 'assets/styles';
@@ -54,8 +56,21 @@ export const AppApproved = ({profile, configuration}) => {
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
 
+    const openEmbeddedSigning = async () => {
+        const client = new HelloSign({
+            clientId: HELLOSIGN_CLIENT_ID,
+        });
+        const data = await API.embeddedSigningUrl();
+        if (data.url) {
+            client && client.open(data.url, {
+                testMode: HELLOSIGN_TEST_MODE,
+                skipDomainVerification: HELLOSIGN_TEST_MODE,
+            });
+        }
+    }
+
     return (
-        <Fragment>
+        <>
             <H1>You've Been Approved!</H1>
             <SpacedH3>All that's left to do is sign the lease.</SpacedH3>
             <ApprovedImage src={approvedSign}/>
@@ -74,11 +89,11 @@ export const AppApproved = ({profile, configuration}) => {
                         </span>
                     </Grid>
                 </Grid>}
-                <ActionButton marginTop={securityDeposit ? 30 : 90}>
+                <ActionButton onClick={openEmbeddedSigning} marginTop={securityDeposit ? 30 : 90}>
                     Review &amp; Sign Lease
                 </ActionButton>
             </div>
-        </Fragment>
+        </>
     )
 };
 

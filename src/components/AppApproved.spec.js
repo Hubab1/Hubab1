@@ -1,9 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AppApproved } from './AppApproved';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import API from 'app/api';
 
-import { LeaseTermsPage } from './LeaseTermsPage';
-import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
+jest.mock('hellosign-embedded', () => {
+    class HelloSign {
+        open = () => {}
+    }
+    return HelloSign;
+});
 
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
@@ -21,6 +27,16 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
         },
     }
 };
+
+describe('hellosign modal', () => {
+    it('fetches embedded signing url before opening', () => {
+        const props = buildProps('Fake Building', '123 Fake Street', null);
+        API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test'});
+        const wrapper = shallow(<AppApproved {...props} />);
+        wrapper.find(ActionButton).simulate('click');
+        expect(API.embeddedSigningUrl).toHaveBeenCalled();
+    })
+})
 
 describe('application unit', () => {
     it('displays building name when no unit', () => {
