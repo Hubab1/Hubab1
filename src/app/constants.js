@@ -1,4 +1,4 @@
-export const DEV = process.env.REACT_APP_DEV === 'yes';
+export const HELLOSIGN_TEST_MODE = process.env.REACT_APP_HELLOSIGN_TEST_MODE === 'yes';
 
 export const community = {
     name: '555 Waverly'
@@ -53,6 +53,7 @@ export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
 export const REPORT_POLL_INTERVAL = 10000;
 
 export const STRIPE_PUBLISHABLE_KEY = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
+export const HELLOSIGN_CLIENT_ID = '530b26fda96d75b4abef002d9876fb7c';
 
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
 export const ROLE_CO_APPLICANT = 'co_applicant';
