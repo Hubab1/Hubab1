@@ -3,7 +3,7 @@ import {
     ROUTES,
     APPLICATION_EVENTS,
     ROLE_PRIMARY_APPLICANT,
-    MILESTONE_APPLICATION_SUBMITTED,
+    MILESTONE_APPLICANT_SUBMITTED,
     APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED
 } from 'app/constants';
 
@@ -20,6 +20,16 @@ describe('selectInitialPage', () => {
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
         });
+        expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
+        initialPage = selectors.selectInitialPage({
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}]}
+        });
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
 
         initialPage = selectors.selectInitialPage({
@@ -28,7 +38,7 @@ describe('selectInitialPage', () => {
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
@@ -38,7 +48,7 @@ describe('selectInitialPage', () => {
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}]}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}]}
         });
         expect(initialPage).toEqual(ROUTES.FEES_AND_DEPOSITS);
 
@@ -49,7 +59,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}], receipt: {id: 123}}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}], receipt: {id: 123}}
         });
         expect(initialPage).toEqual(ROUTES.SCREENING);
 
@@ -60,7 +70,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}, {event: MILESTONE_APPLICATION_SUBMITTED}], receipt: {id: 123}}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED}, {event: MILESTONE_APPLICANT_SUBMITTED}], receipt: {id: 123}}
         });
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
 
@@ -72,7 +82,7 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_APPROVED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
         });
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
 
@@ -84,8 +94,19 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
         });
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
+        initialPage = selectors.selectInitialPage({
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+        });
+        expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
     });
 });
