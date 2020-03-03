@@ -122,6 +122,7 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
+    [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
 });
 
 selectors.canAccessRoute = (state, route) => {
