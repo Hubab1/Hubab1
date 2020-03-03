@@ -45,7 +45,7 @@ export const gridContainer = css`
     min-height: 100px;
 `;
 
-export const AppApproved = ({profile, configuration}) => {
+export const AppApproved = ({profile, configuration, history}) => {
     if (!profile || ! configuration) return null;
 
     const {
@@ -67,6 +67,9 @@ export const AppApproved = ({profile, configuration}) => {
                 skipDomainVerification: HELLOSIGN_TEST_MODE,
             });
         }
+        client.on('sign', () => {
+            history.push(ROUTES.LEASE_SIGNED);
+        });
     }
 
     return (
