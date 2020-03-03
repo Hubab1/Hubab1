@@ -95,6 +95,7 @@ selectors.selectOrderedRoutes = createSelector(
                     ROUTES.INCOME_AND_EMPLOYMENT,
                     ROUTES.FEES_AND_DEPOSITS,
                     ROUTES.SCREENING,
+                    ROUTES.APP_COMPLETE,
                 ])
             } else {
                 return [
@@ -102,7 +103,7 @@ selectors.selectOrderedRoutes = createSelector(
                     ROUTES.LEASE_TERMS,
                     ROUTES.INCOME_AND_EMPLOYMENT,
                     ROUTES.FEES_AND_DEPOSITS,
-                    ROUTES.SCREENING,
+                    ROUTES.APP_COMPLETE,
                 ]
             }
         }

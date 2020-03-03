@@ -67,7 +67,10 @@ export const AppApproved = ({profile, configuration, history}) => {
                 skipDomainVerification: HELLOSIGN_TEST_MODE,
             });
         }
-        client.on('sign', () => {
+        client.on('sign', data => {
+            console.log(data);
+            console.log('The document has been signed!');
+            console.log('Signature ID: ' + data.signatureId);
             history.push(ROUTES.LEASE_SIGNED);
         });
     }

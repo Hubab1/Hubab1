@@ -170,6 +170,13 @@ API.embeddedSigningUrl = () => {
         },
     }).then(res => res.json());
 }
+API.leaseDocumentUrl = () => {
+    return fetch(chuck('/lease-document-url/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => res.json());
+}
 
 API.fetchFinicityReports = () => {
     return fetch(chuck('/fetch-finicity-reports/'), {
