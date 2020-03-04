@@ -40,7 +40,7 @@ export function LeaseSigned(props) {
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={gridContainer}>
-                <ActionButton href={url} marginTop={30}>
+                <ActionButton href={url} marginTop={30} variant="outlined">
                     View Lease
                 </ActionButton>
             </div>
