@@ -126,7 +126,7 @@ const pageCompleted = (events, applicant) => ({
 });
 
 selectors.canAccessRoute = (state, route) => {
-    if (MOCKY) return true;
+    if (MOCKY && route != null) return true;
     /*
      Ordered screens and generally can't be completed out of order.
      Some pages can always be accessed no matter what.
