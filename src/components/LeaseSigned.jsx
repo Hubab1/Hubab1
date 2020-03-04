@@ -37,7 +37,7 @@ export function LeaseSigned(props) {
             <SpacedH3>We'll let you know when everyone has signed the lease.</SpacedH3>
             <ApprovedImage src={contract}/>
             <div>
-            <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
+                <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={gridContainer}>
                 <ActionButton href={url} marginTop={30}>
