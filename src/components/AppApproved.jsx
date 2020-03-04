@@ -68,9 +68,6 @@ export const AppApproved = ({profile, configuration, history}) => {
             });
         }
         client.on('sign', data => {
-            console.log(data);
-            console.log('The document has been signed!');
-            console.log('Signature ID: ' + data.signatureId);
             history.push(ROUTES.LEASE_SIGNED);
         });
     }
