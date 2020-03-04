@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
+import API from 'app/api';
 import contract from 'assets/images/contract.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -19,19 +20,27 @@ export const gridContainer = css`
 `;
 
 export function LeaseSigned(props) {
+    const [url, setUrl] = useState('');
+    useEffect(() => {
+        (async ()=>{
+            const response = await API.leaseDocumentUrl();
+            setUrl(response.url);
+        })();
+    }, [])
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;
+
     return (
         <>
-            <H1>Thanks for signing!</H1>
+            <H1>Thanks for Signing!</H1>
             <SpacedH3>We'll let you know when everyone has signed the lease.</SpacedH3>
             <ApprovedImage src={contract}/>
             <div>
-            <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
+                <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={gridContainer}>
-                <ActionButton marginTop={30}>
+                <ActionButton href={url} marginTop={30} variant="outlined">
                     View Lease
                 </ActionButton>
             </div>
