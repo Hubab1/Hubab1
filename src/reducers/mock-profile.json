@@ -44,7 +44,9 @@
         }
     ],
     "id": 17,
-    "unit": null,
+    "unit": {
+        "unit_number": "12a"
+    },
     "lease_end_date": null,
     "selected_rental_options": {}
 }
