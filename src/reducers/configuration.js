@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 
 import API, { MOCKY } from 'app/api';
@@ -6,7 +6,7 @@ import createTheme from 'assets/createTheme';
 import mock from './mock-config';
 
 const configuration = createSlice({
-    slice: 'configuration',
+    name: 'configuration',
     initialState: null,
     reducers: {
         configurationReceived(state, action) {

@@ -17,13 +17,13 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
     const [totalPayment, setTotalPayment] = useState(null);
     const [receipt, setReceipt] = useState(applicant && applicant.receipt);
 
-    useEffect( () => {
+    useEffect(() => {
         if (receipt) {
             setCurrentPage('receipt');
         } else {
             fetchPayments();
         }
-    }, [])
+    }, [receipt, fetchPayments])
 
     useEffect( () => {
         setPayments(payables);

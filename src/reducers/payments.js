@@ -1,10 +1,10 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import API, { MOCKY } from 'app/api';
 import mock from './mock-payments';
 
 const payments = createSlice({
-    slice: 'payments',
+    name: 'payments',
     initialState: null,
     reducers: {
         paymentsReceived(state, action) {

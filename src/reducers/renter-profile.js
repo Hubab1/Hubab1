@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
@@ -12,7 +12,7 @@ import {
 import mock from './mock-profile';
 
 const renterProfile = createSlice({
-    slice: 'renterProfile',
+    name: 'renterProfile',
     initialState: null,
     reducers: {
         renterProfileReceived(state, action) {
@@ -126,7 +126,7 @@ const pageCompleted = (events, applicant) => ({
 });
 
 selectors.canAccessRoute = (state, route) => {
-    if (MOCKY) return true;
+    if (MOCKY && route != null) return true;
     /*
      Ordered screens and generally can't be completed out of order.
      Some pages can always be accessed no matter what.

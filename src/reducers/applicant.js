@@ -1,11 +1,11 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 
 import API, { MOCKY } from 'app/api';
 import mock from './applicant-mock';
 
 const applicant = createSlice({
-    slice: 'applicant',
+    name: 'applicant',
     initialState: null,
     reducers: {
         applicantReceived(state, action) {
