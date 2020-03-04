@@ -1,4 +1,4 @@
-import { configureStore } from 'redux-starter-kit';
+import { configureStore } from '@reduxjs/toolkit';
 
 import renterProfile from 'reducers/renter-profile';
 import configuration from 'reducers/configuration';

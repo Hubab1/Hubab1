@@ -1,7 +1,7 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const siteConfig = createSlice({
-    slice: 'renterProfile',
+    name: 'renterProfile',
     initialState: {
         basename: '',
         theme: null,
