@@ -13,11 +13,9 @@ const applicant = createSlice({
             return state;
         },
         applicantUpdated(state, action) {
-            const payload = action.payload;
-            const newState = produce(state, draft => {
-                Object.assign({}, draft, payload)
+            return produce(state, draft => {
+                Object.assign(draft, action.payload)
             });
-            return newState;
         },
     },
     extraReducers: {
