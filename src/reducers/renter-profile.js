@@ -26,7 +26,9 @@ const renterProfile = createSlice({
         },
         renterProfileUpdated(state, action) {
             const payload = action.payload;
-            const newState = produce(state, draft => Object.assign({}, draft, payload));
+            const newState = produce(state, draft => {
+                Object.assign({}, draft, payload)
+            });
             return newState;
         },
     },
