@@ -25,9 +25,9 @@ const renterProfile = createSlice({
             return state;
         },
         renterProfileUpdated(state, action) {
-            const payload = action.payload;
-            const newState = produce(state, draft => Object.assign({}, draft, payload));
-            return newState;
+            return produce(state, draft => {
+                Object.assign(draft, action.payload)
+            });
         },
     },
     extraReducers: {
