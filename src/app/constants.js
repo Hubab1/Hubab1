@@ -32,6 +32,7 @@ export const ROUTES = {
     RESEND_INVITE: '/resend-invite',
     APP_APPROVED: '/application-approved',
     LEASE_SIGNED: '/lease-signed',
+    LEASE_EXECUTED: '/lease-executed',
 };
 
 export const NAV_ROUTES = [
