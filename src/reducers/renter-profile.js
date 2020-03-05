@@ -187,6 +187,15 @@ selectors.selectNextRoute = createSelector(
     }
 );
 
+selectors.selectNavEnabled = createSelector(
+    state => state.applicant && state.applicant.events,
+    (applicantEvents) => {
+        if (!applicantEvents) return false;
+        // if applicant has submitted milestone, then hide nav
+        return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
+    }
+);
+
 selectors.selectPrevRoute = createSelector(
     selectors.selectOrderedRoutes,
     state => state.siteConfig.currentRoute,
