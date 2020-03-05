@@ -12,15 +12,13 @@ const buildProps = () => {
     }
 };
 
-describe('hellosign modal', () => {
-    it('fetches embedded signing url before opening', async () => {
-        const props = buildProps();
-        API.leaseDocumentUrl = jest.fn().mockReturnValue({url: 'testpdfurl.pdf'});
-        let wrapper = mount(<LeaseSigned {...props} />);
-        await act(async () => {
-            await Promise.resolve(wrapper);
-            wrapper.update();
-        })
-        expect(wrapper.find(ActionButton).prop('href')).toEqual('testpdfurl.pdf')
+it('fetches and links pdf url', async () => {
+    const props = buildProps();
+    API.leaseDocumentUrl = jest.fn().mockReturnValue({url: 'testpdfurl.pdf'});
+    let wrapper = mount(<LeaseSigned {...props} />);
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
     })
+    expect(wrapper.find(ActionButton).prop('href')).toEqual('testpdfurl.pdf')
 })

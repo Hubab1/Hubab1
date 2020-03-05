@@ -11,7 +11,7 @@ import house from 'assets/images/house.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
-export const Image = styled.img`
+export const Img = styled.img`
     padding-top: 10px;
     height: 200px;
 `;
@@ -37,7 +37,7 @@ export function LeaseExecuted(props) {
         <>
             <H1>Welcome To Your New Home!</H1>
             <SpacedH3>Your application has been completed and we can't wait for you to move in.</SpacedH3>
-            <Image src={house}/>
+            <Img src={house}/>
             <div>
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
