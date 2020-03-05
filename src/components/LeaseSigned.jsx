@@ -16,7 +16,7 @@ export const Img = styled.img`
     height: 200px;
 `;
 
-export const gridContainer = css`
+export const buttonsContainer = css`
     padding-top: 35px;
     min-height: 100px;
 `;
@@ -41,7 +41,7 @@ export function LeaseSigned(props) {
             <div>
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
-            <div className={gridContainer}>
+            <div className={buttonsContainer}>
                 <ActionButton href={url} marginTop={30} variant="outlined">
                     View Lease
                 </ActionButton>
