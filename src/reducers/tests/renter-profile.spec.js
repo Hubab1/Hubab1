@@ -4,7 +4,7 @@ import {
     APPLICATION_EVENTS,
     ROLE_PRIMARY_APPLICANT,
     MILESTONE_APPLICANT_SUBMITTED,
-    APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED
+    APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, APPLICATION_STATUS_COMPLETED
 } from 'app/constants';
 
 
@@ -108,5 +108,16 @@ describe('selectInitialPage', () => {
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
         });
         expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
+        initialPage = selectors.selectInitialPage({
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_COMPLETED,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+        });
+        expect(initialPage).toEqual(ROUTES.LEASE_EXECUTED);
     });
 });
