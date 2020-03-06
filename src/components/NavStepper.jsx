@@ -8,9 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import CheckCircle from '@material-ui/icons/CheckCircle';
 
-import { P } from 'assets/styles';
 import { MOCKY } from 'app/api';
 import { ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
@@ -22,10 +20,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 const iconRoot = css`
-    float: left;
-`
-const pClass = css`
-    overflow: hidden;
+    align-items: flex-start !important;
+    span {
+        color: #828796;
+
+    }
 `
 
 export function getStepperIndex(routes, currentRoute) {
@@ -65,10 +64,9 @@ export function VerticalLinearStepper(props) {
                 ))}
                 {
                 !props.applicantStillFinishingApplication &&
-                <div>
-                    <CheckCircle classes={{root: iconRoot}}/>
-                    <P overflow="hidden" padding="0 0 0 10px">Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{props.config.community.contact_phone}</a> if you have any questions.</P>
-                </div>
+                    <Step active>
+                        <StepLabel completed classes={{root: iconRoot}}><span>Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{props.config.community.contact_phone}</a> if you have any questions.</span></StepLabel>
+                    </Step>
                 }
             </Stepper>
             <ListItem button onClick={logout}>
