@@ -6,8 +6,6 @@ import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CheckCircle from '@material-ui/icons/CheckCircle';
@@ -63,21 +61,6 @@ export function VerticalLinearStepper(props) {
                 {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={!!route.subRoutes || activeStep === i}>
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
-                        <StepContent>
-                            {
-                                !!route.subRoutes && (
-                                    <List>
-                                        {
-                                            route.subRoutes.map(subRoute => (
-                                                <ListItem button key={subRoute.value} onClick={(e)=>onClickRoute(e, subRoute, i)}>
-                                                    <ListItemText primary={subRoute.name} />
-                                                </ListItem>
-                                            ))
-                                        }
-                                    </List>
-                                )
-                            }
-                        </StepContent>
                     </Step>
                 ))}
                 {

@@ -12,28 +12,25 @@ export default function withRelativeRoutes(WrappedComponent, route) {
     class Component extends React.Component {
         constructor (props) {
             super(props);
-            // if applicant is done with application, lock down all pages
+            // if applicant is done with application, make most routes inaccessible
+            this.stayOrPushRoute();
+        }
+        stayOrPushRoute = () => {
+            const props = this.props;
             if (!props.initialPage) {
                 this.blockRender = true;
             } else if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
                 this.blockRender = true;
                 this.props.history.push(props.initialPage);
             } else {
+                this.blockRender = false;
                 props.currentRouteReceived(route);
             }
         }
         componentDidUpdate(prevProps) {
             const props = this.props;
             if (!prevProps.initialPage && props.initialPage) {
-                if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
-                    this.blockRender = true;
-                    if (props.initialPage) {
-                        this.props.history.push(props.initialPage);
-                    }
-                } else {
-                    this.blockRender = false;
-                    props.currentRouteReceived(route);
-                }
+                this.stayOrPushRoute();
             }
         }
         render() {
