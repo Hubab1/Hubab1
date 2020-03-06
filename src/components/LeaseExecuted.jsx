@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 
 import { ROUTES } from 'app/constants';
+import captureRoute from 'app/captureRoute';
 import API from 'app/api';
-import contract from 'assets/images/contract.svg';
+import house from 'assets/images/house.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 export const Img = styled.img`
@@ -21,7 +21,7 @@ export const buttonsContainer = css`
     min-height: 100px;
 `;
 
-export function LeaseSigned(props) {
+export function LeaseExecuted(props) {
     const [url, setUrl] = useState('');
     useEffect(() => {
         (async ()=>{
@@ -35,14 +35,17 @@ export function LeaseSigned(props) {
 
     return (
         <>
-            <H1>Thanks for Signing!</H1>
-            <SpacedH3>We'll let you know when everyone has signed the lease.</SpacedH3>
-            <Img src={contract}/>
+            <H1>Welcome To Your New Home!</H1>
+            <SpacedH3>Your application has been completed and we can't wait for you to move in.</SpacedH3>
+            <Img src={house}/>
             <div>
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={buttonsContainer}>
-                <ActionButton href={url} marginTop={30} variant="outlined">
+                <ActionButton marginTop={30}>
+                    Go To Resident Portal
+                </ActionButton>
+                <ActionButton href={url} marginTop={17} variant="outlined">
                     View Lease
                 </ActionButton>
             </div>
@@ -50,7 +53,7 @@ export function LeaseSigned(props) {
     )
 }
 
-LeaseSigned.propTypes = {
+LeaseExecuted.propTypes = {
     unit: PropTypes.object,
     community: PropTypes.object,
 }
@@ -61,4 +64,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(withRelativeRoutes(LeaseSigned, ROUTES.LEASE_SIGNED));
+export default connect(mapStateToProps)(captureRoute(LeaseExecuted, ROUTES.LEASE_EXECUTED));

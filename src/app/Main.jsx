@@ -27,6 +27,7 @@ import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
 import AppApproved from 'components/AppApproved';
 import LeaseSigned from 'components/LeaseSigned';
+import LeaseExecuted from 'components/LeaseExecuted';
 
 function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -111,6 +112,7 @@ export class Main extends Component {
                             <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm}/>
                             <Route path={ROUTES.APP_APPROVED} component={AppApproved}/>
                             <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned}/>
+                            <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted}/>
                         </NavDrawer>}
                     </Switch>
                 </div>
