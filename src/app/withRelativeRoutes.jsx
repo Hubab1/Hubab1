@@ -12,9 +12,33 @@ export default function withRelativeRoutes(WrappedComponent, route) {
     class Component extends React.Component {
         constructor (props) {
             super(props);
-            props.currentRouteReceived(route);
+            // if applicant is done with application, lock down all pages
+            if (!props.initialPage) {
+                this.blockRender = true;
+            } else if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
+                this.blockRender = true;
+                this.props.history.push(props.initialPage);
+            } else {
+                props.currentRouteReceived(route);
+            }
+        }
+        componentDidUpdate(prevProps) {
+            const props = this.props;
+            if (!prevProps.initialPage && props.initialPage) {
+                console.log('initial page received')
+                if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
+                    this.blockRender = true;
+                    if (props.initialPage) {
+                        this.props.history.push(props.initialPage);
+                    }
+                } else {
+                    this.blockRender = false;
+                    props.currentRouteReceived(route);
+                }
+            }
         }
         render() {
+            if (this.blockRender) return null;
             return <WrappedComponent {...this.props}
                 _nextRoute={()=>{
                     if (!MOCKY) {
@@ -35,6 +59,8 @@ export default function withRelativeRoutes(WrappedComponent, route) {
     const mapStateToProps = state => ({
         _next: selectors.selectNextRoute(state),
         _prev: selectors.selectPrevRoute(state),
+        initialPage: selectors.selectInitialPage(state),
+        selectApplicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
     });
 
     return connect(mapStateToProps, {currentRouteReceived, fetchApplicant,  fetchRenterProfile})(Component);

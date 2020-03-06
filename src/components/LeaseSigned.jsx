@@ -7,6 +7,8 @@ import { css } from 'emotion';
 import API from 'app/api';
 import contract from 'assets/images/contract.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
+import { ROUTES } from 'app/constants';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 export const ApprovedImage = styled.img`
@@ -59,4 +61,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(LeaseSigned);
+export default connect(mapStateToProps)(withRelativeRoutes(LeaseSigned, ROUTES.LEASE_SIGNED));

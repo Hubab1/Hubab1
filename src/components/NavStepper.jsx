@@ -60,7 +60,7 @@ export function VerticalLinearStepper(props) {
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {props.navEnabled && props.navRoutes.map((route, i) => (
+                {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
                     <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={!!route.subRoutes || activeStep === i}>
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                         <StepContent>
@@ -81,7 +81,7 @@ export function VerticalLinearStepper(props) {
                     </Step>
                 ))}
                 {
-                !props.navEnabled &&
+                !props.applicantStillFinishingApplication &&
                 <div>
                     <CheckCircle classes={{root: iconRoot}}/>
                     <P overflow="hidden" padding="0 0 0 10px">Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{props.config.community.contact_phone}</a> if you have any questions.</P>
@@ -103,7 +103,7 @@ const mapStateToProps = state => ({
     navRoutes: selectors.selectNav(state),
     currentRoute: state.siteConfig.currentRoute,
     initialPage: selectors.selectInitialPage(state),
-    navEnabled: selectors.selectNavEnabled(state),
+    applicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
     renterProfile: state.renterProfile,
     config: state.configuration,
 });

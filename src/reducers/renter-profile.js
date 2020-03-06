@@ -156,6 +156,7 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
+        console.log('test')
         if (orderedRoutes && events && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
@@ -187,11 +188,11 @@ selectors.selectNextRoute = createSelector(
     }
 );
 
-selectors.selectNavEnabled = createSelector(
+selectors.selectApplicantStillFinishingApplication = createSelector(
     state => state.applicant && state.applicant.events,
     (applicantEvents) => {
         if (!applicantEvents) return false;
-        // if applicant has submitted milestone, then hide nav
+        // if applicant has submitted milestone, they're not completing fields anymore
         return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
 );

@@ -66,7 +66,7 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
     const inputLength = inputValue.length;
     if (inputLength === 0 && showEmpty) {
         let count = 0;
-        return allSuggestions.filter(suggestion => {
+        return allSuggestions?.filter(suggestion => {
             const keep =
             count < 5 && suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue;
 
@@ -119,7 +119,7 @@ export default function AvailableUnitsSelector (props) {
 
     useEffect(() => {
         API.fetchAvailableUnits().then(units => {
-            setUnits(units);
+            if (units.length) setUnits(units);
             setIsReady(true);
         })
     }, [])

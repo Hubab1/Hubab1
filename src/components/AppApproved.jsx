@@ -111,4 +111,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps, null)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
