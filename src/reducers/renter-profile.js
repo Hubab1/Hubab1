@@ -158,6 +158,11 @@ selectors.selectInitialPage = createSelector(
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
+
+            if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
+                return ROUTES.LEASE_EXECUTED;
+            }
+
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }

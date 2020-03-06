@@ -23,4 +23,5 @@ export const ButtonContainer = styled.div(props => ({
     marginTop: props.marginTop || 0,
     marginBottom: props.marginBottom || 0,
     textDecoration: 'none',
+    display: 'block',
 }))

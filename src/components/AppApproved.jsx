@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import API from 'app/api';
 import { ROUTES, HELLOSIGN_TEST_MODE, HELLOSIGN_CLIENT_ID } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
+import captureRoute from 'app/captureRoute';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { H1, leftText, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -111,4 +111,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps, null)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps, null)(captureRoute(AppApproved, ROUTES.APP_APPROVED));
