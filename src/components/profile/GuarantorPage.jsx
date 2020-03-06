@@ -40,7 +40,7 @@ export class GuarantorPage extends React.Component {
                 }
             } else {
                 this.props.fetchRenterProfile();
-                this.setState({confirmSent: true})
+                this.setState({confirmSent: true});
             }
         }).catch((res) => {
             this.setState({errors: [res.errors]});

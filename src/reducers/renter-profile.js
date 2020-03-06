@@ -156,7 +156,6 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
-        console.log('test')
         if (orderedRoutes && events && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
