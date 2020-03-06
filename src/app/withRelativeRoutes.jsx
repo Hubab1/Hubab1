@@ -25,7 +25,6 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         componentDidUpdate(prevProps) {
             const props = this.props;
             if (!prevProps.initialPage && props.initialPage) {
-                console.log('initial page received')
                 if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
                     this.blockRender = true;
                     if (props.initialPage) {

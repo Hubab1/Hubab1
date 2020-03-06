@@ -2,8 +2,10 @@ import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
 
+import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
+import captureRoute from 'app/captureRoute';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
@@ -59,4 +61,4 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
     </Fragment>
 }
 
-export default PaymentTerms;
+export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);
