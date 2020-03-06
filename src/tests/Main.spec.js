@@ -34,6 +34,7 @@ beforeEach(() => {
 
     defaultProps = {
         hasApplicant: true,
+        canAccessCurrentRoute: jest.fn(),
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
         fetchConfiguration: jest.fn().mockReturnValue(fetchConfigurationPromise),
         configuration: configurationObject,

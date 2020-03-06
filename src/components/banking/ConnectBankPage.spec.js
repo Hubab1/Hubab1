@@ -28,7 +28,7 @@ it('this.openFinicityIframe sets state to loadingFinicityIframe=true and calls A
 it('this.handleFetchReports calls API.fetchFinicityReports and setState on success', () => {
     const wrapper = shallow(<ConnectBankPage/>);
 
-    const data = {reportData: 'yeehaw'};
+    const data = {json: ()=>{reportData: 'yeehaw'}};
 
     API.fetchFinicityReports = jest.fn().mockReturnValue(Promise.resolve(data));
 

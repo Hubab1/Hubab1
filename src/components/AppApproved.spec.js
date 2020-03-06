@@ -7,6 +7,7 @@ import API from 'app/api';
 jest.mock('hellosign-embedded', () => {
     class HelloSign {
         open = () => {}
+        on = () => {}
     }
     return HelloSign;
 });
