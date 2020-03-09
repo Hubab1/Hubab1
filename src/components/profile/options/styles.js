@@ -95,3 +95,9 @@ export const link = css`
 export const rightAlign = css`
     text-align: right;
 `
+
+export const priceBreakdownContainer = css`
+    .MuiExpansionPanelSummary-root {
+        padding: 0;
+    }
+`

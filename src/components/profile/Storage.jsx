@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-
-import Tip from 'components/common/Tip';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
 import storageImage from 'assets/images/storage.png';
-import { H1, SpacedH3, P } from 'assets/styles';
+import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
+import PriceBreakdown from "./options/PriceBreakdown";
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -42,6 +41,14 @@ export const Storage = props => {
         });
     };
 
+    const getPriceBreakdown = (currentValues) => {
+        return (
+            <PriceBreakdown
+                currentValues={currentValues}
+                application={props.application}
+            />);
+    };
+
     const initialStorageOptions = props.application.selected_rental_options.storage;
 
     const storageOptions = props.config.rental_options.storage || [];
@@ -68,20 +75,17 @@ export const Storage = props => {
                             subtitle={`$${option.monthly_amount}/mo per storage space`}
                             value={values[option.id]}
                             limit={option.limit}
-                            onChange={e => setFieldValue(option.id, e)}
-                        />
-                    )}
-                    <Box padding="30px 0">
-                        <Tip
-                            text={
-                                <P>2 storage spaces cost <b>$10/mo</b><br/> bringing your total rent to <b>$3,475/mo.</b></P>
-                            }
-                        />
-                    </Box>
+                            onChange={e => {
+                                setFieldValue(option.id, e);
+                            }}
+                        />)
+                    }
+                    {getPriceBreakdown(values)}
                     <ActionButton>Add Storage</ActionButton>
                 </form>
             )}
         </Formik>
+
         <Box padding="20px">
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
         </Box>
