@@ -13,6 +13,7 @@ import { MOCKY } from 'app/api';
 import { ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
+import { prettyFormatPhoneNumber } from 'utils/misc';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -65,7 +66,7 @@ export function VerticalLinearStepper(props) {
                 {
                 !props.applicantStillFinishingApplication &&
                     <Step active>
-                        <StepLabel completed classes={{root: iconRoot}}><span>Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{props.config.community.contact_phone}</a> if you have any questions.</span></StepLabel>
+                        <StepLabel completed classes={{root: iconRoot}}><span>Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{prettyFormatPhoneNumber(props.config.community.contact_phone)}</a> if you have any questions.</span></StepLabel>
                     </Step>
                 }
             </Stepper>
