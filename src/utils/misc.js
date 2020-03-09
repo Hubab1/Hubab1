@@ -19,10 +19,10 @@ export function hexToRGB(hex, alpha) {
 // taken from archer
 export function prettyFormatPhoneNumber(phoneNumber) {
     if (!phoneNumber) return '';
-    let stripped = phoneNumber.replace(/[\+\D]+/g, '');
+    let stripped = phoneNumber.replace(/[+\D]+/g, '');
 
-    if (stripped.charAt(0) == '+') {
-        if (stripped.charAt(1) != '1') {
+    if (stripped.charAt(0) === '+') {
+        if (stripped.charAt(1) !== '1') {
             // return international phone numbers as is
             return phoneNumber;
         } else {
@@ -31,7 +31,7 @@ export function prettyFormatPhoneNumber(phoneNumber) {
         }
     }
 
-    if (stripped.charAt(0) == 1 && stripped.length === 11) {
+    if (stripped.charAt(0) === 1 && stripped.length === 11) {
         // remove the US country code
         stripped = stripped.slice(1);
     }

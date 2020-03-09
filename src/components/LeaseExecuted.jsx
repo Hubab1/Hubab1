@@ -42,9 +42,6 @@ export function LeaseExecuted(props) {
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={buttonsContainer}>
-                <ActionButton marginTop={30}>
-                    Go To Resident Portal
-                </ActionButton>
                 <ActionButton href={url} marginTop={17} variant="outlined">
                     View Lease
                 </ActionButton>
