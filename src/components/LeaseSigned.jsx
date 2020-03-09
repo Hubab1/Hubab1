@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 
 import { ROUTES } from 'app/constants';
-import captureRoute from 'app/captureRoute';
 import API from 'app/api';
 import contract from 'assets/images/contract.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 export const Img = styled.img`
@@ -61,4 +61,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(captureRoute(LeaseSigned, ROUTES.LEASE_SIGNED));
+export default connect(mapStateToProps)(withRelativeRoutes(LeaseSigned, ROUTES.LEASE_SIGNED));

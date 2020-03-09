@@ -134,8 +134,8 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
 
-    // Account page should always be accessible
-    if (route === ROUTES.ACCOUNT) {
+    // These pages should always be accessible
+    if (route === ROUTES.ACCOUNT || route === ROUTES.PAYMENT_TERMS) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
@@ -189,6 +189,15 @@ selectors.selectNextRoute = createSelector(
         if (orderedRoutes && currentRoute) {
             return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
         }
+    }
+);
+
+selectors.selectApplicantStillFinishingApplication = createSelector(
+    state => state.applicant && state.applicant.events,
+    (applicantEvents) => {
+        if (!applicantEvents) return false;
+        // if applicant has submitted milestone, they're not completing fields anymore
+        return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
 );
 

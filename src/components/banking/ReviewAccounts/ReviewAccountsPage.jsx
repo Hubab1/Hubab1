@@ -29,6 +29,7 @@ export class ReviewAccountsPage extends React.Component {
                 }
             });
         }
+        // TODO: error handling
         Promise.all(incomeNamePromises).then( data => {
             this.props.pushNextPage()
         })

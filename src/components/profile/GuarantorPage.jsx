@@ -32,11 +32,16 @@ export class GuarantorPage extends React.Component {
             setSubmitting(false);
             if (res.errors) {
                 const errors = get(res, 'errors.guarantors[0]');
-                setErrors(errors);
+                if (errors) {
+                    setErrors(errors);
+                } else {
+                    this.setState({errors: ['There was an error sending your guarantor an invite. Please Try again.']});
+
+                }
             } else {
                 this.props.fetchRenterProfile();
+                this.setState({confirmSent: true});
             }
-            this.setState({confirmSent: true})
         }).catch((res) => {
             this.setState({errors: [res.errors]});
             setSubmitting(false);

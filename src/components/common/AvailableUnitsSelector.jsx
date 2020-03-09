@@ -119,7 +119,7 @@ export default function AvailableUnitsSelector (props) {
 
     useEffect(() => {
         API.fetchAvailableUnits().then(units => {
-            setUnits(units);
+            if (units.length) setUnits(units);
             setIsReady(true);
         })
     }, [])
