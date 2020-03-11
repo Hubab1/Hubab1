@@ -41,10 +41,10 @@ export const Storage = props => {
         });
     };
 
-    const getPriceBreakdown = (currentValues) => {
+    const getPriceBreakdown = (selectedOptions) => {
         return (
             <PriceBreakdown
-                currentValues={currentValues}
+                selectedOptions={selectedOptions}
                 application={props.application}
             />);
     };

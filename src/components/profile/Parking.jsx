@@ -4,15 +4,15 @@ import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 
-import Tip from 'components/common/Tip';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
 import parkingImage from 'assets/images/parking.png';
-import { H1, SpacedH3, P } from 'assets/styles';
+import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
+import PriceBreakdown from "./options/PriceBreakdown";
 
 
 const ImageContainer = styled.div`
@@ -44,6 +44,14 @@ export const Parking = props => {
         });
     };
 
+    const getPriceBreakdown = (selectedOptions) => {
+        return (
+            <PriceBreakdown
+                selectedOptions={selectedOptions}
+                application={props.application}
+            />);
+    };
+
     const initialParkingOptions = props.application.selected_rental_options.parking;
     const parkingOptions = props.config.rental_options.parking || [];
     return <>
@@ -72,13 +80,7 @@ export const Parking = props => {
                             onChange={e => setFieldValue(option.id, e)}
                         />
                     )}
-                    <Box padding="30px 0">
-                        <Tip
-                            text={
-                                <P>3 parking spaces cost <b>$55/mo</b><br/> bringing your total rent to <b>$3,535/mo.</b></P>
-                            }
-                        />
-                    </Box>
+                    {getPriceBreakdown(values)}
                     <ActionButton>Add Parking</ActionButton>
                 </form>
             )}

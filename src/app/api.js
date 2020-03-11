@@ -238,7 +238,7 @@ API.fetchPaymentOptions = () => {
 }
 
 API.getCurrentFlatQuote = (data) => {
-    return fetch(chuck('/monthly-payment-breakdown/'), {
+    return fetch(chuck('/payment-breakdown/'), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`

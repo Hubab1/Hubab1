@@ -29,13 +29,18 @@ function PriceBreakdown (props) {
     const [result, setResult] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        const body = { application: props.application.id, new_option: props.currentValues};
+        const body = {
+            application: props.application.id,
+            rental_options: props.selectedOptions,
+            unit_id: props.unitId,
+            base_rent: props.baseRent,
+        };
         API.getCurrentFlatQuote(body).then((res) => {
             setResult(res);
             setIsLoading(false);
         }).catch(()=>{});
 
-    }, [props.application,props.currentValues ]);
+    }, [props.application, props.selectedOptions, props.unitId, props.baseRent ]);
     const classes = useStyles();
 
     return (
@@ -56,7 +61,7 @@ function PriceBreakdown (props) {
                             </div>
                         </div>
                         <div className={priceBreakdownContainer}>
-                            <ExpansionPanel elevation={0} defaultExpanded={false}>
+                            <ExpansionPanel elevation={0} defaultExpanded={true}>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                 >
@@ -67,12 +72,13 @@ function PriceBreakdown (props) {
                                         Base Rent<span className={"pull-right"}>{result.base_rent}</span>
                                     </div>
                                     {
-                                        Object.keys(result.price_breakdown).map(function(key) {
+                                        Object.keys(result.items_breakdown).map(function(key) {
                                             return (
                                                 <div key={key} className={existingItemRow}>
-                                                    {key}<span className={"pull-right"}>{result.price_breakdown[key]}</span>
+                                                    {key}<span className={"pull-right"}>{result.items_breakdown[key]}</span>
                                                 </div>)
-                                        })}
+                                        })
+                                    }
                                     <CardRowTotal>
                                         <P bold>Total</P>
                                         <div>
@@ -91,7 +97,9 @@ function PriceBreakdown (props) {
 
 PriceBreakdown.propTypes = {
     application: PropTypes.object,
-    currentValues: PropTypes.object,
+    selectedOptions: PropTypes.object,
+    unitId: PropTypes.number,
+    baseRent: PropTypes.number,
 }
 
 export default PriceBreakdown;

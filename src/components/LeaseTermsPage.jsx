@@ -12,10 +12,8 @@ import {css} from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import Tip from 'components/common/Tip';
-import { formatCurrency } from 'utils/misc';
 import { serializeDate, parseDateISOString } from 'utils/misc';
-import { H1, P, SpacedH3 } from 'assets/styles';
+import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { ROUTES } from 'app/constants';
@@ -24,8 +22,7 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import { offsetDate } from 'utils/misc';
 import { ROLE_PRIMARY_APPLICANT, LEASE_TERMS_IDENTIFIER } from 'app/constants';
-
-
+import PriceBreakdown from "./profile/options/PriceBreakdown";
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -88,6 +85,15 @@ export class LeaseTermsPage extends React.Component {
     render () {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
+        const getPriceBreakdown = (selectedOptions, baseRent, unitId) => {
+            return (
+                <PriceBreakdown
+                    selectedOptions={selectedOptions}
+                    application={this.props.application}
+                    baseRent={baseRent}
+                    unitId={unitId}
+                />);
+        };
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -172,12 +178,9 @@ export class LeaseTermsPage extends React.Component {
                             </div>
                             {
                                 values.unit && (
-                                    <Tip
-                                        header="Monthly Rent"
-                                        text={
-                                            <P>Based on your selection, your rent will be <b>{formatCurrency(values.unit.price)}/month.</b></P>
-                                        }
-                                    />
+                                    <>
+                                        {getPriceBreakdown({}, values.unit.price, values.unit.id)}
+                                    </>
                                 )
                             }
                             <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
