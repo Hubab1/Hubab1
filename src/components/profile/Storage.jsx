@@ -46,6 +46,8 @@ export const Storage = props => {
             <PriceBreakdown
                 selectedOptions={selectedOptions}
                 application={props.application}
+                category={"Storage"}
+                categoryHelperText={"storage spaces"}
             />);
     };
 

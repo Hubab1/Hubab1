@@ -31,8 +31,10 @@ const PriceBreakdownContainer = styled.div`
 `
 
 function PriceBreakdown (props) {
-    const [result, setResult] = useState({});
+    const classes = useStyles();
+    const [priceBreakdown, setPriceBreakdown] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const body = {
             application: props.application.id,
@@ -40,13 +42,27 @@ function PriceBreakdown (props) {
             unit_id: props.unitId,
             base_rent: props.baseRent,
         };
-        API.getCurrentFlatQuote(body).then((res) => {
-            setResult(res);
+        API.getCurrentFlatQuote(body).then((result) => {
+            setPriceBreakdown(result);
             setIsLoading(false);
-        }).catch(()=>{});
-
+        });
     }, [props.application, props.selectedOptions, props.unitId, props.baseRent ]);
-    const classes = useStyles();
+
+    const getCurrentCategoryInfo = () => {
+        // Count the number of rental options selected
+        const categoryCount = props.selectedOptions && Object.keys(props.selectedOptions).length ?
+            Object.values(props.selectedOptions).reduce((a, b) => a + b) : 0;
+
+        let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
+
+        let categoryInfo = 'Based on your selected rental options';
+        if (categoryMonthlyPrice) {
+            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${props.categoryHelperText}`
+        }
+
+        return (<>{categoryInfo}</>)
+    };
+
 
     return (
         <PriceBreakdownContainer>
@@ -59,7 +75,10 @@ function PriceBreakdown (props) {
                                 <Box>
                                     <Tip
                                         text={
-                                            <P><b>{result.total} Total Rent</b><br/>Based on your selected rental options</P>
+                                            <P>
+                                                <b>{priceBreakdown.total} Total Rent</b><br/>
+                                                {getCurrentCategoryInfo()}
+                                            </P>
                                         }
                                     />
                                 </Box>
@@ -74,20 +93,20 @@ function PriceBreakdown (props) {
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails classes={{root:classes.root}}>
                                     <div className={existingItemRow}>
-                                        Base Rent<span className={"pull-right"}>{result.base_rent}</span>
+                                        Base Rent<span className={"pull-right"}>{priceBreakdown.base_rent}</span>
                                     </div>
                                     {
-                                        Object.keys(result.items_breakdown).map(function(key) {
+                                        Object.keys(priceBreakdown.items_breakdown).map(function(key) {
                                             return (
                                                 <div key={key} className={existingItemRow}>
-                                                    {key}<span className={"pull-right"}>{result.items_breakdown[key]}</span>
+                                                    {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
                                                 </div>)
                                         })
                                     }
                                     <CardRowTotal>
                                         <P bold>Total</P>
                                         <div>
-                                            <P bold>{result.total}</P>
+                                            <P bold>{priceBreakdown.total}</P>
                                         </div>
                                     </CardRowTotal>
                                 </ExpansionPanelDetails>
@@ -105,6 +124,8 @@ PriceBreakdown.propTypes = {
     selectedOptions: PropTypes.object,
     unitId: PropTypes.number,
     baseRent: PropTypes.number,
+    category: PropTypes.string,
+    categoryHelperText: PropTypes.string,
 }
 
 export default PriceBreakdown;

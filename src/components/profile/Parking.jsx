@@ -49,6 +49,8 @@ export const Parking = props => {
             <PriceBreakdown
                 selectedOptions={selectedOptions}
                 application={props.application}
+                category={"Parking"}
+                categoryHelperText={"parking spaces"}
             />);
     };
 
