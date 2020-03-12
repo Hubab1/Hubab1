@@ -17,6 +17,7 @@ import API  from 'app/api';
 
 import Tip from 'components/common/Tip';
 import {makeStyles} from "@material-ui/core/styles";
+import styled from "@emotion/styled";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,6 +25,10 @@ const useStyles = makeStyles(theme => ({
         padding: 0,
     },
 }));
+
+const PriceBreakdownContainer = styled.div`
+    margin-bottom: 20px;
+`
 
 function PriceBreakdown (props) {
     const [result, setResult] = useState({});
@@ -44,7 +49,7 @@ function PriceBreakdown (props) {
     const classes = useStyles();
 
     return (
-        <>
+        <PriceBreakdownContainer>
             {!isLoading && (
                 <div className={renterProfileListItemContainer}>
                     <div id={props.name} className={anchor}/>
@@ -91,7 +96,7 @@ function PriceBreakdown (props) {
                     </div>
                 </div>
             )}
-        </>
+        </PriceBreakdownContainer>
     );
 }
 

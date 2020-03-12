@@ -99,5 +99,6 @@ export const rightAlign = css`
 export const priceBreakdownContainer = css`
     .MuiExpansionPanelSummary-root {
         padding: 0;
+        border-top: 1px solid #EEEEEE;
     }
 `
