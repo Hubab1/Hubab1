@@ -40,7 +40,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                   <ForwardRef(Grid) classes={{...}} item={true} xs={true}>
                                     <div className=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true\\">
                                       <Styled(p)>
-                                        <p className=\\"css-1m4kcar\\">
+                                        <p className=\\"css-u8bchy\\">
                                           <b>
                                             $2,020
                                              Total Rent
@@ -136,13 +136,13 @@ exports[`Price Breackdown section display correct info 1`] = `
                                           <Styled(div)>
                                             <div className=\\"css-zgrhnt\\">
                                               <Styled(p) bold={true}>
-                                                <p className=\\"css-1mnrnw5\\">
+                                                <p className=\\"css-1ul7izo\\">
                                                   Total
                                                 </p>
                                               </Styled(p)>
                                               <div>
                                                 <Styled(p) bold={true}>
-                                                  <p className=\\"css-1mnrnw5\\">
+                                                  <p className=\\"css-1ul7izo\\">
                                                     $2,020
                                                   </p>
                                                 </Styled(p)>
