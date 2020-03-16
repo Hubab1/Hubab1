@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import {Screening} from "components/Screening";
+import SocialSecurityInput from 'components/common/SocialSecurityInput';
 
 it('Match initial snapshot', function() {
     let props = {
@@ -34,6 +35,5 @@ it('Display SSN field by default', function() {
     };
 
     const wrapper = shallow( <Screening {...props} />);
-    const form = wrapper.find('Formik');
-    expect(form.html()).toMatch(/Social Security Number/);
+    expect(wrapper.find('Formik').dive().find(SocialSecurityInput).length).toEqual(1);
 });

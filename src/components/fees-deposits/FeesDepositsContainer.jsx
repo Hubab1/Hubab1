@@ -7,7 +7,7 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
-import PaymentTerms from './PaymentTerms';
+import { PaymentTerms } from './PaymentTerms';
 
 
 export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payables, profile, applicant, fetchPayments}) => {

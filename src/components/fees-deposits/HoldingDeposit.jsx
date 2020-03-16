@@ -15,7 +15,7 @@ export const HoldingDeposit = ({
     holdingDepositPaid=false,
     holdingDepositAmount,
 }) => {
-    const holdingDepositCopy = `The $${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
+    const holdingDepositCopy = `The ${holdingDepositAmount} holding deposit takes your apartment off the market while the application process is happening. Our community requires the main applicant to pay the holding deposit.`;
 
     return <CardRowBorderlessPadded>
         <P>

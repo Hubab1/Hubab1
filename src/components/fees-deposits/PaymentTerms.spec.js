@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PaymentTerms from './PaymentTerms';
+import { PaymentTerms } from './PaymentTerms';
 
 let defaultProps;
 beforeEach(() => {

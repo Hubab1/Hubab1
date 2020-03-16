@@ -72,6 +72,8 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
                 type: renterProfileUpdated.toString(),
                 payload: stateUpdate || res
             });
+        }).catch((e) => {
+            return { errors: [e.message]}
         })
     }
 };
@@ -134,8 +136,8 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
 
-    // Account page should always be accessible
-    if (route === ROUTES.ACCOUNT) {
+    // These pages should always be accessible
+    if (route === ROUTES.ACCOUNT || route === ROUTES.PAYMENT_TERMS) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
@@ -158,6 +160,11 @@ selectors.selectInitialPage = createSelector(
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
+
+            if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
+                return ROUTES.LEASE_EXECUTED;
+            }
+
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }
@@ -184,6 +191,15 @@ selectors.selectNextRoute = createSelector(
         if (orderedRoutes && currentRoute) {
             return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
         }
+    }
+);
+
+selectors.selectApplicantStillFinishingApplication = createSelector(
+    state => state.applicant && state.applicant.events,
+    (applicantEvents) => {
+        if (!applicantEvents) return false;
+        // if applicant has submitted milestone, they're not completing fields anymore
+        return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
 );
 

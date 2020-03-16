@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
@@ -12,6 +12,7 @@ import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -23,9 +24,11 @@ const ImageContainer = styled.div`
 `;
 
 export const Storage = props => {
+    const [errorSubmitting, setErrorSubmitting] = useState(false);
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
+        setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
         Object.entries(values).forEach(option => {
             selectedRentalOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]});
@@ -34,6 +37,7 @@ export const Storage = props => {
         return props.updateRenterProfile(selectedRentalOptions).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
+                setErrorSubmitting(true);
             } else {
                 props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`);
             }
@@ -70,6 +74,11 @@ export const Storage = props => {
                 setFieldValue,
             }) => (
                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                    {errorSubmitting &&
+                        <GenericFormMessage
+                            type="error" messages={['We couldn’t save your storage options. Please try again.']}
+                        />
+                    }
                     { storageOptions.map(option =>
                         <ItemAdder
                             key={option.id}
