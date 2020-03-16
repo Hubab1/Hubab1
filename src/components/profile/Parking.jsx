@@ -12,7 +12,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
-import PriceBreakdown from "./options/PriceBreakdown";
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 
 
 const ImageContainer = styled.div`

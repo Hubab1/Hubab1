@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Box from '@material-ui/core/Box';
+import {makeStyles} from '@material-ui/core/styles';
+import styled from '@emotion/styled';
+
+import API  from 'app/api';
+
 import { P, CardRowTotal } from 'assets/styles';
 import {
     anchor,
@@ -8,16 +19,8 @@ import {
     paperRoot,
     renterProfileListItemContainer,
 } from './styles';
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Box from '@material-ui/core/Box';
-import API  from 'app/api';
-
 import Tip from 'components/common/Tip';
-import {makeStyles} from "@material-ui/core/styles";
-import styled from "@emotion/styled";
+
 
 const useStyles = makeStyles(theme => ({
     root: {

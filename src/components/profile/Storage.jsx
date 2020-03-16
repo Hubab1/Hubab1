@@ -11,7 +11,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
-import PriceBreakdown from "./options/PriceBreakdown";
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -77,9 +77,7 @@ export const Storage = props => {
                             subtitle={`$${option.monthly_amount}/mo per storage space`}
                             value={values[option.id]}
                             limit={option.limit}
-                            onChange={e => {
-                                setFieldValue(option.id, e);
-                            }}
+                            onChange={e => setFieldValue(option.id, e)}
                         />)
                     }
                     {getPriceBreakdown(values)}
@@ -87,7 +85,6 @@ export const Storage = props => {
                 </form>
             )}
         </Formik>
-
         <Box padding="20px">
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
         </Box>

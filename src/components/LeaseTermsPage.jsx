@@ -22,7 +22,7 @@ import withRelativeRoutes from 'app/withRelativeRoutes';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import { offsetDate } from 'utils/misc';
 import { ROLE_PRIMARY_APPLICANT, LEASE_TERMS_IDENTIFIER } from 'app/constants';
-import PriceBreakdown from "./profile/options/PriceBreakdown";
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 
 const ImageContainer = styled.div`
     margin-top: 31px;

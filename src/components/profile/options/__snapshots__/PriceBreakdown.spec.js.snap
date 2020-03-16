@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Price Breackdown section display correct info 1`] = `
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} baseRent={1200} category=\\"storage\\" categoryHelperText=\\"storage space\\">
+  <Styled(div)>
+    <div className=\\"css-1gbujtk\\">
+      <div className=\\"css-101ez95\\">
+        <div id={[undefined]} className=\\"css-1h1izsk\\" />
+        <div className=\\"css-coqf6u\\">
+          <div className=\\"css-hgfyev\\">
+            <div>
+              <Styled(MuiBox)>
+                <div className=\\"MuiBox-root MuiBox-root-3\\">
+                  <Tip text={{...}}>
+                    <WithStyles(ForwardRef(Grid)) container={true} spacing={1} alignItems=\\"center\\">
+                      <ForwardRef(Grid) classes={{...}} container={true} spacing={1} alignItems=\\"center\\">
+                        <div className=\\"MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center\\">
+                          <WithStyles(ForwardRef(Grid)) item={true}>
+                            <ForwardRef(Grid) classes={{...}} item={true}>
+                              <div className=\\"MuiGrid-root MuiGrid-item\\">
+                                <Styled(img) alt=\\"light bulb\\" src=\\"lightbulb.png\\">
+                                  <img alt=\\"light bulb\\" src=\\"lightbulb.png\\" className=\\"css-9ojriw\\" />
+                                </Styled(img)>
+                              </div>
+                            </ForwardRef(Grid)>
+                          </WithStyles(ForwardRef(Grid))>
+                          <WithStyles(ForwardRef(Grid)) item={true} xs={true}>
+                            <ForwardRef(Grid) classes={{...}} item={true} xs={true}>
+                              <div className=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true\\">
+                                <WithStyles(ForwardRef(Grid)) item={true} xs={true}>
+                                  <ForwardRef(Grid) classes={{...}} item={true} xs={true}>
+                                    <div className=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true\\">
+                                      <Styled(b) fontSize={16}>
+                                        <b fontSize={16} className=\\"css-1xtqd4a\\" />
+                                      </Styled(b)>
+                                    </div>
+                                  </ForwardRef(Grid)>
+                                </WithStyles(ForwardRef(Grid))>
+                                <WithStyles(ForwardRef(Grid)) item={true} xs={true}>
+                                  <ForwardRef(Grid) classes={{...}} item={true} xs={true}>
+                                    <div className=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true\\">
+                                      <Styled(p)>
+                                        <p className=\\"css-1m4kcar\\">
+                                          <b>
+                                            $2,020
+                                             Total Rent
+                                          </b>
+                                          <br />
+                                          $10/mo for 0 storage space
+                                        </p>
+                                      </Styled(p)>
+                                    </div>
+                                  </ForwardRef(Grid)>
+                                </WithStyles(ForwardRef(Grid))>
+                              </div>
+                            </ForwardRef(Grid)>
+                          </WithStyles(ForwardRef(Grid))>
+                        </div>
+                      </ForwardRef(Grid)>
+                    </WithStyles(ForwardRef(Grid))>
+                  </Tip>
+                </div>
+              </Styled(MuiBox)>
+            </div>
+          </div>
+          <div className=\\"css-1bh0d37\\">
+            <WithStyles(ForwardRef(ExpansionPanel)) elevation={0} defaultExpanded={true}>
+              <ForwardRef(ExpansionPanel) classes={{...}} elevation={0} defaultExpanded={true}>
+                <WithStyles(ForwardRef(Paper)) className=\\"MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded\\" square={false} elevation={0}>
+                  <ForwardRef(Paper) classes={{...}} className=\\"MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded\\" square={false} elevation={0}>
+                    <div className=\\"MuiPaper-root MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded MuiPaper-elevation0 MuiPaper-rounded\\">
+                      <WithStyles(ForwardRef(ExpansionPanelSummary)) expandIcon={{...}}>
+                        <ForwardRef(ExpansionPanelSummary) classes={{...}} expandIcon={{...}}>
+                          <WithStyles(ForwardRef(ButtonBase)) focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={true} className=\\"MuiExpansionPanelSummary-root Mui-expanded\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
+                            <ForwardRef(ButtonBase) classes={{...}} focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={true} className=\\"MuiExpansionPanelSummary-root Mui-expanded\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
+                              <div className=\\"MuiButtonBase-root MuiExpansionPanelSummary-root Mui-expanded\\" onBlur={[Function]} onClick={[Function: handleChange]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} role=\\"button\\" aria-disabled={false} aria-expanded={true}>
+                                <div className=\\"MuiExpansionPanelSummary-content Mui-expanded\\">
+                                  Price breakdown
+                                </div>
+                                <WithStyles(ForwardRef(IconButton)) className=\\"MuiExpansionPanelSummary-expandIcon Mui-expanded\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                  <ForwardRef(IconButton) classes={{...}} className=\\"MuiExpansionPanelSummary-expandIcon Mui-expanded\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                    <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                      <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                        <div className=\\"MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" onBlur={[Function]} onClick={[undefined]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={{...}} role={{...}} aria-disabled={false} aria-hidden={true}>
+                                          <span className=\\"MuiIconButton-label\\">
+                                            <ForwardRef>
+                                              <WithStyles(ForwardRef(SvgIcon))>
+                                                <ForwardRef(SvgIcon) classes={{...}}>
+                                                  <svg className=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" color={[undefined]} aria-hidden=\\"true\\" role=\\"presentation\\">
+                                                    <path d=\\"M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z\\" />
+                                                    <path fill=\\"none\\" d=\\"M0 0h24v24H0z\\" />
+                                                  </svg>
+                                                </ForwardRef(SvgIcon)>
+                                              </WithStyles(ForwardRef(SvgIcon))>
+                                            </ForwardRef>
+                                          </span>
+                                          <NoSsr />
+                                        </div>
+                                      </ForwardRef(ButtonBase)>
+                                    </WithStyles(ForwardRef(ButtonBase))>
+                                  </ForwardRef(IconButton)>
+                                </WithStyles(ForwardRef(IconButton))>
+                              </div>
+                            </ForwardRef(ButtonBase)>
+                          </WithStyles(ForwardRef(ButtonBase))>
+                        </ForwardRef(ExpansionPanelSummary)>
+                      </WithStyles(ForwardRef(ExpansionPanelSummary))>
+                      <WithStyles(ForwardRef(Collapse)) in={true} timeout=\\"auto\\">
+                        <ForwardRef(Collapse) classes={{...}} in={true} timeout=\\"auto\\">
+                          <Transition in={true} onEnter={[Function: handleEnter]} onEntered={[Function: handleEntered]} onEntering={[Function: handleEntering]} onExit={[Function: handleExit]} onExiting={[Function: handleExiting]} addEndListener={[Function: addEndListener]} timeout={{...}} mountOnEnter={false} unmountOnExit={false} appear={false} enter={true} exit={true} onExited={[Function: noop]}>
+                            <div className=\\"MuiCollapse-container MuiCollapse-entered\\" style={{...}}>
+                              <div className=\\"MuiCollapse-wrapper\\">
+                                <div className=\\"MuiCollapse-wrapperInner\\">
+                                  <div aria-labelledby={[undefined]} id={[undefined]} role=\\"region\\">
+                                    <WithStyles(ForwardRef(ExpansionPanelDetails)) classes={{...}}>
+                                      <ForwardRef(ExpansionPanelDetails) classes={{...}}>
+                                        <div className=\\"MuiExpansionPanelDetails-root makeStyles-root-1\\">
+                                          <div className=\\"css-olqeuu\\">
+                                            Base Rent
+                                            <span className=\\"pull-right\\">
+                                              $2,000
+                                            </span>
+                                          </div>
+                                          <div className=\\"css-olqeuu\\">
+                                            storage
+                                            <span className=\\"pull-right\\">
+                                              $10
+                                            </span>
+                                          </div>
+                                          <div className=\\"css-olqeuu\\">
+                                            pets
+                                            <span className=\\"pull-right\\">
+                                              $10
+                                            </span>
+                                          </div>
+                                          <Styled(div)>
+                                            <div className=\\"css-zgrhnt\\">
+                                              <Styled(p) bold={true}>
+                                                <p className=\\"css-1mnrnw5\\">
+                                                  Total
+                                                </p>
+                                              </Styled(p)>
+                                              <div>
+                                                <Styled(p) bold={true}>
+                                                  <p className=\\"css-1mnrnw5\\">
+                                                    $2,020
+                                                  </p>
+                                                </Styled(p)>
+                                              </div>
+                                            </div>
+                                          </Styled(div)>
+                                        </div>
+                                      </ForwardRef(ExpansionPanelDetails)>
+                                    </WithStyles(ForwardRef(ExpansionPanelDetails))>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Transition>
+                        </ForwardRef(Collapse)>
+                      </WithStyles(ForwardRef(Collapse))>
+                    </div>
+                  </ForwardRef(Paper)>
+                </WithStyles(ForwardRef(Paper))>
+              </ForwardRef(ExpansionPanel)>
+            </WithStyles(ForwardRef(ExpansionPanel))>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Styled(div)>
+</PriceBreakdown>"
+`;
