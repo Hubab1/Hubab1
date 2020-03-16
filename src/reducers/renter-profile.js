@@ -72,6 +72,8 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
                 type: renterProfileUpdated.toString(),
                 payload: stateUpdate || res
             });
+        }).catch((e) => {
+            return { errors: [e.message]}
         })
     }
 };
