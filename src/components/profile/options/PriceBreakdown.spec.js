@@ -9,7 +9,6 @@ const buildProps = () => {
         application: { id: 123, },
         selectedOptions: {},
         unitId: 12,
-        baseRent: 1200,
         category: 'storage',
         categoryHelperText: 'storage space',
     }

@@ -43,18 +43,16 @@ function PriceBreakdown (props) {
             application: props.application.id,
             rental_options: props.selectedOptions,
             unit_id: props.unitId,
-            base_rent: props.baseRent,
         };
         API.getCurrentFlatQuote(body).then((result) => {
             setPriceBreakdown(result);
             setIsLoading(false);
         });
-    }, [props.application, props.selectedOptions, props.unitId, props.baseRent ]);
+    }, [props.application, props.selectedOptions, props.unitId]);
 
     const getCurrentCategoryInfo = () => {
         // Count the number of rental options selected
-        const categoryCount = props.selectedOptions && Object.keys(props.selectedOptions).length ?
-            Object.values(props.selectedOptions).reduce((a, b) => a + b) : 0;
+        const categoryCount = Object.values(props.selectedOptions).reduce((a, b) => (a + b), 0);
 
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
 
@@ -65,7 +63,6 @@ function PriceBreakdown (props) {
 
         return (<>{categoryInfo}</>)
     };
-
 
     return (
         <PriceBreakdownContainer>
@@ -126,7 +123,6 @@ PriceBreakdown.propTypes = {
     application: PropTypes.object,
     selectedOptions: PropTypes.object,
     unitId: PropTypes.number,
-    baseRent: PropTypes.number,
     category: PropTypes.string,
     categoryHelperText: PropTypes.string,
 }

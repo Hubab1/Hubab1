@@ -85,15 +85,6 @@ export class LeaseTermsPage extends React.Component {
     render () {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
-        const getPriceBreakdown = (selectedOptions, baseRent, unitId) => {
-            return (
-                <PriceBreakdown
-                    selectedOptions={selectedOptions}
-                    application={this.props.application}
-                    baseRent={baseRent}
-                    unitId={unitId}
-                />);
-        };
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -178,9 +169,11 @@ export class LeaseTermsPage extends React.Component {
                             </div>
                             {
                                 values.unit && (
-                                    <>
-                                        {getPriceBreakdown({}, values.unit.price, values.unit.id)}
-                                    </>
+                                    <PriceBreakdown
+                                        selectedOptions={{}}
+                                        application={this.props.application}
+                                        unitId={values.unit.id}
+                                    />
                                 )
                             }
                             <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Price Breackdown section display correct info 1`] = `
-"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} baseRent={1200} category=\\"storage\\" categoryHelperText=\\"storage space\\">
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\">
   <Styled(div)>
     <div className=\\"css-1gbujtk\\">
       <div className=\\"css-101ez95\\">

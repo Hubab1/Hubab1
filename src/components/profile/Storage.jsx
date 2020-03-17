@@ -45,16 +45,6 @@ export const Storage = props => {
         });
     };
 
-    const getPriceBreakdown = (selectedOptions) => {
-        return (
-            <PriceBreakdown
-                selectedOptions={selectedOptions}
-                application={props.application}
-                category={"Storage"}
-                categoryHelperText={"storage spaces"}
-            />);
-    };
-
     const initialStorageOptions = props.application.selected_rental_options.storage;
 
     const storageOptions = props.config.rental_options.storage || [];
@@ -89,7 +79,12 @@ export const Storage = props => {
                             onChange={e => setFieldValue(option.id, e)}
                         />)
                     }
-                    {getPriceBreakdown(values)}
+                    <PriceBreakdown
+                        selectedOptions={values}
+                        application={props.application}
+                        category={"Storage"}
+                        categoryHelperText={"storage spaces"}
+                    />
                     <ActionButton>Add Storage</ActionButton>
                 </form>
             )}
