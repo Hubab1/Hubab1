@@ -89,7 +89,7 @@ function PriceBreakdown (props) {
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                 >
-                                    Price breakdown
+                                    Rent breakdown
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails classes={{root:classes.root}}>
                                     <div className={existingItemRow}>
