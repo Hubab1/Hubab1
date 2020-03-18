@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-
-import Tip from 'components/common/Tip';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
 import storageImage from 'assets/images/storage.png';
-import { H1, SpacedH3, P } from 'assets/styles';
+import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
 const ImageContainer = styled.div`
@@ -78,15 +77,16 @@ export const Storage = props => {
                             value={values[option.id]}
                             limit={option.limit}
                             onChange={e => setFieldValue(option.id, e)}
+                        />)
+                    }
+                    {Object.values(values).reduce((a, b) => (a + b), 0) > 0 && (
+                        <PriceBreakdown
+                            selectedOptions={values}
+                            application={props.application}
+                            category={"Storage"}
+                            categoryHelperText={"storage spaces"}
                         />
                     )}
-                    <Box padding="30px 0">
-                        <Tip
-                            text={
-                                <P>2 storage spaces cost <b>$10/mo</b><br/> bringing your total rent to <b>$3,475/mo.</b></P>
-                            }
-                        />
-                    </Box>
                     <ActionButton>Add Storage</ActionButton>
                 </form>
             )}

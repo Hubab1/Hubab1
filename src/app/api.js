@@ -237,4 +237,16 @@ API.fetchPaymentOptions = () => {
     });
 }
 
+API.getCurrentFlatQuote = (data) => {
+    return fetch(chuck('/payment-breakdown/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        return res.json()
+    });
+}
+
 export default API;
