@@ -47,7 +47,6 @@ export const Parking = props => {
             setSubmitting(false);
         });
     };
-
     const initialParkingOptions = props.application.selected_rental_options.parking;
     const parkingOptions = props.config.rental_options.parking || [];
     return <>
@@ -81,12 +80,14 @@ export const Parking = props => {
                             onChange={e => setFieldValue(option.id, e)}
                         />
                     )}
-                    <PriceBreakdown
-                        selectedOptions={values}
-                        application={props.application}
-                        category={"Parking"}
-                        categoryHelperText={"parking spaces"}
-                    />
+                    {Object.values(values).reduce((a, b) => (a + b), 0) > 0 && (
+                        <PriceBreakdown
+                            selectedOptions={values}
+                            application={props.application}
+                            category={"Parking"}
+                            categoryHelperText={"parking spaces"}
+                        />
+                    )}
                     <ActionButton>Add Parking</ActionButton>
                 </form>
             )}

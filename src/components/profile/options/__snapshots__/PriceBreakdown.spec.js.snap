@@ -121,17 +121,21 @@ exports[`Price Breackdown section display correct info 1`] = `
                                               $2,000
                                             </span>
                                           </div>
-                                          <div className=\\"css-olqeuu\\">
-                                            storage
-                                            <span className=\\"pull-right\\">
-                                              $10
-                                            </span>
+                                          <div>
+                                            <div className=\\"css-olqeuu\\">
+                                              storage
+                                              <span className=\\"pull-right\\">
+                                                $10
+                                              </span>
+                                            </div>
                                           </div>
-                                          <div className=\\"css-olqeuu\\">
-                                            pets
-                                            <span className=\\"pull-right\\">
-                                              $10
-                                            </span>
+                                          <div>
+                                            <div className=\\"css-olqeuu\\">
+                                              pets
+                                              <span className=\\"pull-right\\">
+                                                $10
+                                              </span>
+                                            </div>
                                           </div>
                                           <Styled(div)>
                                             <div className=\\"css-zgrhnt\\">

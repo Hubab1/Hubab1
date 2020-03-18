@@ -64,12 +64,12 @@ function PriceBreakdown (props) {
         return (<>{categoryInfo}</>)
     };
 
-    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
-    const displayRentBreakdown = props.category === 'lease_terms' || hasRentalOptions;
+    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0
+        && Object.values(priceBreakdown.items_breakdown).reduce((a, b) => (a + b), '');
 
     return (
         <PriceBreakdownContainer>
-            {!isLoading && displayRentBreakdown && (
+            {!isLoading && (
                 <div className={renterProfileListItemContainer}>
                     <div id={props.name} className={anchor}/>
                     <div className={paperRoot}>
@@ -102,9 +102,14 @@ function PriceBreakdown (props) {
                                         {
                                             Object.keys(priceBreakdown.items_breakdown).map(function(key) {
                                                 return (
-                                                    <div key={key} className={existingItemRow}>
-                                                        {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
-                                                    </div>)
+                                                    <div key={key}>
+                                                        {priceBreakdown.items_breakdown[key] !== '' && (
+                                                            <div className={existingItemRow}>
+                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )
                                             })
                                         }
                                         <CardRowTotal>
