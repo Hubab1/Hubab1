@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import API from 'app/api';
-import { ROUTES, HELLOSIGN_TEST_MODE, HELLOSIGN_CLIENT_ID } from 'app/constants';
+import { ROUTES, HELLOSIGN_TEST_MODE, HELLOSIGN_CLIENT_ID, MILESTONE_LEASE_SENT } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { H1, leftText, SpacedH3 } from 'assets/styles';
@@ -71,11 +71,17 @@ export const AppApproved = ({profile, configuration, history}) => {
             history.push(ROUTES.LEASE_SIGNED);
         });
     }
+    const leaseSent = !!profile.events.find(e => String(e.event) === String(MILESTONE_LEASE_SENT));
 
     return (
         <>
             <H1>You've Been Approved!</H1>
-            <SpacedH3>All that's left to do is sign the lease.</SpacedH3>
+            {
+                leaseSent && <SpacedH3>All that's left to do is sign the lease.</SpacedH3>
+            }
+            {
+                !leaseSent && <SpacedH3>We'll send an email with instructions on how to sign the lease shortly.</SpacedH3>
+            }
             <ApprovedImage src={approvedSign}/>
             <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
             <div className={gridContainer}>
@@ -92,9 +98,12 @@ export const AppApproved = ({profile, configuration, history}) => {
                         </span>
                     </Grid>
                 </Grid>}
-                <ActionButton onClick={openEmbeddedSigning} marginTop={securityDeposit ? 30 : 90}>
-                    Review &amp; Sign Lease
-                </ActionButton>
+                {
+                    leaseSent &&
+                    <ActionButton onClick={openEmbeddedSigning} marginTop={securityDeposit ? 30 : 90}>
+                        Review &amp; Sign Lease
+                    </ActionButton>
+                }
             </div>
         </>
     )

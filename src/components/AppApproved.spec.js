@@ -16,6 +16,7 @@ jest.mock('hellosign-embedded', () => {
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
+            events: [{event: '270'}],
             unit: {
                 unit_number: unitNumber,
             },
@@ -74,24 +75,13 @@ describe('application unit', () => {
     });
 });
 
-describe('security deposit message', () => {
-    it('should render when there is a security deposit', () => {
+describe('Lease not sent', () => {
+    it('Should should show different message and no action button', () => {
         const props = buildProps();
-        props.profile.security_deposit = 123.45;
-        props.profile.security_deposit_multiplier = 1.5;
+        props.profile.events = [];
 
         const wrapper = shallow(<AppApproved {...props} />);
-
-        expect(wrapper.find('.security-deposit-container')).toHaveLength(1);
-    });
-
-    it('should not render when there is no security deposit', () => {
-        const props = buildProps();
-        props.profile.security_deposit = null;
-        props.profile.security_deposit_multiplier = null;
-
-        const wrapper = shallow(<AppApproved {...props} />);
-
-        expect(wrapper.find('.security-deposit-container')).toHaveLength(0);
+        expect(wrapper.text()).toContain('email with instructions on how to sign the lease')
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
 });
