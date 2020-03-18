@@ -173,6 +173,7 @@ export class LeaseTermsPage extends React.Component {
                                         selectedOptions={{}}
                                         application={this.props.application}
                                         unitId={values.unit.id}
+                                        category={"lease_terms"}
                                     />
                                 )
                             }

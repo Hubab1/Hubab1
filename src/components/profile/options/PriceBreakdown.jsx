@@ -64,9 +64,12 @@ function PriceBreakdown (props) {
         return (<>{categoryInfo}</>)
     };
 
+    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
+    const displayRentBreakdown = props.category === 'lease_terms' || hasRentalOptions;
+
     return (
         <PriceBreakdownContainer>
-            {!isLoading && (
+            {!isLoading && displayRentBreakdown && (
                 <div className={renterProfileListItemContainer}>
                     <div id={props.name} className={anchor}/>
                     <div className={paperRoot}>
@@ -84,7 +87,7 @@ function PriceBreakdown (props) {
                                 </Box>
                             </div>
                         </div>
-                        {Object.keys(priceBreakdown.items_breakdown).length !==0 && (
+                        {hasRentalOptions && (
                             <div className={priceBreakdownContainer}>
                                 <ExpansionPanel elevation={0} defaultExpanded={false}>
                                     <ExpansionPanelSummary
