@@ -84,34 +84,36 @@ function PriceBreakdown (props) {
                                 </Box>
                             </div>
                         </div>
-                        <div className={priceBreakdownContainer}>
-                            <ExpansionPanel elevation={0} defaultExpanded={true}>
-                                <ExpansionPanelSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                >
-                                    Rent Breakdown
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails classes={{root:classes.root}}>
-                                    <div className={existingItemRow}>
-                                        Base Rent<span className={"pull-right"}>{priceBreakdown.base_rent}</span>
-                                    </div>
-                                    {
-                                        Object.keys(priceBreakdown.items_breakdown).map(function(key) {
-                                            return (
-                                                <div key={key} className={existingItemRow}>
-                                                    {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
-                                                </div>)
-                                        })
-                                    }
-                                    <CardRowTotal>
-                                        <P bold>Total</P>
-                                        <div>
-                                            <P bold>{priceBreakdown.total}</P>
+                        {Object.keys(priceBreakdown.items_breakdown).length !==0 && (
+                            <div className={priceBreakdownContainer}>
+                                <ExpansionPanel elevation={0} defaultExpanded={false}>
+                                    <ExpansionPanelSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                    >
+                                        Rent Breakdown
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails classes={{root:classes.root}}>
+                                        <div className={existingItemRow}>
+                                            Base Rent<span className={"pull-right"}>{priceBreakdown.base_rent}</span>
                                         </div>
-                                    </CardRowTotal>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </div>
+                                        {
+                                            Object.keys(priceBreakdown.items_breakdown).map(function(key) {
+                                                return (
+                                                    <div key={key} className={existingItemRow}>
+                                                        {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
+                                                    </div>)
+                                            })
+                                        }
+                                        <CardRowTotal>
+                                            <P bold>Total</P>
+                                            <div>
+                                                <P bold>{priceBreakdown.total}</P>
+                                            </div>
+                                        </CardRowTotal>
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

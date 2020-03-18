@@ -64,24 +64,24 @@ exports[`Price Breackdown section display correct info 1`] = `
             </div>
           </div>
           <div className=\\"css-1bh0d37\\">
-            <WithStyles(ForwardRef(ExpansionPanel)) elevation={0} defaultExpanded={true}>
-              <ForwardRef(ExpansionPanel) classes={{...}} elevation={0} defaultExpanded={true}>
-                <WithStyles(ForwardRef(Paper)) className=\\"MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded\\" square={false} elevation={0}>
-                  <ForwardRef(Paper) classes={{...}} className=\\"MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded\\" square={false} elevation={0}>
-                    <div className=\\"MuiPaper-root MuiExpansionPanel-root Mui-expanded MuiExpansionPanel-rounded MuiPaper-elevation0 MuiPaper-rounded\\">
+            <WithStyles(ForwardRef(ExpansionPanel)) elevation={0} defaultExpanded={false}>
+              <ForwardRef(ExpansionPanel) classes={{...}} elevation={0} defaultExpanded={false}>
+                <WithStyles(ForwardRef(Paper)) className=\\"MuiExpansionPanel-root MuiExpansionPanel-rounded\\" square={false} elevation={0}>
+                  <ForwardRef(Paper) classes={{...}} className=\\"MuiExpansionPanel-root MuiExpansionPanel-rounded\\" square={false} elevation={0}>
+                    <div className=\\"MuiPaper-root MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-elevation0 MuiPaper-rounded\\">
                       <WithStyles(ForwardRef(ExpansionPanelSummary)) expandIcon={{...}}>
                         <ForwardRef(ExpansionPanelSummary) classes={{...}} expandIcon={{...}}>
-                          <WithStyles(ForwardRef(ButtonBase)) focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={true} className=\\"MuiExpansionPanelSummary-root Mui-expanded\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
-                            <ForwardRef(ButtonBase) classes={{...}} focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={true} className=\\"MuiExpansionPanelSummary-root Mui-expanded\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
-                              <div className=\\"MuiButtonBase-root MuiExpansionPanelSummary-root Mui-expanded\\" onBlur={[Function]} onClick={[Function: handleChange]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} role=\\"button\\" aria-disabled={false} aria-expanded={true}>
-                                <div className=\\"MuiExpansionPanelSummary-content Mui-expanded\\">
+                          <WithStyles(ForwardRef(ButtonBase)) focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={false} className=\\"MuiExpansionPanelSummary-root\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
+                            <ForwardRef(ButtonBase) classes={{...}} focusRipple={false} disableRipple={true} disabled={false} component=\\"div\\" aria-expanded={false} className=\\"MuiExpansionPanelSummary-root\\" onFocusVisible={[Function: handleFocusVisible]} onBlur={[Function: handleBlur]} onClick={[Function: handleChange]}>
+                              <div className=\\"MuiButtonBase-root MuiExpansionPanelSummary-root\\" onBlur={[Function]} onClick={[Function: handleChange]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} role=\\"button\\" aria-disabled={false} aria-expanded={false}>
+                                <div className=\\"MuiExpansionPanelSummary-content\\">
                                   Rent Breakdown
                                 </div>
-                                <WithStyles(ForwardRef(IconButton)) className=\\"MuiExpansionPanelSummary-expandIcon Mui-expanded\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
-                                  <ForwardRef(IconButton) classes={{...}} className=\\"MuiExpansionPanelSummary-expandIcon Mui-expanded\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
-                                    <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
-                                      <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
-                                        <div className=\\"MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon Mui-expanded MuiIconButton-edgeEnd\\" onBlur={[Function]} onClick={[undefined]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={{...}} role={{...}} aria-disabled={false} aria-hidden={true}>
+                                <WithStyles(ForwardRef(IconButton)) className=\\"MuiExpansionPanelSummary-expandIcon\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                  <ForwardRef(IconButton) classes={{...}} className=\\"MuiExpansionPanelSummary-expandIcon\\" edge=\\"end\\" component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                    <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                      <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd\\" centerRipple={true} focusRipple={true} disabled={false} component=\\"div\\" tabIndex={{...}} role={{...}} aria-hidden={true}>
+                                        <div className=\\"MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd\\" onBlur={[Function]} onClick={[undefined]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={{...}} role={{...}} aria-disabled={false} aria-hidden={true}>
                                           <span className=\\"MuiIconButton-label\\">
                                             <ForwardRef>
                                               <WithStyles(ForwardRef(SvgIcon))>
@@ -105,10 +105,10 @@ exports[`Price Breackdown section display correct info 1`] = `
                           </WithStyles(ForwardRef(ButtonBase))>
                         </ForwardRef(ExpansionPanelSummary)>
                       </WithStyles(ForwardRef(ExpansionPanelSummary))>
-                      <WithStyles(ForwardRef(Collapse)) in={true} timeout=\\"auto\\">
-                        <ForwardRef(Collapse) classes={{...}} in={true} timeout=\\"auto\\">
-                          <Transition in={true} onEnter={[Function: handleEnter]} onEntered={[Function: handleEntered]} onEntering={[Function: handleEntering]} onExit={[Function: handleExit]} onExiting={[Function: handleExiting]} addEndListener={[Function: addEndListener]} timeout={{...}} mountOnEnter={false} unmountOnExit={false} appear={false} enter={true} exit={true} onExited={[Function: noop]}>
-                            <div className=\\"MuiCollapse-container MuiCollapse-entered\\" style={{...}}>
+                      <WithStyles(ForwardRef(Collapse)) in={false} timeout=\\"auto\\">
+                        <ForwardRef(Collapse) classes={{...}} in={false} timeout=\\"auto\\">
+                          <Transition in={false} onEnter={[Function: handleEnter]} onEntered={[Function: handleEntered]} onEntering={[Function: handleEntering]} onExit={[Function: handleExit]} onExiting={[Function: handleExiting]} addEndListener={[Function: addEndListener]} timeout={{...}} mountOnEnter={false} unmountOnExit={false} appear={false} enter={true} exit={true} onExited={[Function: noop]}>
+                            <div className=\\"MuiCollapse-container MuiCollapse-hidden\\" style={{...}}>
                               <div className=\\"MuiCollapse-wrapper\\">
                                 <div className=\\"MuiCollapse-wrapperInner\\">
                                   <div aria-labelledby={[undefined]} id={[undefined]} role=\\"region\\">
