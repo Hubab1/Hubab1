@@ -85,3 +85,25 @@ describe('Lease not sent', () => {
         expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
 });
+
+describe('security deposit message', () => {
+    it('should render when there is a security deposit', () => {
+        const props = buildProps();
+        props.profile.security_deposit = 123.45;
+        props.profile.security_deposit_multiplier = 1.5;
+
+        const wrapper = shallow(<AppApproved {...props} />);
+
+        expect(wrapper.find('.security-deposit-container')).toHaveLength(1);
+    });
+
+    it('should not render when there is no security deposit', () => {
+        const props = buildProps();
+        props.profile.security_deposit = null;
+        props.profile.security_deposit_multiplier = null;
+
+        const wrapper = shallow(<AppApproved {...props} />);
+
+        expect(wrapper.find('.security-deposit-container')).toHaveLength(0);
+    });
+});
