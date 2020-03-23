@@ -16,6 +16,7 @@ jest.mock('hellosign-embedded', () => {
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
+            events: [{event: '270'}],
             unit: {
                 unit_number: unitNumber,
             },
@@ -71,6 +72,17 @@ describe('application unit', () => {
         const wrapper = shallow(<AppApproved {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F')
+    });
+});
+
+describe('Lease not sent', () => {
+    it('Should should show different message and no action button', () => {
+        const props = buildProps();
+        props.profile.events = [];
+
+        const wrapper = shallow(<AppApproved {...props} />);
+        expect(wrapper.text()).toContain('email with instructions on how to sign the lease')
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
 });
 
