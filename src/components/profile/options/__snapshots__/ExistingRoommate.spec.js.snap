@@ -29,6 +29,35 @@ exports[`matches snapshot for registered roommate 1`] = `
 </React.Fragment>
 `;
 
+exports[`matches snapshot for roommate in progress 1`] = `
+<React.Fragment>
+  <div
+    className="css-14c5xr0"
+  >
+    <div>
+      kreebs mcgreebs
+      <br />
+    </div>
+  </div>
+  <div
+    className="css-1u4p759"
+  >
+    <span
+      className="css-1rn2trc"
+    >
+      Application Status:
+    </span>
+    <br />
+    <ForwardRef(render)
+      bold={true}
+      color="#FAC700"
+    >
+      In Progress
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;
+
 exports[`matches snapshot for unregistered roommate 1`] = `
 <React.Fragment>
   <div
@@ -56,9 +85,9 @@ exports[`matches snapshot for unregistered roommate 1`] = `
                 "first_name": "kreebs",
                 "id": 71,
                 "is_registered": false,
+                "last_milestone": null,
                 "last_name": "mcgreebs",
                 "phone_number": "(383) 838-4849",
-                "status": "Not Started",
               },
               "returnRoute": "/rental-profile/options#undefined",
             },
