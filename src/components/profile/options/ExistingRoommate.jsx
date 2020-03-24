@@ -10,14 +10,15 @@ import { APPLICANT_STATUS_COLOR_MAP, ROUTES, MILESTONE_APPLICANT_SUBMITTED, CO_A
 
 export default function ExistingRoommate({item, type}) {
     const getRoommateStatus = (item) => {
-        if (item.last_milestone && item.last_milestone.event) {
-            if(item.last_milestone.event === MILESTONE_APPLICANT_SUBMITTED) {
+        if (!item.last_milestone) return CO_APPLICANT_STATUS_NOT_STARTED;
+        switch (item.last_milestone.event) {
+            case MILESTONE_APPLICANT_SUBMITTED:
                 return CO_APPLICANT_STATUS_COMPLETED;
-            } else {
-                return CO_APPLICANT_STATUS_IN_PROGRESS
-            }
-        } else {
-            return CO_APPLICANT_STATUS_NOT_STARTED
+            case null:
+            case undefined:
+                return CO_APPLICANT_STATUS_NOT_STARTED;
+            default:
+                return CO_APPLICANT_STATUS_IN_PROGRESS;
         }
     };
     const statusColor = APPLICANT_STATUS_COLOR_MAP[getRoommateStatus(item)];
