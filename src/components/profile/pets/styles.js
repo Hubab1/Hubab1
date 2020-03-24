@@ -18,15 +18,17 @@ export const petButtonRoot = css`
     border-radius: 2px !important;
     text-transform: capitalize !important;
     padding: 10px 0;
-    border: 1px solid #828796 !important;
+    border-color: #828796 !important;
+    border-style: solid !important;
+    border-width: 1px 1px 1px 0px !important;
     height: 45px;
     &:last-child {
-        border-left: 0px !important;
+        border-right: 1px solid #828796 !important;
         border-top-left-radius: 0px !important;
         border-bottom-left-radius: 0px !important;
     }
     &:first-of-type {
-        border-right: 0px !important;
+        border-left: 1px solid #828796 !important;
         border-top-right-radius: 0px !important;
         border-bottom-right-radius: 0px !important;
     }
