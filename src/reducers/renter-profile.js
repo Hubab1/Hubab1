@@ -165,6 +165,10 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.LEASE_EXECUTED;
             }
 
+            if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_DENIED) {
+                return ROUTES.APP_DENIED;
+            }
+
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }
