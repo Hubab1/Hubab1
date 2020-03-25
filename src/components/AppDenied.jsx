@@ -39,7 +39,7 @@ export const AppDenied = ({profile, configuration}) => {
             <Img src={cry}/>
             <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
             <P margin="90px 0 0 0" bold>You should have received an email explaining our decision.
-                &nbsp;Please call us at {prettyFormatPhoneNumber(configuration.community.contact_phone)}
+                &nbsp;Please call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
                 &nbsp;if you have not received it or have any questions.
             </P>
         </>
