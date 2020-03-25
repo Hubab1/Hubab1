@@ -26,6 +26,7 @@ import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
 import AppApproved from 'components/AppApproved';
+import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
 
@@ -113,6 +114,7 @@ export class Main extends Component {
                             <Route path={ROUTES.APP_APPROVED} component={AppApproved}/>
                             <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned}/>
                             <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted}/>
+                            <Route path={ROUTES.APP_DENIED} component={AppDenied}/>
                         </NavDrawer>}
                     </Switch>
                 </div>

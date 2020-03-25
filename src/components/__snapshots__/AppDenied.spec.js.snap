@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Application Denied
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Unfortunately, we were unable to approve your application.
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="cry.svg"
+  />
+  <div
+    className="css-lygmaw"
+    id="application-unit"
+  >
+    Fake Building
+     Unit 2B
+  </div>
+  <ForwardRef(render)
+    bold={true}
+    margin="90px 0 0 0"
+  >
+    You should have received an email explaining our decision.  Please call us at 
+    
+     if you have not received it or have any questions.
+  </ForwardRef(render)>
+</React.Fragment>
+`;
