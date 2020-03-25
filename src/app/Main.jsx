@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { sessionIsValidForCommunityId } from 'utils/misc';
 import AppContextProvider from 'contexts/AppContextProvider';
 import ResendLinkForm from 'components/common/ResendLinkForm';
 import WelcomePage from 'components/welcome/WelcomePage';
@@ -29,15 +30,7 @@ import AppApproved from 'components/AppApproved';
 import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
-
-function sessionIsValidForCommunityId (communityId) {
-    if (auth.accessScope() === communityId) {
-        // maybe do some api call to check that this authentication token is valid for this community
-        // eg const isValidSession = await API.checkToken(community, auth.getToken());
-        return true;
-    }
-    return false;
-}
+import TermsPage from 'components/TermsPage';
 
 export class Main extends Component {
     state = {error: null};
@@ -87,8 +80,7 @@ export class Main extends Component {
     }
 
     render() {
-        const { theme, applicant } = this.props;
-        const hasApplicant = !!applicant;
+        const { theme, isLoggedIn } = this.props;
         if (this.state.hasError) return <div>Error getting application form</div>;
         if (!theme) return null;
         return (
@@ -100,7 +92,8 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
-                        {hasApplicant && <NavDrawer name={applicant.client.person.name} email={applicant.client.person.email}>
+                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage}/>}
+                        {isLoggedIn && <NavDrawer>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
                             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
@@ -115,6 +108,7 @@ export class Main extends Component {
                             <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned}/>
                             <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted}/>
                             <Route path={ROUTES.APP_DENIED} component={AppDenied}/>
+                            <Route path={ROUTES.TERMS} component={TermsPage}/>
                         </NavDrawer>}
                     </Switch>
                 </div>
@@ -125,7 +119,7 @@ export class Main extends Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    applicant: state.applicant,
+    isLoggedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
     configuration: state.configuration,
     communityId: state.siteConfig.basename,
     hash: state.siteConfig.hash,

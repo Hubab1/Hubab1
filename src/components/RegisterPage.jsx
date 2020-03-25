@@ -9,13 +9,20 @@ import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES } from 'app/constants';
 import auth from 'utils/auth';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
-import TermsPage from 'components/TermsPage';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import AccountForm from 'components/common/AccountForm';
 
 
 export class RegisterPage extends React.Component {
     state = {errors: null, showTerms: true}
+
+    constructor(props) {
+        super(props);
+        const viewedTerms = localStorage.getItem(`accepted-terms-${props.leaseSettingsId}`);
+        if (!viewedTerms) {
+            props.history.push(ROUTES.TERMS);
+        }
+    }
 
     get applicantInfo () {
         const client = this.props.configuration.client;
@@ -49,8 +56,8 @@ export class RegisterPage extends React.Component {
 
         // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
         // particularly need this for guarantor and co-applicant to associate with existing application
-        return auth.register(serialized, this.props.communityId, hash).then((res) => {
-            auth.setSession(res.token, this.props.communityId);
+        return auth.register(serialized, this.props.leaseSettingsId, hash).then((res) => {
+            auth.setSession(res.token, this.props.leaseSettingsId);
             setSubmitting(false);
             Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                 history.replace(this.props.initialPage);
@@ -70,9 +77,6 @@ export class RegisterPage extends React.Component {
 
     render () {
         if (!this.props.configuration) return;
-        if (this.state.showTerms) {
-            return <TermsPage onAgree={() => this.setState({showTerms: false})} />;
-        }
         return (
             <UnauthenticatedPage>
                 <H1>Start Your Rental Application by Creating an Account Below</H1>
@@ -92,7 +96,7 @@ export class RegisterPage extends React.Component {
 RegisterPage.propTypes = {
     profile: PropTypes.object,
     fetchRenterProfile: PropTypes.func,
-    communityId: PropTypes.string,
+    leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
     configuration: PropTypes.object
 }
@@ -100,7 +104,7 @@ RegisterPage.propTypes = {
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
-    communityId: state.siteConfig.basename,
+    leaseSettingsId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
     configuration: state.configuration
 });

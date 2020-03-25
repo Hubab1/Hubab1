@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import captureRoute from 'app/captureRoute';
+import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, Bold, Card, ScrollableTermsCardSection } from 'assets/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
+import { sessionIsValidForCommunityId } from 'utils/misc';
 
 const LOREM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -13,10 +17,14 @@ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
 mollit anim id est laborum.`;
 
 
-export default function (props) {
-
-    return (
-        <UnauthenticatedPage>
+export function TermsPage (props) {
+    function onAgree () {
+        localStorage.setItem(`accepted-terms-${props.leaseSettingsId}`, true);
+        props.history.push(ROUTES.SIGNUP);
+    }
+    
+    const base = (
+        <>
             <H1>Terms and Conditions</H1>
             <br/>
             <Card>
@@ -39,9 +47,25 @@ export default function (props) {
                     <div>Please {LOREM}</div>
                 </ScrollableTermsCardSection>
             </Card>
-            <ActionButton onClick={props.onAgree}>
-                Agree and Continue
-            </ActionButton>
-        </UnauthenticatedPage>
+        </>
     );
+    if (props.isSignedIn) {
+        return base;
+    } else {
+        return (
+            <UnauthenticatedPage>
+                {base}
+                <ActionButton onClick={onAgree}>
+                    Agree and Continue
+                </ActionButton>
+            </UnauthenticatedPage>
+        );
+    }
 }
+
+const mapStateToProps = state => ({
+    leaseSettingsId: state.siteConfig.basename,
+    isSignedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
+});
+
+export default connect(mapStateToProps)(captureRoute(TermsPage, ROUTES.TERMS));
