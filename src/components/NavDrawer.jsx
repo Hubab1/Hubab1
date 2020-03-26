@@ -157,8 +157,6 @@ export function PersistentDrawerLeft(props) {
 }
 
 const mapStateToProps = state => ({
-    name: state.applicant && state.applicant.client.person.name,
-    email: state.applicant && state.applicant.client.person.email,
     applicant: state.applicant,
 })
 
