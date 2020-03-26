@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { css } from 'emotion';
+import Checkbox from 'components/common/Checkbox';
 
 import { formContent, LinkButton } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -138,6 +139,14 @@ export default ({
                             }
                         </Grid>
                     </Grid>
+                    <Checkbox 
+                        name="sms"
+                        onChange={handleChange}
+                        checked={values.disclaimer}
+                        value={values.disclaimer}
+                        error={errors.disclaimer}
+                        label="Opt me in to SMS"
+                    />
                     { resetPassword &&
                         <div className={linkContainer}>
                             <LinkButton  onClick={resetPassword}>
