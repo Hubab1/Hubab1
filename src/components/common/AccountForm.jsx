@@ -26,6 +26,7 @@ export default ({
     withPassword,
     submitText,
     resetPassword,
+    showConsentInput,
 }) => (
         <Formik
         initialValues={initialValues}
@@ -139,14 +140,17 @@ export default ({
                             }
                         </Grid>
                     </Grid>
-                    <Checkbox 
-                        name="sms"
-                        onChange={handleChange}
-                        checked={values.disclaimer}
-                        value={values.disclaimer}
-                        error={errors.disclaimer}
-                        label="Opt me in to SMS"
-                    />
+                    {
+                        showConsentInput &&
+                        <Checkbox
+                            name="sms_opt_in"
+                            onChange={handleChange}
+                            checked={values.disclaimer}
+                            value={values.disclaimer}
+                            error={errors.disclaimer}
+                            label="Opt in to SMS communication regarding this application. Your information will not be shared with anyone. Privacy Policy"
+                        />
+                    }
                     { resetPassword &&
                         <div className={linkContainer}>
                             <LinkButton  onClick={resetPassword}>

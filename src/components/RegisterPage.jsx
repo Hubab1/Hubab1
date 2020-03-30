@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { H1, P, link } from 'assets/styles';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
-import { ROUTES } from 'app/constants';
+import { ROUTES, SMS_OPT_IN_MARKETING_ENABLED } from 'app/constants';
 import auth from 'utils/auth';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import TermsPage from 'components/TermsPage';
@@ -70,6 +70,8 @@ export class RegisterPage extends React.Component {
 
     render () {
         if (!this.props.configuration) return;
+        const optedIn = this.props.configuration.client?.sms_opted_in === SMS_OPT_IN_MARKETING_ENABLED;
+
         if (this.state.showTerms) {
             return <TermsPage onAgree={() => this.setState({showTerms: false})} />;
         }
@@ -82,6 +84,7 @@ export class RegisterPage extends React.Component {
                     initialValues={this.applicantInfo}
                     messages={this.state.errors}
                     onSubmit={this.onSubmit}
+                    showConsentInput={!optedIn}
                 />
                 <P className="already-have-account">Already have an account? <Link to={ROUTES.LOGIN} className={link}>Sign in here</Link></P>
             </UnauthenticatedPage>
