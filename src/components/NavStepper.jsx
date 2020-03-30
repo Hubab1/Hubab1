@@ -6,11 +6,8 @@ import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import { MOCKY } from 'app/api';
-import { ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
@@ -40,12 +37,6 @@ export function getStepperIndex(routes, currentRoute) {
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
-    function logout () {
-        localStorage.clear();
-        props.logout();
-        props.history.push(ROUTES.LOGIN)
-    }
-
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
     function onClickRoute (e, route, i) {
@@ -70,9 +61,6 @@ export function VerticalLinearStepper(props) {
                     </Step>
                 }
             </Stepper>
-            <ListItem button onClick={logout}>
-                <ListItemText primary="Logout" />
-            </ListItem>
         </div>
     );
 }

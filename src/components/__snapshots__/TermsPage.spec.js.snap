@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`signed in matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Terms and Conditions
+  </ForwardRef(render)>
+  <br />
+  <ForwardRef(render)>
+    <ForwardRef(render)>
+      <div>
+        Terms and Conditions
+      </div>
+      <div>
+        General Site Usage
+      </div>
+      <div>
+        Last Revised: December 16, 2013
+      </div>
+      <br />
+      <div>
+        Welcome to 555 Waverly. 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+      </div>
+      <br />
+      <ForwardRef(render)>
+        1. YOUR AGREEMENT
+      </ForwardRef(render)>
+      <br />
+      <div>
+        By using this site, 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+      </div>
+      <br />
+      <ForwardRef(render)>
+        PLEASE NOTE: 
+      </ForwardRef(render)>
+      <span>
+        We reserve the right 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+      </span>
+      <br />
+      <br />
+      <ForwardRef(render)>
+        2. PRIVACY
+      </ForwardRef(render)>
+      <br />
+      <div>
+        Please 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+      </div>
+    </ForwardRef(render)>
+  </ForwardRef(render)>
+</React.Fragment>
+`;
+
+exports[`signed out matches snapshot 1`] = `
+<UnauthenticatedPage>
+  <React.Fragment>
+    <ForwardRef(render)>
+      Terms and Conditions
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      <ForwardRef(render)>
+        <div>
+          Terms and Conditions
+        </div>
+        <div>
+          General Site Usage
+        </div>
+        <div>
+          Last Revised: December 16, 2013
+        </div>
+        <br />
+        <div>
+          Welcome to 555 Waverly. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+        </div>
+        <br />
+        <ForwardRef(render)>
+          1. YOUR AGREEMENT
+        </ForwardRef(render)>
+        <br />
+        <div>
+          By using this site, 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+        </div>
+        <br />
+        <ForwardRef(render)>
+          PLEASE NOTE: 
+        </ForwardRef(render)>
+        <span>
+          We reserve the right 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+        </span>
+        <br />
+        <br />
+        <ForwardRef(render)>
+          2. PRIVACY
+        </ForwardRef(render)>
+        <br />
+        <div>
+          Please 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+        </div>
+      </ForwardRef(render)>
+    </ForwardRef(render)>
+  </React.Fragment>
+  <ActionButton
+    color="primary"
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Agree and Continue
+  </ActionButton>
+</UnauthenticatedPage>
+`;
