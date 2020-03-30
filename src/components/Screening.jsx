@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
-// import Checkbox from '@material-ui/core/Checkbox';
 import * as Yup from 'yup';
 
 import { ROUTES } from 'app/constants';
