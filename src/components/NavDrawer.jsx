@@ -64,6 +64,7 @@ const useStyles = makeStyles(theme => ({
     },
     logout: {
         fontWeight: 600,
+        'text-transform': 'none'
     }
 }));
 
