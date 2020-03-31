@@ -1,8 +1,18 @@
 import memoize from 'lodash/memoize';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
+import auth from 'utils/auth';
 
 import { ROLE_GUARANTOR } from 'app/constants';
+
+export function sessionIsValidForCommunityId (communityId) {
+    if (auth.accessScope() === communityId) {
+        // maybe do some api call to check that this authentication token is valid for this community
+        // eg const isValidSession = await API.checkToken(community, auth.getToken());
+        return true;
+    }
+    return false;
+}
 
 export function hexToRGB(hex, alpha) {
     var r = parseInt(hex.slice(1, 3), 16),

@@ -34,6 +34,7 @@ export const ROUTES = {
     LEASE_SIGNED: '/lease-signed',
     LEASE_EXECUTED: '/lease-executed',
     APP_DENIED: '/application-denied',
+    TERMS: '/terms',
 };
 
 export const NAV_ROUTES = [
