@@ -37,19 +37,15 @@ export const ROUTES = {
     TERMS: '/terms',
 };
 
-export const NAV_ROUTES = [
-    {name: 'Current Address', value: ROUTES.ADDRESS},
-    {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-    {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
-    {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
-    {name: 'Fees & Deposits', value: ROUTES.FEES_AND_DEPOSITS},
-    {name: 'Screening', value: ROUTES.SCREENING},
-    {name: 'Application Complete', value: ROUTES.APP_COMPLETE},
-];
-
-export const BASE_ROUTES = [
-    ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS
-];
+export const ROUTE_LABELS = {
+    [ROUTES.ADDRESS]: 'Current Address',
+    [ROUTES.LEASE_TERMS]: 'Lease Terms',
+    [ROUTES.PROFILE_OPTIONS]: 'Rental Profile',
+    [ROUTES.INCOME_AND_EMPLOYMENT]: 'Income & Employment',
+    [ROUTES.FEES_AND_DEPOSITS]: 'Fees & Deposits',
+    [ROUTES.SCREENING]: 'Screening',
+    [ROUTES.APP_COMPLETE]: 'Application Complete',
+};
 
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';

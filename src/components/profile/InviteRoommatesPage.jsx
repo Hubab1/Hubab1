@@ -71,7 +71,6 @@ export class InviteRoommatesPage extends React.Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    config: state.configuration,
 })
 
 export default connect(mapStateToProps, {updateRenterProfile})(InviteRoommatesPage);
