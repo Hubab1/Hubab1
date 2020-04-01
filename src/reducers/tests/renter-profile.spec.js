@@ -1,6 +1,53 @@
 import { APPLICATION_EVENTS, APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_COMPLETED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, MILESTONE_APPLICANT_SUBMITTED, ROLE_PRIMARY_APPLICANT, ROLE_CO_APPLICANT, ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 
+describe('selectNav', () => {
+    it('Builds list of nav routes and label objects', () => {
+        const pages = selectors.selectNav({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+        });
+        expect(pages).toEqual([
+            {
+                name: 'Current Address',
+                value: '/address',
+            },
+            {
+                name: 'Lease Terms',
+                value: '/lease-terms',
+            },
+            {
+                name: 'Rental Profile',
+                value: '/rental-profile/options',
+            },
+            {
+                name: 'Income & Employment',
+                value: '/income-employment',
+            },
+            {
+                name: 'Fees & Deposits',
+                value: '/fees-deposits',
+            },
+            {
+                name: 'Screening',
+                value: '/screening',
+            },
+            {
+                name: 'Application Complete',
+                value: '/application-complete',
+            },
+        ]);
+    });
+});
+
 
 describe('selectOrderedRoutes', () => {
     it('Shows correct pages for primary applicant', () => {
