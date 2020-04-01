@@ -63,6 +63,8 @@ export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
 export const ROLE_CO_APPLICANT = 'co_applicant';
 export const ROLE_GUARANTOR = 'guarantor';
 
+export const SMS_OPT_IN_MARKETING_ENABLED = 5;
+
 // event constants used for navigation
 export const EVENT_APPLICANT_REGISTERED = 5;
 export const EVENT_LEASE_TERMS_COMPLETED = 6;

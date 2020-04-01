@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
-import Checkbox from '@material-ui/core/Checkbox';
 import * as Yup from 'yup';
 
 import { ROUTES } from 'app/constants';
@@ -20,6 +19,7 @@ import ssl from 'assets/images/ssl-image.png';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import Checkbox from 'components/common/Checkbox';
 
 const Image = styled.img`
     width: 91px;
@@ -30,16 +30,9 @@ const securityBlurb = css`
     color: #828796;
     font-size: 13px;
 `
-const checkboxText = css`
-    font-size: 12px;
-`
 
 const centerText = css`
     text-align: center;
-`
-
-const noPaddingTop = css`
-    padding-top: 0 !important;
 `
 
 const gridContainer = css`
@@ -148,23 +141,14 @@ export class Screening extends React.Component {
                                         helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
                                     />
                                 )}
-                                <div className={gridContainer}>
-                                    <Grid container spacing={0} alignItems="flex-start">
-                                        <Grid item xs={2}>
-                                            <Checkbox 
-                                                name="disclaimer"
-                                                onChange={handleChange}
-                                                checked={values.disclaimer}
-                                                value={values.disclaimer}
-                                                error={errors.disclaimer}
-                                                classes={{ root: noPaddingTop }}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={10}>
-                                            <span className={checkboxText}>{`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${this.props.buildingName} to request a consumer report.`}</span>
-                                        </Grid>
-                                    </Grid>
-                                </div>
+                                <Checkbox 
+                                    name="disclaimer"
+                                    onChange={handleChange}
+                                    checked={values.disclaimer}
+                                    value={values.disclaimer}
+                                    error={errors.disclaimer}
+                                    label={`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${this.props.buildingName} to request a consumer report.`}
+                                />
                                 <ActionButton disabled={(!values.ssn && values.requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
                                 </ActionButton>

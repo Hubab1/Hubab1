@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { css } from 'emotion';
+import Checkbox from 'components/common/Checkbox';
 
 import { formContent, LinkButton } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -25,6 +26,7 @@ export default ({
     withPassword,
     submitText,
     resetPassword,
+    showConsentInput,
 }) => (
         <Formik
         initialValues={initialValues}
@@ -138,6 +140,17 @@ export default ({
                             }
                         </Grid>
                     </Grid>
+                    {
+                        showConsentInput &&
+                        <Checkbox
+                            name="sms_opt_in"
+                            onChange={handleChange}
+                            checked={values.disclaimer}
+                            value={values.disclaimer}
+                            error={errors.disclaimer}
+                            label="Opt in to SMS communication regarding this application. Your information will not be shared with anyone. Privacy Policy"
+                        />
+                    }
                     { resetPassword &&
                         <div className={linkContainer}>
                             <LinkButton  onClick={resetPassword}>
