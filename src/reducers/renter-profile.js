@@ -151,7 +151,7 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
-        if (orderedRoutes && events && profile) {
+        if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
 
             if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
@@ -172,11 +172,14 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.APP_APPROVED;
             }
 
+            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
+                return ROUTES.APP_COMPLETE;
+            }
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
             const route = orderedRoutes.find(r => !accessibleRoutes[r]);
             if (route) return route;
-            return ROUTES.APP_COMPLETE;
+            console.error('Could not determine current page.');
         }
     }
 );

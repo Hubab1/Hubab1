@@ -1,17 +1,85 @@
+import { APPLICATION_EVENTS, APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_COMPLETED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, MILESTONE_APPLICANT_SUBMITTED, ROLE_PRIMARY_APPLICANT, ROLE_CO_APPLICANT, ROUTES } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
-import {
-    ROUTES,
-    APPLICATION_EVENTS,
-    ROLE_PRIMARY_APPLICANT,
-    MILESTONE_APPLICANT_SUBMITTED,
-    APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, APPLICATION_STATUS_COMPLETED
-} from 'app/constants';
+
+
+describe('selectOrderedRoutes', () => {
+    it('Shows correct pages for primary applicant', () => {
+        const pages = selectors.selectOrderedRoutes({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+        });
+        expect(pages).toEqual([
+            '/address',
+            '/lease-terms',
+            '/rental-profile/options',
+            '/income-employment',
+            '/fees-deposits',
+            '/screening',
+            '/application-complete'
+        ]);
+    });
+    it('Shows correct pages for secondary applicants', () => {
+        const pages = selectors.selectOrderedRoutes({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_CO_APPLICANT, address_street: 'some street', events: []}
+        });
+        expect(pages).toEqual([
+            '/address',
+            '/lease-terms',
+            '/income-employment',
+            '/fees-deposits',
+            '/screening',
+            '/application-complete'
+        ]);
+    });
+    it('doesnt show income-employment page if enable_automatic_income_verification=false', () => {
+        const pages = selectors.selectOrderedRoutes({
+            configuration: {
+                enable_automatic_income_verification: false,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+        });
+        expect(pages).toEqual([
+            '/address',
+            '/lease-terms',
+            '/rental-profile/options',
+            '/fees-deposits',
+            '/screening',
+            '/application-complete'
+        ]);
+    });
+});
 
 
 describe('selectInitialPage', () => {
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -22,6 +90,9 @@ describe('selectInitialPage', () => {
         });
         expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -33,6 +104,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: [{name: 'bob'}],
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
@@ -43,6 +117,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
@@ -53,6 +130,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.FEES_AND_DEPOSITS);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -64,6 +144,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.SCREENING);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -75,6 +158,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -87,6 +173,9 @@ describe('selectInitialPage', () => {
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
 
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -98,6 +187,9 @@ describe('selectInitialPage', () => {
         });
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
@@ -109,6 +201,9 @@ describe('selectInitialPage', () => {
         });
         expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
         initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
             renterProfile: {
                 co_applicants: null,
                 guarantor: null,
