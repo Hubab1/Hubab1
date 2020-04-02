@@ -1,6 +1,5 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
 
 const checkboxRoot = css`
@@ -9,10 +8,6 @@ const checkboxRoot = css`
 `
 const checkboxText = css`
     font-size: 12px;
-    text-align: left;
-`
-
-const textLeft = css`
     text-align: left;
 `
 
