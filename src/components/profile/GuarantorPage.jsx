@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
-import { selectors, fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
 import BackLink from 'components/common/BackLink';
@@ -71,6 +71,4 @@ export class GuarantorPage extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({routes: selectors.selectOrderedRoutes(state)});
-
-export default connect(mapStateToProps, {fetchRenterProfile})(GuarantorPage);
+export default connect(null, {fetchRenterProfile})(GuarantorPage);

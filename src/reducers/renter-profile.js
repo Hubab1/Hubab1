@@ -3,10 +3,10 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import { NAV_ROUTES } from 'app/constants';
+import { ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
-    BASE_ROUTES, ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED,
+    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED,
     APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
@@ -89,27 +89,20 @@ export const pageComplete = (page) => {
 // selectors
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
-    state => state.applicant,
-    (applicant) => {
-        if (applicant) {
-            if (applicant.role === ROLE_PRIMARY_APPLICANT) {
-                return BASE_ROUTES.concat([
-                    ROUTES.INCOME_AND_EMPLOYMENT,
-                    ROUTES.FEES_AND_DEPOSITS,
-                    ROUTES.SCREENING,
-                    ROUTES.APP_COMPLETE,
-                ])
-            } else {
-                return [
-                    ROUTES.ADDRESS,
-                    ROUTES.LEASE_TERMS,
-                    ROUTES.INCOME_AND_EMPLOYMENT,
-                    ROUTES.FEES_AND_DEPOSITS,
-                    ROUTES.SCREENING,
-                    ROUTES.APP_COMPLETE,
-                ]
-            }
-        }
+    state => state.applicant?.role,
+    state => state.configuration?.enable_automatic_income_verification,
+    (role, enableAutomaticIncomeVerification) => {
+        if (role == null || enableAutomaticIncomeVerification == null) return;
+
+        return [
+            ROUTES.ADDRESS,
+            ROUTES.LEASE_TERMS,
+            role === ROLE_PRIMARY_APPLICANT && ROUTES.PROFILE_OPTIONS,
+            enableAutomaticIncomeVerification && ROUTES.INCOME_AND_EMPLOYMENT,
+            ROUTES.FEES_AND_DEPOSITS,
+            ROUTES.SCREENING,
+            ROUTES.APP_COMPLETE,
+        ].filter(r => !!r);
     }
 );
 
@@ -158,7 +151,7 @@ selectors.selectInitialPage = createSelector(
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
-        if (orderedRoutes && events && profile) {
+        if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
 
             if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
@@ -179,11 +172,14 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.APP_APPROVED;
             }
 
+            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
+                return ROUTES.APP_COMPLETE;
+            }
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
             const route = orderedRoutes.find(r => !accessibleRoutes[r]);
             if (route) return route;
-            return ROUTES.APP_COMPLETE;
+            console.error('Could not determine current page.');
         }
     }
 );
@@ -217,31 +213,11 @@ selectors.selectPrevRoute = createSelector(
     }
 );
 
-const shouldHideNavRouteIf = (applicantRole) => ({
-    [ROUTES.PROFILE_OPTIONS]: applicantRole !== ROLE_PRIMARY_APPLICANT,
-});
-
 selectors.selectNav = createSelector(
-    state => state.applicant && state.applicant.role,
-    (applicantRole) => {
-        if (applicantRole) {
-            const HIDE_ROUTE = shouldHideNavRouteIf(applicantRole);
-            function buildNav(routes) {
-                const nav = [];
-                // pick nav routes that can be shown to current user
-                for (let i = 0; i < routes.length; i++) {
-                    const route = routes[i];
-                    // nav route can be shown
-                    if (HIDE_ROUTE[route.value] !== true) {
-                        nav.push({
-                            name: route.name,
-                            value: route.value
-                        });
-                    }
-                }
-                return nav.length > 0 ? nav : null;
-            }
-            return buildNav(NAV_ROUTES) || [];
+    selectors.selectOrderedRoutes,
+    (orderedRoutes) => {
+        if (orderedRoutes) {
+            return orderedRoutes.map(r => ({name: ROUTE_LABELS[r], value: r}));
         }
     }
 );
