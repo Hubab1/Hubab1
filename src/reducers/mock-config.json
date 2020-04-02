@@ -1,6 +1,7 @@
 {
     "application_fee": 100.0,
     "dark_mode": false,
+    "enable_automatic_income_verification": true,
     "lease_term_options": [12, 24],
     "secondary_color": "0fce98",
     "allow_guarantors": true,
