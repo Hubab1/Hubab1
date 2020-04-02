@@ -5,6 +5,7 @@ import { css } from 'emotion';
 const checkboxRoot = css`
     padding-top: 0 !important;
     padding-left: 0 !important;
+    padding-right: 8px !important;
 `
 const checkboxText = css`
     font-size: 12px;
