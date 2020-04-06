@@ -154,6 +154,7 @@ selectors.selectInitialPage = createSelector(
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
 
+            // eslint-disable-next-line default-case
             switch (profile.status) {
                 case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED:
                     return ROUTES.APP_CANCELLED;
