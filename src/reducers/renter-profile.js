@@ -152,6 +152,7 @@ selectors.selectInitialPage = createSelector(
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && applicant && profile) {
+            return ROUTES.APP_CANCELLED;
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
 
             if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
@@ -165,8 +166,11 @@ selectors.selectInitialPage = createSelector(
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }
+
             // eslint-disable-next-line default-case
             switch (profile.status) {
+            case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED:
+                return ROUTES.APP_CANCELLED;
             case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
             case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
                 return ROUTES.APP_APPROVED;
