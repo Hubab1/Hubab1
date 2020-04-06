@@ -32,7 +32,7 @@ export const AppCancelled = ({profile, configuration}) => {
             <SpacedH3>You are no longer applying for unit {profile.unit.unit_number}.</SpacedH3>
             <Img src={cancelled}/>
             <P margin="90px 0 0 0" bold>Call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
-                &nbsp;if you have any questions or have any questions or if you'd like to start a new application.
+                &nbsp;if you have any questions or if you’d like to start a new application.
             </P>
         </>
     )

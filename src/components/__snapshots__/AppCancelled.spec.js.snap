@@ -23,7 +23,7 @@ exports[`matches snapshot 1`] = `
     >
       123-444-5510
     </a>
-     if you have any questions or have any questions or if you'd like to start a new application.
+     if you have any questions or if you’d like to start a new application.
   </ForwardRef(render)>
 </React.Fragment>
 `;
