@@ -73,6 +73,7 @@ export function VerticalLinearStepper(props) {
                             <Button
                                 variant="outlined"
                                 color="primary"
+                                id="viewProgressButton"
                                 fullWidth
                                 classes={{
                                     root: viewProgress

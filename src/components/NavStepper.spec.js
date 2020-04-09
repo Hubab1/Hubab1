@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
 import { ROUTES } from 'app/constants';
 
@@ -59,6 +59,25 @@ describe('Application submitted state', function() {
             }
         }
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        expect(wrapper.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.');
+        expect(wrapper.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.View Progress');
     });
+
+    it('View Progress when clicked takes to the initialPage set', function () {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            },
+            history: {
+                push: jest.fn(),
+            },
+            initialPage: '/application-complete',
+        };
+        let wrapper = mount(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('button').simulate('click');
+
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
+    })
 });
