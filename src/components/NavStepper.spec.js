@@ -78,9 +78,8 @@ describe('Application submitted state', function() {
             },
             initialPage: '/application-complete',
         };
-        let wrapper = mount(<VerticalLinearStepper {...defaultProps} />);
-        wrapper.find('button').simulate('click');
-
+        let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
     })
 });

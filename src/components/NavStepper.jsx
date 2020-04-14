@@ -26,11 +26,12 @@ const iconRoot = css`
 `
 
 const viewProgress = css`
-    margin-top: 30px !important;
     width: 192px;
     border-radius: 30px !important;
     text-transform: none !important;
     font-size: 16px !important;
+    margin: 30px auto !important;
+    display: block !important;
 `
 
 export function getStepperIndex(routes, currentRoute) {
@@ -70,18 +71,17 @@ export function VerticalLinearStepper(props) {
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
                                 </a> if you have any questions.
                             </span>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                id="viewProgressButton"
-                                fullWidth
-                                classes={{
-                                    root: viewProgress
-                                }}
-                                onClick={() => props.history.push(props.initialPage)}
-                            >View Progress</Button>
-                        </StepLabel>
 
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress
+                            }}
+                            onClick={() => props.history.push(props.initialPage)}
+                        >View Progress</Button>
                     </Step>
                 }
             </Stepper>
