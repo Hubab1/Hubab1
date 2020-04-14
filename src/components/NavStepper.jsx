@@ -80,6 +80,7 @@ export function VerticalLinearStepper(props) {
                             classes={{
                                 root: viewProgress
                             }}
+                            disabled={false}
                             onClick={() => props.history.push(props.initialPage)}
                         >View Progress</Button>
                     </Step>
