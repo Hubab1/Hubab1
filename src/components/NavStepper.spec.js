@@ -57,9 +57,12 @@ describe('Application submitted state', function() {
                     contact_phone: '123-456-7891'
                 }
             }
-        }
-        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        expect(wrapper.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.View Progress');
+        };
+        const wrapper = mount(<VerticalLinearStepper {...defaultProps} />);
+        const appCompletedMsg =  wrapper.find('.appCompletedMsg');
+        expect(appCompletedMsg.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.');
+        const viewProgressButton = wrapper.find('#viewProgressButton').find('.MuiButton-label');
+        expect(viewProgressButton.text()).toContain('View Progress');
     });
 
     it('View Progress when clicked takes to the initialPage set', function () {
