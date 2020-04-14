@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
 import { ROUTES } from 'app/constants';
 
@@ -57,8 +57,29 @@ describe('Application submitted state', function() {
                     contact_phone: '123-456-7891'
                 }
             }
-        }
-        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        expect(wrapper.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.');
+        };
+        const wrapper = mount(<VerticalLinearStepper {...defaultProps} />);
+        const appCompletedMsg =  wrapper.find('.appCompletedMsg');
+        expect(appCompletedMsg.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.');
+        const viewProgressButton = wrapper.find('#viewProgressButton').find('.MuiButton-label');
+        expect(viewProgressButton.text()).toContain('View Progress');
     });
+
+    it('View Progress when clicked takes to the initialPage set', function () {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            },
+            history: {
+                push: jest.fn(),
+            },
+            initialPage: '/application-complete',
+        };
+        let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('#viewProgressButton').simulate('click');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
+    })
 });

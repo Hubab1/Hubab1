@@ -11,6 +11,7 @@ import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,10 +20,18 @@ const useStyles = makeStyles(theme => ({
 }));
 const iconRoot = css`
     align-items: flex-start !important;
-    span {
+    .appCompletedMsg {
         color: #828796;
-
     }
+`
+
+const viewProgress = css`
+    width: 192px;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+    margin: 30px auto !important;
+    display: block !important;
 `
 
 export function getStepperIndex(routes, currentRoute) {
@@ -54,10 +63,26 @@ export function VerticalLinearStepper(props) {
                         <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                     </Step>
                 ))}
-                {
-                !props.applicantStillFinishingApplication &&
+                {!props.applicantStillFinishingApplication &&
                     <Step active>
-                        <StepLabel completed classes={{root: iconRoot}}><span>Your application has been completed and submitted. Please call us at <a href={`tel:${props.config.community.contact_phone}`}>{prettyFormatPhoneNumber(props.config.community.contact_phone)}</a> if you have any questions.</span></StepLabel>
+                        <StepLabel completed classes={{root: iconRoot}}>
+                            <span className="appCompletedMsg">Your application has been completed and submitted. Please call us at&nbsp;
+                                <a href={`tel:${props.config.community.contact_phone}`}>
+                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                </a> if you have any questions.
+                            </span>
+
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress
+                            }}
+                            disabled={false}
+                            onClick={() => props.history.push(props.initialPage)}
+                        >View Progress</Button>
                     </Step>
                 }
             </Stepper>
