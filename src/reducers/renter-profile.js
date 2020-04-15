@@ -130,7 +130,7 @@ selectors.canAccessRoute = (state, route) => {
     */
 
     // These pages should always be accessible
-    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS].includes(route)) {
+    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));

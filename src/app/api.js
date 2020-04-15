@@ -2,9 +2,9 @@ import auth from 'utils/auth';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
 
-const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
+export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
-function chuck(path) {
+export function chuck(path) {
     return `${CHUCK_BASE_URL}/api/onlineleasing${path}`;
 }
 

@@ -10,6 +10,7 @@ import creditCardImage from 'assets/images/credit-card.png';
 import { H1, H3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
 import PaymentForm from './PaymentForm';
 import { formatCurrency } from 'utils/misc';
+import { ROUTES } from 'app/constants';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
@@ -44,7 +45,7 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
                 <img src={padlockImage} alt="padlock" width="18" height="28"/>
                 <div className={bodyText}>
                     {/* TODO: design owes us updated copy on this... at the very least, the link should go somewhere */}
-                    This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} to="">privacy policy here.</Link>
+                    This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} target="_blank" to={ROUTES.PRIVACY_POLICY}>privacy policy here.</Link>
                 </div>
             </div>
             <Elements
