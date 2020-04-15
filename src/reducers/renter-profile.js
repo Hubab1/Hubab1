@@ -154,22 +154,25 @@ selectors.selectInitialPage = createSelector(
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
 
-            if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) {
-                return ROUTES.LEASE_EXECUTED;
-            }
-
-            if (profile.status === APPLICATION_STATUSES.APPLICATION_STATUS_DENIED) {
-                return ROUTES.APP_DENIED;
+            // eslint-disable-next-line default-case
+            switch (profile.status) {
+                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED:
+                    return ROUTES.APP_CANCELLED;
+                case APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED:
+                    return ROUTES.LEASE_EXECUTED;
+                case APPLICATION_STATUSES.APPLICATION_STATUS_DENIED:
+                    return ROUTES.APP_DENIED;
             }
 
             if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }
+
             // eslint-disable-next-line default-case
             switch (profile.status) {
-            case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
-            case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
-                return ROUTES.APP_APPROVED;
+                case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
+                case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
+                    return ROUTES.APP_APPROVED;
             }
 
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
