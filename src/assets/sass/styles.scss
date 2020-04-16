@@ -29,3 +29,40 @@ img {
 .x-hellosign-embedded.x-hellosign-embedded--in-modal {
     z-index: 9999;
 }
+
+
+.tos-container {
+    font-family: Arial;
+    .pad-left {
+        padding-left: 18px;
+        margin-left: -18pt;
+    }
+    .center {
+        text-align: center;
+    }
+    ol {
+        counter-reset: item;
+    }
+    ol > li {
+        display: table;
+        counter-increment: item;
+        margin-bottom: 0.6em;
+    }
+    ol > li:before {
+        content: counters(item, ".") ". ";
+        display: table-cell;
+        padding-right: 0.6em;
+    }
+    li ol > li {
+        margin: 0;
+    }
+    li ol > li:before {
+        content: counters(item, ".") " ";
+    }
+    ol[type="a"] > li {
+        display: list-item;
+    }
+    ol[type="a"] > li:before {
+        content: none;
+    }
+}
