@@ -9,13 +9,12 @@ export function PrivacyPolicy() {
     const [html, setHtml] = useState(null);
     useEffect(() => {
         fetch(chuck('/privacy-policy')).then((res) => {
-            return res.text()
+            return res.text();
         }).then((res) => {
-            setHtml(res)
+            setHtml(res);
         })
     }, [])
     if (!html) return null;
-    console.log(html)
     return (
         <div>
             <div dangerouslySetInnerHTML={{
