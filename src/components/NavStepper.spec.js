@@ -16,30 +16,10 @@ describe('getStepperIndex', function(){
         expect(getStepperIndex(routes, currentRoute)).toEqual(2);
     });
 
-    it('gets the correct index for a nested route', function() {
-        const routes = [
-            {name: 'Current Address', value: ROUTES.ADDRESS},
-            {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-            {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
-                {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
-                {name: 'Guarantor', value: ROUTES.GUARANTOR},
-                {name: 'Pets', value: ROUTES.PETS},
-            ]},
-            {name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT},
-            {name: 'Screening', value: ROUTES.SCREENING},
-        ];
-        
-        const currentRoute = ROUTES.GUARANTOR;
-        expect(getStepperIndex(routes, currentRoute)).toEqual(2);
-    });
-
     it('returns -1 if route not found', function() {
         const routes = [
             {name: 'Lease Terms', value: ROUTES.LEASE_TERMS},
-            {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS, subRoutes: [
-                {name: 'Roommates', value: ROUTES.CO_APPLICANTS},
-                {name: 'Guarantor', value: ROUTES.GUARANTOR},
-            ]},
+            {name: 'Rental Profile', value: ROUTES.PROFILE_OPTIONS},
             {name: 'Screening', value: ROUTES.SCREENING},
         ];
         
@@ -47,6 +27,45 @@ describe('getStepperIndex', function(){
         expect(getStepperIndex(routes, currentRoute)).toEqual(-1);
     });
 });
+
+describe('VerticalLinearStepper', () => {
+    const defaultProps = {
+        initialPage: 'income',
+        currentRoute: 'lease_settings',
+        applicantStillFinishingApplication: true,
+        navRoutes: [
+            {
+                name: 'lease settings',
+                value: 'lease_settings',
+            },
+            {
+                name: 'profile',
+                value: 'profile',
+            },
+            {
+                name: 'income',
+                value: 'income',
+            },
+            {
+                name: 'fees',
+                value: 'fees',
+            },
+            {
+                name: 'screening',
+                value: 'screening',
+            }
+        ],
+        config: {
+            community: {
+                contact_phone: '123-456-7891'
+            }
+        }
+    };
+    it('matches snapshot', () => {
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps}/>);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+})
 
 describe('Application submitted state', function() {
     it('renders an application already submited message', function() {
@@ -58,11 +77,10 @@ describe('Application submitted state', function() {
                 }
             }
         };
-        const wrapper = mount(<VerticalLinearStepper {...defaultProps} />);
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg =  wrapper.find('.appCompletedMsg');
         expect(appCompletedMsg.text()).toContain('Your application has been completed and submitted. Please call us at 123-456-7891 if you have any questions.');
-        const viewProgressButton = wrapper.find('#viewProgressButton').find('.MuiButton-label');
-        expect(viewProgressButton.text()).toContain('View Progress');
+        expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
     });
 
     it('View Progress when clicked takes to the initialPage set', function () {
@@ -83,3 +101,4 @@ describe('Application submitted state', function() {
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
     })
 });
+
