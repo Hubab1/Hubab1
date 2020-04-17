@@ -32,6 +32,7 @@ import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
 import TermsPage from 'components/TermsPage';
 import AppCancelled from 'components/AppCancelled';
+import LeaseVoided from 'components/LeaseVoided';
 
 export class Main extends Component {
     state = {error: null};
@@ -111,6 +112,7 @@ export class Main extends Component {
                             <Route path={ROUTES.APP_DENIED} component={AppDenied}/>
                             <Route path={ROUTES.APP_CANCELLED} component={AppCancelled}/>
                             <Route path={ROUTES.TERMS} component={TermsPage}/>
+                            <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                         </NavDrawer>}
                     </Switch>
                 </div>
