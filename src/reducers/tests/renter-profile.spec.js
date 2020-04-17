@@ -47,6 +47,51 @@ describe('selectNav', () => {
         ]);
     });
 });
+describe('canAccessRoute', () => {
+    const state = {
+        configuration: {
+            enable_automatic_income_verification: true
+        },
+        renterProfile: {
+            co_applicants: null,
+            guarantor: null,
+            pets: null,
+            lease_term: 6,
+        },
+        applicant: { address_street: '123 main st', role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+    };
+    it('privacy policy is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
+        expect(accessible).toBe(true);
+    });
+    it('privacy policy is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_TERMS);
+        expect(accessible).toBe(true);
+    });
+    it('account page is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.ACCOUNT);
+        expect(accessible).toBe(true);
+    });
+    it('terms are accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.TERMS);
+        expect(accessible).toBe(true);
+    });
+    // completed page accessible
+    it('address page is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.ADDRESS);
+        expect(accessible).toBe(true);
+    });
+    // completed page + 1 accessible
+    it('lease terms page is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.LEASE_TERMS);
+        expect(accessible).toBe(true);
+    });
+    // completed page + 2 inaccessible
+    it('renter profile page is not accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.PROFILE_OPTIONS);
+        expect(accessible).toBe(false);
+    });
+});
 
 
 describe('selectOrderedRoutes', () => {
