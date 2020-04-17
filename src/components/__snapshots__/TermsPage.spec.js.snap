@@ -39,6 +39,8 @@ exports[`signed in matches snapshot 1`] = `
           ”) and our website at 
           <a
             href="https://www.nestio.com/"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             https://www.nestio.com/
           </a>
@@ -83,7 +85,19 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   PRIVACY
                 </b>
-                 — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the Online Leasing Platform Privacy Statement and Privacy Policy. (These terms are set forth in Section 17.2);
+                 — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the 
+                <a
+                  href="#privacy-practices"
+                >
+                  Online Leasing Platform Privacy Statement
+                </a>
+                 and 
+                <ForwardRef
+                  target="_blank"
+                >
+                  Privacy Policy
+                </ForwardRef>
+                . (These terms are set forth in Section 17.2);
               </li>
               <li>
                 <b>
@@ -97,7 +111,15 @@ exports[`signed in matches snapshot 1`] = `
             <b>
               Nestio Service Overview
             </b>
-            . Nestio’s Service includes a website that connects owners and managers of residential real estate (“Leasing Professionals”) with individuals seeking residential rental spaces (“Applicants”). The Service facilitates the application process for available real estate in the United States of America. The Service shall include any required, usual, appropriate or acceptable activities relating to the Service, such as to (i) carry out the Service or the business of which the Service are a part; (ii) carry out any benefits, rights and obligations relating to the Service; (iii) maintain records relating to the Service; or (iv) comply with any legal or self-regulatory obligations relating to the Service.
+            . Nestio’s Service includes a website that connects owners and managers of residential real estate (“
+            <b>
+              Leasing Professionals
+            </b>
+            ”) with individuals seeking residential rental spaces (“
+            <b>
+              Applicants
+            </b>
+            ”). The Service facilitates the application process for available real estate in the United States of America. The Service shall include any required, usual, appropriate or acceptable activities relating to the Service, such as to (i) carry out the Service or the business of which the Service are a part; (ii) carry out any benefits, rights and obligations relating to the Service; (iii) maintain records relating to the Service; or (iv) comply with any legal or self-regulatory obligations relating to the Service.
           </li>
           <li>
             <b>
@@ -161,7 +183,11 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Limited License Grant to Nestio
                 </b>
-                . Certain features of our Service may require Applicants to transmit documentation via our Services, including but not limited to financial and credit information, personal identification and contact information, social security number, vehicle information, proof of income, references, and other documents (“Applicant Documents”). By providing Applicant Documents to or via our Service, you grant Nestio a worldwide, non-exclusive, royalty-free, fully paid right and license (with the right to sublicense) to host, store, transfer, display, reproduce, modify for the purpose of formatting for display, and distribute your Applicant Documents, in whole or in part, as applicable to third parties that process Applicant Documents as required by the Service. You hereby authorize Nestio to export or otherwise share Applicant Documents to these third parties as required by the Service.
+                . Certain features of our Service may require Applicants to transmit documentation via our Services, including but not limited to financial and credit information, personal identification and contact information, social security number, vehicle information, proof of income, references, and other documents (“
+                <b>
+                  Applicant Documents
+                </b>
+                ”). By providing Applicant Documents to or via our Service, you grant Nestio a worldwide, non-exclusive, royalty-free, fully paid right and license (with the right to sublicense) to host, store, transfer, display, reproduce, modify for the purpose of formatting for display, and distribute your Applicant Documents, in whole or in part, as applicable to third parties that process Applicant Documents as required by the Service. You hereby authorize Nestio to export or otherwise share Applicant Documents to these third parties as required by the Service.
               </li>
               <li>
                 <b>
@@ -173,7 +199,11 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Feedback
                 </b>
-                . If you choose to provide input and suggestions regarding problems with or proposed modifications or improvements to the Service (“Feedback”), then you hereby grant Nestio an unrestricted, perpetual, irrevocable, non-exclusive, fully-paid, royalty-free right to exploit the Feedback in any manner and for any purpose, including to improve the Service and create other products and services.
+                . If you choose to provide input and suggestions regarding problems with or proposed modifications or improvements to the Service (“
+                <b>
+                  Feedback
+                </b>
+                ”), then you hereby grant Nestio an unrestricted, perpetual, irrevocable, non-exclusive, fully-paid, royalty-free right to exploit the Feedback in any manner and for any purpose, including to improve the Service and create other products and services.
               </li>
             </ol>
           </li>
@@ -202,19 +232,37 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Third Party Services and Linked Websites
                 </b>
-                . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms available here.  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
+                . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms 
+                <a
+                  href="#finicity-terms"
+                >
+                  available here
+                </a>
+                .  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
               </li>
               <li>
                 <b>
                   Third-Party Payment Processing
                 </b>
-                . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (available here).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
+                . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
+                <a
+                  href="https://stripe.com/privacy"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  available here
+                </a>
+                ).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
               </li>
               <li>
                 <b>
                   Open Source Software
                 </b>
-                . The Service may include or incorporate third- party software components that are generally available free of charge under licenses granting recipients broad rights to copy, modify, and distribute such components (“Open Source Components”). Although the Service is provided to you subject to these Terms, nothing in these Terms prevents, restricts, or is intended to prevent or restrict you from obtaining such Open Source Components under the applicable third-party licenses or to limit your use of such Open Source Components thereunder.
+                . The Service may include or incorporate third- party software components that are generally available free of charge under licenses granting recipients broad rights to copy, modify, and distribute such components (“
+                <b>
+                  Open Source Components
+                </b>
+                ”). Although the Service is provided to you subject to these Terms, nothing in these Terms prevents, restricts, or is intended to prevent or restrict you from obtaining such Open Source Components under the applicable third-party licenses or to limit your use of such Open Source Components thereunder.
               </li>
               <li>
                 <b>
@@ -280,9 +328,11 @@ exports[`signed in matches snapshot 1`] = `
                   type="a"
                 >
                   <li>
-                    <b>
-                      For Applicants
-                    </b>
+                    <u>
+                      <b>
+                        For Applicants
+                      </b>
+                    </u>
                     . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at 
                     <a
                       href="mailto:support@nestio.com"
@@ -292,9 +342,11 @@ exports[`signed in matches snapshot 1`] = `
                     , and providing notice of your intent to cancel your account.
                   </li>
                   <li>
-                    <b>
-                      For Leasing Professionals
-                    </b>
+                    <u>
+                      <b>
+                        For Leasing Professionals
+                      </b>
+                    </u>
                     . Please refer to your Customer Agreement for the conditions under which termination may occur.
                   </li>
                 </ol>
@@ -317,7 +369,15 @@ exports[`signed in matches snapshot 1`] = `
             <b>
               Indemnity
             </b>
-            . In addition to any eligibility requirements set forth in the Customer Agreement for Leasing Professionals, you are responsible for your use of the Service, and, to the fullest extent permitted by law, you will defend and indemnify Nestio and its officers, directors, employees, consultants, affiliates, subsidiaries and agents (together, the “Nestio Entities”) from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs (“Claims”) brought by a third party arising out of or connected with: (a) your use of, or misuse of, the Service not in compliance with these Terms; (b) your violation of any portion of these Terms, any representation, warranty, or agreement referenced in these Terms, or any applicable law or regulation; (c) your violation of any third-party right, including any intellectual property right or publicity, confidentiality, other property, or privacy right; or (d) any dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of those Claims.
+            . In addition to any eligibility requirements set forth in the Customer Agreement for Leasing Professionals, you are responsible for your use of the Service, and, to the fullest extent permitted by law, you will defend and indemnify Nestio and its officers, directors, employees, consultants, affiliates, subsidiaries and agents (together, the “
+            <b>
+              Nestio Entities
+            </b>
+            ”) from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs (“
+            <b>
+              Claims
+            </b>
+            ”) brought by a third party arising out of or connected with: (a) your use of, or misuse of, the Service not in compliance with these Terms; (b) your violation of any portion of these Terms, any representation, warranty, or agreement referenced in these Terms, or any applicable law or regulation; (c) your violation of any third-party right, including any intellectual property right or publicity, confidentiality, other property, or privacy right; or (d) any dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of those Claims.
           </li>
           <li>
             <b>
@@ -365,7 +425,15 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Arbitrator
                 </b>
-                . Any arbitration between you and Nestio will be settled under the Federal Arbitration Act, and governed by the Commercial Dispute Resolution Procedures and the Supplementary Procedures for Consumer Related Disputes (collectively, “AAA Rules”) of the American Arbitration Association (“AAA”), as modified by these Terms, and will be administered by the AAA. The AAA Rules and filing forms are available online at www.adr.org, by calling the AAA at 1-800-778-7879, or by contacting Nestio. The arbitrator has exclusive authority to resolve any dispute relating to the interpretation, applicability, or enforceability of this binding arbitration agreement.
+                . Any arbitration between you and Nestio will be settled under the Federal Arbitration Act, and governed by the Commercial Dispute Resolution Procedures and the Supplementary Procedures for Consumer Related Disputes (collectively, “
+                <b>
+                  AAA Rules
+                </b>
+                ”) of the American Arbitration Association (“
+                <b>
+                  AAA
+                </b>
+                ”), as modified by these Terms, and will be administered by the AAA. The AAA Rules and filing forms are available online at www.adr.org, by calling the AAA at 1-800-778-7879, or by contacting Nestio. The arbitrator has exclusive authority to resolve any dispute relating to the interpretation, applicability, or enforceability of this binding arbitration agreement.
               </li>
               <li>
                 <b>
@@ -420,9 +488,13 @@ exports[`signed in matches snapshot 1`] = `
                 . These Terms are governed by the laws of the State of New York without regard to conflict of law principles. You and Nestio submit to the personal and exclusive jurisdiction of the state courts and federal courts located within the Southern District of New York for resolution of any lawsuit or court proceeding permitted under these Terms.
               </li>
               <li>
-                <b>
-                  Privacy Practices.
-                </b>
+                <a
+                  name="privacy-practices"
+                >
+                  <b>
+                    Privacy Practices.
+                  </b>
+                </a>
                 <ol
                   type="a"
                 >
@@ -473,9 +545,15 @@ exports[`signed in matches snapshot 1`] = `
         <div
           className="center"
         >
-          <b>
-            Finicity Terms – Linked from Section 9.2
-          </b>
+          <a
+            name="finicity-terms"
+          >
+            <u>
+              <b>
+                Finicity Terms – Linked from Section 9.2
+              </b>
+            </u>
+          </a>
         </div>
         <p>
           1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA.   You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information.  It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information.  We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
@@ -588,6 +666,8 @@ exports[`signed out matches snapshot 1`] = `
             ”) and our website at 
             <a
               href="https://www.nestio.com/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               https://www.nestio.com/
             </a>
@@ -632,7 +712,19 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     PRIVACY
                   </b>
-                   — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the Online Leasing Platform Privacy Statement and Privacy Policy. (These terms are set forth in Section 17.2);
+                   — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the 
+                  <a
+                    href="#privacy-practices"
+                  >
+                    Online Leasing Platform Privacy Statement
+                  </a>
+                   and 
+                  <ForwardRef
+                    target="_blank"
+                  >
+                    Privacy Policy
+                  </ForwardRef>
+                  . (These terms are set forth in Section 17.2);
                 </li>
                 <li>
                   <b>
@@ -646,7 +738,15 @@ exports[`signed out matches snapshot 1`] = `
               <b>
                 Nestio Service Overview
               </b>
-              . Nestio’s Service includes a website that connects owners and managers of residential real estate (“Leasing Professionals”) with individuals seeking residential rental spaces (“Applicants”). The Service facilitates the application process for available real estate in the United States of America. The Service shall include any required, usual, appropriate or acceptable activities relating to the Service, such as to (i) carry out the Service or the business of which the Service are a part; (ii) carry out any benefits, rights and obligations relating to the Service; (iii) maintain records relating to the Service; or (iv) comply with any legal or self-regulatory obligations relating to the Service.
+              . Nestio’s Service includes a website that connects owners and managers of residential real estate (“
+              <b>
+                Leasing Professionals
+              </b>
+              ”) with individuals seeking residential rental spaces (“
+              <b>
+                Applicants
+              </b>
+              ”). The Service facilitates the application process for available real estate in the United States of America. The Service shall include any required, usual, appropriate or acceptable activities relating to the Service, such as to (i) carry out the Service or the business of which the Service are a part; (ii) carry out any benefits, rights and obligations relating to the Service; (iii) maintain records relating to the Service; or (iv) comply with any legal or self-regulatory obligations relating to the Service.
             </li>
             <li>
               <b>
@@ -710,7 +810,11 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Limited License Grant to Nestio
                   </b>
-                  . Certain features of our Service may require Applicants to transmit documentation via our Services, including but not limited to financial and credit information, personal identification and contact information, social security number, vehicle information, proof of income, references, and other documents (“Applicant Documents”). By providing Applicant Documents to or via our Service, you grant Nestio a worldwide, non-exclusive, royalty-free, fully paid right and license (with the right to sublicense) to host, store, transfer, display, reproduce, modify for the purpose of formatting for display, and distribute your Applicant Documents, in whole or in part, as applicable to third parties that process Applicant Documents as required by the Service. You hereby authorize Nestio to export or otherwise share Applicant Documents to these third parties as required by the Service.
+                  . Certain features of our Service may require Applicants to transmit documentation via our Services, including but not limited to financial and credit information, personal identification and contact information, social security number, vehicle information, proof of income, references, and other documents (“
+                  <b>
+                    Applicant Documents
+                  </b>
+                  ”). By providing Applicant Documents to or via our Service, you grant Nestio a worldwide, non-exclusive, royalty-free, fully paid right and license (with the right to sublicense) to host, store, transfer, display, reproduce, modify for the purpose of formatting for display, and distribute your Applicant Documents, in whole or in part, as applicable to third parties that process Applicant Documents as required by the Service. You hereby authorize Nestio to export or otherwise share Applicant Documents to these third parties as required by the Service.
                 </li>
                 <li>
                   <b>
@@ -722,7 +826,11 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Feedback
                   </b>
-                  . If you choose to provide input and suggestions regarding problems with or proposed modifications or improvements to the Service (“Feedback”), then you hereby grant Nestio an unrestricted, perpetual, irrevocable, non-exclusive, fully-paid, royalty-free right to exploit the Feedback in any manner and for any purpose, including to improve the Service and create other products and services.
+                  . If you choose to provide input and suggestions regarding problems with or proposed modifications or improvements to the Service (“
+                  <b>
+                    Feedback
+                  </b>
+                  ”), then you hereby grant Nestio an unrestricted, perpetual, irrevocable, non-exclusive, fully-paid, royalty-free right to exploit the Feedback in any manner and for any purpose, including to improve the Service and create other products and services.
                 </li>
               </ol>
             </li>
@@ -751,19 +859,37 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Third Party Services and Linked Websites
                   </b>
-                  . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms available here.  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
+                  . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms 
+                  <a
+                    href="#finicity-terms"
+                  >
+                    available here
+                  </a>
+                  .  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
                 </li>
                 <li>
                   <b>
                     Third-Party Payment Processing
                   </b>
-                  . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (available here).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
+                  . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
+                  <a
+                    href="https://stripe.com/privacy"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    available here
+                  </a>
+                  ).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
                 </li>
                 <li>
                   <b>
                     Open Source Software
                   </b>
-                  . The Service may include or incorporate third- party software components that are generally available free of charge under licenses granting recipients broad rights to copy, modify, and distribute such components (“Open Source Components”). Although the Service is provided to you subject to these Terms, nothing in these Terms prevents, restricts, or is intended to prevent or restrict you from obtaining such Open Source Components under the applicable third-party licenses or to limit your use of such Open Source Components thereunder.
+                  . The Service may include or incorporate third- party software components that are generally available free of charge under licenses granting recipients broad rights to copy, modify, and distribute such components (“
+                  <b>
+                    Open Source Components
+                  </b>
+                  ”). Although the Service is provided to you subject to these Terms, nothing in these Terms prevents, restricts, or is intended to prevent or restrict you from obtaining such Open Source Components under the applicable third-party licenses or to limit your use of such Open Source Components thereunder.
                 </li>
                 <li>
                   <b>
@@ -829,9 +955,11 @@ exports[`signed out matches snapshot 1`] = `
                     type="a"
                   >
                     <li>
-                      <b>
-                        For Applicants
-                      </b>
+                      <u>
+                        <b>
+                          For Applicants
+                        </b>
+                      </u>
                       . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at 
                       <a
                         href="mailto:support@nestio.com"
@@ -841,9 +969,11 @@ exports[`signed out matches snapshot 1`] = `
                       , and providing notice of your intent to cancel your account.
                     </li>
                     <li>
-                      <b>
-                        For Leasing Professionals
-                      </b>
+                      <u>
+                        <b>
+                          For Leasing Professionals
+                        </b>
+                      </u>
                       . Please refer to your Customer Agreement for the conditions under which termination may occur.
                     </li>
                   </ol>
@@ -866,7 +996,15 @@ exports[`signed out matches snapshot 1`] = `
               <b>
                 Indemnity
               </b>
-              . In addition to any eligibility requirements set forth in the Customer Agreement for Leasing Professionals, you are responsible for your use of the Service, and, to the fullest extent permitted by law, you will defend and indemnify Nestio and its officers, directors, employees, consultants, affiliates, subsidiaries and agents (together, the “Nestio Entities”) from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs (“Claims”) brought by a third party arising out of or connected with: (a) your use of, or misuse of, the Service not in compliance with these Terms; (b) your violation of any portion of these Terms, any representation, warranty, or agreement referenced in these Terms, or any applicable law or regulation; (c) your violation of any third-party right, including any intellectual property right or publicity, confidentiality, other property, or privacy right; or (d) any dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of those Claims.
+              . In addition to any eligibility requirements set forth in the Customer Agreement for Leasing Professionals, you are responsible for your use of the Service, and, to the fullest extent permitted by law, you will defend and indemnify Nestio and its officers, directors, employees, consultants, affiliates, subsidiaries and agents (together, the “
+              <b>
+                Nestio Entities
+              </b>
+              ”) from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs (“
+              <b>
+                Claims
+              </b>
+              ”) brought by a third party arising out of or connected with: (a) your use of, or misuse of, the Service not in compliance with these Terms; (b) your violation of any portion of these Terms, any representation, warranty, or agreement referenced in these Terms, or any applicable law or regulation; (c) your violation of any third-party right, including any intellectual property right or publicity, confidentiality, other property, or privacy right; or (d) any dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of those Claims.
             </li>
             <li>
               <b>
@@ -914,7 +1052,15 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Arbitrator
                   </b>
-                  . Any arbitration between you and Nestio will be settled under the Federal Arbitration Act, and governed by the Commercial Dispute Resolution Procedures and the Supplementary Procedures for Consumer Related Disputes (collectively, “AAA Rules”) of the American Arbitration Association (“AAA”), as modified by these Terms, and will be administered by the AAA. The AAA Rules and filing forms are available online at www.adr.org, by calling the AAA at 1-800-778-7879, or by contacting Nestio. The arbitrator has exclusive authority to resolve any dispute relating to the interpretation, applicability, or enforceability of this binding arbitration agreement.
+                  . Any arbitration between you and Nestio will be settled under the Federal Arbitration Act, and governed by the Commercial Dispute Resolution Procedures and the Supplementary Procedures for Consumer Related Disputes (collectively, “
+                  <b>
+                    AAA Rules
+                  </b>
+                  ”) of the American Arbitration Association (“
+                  <b>
+                    AAA
+                  </b>
+                  ”), as modified by these Terms, and will be administered by the AAA. The AAA Rules and filing forms are available online at www.adr.org, by calling the AAA at 1-800-778-7879, or by contacting Nestio. The arbitrator has exclusive authority to resolve any dispute relating to the interpretation, applicability, or enforceability of this binding arbitration agreement.
                 </li>
                 <li>
                   <b>
@@ -969,9 +1115,13 @@ exports[`signed out matches snapshot 1`] = `
                   . These Terms are governed by the laws of the State of New York without regard to conflict of law principles. You and Nestio submit to the personal and exclusive jurisdiction of the state courts and federal courts located within the Southern District of New York for resolution of any lawsuit or court proceeding permitted under these Terms.
                 </li>
                 <li>
-                  <b>
-                    Privacy Practices.
-                  </b>
+                  <a
+                    name="privacy-practices"
+                  >
+                    <b>
+                      Privacy Practices.
+                    </b>
+                  </a>
                   <ol
                     type="a"
                   >
@@ -1022,9 +1172,15 @@ exports[`signed out matches snapshot 1`] = `
           <div
             className="center"
           >
-            <b>
-              Finicity Terms – Linked from Section 9.2
-            </b>
+            <a
+              name="finicity-terms"
+            >
+              <u>
+                <b>
+                  Finicity Terms – Linked from Section 9.2
+                </b>
+              </u>
+            </a>
           </div>
           <p>
             1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA.   You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information.  It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information.  We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
