@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import clsx from 'clsx';
 
 import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
@@ -13,7 +14,7 @@ import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
     },
@@ -25,9 +26,17 @@ const iconRoot = css`
     }
 `
 
-const bold = css`
+const active = css`
     .MuiStepLabel-active {
         font-weight: bold !important;
+    }
+`
+
+const accessible = css`
+    cursor: pointer !important;
+    .Mui-disabled {
+        cursor: pointer !important;
+
     }
 `
 
@@ -62,9 +71,17 @@ export function VerticalLinearStepper(props) {
 
     return (
         <div className={classes.root}>
-            <Stepper variant="dots" activeStep={activeStep} orientation="vertical">
+            <Stepper activeStep={activeStep} orientation="vertical">
                 {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
-                    <Step classes={{root: activeStep === i && bold}} key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={activeStep === i || i === firstUncompletedStep}>
+                    <Step classes={{
+                        root: clsx({
+                            [active]: activeStep === i,
+                            [accessible]: i <= firstUncompletedStep,
+                        })}}
+                        key={route.name}
+                        onClick={(e) => onClickRoute(e, route, i)}
+                        active={i === activeStep || i === firstUncompletedStep}
+                    >
                         <StepLabel icon={' '} completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                     </Step>
                 ))}
