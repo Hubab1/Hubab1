@@ -25,6 +25,12 @@ const iconRoot = css`
     }
 `
 
+const bold = css`
+    .MuiStepLabel-active {
+        font-weight: bold !important;
+    }
+`
+
 const viewProgress = css`
     width: 192px;
     border-radius: 30px !important;
@@ -38,7 +44,6 @@ export function getStepperIndex(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.value === currentRoute) return i;
-        if (route.subRoutes && getStepperIndex(route.subRoutes, currentRoute) !== -1) return i;
     }
     return -1;
 }
@@ -57,10 +62,10 @@ export function VerticalLinearStepper(props) {
 
     return (
         <div className={classes.root}>
-            <Stepper activeStep={activeStep} orientation="vertical">
+            <Stepper variant="dots" activeStep={activeStep} orientation="vertical">
                 {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
-                    <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={!!route.subRoutes || activeStep === i}>
-                        <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
+                    <Step classes={{root: activeStep === i && bold}} key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={activeStep === i || i === firstUncompletedStep}>
+                        <StepLabel icon={' '} completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                     </Step>
                 ))}
                 {!props.applicantStillFinishingApplication &&
