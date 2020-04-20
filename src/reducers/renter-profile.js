@@ -152,6 +152,7 @@ selectors.selectInitialPage = createSelector(
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
+            const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
 
             // eslint-disable-next-line default-case
             switch (profile.status) {
@@ -163,7 +164,7 @@ selectors.selectInitialPage = createSelector(
                     return ROUTES.APP_DENIED;
             }
 
-            if (eventsSet.has(APPLICATION_EVENTS.EVENT_APPLICATION_LEASE_VOIDED)) {
+            if (applicationEvents && applicationEvents.has(APPLICATION_EVENTS.EVENT_APPLICATION_LEASE_VOIDED)) {
                 return ROUTES.LEASE_VOIDED;
             }
 
