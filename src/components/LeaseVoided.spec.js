@@ -7,7 +7,7 @@ import { APPLICATION_EVENTS } from 'app/constants';
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [APPLICATION_EVENTS.EVENT_APPLICATION_LEASE_VOIDED],
+            events: [APPLICATION_EVENTS.MILESTONE_LEASE_VOIDED],
             unit: {
                 unit_number: unitNumber,
             },
