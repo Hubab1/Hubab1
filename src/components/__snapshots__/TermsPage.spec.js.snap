@@ -94,6 +94,7 @@ exports[`signed in matches snapshot 1`] = `
                  and 
                 <ForwardRef
                   target="_blank"
+                  to="/privacy-policy"
                 >
                   Privacy Policy
                 </ForwardRef>
@@ -531,7 +532,14 @@ exports[`signed in matches snapshot 1`] = `
                 >
                   support@nestio.com
                 </a>
-                . You can access a copy of these Terms by clicking here: [TOS link]
+                . You can access a copy of these Terms by clicking here: 
+                <ForwardRef
+                  target="_blank"
+                  to="/terms"
+                >
+                  http://localhost/10/terms
+                </ForwardRef>
+                .
               </li>
               <li>
                 <b>
@@ -721,6 +729,7 @@ exports[`signed out matches snapshot 1`] = `
                    and 
                   <ForwardRef
                     target="_blank"
+                    to="/privacy-policy"
                   >
                     Privacy Policy
                   </ForwardRef>
@@ -1158,7 +1167,14 @@ exports[`signed out matches snapshot 1`] = `
                   >
                     support@nestio.com
                   </a>
-                  . You can access a copy of these Terms by clicking here: [TOS link]
+                  . You can access a copy of these Terms by clicking here: 
+                  <ForwardRef
+                    target="_blank"
+                    to="/terms"
+                  >
+                    http://localhost/10/terms
+                  </ForwardRef>
+                  .
                 </li>
                 <li>
                   <b>
