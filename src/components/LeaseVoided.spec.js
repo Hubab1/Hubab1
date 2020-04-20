@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { LeaseVoided } from './LeaseVoided';
+import { APPLICATION_EVENTS } from 'app/constants';
 
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [],
-            last_event: {event: '90'},
+            events: [APPLICATION_EVENTS.EVENT_APPLICATION_LEASE_VOIDED],
             unit: {
                 unit_number: unitNumber,
             },
