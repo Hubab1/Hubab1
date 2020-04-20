@@ -57,7 +57,10 @@ exports[`signed in matches snapshot 1`] = `
           <b>
             TERMS
           </b>
-          ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
+          ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. 
+          <small>
+            REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
+          </small>
         </p>
         <p>
           Your use of the Service is also subject to any additional terms, conditions and policies that we separately post on the Service and any agreements that you have separately executed with Nestio (“Supplemental Terms”) which are incorporated by reference into these Terms. To the extent there is any conflict between these Terms and the Supplemental Terms, the Supplemental Terms will control with respect to the subject matter of such agreement. For example, if you are a Leasing Professional (as defined below) who has executed an agreement or order form with Nestio (“Customer Agreement”), the terms of that Customer Agreement will control and supersede these Terms with respect to the subject matter of such Customer Agreement.
@@ -692,7 +695,10 @@ exports[`signed out matches snapshot 1`] = `
             <b>
               TERMS
             </b>
-            ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
+            ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. 
+            <small>
+              REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
+            </small>
           </p>
           <p>
             Your use of the Service is also subject to any additional terms, conditions and policies that we separately post on the Service and any agreements that you have separately executed with Nestio (“Supplemental Terms”) which are incorporated by reference into these Terms. To the extent there is any conflict between these Terms and the Supplemental Terms, the Supplemental Terms will control with respect to the subject matter of such agreement. For example, if you are a Leasing Professional (as defined below) who has executed an agreement or order form with Nestio (“Customer Agreement”), the terms of that Customer Agreement will control and supersede these Terms with respect to the subject matter of such Customer Agreement.
