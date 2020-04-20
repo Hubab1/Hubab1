@@ -1,11 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import captureRoute from 'app/captureRoute';
 import { ROUTES } from 'app/constants';
 import { chuck } from 'app/api';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export function PrivacyPolicy() {
+import { ScrollableTermsCardSection, Card, H1 } from 'assets/styles';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
+import { sessionIsValidForCommunityId } from 'utils/misc';
+
+export function PrivacyPolicy(props) {
     const [html, setHtml] = useState(null);
     useEffect(() => {
         fetch(chuck('/privacy-policy')).then((res) => {
@@ -15,13 +20,32 @@ export function PrivacyPolicy() {
         })
     }, [])
     if (!html) return null;
-    return (
-        <div>
-            <div dangerouslySetInnerHTML={{
-                __html: html
-            }}/>
-        </div>
+    const base = (
+        <>
+            <H1>Privacy Policy</H1>
+            <br/>
+            <Card>
+                <ScrollableTermsCardSection>
+                    <div dangerouslySetInnerHTML={{
+                        __html: html
+                    }}/>
+                </ScrollableTermsCardSection>
+            </Card>
+        </>
     );
+    if (props.isSignedIn) {
+        return base;
+    } else {
+        return (
+            <UnauthenticatedPage>
+                {base}
+            </UnauthenticatedPage>
+        );
+    }
 }
 
-export default captureRoute(PrivacyPolicy, ROUTES.PRIVACY_POLICY);
+const mapStateToProps = state => ({
+    isSignedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
+});
+
+export default connect(mapStateToProps)(captureRoute(PrivacyPolicy, ROUTES.PRIVACY_POLICY));
