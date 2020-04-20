@@ -128,10 +128,9 @@ selectors.canAccessRoute = (state, route) => {
      Here contains logic around access permissions for certain pages.
      This is not totally comprehensive.
     */
-
-    // These pages should always be accessible
-    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS].includes(route)) {
-        return true;
+   // These pages should always be accessible
+   if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+       return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
     // check if page was completed

@@ -32,6 +32,7 @@ import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
 import TermsPage from 'components/TermsPage';
 import AppCancelled from 'components/AppCancelled';
+import PrivacyPolicy from 'components/PrivacyPolicy';
 
 export class Main extends Component {
     state = {error: null};
@@ -45,7 +46,10 @@ export class Main extends Component {
         const hasRegistered = clientRegistered || inviteeRegistered;
 
         if (!isAuthenticated) {
-            if (pathname.includes('login') || pathname.includes('signup') || pathname.includes('password') || pathname.includes('payment-terms')) return;
+            if (pathname.includes('login') || pathname.includes('signup') ||
+                pathname.includes('password') || pathname.includes('payment-terms') ||
+                pathname.includes('privacy-policy')
+            ) return;
             if (!configuration.client || !configuration.invitee) {
                 history.replace(ROUTES.WELCOME);
             }
@@ -93,6 +97,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
+                        <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage}/>}
                         {isLoggedIn && <NavDrawer>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />

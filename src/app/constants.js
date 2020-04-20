@@ -36,6 +36,7 @@ export const ROUTES = {
     APP_DENIED: '/application-denied',
     TERMS: '/terms',
     APP_CANCELLED: '/application-cancelled',
+    PRIVACY_POLICY: '/privacy-policy',
 };
 
 export const ROUTE_LABELS = {

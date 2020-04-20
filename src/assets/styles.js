@@ -10,7 +10,7 @@ export const formContent = css`
 `
 
 export const cursor = css`
-    cursor: pointer;
+    cursor: pointer !important;
 `
 
 export const ErrorDetail = styled.div`
