@@ -97,7 +97,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
-                        <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                        {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage}/>}
                         {isLoggedIn && <NavDrawer>
                             <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
@@ -116,6 +116,7 @@ export class Main extends Component {
                             <Route path={ROUTES.APP_DENIED} component={AppDenied}/>
                             <Route path={ROUTES.APP_CANCELLED} component={AppCancelled}/>
                             <Route path={ROUTES.TERMS} component={TermsPage}/>
+                            <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                         </NavDrawer>}
                     </Switch>
                 </div>
