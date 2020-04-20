@@ -37,6 +37,7 @@ export const ROUTES = {
     TERMS: '/terms',
     APP_CANCELLED: '/application-cancelled',
     LEASE_VOIDED: '/lease-voided',
+    PRIVACY_POLICY: '/privacy-policy',
 };
 
 export const ROUTE_LABELS = {

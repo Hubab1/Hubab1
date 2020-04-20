@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
@@ -12,6 +13,7 @@ import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { allValuesSet } from 'utils/formik';
+import { ROUTES } from 'app/constants';
 
 const linkContainer = css`
     text-align: left !important;
@@ -148,7 +150,10 @@ export default ({
                             checked={values.disclaimer}
                             value={values.disclaimer}
                             error={errors.disclaimer}
-                            label="Opt in to SMS communication regarding this application. Your information will not be shared with anyone. Privacy Policy"
+                            label={
+                                <>Opt in to SMS communication regarding this application. Your information will not be shared with anyone. <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>Privacy Policy</Link>
+                                </>
+                            }
                         />
                     }
                     { resetPassword &&

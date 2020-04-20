@@ -131,10 +131,22 @@ describe('mountNavigation', () => {
 
         const wrapper = shallow( <Main {...defaultProps} location={location} history={history}/>);
         const isAuthenticated = false;
-        const configuration = {}; 
+        const configuration = {};
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
-        expect(historyStub).toHaveBeenCalledTimes(0); 
+        expect(historyStub).toHaveBeenCalledTimes(0);
+    });
+    it('does not reroute if path is privacy-policy', function() {
+        const location = {pathname: "/privacy-policy", search: "", hash: "", state: undefined};
+        const historyStub = jest.fn();
+        const history = { push: historyStub, replace: historyStub }
+
+        const wrapper = shallow( <Main {...defaultProps} location={location} history={history}/>);
+        const isAuthenticated = false;
+        const configuration = {};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+
+        expect(historyStub).toHaveBeenCalledTimes(0);
     });
 
 });

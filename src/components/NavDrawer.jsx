@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
+import { css } from 'emotion';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -65,8 +66,14 @@ const useStyles = makeStyles(theme => ({
     logout: {
         fontWeight: 600,
         'text-transform': 'none'
-    }
+    },
 }));
+
+const links = css`
+  > a:not(:last-child) {
+      margin-right: 20px;
+  }
+`
 
 
 export function PersistentDrawerLeft(props) {
@@ -143,7 +150,10 @@ export function PersistentDrawerLeft(props) {
                     <Divider />
                     <Box display="flex" justifyContent="space-between" alignItems="center" padding="0 15px">
                         <Button onClick={logout} classes={{root: classes.logout}}>Logout</Button>
-                        <Link to={ROUTES.TERMS}>Terms of Use</Link>
+                        <div className={links}>
+                            <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>Privacy</Link>
+                            <Link to={ROUTES.TERMS}>Terms of Use</Link>
+                        </div>
                     </Box>
                 </div>
             </Drawer>

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import clsx from 'clsx';
 
 import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
@@ -13,7 +14,7 @@ import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
     },
@@ -22,6 +23,20 @@ const iconRoot = css`
     align-items: flex-start !important;
     .appCompletedMsg {
         color: #828796;
+    }
+`
+
+const active = css`
+    .MuiStepLabel-active {
+        font-weight: bold !important;
+    }
+`
+
+const accessible = css`
+    cursor: pointer !important;
+    .Mui-disabled {
+        cursor: pointer !important;
+
     }
 `
 
@@ -38,7 +53,6 @@ export function getStepperIndex(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.value === currentRoute) return i;
-        if (route.subRoutes && getStepperIndex(route.subRoutes, currentRoute) !== -1) return i;
     }
     return -1;
 }
@@ -59,8 +73,16 @@ export function VerticalLinearStepper(props) {
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
                 {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
-                    <Step key={route.name} onClick={(e) => onClickRoute(e, route, i)} active={!!route.subRoutes || activeStep === i}>
-                        <StepLabel completed={i < firstUncompletedStep}>{route.name}</StepLabel>
+                    <Step classes={{
+                        root: clsx({
+                            [active]: activeStep === i,
+                            [accessible]: i <= firstUncompletedStep,
+                        })}}
+                        key={route.name}
+                        onClick={(e) => onClickRoute(e, route, i)}
+                        active={i === activeStep || i === firstUncompletedStep}
+                    >
+                        <StepLabel icon={' '} completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                     </Step>
                 ))}
                 {!props.applicantStillFinishingApplication &&
