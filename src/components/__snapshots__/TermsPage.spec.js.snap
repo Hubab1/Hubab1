@@ -3,7 +3,7 @@
 exports[`signed in matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Terms and Conditions
+    Nestio Terms of Service
   </ForwardRef(render)>
   <br />
   <ForwardRef(render)>
@@ -11,15 +11,6 @@ exports[`signed in matches snapshot 1`] = `
       <div
         className="tos-container"
       >
-        <div
-          className="center"
-        >
-          <b>
-            Nestio Terms of Service
-          </b>
-          <br />
-          <br />
-        </div>
         <em>
           Last Updated: March 19, 2020
         </em>
@@ -641,7 +632,7 @@ exports[`signed out matches snapshot 1`] = `
 <UnauthenticatedPage>
   <React.Fragment>
     <ForwardRef(render)>
-      Terms and Conditions
+      Nestio Terms of Service
     </ForwardRef(render)>
     <br />
     <ForwardRef(render)>
@@ -649,15 +640,6 @@ exports[`signed out matches snapshot 1`] = `
         <div
           className="tos-container"
         >
-          <div
-            className="center"
-          >
-            <b>
-              Nestio Terms of Service
-            </b>
-            <br />
-            <br />
-          </div>
           <em>
             Last Updated: March 19, 2020
           </em>

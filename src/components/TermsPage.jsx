@@ -18,14 +18,11 @@ export function TermsPage (props) {
     
     const base = (
         <>
-            <H1>Terms and Conditions</H1>
+            <H1>Nestio Terms of Service</H1>
             <br/>
             <Card>
                 <ScrollableTermsCardSection>
                     <div className="tos-container">
-                    <div className="center">
-                        <b>Nestio Terms of Service</b><br/><br/>
-                    </div>
                     <em>Last Updated: March 19, 2020</em>
                     <p>Welcome, and thank you for your interest in Nestio, Inc. (“<b>Nestio</b>,” “<b>we</b>,” or “<b>us</b>”) and our website at <a target="_blank" rel="noopener noreferrer" href="https://www.nestio.com/">https://www.nestio.com/</a>, and other services provided by us (collectively, the “Service”). These Terms of Service are a legally binding contract between you and Nestio regarding your use of the Service.</p>
                     <b>PLEASE READ THE FOLLOWING TERMS CAREFULLY.</b>
