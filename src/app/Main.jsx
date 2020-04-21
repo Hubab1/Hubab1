@@ -47,7 +47,7 @@ export class Main extends Component {
 
         if (!isAuthenticated) {
             if (pathname.includes('login') || pathname.includes('signup') ||
-                pathname.includes('password') || pathname.includes('payment-terms') ||
+                pathname.includes('password') || pathname.includes('terms') ||
                 pathname.includes('privacy-policy')
             ) return;
             if (!configuration.client || !configuration.invitee) {
