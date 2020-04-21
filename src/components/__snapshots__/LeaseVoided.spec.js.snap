@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    We're Revising Your Lease
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    We voided your lease because we're making some corrections. Don't worry, we'll have the new lease ready soon!
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="leaseVoided.png"
+  />
+  <div
+    className="css-lygmaw"
+    id="application-unit"
+  >
+    Fake Building
+     Unit 2B
+  </div>
+  <ForwardRef(render)
+    bold={true}
+    margin="90px 0 0 0"
+  >
+    Call us at 
+    <a
+      href="tel:1234445510"
+    >
+      123-444-5510
+    </a>
+     if you have any questions.
+  </ForwardRef(render)>
+</React.Fragment>
+`;
