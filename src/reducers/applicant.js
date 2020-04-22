@@ -45,20 +45,14 @@ export const fetchApplicant = () => {
 export const updateApplicant = (newData) => {
     return dispatch => {
         if (MOCKY) {
-            dispatch({
-                type: applicantUpdated.toString(),
-                payload: newData
-            });
+            dispatch(applicantUpdated(newData));
             return Promise.resolve({});
         }
         return API.putApplicant(newData).then(res => {
             if (res.errors) {
                 return res
             }
-            return dispatch({
-                type: applicantUpdated.toString(),
-                payload: res
-            });
+            return dispatch(applicantUpdated(res));
         })
     }
 };
