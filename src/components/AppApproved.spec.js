@@ -4,15 +4,6 @@ import { AppApproved } from './AppApproved';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
 
-jest.mock('hellosign-embedded', () => {
-    class HelloSign {
-        open = () => {}
-        on = () => {}
-    }
-    return HelloSign;
-});
-
-
 var mockhsclient;
 jest.mock('utils/hsclient', () => {
     class HSclient {
