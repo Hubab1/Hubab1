@@ -1,19 +1,21 @@
 import React from 'react';
-import HelloSign from 'hellosign-embedded';
 import styled from '@emotion/styled';
 import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
-import { ROUTES, HELLOSIGN_TEST_MODE, HELLOSIGN_CLIENT_ID, MILESTONE_LEASE_SENT } from 'app/constants';
+import hsclient from 'utils/hsclient';
+import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { H1, leftText, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
+import { useEffect } from 'react';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;
@@ -45,7 +47,23 @@ export const gridContainer = css`
     min-height: 100px;
 `;
 
-export const AppApproved = ({profile, configuration, history}) => {
+export const AppApproved = ({profile, configuration, history, applicantUpdated}) => {
+    useEffect(()=>{
+        hsclient.on('sign', async () => {
+            // ensure FE has the applicant signed milestone before navigating to next screen
+            const newApplicant = await API.fetchApplicant();
+            const leaseSignedMilestone = newApplicant.events.find(e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE));
+            if (!leaseSignedMilestone) {
+                newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, milestone: true});
+            }
+            applicantUpdated(newApplicant);
+            history.push(ROUTES.LEASE_SIGNED);
+        });
+        return () => {
+            hsclient.off('sign');
+        }
+    }, [applicantUpdated, history]);
+
     if (!profile || ! configuration) return null;
 
     const {
@@ -57,19 +75,13 @@ export const AppApproved = ({profile, configuration, history}) => {
     const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
 
     const openEmbeddedSigning = async () => {
-        const client = new HelloSign({
-            clientId: HELLOSIGN_CLIENT_ID,
-        });
         const data = await API.embeddedSigningUrl();
         if (data.url) {
-            client && client.open(data.url, {
+            hsclient.open(data.url, {
                 testMode: HELLOSIGN_TEST_MODE,
                 skipDomainVerification: HELLOSIGN_TEST_MODE,
             });
         }
-        client.on('sign', () => {
-            history.push(ROUTES.LEASE_SIGNED);
-        });
     }
     const leaseSent = !!profile.events.find(e => String(e.event) === String(MILESTONE_LEASE_SENT));
 
@@ -112,12 +124,18 @@ export const AppApproved = ({profile, configuration, history}) => {
 AppApproved.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
+    updateApplicant: PropTypes.object,
 };
 
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
+    applicant: state.applicant,
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
+const mapDispatchToProps = {
+    applicantUpdated
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));

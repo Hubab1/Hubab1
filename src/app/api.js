@@ -1,7 +1,6 @@
 import auth from 'utils/auth';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
-
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 export function chuck(path) {

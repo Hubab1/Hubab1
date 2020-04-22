@@ -4,12 +4,21 @@ import { AppApproved } from './AppApproved';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
 
-jest.mock('hellosign-embedded', () => {
-    class HelloSign {
+var mockhsclient;
+jest.mock('utils/hsclient', () => {
+    class HSclient {
+        events = {};
         open = () => {}
-        on = () => {}
+        on = (name, cb) => {
+            this.events[name] = cb;
+        }
+        _trigger = (name) => {
+            this.events[name]();
+        }
     }
-    return HelloSign;
+    ;
+    mockhsclient = new HSclient();
+    return mockhsclient;
 });
 
 
@@ -27,6 +36,10 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
                 normalized_street_address: streetAddress,
             }
         },
+        history: {
+            push: jest.fn()
+        },
+        applicantUpdated: jest.fn()
     }
 };
 
@@ -34,6 +47,7 @@ describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
         API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test'});
+        API.fetchApplicant = jest.fn().mockReturnValue({events: []});
         const wrapper = shallow(<AppApproved {...props} />);
         wrapper.find(ActionButton).simulate('click');
         expect(API.embeddedSigningUrl).toHaveBeenCalled();
