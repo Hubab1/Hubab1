@@ -25,7 +25,7 @@ export const buttonsContainer = css`
 export function LeaseSigned(props) {
     const [url, setUrl] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState(false);
     const [retried, setRetried] = useState(false);
 
     const fetchLeaseDocumentUrl = async ()=>{
