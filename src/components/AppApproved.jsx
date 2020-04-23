@@ -57,7 +57,8 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated})
                 newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, milestone: true});
             }
             applicantUpdated(newApplicant);
-            history.push(ROUTES.LEASE_SIGNED);
+            // adds a small delay to ensure the lease document is ready for review before navigating
+            setTimeout(()=>history.push(ROUTES.LEASE_SIGNED), 3500);
         });
         return () => {
             hsclient.off('sign');
