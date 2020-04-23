@@ -9,7 +9,7 @@ import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
 // import { ROUTES } from 'app/constants';
-import GenericFormMessage from 'components/common/GenericFormMessage';  
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
