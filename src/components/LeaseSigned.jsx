@@ -10,6 +10,7 @@ import contract from 'assets/images/contract.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -22,16 +23,42 @@ export const buttonsContainer = css`
 `;
 
 export function LeaseSigned(props) {
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(true);
+    const [retried, setRetried] = useState(false);
+
+    const fetchLeaseDocumentUrl = async ()=>{
+        setLoading(true);
+        const response = await API.leaseDocumentUrl();
+        setUrl(response ? response.url : undefined);
+        setError(response.url ? undefined : 'Lease document is still processing. Please try again later.')
+        setLoading(false);
+    };
+
     useEffect(() => {
-        (async ()=>{
-            const response = await API.leaseDocumentUrl();
-            setUrl(response.url);
-        })();
+        fetchLeaseDocumentUrl();
     }, [])
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;
+
+    const onClick = () => {
+        if (!url) {
+            setRetried(true);
+            fetchLeaseDocumentUrl();
+        }
+    }
+
+    const getButtonText = () => {
+        if (loading) {
+            return 'Loading...';
+        }
+        if (url) {
+            return 'View Lease';
+        }
+        return 'Retrieve Lease...';
+    }
 
     return (
         <>
@@ -42,8 +69,9 @@ export function LeaseSigned(props) {
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={buttonsContainer}>
-                <ActionButton href={url} marginTop={30} variant="outlined">
-                    View Lease
+                {retried && !!error && <GenericFormMessage type="error" messages={error}/>}
+                <ActionButton disabled={loading} onClick={url ? undefined : onClick} href={url} marginTop={30} variant="outlined">
+                    {getButtonText()}
                 </ActionButton>
             </div>
         </>
