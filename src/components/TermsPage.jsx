@@ -8,11 +8,20 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, Card, ScrollableTermsCardSection } from 'assets/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { sessionIsValidForCommunityId } from 'utils/misc';
+import { TOS_TYPE_NESTIO } from 'app/constants';
 
 
 export function TermsPage (props) {
     function onAgree () {
-        localStorage.setItem(`accepted-terms-${props.leaseSettingsId}`, true);
+        const currentDatetime = new Date();
+        const generalTerms = {
+            type: TOS_TYPE_NESTIO,
+            context: {
+                time: currentDatetime.toUTCString(),
+                lease_settings: props.leaseSettingsId,
+            },
+        };
+        localStorage.setItem(`accepted-terms-${props.leaseSettingsId}`, JSON.stringify(generalTerms));
         props.history.push(ROUTES.SIGNUP);
     }
     

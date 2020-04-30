@@ -52,7 +52,9 @@ export class RegisterPage extends React.Component {
         const { history, hash } = this.props;
 
         const serialized = Object.assign({}, values);
-        serialized.birthday = serializeDate(serialized.birthday);	
+        serialized.birthday = serializeDate(serialized.birthday);
+        serialized.terms_of_service_acceptance =
+            JSON.parse(localStorage.getItem(`accepted-terms-${this.props.leaseSettingsId}`));
 
         // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
         // particularly need this for guarantor and co-applicant to associate with existing application
