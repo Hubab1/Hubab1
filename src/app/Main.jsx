@@ -34,6 +34,7 @@ import TermsPage from 'components/TermsPage';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
+import UnitUnavailable from 'components/UnitUnavailable';
 
 export class Main extends Component {
     state = {error: null};
@@ -119,6 +120,7 @@ export class Main extends Component {
                             <Route path={ROUTES.TERMS} component={TermsPage}/>
                             <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                             <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                            <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
                         </NavDrawer>}
                     </Switch>
                 </div>

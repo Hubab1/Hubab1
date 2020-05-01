@@ -151,6 +151,7 @@ selectors.selectInitialPage = createSelector(
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && applicant && profile) {
+            return ROUTES.UNIT_UNAVAILABLE;
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
 
