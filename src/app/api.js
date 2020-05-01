@@ -112,6 +112,16 @@ API.register = (data, leaseSettingsId, hash) => {
     }).then(res => res.json());
 };
 
+API.acceptTerms = (data) => {
+    return fetch(chuck('/terms-accepted/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+};
+
 API.passwordResetRequest = (phone_number, lease_settings_id) => {
     return fetch(chuck('/password-reset/'), {
         method: 'POST',
