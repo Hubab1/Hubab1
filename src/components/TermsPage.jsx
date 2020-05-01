@@ -13,11 +13,10 @@ import { TOS_TYPE_NESTIO } from 'app/constants';
 
 export function TermsPage (props) {
     function onAgree () {
-        const currentDatetime = new Date();
         const generalTerms = {
             type: TOS_TYPE_NESTIO,
             context: {
-                time: currentDatetime.toUTCString(),
+                time: Date.now(),
                 lease_settings: props.leaseSettingsId,
             },
         };
