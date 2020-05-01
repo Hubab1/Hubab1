@@ -20,7 +20,7 @@ export function TermsPage (props) {
                 lease_settings: props.leaseSettingsId,
             },
         };
-        localStorage.setItem(`accepted-terms-${props.leaseSettingsId}`, JSON.stringify(generalTerms));
+        localStorage.setItem(`accepted-platform-terms-${props.leaseSettingsId}`, JSON.stringify(generalTerms));
         props.history.push(ROUTES.SIGNUP);
     }
     

@@ -32,8 +32,8 @@ describe('signed out', () => {
         it('sets localStorage and navigates', () => {
             const wrapper = shallow(<TermsPage {...defaultProps} isSignedIn={false}/>);
             wrapper.find(ActionButton).simulate('click');
-            expect(global.localStorage.getItem('accepted-terms-10')).toBeTruthy();
-            const acceptedTerms = JSON.parse(global.localStorage.getItem('accepted-terms-10'));
+            expect(global.localStorage.getItem('accepted-platform-terms-10')).toBeTruthy();
+            const acceptedTerms = JSON.parse(global.localStorage.getItem('accepted-platform-terms-10'));
             expect(acceptedTerms.type).toEqual(TOS_TYPE_NESTIO);
             expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.SIGNUP);
         });
