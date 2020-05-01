@@ -142,4 +142,4 @@ export const RENTER_PROFILE_TYPE_PARKING = 'parking';
 export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 
 // Accepted Terms Of Service Constants
-export const TOS_TYPE_NESTIO = 5;
+export const TOS_TYPE_NESTIO = 'TOS_TYPE_NESTIO';
