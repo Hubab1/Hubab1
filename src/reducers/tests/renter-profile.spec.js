@@ -186,6 +186,21 @@ describe('selectInitialPage', () => {
                 enable_automatic_income_verification: true,
             },
             renterProfile: {
+                unit_available: false,
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}]}
+        });
+        expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
                 co_applicants: null,
                 guarantor: null,
                 pets: null,

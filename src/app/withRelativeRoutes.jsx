@@ -48,7 +48,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                         return this.props.history.push(this.props._next)
                     }
                 }}
-                _prevRoute={()=> this.props.history.push(this.props._prev)}
+                _prevRoute={()=>this.props.history.push(this.props._prev)}
             />;
         }
     };
