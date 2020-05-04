@@ -36,7 +36,7 @@ export const UnitUnavailable = ({profile, configuration}) => {
                 <P>Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!</P>
                 <br/>
                 <P bold>Call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
-                    &nbsp;if you have any questions or if you’d like to start a new application.
+                    &nbsp;so we can discuss other options.
                 </P>
             </div>
         </>
