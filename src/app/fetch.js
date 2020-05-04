@@ -3,20 +3,11 @@ import { ROUTES } from 'app/constants';
 
 export default async (...args) => {
     const res = await fetch(...args);
-    const s = store;
-    if (res.status === 401 && !window.location.href.includes('/login')) {
-        try {
-            const json = await res.json();
-            if (json.error_type === 'TokenExpiredError') {
-                localStorage.clear();
-                store.dispatch(actions.logout());
-                window.location.href = `${window.location.origin}/${s.getState().siteConfig.basename}${ROUTES.LOGIN}`;
-                
-            }
-        } catch (e) {
-            debugger;
-        }
-        debugger;
+    if (res.headers.get('error_type') === 'TokenExpiredError' && (localStorage.access_token || !window.location.href.includes('/login'))) {
+        localStorage.clear();
+        store.dispatch(actions.logout());
+        window.location.href = `${window.location.origin}/${store.getState().siteConfig.basename}${ROUTES.LOGIN}`;
+        return Promise.reject('TokenExpiredError');
     }
     return res;
 }
