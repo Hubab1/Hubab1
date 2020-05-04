@@ -7,6 +7,7 @@ import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
+import { ROUTES } from 'app/constants';
 
 export default function withRelativeRoutes(WrappedComponent, route) {
     class Component extends React.Component {
@@ -36,14 +37,18 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         render() {
             if (this.blockRender) return null;
             return <WrappedComponent {...this.props}
-                _nextRoute={()=>{
+                _nextRoute={async ()=>{
                     if (!MOCKY) {
                         this.props.fetchApplicant();
-                        this.props.fetchRenterProfile();
+                        await this.props.fetchRenterProfile();
                     }
-                    return this.props.history.push(this.props._next)
+                    if (this.props.unitAvailable === false) {
+                        return this.props.history.push(ROUTES.UNIT_UNAVAILABLE)
+                    } else {
+                        return this.props.history.push(this.props._next)
+                    }
                 }}
-                _prevRoute={()=>this.props.history.push(this.props._prev)} 
+                _prevRoute={()=> this.props.history.push(this.props._prev)}
             />;
         }
     };
@@ -56,6 +61,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         _next: selectors.selectNextRoute(state),
         _prev: selectors.selectPrevRoute(state),
         initialPage: selectors.selectInitialPage(state),
+        unitAvailable: state.renterProfile?.unit_available,
         selectApplicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
     });
 

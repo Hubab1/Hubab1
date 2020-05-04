@@ -151,7 +151,6 @@ selectors.selectInitialPage = createSelector(
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && applicant && profile) {
-            return ROUTES.UNIT_UNAVAILABLE;
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
 
@@ -178,6 +177,10 @@ selectors.selectInitialPage = createSelector(
                 case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
                 case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
                     return ROUTES.APP_APPROVED;
+            }
+
+            if (profile.unit_available === false) {
+                return ROUTES.UNIT_UNAVAILABLE;
             }
 
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
