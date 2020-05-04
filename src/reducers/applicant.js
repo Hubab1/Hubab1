@@ -37,7 +37,9 @@ export const fetchApplicant = () => {
         } else {
             applicant = await API.fetchApplicant();
         }
-        dispatch(applicantReceived(applicant));
+        if (localStorage.hasOwnProperty('access_scope')) {
+            dispatch(applicantReceived(applicant));
+        }
         return applicant
     }
 };
