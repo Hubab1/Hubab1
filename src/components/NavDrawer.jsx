@@ -92,7 +92,7 @@ export function PersistentDrawerLeft(props) {
     function logout () {
         localStorage.clear();
         props.logout();
-        props.history.push(ROUTES.LOGIN)
+        props.history.push(ROUTES.LOGIN);
     }
     if (!props.applicant) return null;
     const { name, email } = props.applicant.client.person;
