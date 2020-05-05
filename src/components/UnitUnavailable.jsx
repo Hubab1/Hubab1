@@ -12,7 +12,6 @@ import { prettyFormatPhoneNumber } from 'utils/misc';
 
 export const Img = styled.img`
     padding-top: 10px;
-    height: 200px;
     margin-bottom: 76px;
 `;
 
@@ -30,7 +29,7 @@ export const UnitUnavailable = ({profile, configuration}) => {
     return (
         <>
             <H1>Someone Beat You To It!</H1>
-            <SpacedH3>Sorry, unit {profile.unit.unit_number} is no longer available</SpacedH3>
+            <SpacedH3>Sorry, unit {profile.unit.unit_number} is no longer available.</SpacedH3>
             <Img src={tooslow}/>
             <div className="align-left">
                 <P>Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!</P>
