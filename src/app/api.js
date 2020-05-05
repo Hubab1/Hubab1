@@ -1,4 +1,5 @@
 import auth from 'utils/auth';
+import fetch from 'app/fetch';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
@@ -21,6 +22,10 @@ const API = {};
 
 API.fetchConfiguration = (communityId) => {
     return getWithHeaders(CHUCK_BASE_LEASE_SETTINGS(communityId));
+};
+
+API.fetchPrivacyPolicy = (communityId) => {
+    return fetch(chuck('/privacy-policy'));
 };
 
 API.fetchPersonalizedInfo = (communityId, hash) => {
