@@ -43,6 +43,14 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
     }
 };
 
+it('displays some legal words about the lease', () => {
+    const props = buildProps('Fake Building', '123 Fake Street', null);
+    API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test'});
+    API.fetchApplicant = jest.fn().mockReturnValue({events: []});
+    const wrapper = shallow(<AppApproved {...props} />);
+    expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
+})
+
 describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);

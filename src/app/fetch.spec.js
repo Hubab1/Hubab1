@@ -1,18 +1,5 @@
 import myFetch from './fetch';
 
-jest.mock('reducers/store', () => ({
-    __esModule: true,
-    default: {
-        dispatch: ()=>{},
-        getState: () => ({
-            siteConfig: {
-                basename: 2
-            }
-        })
-    },
-    actions: {logout: jest.fn()},
-  }));
-
 describe('token expired', () => {
     beforeEach(() => {
         delete global.window.location;
@@ -21,8 +8,9 @@ describe('token expired', () => {
             port: '123',
             protocol: 'https:',
             hostname: 'localhost',
-            href: 'dummy',
-            origin: 'https://apply.funnelleasing.com'
+            href: 'https://apply.funnelleasing.com/2/profile',
+            origin: 'https://apply.funnelleasing.com',
+            pathname: '/2/profile'
         };
         global.fetch = jest.fn().mockReturnValue({
             headers: { get: jest.fn().mockReturnValue('TokenExpiredError') }
@@ -56,8 +44,9 @@ describe('token not expired', () => {
             port: '123',
             protocol: 'https:',
             hostname: 'localhost',
-            href: 'dummy',
-            origin: 'https://apply.funnelleasing.com'
+            href: 'https://apply.funnelleasing.com/2/profile',
+            origin: 'https://apply.funnelleasing.com',
+            pathname: '/2/profile'
         };
         global.fetch = jest.fn().mockReturnValue({
             headers: { get: jest.fn().mockReturnValue('') }
@@ -69,6 +58,7 @@ describe('token not expired', () => {
         myFetch().then(() => {
             expect(localStorage.getItem('access_token')).toBe('fakeaccesstoken');
             expect(global.location.href).not.toBe('https://apply.funnelleasing.com/2/login');
+            expect(global.location.href).toBe('https://apply.funnelleasing.com/2/profile');
         });
     });
 });

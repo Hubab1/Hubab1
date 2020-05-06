@@ -61,7 +61,7 @@ export const PrimarySpan = withTheme((props) => {
 })
 
 export const P = styled.p(props => ({
-    fontWeight: props.bold ? 600 : 400,
+    fontWeight: props.fontWeight ? props.fontWeight : props.bold ? 600 : 400,
     fontSize: props.fontSize ? props.fontSize : 16,
     margin: props.margin ? props.margin : 0,
     marginTop: props.bottomAligned && 'auto',
@@ -69,6 +69,7 @@ export const P = styled.p(props => ({
     textDecoration: props.decoration || 'none',
     overflow: props.overflow || 'auto',
     padding: props.padding || 0,
+    textAlign: props.textAlign || 'inherit',
 }))
 
 

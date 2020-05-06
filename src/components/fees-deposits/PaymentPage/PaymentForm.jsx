@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
@@ -13,6 +14,8 @@ import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import { formatCurrency } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
+import { P } from 'assets/styles';
+import { ROUTES } from 'app/constants';
 
 
 export class PaymentForm extends React.Component {
@@ -92,8 +95,12 @@ export class PaymentForm extends React.Component {
                         />
                     </Grid>
                 </Grid>
+                <P textAlign="left" fontSize={12} margin="37px 0 0 0" color="#000000">
+                    Stripe and its affiliates will be processing this transaction for Nestio.
+                    Please see Nestio's <Link to={ROUTES.TERMS} target="_blank">terms of service</Link> for more information.
+                </P>
                 <ActionButton 
-                    marginTop={25}
+                    marginTop={35}
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >

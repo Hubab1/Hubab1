@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Box from '@material-ui/core/Box';
 
 import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
@@ -11,7 +12,7 @@ import hsclient from 'utils/hsclient';
 import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
-import { H1, leftText, SpacedH3 } from 'assets/styles';
+import { P, H1, leftText, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
@@ -43,8 +44,10 @@ export const securityDepositHelpText = css`
 `;
 
 export const gridContainer = css`
-    padding-top: 35px;
     min-height: 100px;
+`;
+export const securityDepositTip = css`
+    margin-top: 28px;
 `;
 
 export const AppApproved = ({profile, configuration, history, applicantUpdated}) => {
@@ -57,8 +60,8 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated})
                 newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, milestone: true});
             }
             applicantUpdated(newApplicant);
-            // adds a small delay to ensure the lease document is ready for review before navigating
-            setTimeout(()=>history.push(ROUTES.LEASE_SIGNED), 3500);
+            // lease may not be ready by the time of navigation to the lease signed page
+            setTimeout(()=>history.push(ROUTES.LEASE_SIGNED), 2500);
         });
         return () => {
             hsclient.off('sign');
@@ -99,7 +102,7 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated})
             <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
             <div className={gridContainer}>
                 {securityDeposit &&
-                <Grid container justify={'center'} className="security-deposit-container">
+                <Grid classes={{root: securityDepositTip}} container justify={'center'} className="security-deposit-container" marginTop={35}>
                     <Grid item xs={2}>
                         <BulbImage alt="light bulb" src={lightbulb} />
                     </Grid>
@@ -113,9 +116,16 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated})
                 </Grid>}
                 {
                     leaseSent &&
-                    <ActionButton onClick={openEmbeddedSigning} marginTop={securityDeposit ? 30 : 90}>
-                        Review &amp; Sign Lease
-                    </ActionButton>
+                    <Box margin="28px 0 0 0">
+                        <P textAlign="left" fontSize={12} color="#000000">
+                            The lease linked below constitutes a legal agreement between you and Landlord.
+                            Nestio does not provide legal advice, and we recommend that you consult your legal
+                            counsel before accepting these terms.
+                        </P>
+                        <ActionButton onClick={openEmbeddedSigning} marginTop={30}>
+                            Review &amp; Sign Lease
+                        </ActionButton>
+                    </Box>
                 }
             </div>
         </>
