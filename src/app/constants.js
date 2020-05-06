@@ -38,6 +38,7 @@ export const ROUTES = {
     APP_CANCELLED: '/application-cancelled',
     LEASE_VOIDED: '/lease-voided',
     PRIVACY_POLICY: '/privacy-policy',
+    UNIT_UNAVAILABLE: '/unit-unavailable',
 };
 
 export const ROUTE_LABELS = {
@@ -142,4 +143,6 @@ export const RENTER_PROFILE_TYPE_PARKING = 'parking';
 export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 
 // Accepted Terms Of Service Constants
-export const TOS_TYPE_PAYMENTS = 15;
+export const TOS_TYPE_PAYMENTS = 'TOS_TYPE_PAYMENTS';
+export const TOS_TYPE_NESTIO = 'TOS_TYPE_NESTIO';
+

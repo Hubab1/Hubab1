@@ -179,6 +179,10 @@ selectors.selectInitialPage = createSelector(
                     return ROUTES.APP_APPROVED;
             }
 
+            if (profile.unit_available === false) {
+                return ROUTES.UNIT_UNAVAILABLE;
+            }
+
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
                 return ROUTES.APP_COMPLETE;
             }
