@@ -16,6 +16,10 @@ beforeEach(() => {
     }
 })
 
+it('Shows a messsage about stripe processing', function() {
+    const wrapper = shallow( <PaymentForm {...defaultProps}/> );
+    expect(wrapper.text()).toContain('Stripe and its affiliates will be processing this transaction');
+});
 it('handleSubmit sets paymentSuccess to true on Success', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 

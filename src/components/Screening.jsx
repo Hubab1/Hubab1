@@ -147,7 +147,8 @@ export class Screening extends React.Component {
                                     checked={values.disclaimer}
                                     value={values.disclaimer}
                                     error={errors.disclaimer}
-                                    label={`I understand that my personal information may be used to evaluate my eligibility for renting an apartment and I authorize ${this.props.buildingName} to request a consumer report.`}
+                                    label="I authorize Nestio to obtain, on behalf of Landlord,
+                                        a background check on me in connection with my rental application."
                                 />
                                 <ActionButton disabled={(!values.ssn && values.requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit
