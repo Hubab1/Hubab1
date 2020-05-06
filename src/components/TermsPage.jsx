@@ -17,7 +17,6 @@ export function TermsPage (props) {
             type: TOS_TYPE_NESTIO,
             context: {
                 time: Date.now(),
-                lease_settings: props.leaseSettingsId,
             },
         };
         localStorage.setItem(`accepted-platform-terms-${props.leaseSettingsId}`, JSON.stringify(generalTerms));

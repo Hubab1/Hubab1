@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { css } from 'emotion';
 import get from 'lodash/get';
 
-import { ROUTES, REPORT_POLL_INTERVAL, APPLICATION_EVENTS } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL, APPLICATION_EVENTS, TOS_TYPE_PAYMENTS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
@@ -134,6 +134,19 @@ export class ConnectBankPage extends React.Component {
                     },
                     loaded: () => {
                         console.log('iframe has loaded')
+                    },
+                    route: function(event) {
+                        if (event.data && event.data.screen === 'Search') {
+                            const body = {
+                                type: TOS_TYPE_PAYMENTS,
+                                context: {
+                                    time: Date.now(),
+                                }
+                            };
+                            API.acceptTerms(body).catch(() => {
+                                this.setState({showFinicityIframe: false, errors: ['There was an error accepting the terms of use. Please try again.'], loadingFinicityIframe: false});
+                            })
+                        }
                     },
                 })
             );
