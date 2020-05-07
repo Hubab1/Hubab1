@@ -263,15 +263,4 @@ API.getCurrentFlatQuote = (data) => {
     });
 }
 
-API.getDenialDecisionDetails = () => {
-    return fetch(chuck('/applicant/denial-decision/'), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`
-        },
-    }).then(res => {
-        return res.json()
-    });
-}
-
 export default API;
