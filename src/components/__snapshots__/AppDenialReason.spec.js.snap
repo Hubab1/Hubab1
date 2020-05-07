@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches Snapshot 1`] = `
+<div>
+  <ForwardRef(render)>
+    <ForwardRef(render)>
+      Reason for Our Decision
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Adverse action notice
+    </ForwardRef(render)>
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    <ForwardRef(render)
+      color="#818797"
+    >
+      5/6/2020
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Dear 
+      John Doe
+      ,
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Thank you for your recent rental application for 
+      Monterey Pines Apartments
+      <React.Fragment>
+        ,
+      </React.Fragment>
+      Unit 14F
+      .
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Unfortunately, we are unable to approve your rental application.
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      In evaluating your application, 
+      <b>
+        TransUnion Consumer Solutions
+      </b>
+       provided us with information that in whole or in part influenced our decision. 
+      <b>
+        The reporting agency played no part in our decision other than providing us with information about you.
+      </b>
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Under the Fair Credit Reporting Act, you have the right to know the information provided to us, which can be obtained by contacting:
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      <b>
+        TransUnion Consumer Solutions
+      </b>
+      <br />
+      P.O. Box 2000
+      <br />
+      Chester, PA. 19022-2000
+      <br />
+      <a
+        href="tel:1-800-916-8800"
+      >
+        1-800-916-8800
+      </a>
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      Background Data Solutions
+      <br />
+      <a
+        href="tel:1-800-568-5665"
+      >
+        1-800-568-5665
+      </a>
+      <br />
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)>
+      You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+      <b>
+        TransUnion Rental Screening Solutions
+      </b>
+       consumer relations at 
+      <a
+        href="tel:1-800-230-9376"
+      >
+        1-800-230-9376
+      </a>
+       or 
+      <a
+        href="mailto:consumer_relations@turss.com"
+      >
+        consumer_relations@turss.com
+      </a>
+      .
+    </ForwardRef(render)>
+    <br />
+  </ForwardRef(render)>
+  <ActionButton
+    color="primary"
+    marginTop={39}
+    onClick={[MockFunction]}
+    successGreen={false}
+    variant="contained"
+  >
+    Ok
+  </ActionButton>
+</div>
+`;
