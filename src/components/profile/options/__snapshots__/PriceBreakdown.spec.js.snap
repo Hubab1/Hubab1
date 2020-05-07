@@ -31,7 +31,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                   <ForwardRef(Grid) classes={{...}} item={true} xs={true}>
                                     <div className=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true\\">
                                       <Styled(b) fontSize={16}>
-                                        <b fontSize={16} className=\\"css-g12kmh\\" />
+                                        <b fontSize={16} className=\\"css-mt9voc\\" />
                                       </Styled(b)>
                                     </div>
                                   </ForwardRef(Grid)>
