@@ -56,7 +56,7 @@ export class AppDenied extends React.Component {
 
         return (
             <>
-                <div className={clsx({'hide-pets-form': viewDenialReason})}>
+                <div className={clsx({'hide-element': viewDenialReason})}>
                     <H1>Application Denied</H1>
                     <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
                     <Img src={cry}/>

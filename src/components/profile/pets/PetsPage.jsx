@@ -117,7 +117,7 @@ export class PetsPage extends React.Component {
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
-                <div className={clsx({'hide-pets-form': (viewPetPolicy || viewPetRestrictions)})}>
+                <div className={clsx({'hide-element': (viewPetPolicy || viewPetRestrictions)})}>
                     <H1>Tell Us About Your Pets</H1>
                     <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                     <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>

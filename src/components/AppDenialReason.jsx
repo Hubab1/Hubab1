@@ -80,7 +80,7 @@ export default function DenialReason (props) {
                 </P>
                 <br/>
             </Decision>
-            <ActionButton marginTop={39} onClick={props.onAgree}>Ok</ActionButton>
+            <ActionButton marginTop={39} onClick={props.onAgree}>OK</ActionButton>
         </div>
     )
 }

@@ -108,7 +108,7 @@ exports[`Matches Snapshot 1`] = `
     successGreen={false}
     variant="contained"
   >
-    Ok
+    OK
   </ActionButton>
 </div>
 `;
