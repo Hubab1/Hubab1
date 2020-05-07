@@ -11,7 +11,7 @@ import Info from '@material-ui/icons/Info';
 import SimplePopover from 'components/common/SimplePopover';
 import PaidText from './PaidText';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 
 
 const SelfSelectedAmountContainer = styled.div`
@@ -48,7 +48,7 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                 { 
                     activeApplicantFeePaid ?
                         <PaidText/> :
-                        everyone.length > 1 ? <P/> : <P>{formatCurrency(baseAppFee, 0)}</P>
+                        everyone.length > 1 ? <P/> : <P>{prettyCurrency(baseAppFee)}</P>
                 }
             </CardRowBorderless>
             {
@@ -64,7 +64,7 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                                 <CardRowBorderless>
                                     <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
                                     <SelfSelectedAmountContainer>
-                                        { applicationFeesSelected === 'self' ? <P>{formatCurrency(baseAppFee, 0)}</P> : <P/> }
+                                        { applicationFeesSelected === 'self' ? <P>{prettyCurrency(baseAppFee)}</P> : <P/> }
                                     </SelfSelectedAmountContainer>
                                 </CardRowBorderless>
                                 <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
@@ -86,7 +86,7 @@ export const EveryoneRow = ({person, baseAppFee}) => {
         `${person.first_name} ${person.last_name}`
     return <IndentedRow>
         <P color="#454B57">{name}</P>
-        <div>{ person.applicationFeePaid ? <PaidText/> : <P>{formatCurrency(baseAppFee, 0)}</P> } </div>
+        <div>{ person.applicationFeePaid ? <PaidText/> : <P>{prettyCurrency(baseAppFee)}</P> } </div>
     </IndentedRow>
 }
 

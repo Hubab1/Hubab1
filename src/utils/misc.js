@@ -53,6 +53,7 @@ export function prettyFormatPhoneNumber(phoneNumber) {
     return `${stripped.slice(0, 3)}-${stripped.slice(3, 6)}-${stripped.slice(6)}`;
 }
 
+// You probably wanna use pretty currency instead
 export function formatCurrency(number, decimalPlaces=2) {
     if (typeof number !== 'number') return '';
     return '$' + number.toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');

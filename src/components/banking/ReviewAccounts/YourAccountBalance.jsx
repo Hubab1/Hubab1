@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, CardSection, P, infoIconRoot } from 'assets/styles';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 import { totalContainer } from './styles';
 import Info from '@material-ui/icons/Info';
 import SimplePopover from 'components/common/SimplePopover';
@@ -24,7 +24,7 @@ function YourAccountBalance (props) {
                 </P>
                 <div className={totalContainer}>
                     <P bold>Total Account Balance</P>
-                    <P bold margin="10px 0">{formatCurrency(props.assetsBalance)}</P>
+                    <P bold margin="10px 0">{prettyCurrency(props.assetsBalance)}</P>
                 </div>
             </CardSection>
         </Card>

@@ -9,7 +9,7 @@ import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
 import { H1, H3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
 import PaymentForm from './PaymentForm';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 import { ROUTES } from 'app/constants';
 
 const SpacedH3 = styled(H3)`
@@ -39,7 +39,7 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
     return (
         <Fragment>
             <H1>Almost There, {applicant.client.person.first_name}!</H1>
-            <SpacedH3>The application fee and holding deposit for this apartment is {totalPayment ? formatCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for screening.</SpacedH3>
+            <SpacedH3>The application fee and holding deposit for this apartment is {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for screening.</SpacedH3>
             <img src={creditCardImage} alt="credit card"></img>
             <div className={bodyRow}>
                 <img src={padlockImage} alt="padlock" width="18" height="28"/>

@@ -5,7 +5,7 @@ import { LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import receiptImage from 'assets/images/receipt.png';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
 
@@ -49,8 +49,7 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                     {
                         !!holdingDepositAmount && 
                             <HoldingDeposit
-                                formatCurrency={formatCurrency}
-                                holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
+                                holdingDepositAmount={prettyCurrency(holdingDepositAmount)}
                                 holdingDepositPaid={paidByAnother}
                             />
                     }
@@ -59,7 +58,7 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
-                                    <P bold>{formatCurrency(receipt.total, 0)}</P>
+                                    <P bold>{prettyCurrency(receipt.total)}</P>
                                 </div>
                             </CardRowTotal>
                     }

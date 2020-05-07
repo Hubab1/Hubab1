@@ -6,7 +6,7 @@ import paymentWallet from 'assets/images/payment-wallet.png';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
 
@@ -68,7 +68,7 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
                         !!holdingDepositAmount && 
                             <HoldingDeposit
                                 holdingDepositPaid={holdingDepositPaid}
-                                holdingDepositAmount={formatCurrency(holdingDepositAmount, 0)}
+                                holdingDepositAmount={prettyCurrency(holdingDepositAmount)}
                             />
                     }
                     {   
@@ -76,7 +76,7 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
-                                    <P bold>{formatCurrency(parseInt(totalPaymentAmount), 0)}</P>
+                                    <P bold>{prettyCurrency(parseFloat(totalPaymentAmount))}</P>
                                 </div>
                             </CardRowTotal>
                     }

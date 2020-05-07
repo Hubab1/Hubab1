@@ -38,9 +38,9 @@ it('renders receipt information as expected with holding deposit', () => {
 
     expect(wrapper.text().includes('Payment Success!Thank you! We emailed a receipt to slkejhfkajshefjkhek@gm.comPayment Summary')).toBeTruthy();
 
-    expect(wrapper.text().includes('Total$1300')).toBeTruthy();
+    expect(wrapper.text().includes('Total$1,300')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(3);
-    expect(wrapper.find(HoldingDeposit).props().holdingDepositAmount).toEqual("$1000");
+    expect(wrapper.find(HoldingDeposit).props().holdingDepositAmount).toEqual("$1,000");
 })
 
 it('renders receipt information as expected when one applicant fee on receipt, no holding deposit', () => {
