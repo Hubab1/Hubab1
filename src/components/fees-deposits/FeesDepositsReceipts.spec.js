@@ -58,13 +58,13 @@ it('renders receipt information as expected when one applicant fee on receipt, n
         "paid": true,
         "id": 123,
         "application": {"id": 234},
-        "total": 100.00,
+        "total": 200.50,
         "stripe_id": "932923482jdf33",
         "paid_by": 18
 
     }
     let wrapper = shallow(<FeesDepositsReceipt {...defaultProps} payments={null} receipt={receipt} />);
-    expect(wrapper.text().includes('Total$100')).toBeTruthy();
+    expect(wrapper.text().includes('Total$200.50')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(1);
     expect(wrapper.find(HoldingDeposit).length).toEqual(0);
 })
