@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, P } from 'assets/styles';
+import { H1, P, Bold } from 'assets/styles';
 
 export const Subtitle = styled.small`
     color: #818797;
@@ -49,9 +49,9 @@ export default function DenialReason (props) {
                 </P>
                 <br/>
                 <P>
-                    In evaluating your application, <b>TransUnion Consumer Solutions</b> provided us with information that in
-                    whole or in part influenced our decision. <b>The reporting agency played no part in our decision other
-                    than providing us with information about you.</b>
+                    In evaluating your application, <Bold fontWeight={600}>TransUnion Consumer Solutions</Bold> provided us with information that in
+                    whole or in part influenced our decision. <Bold fontWeight={600}>The reporting agency played no part in our decision other
+                    than providing us with information about you.</Bold>
                 </P>
                 <br/>
                 <P>
@@ -60,7 +60,7 @@ export default function DenialReason (props) {
                 </P>
                 <br/>
                 <P>
-                    <b>TransUnion Consumer Solutions</b><br/>
+                    <Bold fontWeight={600}>TransUnion Consumer Solutions</Bold><br/>
                     P.O. Box 2000<br/>
                     Chester, PA. 19022-2000<br/>
                     <a href="tel:1-800-916-8800">1-800-916-8800</a>
@@ -75,7 +75,7 @@ export default function DenialReason (props) {
                     You have the right to a free copy of your report from the reporting agency, if you request it no later
                     than 60 days after you receive this notice. In addition, if you find that any information contained in
                     the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the
-                    reporting agency that provided the report or through <b>TransUnion Rental Screening Solutions</b> consumer
+                    reporting agency that provided the report or through <Bold fontWeight={600}>TransUnion Rental Screening Solutions</Bold> consumer
                     relations at <a href="tel:1-800-230-9376">1-800-230-9376</a> or <a href="mailto:consumer_relations@turss.com">consumer_relations@turss.com</a>.
                 </P>
                 <br/>
