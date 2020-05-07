@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { H1, P } from 'assets/styles';
+import { H1, P, Card, CardSection, CardRow } from 'assets/styles';
 
 export const Subtitle = styled.small`
     color: #818797;
@@ -24,6 +24,21 @@ const Decision = styled.div`
     overflow-wrap: normal;
 `;
 
+const AdverseActionsFactors = styled.ul`
+    padding-left: 16px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    li {
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 20px;
+        margin-bottom: 12px;
+    }
+    li:last-child {
+        margin-bottom:0;
+    }
+`
+
 export default function DenialReason (props) {
     return (
         <div>
@@ -32,7 +47,7 @@ export default function DenialReason (props) {
                 <br/>
                 <Subtitle>Adverse action notice</Subtitle>
             </Header>
-            <Decision>
+            <Decision id="denialDecisionReason">
                 <P color="#818797">
                     {props.date}
                 </P>
@@ -48,6 +63,22 @@ export default function DenialReason (props) {
                     Unfortunately, we are unable to approve your rental application.
                 </P>
                 <br/>
+                {props.adverseFactors && props.adverseFactors.length > 0 && (
+                    <Card id="adverseFactorsList">
+                        <CardSection>
+                            <CardRow>
+                                <P>Factors affecting our decision:</P>
+                            </CardRow>
+                            <CardRow>
+                                <AdverseActionsFactors>
+                                    {props.adverseFactors.map(factor => (
+                                        <li key={factor}>{factor}</li>
+                                    ))}
+                                </AdverseActionsFactors>
+                            </CardRow>
+                        </CardSection>
+                    </Card>
+                )}
                 <P>
                     In evaluating your application, <b>TransUnion Consumer Solutions</b> provided us with information that in
                     whole or in part influenced our decision. <b>The reporting agency played no part in our decision other
@@ -90,5 +121,6 @@ DenialReason.propTypes = {
     buildingName: PropTypes.string,
     unitNumber:PropTypes.string,
     name:PropTypes.string,
+    adverseFactors: PropTypes.array,
     onAgree: PropTypes.func.isRequired
 };

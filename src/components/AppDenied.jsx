@@ -11,6 +11,7 @@ import cry from 'assets/images/cry.svg';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
 import DenialReason from 'components/AppDenialReason';
+import API from 'app/api';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -28,10 +29,15 @@ export const applicationUnit = css`
 export class AppDenied extends React.Component {
     state = {
         viewDenialReason: false,
+        adverseFactors: [],
     };
 
     toggleViewDenialDecision = () => {
+        if (this.state.adverseFactors.length === 0 && this.state.viewDenialReason === false) {
+            this.getDenialReason();
+        }
         this.setState({viewDenialReason: !this.state.viewDenialReason});
+
     };
 
     getDenialDecisionDate(date) {
@@ -39,11 +45,19 @@ export class AppDenied extends React.Component {
         return d.toLocaleDateString('en-US');
     }
 
+    getDenialReason () {
+        return API.getDenialDecisionDetails().then(res => {
+            this.setState({adverseFactors: res.adverse_factors});
+        }).catch(()=> {
+            this.setState({adverseFactors: []});
+        });
+    };
+
     render () {
         const { profile, configuration, applicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
 
-        const { viewDenialReason } = this.state;
+        const { viewDenialReason, adverseFactors } = this.state;
         const {
             unit,
             last_status_change,
@@ -73,6 +87,7 @@ export class AppDenied extends React.Component {
                         unitNumber={unitNumber}
                         name={name}
                         onAgree={this.toggleViewDenialDecision}
+                        adverseFactors={adverseFactors}
                     />
                 }
             </>

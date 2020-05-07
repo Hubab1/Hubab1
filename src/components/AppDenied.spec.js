@@ -1,6 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AppDenied } from './AppDenied';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import API from 'app/api';
+import DenialReason from 'components/AppDenialReason';
 
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
@@ -67,5 +70,39 @@ describe('application unit', () => {
         const wrapper = shallow(<AppDenied {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F')
+    });
+});
+
+it('triggers getDenialReason', () => {
+    const props = buildProps('Fake Building', '123 Fake Street', '7F');
+    API.getDenialDecisionDetails = jest.fn().mockResolvedValue({adverse_factors: []});
+    const wrapper = shallow(<AppDenied {...props} />);
+    wrapper.find(ActionButton).simulate('click');
+    expect(API.getDenialDecisionDetails).toHaveBeenCalled();
+})
+
+it('handle getDenialDecisionDetails API good response', () => {
+    const props = buildProps('Fake Building', '123 Fake Street', '7F');
+    const factors = [
+        'Too few open revolving accounts',
+        'Bankcard account balances are too high in proportion to credit limits',
+        'Insufficient payment activity',
+        'Not enough debt experience',
+    ];
+    API.getDenialDecisionDetails = jest.fn().mockResolvedValue({adverse_factors: factors});
+    const wrapper = shallow(<AppDenied {...props} />);
+    wrapper.instance().getDenialReason().then(()=>{
+        expect(wrapper.find(DenialReason).length).toEqual(1);
+        expect(wrapper.state().adverseFactors.toEqual(factors));
+    });
+});
+
+it('handle getDenialDecisionDetails API base response', () => {
+    const props = buildProps('Fake Building', '123 Fake Street', '7F');
+    API.getDenialDecisionDetails = jest.fn().mockRejectedValue('Something');
+    const wrapper = shallow(<AppDenied {...props} />);
+    wrapper.instance().getDenialReason().then(()=>{
+        expect(wrapper.find(DenialReason).length).toEqual(1);
+        expect(wrapper.state().adverseFactors.toEqual([]));
     });
 });
