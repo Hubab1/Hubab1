@@ -29,7 +29,7 @@ export const Logo = styled.img`
 
 export const Bold = styled.b`
     font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
-    font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : 'bold'};
+    font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : 'inherit'};
 `
 
 export const H1 = styled.h1`
