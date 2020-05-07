@@ -81,7 +81,7 @@ it('triggers getDenialReason', () => {
     expect(API.getAdverseActions).toHaveBeenCalled();
 })
 
-it('handle getAdverseActions API good response', () => {
+it('handle getAdverseActions API when having a good response', () => {
     const props = buildProps('Fake Building', '123 Fake Street', '7F');
     const factors = [
         'Too few open revolving accounts',
@@ -97,7 +97,7 @@ it('handle getAdverseActions API good response', () => {
     });
 });
 
-it('handle getAdverseActions API base response', () => {
+it('handle getAdverseActions API when having a bad response', () => {
     const props = buildProps('Fake Building', '123 Fake Street', '7F');
     API.getAdverseActions = jest.fn().mockRejectedValue('Something');
     const wrapper = shallow(<AppDenied {...props} />);
