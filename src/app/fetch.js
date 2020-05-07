@@ -1,6 +1,6 @@
 import { ROUTES } from 'app/constants';
 
-// fetch middleware handles token expiry
+// fetch middleware handles invalid token/expiry
 export default async (...args) => {
     const res = await fetch(...args);
     if (res.headers.get('error_type') === 'TokenExpiredError') {
@@ -14,6 +14,16 @@ export default async (...args) => {
             window.location.href = `${window.location.origin}/${basename}${ROUTES.LOGIN}`;
         }
         return Promise.reject('TokenExpiredError');
+    } else if (res.headers.get('error_type') === 'InvalidTokenError') {
+        if (localStorage.access_token) {
+            localStorage.clear();
+        }
+
+        if (!window.location.href.includes('/login')) {
+            const basename = window.location.pathname.split('/')[1];
+            window.location.href = `${window.location.origin}/${basename}${ROUTES.LOGIN}`;
+        }
+        return Promise.reject('InvalidTokenError');
     }
     return res;
 }
