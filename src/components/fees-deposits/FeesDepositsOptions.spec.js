@@ -76,7 +76,6 @@ it('renders Holding Deposit Paid when there is a holding deposit with correct to
 
     expect(wrapper.find(HoldingDeposit)).toBeTruthy();
     expect(wrapper.find(HoldingDeposit).props().holdingDepositPaid).toEqual(true);
-    console.log(wrapper.text())
     expect(wrapper.text().includes('Total$100.55')).toBeTruthy();
 })
 
