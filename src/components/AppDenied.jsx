@@ -46,7 +46,7 @@ export class AppDenied extends React.Component {
     }
 
     getDenialReason () {
-        return API.getDenialDecisionDetails().then(res => {
+        return API.getAdverseActions().then(res => {
             this.setState({adverseFactors: res.adverse_factors});
         }).catch(()=> {
             this.setState({adverseFactors: []});

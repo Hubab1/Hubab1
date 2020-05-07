@@ -263,8 +263,8 @@ API.getCurrentFlatQuote = (data) => {
     });
 }
 
-API.getDenialDecisionDetails = () => {
-    return fetch(chuck('/applicant/denial-decision/'), {
+API.getAdverseActions = () => {
+    return fetch(chuck('/applicant/adverse-action/'), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`
