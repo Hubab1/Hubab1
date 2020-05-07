@@ -10,6 +10,16 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             unit: {
                 unit_number: unitNumber,
             },
+            last_status_change: {
+                created_at: '2020-05-06 04:06:23'
+            }
+        },
+        applicant: {
+            client: {
+                person: {
+                    name: 'John Doe'
+                },
+            },
         },
         configuration: {
             community: {
