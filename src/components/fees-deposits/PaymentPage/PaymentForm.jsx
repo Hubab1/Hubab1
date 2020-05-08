@@ -12,7 +12,7 @@ import API, { MOCKY } from 'app/api';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
@@ -105,7 +105,7 @@ export class PaymentForm extends React.Component {
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >
                     <Lock style={{width: 16, marginRight: 8}}/>
-                    { `Pay ${formatCurrency(this.props.totalPayment)}` }
+                    { `Pay ${prettyCurrency(this.props.totalPayment)}` }
                 </ActionButton>
             </form>
         )

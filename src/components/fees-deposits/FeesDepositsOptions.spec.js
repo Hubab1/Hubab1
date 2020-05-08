@@ -22,7 +22,7 @@ beforeEach(() => {
         applicant: mockApplicant,
         payments: mockPayments.payables,
         everyone: everyone,
-        baseAppFee: 100,
+        baseAppFee: 100.55,
         handleContinue: jest.fn(),
 
     }
@@ -47,7 +47,7 @@ it('renders Holding Deposit when there is a holding deposit with correct total f
     }];
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} /> );
     expect(wrapper.find(HoldingDeposit)).toBeTruthy();
-    expect(wrapper.text().includes('Total$1100')).toBeTruthy();
+    expect(wrapper.text().includes('Total$1,100')).toBeTruthy();
     expect(wrapper.find(PaidText).length).toBe(0);
 })
 
@@ -76,7 +76,7 @@ it('renders Holding Deposit Paid when there is a holding deposit with correct to
 
     expect(wrapper.find(HoldingDeposit)).toBeTruthy();
     expect(wrapper.find(HoldingDeposit).props().holdingDepositPaid).toEqual(true);
-    expect(wrapper.text().includes('Total$100')).toBeTruthy();
+    expect(wrapper.text().includes('Total$100.55')).toBeTruthy();
 })
 
 it('does not render Holding Deposit when there is no holding deposit with correct total fees', () => {

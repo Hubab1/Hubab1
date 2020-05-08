@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
-import { formatCurrency, getIncomeRequirementText } from 'utils/misc';
+import { prettyCurrency, getIncomeRequirementText } from 'utils/misc';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import Tip from 'components/common/Tip';
 
@@ -35,7 +35,7 @@ export function YourIncome (props) {
                 />
                 <div className={totalContainer}>
                     <P bold>Total Income</P>
-                    <P bold>{formatCurrency(props.incomeTotal)}</P>
+                    <P bold>{prettyCurrency(props.incomeTotal)}</P>
                 </div>
             </CardSection>
             <CardSection>
@@ -76,7 +76,7 @@ export const IncomeEntry = (props) => {
                 onBlur={props.handleBlur}
                 value={props.value}
             />
-            <P bottomAligned>{formatCurrency(props.income)}</P>
+            <P bottomAligned>{prettyCurrency(props.income)}</P>
         </div>
     )
 }

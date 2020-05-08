@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
-import { formatCurrency } from 'utils/misc';
+import { prettyCurrency } from 'utils/misc';
 
 
 export default function ExistingParkingOrStorage({quantity, rentalOption}) {
@@ -20,7 +20,7 @@ export default function ExistingParkingOrStorage({quantity, rentalOption}) {
 
     if (additionalPaymentQuantity > 0) {
         const priceShouldShowDecimal = monthly_amount.substring(monthly_amount.length-2) !== '00';
-        const priceLabel = priceShouldShowDecimal ? `$${monthly_amount}` : formatCurrency(parseInt(monthly_amount), 0);
+        const priceLabel = priceShouldShowDecimal ? `$${monthly_amount}` : prettyCurrency(parseFloat(monthly_amount));
         const additionalPaymentDetails = `${additionalPaymentQuantity} x ${priceLabel}/mo`;
         detailsArray.push(additionalPaymentDetails);
     }
