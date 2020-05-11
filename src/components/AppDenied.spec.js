@@ -1,9 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AppDenied } from './AppDenied';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import API from 'app/api';
-import DenialReason from 'components/AppDenialReason';
 
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {

@@ -11,7 +11,6 @@ import cry from 'assets/images/cry.svg';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
 import DenialReason from 'components/AppDenialReason';
-import API from 'app/api';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -80,14 +79,18 @@ export class AppDenied extends React.Component {
         )
     }
 }
+
 AppDenied.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
     applicant: PropTypes.object,
 };
+
+
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant,
 });
+
 export default connect(mapStateToProps)(withRelativeRoutes(AppDenied, ROUTES.APP_DENIED));
