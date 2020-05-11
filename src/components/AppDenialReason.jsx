@@ -80,9 +80,7 @@ export default function DenialReason (props) {
     }, []);
 
     const getButtonText = () => {
-        if (isReady) {
-            return 'OK';
-        }
+        if (isReady) return 'OK';
         return 'Loading...';
     };
 
