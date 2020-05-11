@@ -29,15 +29,10 @@ export const applicationUnit = css`
 export class AppDenied extends React.Component {
     state = {
         viewDenialReason: false,
-        adverseFactors: [],
     };
 
     toggleViewDenialDecision = () => {
-        if (this.state.adverseFactors.length === 0 && this.state.viewDenialReason === false) {
-            this.getDenialReason();
-        }
         this.setState({viewDenialReason: !this.state.viewDenialReason});
-
     };
 
     getDenialDecisionDate(date) {
@@ -45,19 +40,11 @@ export class AppDenied extends React.Component {
         return d.toLocaleDateString('en-US');
     }
 
-    getDenialReason () {
-        return API.getAdverseActions().then(res => {
-            this.setState({adverseFactors: res.adverse_factors});
-        }).catch(()=> {
-            this.setState({adverseFactors: []});
-        });
-    };
-
     render () {
         const { profile, configuration, applicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
 
-        const { viewDenialReason, adverseFactors } = this.state;
+        const { viewDenialReason } = this.state;
         const {
             unit,
             last_status_change,
@@ -87,7 +74,6 @@ export class AppDenied extends React.Component {
                         unitNumber={unitNumber}
                         name={name}
                         onAgree={this.toggleViewDenialDecision}
-                        adverseFactors={adverseFactors}
                     />
                 }
             </>

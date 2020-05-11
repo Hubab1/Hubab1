@@ -72,37 +72,3 @@ describe('application unit', () => {
         expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F')
     });
 });
-
-it('triggers getDenialReason', () => {
-    const props = buildProps('Fake Building', '123 Fake Street', '7F');
-    API.getAdverseActions = jest.fn().mockResolvedValue({adverse_factors: []});
-    const wrapper = shallow(<AppDenied {...props} />);
-    wrapper.find(ActionButton).simulate('click');
-    expect(API.getAdverseActions).toHaveBeenCalled();
-})
-
-it('handle getAdverseActions API when having a good response', () => {
-    const props = buildProps('Fake Building', '123 Fake Street', '7F');
-    const factors = [
-        'Too few open revolving accounts',
-        'Bankcard account balances are too high in proportion to credit limits',
-        'Insufficient payment activity',
-        'Not enough debt experience',
-    ];
-    API.getAdverseActions = jest.fn().mockResolvedValue({adverse_factors: factors});
-    const wrapper = shallow(<AppDenied {...props} />);
-    wrapper.instance().getDenialReason().then(()=>{
-        expect(wrapper.find(DenialReason).length).toEqual(1);
-        expect(wrapper.state().adverseFactors.toEqual(factors));
-    });
-});
-
-it('handle getAdverseActions API when having a bad response', () => {
-    const props = buildProps('Fake Building', '123 Fake Street', '7F');
-    API.getAdverseActions = jest.fn().mockRejectedValue('Something');
-    const wrapper = shallow(<AppDenied {...props} />);
-    wrapper.instance().getDenialReason().then(()=>{
-        expect(wrapper.find(DenialReason).length).toEqual(1);
-        expect(wrapper.state().adverseFactors.toEqual([]));
-    });
-});
