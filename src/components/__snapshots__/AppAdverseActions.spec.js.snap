@@ -61,18 +61,21 @@ exports[`Display N/A when only credit date is available 1`] = `
                         671
                       </div>
                     </Styled(div)>
-                    <div>
-                      <Styled(p)>
-                        <p className=\\"css-3m08t9\\">
-                          Your credit score as of 02/28/2020
-                        </p>
-                      </Styled(p)>
-                      <Styled(p) color=\\"#818797\\" fontSize={14}>
-                        <p color=\\"#818797\\" fontSize={14} className=\\"css-dpejek\\">
-                          This score has a range of 350 to 850
-                        </p>
-                      </Styled(p)>
-                    </div>
+                    <Styled(div)>
+                      <div className=\\"css-5bdd03\\">
+                        <Styled(p)>
+                          <p className=\\"css-3m08t9\\">
+                            Your credit score as of 
+                            5/7/2020
+                          </p>
+                        </Styled(p)>
+                        <Styled(p) color=\\"#818797\\" fontSize={14}>
+                          <p color=\\"#818797\\" fontSize={14} className=\\"css-dpejek\\">
+                            This score has a range of 350 to 850
+                          </p>
+                        </Styled(p)>
+                      </div>
+                    </Styled(div)>
                   </div>
                 </Styled(div)>
               </div>
@@ -423,18 +426,21 @@ exports[`Display credit data when available 1`] = `
                         671
                       </div>
                     </Styled(div)>
-                    <div>
-                      <Styled(p)>
-                        <p className=\\"css-3m08t9\\">
-                          Your credit score as of 02/28/2020
-                        </p>
-                      </Styled(p)>
-                      <Styled(p) color=\\"#818797\\" fontSize={14}>
-                        <p color=\\"#818797\\" fontSize={14} className=\\"css-dpejek\\">
-                          This score has a range of 350 to 850
-                        </p>
-                      </Styled(p)>
-                    </div>
+                    <Styled(div)>
+                      <div className=\\"css-5bdd03\\">
+                        <Styled(p)>
+                          <p className=\\"css-3m08t9\\">
+                            Your credit score as of 
+                            5/7/2020
+                          </p>
+                        </Styled(p)>
+                        <Styled(p) color=\\"#818797\\" fontSize={14}>
+                          <p color=\\"#818797\\" fontSize={14} className=\\"css-dpejek\\">
+                            This score has a range of 350 to 850
+                          </p>
+                        </Styled(p)>
+                      </div>
+                    </Styled(div)>
                   </div>
                 </Styled(div)>
               </div>
