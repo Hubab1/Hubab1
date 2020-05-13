@@ -74,7 +74,7 @@ export default function AppAdverseActions (props) {
             if (res.adverse_factors) setAdverseFactors(res.adverse_factors);
             if (res.request_date) {
                 const formattedDate = new Date(res.request_date);
-                setRequestDate(formattedDate.toLocaleDateString('en-US'));
+                setRequestDate(formattedDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
             }
             if (res.credit_score) setCreditScore(res.credit_score);
             setIsReady(true);
