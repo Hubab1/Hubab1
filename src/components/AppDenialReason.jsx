@@ -34,6 +34,10 @@ const CreditScore = styled.div`
     margin-right: 9px;
 `
 
+const CreditScoreDetails = styled.div`
+    padding-top: 3px;
+`
+
 const Decision = styled.div`
     margin-top: 13px;
     white-space: pre-line;
@@ -130,10 +134,10 @@ export default function DenialReason (props) {
                             <CardSection>
                                 <IndentedRow>
                                     <CreditScore>{creditScore}</CreditScore>
-                                    <div>
-                                        <P>Your credit score as of 02/28/2020</P>
+                                    <CreditScoreDetails>
+                                        <P>Your credit score as of {requestDate}</P>
                                         <P color="#818797" fontSize={14}>This score has a range of 350 to 850</P>
-                                    </div>
+                                    </CreditScoreDetails>
                                 </IndentedRow>
                             </CardSection>
                         </Card>
