@@ -29,6 +29,9 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             unit: {
                 unit_number: unitNumber,
             },
+            last_status_change: {
+                created_at: '2020-05-06 04:06:23'
+            },
         },
         configuration: {
             community: {
@@ -38,6 +41,13 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
         },
         history: {
             push: jest.fn()
+        },
+        applicant: {
+            client: {
+                person: {
+                    name: 'John Doe'
+                },
+            },
         },
         applicantUpdated: jest.fn()
     }
@@ -128,4 +138,19 @@ describe('security deposit message', () => {
 
         expect(wrapper.find('.security-deposit-container')).toHaveLength(0);
     });
+});
+
+it('matches snapshot whithout security deposit', () => {
+    const props = buildProps();
+    props.profile.security_deposit = null;
+    props.profile.security_deposit_multiplier = null;
+    const wrapper = shallow(<AppApproved {...props}/>);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with security deposit', () => {
+    const props = buildProps();
+    props.profile.security_deposit = 123.45;
+    const wrapper = shallow(<AppApproved {...props}/>);
+    expect(wrapper.getElement()).toMatchSnapshot();
 });

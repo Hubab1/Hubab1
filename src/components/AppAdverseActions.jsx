@@ -60,7 +60,7 @@ const IndentedRow = styled(CardRow)`
     justify-content: initial;
 `
 
-export default function DenialReason (props) {
+export default function AppAdverseActions (props) {
     const [adverseFactors, setAdverseFactors] = useState([]);
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
@@ -84,6 +84,11 @@ export default function DenialReason (props) {
         return 'Loading...';
     };
 
+    const formatAdverseActionDate = (date) => {
+        const d = new Date(date);
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    };
+
 
     return (
         <div>
@@ -95,7 +100,7 @@ export default function DenialReason (props) {
             {isReady && (
                 <Decision>
                     <P color="#818797">
-                        {props.date}
+                        {formatAdverseActionDate(props.date)}
                     </P>
                     <br/>
                     <P>Dear {props.name},</P>
@@ -105,9 +110,25 @@ export default function DenialReason (props) {
                         props.unitNumber && <>,</>}{props.unitNumber}.
                     </P>
                     <br/>
-                    <P>
-                        Unfortunately, we are unable to approve your rental application.
-                    </P>
+                    {props.securityDeposit && (
+                        <>
+                            <P>
+                                Unfortunately, we are unable to approve your rental application under our standard terms
+                                and conditions.
+                            </P>
+                            <br/>
+                            <P>
+                                We can, however, approve your rental application if you agree to pay a security deposit
+                                in the amount of {props.securityDeposit}, due at move in.
+                            </P>
+                        </>
+
+                    )}
+                    {!props.securityDeposit && (
+                        <P>
+                            Unfortunately, we are unable to approve your rental application.
+                        </P>
+                    )}
                     <br/>
                     {adverseFactors && adverseFactors.length > 0 && (
                         <Card>
@@ -175,10 +196,11 @@ export default function DenialReason (props) {
         </div>
     )
 }
-DenialReason.propTypes = {
+AppAdverseActions.propTypes = {
     date: PropTypes.string,
     buildingName: PropTypes.string,
-    unitNumber:PropTypes.string,
-    name:PropTypes.string,
+    unitNumber: PropTypes.string,
+    name: PropTypes.string,
+    securityDeposit: PropTypes.string,
     onAgree: PropTypes.func.isRequired
 };
