@@ -65,7 +65,7 @@ exports[`Display N/A when only credit date is available 1`] = `
                       <div className=\\"css-5bdd03\\">
                         <Styled(p)>
                           <p className=\\"css-3m08t9\\">
-                            Your credit score as of
+                            Your credit score as of 
                             05/07/2020
                           </p>
                         </Styled(p)>
@@ -430,7 +430,7 @@ exports[`Display credit data when available 1`] = `
                       <div className=\\"css-5bdd03\\">
                         <Styled(p)>
                           <p className=\\"css-3m08t9\\">
-                            Your credit score as of
+                            Your credit score as of 
                             05/07/2020
                           </p>
                         </Styled(p)>
