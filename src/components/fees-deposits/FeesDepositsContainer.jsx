@@ -55,16 +55,20 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         setCurrentPage('terms');
     }
 
-    if (!configuration || !profile || !applicant || (!payments && !receipt))  return <div/>;
+    if (!profile || !applicant || (!payments && !receipt))  return <div/>;
+
+    const baseAppFee = parseFloat(profile.selected_rental_options?.['app-fee']?.[0]?.quoted_fee_amount) || 0;
+    const holdingDepositAmount = parseFloat(profile.selected_rental_options?.['holding-deposit']?.[0]?.quoted_deposit_amount) || 0;
+
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
     everyone.unshift(profile.primary_applicant);
     if (currentPage === 'options') {
         return <FeesDepositsOptions
-            baseAppFee={configuration.application_fee}
+            baseAppFee={baseAppFee}
             handleClickBack={_prev}
             handleContinue={handlePaymentOptionsContinue}
             applicant={applicant}
-            holdingDepositAmount={configuration.holding_deposit_value || 0}
+            holdingDepositAmount={holdingDepositAmount}
             everyone={everyone}
             payments={payments}
         />
@@ -86,7 +90,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         return <FeesDepositsReceipt
             receipt={receipt}
             handleContinue={_nextRoute}
-            baseAppFee={configuration.application_fee}
+            baseAppFee={baseAppFee}
             applicant={applicant}
             everyone={everyone}
             email={applicant.client.person.email}
@@ -99,7 +103,6 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
 
 const mapStateToProps = state => ({
     applicant: state.applicant,
-    configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments
 });

@@ -50,5 +50,16 @@
         "unit_number": "12a"
     },
     "lease_end_date": null,
-    "selected_rental_options": {}
+    "selected_rental_options": {
+        "app-fee": [
+            {
+                "quoted_fee_amount": 125.50
+            }
+        ],
+        "holding-deposit": [
+            {
+                "quoted_deposit_amount": 501.50
+            }
+        ]
+    }
 }
