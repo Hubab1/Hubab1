@@ -263,4 +263,15 @@ API.getCurrentFlatQuote = (data) => {
     });
 }
 
+API.getAdverseActions = () => {
+    return fetch(chuck('/applicant/adverse-action/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        },
+    }).then(res => {
+        return res.json()
+    });
+}
+
 export default API;
