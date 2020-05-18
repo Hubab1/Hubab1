@@ -84,6 +84,28 @@ export class Main extends Component {
             return this.setState({hasError: true});
         }
         this.mountNavigation(isLoggedIn, configuration);
+        this.idleTimers();
+    }
+
+    idleTimers = () => {
+        var time;
+        const logout = () => {
+            console.log('LOGGING OUT')
+        }
+        const resetTimer = () => {
+            clearTimeout(time);
+            if (this.props.isLoggedIn) {
+                time = setTimeout(logout, 3000);
+            }
+        }
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.touchstart = resetTimer;
+        document.scroll = resetTimer;
+        window.onscroll = resetTimer;
+        document.touchend = resetTimer;
+        document.touchmove = resetTimer;
+        document.onkeypress = resetTimer;
     }
 
     render() {
