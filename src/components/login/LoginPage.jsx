@@ -15,6 +15,15 @@ export class LoginPage extends React.Component {
     state = {errors: null}
 
     auth=auth
+
+    get errors() {
+        if (this.state.errors) {
+            return this.state.errors;
+        }
+        if (this.props.location.state?.errors) {
+            return this.props.location.state.errors;
+        }
+    }
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
         return auth.login(values.email, values.password, this.props.communityId).then((res) => {
@@ -45,7 +54,7 @@ export class LoginPage extends React.Component {
                     handleOnSubmit={this.onSubmit}
                     includeRegister={true}
                     buttonText="Sign In"
-                    formErrors={this.state.errors}
+                    formErrors={this.errors}
                 />
             </UnauthenticatedPage>
         );

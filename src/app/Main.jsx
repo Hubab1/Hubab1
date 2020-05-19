@@ -84,13 +84,19 @@ export class Main extends Component {
             return this.setState({hasError: true});
         }
         this.mountNavigation(isLoggedIn, configuration);
-        this.idleTimers();
+        this.handleIdleTimeout();
     }
 
-    idleTimers = () => {
+    handleIdleTimeout = () => {
         var time;
         const logout = () => {
-            console.log('LOGGING OUT')
+            if (this.props.isLoggedIn) {
+                this.props.history.push({
+                    pathname: ROUTES.LOGIN,
+                    state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
+                })
+            }
+            // console.log('LOGGING OUT')
         }
         const resetTimer = () => {
             clearTimeout(time);
