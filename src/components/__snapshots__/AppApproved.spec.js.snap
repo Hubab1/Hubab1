@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot whithout security deposit 1`] = `
+<React.Fragment>
+  <div
+    className=""
+  >
+    <ForwardRef(render)>
+      You've Been Approved!
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      All that's left to do is sign the lease.
+    </ForwardRef(render)>
+    <ForwardRef(render)
+      src="approvedSign.svg"
+    />
+    <div
+      className="css-lygmaw"
+      id="application-unit"
+    >
+      Fake Building
+       Unit 2B
+    </div>
+    <div
+      className="css-1b1t23e"
+    >
+      <ForwardRef(StyledComponent)
+        margin="28px 0 0 0"
+      >
+        <ForwardRef(render)
+          color="#000000"
+          fontSize={12}
+          textAlign="left"
+        >
+          The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
+        </ForwardRef(render)>
+        <ActionButton
+          color="primary"
+          marginTop={30}
+          onClick={[Function]}
+          successGreen={false}
+          variant="contained"
+        >
+          Review & Sign Lease
+        </ActionButton>
+      </ForwardRef(StyledComponent)>
+    </div>
+  </div>
+</React.Fragment>
+`;
+
+exports[`matches snapshot with security deposit 1`] = `
+<React.Fragment>
+  <div
+    className=""
+  >
+    <ForwardRef(render)>
+      You've Been Approved!
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      All that's left to do is sign the lease.
+    </ForwardRef(render)>
+    <ForwardRef(render)
+      src="approvedSign.svg"
+    />
+    <div
+      className="css-lygmaw"
+      id="application-unit"
+    >
+      Fake Building
+       Unit 2B
+    </div>
+    <div
+      className="css-1b1t23e"
+    >
+      <ForwardRef(WithStyles)
+        className="security-deposit-container"
+        classes={
+          Object {
+            "root": "css-i1bzn6",
+          }
+        }
+        container={true}
+        justify="center"
+        marginTop={35}
+      >
+        <ForwardRef(WithStyles)
+          item={true}
+          xs={2}
+        >
+          <ForwardRef(render)
+            alt="light bulb"
+            src="lightbulb.png"
+          />
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          classes={
+            Object {
+              "root": "css-14c5xr0",
+            }
+          }
+          item={true}
+          xs={9}
+        >
+          <span
+            className="css-bbr70h"
+          >
+            A 
+            <ForwardRef(render)
+              fontSize={14}
+              fontWeight={600}
+            >
+              $123.45
+               security deposit 
+            </ForwardRef(render)>
+            is required for this application. 
+          </span>
+          <ForwardRef(render)
+            onClick={[Function]}
+          >
+            Learn why
+          </ForwardRef(render)>
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+      <ForwardRef(StyledComponent)
+        margin="28px 0 0 0"
+      >
+        <ForwardRef(render)
+          color="#000000"
+          fontSize={12}
+          textAlign="left"
+        >
+          The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
+        </ForwardRef(render)>
+        <ActionButton
+          color="primary"
+          marginTop={30}
+          onClick={[Function]}
+          successGreen={false}
+          variant="contained"
+        >
+          Review & Sign Lease
+        </ActionButton>
+      </ForwardRef(StyledComponent)>
+    </div>
+  </div>
+</React.Fragment>
+`;

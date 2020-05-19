@@ -10,7 +10,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
-import DenialReason from 'components/AppDenialReason';
+import AppAdverseActions from 'components/AppAdverseActions';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -34,11 +34,6 @@ export class AppDenied extends React.Component {
         this.setState({viewDenialReason: !this.state.viewDenialReason});
     };
 
-    getDenialDecisionDate(date) {
-        const d = new Date(date);
-        return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    }
-
     render () {
         const { profile, configuration, applicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
@@ -51,7 +46,7 @@ export class AppDenied extends React.Component {
 
         const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
         const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
-        const denialDecisionDate = this.getDenialDecisionDate(last_status_change.created_at);
+        const denialDecisionDate = last_status_change.created_at;
         const { name } = applicant.client.person;
 
         return (
@@ -67,7 +62,7 @@ export class AppDenied extends React.Component {
                     >Learn Why</ActionButton>
                 </div>
                 {viewDenialReason &&
-                    <DenialReason
+                    <AppAdverseActions
                         date={denialDecisionDate}
                         buildingName={buildingName}
                         unitNumber={unitNumber}

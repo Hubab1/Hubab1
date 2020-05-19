@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
-import DenialReason from 'components/AppDenialReason';
+import AppAdverseActions from 'components/AppAdverseActions';
 import API from 'app/api';
 import {act} from "react-dom/test-utils";
 
@@ -18,9 +18,19 @@ beforeEach(() => {
     };
 });
 
-it('Matches Snapshot', async () => {
+it('Matches Snapshot without security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    let wrapper = mount( <DenialReason {...defaultProps}/> );
+    let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(wrapper.debug()).toMatchSnapshot();
+});
+
+it('Matches Snapshot with security deposit', async () => {
+    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
+    let wrapper = mount( <AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} /> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -30,7 +40,7 @@ it('Matches Snapshot', async () => {
 
 it('Do not display adverseFactorsList when no factor and no credit data', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    let wrapper = mount( <DenialReason {...defaultProps}/> );
+    let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -48,7 +58,7 @@ it('Display adverseFactorsList when Factors', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
         adverse_factors :factors,
     }));
-    let wrapper = mount( <DenialReason {...defaultProps}/> );
+    let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -62,7 +72,7 @@ it('Display credit data when available', async () => {
         request_date :'2020-05-07T07:43:58.47',
         credit_score: '671'
     }));
-    let wrapper = mount( <DenialReason {...defaultProps}/> );
+    let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -76,7 +86,7 @@ it('Display N/A when only credit date is available', async () => {
         request_date :'2020-05-07T07:43:58.47',
         credit_score: '671'
     }));
-    let wrapper = mount( <DenialReason {...defaultProps}/> );
+    let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();

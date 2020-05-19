@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Display N/A when only credit date is available 1`] = `
-"<DenialReason date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
   <div>
     <Styled(div)>
       <div className=\\"css-1v80zmq\\">
@@ -22,7 +22,7 @@ exports[`Display N/A when only credit date is available 1`] = `
       <div className=\\"css-1jk6s00\\">
         <Styled(p) color=\\"#818797\\">
           <p color=\\"#818797\\" className=\\"css-4uacxs\\">
-            5/6/2020
+            05/06/2020
           </p>
         </Styled(p)>
         <br />
@@ -177,11 +177,11 @@ exports[`Display N/A when only credit date is available 1`] = `
       </Styled(div)>
     </ActionButton>
   </div>
-</DenialReason>"
+</AppAdverseActions>"
 `;
 
 exports[`Display adverseFactorsList when Factors 1`] = `
-"<DenialReason date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
   <div>
     <Styled(div)>
       <div className=\\"css-1v80zmq\\">
@@ -202,7 +202,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
       <div className=\\"css-1jk6s00\\">
         <Styled(p) color=\\"#818797\\">
           <p color=\\"#818797\\" className=\\"css-4uacxs\\">
-            5/6/2020
+            05/06/2020
           </p>
         </Styled(p)>
         <br />
@@ -362,11 +362,11 @@ exports[`Display adverseFactorsList when Factors 1`] = `
       </Styled(div)>
     </ActionButton>
   </div>
-</DenialReason>"
+</AppAdverseActions>"
 `;
 
 exports[`Display credit data when available 1`] = `
-"<DenialReason date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
   <div>
     <Styled(div)>
       <div className=\\"css-1v80zmq\\">
@@ -387,7 +387,7 @@ exports[`Display credit data when available 1`] = `
       <div className=\\"css-1jk6s00\\">
         <Styled(p) color=\\"#818797\\">
           <p color=\\"#818797\\" className=\\"css-4uacxs\\">
-            5/6/2020
+            05/06/2020
           </p>
         </Styled(p)>
         <br />
@@ -542,11 +542,11 @@ exports[`Display credit data when available 1`] = `
       </Styled(div)>
     </ActionButton>
   </div>
-</DenialReason>"
+</AppAdverseActions>"
 `;
 
 exports[`Do not display adverseFactorsList when no factor and no credit data 1`] = `
-"<DenialReason date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
   <div>
     <Styled(div)>
       <div className=\\"css-1v80zmq\\">
@@ -567,7 +567,7 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
       <div className=\\"css-1jk6s00\\">
         <Styled(p) color=\\"#818797\\">
           <p color=\\"#818797\\" className=\\"css-4uacxs\\">
-            5/6/2020
+            05/06/2020
           </p>
         </Styled(p)>
         <br />
@@ -690,11 +690,11 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
       </Styled(div)>
     </ActionButton>
   </div>
-</DenialReason>"
+</AppAdverseActions>"
 `;
 
-exports[`Matches Snapshot 1`] = `
-"<DenialReason date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+exports[`Matches Snapshot with security deposit 1`] = `
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} securityDeposit=\\"$2,200\\">
   <div>
     <Styled(div)>
       <div className=\\"css-1v80zmq\\">
@@ -715,7 +715,163 @@ exports[`Matches Snapshot 1`] = `
       <div className=\\"css-1jk6s00\\">
         <Styled(p) color=\\"#818797\\">
           <p color=\\"#818797\\" className=\\"css-4uacxs\\">
-            5/6/2020
+            05/06/2020
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            Dear 
+            John Doe
+            ,
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            Thank you for your recent rental application for 
+            Monterey Pines Apartments
+            ,
+            Unit 14F
+            .
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            Unfortunately, we are unable to approve your rental application under our standard terms and conditions.
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            We can, however, approve your rental application if you agree to pay a security deposit in the amount of 
+            $2,200
+            , due at move in.
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            In evaluating your application, 
+            <Styled(b) fontWeight={600}>
+              <b fontWeight={600} className=\\"css-1kuou7v\\">
+                TransUnion Consumer Solutions
+              </b>
+            </Styled(b)>
+             provided us with information that in whole or in part influenced our decision. 
+            <Styled(b) fontWeight={600}>
+              <b fontWeight={600} className=\\"css-1kuou7v\\">
+                The reporting agency played no part in our decision other than providing us with information about you.
+              </b>
+            </Styled(b)>
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            Under the Fair Credit Reporting Act, you have the right to know the information provided to us, which can be obtained by contacting:
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            <Styled(b) fontWeight={600}>
+              <b fontWeight={600} className=\\"css-1kuou7v\\">
+                TransUnion Consumer Solutions
+              </b>
+            </Styled(b)>
+            <br />
+            P.O. Box 2000
+            <br />
+            Chester, PA. 19022-2000
+            <br />
+            <a href=\\"tel:1-800-916-8800\\">
+              1-800-916-8800
+            </a>
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            Background Data Solutions
+            <br />
+            <a href=\\"tel:1-800-568-5665\\">
+              1-800-568-5665
+            </a>
+            <br />
+          </p>
+        </Styled(p)>
+        <br />
+        <Styled(p)>
+          <p className=\\"css-3m08t9\\">
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            <Styled(b) fontWeight={600}>
+              <b fontWeight={600} className=\\"css-1kuou7v\\">
+                TransUnion Rental Screening Solutions
+              </b>
+            </Styled(b)>
+             consumer relations at 
+            <a href=\\"tel:1-800-230-9376\\">
+              1-800-230-9376
+            </a>
+             or 
+            <a href=\\"mailto:consumer_relations@turss.com\\">
+              consumer_relations@turss.com
+            </a>
+            .
+          </p>
+        </Styled(p)>
+        <br />
+      </div>
+    </Styled(div)>
+    <ActionButton disabled={false} marginTop={39} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" successGreen={false}>
+      <Styled(div) target=\\"_blank\\" href={[undefined]} as=\\"div\\" marginTop={39} marginBottom={[undefined]}>
+        <div target=\\"_blank\\" href={[undefined]} className=\\"css-11d2hm7\\">
+          <WithStyles(ForwardRef(Button)) onClick={[Function: mockConstructor]} classes={{...}} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
+            <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
+              <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
+                <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                    <span className=\\"MuiButton-label css-1405lf9\\">
+                      OK
+                    </span>
+                    <NoSsr />
+                  </button>
+                </ForwardRef(ButtonBase)>
+              </WithStyles(ForwardRef(ButtonBase))>
+            </ForwardRef(Button)>
+          </WithStyles(ForwardRef(Button))>
+        </div>
+      </Styled(div)>
+    </ActionButton>
+  </div>
+</AppAdverseActions>"
+`;
+
+exports[`Matches Snapshot without security deposit 1`] = `
+"<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]}>
+  <div>
+    <Styled(div)>
+      <div className=\\"css-1v80zmq\\">
+        <Styled(h1)>
+          <h1 className=\\"css-r7wuwd\\">
+            Reason for Our Decision
+          </h1>
+        </Styled(h1)>
+        <br />
+        <Styled(small)>
+          <small className=\\"css-akirq1\\">
+            Adverse action notice
+          </small>
+        </Styled(small)>
+      </div>
+    </Styled(div)>
+    <Styled(div)>
+      <div className=\\"css-1jk6s00\\">
+        <Styled(p) color=\\"#818797\\">
+          <p color=\\"#818797\\" className=\\"css-4uacxs\\">
+            05/06/2020
           </p>
         </Styled(p)>
         <br />
@@ -838,5 +994,5 @@ exports[`Matches Snapshot 1`] = `
       </Styled(div)>
     </ActionButton>
   </div>
-</DenialReason>"
+</AppAdverseActions>"
 `;
