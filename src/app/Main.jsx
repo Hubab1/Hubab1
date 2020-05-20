@@ -118,7 +118,8 @@ export class Main extends Component {
     resetTimer = () => {
         clearTimeout(this.time);
         if (this.props.isLoggedIn) {
-            this.time = setTimeout(this.logout, 3000);
+            const SECOND = 1000;
+            this.time = setTimeout(this.logout, SECOND*60*15);
         }
     }
 
