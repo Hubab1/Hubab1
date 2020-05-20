@@ -48,6 +48,7 @@ const messageDiv = css`
 `
 
 export default function GenericFormDetail (props) {
+    if (!props.messages) return null;
     const Icon = props.type === 'success' ? CheckCircle : ErrorIcon;
     return (
         <div className={errorContainer}>
