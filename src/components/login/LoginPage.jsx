@@ -8,6 +8,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import LoginForm from 'components/common/LoginForm';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 import auth from 'utils/auth';
 
@@ -23,7 +24,9 @@ export class LoginPage extends React.Component {
         if (this.props.location.state?.errors) {
             return this.props.location.state.errors;
         }
+        return null;
     }
+
     onSubmit = (values, { setSubmitting }) => {
         const { history } = this.props;
         return auth.login(values.email, values.password, this.props.communityId).then((res) => {
@@ -49,12 +52,12 @@ export class LoginPage extends React.Component {
                 <SpacedH3>
                     Sign in to continue with your application.
                 </SpacedH3>
+                <GenericFormMessage type="error" messages={this.errors}/>
                 <img src={welcome} alt="welcome sign" width="118" height="94"/>
                 <LoginForm
                     handleOnSubmit={this.onSubmit}
                     includeRegister={true}
                     buttonText="Sign In"
-                    formErrors={this.errors}
                 />
             </UnauthenticatedPage>
         );
