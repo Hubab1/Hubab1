@@ -20,6 +20,7 @@ import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
+import { actions as mainActions } from 'reducers/store';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import Address from 'components/Address';
@@ -91,6 +92,8 @@ export class Main extends Component {
         var time;
         const logout = () => {
             if (this.props.isLoggedIn) {
+                this.props.logout();
+                localStorage.clear();
                 this.props.history.push({
                     pathname: ROUTES.LOGIN,
                     state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
@@ -168,7 +171,7 @@ const mapStateToProps = state => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout};
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
