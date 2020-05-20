@@ -85,28 +85,29 @@ export class Main extends Component {
             return this.setState({hasError: true});
         }
         this.mountNavigation(isLoggedIn, configuration);
+        this.resetTimer();
         this.addIdleEventListeners();
     }
 
     addIdleEventListeners = () => {
         // assign document events
-        ['onmousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'onkeypress'].forEach(eventType => {
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
             document.addEventListener(eventType, this.resetTimer);
         });
 
         // assign window events
-        ['onload', 'onscroll'].forEach(eventType => {
+        ['load', 'scroll'].forEach(eventType => {
             window.addEventListener(eventType, this.resetTimer);
         });
     }
 
     removeIdleEventListeners = () => {
-        ['onmousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'onkeypress'].forEach(eventType => {
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
             document.removeEventListener(eventType, this.resetTimer);
         });
 
         // assign window events
-        ['onload', 'onscroll'].forEach(eventType => {
+        ['load', 'scroll'].forEach(eventType => {
             window.removeEventListener(eventType, this.resetTimer);
         });
     }
@@ -117,10 +118,11 @@ export class Main extends Component {
 
     resetTimer = () => {
         clearTimeout(this.time);
-        if (this.props.isLoggedIn) {
-            const SECOND = 1000;
-            this.time = setTimeout(this.logout, SECOND*60*15);
-        }
+        const SECOND = 1000;
+        // this.time = setTimeout(this.logout, SECOND*60*15);
+
+        // ADDED 5 second timer for QA, remove before merge!
+        this.time = setTimeout(this.logout, SECOND*5);
     }
 
     logout = () => {
