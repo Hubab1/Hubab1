@@ -119,10 +119,7 @@ export class Main extends Component {
     resetTimer = () => {
         clearTimeout(this.time);
         const SECOND = 1000;
-        // this.time = setTimeout(this.logout, SECOND*60*15);
-
-        // ADDED 5 second timer for QA, remove before merge!
-        this.time = setTimeout(this.logout, SECOND*5);
+        this.time = setTimeout(this.logout, SECOND*60*15);
     }
 
     logout = () => {
