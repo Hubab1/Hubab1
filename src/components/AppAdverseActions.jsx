@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, Card, CardSection, CardRow, Bold } from 'assets/styles';
 import API from 'app/api';
+import { connect } from 'react-redux';
 
 export const Subtitle = styled.small`
     color: #818797;
@@ -27,9 +28,11 @@ const CreditScore = styled.div`
     justify-content: center;
     text-align: center; 
     font-size: 22px;
-    border: 1px solid #828796;
+    border: 1px solid;
     font-weight: bold;
     color: #828796;
+    color: ${props => props.color || "#828796"};
+    border-color: ${props => props.color || "#828796"};
     margin-left: 1px;
     margin-right: 9px;
 `
@@ -64,7 +67,8 @@ const IndentedRow = styled(CardRow)`
     justify-content: initial;
 `
 
-export default function AppAdverseActions (props) {
+export function AppAdverseActions (props) {
+    const { configuration } = props;
     const [adverseFactors, setAdverseFactors] = useState([]);
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
@@ -93,6 +97,26 @@ export default function AppAdverseActions (props) {
         return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
 
+
+    let getCreditScoreColor = (score) => {
+        const ratingConfig = configuration.credit_score_rating_config;
+
+        if (!ratingConfig || !ratingConfig.length || !score || isNaN(score))
+            return '#828796';
+
+        let index = 0;
+
+        for (let i = ratingConfig.length - 1; i >=0 ; i--) {
+            if (score >= ratingConfig[i][0]) break;
+            index++;
+        }
+
+        switch(index) {
+            case 0: return "#60C28D";
+            case 1: return "#FCC022";
+            default: return "#D0021B";
+        }
+    };
 
     return (
         <div>
@@ -154,7 +178,7 @@ export default function AppAdverseActions (props) {
                         <Card>
                             <CardSection>
                                 <IndentedRow>
-                                    <CreditScore>{creditScore}</CreditScore>
+                                    <CreditScore color={getCreditScoreColor(creditScore)}>{creditScore}</CreditScore>
                                     <CreditScoreDetails>
                                         <P>Your credit score as of {requestDate}</P>
                                         <P color="#818797" fontSize={14}>This score has a range of 350 to 850</P>
@@ -206,5 +230,12 @@ AppAdverseActions.propTypes = {
     unitNumber: PropTypes.string,
     name: PropTypes.string,
     securityDeposit: PropTypes.string,
-    onAgree: PropTypes.func.isRequired
+    onAgree: PropTypes.func.isRequired,
+    configuration: PropTypes.object,
 };
+
+const mapStateToProps = state => ({
+    configuration: state.configuration,
+});
+
+export default connect(mapStateToProps)(AppAdverseActions);
