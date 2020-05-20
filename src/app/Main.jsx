@@ -85,36 +85,52 @@ export class Main extends Component {
             return this.setState({hasError: true});
         }
         this.mountNavigation(isLoggedIn, configuration);
-        this.handleIdleTimeout();
+        this.addIdleEventListeners();
     }
 
-    handleIdleTimeout = () => {
-        var time;
-        const logout = () => {
-            if (this.props.isLoggedIn) {
-                this.props.logout();
-                localStorage.clear();
-                this.props.history.push({
-                    pathname: ROUTES.LOGIN,
-                    state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
-                })
-            }
-            // console.log('LOGGING OUT')
+    addIdleEventListeners = () => {
+        // assign document events
+        ['onmousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'onkeypress'].forEach(eventType => {
+            document.addEventListener(eventType, this.resetTimer);
+        });
+
+        // assign window events
+        ['onload', 'onscroll'].forEach(eventType => {
+            window.addEventListener(eventType, this.resetTimer);
+        });
+    }
+
+    removeIdleEventListeners = () => {
+        ['onmousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'onkeypress'].forEach(eventType => {
+            document.removeEventListener(eventType, this.resetTimer);
+        });
+
+        // assign window events
+        ['onload', 'onscroll'].forEach(eventType => {
+            window.removeEventListener(eventType, this.resetTimer);
+        });
+    }
+
+    componentWillUnmount () {
+        this.removeIdleEventListeners();
+    }
+
+    resetTimer = () => {
+        clearTimeout(this.time);
+        if (this.props.isLoggedIn) {
+            this.time = setTimeout(this.logout, 3000);
         }
-        const resetTimer = () => {
-            clearTimeout(time);
-            if (this.props.isLoggedIn) {
-                time = setTimeout(logout, 3000);
-            }
+    }
+
+    logout = () => {
+        if (this.props.isLoggedIn) {
+            this.props.logout();
+            localStorage.clear();
+            this.props.history.push({
+                pathname: ROUTES.LOGIN,
+                state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
+            });
         }
-        window.onload = resetTimer;
-        document.onmousemove = resetTimer;
-        document.touchstart = resetTimer;
-        document.scroll = resetTimer;
-        window.onscroll = resetTimer;
-        document.touchend = resetTimer;
-        document.touchmove = resetTimer;
-        document.onkeypress = resetTimer;
     }
 
     render() {

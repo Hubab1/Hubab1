@@ -1,9 +1,11 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 
 import { Main } from 'app/Main';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
+
 
 beforeEach(() => {
 
@@ -37,16 +39,19 @@ beforeEach(() => {
         canAccessCurrentRoute: jest.fn(),
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
         fetchConfiguration: jest.fn().mockReturnValue(fetchConfigurationPromise),
+        logout: jest.fn(),
         configuration: configurationObject,
         profile: null,
         history: {
-            replace: jest.fn()
+            replace: jest.fn(),
+            push: jest.fn(),
         },
         location: {
             search: '',
             pathname: ''
         }
     }
+    jest.useFakeTimers();
 });
 
 
@@ -57,6 +62,29 @@ describe('componentDidMount', () => {
 
         expect(defaultProps.fetchConfiguration).toHaveBeenCalledTimes(1);
 
+    });
+});
+
+describe('this.logout', () => {
+    describe('isLoggedIn=true', () => {
+        it('handles logging out', function() {
+            localStorage.setItem('access_token', 'accesstoken');
+            const wrapper = shallow( <Main {...defaultProps } isLoggedIn={true} theme={{}}/> );
+            wrapper.instance().logout();
+            expect(localStorage.getItem('access_token')).not.toBeTruthy();
+            expect(defaultProps.logout).toHaveBeenCalled();
+            expect(defaultProps.history.push).toHaveBeenCalledWith(
+                {pathname: '/login', state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}}
+            );
+        });
+    });
+    describe('isLoggedIn=false', () => {
+        it('doesnt do anything if called', function() {
+            const wrapper = shallow( <Main {...defaultProps } isLoggedIn={false} theme={{}}/> );
+            wrapper.instance().logout();
+            expect(defaultProps.logout).not.toHaveBeenCalled();
+            expect(defaultProps.history.push).not.toHaveBeenCalled();
+        });
     });
 });
 
