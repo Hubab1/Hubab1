@@ -53,20 +53,43 @@ it('this.parseReportData updates state with correct data', () => {
                     incomeStreams: [
                         { 
                             name: 'employer 1',
-                            projectedGrossAnnual: 6384,
+                            estimatedGrossAnnual: 6384,
                             id: 'dkfjdsf-1',
                         },
                         { 
                             name: 'employer 2',
-                            projectedGrossAnnual: 1234,
+                            estimatedGrossAnnual: 1234,
                             id: 'dkfjdsf-2',
                         }
                     ]
                 }]
 
-            }]
+            }],
+            income:[
+                {
+                    netMonthly: [],
+                    incomeEstimate: {
+                        projectedGrossAnnual:87237,
+                        netAnnual:100778.02,
+                        projectedNetAnnual:65259,
+                        estimatedGrossAnnual:134478
+                    },
+                    confidenceType: 'HIGH'
+                },
+                {
+                    netMonthly: [],
+                    incomeEstimate: {
+                        projectedGrossAnnual:87237,
+                        netAnnual:100778.02,
+                        projectedNetAnnual:65259,
+                        estimatedGrossAnnual:134478
+                    },
+                    confidenceType: 'MODERATE'
+                }
+            ],
         }
-    }
+    };
+
     const wrapper = shallow(<ConnectBankPage/>);
 
     const expectedIncomeEntries = [
@@ -84,9 +107,9 @@ it('this.parseReportData updates state with correct data', () => {
     wrapper.instance().parseReportData(reportData);
 
     expect(wrapper.state().reportData.incomeEntries).toEqual(expectedIncomeEntries);    
-    expect(wrapper.state().reportData.incomeTotal).toEqual(7618);    
+    expect(wrapper.state().reportData.incomeTotal).toEqual(134478);
     expect(wrapper.state().reportData.assetsTotal).toEqual(38362.3);    
-})
+});
 
 it('if EVENT_INCOME_REPORTS_GENERATED is in applicant.events on mount, sets state.loadingReport = true', () => {
     const defaultProps = {applicant : {events: [{ "event": "45" }]}}
