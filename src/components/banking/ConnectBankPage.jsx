@@ -60,28 +60,37 @@ export class ConnectBankPage extends React.Component {
 
     parseReportData = reportData => {
         const assetsTotal = get(reportData, 'voa.assets.currentBalance');
-        const incomeData = get(reportData, 'voi.institutions', []);
+        const institutions = get(reportData, 'voi.institutions', []);
+        const income = get(reportData, 'voi.income', []);
 
-        const data = {'incomeEntries': [], 'incomeTotal': 0, assetsTotal, 'incomeNameInitialValues': {}}
-        incomeData.forEach(bank => {
+        const data = {'incomeEntries': [], 'incomeTotal': 0, assetsTotal, 'incomeNameInitialValues': {}};
+
+        institutions.forEach(bank => {
             bank.accounts.forEach(account => {
                 account.incomeStreams.forEach((income) => {
                     data.incomeNameInitialValues[income.id] = income.name;
                     data.incomeEntries.push({
                         name: income.name,
-                        income: income.projectedGrossAnnual,
+                        income: income.estimatedGrossAnnual,
                         id: income.id,
                     });
-                    data.incomeTotal += income.projectedGrossAnnual
                 })
             })
-        })
+        });
+
+        // We only take in consideration for the total, the gross estimated annual income with confidence high
+        income.forEach(incomeStream => {
+            if(incomeStream.confidenceType === 'HIGH') {
+                data.incomeTotal += incomeStream.incomeEstimate.estimatedGrossAnnual;
+            }
+        });
+
         this.setState({
             reportData: data,
             loadingReport: false,
             errors: null
         })
-    }
+    };
     
 
     handleFetchReports = () => {
