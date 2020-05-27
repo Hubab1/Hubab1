@@ -10,7 +10,7 @@ exports[`Price Breackdown section display correct info 1`] = `
           <div className=\\"css-hgfyev\\">
             <div>
               <Styled(MuiBox)>
-                <div className=\\"MuiBox-root MuiBox-root-3\\">
+                <div className=\\"MuiBox-root MuiBox-root-2\\">
                   <Tip text={{...}}>
                     <WithStyles(ForwardRef(Grid)) container={true} spacing={1} alignItems=\\"center\\">
                       <ForwardRef(Grid) classes={{...}} container={true} spacing={1} alignItems=\\"center\\">
