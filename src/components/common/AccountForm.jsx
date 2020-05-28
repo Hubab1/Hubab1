@@ -147,9 +147,9 @@ export default ({
                         <Checkbox
                             name="sms_opt_in"
                             onChange={handleChange}
-                            checked={values.disclaimer}
-                            value={values.disclaimer}
-                            error={errors.disclaimer}
+                            checked={values.sms_opt_in}
+                            value={values.sms_opt_in}
+                            error={errors.sms_opt_in}
                             label={
                                 <>Opt in to SMS communication regarding this application. Your information will not be shared with anyone. <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>Privacy Policy</Link>
                                 </>
@@ -163,7 +163,7 @@ export default ({
                             </LinkButton>
                         </div>
                     }
-                    <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={20} marginBottom={20}>{submitText}</ActionButton>
+                    <ActionButton disabled={!allValuesSet(values, {exclude: ['sms_opt_in']}) || isSubmitting} marginTop={20} marginBottom={20}>{submitText}</ActionButton>
                 </div>
             </form>
         )}
