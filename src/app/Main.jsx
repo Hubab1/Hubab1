@@ -20,6 +20,7 @@ import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
+import { actions as mainActions } from 'reducers/store';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import Address from 'components/Address';
@@ -84,6 +85,52 @@ export class Main extends Component {
             return this.setState({hasError: true});
         }
         this.mountNavigation(isLoggedIn, configuration);
+        this.resetTimer();
+        this.addIdleEventListeners();
+    }
+
+    addIdleEventListeners = () => {
+        // assign document events
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
+            document.addEventListener(eventType, this.resetTimer);
+        });
+
+        // assign window events
+        ['load', 'scroll'].forEach(eventType => {
+            window.addEventListener(eventType, this.resetTimer);
+        });
+    }
+
+    removeIdleEventListeners = () => {
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
+            document.removeEventListener(eventType, this.resetTimer);
+        });
+
+        // assign window events
+        ['load', 'scroll'].forEach(eventType => {
+            window.removeEventListener(eventType, this.resetTimer);
+        });
+    }
+
+    componentWillUnmount () {
+        this.removeIdleEventListeners();
+    }
+
+    resetTimer = () => {
+        clearTimeout(this.time);
+        const SECOND = 1000;
+        this.time = setTimeout(this.logout, SECOND*60*15);
+    }
+
+    logout = () => {
+        if (this.props.isLoggedIn) {
+            this.props.logout();
+            localStorage.clear();
+            this.props.history.push({
+                pathname: ROUTES.LOGIN,
+                state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
+            });
+        }
     }
 
     render() {
@@ -140,7 +187,7 @@ const mapStateToProps = state => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant};
+const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout};
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

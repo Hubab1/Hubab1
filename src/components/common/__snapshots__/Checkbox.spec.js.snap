@@ -6,7 +6,7 @@ exports[`Matches snapshot 1`] = `
 >
   <span
     aria-disabled={false}
-    className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root css-14bneh MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+    className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root css-14bneh MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
     error={false}
     onBlur={[Function]}
     onDragLeave={[Function]}
@@ -26,7 +26,7 @@ exports[`Matches snapshot 1`] = `
     >
       <input
         checked={false}
-        className="PrivateSwitchBase-input-10"
+        className="PrivateSwitchBase-input-4"
         data-indeterminate={false}
         disabled={false}
         name="checky"
