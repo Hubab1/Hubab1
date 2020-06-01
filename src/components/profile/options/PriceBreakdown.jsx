@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import styled from '@emotion/styled';
+import { serializeDate } from 'utils/misc';
 
 import API  from 'app/api';
 
@@ -43,6 +44,8 @@ function PriceBreakdown (props) {
             application: props.application.id,
             rental_options: props.selectedOptions,
             unit_id: props.unitId,
+            lease_term: props.lease_term,
+            move_in_date: serializeDate(props.lease_start_date)
         };
         API.getCurrentFlatQuote(body).then((result) => {
             setPriceBreakdown(result);
