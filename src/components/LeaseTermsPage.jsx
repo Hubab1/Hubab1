@@ -174,8 +174,8 @@ export class LeaseTermsPage extends React.Component {
                                         application={this.props.application}
                                         unitId={values.unit.id}
                                         category={"lease_terms"}
-                                        lease_start_date={values.lease_start_date}
-                                        lease_term={values.lease_term}
+                                        moveInDate={values.lease_start_date}
+                                        leaseTerm={values.lease_term}
                                     />
                                 )
                             }
