@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ManualIncomeVerificationPage from 'components/banking/ManualIncomeVerificationPage';
+import ManualIncomeVerificationPage from './ManualIncomeVerificationPage';
 
 let defaultProps;
 beforeEach(() => {

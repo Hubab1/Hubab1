@@ -30,8 +30,8 @@ const bodyRow = css`
 `
 
 const ConnectFinicity = props => {
-    const [screen, setScreen] = React.useState();
-    if (screen == 'manual') {
+    const [screen, setScreen] = React.useState(props.screen);
+    if (screen === 'manual') {
         return <ManualIncomeVerificationPage {...props} goBack={()=>setScreen('')} />
     }
     return (
