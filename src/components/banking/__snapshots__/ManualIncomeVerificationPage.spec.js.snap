@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <Capsule
+    buttonLabel="Add an Income Source"
+    label="Income"
+    limitReached={false}
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    marginBottom={20}
+    marginTop={40}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <BackButton
+    onClick={[MockFunction]}
+  />
+</React.Fragment>
+`;

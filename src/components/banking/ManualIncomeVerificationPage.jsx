@@ -5,6 +5,7 @@ import { BackButton } from 'components/common/BackLink';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import Capsule from 'components/common/Capsule/Capsule';
 import { H1, H3 } from 'assets/styles';
+import finance from 'assets/images/finance.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -21,8 +22,7 @@ export default function ManualIncomeVerificationPage (props) {
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
             <SpacedH3>Add at least one income source or asset below.</SpacedH3>
             <Capsule
-                // prefix={<img alt="coins" src={guarantor}></img>}
-                prefix={'💰'}
+                prefix={<img alt="coin" src={finance}></img>}
                 label="Income"
                 buttonLabel="Add an Income Source"
                 tip="TBD"
