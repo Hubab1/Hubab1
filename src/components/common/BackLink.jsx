@@ -11,6 +11,20 @@ export const BackLink = props => {
     </Link>
 };
 
+// for the back buttons that are not links
+export const BackButton = ({text="Go Back", onClick=()=>{}}) => {
+    return (
+        <span
+            className={blackLinkRoot}
+            onClick={onClick}
+        >
+            <ArrowBackIos classes={{root: arrowIcon}}/>
+            {" "}
+            {text}
+        </span>
+    );
+};
+
 BackLink.defaultProps = {
     to: '/'
 };

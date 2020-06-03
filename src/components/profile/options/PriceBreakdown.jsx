@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
+import { css } from 'emotion';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -11,16 +12,31 @@ import styled from '@emotion/styled';
 
 import API  from 'app/api';
 
-import { P, CardRowTotal } from 'assets/styles';
+import { P, CardRowTotal, paperRoot } from 'assets/styles';
 import {
-    anchor,
-    contentContainer, existingItemRow,
+    existingItemRow,
     priceBreakdownContainer,
-    paperRoot,
-    renterProfileListItemContainer,
 } from './styles';
 import Tip from 'components/common/Tip';
 
+const priceBreakdownWrapper = css`
+    margin-bottom: 10px;
+    a {
+        text-decoration: none;
+    }
+`
+
+const contentContainer = css`
+    display: flex;
+    flex: 1;
+    align-items: center;
+    text-transform: none;
+    padding-bottom: 16px;
+`
+const anchor = css`
+    position: relative;
+    top: -90px;
+`
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -70,7 +86,7 @@ function PriceBreakdown (props) {
     return (
         <PriceBreakdownContainer>
             {!isLoading && (
-                <div className={renterProfileListItemContainer}>
+                <div className={priceBreakdownWrapper}>
                     <div id={props.name} className={anchor}/>
                     <div className={paperRoot}>
                         <div className={contentContainer}>

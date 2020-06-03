@@ -10,6 +10,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
 // import { ROUTES } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import ManualIncomeVerificationPage from 'components/banking/ManualIncomeVerificationPage';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
@@ -29,6 +30,10 @@ const bodyRow = css`
 `
 
 const ConnectFinicity = props => {
+    const [screen, setScreen] = React.useState();
+    if (screen == 'manual') {
+        return <ManualIncomeVerificationPage {...props} goBack={()=>setScreen('')} />
+    }
     return (
         <Fragment>
             <H1>Verify Your Income Instantly</H1>
@@ -47,6 +52,9 @@ const ConnectFinicity = props => {
             {!!props.errors && <GenericFormMessage type="error" messages={props.errors}/>}
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
                 Link Bank Account
+            </ActionButton>
+            <ActionButton variant="outlined" marginBottom={20} onClick={()=>setScreen('manual')}>
+                Manually verify
             </ActionButton>
             {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}
         </Fragment>

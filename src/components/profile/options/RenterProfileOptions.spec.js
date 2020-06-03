@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
-import RenterProfileListItem from 'components/profile/options/RenterProfileListItem';
+import RenterProfileListItem from 'components/common/Capsule/Capsule';
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
 import mockProfile from 'reducers/mock-profile.json';

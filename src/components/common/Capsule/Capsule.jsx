@@ -7,12 +7,12 @@ import Info from '@material-ui/icons/Info';
 import { infoIconRoot, P } from 'assets/styles';
 import SimplePopover from 'components/common/SimplePopover';
 
-import { anchor, buttonRoot, contentContainer, label, prefix, paperRoot, renterProfileListItemContainer } from './styles';
+import { anchor, buttonRoot, contentContainer, label, prefix, paperRoot, container } from './styles';
 
 
-function RenterProfileListItem (props) {
+function Capsule (props) {
     return (
-        <div className={renterProfileListItemContainer}>
+        <div className={container}>
             <div id={props.name} className={anchor}/>
             <div className={paperRoot}>
                 <div className={contentContainer}>
@@ -45,11 +45,11 @@ function RenterProfileListItem (props) {
     );
 }
 
-RenterProfileListItem.defaultProps = {
+Capsule.defaultProps = {
     limitReached: false,
 }
 
-RenterProfileListItem.propTypes = {
+Capsule.propTypes = {
     prefix: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     label: PropTypes.string,
     buttonLabel: PropTypes.string,
@@ -58,4 +58,4 @@ RenterProfileListItem.propTypes = {
     limitReached: PropTypes.bool,
 }
 
-export default RenterProfileListItem;
+export default Capsule;

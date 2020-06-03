@@ -20,7 +20,7 @@ import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
 import ExistingParkingOrStorage from './ExistingParkingOrStorage';
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
-import RenterProfileListItem from './RenterProfileListItem';
+import Capsule from 'components/common/Capsule/Capsule';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -105,7 +105,7 @@ export class RentalProfileOptions extends React.Component {
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
                 <div>
                     {options.has(RENTER_PROFILE_TYPE_CO_APPLICANTS) &&
-                        <RenterProfileListItem
+                        <Capsule
                             prefix={<img alt="coapplicants" src={coapplicants}></img>}
                             name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                             label="I'll be living with roommates"
@@ -128,7 +128,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     }
                     {options.has(RENTER_PROFILE_TYPE_GUARANTOR) &&
-                        <RenterProfileListItem
+                        <Capsule
                             prefix={<img alt="coins" src={guarantor}></img>}
                             name={RENTER_PROFILE_TYPE_GUARANTOR}
                             label="I'll need a guarantor"
@@ -153,7 +153,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     }
                     {options.has(RENTER_PROFILE_TYPE_PETS) &&
-                        <RenterProfileListItem
+                        <Capsule
                             prefix={<img alt="dog" src={cat} />}
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
@@ -176,7 +176,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     }
                     {options.has(RENTER_PROFILE_TYPE_PARKING) &&
-                        <RenterProfileListItem
+                        <Capsule
                             prefix={<img src={addparking} alt="car parking"/>}
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
@@ -201,7 +201,7 @@ export class RentalProfileOptions extends React.Component {
                         />
                     }
                     {options.has(RENTER_PROFILE_TYPE_STORAGE) &&
-                        <RenterProfileListItem
+                        <Capsule
                             prefix={<img src={addstorage} alt="storage" />}
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
