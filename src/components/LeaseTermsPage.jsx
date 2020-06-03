@@ -168,7 +168,9 @@ export class LeaseTermsPage extends React.Component {
                                 </Grid>
                             </div>
                             {
-                                values.unit && (
+                                values.unit &&
+                                values.lease_start_date &&
+                                values.lease_term && (
                                     <PriceBreakdown
                                         selectedOptions={{}}
                                         application={this.props.application}
