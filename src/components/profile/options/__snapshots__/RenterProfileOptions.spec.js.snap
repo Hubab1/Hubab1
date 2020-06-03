@@ -9,7 +9,7 @@ exports[`matches snapshot 1`] = `
     Complete the sections that apply to you and skip the ones that don't.
   </ForwardRef(render)>
   <div>
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Invite another roommate"
       expansionPanel={
         <ExistingItemsExpansionPanel
@@ -56,7 +56,7 @@ exports[`matches snapshot 1`] = `
       }
       route="/rental-profile/invite-roommates"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Invite a guarantor"
       expansionPanel={
         <ExistingItemsExpansionPanel
@@ -90,7 +90,7 @@ exports[`matches snapshot 1`] = `
       route="/rental-profile/invite-guarantor"
       tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Add a pet"
       expansionPanel={false}
       label="I'll be living with pets"
@@ -104,7 +104,7 @@ exports[`matches snapshot 1`] = `
       }
       route="/rental-profile/pets"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Add Parking"
       expansionPanel={false}
       label="I'll need parking"
@@ -118,7 +118,7 @@ exports[`matches snapshot 1`] = `
       }
       route="/rental-profile/parking"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Add Storage"
       expansionPanel={false}
       label="I'll need storage"
@@ -159,7 +159,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
     Complete the sections that apply to you and skip the ones that don't.
   </ForwardRef(render)>
   <div>
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Invite another roommate"
       expansionPanel={
         <ExistingItemsExpansionPanel
@@ -206,7 +206,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       }
       route="/rental-profile/invite-roommates"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Invite a guarantor"
       expansionPanel={
         <ExistingItemsExpansionPanel
@@ -240,7 +240,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       route="/rental-profile/invite-guarantor"
       tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Add a pet"
       expansionPanel={false}
       label="I'll be living with pets"
@@ -254,7 +254,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       }
       route="/rental-profile/pets"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Manage Parking"
       expansionPanel={
         <ExistingItemsExpansionPanel
@@ -292,7 +292,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       }
       route="/rental-profile/parking"
     />
-    <RenterProfileListItem
+    <Capsule
       buttonLabel="Add Storage"
       expansionPanel={false}
       label="I'll need storage"
