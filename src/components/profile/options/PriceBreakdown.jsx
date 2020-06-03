@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import styled from '@emotion/styled';
+import { serializeDate } from 'utils/misc';
 
 import API  from 'app/api';
 
@@ -38,17 +39,22 @@ function PriceBreakdown (props) {
     const [priceBreakdown, setPriceBreakdown] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
+    const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
+
     useEffect(() => {
         const body = {
             application: props.application.id,
             rental_options: props.selectedOptions,
             unit_id: props.unitId,
+            lease_term: props.leaseTerm,
+            move_in_date: serializeDate(props.moveInDate)
         };
         API.getCurrentFlatQuote(body).then((result) => {
             setPriceBreakdown(result);
             setIsLoading(false);
         });
-    }, [props.application, props.selectedOptions, props.unitId]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.application.id, stringifiedSelectedOptions, props.unitId, props.leaseTerm, props.moveInDate]);
 
     const getCurrentCategoryInfo = () => {
         // Count the number of rental options selected

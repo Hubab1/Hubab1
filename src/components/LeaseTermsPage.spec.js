@@ -3,12 +3,18 @@ import { shallow } from 'enzyme';
 
 import { LeaseTermsPage } from './LeaseTermsPage';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import PriceBreakdown from './profile/options/PriceBreakdown';
+import { Formik } from 'formik';
 
 
 let defaultProps, updateRenterProfile;
 beforeEach(() => {
     updateRenterProfile = jest.fn();
     defaultProps = {
+        application: {},
+        config: {
+            lease_term_options: []
+        },
         isPrimaryApplicant: true,
         updateRenterProfile: updateRenterProfile,
         _nextRoute: jest.fn(),
@@ -62,4 +68,12 @@ describe('onSubmit', () => {
             expect(defaultProps._nextRoute).not.toHaveBeenCalled()
         })
     })
+});
+
+it ('renders PriceBreakdown if unit and lease-start_date and lease_term are set', function () {
+    const application = {
+        'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit': 123
+    }
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application}/>);
+    expect(wrapper.find(Formik).dive().find(PriceBreakdown).length).toBe(1);
 });
