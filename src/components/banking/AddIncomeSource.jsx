@@ -5,6 +5,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import * as Yup from 'yup';
 
 import { BackLink } from 'components/common/BackLink';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -59,6 +60,10 @@ const INCOME_TYPES = [
 ]
 
 export function AddIncomeSource (props) {
+    const onSubmit = values => {
+        // TODO: submit handling
+        props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
+    }
     return (
         <>
             <SkinnyH1>Add an Income Source</SkinnyH1>
@@ -66,6 +71,12 @@ export function AddIncomeSource (props) {
             <img alt="coin" src={finance}></img>
             <Spacer height={30}/>
             <Formik
+                validationSchema={
+                    Yup.object({
+                        estimated_amount: Yup.string().matches(/(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/, 'Must be a valid dollar amount.')
+                    })
+                }
+                onSubmit={onSubmit}
                 initialValues={{
                     income_type: 125,
                     estimated_amount: 120.22
@@ -74,9 +85,12 @@ export function AddIncomeSource (props) {
                 {
                 ({
                     values,
-                    handleChange
+                    handleChange,
+                    handleSubmit,
+                    errors,
+                    submitCount
                 }) => (
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="align-left">
                         <FormControl fullWidth>
                             <InputLabel htmlFor="income-type">Income Type</InputLabel>
@@ -96,20 +110,22 @@ export function AddIncomeSource (props) {
                         </FormControl>
                         <Spacer height={24}/>
                         <FormTextInput
-                            label="Estimated Amount"
+                            label="Estimated annual income"
                             name="estimated_amount"
                             type="number"
                             value={values.estimated_amount}
                             handleChange={handleChange}
                             startAdornment={<span style={{color: '#828796', paddingRight: 5}}>$</span>}
+                            error={errors.estimated_amount}
+                            submitted={submitCount > 0}
                         />
                     </div>
+                    <ActionButton marginTop={40} marginBottom={20}>
+                        Continue
+                    </ActionButton>
                 </form>
                 )}
             </Formik>
-            <ActionButton marginTop={40} marginBottom={20}>
-                Continue
-            </ActionButton>
             <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>
         </>
     );
