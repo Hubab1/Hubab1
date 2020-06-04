@@ -1,5 +1,6 @@
 import { ROUTES } from 'app/constants';
-import { MOCKY } from './api';
+import { MOCKY } from 'app/api';
+
 // fetch middleware handles invalid token/expiry
 export default async (...args) => {
     if (MOCKY) return Promise.reject();
