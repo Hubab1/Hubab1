@@ -115,6 +115,10 @@ export const CardSection = styled.div`
     padding: 15px;
 `
 
+export const Spacer = styled.div`
+    height: ${props => props.height ? `${props.height}px` : '20px'}
+`
+
 export const ScrollableTermsCardSection = styled(CardSection)`
     overflow: auto;
     padding: 30px;
