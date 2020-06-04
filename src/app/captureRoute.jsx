@@ -8,6 +8,7 @@ export default function captureRoute(WrappedComponent, route) {
     class Component extends React.Component {
         constructor (props) {
             super(props);
+            route = WrappedComponent.route || route;
             props.currentRouteReceived(route);
         }
         render() {

@@ -13,6 +13,10 @@ export const cursor = css`
     cursor: pointer !important;
 `
 
+export const linkNoStyle = css`
+    text-decoration: none;
+`
+
 export const ErrorDetail = styled.div`
     color: #f44336;
     text-align: left;
@@ -176,3 +180,15 @@ export const paperRoot = css`
         font-weight: 600;
     }
 `
+
+export const styles = {
+    formContent,
+    cursor,
+    linkNoStyle,
+    link,
+    blackLinkRoot,
+    leftText,
+    infoIconRoot,
+    arrowIcon,
+    paperRoot,
+}

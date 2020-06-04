@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 // import { Link } from 'react-router-dom';
 
+import { styles } from 'assets/styles';
 import GreenCheckIcon from 'components/common/GreenCheckIcon';
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
@@ -11,6 +12,8 @@ import { H1, H3, P, Bold } from 'assets/styles';
 // import { ROUTES } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ManualIncomeVerificationPage from 'components/banking/ManualIncomeVerificationPage';
+import { ROUTES } from 'app/constants';
+import { Link } from 'react-router-dom';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
@@ -29,7 +32,7 @@ const bodyRow = css`
     :first-of-type{margin-bottom: 20px;}
 `
 
-const ConnectFinicity = props => {
+const VerifyIncome = props => {
     const [screen, setScreen] = React.useState(props.screen);
     if (screen === 'manual') {
         return <ManualIncomeVerificationPage {...props} goBack={()=>setScreen('')} />
@@ -53,12 +56,14 @@ const ConnectFinicity = props => {
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>
-            <ActionButton variant="outlined" marginBottom={20} onClick={()=>setScreen('manual')}>
-                Manually verify
-            </ActionButton>
+            <Link to={ROUTES.MANUAL_INCOME_VERIFICATION} className={styles.linkNoStyle}>
+                <ActionButton variant="outlined" marginBottom={20}>
+                    Manually verify
+                </ActionButton>
+            </Link>
             {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}
         </Fragment>
     );
 }
 
-export default ConnectFinicity;
+export default VerifyIncome;
