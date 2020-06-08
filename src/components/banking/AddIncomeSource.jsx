@@ -61,6 +61,12 @@ const INCOME_TYPES = [
 ]
 
 export function AddIncomeSource (props) {
+    function getInitialValues () {
+        return Object.assign({
+            income_type: '',
+            estimated_amount: ''
+        }, props.initialValues);
+    }
     const onSubmit = values => {
         // TODO: submit handling
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
@@ -79,10 +85,7 @@ export function AddIncomeSource (props) {
                     })
                 }
                 onSubmit={onSubmit}
-                initialValues={{
-                    income_type: '',
-                    estimated_amount: ''
-                }}
+                initialValues={getInitialValues()}
             >
                 {
                 ({

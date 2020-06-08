@@ -19,8 +19,8 @@ exports[`matches snapshot 1`] = `
     enableReinitialize={false}
     initialValues={
       Object {
-        "estimated_amount": "",
-        "income_type": "",
+        "estimated_amount": "1111",
+        "income_type": 10,
       }
     }
     isInitialValid={false}
