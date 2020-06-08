@@ -10,7 +10,7 @@ exports[`Price Breackdown section display correct info 1`] = `
           <div className=\\"css-hgfyev\\">
             <div>
               <Styled(MuiBox)>
-                <div className=\\"MuiBox-root MuiBox-root-2\\">
+                <div className=\\"MuiBox-root MuiBox-root-3\\">
                   <Tip text={{...}}>
                     <WithStyles(ForwardRef(Grid)) container={true} spacing={1} alignItems=\\"center\\">
                       <ForwardRef(Grid) classes={{...}} container={true} spacing={1} alignItems=\\"center\\">
@@ -43,7 +43,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                         <p className=\\"css-3m08t9\\">
                                           <b>
                                             $2,020
-                                             Total Rent
+                                             Monthly Rent
                                           </b>
                                           <br />
                                           $10/mo for 0 storage space
