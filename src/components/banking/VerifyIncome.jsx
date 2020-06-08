@@ -58,10 +58,9 @@ const VerifyIncome = props => {
             </ActionButton>
             <Link to={ROUTES.MANUAL_INCOME_VERIFICATION} className={styles.linkNoStyle}>
                 <ActionButton variant="outlined" marginBottom={20}>
-                    Manually verify
+                    Verify Manually
                 </ActionButton>
             </Link>
-            {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}
         </Fragment>
     );
 }
