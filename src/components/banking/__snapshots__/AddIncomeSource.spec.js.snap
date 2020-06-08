@@ -19,8 +19,8 @@ exports[`matches snapshot 1`] = `
     enableReinitialize={false}
     initialValues={
       Object {
-        "estimated_amount": 120.22,
-        "income_type": 125,
+        "estimated_amount": "",
+        "income_type": "",
       }
     }
     isInitialValid={false}
@@ -41,6 +41,7 @@ exports[`matches snapshot 1`] = `
         "_mutate": undefined,
         "_nodes": Array [
           "estimated_amount",
+          "income_type",
         ],
         "_options": Object {
           "abortEarly": true,
@@ -61,6 +62,7 @@ exports[`matches snapshot 1`] = `
             "_conditions": Array [],
             "_deps": Array [],
             "_exclusive": Object {
+              "required": true,
               "undefined": false,
             },
             "_mutate": undefined,
@@ -69,6 +71,35 @@ exports[`matches snapshot 1`] = `
               "recursive": true,
             },
             "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": RefSet {
+              "list": Set {},
+              "refs": Map {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "income_type": NumberSchema {
+            "_blacklist": RefSet {
+              "list": Set {},
+              "refs": Map {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": true,
+            },
+            "_mutate": undefined,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "number",
             "_typeError": [Function],
             "_whitelist": RefSet {
               "list": Set {},

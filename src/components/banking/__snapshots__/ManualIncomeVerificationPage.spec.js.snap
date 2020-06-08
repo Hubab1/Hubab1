@@ -18,6 +18,7 @@ exports[`matches snapshot 1`] = `
         src="finance.png"
       />
     }
+    route="/income-employment/manual/add-income"
     tip="TBD"
   />
   <ActionButton
@@ -29,8 +30,8 @@ exports[`matches snapshot 1`] = `
   >
     Continue
   </ActionButton>
-  <BackButton
-    onClick={[MockFunction]}
+  <BackLink
+    to="/income-employment"
   />
 </React.Fragment>
 `;
