@@ -54,9 +54,8 @@ const ConnectFinicity = props => {
                 Link Bank Account
             </ActionButton>
             <ActionButton variant="outlined" marginBottom={20} onClick={()=>setScreen('manual')}>
-                Manually verify
+                Verify Manually
             </ActionButton>
-            {/* removing for now  <Link to={ROUTES.MANUAL_INCOME_ENTRY} className={blackLinkRoot}>Don't Want to Link?</Link> */}
         </Fragment>
     );
 }

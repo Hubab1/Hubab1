@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
-import RenterProfileListItem from 'components/common/Capsule/Capsule';
+import Capsule from 'components/common/Capsule/Capsule';
 import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
 import mockProfile from 'reducers/mock-profile.json';
@@ -22,9 +22,9 @@ beforeEach(() => {
     };
 });
 
-it('renders a RenterProfileListItem component for each option in config.rental_options', function() {
+it('renders a Capsule component for each option in config.rental_options', function() {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
-    expect(wrapper.find(RenterProfileListItem).length).toEqual(5);
+    expect(wrapper.find(Capsule).length).toEqual(5);
 });
 
 it('matches snapshot', () => {
@@ -35,23 +35,23 @@ it('matches snapshot', () => {
 it('renders rental_option_config choices in correct order', () => {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} config={mockConfig}/> );
 
-    expect(wrapper.find(RenterProfileListItem).first().props()['name']).toEqual('co_applicants');
-    expect(wrapper.find(RenterProfileListItem).at(1).props()['name']).toEqual('guarantor');
-    expect(wrapper.find(RenterProfileListItem).at(2).props()['name']).toEqual('pets');
-    expect(wrapper.find(RenterProfileListItem).at(3).props()['name']).toEqual('parking');
-    expect(wrapper.find(RenterProfileListItem).last().props()['name']).toEqual('storage');
+    expect(wrapper.find(Capsule).first().props()['name']).toEqual('co_applicants');
+    expect(wrapper.find(Capsule).at(1).props()['name']).toEqual('guarantor');
+    expect(wrapper.find(Capsule).at(2).props()['name']).toEqual('pets');
+    expect(wrapper.find(Capsule).at(3).props()['name']).toEqual('parking');
+    expect(wrapper.find(Capsule).last().props()['name']).toEqual('storage');
 });
 
 it('renders ExistingItemsExpansionPanel with coapplicants as existing items', () => {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
-    const coApplicantsProps = wrapper.find(RenterProfileListItem).first().props();
-    const coApplicantsWrapper = shallow(<RenterProfileListItem {...coApplicantsProps}/>);
+    const coApplicantsProps = wrapper.find(Capsule).first().props();
+    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps}/>);
     const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
     expect(coApplicantsPanel.props()['children'].length).toEqual(2);
     expect(coApplicantsPanel.props()['children'][0]).toMatchSnapshot();
 
-    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
-    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    const parkingProps = wrapper.find(Capsule).at(3).props();
+    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(0);
 });
 
@@ -78,8 +78,8 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
     ]};
     const selectedParkingProfile = Object.assign({}, mockProfile, {selected_rental_options: selectedParking});
     const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} /> );
-    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
-    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    const parkingProps = wrapper.find(Capsule).at(3).props();
+    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
 
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
     expect(wrapper.getElement()).toMatchSnapshot();
@@ -103,13 +103,13 @@ it('passes expansion panel defaultExpanded=True if anchor hash for rental option
 
     const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} location={{hash: `#${RENTER_PROFILE_TYPE_PARKING}`}} /> );
 
-    const coApplicantsProps = wrapper.find(RenterProfileListItem).first().props();
-    const coApplicantsWrapper = shallow(<RenterProfileListItem {...coApplicantsProps}/>);
+    const coApplicantsProps = wrapper.find(Capsule).first().props();
+    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps}/>);
     const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
     expect(coApplicantsPanel.props()['defaultExpanded']).toEqual(false);
 
-    const parkingProps = wrapper.find(RenterProfileListItem).at(3).props();
-    const parkingWrapper = shallow(<RenterProfileListItem {...parkingProps}/>);
+    const parkingProps = wrapper.find(Capsule).at(3).props();
+    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
     const parkingPanel = parkingWrapper.find(ExistingItemsExpansionPanel);
     expect(parkingPanel.props()['defaultExpanded']).toEqual(true);
 
