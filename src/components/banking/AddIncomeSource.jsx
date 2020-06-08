@@ -80,8 +80,8 @@ export function AddIncomeSource (props) {
                 }
                 onSubmit={onSubmit}
                 initialValues={{
-                    income_type: null,
-                    estimated_amount: null
+                    income_type: '',
+                    estimated_amount: ''
                 }}
             >
                 {

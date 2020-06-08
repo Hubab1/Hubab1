@@ -78,12 +78,12 @@ export default function FormTextInput (props) {
 }
 
 FormTextInput.propTypes = {
-    type: PropTypes.oneOf(['text', 'password', 'tel', 'date']),
+    type: PropTypes.oneOf(['text', 'password', 'tel', 'date', 'number']),
     error: PropTypes.string,
     handleChange: PropTypes.func,
     handleBlur: PropTypes.func,
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     showValidationText: PropTypes.bool,
     touched: PropTypes.bool,
     disabled: PropTypes.bool,

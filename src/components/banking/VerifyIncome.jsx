@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-// import { Link } from 'react-router-dom';
 
 import { styles } from 'assets/styles';
 import GreenCheckIcon from 'components/common/GreenCheckIcon';
@@ -9,9 +8,7 @@ import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
-// import { ROUTES } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import ManualIncomeVerificationPage from 'components/banking/ManualIncomeVerificationPage';
 import { ROUTES } from 'app/constants';
 import { Link } from 'react-router-dom';
 
