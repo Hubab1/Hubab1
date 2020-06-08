@@ -33,10 +33,6 @@ const bodyRow = css`
 `
 
 const VerifyIncome = props => {
-    const [screen, setScreen] = React.useState(props.screen);
-    if (screen === 'manual') {
-        return <ManualIncomeVerificationPage {...props} goBack={()=>setScreen('')} />
-    }
     return (
         <Fragment>
             <H1>Verify Your Income Instantly</H1>
