@@ -14,6 +14,7 @@ import finance from 'assets/images/finance.png';
 import captureRoute from 'app/captureRoute';
 import { ROUTES } from 'app/constants';
 import { Formik } from 'formik';
+import { allValuesSet } from 'utils/formik';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -73,13 +74,14 @@ export function AddIncomeSource (props) {
             <Formik
                 validationSchema={
                     Yup.object({
-                        estimated_amount: Yup.string().matches(/(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/, 'Must be a valid dollar amount.')
+                        income_type: Yup.number().required('Required'),
+                        estimated_amount: Yup.string().matches(/(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/, 'Must be a valid dollar amount.').required('Required')
                     })
                 }
                 onSubmit={onSubmit}
                 initialValues={{
-                    income_type: 125,
-                    estimated_amount: 120.22
+                    income_type: null,
+                    estimated_amount: null
                 }}
             >
                 {
@@ -109,18 +111,21 @@ export function AddIncomeSource (props) {
                             </Select>
                         </FormControl>
                         <Spacer height={24}/>
-                        <FormTextInput
-                            label="Estimated annual income"
-                            name="estimated_amount"
-                            type="number"
-                            value={values.estimated_amount}
-                            handleChange={handleChange}
-                            startAdornment={<span style={{color: '#828796', paddingRight: 5}}>$</span>}
-                            error={errors.estimated_amount}
-                            submitted={submitCount > 0}
-                        />
+                        {
+                            values.income_type &&
+                            <FormTextInput
+                                label="Estimated annual income"
+                                name="estimated_amount"
+                                type="number"
+                                value={values.estimated_amount}
+                                handleChange={handleChange}
+                                startAdornment={<span style={{color: '#828796', paddingRight: 5}}>$</span>}
+                                error={errors.estimated_amount}
+                                submitted={submitCount > 0}
+                            />
+                        }
                     </div>
-                    <ActionButton marginTop={40} marginBottom={20}>
+                    <ActionButton disabled={!allValuesSet(values)} marginTop={40} marginBottom={20}>
                         Continue
                     </ActionButton>
                 </form>
