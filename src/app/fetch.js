@@ -3,8 +3,8 @@ import { MOCKY } from 'app/api';
 
 // fetch middleware handles invalid token/expiry
 export default async (...args) => {
+    if (MOCKY) return Promise.reject();
     const res = await fetch(...args);
-    if ( MOCKY ) return Promise.reject();
     if (res.headers.get('error_type') === 'TokenExpiredError') {
         if (localStorage.access_token) {
             localStorage.clear();

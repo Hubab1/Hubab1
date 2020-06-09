@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { currentRouteReceived } from 'reducers/site-config';
 
-// TODO: Look into using connected-react-router and match path instead of saving active route constant
+// Second param is deprecated in favor of static param 'route'
 export default function captureRoute(WrappedComponent, route) {
+    route = WrappedComponent.route || route;
     class Component extends React.Component {
         constructor (props) {
             super(props);

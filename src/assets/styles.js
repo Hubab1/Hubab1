@@ -13,6 +13,10 @@ export const cursor = css`
     cursor: pointer !important;
 `
 
+export const linkNoStyle = css`
+    text-decoration: none;
+`
+
 export const ErrorDetail = styled.div`
     color: #f44336;
     text-align: left;
@@ -100,6 +104,7 @@ export const blackLinkRoot = css`
     text-transform: capitalize;
     text-decoration: none !important;
     color: black !important;
+    cursor: pointer;
 `
 
 export const SpacedH3 = styled(H3)`
@@ -108,6 +113,10 @@ export const SpacedH3 = styled(H3)`
 
 export const CardSection = styled.div`
     padding: 15px;
+`
+
+export const Spacer = styled.div`
+    height: ${props => props.height ? `${props.height}px` : '20px'}
 `
 
 export const ScrollableTermsCardSection = styled(CardSection)`
@@ -164,3 +173,26 @@ export const arrowIcon = css`
     font-size: 16px !important;
     vertical-align: sub;
 `
+
+export const paperRoot = css`
+    box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
+    border-width: 0px !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+    border-radius: 5px;
+    .MuiButton-root {
+        font-weight: 600;
+    }
+`
+
+export const styles = {
+    formContent,
+    cursor,
+    linkNoStyle,
+    link,
+    blackLinkRoot,
+    leftText,
+    infoIconRoot,
+    arrowIcon,
+    paperRoot,
+}

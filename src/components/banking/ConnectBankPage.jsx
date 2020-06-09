@@ -8,7 +8,7 @@ import API, { MOCKY } from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ReviewAccountsPage from './ReviewAccounts/ReviewAccountsPage';
 import BankVerifying from './BankVerifying';
-import ConnectFinicity from './ConnectFinicity';
+import VerifyIncome from './VerifyIncome';
 import reports from 'reports.json';
 
 const finicityContainer = css`
@@ -180,7 +180,7 @@ export class ConnectBankPage extends React.Component {
         if (this.state.loadingReport) {
             return <BankVerifying/>;
         }
-        return <ConnectFinicity 
+        return <VerifyIncome 
             loadingFinicityIframe={!!this.state.loadingFinicityIframe}
             openFinicityIframe={this.openFinicityIframe}
             errors={this.state.errors}

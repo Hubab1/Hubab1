@@ -9,7 +9,9 @@ import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
 import { ROUTES } from 'app/constants';
 
+// Second param is deprecated in favor of static param 'route'
 export default function withRelativeRoutes(WrappedComponent, route) {
+    route = WrappedComponent.route || route;
     class Component extends React.Component {
         constructor (props) {
             super(props);
