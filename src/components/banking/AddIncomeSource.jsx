@@ -102,8 +102,8 @@ export function AddIncomeSource (props) {
                         {
                             values.income_or_asset_type &&
                             <CurrencyTextField
-                                error={!!errors.estimated_amount}
-                                helperText={errors.estimated_amount}
+                                error={submitCount > 0 && !!errors.estimated_amount}
+                                helperText={submitCount > 0 && errors.estimated_amount}
                                 fullWidth
                                 textAlign="left"
                                 label="Estimated annual income"
