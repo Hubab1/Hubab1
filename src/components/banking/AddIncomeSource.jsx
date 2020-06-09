@@ -13,8 +13,9 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import captureRoute from 'app/captureRoute';
-import { ROUTES, INCOME_TYPES } from 'app/constants';
+import { ROUTES, INCOME_TYPES, FINANCIAL_STREAM_INCOME } from 'app/constants';
 import { Formik } from 'formik';
+import API from 'app/api';
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -27,13 +28,30 @@ const SpacedH3 = styled(H3)`
 export function AddIncomeSource (props) {
     function getInitialValues () {
         return Object.assign({
-            income_type: '',
+            income_or_asset_type: '',
             estimated_amount: ''
         }, props.initialValues);
     }
-    const onSubmit = values => {
-        // TODO: submit handling
+    const onSubmit = async (values, {setErrors, setSubmitting}) => {
+        setSubmitting(true);
+        const payload = Object.assign(
+            {
+                income_or_asset_type: values.income_or_asset_type,
+                estimated_amount: values.estimated_amount.replace(/,/g, ''),
+                stream_type: FINANCIAL_STREAM_INCOME,
+            },
+        );
+        const response = await API.submitIncomeSource(payload);
+        if (response.status !== 200) {
+            const errors = await response.json();
+            if (errors) {
+                setErrors(errors);
+            }
+            setSubmitting(false);
+            return;
+        }
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
+        setSubmitting(false);
     }
     return (
         <>
@@ -44,7 +62,7 @@ export function AddIncomeSource (props) {
             <Formik
                 validationSchema={
                     Yup.object({
-                        income_type: Yup.number().required('Required'),
+                        income_or_asset_type: Yup.number().required('Required'),
                         estimated_amount: Yup.string().required('Required')
                     })
                 }
@@ -58,18 +76,20 @@ export function AddIncomeSource (props) {
                     handleSubmit,
                     errors,
                     submitCount,
-                    setFieldValue
+                    setFieldValue,
+                    isSubmitting
                 }) => (
                 <form onSubmit={handleSubmit}>
                     <div className="align-left">
                         <FormControl fullWidth>
-                            <InputLabel htmlFor="income-type">Income Type</InputLabel>
+                            <InputLabel htmlFor="income_or_asset_type">Income Type</InputLabel>
                             <Select
-                                value={values.income_type}
+                                error={!!errors.income_or_asset_type}
+                                value={values.income_or_asset_type}
                                 fullWidth
                                 onChange={handleChange}
                                 inputProps={{
-                                    name: 'income_type',
+                                    name: 'income_or_asset_type',
                                     id: 'income-type',
                                 }}
                             >
@@ -80,8 +100,10 @@ export function AddIncomeSource (props) {
                         </FormControl>
                         <Spacer height={24}/>
                         {
-                            values.income_type &&
+                            values.income_or_asset_type &&
                             <CurrencyTextField
+                                error={!!errors.estimated_amount}
+                                helperText={errors.estimated_amount}
                                 fullWidth
                                 textAlign="left"
                                 label="Estimated annual income"
@@ -93,7 +115,7 @@ export function AddIncomeSource (props) {
                             />
                         }
                     </div>
-                    <ActionButton disabled={!allValuesSet(values)} marginTop={40} marginBottom={20}>
+                    <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
                         Add Income Source
                     </ActionButton>
                 </form>

@@ -183,3 +183,5 @@ export const INCOME_TYPES = [
         value: 140,
     }
 ];
+
+export const FINANCIAL_STREAM_INCOME = 5;

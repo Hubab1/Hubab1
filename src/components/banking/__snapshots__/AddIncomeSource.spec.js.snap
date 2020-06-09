@@ -20,7 +20,7 @@ exports[`matches snapshot 1`] = `
     initialValues={
       Object {
         "estimated_amount": "1111",
-        "income_type": 10,
+        "income_or_asset_type": 10,
       }
     }
     isInitialValid={false}
@@ -41,7 +41,7 @@ exports[`matches snapshot 1`] = `
         "_mutate": undefined,
         "_nodes": Array [
           "estimated_amount",
-          "income_type",
+          "income_or_asset_type",
         ],
         "_options": Object {
           "abortEarly": true,
@@ -82,7 +82,7 @@ exports[`matches snapshot 1`] = `
               [Function],
             ],
           },
-          "income_type": NumberSchema {
+          "income_or_asset_type": NumberSchema {
             "_blacklist": RefSet {
               "list": Set {},
               "refs": Map {},
