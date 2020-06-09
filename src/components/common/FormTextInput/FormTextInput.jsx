@@ -12,14 +12,13 @@ import { root } from './styles';
 export default function FormTextInput (props) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const { error, handleChange, handleBlur, value, label, name, type, submitted, showValidationText, touched, endAdornment, helperText, disabled } = props;
+    const { error, handleChange, handleBlur, value, label, name, type, submitted, showValidationText, touched, endAdornment, helperText, disabled, startAdornment } = props;
     const showValidationTextBeforeSubmit = showValidationText && (touched || value);
 
     const InputProps = (() => {
-        if (endAdornment) {
-            return {endAdornment};
-        } else if (type === 'password') {
-            return { endAdornment: (
+        const iprops = {};
+        if (type === 'password') {
+            Object.assign(iprops, { endAdornment: (
                 <InputAdornment position="end">
                     <IconButton
                         aria-label="Toggle password visibility"
@@ -28,10 +27,15 @@ export default function FormTextInput (props) {
                         {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                 </InputAdornment>
-            )};
-        } else {
-            return undefined;
+            )});
         }
+        if (endAdornment) {
+            Object.assign(iprops, {endAdornment});
+        }
+        if (startAdornment) {
+            Object.assign(iprops, {startAdornment});
+        }
+        return iprops;
     })();
 
 
@@ -74,12 +78,12 @@ export default function FormTextInput (props) {
 }
 
 FormTextInput.propTypes = {
-    type: PropTypes.oneOf(['text', 'password', 'tel', 'date']),
+    type: PropTypes.oneOf(['text', 'password', 'tel', 'date', 'number']),
     error: PropTypes.string,
     handleChange: PropTypes.func,
     handleBlur: PropTypes.func,
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     showValidationText: PropTypes.bool,
     touched: PropTypes.bool,
     disabled: PropTypes.bool,

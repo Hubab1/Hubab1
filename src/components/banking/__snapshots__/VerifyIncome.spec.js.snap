@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Verify Your Income Instantly
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Confirm that you qualify for this apartment by linking your bank account.
+  </ForwardRef(render)>
+  <img
+    alt="vault"
+    src="safe.png"
+  />
+  <div
+    className="css-1qmtr65"
+  >
+    <div
+      className="css-1xu96tg"
+    >
+      <img
+        alt="padlock"
+        height="28"
+        src="padlock.png"
+        width="18"
+      />
+      <ForwardRef(render)>
+        <ForwardRef(render)>
+          Your data is safe.
+        </ForwardRef(render)>
+         Bank level encryption is used to connect and your credentials are never stored.
+      </ForwardRef(render)>
+    </div>
+    <div
+      className="css-1xu96tg"
+    >
+      <GreenCheckIcon />
+      <ForwardRef(render)>
+        <ForwardRef(render)>
+          Your money is safe.
+        </ForwardRef(render)>
+         This does not authorize any transactions from your account.
+      </ForwardRef(render)>
+    </div>
+  </div>
+  <GenericFormDetail
+    messages="Some random error"
+    type="error"
+  />
+  <ActionButton
+    color="primary"
+    marginBottom={20}
+    successGreen={false}
+    variant="contained"
+  >
+    Link Bank Account
+  </ActionButton>
+  <ForwardRef
+    className="css-1qj8w5r"
+    to="/income-employment/manual"
+  >
+    <ActionButton
+      color="primary"
+      marginBottom={20}
+      successGreen={false}
+      variant="outlined"
+    >
+      Verify Manually
+    </ActionButton>
+  </ForwardRef>
+</React.Fragment>
+`;

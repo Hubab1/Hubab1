@@ -1,15 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ManualIncomeVerificationPage } from './ManualIncomeVerificationPage';
+import VerifyIncome from './VerifyIncome';
 
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        goBack: jest.fn()
+        errors: 'Some random error'
     }
 })
 
+
 it('matches snapshot', () => {
-    const wrapper = shallow(<ManualIncomeVerificationPage {...defaultProps}/>);
+    const wrapper = shallow(<VerifyIncome {...defaultProps}/>);
     expect(wrapper.getElement()).toMatchSnapshot();
 });

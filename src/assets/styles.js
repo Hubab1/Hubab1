@@ -13,6 +13,10 @@ export const cursor = css`
     cursor: pointer !important;
 `
 
+export const linkNoStyle = css`
+    text-decoration: none;
+`
+
 export const ErrorDetail = styled.div`
     color: #f44336;
     text-align: left;
@@ -111,6 +115,10 @@ export const CardSection = styled.div`
     padding: 15px;
 `
 
+export const Spacer = styled.div`
+    height: ${props => props.height ? `${props.height}px` : '20px'}
+`
+
 export const ScrollableTermsCardSection = styled(CardSection)`
     overflow: auto;
     padding: 30px;
@@ -176,3 +184,15 @@ export const paperRoot = css`
         font-weight: 600;
     }
 `
+
+export const styles = {
+    formContent,
+    cursor,
+    linkNoStyle,
+    link,
+    blackLinkRoot,
+    leftText,
+    infoIconRoot,
+    arrowIcon,
+    paperRoot,
+}
