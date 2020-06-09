@@ -62,7 +62,7 @@ function PriceBreakdown (props) {
 
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
 
-        let categoryInfo = 'Based on your selected rental options';
+        let categoryInfo = 'Your monthly rent may update as you add rental options in the next steps.';
         if (categoryMonthlyPrice) {
             categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${props.categoryHelperText}`
         }
@@ -85,7 +85,7 @@ function PriceBreakdown (props) {
                                     <Tip
                                         text={
                                             <P>
-                                                <b>{priceBreakdown.total} Total Rent</b><br/>
+                                                <b>{priceBreakdown.total} Monthly Rent</b><br/>
                                                 {getCurrentCategoryInfo()}
                                             </P>
                                         }

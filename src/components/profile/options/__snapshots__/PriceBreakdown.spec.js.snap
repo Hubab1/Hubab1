@@ -43,7 +43,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                         <p className=\\"css-3m08t9\\">
                                           <b>
                                             $2,020
-                                             Total Rent
+                                             Monthly Rent
                                           </b>
                                           <br />
                                           $10/mo for 0 storage space
