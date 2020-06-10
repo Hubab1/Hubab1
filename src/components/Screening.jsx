@@ -11,6 +11,7 @@ import { ROUTES } from 'app/constants';
 import { H1, SpacedH3, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import portfolioImg from 'assets/images/portfolio.png';
 import SocialSecurityInput from 'components/common/SocialSecurityInput';
 import API, { MOCKY } from 'app/api';
@@ -44,6 +45,8 @@ const socialSecurityPrompt = css`
 `
 
 export class Screening extends React.Component {
+    state = {errors: null}
+
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
         let body = {...values};
@@ -53,6 +56,7 @@ export class Screening extends React.Component {
         API.postPassthrough(body).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
+                this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]})
             } else {
                 this.props._nextRoute();
             }
@@ -102,6 +106,7 @@ export class Screening extends React.Component {
                         errors
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                            {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
                             <FormControl fullWidth>
                                 <div className={gridContainer}>
                                     <Grid container spacing={1} alignItems="center">
