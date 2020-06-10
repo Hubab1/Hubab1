@@ -79,7 +79,7 @@ export default function FormTextInput (props) {
 
 FormTextInput.propTypes = {
     type: PropTypes.oneOf(['text', 'password', 'tel', 'date', 'number']),
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     handleChange: PropTypes.func,
     handleBlur: PropTypes.func,
     name: PropTypes.string,
