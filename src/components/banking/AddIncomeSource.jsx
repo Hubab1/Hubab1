@@ -52,7 +52,7 @@ export function AddIncomeSource (props) {
             <Spacer height={30}/>
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
-                financialType="Income"
+                financialType={FINANCIAL_STREAM_INCOME}
                 onSubmit={onSubmit}
             />
             <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>

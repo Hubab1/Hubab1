@@ -5,16 +5,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
+import capitalize from 'lodash/capitalize';
 
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Spacer } from 'assets/styles';
-import { ASSET_TYPES, INCOME_TYPES } from 'app/constants';
+import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { Formik } from 'formik';
 
 export default function AddFinancialSourceForm (props) {
-    const selectChoices = props.financialType === 'Income' ?
-        INCOME_TYPES : ASSET_TYPES;
+    const financialTypeLabel = props.financialType === FINANCIAL_STREAM_ASSET ? 'asset' : 'income';
+    const selectChoices = props.financialType === FINANCIAL_STREAM_ASSET ?
+        ASSET_TYPES : INCOME_TYPES;
 
     function getInitialValues () {
         return Object.assign({
@@ -45,7 +47,7 @@ export default function AddFinancialSourceForm (props) {
             <form onSubmit={handleSubmit}>
                 <div className="align-left">
                     <FormControl fullWidth>
-                        <InputLabel htmlFor="income-or-asset-type">{props.financialType} Type</InputLabel>
+                        <InputLabel htmlFor="income-or-asset-type">{financialTypeLabel} type</InputLabel>
                         <Select
                             error={!!errors.income_or_asset_type}
                             value={values.income_or_asset_type}
@@ -69,7 +71,7 @@ export default function AddFinancialSourceForm (props) {
                             helperText={submitCount > 0 && errors.estimated_amount}
                             fullWidth
                             textAlign="left"
-                            label={`Estimated ${props.financialType} balance`}
+                            label={`Estimated ${financialTypeLabel} balance`}
                             minimumValue="0"
                             name="estimated_amount"
                             currencySymbol="$"
@@ -79,7 +81,7 @@ export default function AddFinancialSourceForm (props) {
                     }
                 </div>
                 <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
-                    Add {props.financialType} Source
+                    Add {capitalize(financialTypeLabel)} Source
                 </ActionButton>
             </form>
             )}

@@ -16,6 +16,10 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
+export const Img = styled.img`
+    height: 83px;
+`;
+
 export function AddAssetSource (props) {
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
@@ -45,13 +49,13 @@ export function AddAssetSource (props) {
     }
     return (
         <>
-            <SkinnyH1>Add Asset Source</SkinnyH1>
-            <SpacedH3>Fill in the details below to add your income source.</SpacedH3>
-            <img alt="piggy bank" src={piggyBank}></img>
+            <SkinnyH1>Add Proof of Assets</SkinnyH1>
+            <SpacedH3>Fill in the details below to add your proof of assets.</SpacedH3>
+            <Img alt="piggy bank" src={piggyBank}></Img>
             <Spacer height={30}/>
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
-                financialType="Asset"
+                financialType={FINANCIAL_STREAM_ASSET}
                 onSubmit={onSubmit}
             />
             <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>
