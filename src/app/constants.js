@@ -202,3 +202,7 @@ export const ASSET_TYPES = [
 
 export const FINANCIAL_STREAM_INCOME = 5;
 export const FINANCIAL_STREAM_ASSET = 10;
+
+
+export const INCOME_TYPE_OTHER = 140
+export const ASSET_TYPE_OTHER = 515
