@@ -78,6 +78,7 @@ export default function AddFinancialSourceForm (props) {
                         <FormTextInput
                             label="Description"
                             name="other"
+                            inputProps={{maxLength: 255}}
                             value={values.other}
                             handleChange={handleChange}
                             error={submitCount > 0 && errors.other}

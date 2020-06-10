@@ -72,6 +72,11 @@ exports[`Matches snapshot showing other field 1`] = `
       <FormTextInput
         error={false}
         handleChange={[Function]}
+        inputProps={
+          Object {
+            "maxLength": 255,
+          }
+        }
         label="Description"
         name="other"
         type="text"
