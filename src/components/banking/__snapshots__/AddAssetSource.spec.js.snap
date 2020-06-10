@@ -3,12 +3,12 @@
 exports[`matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Add Asset Source
+    Add Proof of Assets
   </ForwardRef(render)>
   <ForwardRef(render)>
-    Fill in the details below to add your income source.
+    Fill in the details below to add your proof of assets.
   </ForwardRef(render)>
-  <img
+  <ForwardRef(render)
     alt="piggy bank"
     src="piggy-bank.png"
   />
@@ -16,7 +16,7 @@ exports[`matches snapshot 1`] = `
     height={30}
   />
   <AddFinancialSourceForm
-    financialType="Asset"
+    financialType={10}
     initialValues={
       Object {
         "estimated_amount": "1111",

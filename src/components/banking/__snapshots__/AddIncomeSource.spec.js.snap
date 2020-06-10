@@ -16,7 +16,7 @@ exports[`matches snapshot 1`] = `
     height={30}
   />
   <AddFinancialSourceForm
-    financialType="Income"
+    financialType={5}
     initialValues={
       Object {
         "estimated_amount": "1111",
