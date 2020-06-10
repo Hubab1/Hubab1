@@ -27,6 +27,6 @@ it('Disables submit if all values not set', async () => {
 });
 
 it('Matches snapshot showing other field', async () => {
-    const form = shallow(<AddFinancialSourceForm {...defaultProps} initialValues={{income_or_asset_type: INCOME_TYPE_OTHER}}/>).find(Formik).dive();
+    const form = shallow(<AddFinancialSourceForm {...defaultProps} initialValues={{income_or_asset_type: INCOME_TYPE_OTHER}}/>).find(Formik).dive().find('form');
     expect(form.getElement()).toMatchSnapshot();
 });

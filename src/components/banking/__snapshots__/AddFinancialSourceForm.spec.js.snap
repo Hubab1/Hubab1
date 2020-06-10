@@ -1,267 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches snapshot showing other field 1`] = `
-<Context.Provider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {
-        "estimated_amount": "",
-        "income_or_asset_type": 140,
-      },
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": ObjectSchema {
-        "_blacklist": RefSet {
-          "list": Set {},
-          "refs": Map {},
-        },
-        "_conditions": Array [],
-        "_defaultDefault": [Function],
-        "_deps": Array [],
-        "_excludedEdges": Array [],
-        "_exclusive": Object {},
-        "_mutate": undefined,
-        "_nodes": Array [
-          "other",
-          "estimated_amount",
-          "income_or_asset_type",
-        ],
-        "_options": Object {
-          "abortEarly": true,
-          "recursive": true,
-        },
-        "_type": "object",
-        "_typeError": [Function],
-        "_whitelist": RefSet {
-          "list": Set {},
-          "refs": Map {},
-        },
-        "fields": Object {
-          "estimated_amount": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "income_or_asset_type": NumberSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "number",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "other": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {},
-            "_mutate": undefined,
-            "_nullable": true,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-        },
-        "tests": Array [],
-        "transforms": Array [
-          [Function],
-        ],
-      },
-      "values": Object {
-        "estimated_amount": "",
-        "income_or_asset_type": 140,
-      },
-    }
-  }
+<form
+  onSubmit={[Function]}
 >
-  <form
-    onSubmit={[Function]}
+  <div
+    className="align-left"
   >
-    <div
-      className="align-left"
+    <ForwardRef(WithStyles)
+      fullWidth={true}
     >
       <ForwardRef(WithStyles)
+        htmlFor="income-or-asset-type"
+      >
+        income
+         type
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        error={false}
         fullWidth={true}
+        inputProps={
+          Object {
+            "id": "income-or-asset-type",
+            "name": "income_or_asset_type",
+          }
+        }
+        onChange={[Function]}
+        value={140}
       >
         <ForwardRef(WithStyles)
-          htmlFor="income-or-asset-type"
+          value={105}
         >
-          income
-           type
+          Employment
         </ForwardRef(WithStyles)>
         <ForwardRef(WithStyles)
-          error={false}
-          fullWidth={true}
-          inputProps={
-            Object {
-              "id": "income-or-asset-type",
-              "name": "income_or_asset_type",
-            }
-          }
-          onChange={[Function]}
+          value={110}
+        >
+          Self Employment
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={115}
+        >
+          Student
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={120}
+        >
+          Government
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={125}
+        >
+          Retirement
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={130}
+        >
+          Child/Spousal Support
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
           value={140}
         >
-          <ForwardRef(WithStyles)
-            value={105}
-          >
-            Employment
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={110}
-          >
-            Self Employment
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={115}
-          >
-            Student
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={120}
-          >
-            Government
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={125}
-          >
-            Retirement
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={130}
-          >
-            Child/Spousal Support
-          </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            value={140}
-          >
-            Other
-          </ForwardRef(WithStyles)>
+          Other
         </ForwardRef(WithStyles)>
       </ForwardRef(WithStyles)>
-      <React.Fragment>
-        <ForwardRef(render)
-          height={24}
-        />
-        <FormTextInput
-          error={false}
-          handleChange={[Function]}
-          label="Description"
-          name="other"
-          type="text"
-        />
-      </React.Fragment>
+    </ForwardRef(WithStyles)>
+    <React.Fragment>
       <ForwardRef(render)
         height={24}
       />
-      <ForwardRef(WithStyles)
-        currencySymbol="$"
+      <FormTextInput
         error={false}
-        fullWidth={true}
-        helperText={false}
-        label="Estimated annual income"
-        minimumValue="0"
-        name="estimated_amount"
-        onChange={[Function]}
-        outputFormat="string"
-        textAlign="left"
+        handleChange={[Function]}
+        label="Description"
+        name="other"
+        type="text"
       />
-    </div>
-    <ActionButton
-      color="primary"
-      disabled={true}
-      marginBottom={20}
-      marginTop={40}
-      successGreen={false}
-      variant="contained"
-    >
-      Add Income Source
-    </ActionButton>
-  </form>
-</Context.Provider>
+    </React.Fragment>
+    <ForwardRef(render)
+      height={24}
+    />
+    <ForwardRef(WithStyles)
+      currencySymbol="$"
+      error={false}
+      fullWidth={true}
+      helperText={false}
+      label="Estimated annual income"
+      minimumValue="0"
+      name="estimated_amount"
+      onChange={[Function]}
+      outputFormat="string"
+      textAlign="left"
+    />
+  </div>
+  <ActionButton
+    color="primary"
+    disabled={true}
+    marginBottom={20}
+    marginTop={40}
+    successGreen={false}
+    variant="contained"
+  >
+    Add Income Source
+  </ActionButton>
+</form>
 `;
