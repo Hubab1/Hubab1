@@ -21,6 +21,19 @@ exports[`matches snapshot 1`] = `
     route="/income-employment/manual/add-income"
     tip="TBD"
   />
+  <Capsule
+    buttonLabel="Add an Asset"
+    label="Assets"
+    limitReached={false}
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
   <ActionButton
     color="primary"
     marginBottom={20}

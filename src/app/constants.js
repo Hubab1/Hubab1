@@ -25,6 +25,7 @@ export const ROUTES = {
     BANKING: '/income-employment',
     MANUAL_INCOME_VERIFICATION: '/income-employment/manual',
     MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
+    MANUAL_ASSET_ENTRY_ADD_INCOME: '/income-employment/manual/add-asset',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
     SCREENING: '/screening',
@@ -180,4 +181,24 @@ export const INCOME_TYPES = [
     }
 ];
 
+export const ASSET_TYPES = [
+    {
+        label: 'Savings',
+        value: 500,
+    },
+    {
+        label: 'Retirement',
+        value: 505,
+    },
+    {
+        label: 'Investment',
+        value: 510,
+    },
+    {
+        label: 'Other',
+        value: 515,
+    },
+];
+
 export const FINANCIAL_STREAM_INCOME = 5;
+export const FINANCIAL_STREAM_ASSET = 10;

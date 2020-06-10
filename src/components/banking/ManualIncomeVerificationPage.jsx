@@ -6,6 +6,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import Capsule from 'components/common/Capsule/Capsule';
 import { H1, H3 } from 'assets/styles';
 import finance from 'assets/images/finance.png';
+import piggyBank from 'assets/images/piggy-bank.png';
 import captureRoute from 'app/captureRoute';
 import { ROUTES } from 'app/constants';
 
@@ -29,6 +30,13 @@ export function ManualIncomeVerificationPage (props) {
                 buttonLabel="Add an Income Source"
                 tip="TBD"
                 route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
+            />
+            <Capsule
+                prefix={<img alt="piggy bank" src={piggyBank}></img>}
+                label="Assets"
+                buttonLabel="Add an Asset"
+                tip="TBD"
+                route={ROUTES.MANUAL_ASSET_ENTRY_ADD_INCOME}
             />
             <ActionButton marginTop={40} marginBottom={20}>
                 Continue
