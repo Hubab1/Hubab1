@@ -5,7 +5,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
-import capitalize from 'lodash/capitalize';
 
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -14,8 +13,9 @@ import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET } from 'app/constants
 import { Formik } from 'formik';
 
 export default function AddFinancialSourceForm (props) {
-    const financialTypeLabel = props.financialType === FINANCIAL_STREAM_ASSET ? 'asset' : 'income';
-    const selectChoices = props.financialType === FINANCIAL_STREAM_ASSET ?
+    const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
+    const financialTypeLabel = isAsset ? 'asset' : 'income';
+    const selectChoices = isAsset ?
         ASSET_TYPES : INCOME_TYPES;
 
     function getInitialValues () {
@@ -71,7 +71,7 @@ export default function AddFinancialSourceForm (props) {
                             helperText={submitCount > 0 && errors.estimated_amount}
                             fullWidth
                             textAlign="left"
-                            label={`Estimated ${financialTypeLabel} balance`}
+                            label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
                             minimumValue="0"
                             name="estimated_amount"
                             currencySymbol="$"
@@ -81,7 +81,7 @@ export default function AddFinancialSourceForm (props) {
                     }
                 </div>
                 <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
-                    Add {capitalize(financialTypeLabel)} Source
+                    {isAsset ? 'Add Asset' : 'Add Income Source'}
                 </ActionButton>
             </form>
             )}
