@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as Sentry from '@sentry/browser';
 
 import { MOCKY } from 'app/api';
 import { fetchApplicant } from 'reducers/applicant';
@@ -35,6 +36,12 @@ export default function withRelativeRoutes(WrappedComponent, route) {
             if (!prevProps.initialPage && props.initialPage) {
                 this.stayOrPushRoute();
             }
+
+            if (prevProps.applicant !== props.applicant && props.applicant.email) {
+                Sentry.setUser({
+                    email: props.applicant.email,
+                });
+            }
         }
         render() {
             if (this.blockRender) return null;
@@ -64,6 +71,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         _prev: selectors.selectPrevRoute(state),
         initialPage: selectors.selectInitialPage(state),
         unitAvailable: state.renterProfile?.unit_available,
+        applicant: state.applicant,
         selectApplicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
     });
 
