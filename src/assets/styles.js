@@ -185,6 +185,10 @@ export const paperRoot = css`
     }
 `
 
+export const colorManatee = css`
+    color: #828796 !important;
+`
+
 export const styles = {
     formContent,
     cursor,
@@ -195,4 +199,5 @@ export const styles = {
     infoIconRoot,
     arrowIcon,
     paperRoot,
+    colorManatee,
 }
