@@ -37,8 +37,9 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                 this.stayOrPushRoute();
             }
 
-            if (prevProps.applicant !== props.applicant && props.applicant.email) {
+            if (prevProps.applicant !== props.applicant && props.applicant.email && props.applicant.id) {
                 Sentry.setUser({
+                    id: props.applicant.id,
                     email: props.applicant.email,
                 });
             }
