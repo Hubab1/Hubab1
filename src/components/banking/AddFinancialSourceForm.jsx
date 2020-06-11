@@ -36,55 +36,63 @@ export default function AddFinancialSourceForm (props) {
             initialValues={getInitialValues()}
         >
             {
-            ({
-                values,
-                handleChange,
-                handleSubmit,
-                errors,
-                submitCount,
-                isSubmitting
-            }) => (
-            <form onSubmit={handleSubmit}>
-                <div className="align-left">
-                    <FormControl fullWidth>
-                        <InputLabel htmlFor="income-or-asset-type">{financialTypeLabel} type</InputLabel>
-                        <Select
-                            error={!!errors.income_or_asset_type}
-                            value={values.income_or_asset_type}
-                            fullWidth
-                            onChange={handleChange}
-                            inputProps={{
-                                name: 'income_or_asset_type',
-                                id: 'income-or-asset-type',
-                            }}
-                        >
-                            {selectChoices.map(incomeType => (
-                                <MenuItem key={incomeType.value} value={incomeType.value}>{incomeType.label}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Spacer height={24}/>
-                    {
-                        values.income_or_asset_type &&
-                        <CurrencyTextField
-                            error={submitCount > 0 && !!errors.estimated_amount}
-                            helperText={submitCount > 0 && errors.estimated_amount}
-                            fullWidth
-                            textAlign="left"
-                            label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
-                            minimumValue="0"
-                            name="estimated_amount"
-                            currencySymbol="$"
-                            outputFormat="string"
-                            onChange={handleChange}
-                        />
-                    }
-                </div>
-                <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
-                    {isAsset ? 'Add Asset' : 'Add Income Source'}
-                </ActionButton>
-            </form>
-            )}
+                ({
+                    values,
+                    handleChange,
+                    handleSubmit,
+                    errors,
+                    submitCount,
+                    isSubmitting
+                }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div className="align-left">
+                            <FormControl fullWidth>
+                                <InputLabel htmlFor="income-or-asset-type">{financialTypeLabel} type</InputLabel>
+                                <Select
+                                    error={!!errors.income_or_asset_type}
+                                    value={values.income_or_asset_type}
+                                    fullWidth
+                                    onChange={handleChange}
+                                    inputProps={{
+                                        name: 'income_or_asset_type',
+                                        id: 'income-or-asset-type',
+                                    }}
+                                >
+                                    {
+                                        selectChoices.map(incomeType => (
+                                            <MenuItem
+                                                key={incomeType.value}
+                                                value={incomeType.value}
+                                            >
+                                                {incomeType.label}
+                                            </MenuItem>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+                            <Spacer height={24}/>
+                            {
+                                values.income_or_asset_type &&
+                                    <CurrencyTextField
+                                        error={submitCount > 0 && !!errors.estimated_amount}
+                                        helperText={submitCount > 0 && errors.estimated_amount}
+                                        fullWidth
+                                        textAlign="left"
+                                        label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
+                                        minimumValue="0"
+                                        name="estimated_amount"
+                                        currencySymbol="$"
+                                        outputFormat="string"
+                                        onChange={handleChange}
+                                    />
+                            }
+                        </div>
+                        <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
+                            {isAsset ? 'Add Asset' : 'Add Income Source'}
+                        </ActionButton>
+                    </form>
+                )
+            }
         </Formik>
     )
 }
