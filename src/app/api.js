@@ -274,7 +274,7 @@ API.getAdverseActions = () => {
     });
 }
 
-API.submitIncomeSource = (data) => {
+API.submitFinancialSource = (data) => {
     return fetch(chuck('/financial-sources/'), {
         method: 'POST',
         headers: {

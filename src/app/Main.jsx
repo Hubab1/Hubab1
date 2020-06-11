@@ -13,7 +13,6 @@ import AccountPage from 'components/account/AccountPage';
 import RegisterPage from 'components/RegisterPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import BankingContainer from 'components/banking/BankingContainer';
-import ManualIncomeEntryPage from 'components/banking/ManualIncomeEntryPage';
 import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
 import UnauthenticatedPaymentTerms from 'components/fees-deposits/UnauthenticatedPaymentTerms';
 import auth from 'utils/auth';
@@ -154,7 +153,6 @@ export class Main extends Component {
                             <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                             <Route path={ROUTES.ADDRESS} component={Address} />
                             <Route path={ROUTES.BANKING} component={BankingContainer}/>
-                            <Route path={ROUTES.MANUAL_INCOME_ENTRY} component={ManualIncomeEntryPage}/>
                             <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
