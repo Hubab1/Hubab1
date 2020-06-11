@@ -13,7 +13,7 @@ exports[`Matches snapshot showing other field 1`] = `
       <ForwardRef(WithStyles)
         htmlFor="income-or-asset-type"
       >
-        income
+        Income
          type
       </ForwardRef(WithStyles)>
       <ForwardRef(WithStyles)
@@ -96,6 +96,7 @@ exports[`Matches snapshot showing other field 1`] = `
       onChange={[Function]}
       outputFormat="string"
       textAlign="left"
+      value=""
     />
   </div>
   <ActionButton
