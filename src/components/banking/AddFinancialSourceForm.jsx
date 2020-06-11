@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
+import capitalize from 'lodash/capitalize';
 
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -55,7 +56,7 @@ export default function AddFinancialSourceForm (props) {
             <form onSubmit={handleSubmit}>
                 <div className="align-left">
                     <FormControl fullWidth>
-                        <InputLabel htmlFor="income-or-asset-type">{financialTypeLabel} type</InputLabel>
+                        <InputLabel htmlFor="income-or-asset-type">{capitalize(financialTypeLabel)} type</InputLabel>
                         <Select
                             error={!!errors.income_or_asset_type}
                             value={values.income_or_asset_type}
@@ -97,8 +98,18 @@ export default function AddFinancialSourceForm (props) {
                             minimumValue="0"
                             name="estimated_amount"
                             currencySymbol="$"
+                            // onChange={handleChange}
+                            onChange={(event, value)=>{
+                                // fixes odd issue with blank value on autofill
+                                const textValue = event.target.value;
+                                if (textValue && !value) {
+                                    setFieldValue('estimated_amount', textValue);
+                                } else {
+                                    setFieldValue('estimated_amount', value);
+                                }
+                            }}
                             outputFormat="string"
-                            onChange={handleChange}
+                            value={values.estimated_amount}
                         />
                     }
                 </div>
