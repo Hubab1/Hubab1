@@ -70,7 +70,6 @@ exports[`Matches snapshot showing other field 1`] = `
         height={24}
       />
       <FormTextInput
-        error={false}
         handleChange={[Function]}
         inputProps={
           Object {
@@ -79,6 +78,7 @@ exports[`Matches snapshot showing other field 1`] = `
         }
         label="Description"
         name="other"
+        submitted={false}
         type="text"
       />
     </React.Fragment>
