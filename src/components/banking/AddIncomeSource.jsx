@@ -8,6 +8,8 @@ import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
+import { useContext } from 'react';
+import BankingContext from './BankingContext';
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -18,6 +20,7 @@ const SpacedH3 = styled(H3)`
 `;
 
 export function AddIncomeSource (props) {
+    const context = useContext(BankingContext);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
         const payload = Object.assign(
@@ -41,6 +44,7 @@ export function AddIncomeSource (props) {
             setSubmitting(false);
             return;
         }
+        context.refreshFinancialSources();
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
         setSubmitting(false);
     }

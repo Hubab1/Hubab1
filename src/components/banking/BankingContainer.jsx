@@ -8,31 +8,23 @@ import AddIncomeSource from './AddIncomeSource';
 import AddAssetSource from './AddAssetSource';
 import BankingContext from './BankingContext';
 import API from 'app/api';
-
-const initialState = {};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'MANUAL_BANKING_DATA_RECEIVED':
-        return Object.assign({}, state, {manualBankingData: action.data});
-    default:
-        return state;
-  }
-}
+import reducer from './reducer';
 
 function BankingContainer () {
-    const [state, dispatch] = React.useReducer(reducer, initialState);
+    const [state, dispatch] = React.useReducer(reducer, {});
+    async function refreshFinancialSources () {
+        const response = await API.getFinancialSources();
+        if (response.status === 200) {
+            const data = await response.json();
+            dispatch({type: 'MANUAL_BANKING_DATA_RECEIVED', data});
+        }
+    };
     React.useEffect(() => {
-        (async () => {
-            const response = await API.getFinancialSources();
-            if (response.status === 200) {
-                const data = await response.json();
-                dispatch({type: 'MANUAL_BANKING_DATA_RECEIVED', data});
-            }
-        })();
-    }, [])
+        refreshFinancialSources();
+    }, []);
+
     return (
-        <BankingContext.Provider value={{dispatch, manualBankingData: state.manualBankingData}}>
+        <BankingContext.Provider value={{refreshFinancialSources, manualBankingData: state.manualBankingData}}>
             <Switch>
                 <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage} exact/>
                 <Route path={ROUTES.MANUAL_INCOME_VERIFICATION} component={ManualIncomeVerificationPage} exact/>

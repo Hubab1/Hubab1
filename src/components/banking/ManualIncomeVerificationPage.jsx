@@ -11,6 +11,10 @@ import captureRoute from 'app/captureRoute';
 import { ROUTES } from 'app/constants';
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
 import { styles } from 'assets/styles';
+import BankingContext from './BankingContext';
+import { ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
+import { prettyCurrency } from 'utils/misc';
+
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -21,17 +25,7 @@ const SpacedH3 = styled(H3)`
 `;
 
 export function ManualIncomeVerificationPage (props) {
-    const mockSources = [{
-        id: 123,
-        estimated_amount: '$85,000',
-        type: 'W2',
-        income_or_asset_type: 'Employment'
-    }, {
-        id: 124,
-        estimated_amount: '$190,000',
-        type: 'W2',
-        income_or_asset_type: 'Student Loans'
-    }];
+    const context = React.useContext(BankingContext);
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
@@ -45,15 +39,15 @@ export function ManualIncomeVerificationPage (props) {
                 expansionPanel={
                     <ExistingItemsExpansionPanel
                         label="Income Source"
-                        labelQuantity={2}
+                        labelQuantity={context.manualBankingData?.income_sources.length}
                         defaultExpanded={true}
                     >
                         {
-                            mockSources.map(source => (
+                            context.manualBankingData?.income_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    <b>{source.income_or_asset_type}</b>
-                                    <div className={styles.colorManatee}>{source.estimated_amount}/year</div>
-                                    <div className={styles.colorManatee}>Proof of income: {source.type}</div>
+                                    {ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type].label}
+                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
+                                    {/* <div className={styles.colorManatee}>Proof of income: {source.type}</div> */}
                                 </div>
                             ))
                         }
@@ -66,6 +60,22 @@ export function ManualIncomeVerificationPage (props) {
                 buttonLabel="Add an Asset"
                 tip="TBD"
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_INCOME}
+                expansionPanel={
+                    <ExistingItemsExpansionPanel
+                        label="Asset Source"
+                        labelQuantity={context.manualBankingData?.asset_sources.length}
+                        defaultExpanded={true}
+                    >
+                        {
+                            context.manualBankingData?.asset_sources?.map((source, i) => (
+                                <div key={source.id}>
+                                    {ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type].label}
+                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
+                                </div>
+                            ))
+                        }
+                    </ExistingItemsExpansionPanel>
+                }
             />
             <ActionButton marginTop={40} marginBottom={20}>
                 Continue

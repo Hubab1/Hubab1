@@ -150,54 +150,71 @@ export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 export const TOS_TYPE_PAYMENTS = 'TOS_TYPE_PAYMENTS';
 export const TOS_TYPE_NESTIO = 'TOS_TYPE_NESTIO';
 
-export const INCOME_TYPES = [
-    {
+
+export const ALL_INCOME_OR_ASSET_TYPES = {
+    // INCOME TYPES
+    105: {
         label: 'Employment',
         value: 105,
     },
-    {
+    110: {
         label: 'Self Employment',
         value: 110,
     },
-    {
+    115: {
         label: 'Student',
         value: 115,
     },
-    {
+    120: {
         label: 'Government',
         value: 120,
     },
-    {
+    125: {
         label: 'Retirement',
         value: 125,
     },
-    {
+    130: {
         label: 'Child/Spousal Support',
         value: 130,
     },
-    {
+    140: {
         label: 'Other',
         value: 140,
-    }
-];
-
-export const ASSET_TYPES = [
-    {
+    },
+    // ASSET TYPES
+    500: {
         label: 'Savings',
         value: 500,
     },
-    {
+    505: {
         label: 'Retirement',
         value: 505,
     },
-    {
+    510: {
         label: 'Investment',
         value: 510,
     },
-    {
+    515: {
         label: 'Other',
         value: 515,
     },
+};
+// used in lists
+export const INCOME_TYPES = [
+    ALL_INCOME_OR_ASSET_TYPES[105],
+    ALL_INCOME_OR_ASSET_TYPES[110],
+    ALL_INCOME_OR_ASSET_TYPES[115],
+    ALL_INCOME_OR_ASSET_TYPES[120],
+    ALL_INCOME_OR_ASSET_TYPES[125],
+    ALL_INCOME_OR_ASSET_TYPES[130],
+    ALL_INCOME_OR_ASSET_TYPES[140],
+];
+
+export const ASSET_TYPES = [
+    ALL_INCOME_OR_ASSET_TYPES[500],
+    ALL_INCOME_OR_ASSET_TYPES[505],
+    ALL_INCOME_OR_ASSET_TYPES[510],
+    ALL_INCOME_OR_ASSET_TYPES[515],
 ];
 
 export const FINANCIAL_STREAM_INCOME = 5;
