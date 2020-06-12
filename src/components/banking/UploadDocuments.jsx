@@ -39,7 +39,7 @@ export class UploadDocuments extends React.Component {
     };
 
     handleChange = event => {
-        const documentRequired = this.getDocumentsRequired(this.props.config.financial_documents_validations);
+        const documentRequired = this.documentsRequired;
         const index = parseInt(event.target.value);
         this.setState({
             selectedDocumentIndex: index,
@@ -47,7 +47,8 @@ export class UploadDocuments extends React.Component {
         });
     };
 
-    getDocumentsRequired = (config) => {
+    get documentsRequired () {
+        const config = this.props.config.financial_documents_validations;
         return config.find(doc => doc.income_or_asset_type === this.props.incomeOrAssetType);
     };
 
@@ -63,8 +64,7 @@ export class UploadDocuments extends React.Component {
 
     render () {
         const { selectedDocumentIndex, selectedDocument } = this.state;
-        const validationConfig = this.props.config.financial_documents_validations;
-        const documentRequired = this.getDocumentsRequired(validationConfig);
+        const documentRequired = this.documentsRequired;
         const requireAll = documentRequired? documentRequired.require_all: true;
 
         if (!documentRequired || documentRequired.proof_documents.length === 0) return null;
