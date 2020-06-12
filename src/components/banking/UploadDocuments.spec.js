@@ -106,9 +106,3 @@ it('Test title when uploading for asset', () => {
     console.log(wrapper.html());
     expect(wrapper.childAt(0).text()).toMatch('Proof of asset:')
 });
-
-it('Test title when stream type not defined', () => {
-    const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={null} incomeOrAssetType={105} store={store} />);
-    console.log(wrapper.html());
-    expect(wrapper.childAt(0).text()).toMatch('Proof:')
-});
