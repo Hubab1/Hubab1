@@ -37,7 +37,11 @@ export default function AddFinancialSourceForm (props) {
                 Yup.object({
                     income_or_asset_type: Yup.number().required('Required'),
                     estimated_amount: Yup.string().required('Required'),
-                    other: Yup.string().nullable(),
+                    other: Yup.string().when('income_or_asset_type', {
+                        is: (value) => [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(value),
+                        then: Yup.string().nullable().required('Required'),
+                        otherwise: Yup.string().nullable().notRequired()
+                    }),
                 })
             }
             onSubmit={props.onSubmit}
@@ -82,7 +86,8 @@ export default function AddFinancialSourceForm (props) {
                             inputProps={{maxLength: 255}}
                             value={values.other}
                             handleChange={handleChange}
-                            error={submitCount > 0 && errors.other}
+                            error={errors.other}
+                            submitted={submitCount > 0}
                         />
                     </>
                     }
