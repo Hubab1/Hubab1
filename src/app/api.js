@@ -284,4 +284,11 @@ API.submitFinancialSource = (data) => {
     })
 }
 
+API.getFinancialSources = () => {
+    return fetch(chuck('/financial-sources/'), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+    }})
+}
+
 export default API;
