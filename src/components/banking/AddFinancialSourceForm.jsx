@@ -23,7 +23,8 @@ export default function AddFinancialSourceForm (props) {
     function getInitialValues () {
         return Object.assign({
             income_or_asset_type: '',
-            estimated_amount: ''
+            estimated_amount: '',
+            uploadedDocuments: {},
         }, props.initialValues);
     }
     return (
@@ -55,7 +56,10 @@ export default function AddFinancialSourceForm (props) {
                                     error={!!errors.income_or_asset_type}
                                     value={values.income_or_asset_type}
                                     fullWidth
-                                    onChange={handleChange}
+                                    onChange={e =>{
+                                        setFieldValue('income_or_asset_type', e.target.value);
+                                        setFieldValue('uploadedDocuments', {})
+                                    }}
                                     inputProps={{
                                         name: 'income_or_asset_type',
                                         id: 'income-or-asset-type',
@@ -79,7 +83,6 @@ export default function AddFinancialSourceForm (props) {
                                             minimumValue="0"
                                             name="estimated_amount"
                                             currencySymbol="$"
-                                            // onChange={handleChange}
                                             onChange={(event, value)=>{
                                                 // fixes odd issue with blank value on autofill
                                                 const textValue = event.target.value;
@@ -95,6 +98,8 @@ export default function AddFinancialSourceForm (props) {
                                         <UploadDocuments
                                             incomeOrAssetType={values.income_or_asset_type}
                                             streamType={props.financialType}
+                                            uploadedDocuments={values.uploadedDocuments}
+                                            onUpload={e => setFieldValue('uploadedDocuments', e)}
                                         />
                                     </>
                                 )

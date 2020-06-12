@@ -3,15 +3,73 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 
+import { css } from 'emotion';
+import styled from '@emotion/styled';
+
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import Button from '@material-ui/core/Button';
 
 import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { P } from 'assets/styles';
+
+const root = css`
+    border-radius: 21.5px !important;
+    height: 45px;
+`
+
+const label = css`
+    text-transform: none;
+    font-size: 16px;
+`
+
+const UploadButtonContainer = styled.div`
+    margin-top: ${props => props.marginTop ? `${props.marginTop}px` : 0};
+    margin-bottom: ${props => props.marginTop ? `${props.marginTop}px` : 0};
+    text-decoration: none;
+    display: block;
+    label {
+        margin-bottom: 17px;
+    }
+`
+
+const UploadedDocuments = styled.div`
+    .uploaded-document {
+        margin-top: 37px;
+        &:first-of-type {
+            margin-top: 48px;
+        }
+    }
+    .uploaded-document-title {
+        height: 16px;
+        width: 260px;
+        color: #828796;
+        font-size: 12px;
+        letter-spacing: 0.4px;
+        line-height: 16px;
+        margin-bottom: 9px;
+    }
+    .uploaded-document-filename {
+        height: 43px;
+        background-color: rgba(38,48,91,0.1);
+        border-bottom: 1px solid #C8C8C8;
+    }
+`
+
+const FileName = styled.div`
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 11px 23px 12px 23px;
+`
+
 
 
 export class UploadDocuments extends React.Component {
@@ -59,6 +117,42 @@ export class UploadDocuments extends React.Component {
         return proofDocuments.map(d => d.label).join(' + ')
     };
 
+    onFileChange = (e, selectedDocument) => {
+        let uploadedDocuments = {...this.props.uploadedDocuments};
+        if (uploadedDocuments[e.target.id]) {
+            uploadedDocuments[e.target.id].files.push(e.target.files[0])
+        } else {
+            uploadedDocuments[e.target.id] = {
+                id: selectedDocument.id,
+                label: selectedDocument.label,
+                files: [e.target.files[0]]
+            };
+        }
+        this.props.onUpload(uploadedDocuments);
+    };
+
+    displayUploadedDocuments = () => {
+        const { uploadedDocuments } = this.props;
+        if (!uploadedDocuments || uploadedDocuments === {}) return null;
+
+        return (
+            <UploadedDocuments>
+                {Object.keys(uploadedDocuments).map((docId, index) => (
+                    <div className="uploaded-document" key={index}>
+                        <div className="uploaded-document-title">
+                            {uploadedDocuments[docId].label}
+                        </div>
+                        {uploadedDocuments[docId].files.map((file, i) => (
+                            <div className="uploaded-document-filename" key={i}>
+                                <FileName >{file.name}</FileName>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </UploadedDocuments>
+        )
+    };
+
     render () {
         const { selectedDocumentIndex, selectedDocument } = this.state;
         const documentRequired = this.documentsRequired;
@@ -72,16 +166,28 @@ export class UploadDocuments extends React.Component {
                 {requireAll || documentRequired.proof_documents.length ===1 ? (
                     <>
                         <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
-                        {documentRequired.proof_documents.map((doc, index) => (
-                            <ActionButton
-                                key={index}
-                                marginBottom={(index === documentRequired.proof_documents.length - 1) ? 68 : 17}
-                                disabled={false}
-                                variant="outlined"
-                            >
-                                Upload {doc.label}
-                            </ActionButton>)
-                        )}
+                        {this.displayUploadedDocuments()}
+                        <UploadButtonContainer marginTop={48} marginBottom={51}>
+                            {documentRequired.proof_documents.map((doc, index) => (
+                                <Button
+                                    key={index}
+                                    variant="outlined"
+                                    component="label"
+                                    color="primary"
+                                    classes={{ root, label }}
+                                    fullWidth
+                                >
+                                    Upload {doc.label}
+                                    <input
+                                        id={String(doc.id)}
+                                        type="file"
+                                        accept="image/*,.pdf"
+                                        style={{ display: "none" }}
+                                        onChange={(e) => this.onFileChange(e, doc)}
+                                    />
+                                </Button>
+                            ))}
+                        </UploadButtonContainer>
                     </>
                 ) : (
                     <>
@@ -103,9 +209,27 @@ export class UploadDocuments extends React.Component {
                             </RadioGroup>
                         </FormControl>
                         {selectedDocument && (
-                            <ActionButton disabled={false} marginTop={48} marginBottom={68} variant="outlined">
-                                Upload {selectedDocument.label}
-                            </ActionButton>
+                            <>
+                                {this.displayUploadedDocuments()}
+                                <UploadButtonContainer marginTop={48} marginBottom={68}>
+                                    <Button
+                                        variant="outlined"
+                                        component="label"
+                                        color="primary"
+                                        classes={{ root, label }}
+                                        fullWidth
+                                    >
+                                        Upload {selectedDocument.label}
+                                        <input
+                                            id={String(selectedDocument.id)}
+                                            type="file"
+                                            accept="image/*,.pdf"
+                                            style={{ display: "none" }}
+                                            onChange={(e) => this.onFileChange(e, selectedDocument)}
+                                        />
+                                    </Button>
+                                </UploadButtonContainer>
+                            </>
                         )}
                     </>
                 )}
@@ -118,6 +242,8 @@ UploadDocuments.propTypes = {
     incomeOrAssetType: PropTypes.number.isRequired,
     config: PropTypes.object.isRequired,
     streamType: PropTypes.number.isRequired,
+    onUpload: PropTypes.func.isRequired,
+    uploadedDocuments: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
