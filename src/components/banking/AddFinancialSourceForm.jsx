@@ -10,8 +10,9 @@ import capitalize from 'lodash/capitalize';
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Spacer } from 'assets/styles';
-import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, ASSET_TYPE_OTHER } from 'app/constants';
 import { Formik } from 'formik';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 
 export default function AddFinancialSourceForm (props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
@@ -22,15 +23,25 @@ export default function AddFinancialSourceForm (props) {
     function getInitialValues () {
         return Object.assign({
             income_or_asset_type: '',
-            estimated_amount: ''
+            estimated_amount: '',
         }, props.initialValues);
+    }
+    function onChangeSelect(e, handleChange, setFieldValue) {
+        handleChange(e);
+        // clear other if other field becomes hidden
+        setFieldValue('other', null);
     }
     return (
         <Formik
             validationSchema={
                 Yup.object({
                     income_or_asset_type: Yup.number().required('Required'),
-                    estimated_amount: Yup.string().required('Required')
+                    estimated_amount: Yup.string().required('Required'),
+                    other: Yup.string().when('income_or_asset_type', {
+                        is: (value) => [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(value),
+                        then: Yup.string().nullable().required('Required'),
+                        otherwise: Yup.string().nullable().notRequired()
+                    }),
                 })
             }
             onSubmit={props.onSubmit}
@@ -54,7 +65,7 @@ export default function AddFinancialSourceForm (props) {
                             error={!!errors.income_or_asset_type}
                             value={values.income_or_asset_type}
                             fullWidth
-                            onChange={handleChange}
+                            onChange={(e)=>onChangeSelect(e, handleChange, setFieldValue)}
                             inputProps={{
                                 name: 'income_or_asset_type',
                                 id: 'income-or-asset-type',
@@ -65,6 +76,21 @@ export default function AddFinancialSourceForm (props) {
                             ))}
                         </Select>
                     </FormControl>
+                    {
+                    [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(values.income_or_asset_type) &&
+                    <>
+                        <Spacer height={24}/>
+                        <FormTextInput
+                            label="Description"
+                            name="other"
+                            inputProps={{maxLength: 255}}
+                            value={values.other}
+                            handleChange={handleChange}
+                            error={errors.other}
+                            submitted={submitCount > 0}
+                        />
+                    </>
+                    }
                     <Spacer height={24}/>
                     {
                         values.income_or_asset_type &&
@@ -92,7 +118,7 @@ export default function AddFinancialSourceForm (props) {
                         />
                     }
                 </div>
-                <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
+                <ActionButton disabled={!allValuesSet(values, {exclude: ['other']}) || isSubmitting} marginTop={40} marginBottom={20}>
                     {isAsset ? 'Add Asset' : 'Add Income Source'}
                 </ActionButton>
             </form>
