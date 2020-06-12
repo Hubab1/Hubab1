@@ -55,13 +55,8 @@ export class UploadDocuments extends React.Component {
     getProofsLabel = () => {
         const documentRequired = this.documentsRequired;
         let proofDocuments = documentRequired.proof_documents;
-        let label = proofDocuments[0].label;
-        if (proofDocuments.length > 1) {
-            for (let i = 1; i < proofDocuments.length; i++) {
-                label += ` + ${proofDocuments[i].label}`;
-            }
-        }
-        return label;
+
+        return proofDocuments.map(d => d.label).join(' + ')
     };
 
     render () {
