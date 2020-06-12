@@ -31,10 +31,10 @@ export class UploadDocuments extends React.Component {
 
     getTitle = () => {
         let type = '';
-        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = ' of income'}
-        if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = ' of asset'}
+        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income'}
+        if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset'}
         return (
-            <P margin="43px 0 0 0">{`Proof${type}:`}</P>
+            <P margin="43px 0 0 0">{`Proof of ${type}:`}</P>
         )
     };
 
