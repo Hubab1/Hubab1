@@ -69,7 +69,7 @@ export class UploadDocuments extends React.Component {
         return (
             <>
                 {this.getTitle()}
-                {requireAll || documentRequired.proof_documents.length <=1 ? (
+                {requireAll || documentRequired.proof_documents.length ===1 ? (
                     <>
                         <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
                         {documentRequired.proof_documents.map((doc, index) => (
