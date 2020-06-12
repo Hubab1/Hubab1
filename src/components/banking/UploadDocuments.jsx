@@ -52,7 +52,9 @@ export class UploadDocuments extends React.Component {
         return config.find(doc => doc.income_or_asset_type === this.props.incomeOrAssetType);
     };
 
-    getProofsLabel = (proofDocuments) => {
+    getProofsLabel = () => {
+        const documentRequired = this.documentsRequired;
+        let proofDocuments = documentRequired.proof_documents;
         let label = proofDocuments[0].label;
         if (proofDocuments.length > 1) {
             for (let i = 1; i < proofDocuments.length; i++) {
@@ -74,7 +76,7 @@ export class UploadDocuments extends React.Component {
                 {this.getTitle()}
                 {requireAll || documentRequired.proof_documents.length <=1 ? (
                     <>
-                        <P margin="15px 0 48px 0">{this.getProofsLabel(documentRequired.proof_documents)}</P>
+                        <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
                         {documentRequired.proof_documents.map((doc, index) => (
                             <ActionButton
                                 key={index}
