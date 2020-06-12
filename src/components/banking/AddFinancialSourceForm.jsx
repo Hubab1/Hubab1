@@ -68,33 +68,36 @@ export default function AddFinancialSourceForm (props) {
                     </FormControl>
                     <Spacer height={24}/>
                     {
-                        values.income_or_asset_type &&
-                        <CurrencyTextField
-                            error={submitCount > 0 && !!errors.estimated_amount}
-                            helperText={submitCount > 0 && errors.estimated_amount}
-                            fullWidth
-                            textAlign="left"
-                            label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
-                            minimumValue="0"
-                            name="estimated_amount"
-                            currencySymbol="$"
-                            // onChange={handleChange}
-                            onChange={(event, value)=>{
-                                // fixes odd issue with blank value on autofill
-                                const textValue = event.target.value;
-                                if (textValue && !value) {
-                                    setFieldValue('estimated_amount', textValue);
-                                } else {
-                                    setFieldValue('estimated_amount', value);
-                                }
-                            }}
-                            outputFormat="string"
-                            value={values.estimated_amount}
-                        />
-                        <UploadDocuments
-                            incomeOrAssetType={values.income_or_asset_type}
-                            streamType={props.financialType}
-                        />
+                        values.income_or_asset_type && (
+                            <>
+                                <CurrencyTextField
+                                    error={submitCount > 0 && !!errors.estimated_amount}
+                                    helperText={submitCount > 0 && errors.estimated_amount}
+                                    fullWidth
+                                    textAlign="left"
+                                    label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
+                                    minimumValue="0"
+                                    name="estimated_amount"
+                                    currencySymbol="$"
+                                    // onChange={handleChange}
+                                    onChange={(event, value)=>{
+                                        // fixes odd issue with blank value on autofill
+                                        const textValue = event.target.value;
+                                        if (textValue && !value) {
+                                            setFieldValue('estimated_amount', textValue);
+                                        } else {
+                                            setFieldValue('estimated_amount', value);
+                                        }
+                                    }}
+                                    outputFormat="string"
+                                    value={values.estimated_amount}
+                                />
+                                <UploadDocuments
+                                    incomeOrAssetType={values.income_or_asset_type}
+                                    streamType={props.financialType}
+                                />
+                            </>
+                        )
                     }
                 </div>
                 <ActionButton disabled={!allValuesSet(values) || isSubmitting} marginTop={40} marginBottom={20}>
