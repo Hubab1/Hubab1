@@ -24,7 +24,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export function ManualIncomeVerificationPage (props) {
+export function ManualIncomeVerificationPage () {
     const context = React.useContext(BankingContext);
     return (
         <>
@@ -40,14 +40,12 @@ export function ManualIncomeVerificationPage (props) {
                     <ExistingItemsExpansionPanel
                         label="Income Source"
                         labelQuantity={context.manualBankingData?.income_sources.length}
-                        defaultExpanded={true}
                     >
                         {
                             context.manualBankingData?.income_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    {ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type].label}
+                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
-                                    {/* <div className={styles.colorManatee}>Proof of income: {source.type}</div> */}
                                 </div>
                             ))
                         }
@@ -64,12 +62,11 @@ export function ManualIncomeVerificationPage (props) {
                     <ExistingItemsExpansionPanel
                         label="Asset Source"
                         labelQuantity={context.manualBankingData?.asset_sources.length}
-                        defaultExpanded={true}
                     >
                         {
                             context.manualBankingData?.asset_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    {ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type].label}
+                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                 </div>
                             ))
@@ -84,6 +81,8 @@ export function ManualIncomeVerificationPage (props) {
         </>
     );
 }
+
+ManualIncomeVerificationPage.contextTypes = BankingContext;
 
 ManualIncomeVerificationPage.route = ROUTES.MANUAL_INCOME_VERIFICATION;
 
