@@ -28,6 +28,7 @@ export function AddAssetSource (props) {
                 income_or_asset_type: values.income_or_asset_type,
                 estimated_amount: values.estimated_amount.replace(/,/g, ''),
                 stream_type: FINANCIAL_STREAM_ASSET,
+                other: values.other,
             },
         );
         let response;
