@@ -123,7 +123,7 @@ export default function AddFinancialSourceForm (props) {
                                             incomeOrAssetType={values.income_or_asset_type}
                                             streamType={props.financialType}
                                             uploadedDocuments={values.uploadedDocuments}
-                                            onUpload={e => setFieldValue('uploadedDocuments', e)}
+                                            loadDocument={e => setFieldValue('uploadedDocuments', e)}
                                         />
                                     </>
                                 )

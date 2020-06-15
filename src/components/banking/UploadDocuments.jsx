@@ -63,8 +63,6 @@ const FileName = styled.div`
     color: #000000;
     font-size: 16px;
     font-weight: 500;
-    letter-spacing: 0;
-    line-height: 19px;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 11px 23px 12px 23px;
@@ -139,7 +137,7 @@ export class UploadDocuments extends React.Component {
                      files: [fileInfo]
                  };
              }
-             this.props.onUpload(uploadedDocuments);
+             this.props.loadDocument(uploadedDocuments);
          };
      };
 
@@ -147,6 +145,7 @@ export class UploadDocuments extends React.Component {
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
         if (!uploadedDocuments || uploadedDocuments === {}) return null;
+        console.log(uploadedDocuments);
 
         return (
             <UploadedDocuments>
@@ -255,7 +254,7 @@ UploadDocuments.propTypes = {
     incomeOrAssetType: PropTypes.number.isRequired,
     config: PropTypes.object.isRequired,
     streamType: PropTypes.number.isRequired,
-    onUpload: PropTypes.func.isRequired,
+    loadDocument: PropTypes.func.isRequired,
     uploadedDocuments: PropTypes.object.isRequired,
 };
 
