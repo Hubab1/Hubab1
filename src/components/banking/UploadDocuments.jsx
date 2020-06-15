@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import uuidv4 from 'uuid/v4';
 
 import { css } from 'emotion';
 import styled from '@emotion/styled';
@@ -15,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { P } from 'assets/styles';
+
 
 const root = css`
     border-radius: 21.5px !important;
@@ -126,6 +128,7 @@ export class UploadDocuments extends React.Component {
                  size: Math.round(file.size / 1000) + ' kB',
                  base64: reader.result,
                  file: file,
+                 id: uuidv4(),
              };
              let uploadedDocuments = {...this.props.uploadedDocuments};
              if (uploadedDocuments[id]) {
@@ -145,17 +148,16 @@ export class UploadDocuments extends React.Component {
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
         if (!uploadedDocuments || uploadedDocuments === {}) return null;
-        console.log(uploadedDocuments);
 
         return (
             <UploadedDocuments>
-                {Object.keys(uploadedDocuments).map((docId, index) => (
-                    <div className="uploaded-document" key={index}>
+                {Object.keys(uploadedDocuments).map((docId) => (
+                    <div className="uploaded-document" key={docId}>
                         <div className="uploaded-document-title">
                             {uploadedDocuments[docId].label}
                         </div>
                         {uploadedDocuments[docId].files.map((file, i) => (
-                            <div className="uploaded-document-filename" key={i}>
+                            <div className="uploaded-document-filename" key={file.id}>
                                 <FileName >{file.name}</FileName>
                             </div>
                         ))}
@@ -180,9 +182,9 @@ export class UploadDocuments extends React.Component {
                         <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
                         {this.displayUploadedDocuments()}
                         <UploadButtonContainer marginTop={48} marginBottom={51}>
-                            {documentRequired.proof_documents.map((doc, index) => (
+                            {documentRequired.proof_documents.map((doc) => (
                                 <Button
-                                    key={index}
+                                    key={doc.id}
                                     variant="outlined"
                                     component="label"
                                     color="primary"
@@ -212,7 +214,7 @@ export class UploadDocuments extends React.Component {
                             >
                                 {documentRequired.proof_documents.map((doc, index) => (
                                     <FormControlLabel
-                                        key={index}
+                                        key={doc.id}
                                         value={index}
                                         control={<Radio />}
                                         label={doc.label}
