@@ -236,7 +236,7 @@ export class UploadDocuments extends React.Component {
                                         <input
                                             id={String(selectedDocument.id)}
                                             type="file"
-                                            accept="image/*,.pdf"
+                                            accept="image/*,.pdf,.doc,.docx"
                                             style={{ display: "none" }}
                                             onChange={(e) => this.onFileChange(e, selectedDocument)}
                                         />
