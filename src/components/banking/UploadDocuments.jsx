@@ -116,19 +116,33 @@ export class UploadDocuments extends React.Component {
         return proofDocuments.map(d => d.label).join(' + ')
     };
 
-    onFileChange = (e, selectedDocument) => {
-        let uploadedDocuments = {...this.props.uploadedDocuments};
-        if (uploadedDocuments[e.target.id]) {
-            uploadedDocuments[e.target.id].files.push(e.target.files[0])
-        } else {
-            uploadedDocuments[e.target.id] = {
-                id: selectedDocument.id,
-                label: selectedDocument.label,
-                files: [e.target.files[0]]
-            };
-        }
-        this.props.onUpload(uploadedDocuments);
-    };
+     onFileChange = (e, selectedDocument) => {
+         const id = e.target.id;
+         let file = e.target.files[0];
+         let reader = new FileReader();
+         reader.readAsDataURL(file);
+         reader.onload = () => {
+             let fileInfo = {
+                 name: file.name,
+                 type: file.type,
+                 size: Math.round(file.size / 1000) + ' kB',
+                 base64: reader.result,
+                 file: file,
+             };
+             let uploadedDocuments = {...this.props.uploadedDocuments};
+             if (uploadedDocuments[id]) {
+                 uploadedDocuments[id].files.push(fileInfo)
+             } else {
+                 uploadedDocuments[id] = {
+                     id: selectedDocument.id,
+                     label: selectedDocument.label,
+                     files: [fileInfo]
+                 };
+             }
+             this.props.onUpload(uploadedDocuments);
+         };
+     };
+
 
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
