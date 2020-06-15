@@ -85,19 +85,24 @@ exports[`Matches snapshot showing other field 1`] = `
     <ForwardRef(render)
       height={24}
     />
-    <ForwardRef(WithStyles)
-      currencySymbol="$"
-      error={false}
-      fullWidth={true}
-      helperText={false}
-      label="Estimated annual income"
-      minimumValue="0"
-      name="estimated_amount"
-      onChange={[Function]}
-      outputFormat="string"
-      textAlign="left"
-      value=""
-    />
+    <React.Fragment>
+      <ForwardRef(WithStyles)
+        currencySymbol="$"
+        error={false}
+        fullWidth={true}
+        helperText={false}
+        label="Estimated annual income"
+        minimumValue="0"
+        name="estimated_amount"
+        onChange={[Function]}
+        outputFormat="string"
+        textAlign="left"
+        value=""
+      />
+      <UNDEFINED
+        incomeOrAssetType={140}
+      />
+    </React.Fragment>
   </div>
   <ActionButton
     color="primary"
