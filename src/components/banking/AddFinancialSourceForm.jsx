@@ -12,6 +12,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Spacer } from 'assets/styles';
 import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, ASSET_TYPE_OTHER } from 'app/constants';
 import { Formik } from 'formik';
+import UploadDocuments from "./UploadDocuments";
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import UploadDocuments from "./UploadDocuments";
 
