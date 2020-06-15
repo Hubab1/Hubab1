@@ -47,12 +47,13 @@ export function AddAssetSource (props) {
         }
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
         setSubmitting(false);
-    }
+    };
+
     return (
         <>
             <SkinnyH1>Add Proof of Assets</SkinnyH1>
             <SpacedH3>Fill in the details below to add your proof of assets.</SpacedH3>
-            <Img alt="piggy bank" src={piggyBank}></Img>
+            <Img alt="piggy bank" src={piggyBank} />
             <Spacer height={30}/>
             <AddFinancialSourceForm
                 initialValues={props.initialValues}

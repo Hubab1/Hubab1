@@ -44,12 +44,13 @@ export function AddIncomeSource (props) {
         }
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
         setSubmitting(false);
-    }
+    };
+
     return (
         <>
             <SkinnyH1>Add an Income Source</SkinnyH1>
             <SpacedH3>Fill in the details below to add your income source.</SpacedH3>
-            <img alt="coin" src={finance}></img>
+            <img alt="coin" src={finance} />
             <Spacer height={30}/>
             <AddFinancialSourceForm
                 initialValues={props.initialValues}

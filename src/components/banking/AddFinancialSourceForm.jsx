@@ -14,7 +14,6 @@ import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, A
 import { Formik } from 'formik';
 import UploadDocuments from "./UploadDocuments";
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import UploadDocuments from "./UploadDocuments";
 
 export default function AddFinancialSourceForm (props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
