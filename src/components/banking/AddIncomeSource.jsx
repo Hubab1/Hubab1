@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useContext } from 'react';
 
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
@@ -8,8 +9,8 @@ import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
-import { useContext } from 'react';
 import BankingContext from './BankingContext';
+
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -23,17 +24,14 @@ export function AddIncomeSource (props) {
     const context = useContext(BankingContext);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
-        const payload = Object.assign(
-            {
-                income_or_asset_type: values.income_or_asset_type,
-                estimated_amount: values.estimated_amount.replace(/,/g, ''),
-                stream_type: FINANCIAL_STREAM_INCOME,
-                other: values.other,
-            },
-        );
+        const formData = new FormData();
+        formData.append('income_or_asset_type', values.income_or_asset_type);
+        formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
+        formData.append('stream_type', FINANCIAL_STREAM_INCOME);
+        formData.append('other', values.other);
         let response;
         try {
-            response = await API.submitFinancialSource(payload);
+            response = await API.submitFinancialSource(formData);
         } catch {
             return setSubmitting(false);
         }

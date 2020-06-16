@@ -280,7 +280,7 @@ API.submitFinancialSource = (data) => {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
-        body: JSON.stringify(data)
+        body: data
     })
 }
 
