@@ -25,7 +25,7 @@ export const ROUTES = {
     BANKING: '/income-employment',
     MANUAL_INCOME_VERIFICATION: '/income-employment/manual',
     MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
-    MANUAL_ASSET_ENTRY_ADD_INCOME: '/income-employment/manual/add-asset',
+    MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
     SCREENING: '/screening',

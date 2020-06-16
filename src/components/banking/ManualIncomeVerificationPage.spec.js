@@ -5,7 +5,7 @@ import { ManualIncomeVerificationPage } from './ManualIncomeVerificationPage';
 jest.mock("react", () => ({
     ...jest.requireActual("react"),
     useContext: () => ({
-        manualBankingData: {
+        bankingData: {
             income_sources: [
                 {
                     id: 123,

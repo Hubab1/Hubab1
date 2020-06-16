@@ -16,7 +16,7 @@ function BankingContainer () {
         const response = await API.getFinancialSources();
         if (response.status === 200) {
             const data = await response.json();
-            dispatch({type: 'MANUAL_BANKING_DATA_RECEIVED', data});
+            dispatch({type: 'BANKING_DATA_RECEIVED', data});
         }
     };
     React.useEffect(() => {
@@ -24,12 +24,12 @@ function BankingContainer () {
     }, []);
 
     return (
-        <BankingContext.Provider value={{refreshFinancialSources, manualBankingData: state.manualBankingData}}>
+        <BankingContext.Provider value={{refreshFinancialSources, bankingData: state.bankingData}}>
             <Switch>
                 <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage} exact/>
                 <Route path={ROUTES.MANUAL_INCOME_VERIFICATION} component={ManualIncomeVerificationPage} exact/>
                 <Route path={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME} component={AddIncomeSource}/>
-                <Route path={ROUTES.MANUAL_ASSET_ENTRY_ADD_INCOME} component={AddAssetSource}/>
+                <Route path={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET} component={AddAssetSource}/>
             </Switch>
         </BankingContext.Provider>
     );

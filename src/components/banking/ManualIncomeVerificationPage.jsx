@@ -39,10 +39,10 @@ export function ManualIncomeVerificationPage () {
                 expansionPanel={
                     <ExistingItemsExpansionPanel
                         label="Income Source"
-                        labelQuantity={context.manualBankingData?.income_sources.length}
+                        labelQuantity={context.bankingData?.income_sources.length}
                     >
                         {
-                            context.manualBankingData?.income_sources?.map((source, i) => (
+                            context.bankingData?.income_sources?.map((source, i) => (
                                 <div key={source.id}>
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
@@ -57,17 +57,17 @@ export function ManualIncomeVerificationPage () {
                 label="Assets"
                 buttonLabel="Add an Asset"
                 tip="TBD"
-                route={ROUTES.MANUAL_ASSET_ENTRY_ADD_INCOME}
+                route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={
                     <ExistingItemsExpansionPanel
                         label="Asset Source"
-                        labelQuantity={context.manualBankingData?.asset_sources.length}
+                        labelQuantity={context.bankingData?.asset_sources.length}
                     >
                         {
-                            context.manualBankingData?.asset_sources?.map((source, i) => (
+                            context.bankingData?.asset_sources?.map((source, i) => (
                                 <div key={source.id}>
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
-                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
+                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                 </div>
                             ))
                         }
