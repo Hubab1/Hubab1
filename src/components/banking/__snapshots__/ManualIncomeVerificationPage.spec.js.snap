@@ -54,7 +54,6 @@ exports[`matches snapshot with some financial sources data 1`] = `
             className="css-dufvih"
           >
             $40,000
-            /year
           </div>
         </div>
       </ExistingItemsExpansionPanel>
