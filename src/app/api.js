@@ -1,6 +1,5 @@
 import auth from 'utils/auth';
 import fetch from 'app/fetch';
-import axios from 'axios';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
@@ -276,17 +275,13 @@ API.getAdverseActions = () => {
 }
 
 API.submitFinancialSource = (data) => {
-    const axiosInstance = axios.create({
-        headers: {
-            "Content-Type": "multipart/form-data",
-            "AUTHORIZATION": `Token ${auth.getToken()}`,
-        }
-    });
-
-    return axiosInstance({
-        url: chuck('/financial-sources/'),
+    return fetch(chuck('/financial-sources/'), {
         method: 'POST',
-        data,
+        headers: {
+            // "Content-Type": "multipart/form-data",
+            "AUTHORIZATION": `Token ${auth.getToken()}`,
+        },
+        body: data
     })
 };
 

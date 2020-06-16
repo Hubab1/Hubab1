@@ -122,8 +122,8 @@ export class UploadDocuments extends React.Component {
          reader.onload = () => {
              let fileInfo = {
                  name: file.name,
-                 base64: reader.result,
                  id: uuidv4(),
+                 file: file
              };
              let uploadedDocuments = {...this.props.uploadedDocuments};
              if (uploadedDocuments[id]) {
@@ -190,6 +190,7 @@ export class UploadDocuments extends React.Component {
                                     <input
                                         id={String(doc.id)}
                                         type="file"
+                                        name={String(doc.id)}
                                         accept="image/*,.pdf"
                                         style={{ display: "none" }}
                                         onChange={(e) => this.onFileChange(e, doc)}
@@ -232,6 +233,7 @@ export class UploadDocuments extends React.Component {
                                         <input
                                             id={String(selectedDocument.id)}
                                             type="file"
+                                            name={String(selectedDocument.id)}
                                             accept="image/*,.pdf,.doc,.docx"
                                             style={{ display: "none" }}
                                             onChange={(e) => this.onFileChange(e, selectedDocument)}
