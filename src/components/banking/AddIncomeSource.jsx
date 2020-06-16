@@ -20,18 +20,17 @@ const SpacedH3 = styled(H3)`
 export function AddIncomeSource (props) {
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
-        const payload = Object.assign(
-            {
-                income_or_asset_type: values.income_or_asset_type,
-                estimated_amount: values.estimated_amount.replace(/,/g, ''),
-                stream_type: FINANCIAL_STREAM_INCOME,
-                uploaded_documents: values.uploadedDocuments,
-                other: values.other,
-            },
-        );
+
+        const formData = new FormData();
+        formData.append('income_or_asset_type', values.income_or_asset_type);
+        formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
+        formData.append('stream_type', FINANCIAL_STREAM_INCOME);
+        formData.append('uploaded_documents', JSON.stringify(values.uploadedDocuments));
+        formData.append('other', values.other);
+
         let response;
         try {
-            response = await API.submitFinancialSource(payload);
+            response = await API.submitFinancialSource(formData);
         } catch {
             return setSubmitting(false);
         }

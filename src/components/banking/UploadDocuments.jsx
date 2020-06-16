@@ -50,8 +50,6 @@ const UploadedDocuments = styled.div`
         width: 260px;
         color: #828796;
         font-size: 12px;
-        letter-spacing: 0.4px;
-        line-height: 16px;
         margin-bottom: 9px;
     }
     .uploaded-document-filename {
@@ -124,10 +122,7 @@ export class UploadDocuments extends React.Component {
          reader.onload = () => {
              let fileInfo = {
                  name: file.name,
-                 type: file.type,
-                 size: Math.round(file.size / 1000) + ' kB',
                  base64: reader.result,
-                 file: file,
                  id: uuidv4(),
              };
              let uploadedDocuments = {...this.props.uploadedDocuments};
