@@ -30,10 +30,12 @@ export function AddIncomeSource (props) {
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
         formData.append('stream_type', FINANCIAL_STREAM_INCOME);
         formData.append('other', values.other);
-        for (let key of Object.keys(values.uploadedDocuments)) {
-            values.uploadedDocuments[key].files.forEach((v, k) => {
-                formData.append(`${key}[]`, v.file);
-            });
+        if (values.uploadedDocuments && values.uploadedDocuments !== {}) {
+            for (let key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v, k) => {
+                    formData.append(`${key}[]`, v.file);
+                });
+            }
         }
         let response;
         try {

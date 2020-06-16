@@ -75,6 +75,7 @@ exports[`Case documents uploaded 1`] = `
         <input
           accept="image/*,.pdf"
           id="1"
+          name="1"
           onChange={[Function]}
           style={
             Object {
@@ -123,6 +124,7 @@ exports[`Case multiple required document (require all) 1`] = `
         <input
           accept="image/*,.pdf"
           id="1"
+          name="1"
           onChange={[Function]}
           style={
             Object {
@@ -149,6 +151,7 @@ exports[`Case multiple required document (require all) 1`] = `
         <input
           accept="image/*,.pdf"
           id="2"
+          name="2"
           onChange={[Function]}
           style={
             Object {
@@ -198,6 +201,7 @@ exports[`Case no uploaded documents 1`] = `
         <input
           accept="image/*,.pdf"
           id="1"
+          name="1"
           onChange={[Function]}
           style={
             Object {
@@ -246,6 +250,7 @@ exports[`Case only one required document 1`] = `
         <input
           accept="image/*,.pdf"
           id="1"
+          name="1"
           onChange={[Function]}
           style={
             Object {
