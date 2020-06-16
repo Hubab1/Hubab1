@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Case multiple required document (require all) 1`] = `
+<React.Fragment>
+  <ForwardRef(render)
+    margin="43px 0 0 0"
+  >
+    Proof of income:
+  </ForwardRef(render)>
+  <React.Fragment>
+    <ForwardRef(render)
+      margin="15px 0 48px 0"
+    >
+      W2 + 1099 Form
+    </ForwardRef(render)>
+    <ActionButton
+      color="primary"
+      disabled={false}
+      marginBottom={17}
+      successGreen={false}
+      variant="outlined"
+    >
+      Upload 
+      W2
+    </ActionButton>
+    <ActionButton
+      color="primary"
+      disabled={false}
+      marginBottom={68}
+      successGreen={false}
+      variant="outlined"
+    >
+      Upload 
+      1099 Form
+    </ActionButton>
+  </React.Fragment>
+</React.Fragment>
+`;
+
+exports[`Case only one required document 1`] = `
+<React.Fragment>
+  <ForwardRef(render)
+    margin="43px 0 0 0"
+  >
+    Proof of income:
+  </ForwardRef(render)>
+  <React.Fragment>
+    <ForwardRef(render)
+      margin="15px 0 48px 0"
+    >
+      W2
+    </ForwardRef(render)>
+    <ActionButton
+      color="primary"
+      disabled={false}
+      marginBottom={68}
+      successGreen={false}
+      variant="outlined"
+    >
+      Upload 
+      W2
+    </ActionButton>
+  </React.Fragment>
+</React.Fragment>
+`;
+
+exports[`Case require one of multiple document 1`] = `
+<React.Fragment>
+  <ForwardRef(render)
+    margin="43px 0 0 0"
+  >
+    Proof of income:
+  </ForwardRef(render)>
+  <React.Fragment>
+    <ForwardRef(WithStyles)
+      component="fieldset"
+    >
+      <ForwardRef(RadioGroup)
+        aria-label="documents"
+        name="documents"
+        onChange={[Function]}
+        value={null}
+      >
+        <ForwardRef(WithStyles)
+          control={<ForwardRef(WithStyles) />}
+          label="1099 Form"
+          value={0}
+        />
+        <ForwardRef(WithStyles)
+          control={<ForwardRef(WithStyles) />}
+          label="3 Paystubs"
+          value={1}
+        />
+      </ForwardRef(RadioGroup)>
+    </ForwardRef(WithStyles)>
+  </React.Fragment>
+</React.Fragment>
+`;

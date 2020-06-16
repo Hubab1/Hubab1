@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot showing other field 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    className="align-left"
+  >
+    <ForwardRef(WithStyles)
+      fullWidth={true}
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="income-or-asset-type"
+      >
+        Income
+         type
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        error={false}
+        fullWidth={true}
+        inputProps={
+          Object {
+            "id": "income-or-asset-type",
+            "name": "income_or_asset_type",
+          }
+        }
+        onChange={[Function]}
+        value={140}
+      >
+        <ForwardRef(WithStyles)
+          value={105}
+        >
+          Employment
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={110}
+        >
+          Self Employment
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={115}
+        >
+          Student
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={120}
+        >
+          Government
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={125}
+        >
+          Retirement
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={130}
+        >
+          Child/Spousal Support
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          value={140}
+        >
+          Other
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <React.Fragment>
+      <ForwardRef(render)
+        height={24}
+      />
+      <FormTextInput
+        handleChange={[Function]}
+        inputProps={
+          Object {
+            "maxLength": 255,
+          }
+        }
+        label="Description"
+        name="other"
+        submitted={false}
+        type="text"
+      />
+    </React.Fragment>
+    <ForwardRef(render)
+      height={24}
+    />
+    <React.Fragment>
+      <ForwardRef(WithStyles)
+        currencySymbol="$"
+        error={false}
+        fullWidth={true}
+        helperText={false}
+        label="Estimated annual income"
+        minimumValue="0"
+        name="estimated_amount"
+        onChange={[Function]}
+        outputFormat="string"
+        textAlign="left"
+        value=""
+      />
+      <UNDEFINED
+        incomeOrAssetType={140}
+      />
+    </React.Fragment>
+  </div>
+  <ActionButton
+    color="primary"
+    disabled={true}
+    marginBottom={20}
+    marginTop={40}
+    successGreen={false}
+    variant="contained"
+  >
+    Add Income Source
+  </ActionButton>
+</form>
+`;
