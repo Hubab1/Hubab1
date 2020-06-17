@@ -278,10 +278,10 @@ API.submitFinancialSource = (data) => {
     return fetch(chuck('/financial-sources/'), {
         method: 'POST',
         headers: {
-            Authorization: `Token ${auth.getToken()}`
+            "AUTHORIZATION": `Token ${auth.getToken()}`,
         },
-        body: JSON.stringify(data)
+        body: data
     })
-}
+};
 
 export default API;

@@ -97,12 +97,52 @@ it('Case require one of multiple document', () => {
 
 it('Test title when uploading for income', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_INCOME} incomeOrAssetType={105} store={store} />);
-    console.log(wrapper.html());
     expect(wrapper.childAt(0).text()).toMatch('Proof of income:')
 });
 
 it('Test title when uploading for asset', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_ASSET} incomeOrAssetType={105} store={store} />);
-    console.log(wrapper.html());
     expect(wrapper.childAt(0).text()).toMatch('Proof of asset:')
+});
+
+it('Case no uploaded documents', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{}}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case documents uploaded', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                    ]
+                },
+                // Case stacked
+                '2': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'def.pdf'},
+                        {name: 'ghi.jpg'},
+                    ]
+                }
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
 });

@@ -25,6 +25,7 @@ export default function AddFinancialSourceForm (props) {
         return Object.assign({
             income_or_asset_type: '',
             estimated_amount: '',
+            uploadedDocuments: {},
         }, props.initialValues);
     }
     function onChangeSelect(e, handleChange, setFieldValue) {
@@ -121,6 +122,8 @@ export default function AddFinancialSourceForm (props) {
                                         <UploadDocuments
                                             incomeOrAssetType={values.income_or_asset_type}
                                             streamType={props.financialType}
+                                            uploadedDocuments={values.uploadedDocuments}
+                                            loadDocument={e => setFieldValue('uploadedDocuments', e)}
                                         />
                                     </>
                                 )

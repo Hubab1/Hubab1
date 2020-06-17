@@ -1,5 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Case documents uploaded 1`] = `
+<React.Fragment>
+  <ForwardRef(render)
+    margin="43px 0 0 0"
+  >
+    Proof of asset:
+  </ForwardRef(render)>
+  <React.Fragment>
+    <ForwardRef(render)
+      margin="15px 0 48px 0"
+    >
+      W2
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      <div
+        className="uploaded-document"
+      >
+        <div
+          className="uploaded-document-title"
+        >
+          W2
+        </div>
+        <div
+          className="uploaded-document-filename"
+        >
+          <ForwardRef(render)>
+            abc.png
+          </ForwardRef(render)>
+        </div>
+      </div>
+      <div
+        className="uploaded-document"
+      >
+        <div
+          className="uploaded-document-title"
+        >
+          W2
+        </div>
+        <div
+          className="uploaded-document-filename"
+        >
+          <ForwardRef(render)>
+            def.pdf
+          </ForwardRef(render)>
+        </div>
+        <div
+          className="uploaded-document-filename"
+        >
+          <ForwardRef(render)>
+            ghi.jpg
+          </ForwardRef(render)>
+        </div>
+      </div>
+    </ForwardRef(render)>
+    <ForwardRef(render)
+      marginBottom={51}
+      marginTop={48}
+    >
+      <ForwardRef(WithStyles)
+        classes={
+          Object {
+            "label": "css-1405lf9",
+            "root": "css-11ldqzb",
+          }
+        }
+        color="primary"
+        component="label"
+        fullWidth={true}
+        variant="outlined"
+      >
+        Upload 
+        W2
+        <input
+          accept="image/*,.pdf"
+          id="1"
+          name="1"
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(render)>
+  </React.Fragment>
+</React.Fragment>
+`;
+
 exports[`Case multiple required document (require all) 1`] = `
 <React.Fragment>
   <ForwardRef(render)
@@ -13,26 +103,115 @@ exports[`Case multiple required document (require all) 1`] = `
     >
       W2 + 1099 Form
     </ForwardRef(render)>
-    <ActionButton
-      color="primary"
-      disabled={false}
-      marginBottom={17}
-      successGreen={false}
-      variant="outlined"
+    <ForwardRef(render)
+      marginBottom={51}
+      marginTop={48}
     >
-      Upload 
+      <ForwardRef(WithStyles)
+        classes={
+          Object {
+            "label": "css-1405lf9",
+            "root": "css-11ldqzb",
+          }
+        }
+        color="primary"
+        component="label"
+        fullWidth={true}
+        variant="outlined"
+      >
+        Upload 
+        W2
+        <input
+          accept="image/*,.pdf"
+          id="1"
+          name="1"
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        classes={
+          Object {
+            "label": "css-1405lf9",
+            "root": "css-11ldqzb",
+          }
+        }
+        color="primary"
+        component="label"
+        fullWidth={true}
+        variant="outlined"
+      >
+        Upload 
+        1099 Form
+        <input
+          accept="image/*,.pdf"
+          id="2"
+          name="2"
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(render)>
+  </React.Fragment>
+</React.Fragment>
+`;
+
+exports[`Case no uploaded documents 1`] = `
+<React.Fragment>
+  <ForwardRef(render)
+    margin="43px 0 0 0"
+  >
+    Proof of asset:
+  </ForwardRef(render)>
+  <React.Fragment>
+    <ForwardRef(render)
+      margin="15px 0 48px 0"
+    >
       W2
-    </ActionButton>
-    <ActionButton
-      color="primary"
-      disabled={false}
-      marginBottom={68}
-      successGreen={false}
-      variant="outlined"
+    </ForwardRef(render)>
+    <ForwardRef(render) />
+    <ForwardRef(render)
+      marginBottom={51}
+      marginTop={48}
     >
-      Upload 
-      1099 Form
-    </ActionButton>
+      <ForwardRef(WithStyles)
+        classes={
+          Object {
+            "label": "css-1405lf9",
+            "root": "css-11ldqzb",
+          }
+        }
+        color="primary"
+        component="label"
+        fullWidth={true}
+        variant="outlined"
+      >
+        Upload 
+        W2
+        <input
+          accept="image/*,.pdf"
+          id="1"
+          name="1"
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
 `;
@@ -50,16 +229,38 @@ exports[`Case only one required document 1`] = `
     >
       W2
     </ForwardRef(render)>
-    <ActionButton
-      color="primary"
-      disabled={false}
-      marginBottom={68}
-      successGreen={false}
-      variant="outlined"
+    <ForwardRef(render)
+      marginBottom={51}
+      marginTop={48}
     >
-      Upload 
-      W2
-    </ActionButton>
+      <ForwardRef(WithStyles)
+        classes={
+          Object {
+            "label": "css-1405lf9",
+            "root": "css-11ldqzb",
+          }
+        }
+        color="primary"
+        component="label"
+        fullWidth={true}
+        variant="outlined"
+      >
+        Upload 
+        W2
+        <input
+          accept="image/*,.pdf"
+          id="1"
+          name="1"
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
 `;
