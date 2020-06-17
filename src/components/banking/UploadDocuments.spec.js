@@ -146,3 +146,289 @@ it('Case documents uploaded', () => {
         />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+it('Case minimum uploaded not met', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 3,
+                                label: 'W2',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: false,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case minimum uploaded met', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 3,
+                                label: 'W2',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: false,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                        {name: 'def.png'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case maximum uploaded met', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 3,
+                                label: 'W2',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: false,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                        {name: 'def.png'},
+                        {name: 'ghi.png'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case require_all false and one of documents types uploaded, disable the rest', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 3,
+                                label: 'W2',
+                            },
+                            {
+                                min_required: 2,
+                                id: 2,
+                                description: '1099 tax form',
+                                max_required: 3,
+                                label: '1099',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: false,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case require_all is true and only one document type met minimum', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 2,
+                                label: 'W2',
+                            },
+                            {
+                                min_required: 1,
+                                id: 2,
+                                description: '1099 tax form',
+                                max_required: 3,
+                                label: '1099',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: true,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                        {name: 'def.jpg'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+
+it('Case require_all is true and all documents types met min requirement', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 2,
+                                label: 'W2',
+                            },
+                            {
+                                min_required: 1,
+                                id: 2,
+                                description: '1099 tax form',
+                                max_required: 3,
+                                label: '1099',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: true,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {name: 'abc.png'},
+                        {name: 'def.jpg'},
+                    ]
+                },
+                '2': {
+                    id: 2,
+                    label: '1099',
+                    files:[
+                        {name: 'abc.png'},
+                    ]
+                },
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
