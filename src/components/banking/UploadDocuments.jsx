@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 
 import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
-import { P } from 'assets/styles';
+import { P, linkButton } from 'assets/styles';
 
 
 const root = css`
@@ -45,17 +45,22 @@ const UploadedDocuments = styled.div`
             margin-top: 48px;
         }
     }
-    .uploaded-document-title {
+    .uploaded-document-type-title {
         height: 16px;
-        width: 260px;
         color: #828796;
         font-size: 12px;
         margin-bottom: 9px;
+        padding: 11px 23px 12px 23px;
+        display: flex;
+        justify-content: space-between;
     }
-    .uploaded-document-filename {
+    .uploaded-document-display {
         height: 43px;
         background-color: rgba(38,48,91,0.1);
         border-bottom: 1px solid #C8C8C8;
+        padding: 11px 23px 12px 23px;
+        display: flex;
+        justify-content: space-between;
     }
 `
 
@@ -65,7 +70,6 @@ const FileName = styled.div`
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 11px 23px 12px 23px;
 `
 
 
@@ -142,22 +146,26 @@ export class UploadDocuments extends React.Component {
 
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
-        if (!uploadedDocuments || uploadedDocuments === {}) return null;
-
         return (
             <UploadedDocuments>
-                {Object.keys(uploadedDocuments).map((docId) => (
-                    <div className="uploaded-document" key={docId}>
-                        <div className="uploaded-document-title">
-                            {uploadedDocuments[docId].label}
-                        </div>
-                        {uploadedDocuments[docId].files.map((file, i) => (
-                            <div className="uploaded-document-filename" key={file.id}>
-                                <FileName >{file.name}</FileName>
+                {Object.keys(uploadedDocuments).map((docId) => {
+                    if (!uploadedDocuments[docId].files?.length) {
+                        return null;
+                    }
+                    return (
+                        <div className="uploaded-document" key={docId}>
+                            <div className="uploaded-document-type-title">
+                                {uploadedDocuments[docId].label}<a onClick={() => this.props.removeAll(docId)} href="javascript:void(0);" role="button">Remove all ({uploadedDocuments[docId].files.length})</a>
                             </div>
-                        ))}
-                    </div>
-                ))}
+                            {uploadedDocuments[docId].files.map((file, i) => (
+                                <div className="uploaded-document-display" key={file.id}>
+                                    <FileName>{file.name}</FileName>
+                                    <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a>
+                                </div>
+                            ))}
+                        </div>
+                    );
+                })}
             </UploadedDocuments>
         )
     };
