@@ -239,6 +239,7 @@ export class UploadDocuments extends React.Component {
                                 {documentRequired.proof_documents.map((doc, index) => (
                                     <FormControlLabel
                                         key={doc.id}
+                                        id={`radioButton${doc.id}`}
                                         value={index}
                                         control={<Radio />}
                                         label={doc.label}

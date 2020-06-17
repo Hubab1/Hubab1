@@ -36,35 +36,21 @@ export function AddFinancialSourceForm (props) {
         setFieldValue('uploadedDocuments', {})
     }
 
+    const metMinimumRequired = (uploadedDocuments, doc) => {
+        const countUploaded = uploadedDocuments[String(doc.id)]? uploadedDocuments[String(doc.id)].files.length : 0;
+        return countUploaded >= doc.min_required;
+    };
+
     const uploadedAllDocuments = (uploadedDocuments, type) => {
         const config = props.config.financial_documents_validations;
         const requirement = config.find(doc => doc.income_or_asset_type === type);
 
-        // Case 1: No requirements defined
         if (!requirement) return true;
 
         const requireAll = requirement?.require_all ?? true;
-        // Case 2: All documents required
-        if(requireAll) {
-            for (let i in requirement.proof_documents) {
-                const doc = requirement.proof_documents[i];
-                const countUploaded = uploadedDocuments[String(doc.id)]? uploadedDocuments[String(doc.id)].files.length : 0;
-                const metMinimumRequired = countUploaded >= doc.min_required;
 
-                if ( !metMinimumRequired) return false;
-            }
-            return true;
-        }
-
-        // Case 3: On of the documents required
-        for (let i in requirement.proof_documents) {
-            const doc = requirement.proof_documents[i];
-            const countUploaded = uploadedDocuments[String(doc.id)]? uploadedDocuments[String(doc.id)].files.length : 0;
-            const metMinimumRequired = countUploaded >= doc.min_required;
-
-            if ( metMinimumRequired) return true;
-        }
-        return false;
+        if (requireAll) return requirement.proof_documents.every(metMinimumRequired.bind(this, uploadedDocuments));
+        return requirement.proof_documents.some(metMinimumRequired.bind(this, uploadedDocuments));
     };
 
     return (

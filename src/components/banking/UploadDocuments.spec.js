@@ -1,5 +1,5 @@
 import { UploadDocuments } from './UploadDocuments';
-import {shallow} from "enzyme";
+import {shallow, mount} from "enzyme";
 import React from "react";
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 
@@ -186,7 +186,7 @@ it('Case minimum uploaded not met', () => {
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('input').first().length).toBe(1);
 });
 
 it('Case minimum uploaded met', () => {
@@ -229,7 +229,7 @@ it('Case minimum uploaded met', () => {
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('input').length).toBe(1);
 });
 
 it('Case maximum uploaded met', () => {
@@ -273,7 +273,7 @@ it('Case maximum uploaded met', () => {
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('input').length).toBe(0);
 });
 
 it('Case require_all false and one of documents types uploaded, disable the rest', () => {
@@ -322,7 +322,8 @@ it('Case require_all false and one of documents types uploaded, disable the rest
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('#radioButton1').prop('disabled')).toBe(false);
+    expect(wrapper.find('#radioButton2').prop('disabled')).toBe(true);
 });
 
 it('Case require_all is true and only one document type met minimum', () => {
@@ -372,11 +373,11 @@ it('Case require_all is true and only one document type met minimum', () => {
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('input').length).toBe(1);
 });
 
 
-it('Case require_all is true and all documents types met min requirement', () => {
+it('Case require_all is true and all documents types met min and max requirement', () => {
     const config = {
         financial_documents_validations:
             [
@@ -395,7 +396,7 @@ it('Case require_all is true and all documents types met min requirement', () =>
                                 min_required: 1,
                                 id: 2,
                                 description: '1099 tax form',
-                                max_required: 3,
+                                max_required: 1,
                                 label: '1099',
                             },
                         ],
@@ -430,5 +431,5 @@ it('Case require_all is true and all documents types met min requirement', () =>
                 },
             }}
         />);
-    expect(wrapper.getElement()).toMatchSnapshot();
+    expect(wrapper.find('input').length).toBe(0);
 });
