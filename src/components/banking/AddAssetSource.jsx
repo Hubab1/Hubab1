@@ -33,7 +33,7 @@ export function AddAssetSource (props) {
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
         formData.append('stream_type', FINANCIAL_STREAM_ASSET);
         formData.append('other', values.other);
-        if (values.uploadedDocuments && values.uploadedDocuments !== {}) {
+        if (values.uploadedDocuments) {
             for (let key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v, k) => {
                     formData.append(`${key}[]`, v.file);
