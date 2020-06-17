@@ -105,7 +105,6 @@ export default function AddFinancialSourceForm (props) {
                                             minimumValue="0"
                                             name="estimated_amount"
                                             currencySymbol="$"
-                                            // onChange={handleChange}
                                             onChange={(event, value)=>{
                                                 // fixes odd issue with blank value on autofill
                                                 const textValue = event.target.value;

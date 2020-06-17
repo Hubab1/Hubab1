@@ -7,6 +7,13 @@ import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 
+jest.mock("react", () => ({
+    ...jest.requireActual("react"),
+    useContext: () => ({
+        refreshFinancialSources: ()=>{}
+    })
+  }));
+
 let defaultProps;
 beforeEach(() => {
     defaultProps = {

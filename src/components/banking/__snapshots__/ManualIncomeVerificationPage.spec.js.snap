@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`matches snapshot with some financial sources data 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Income and Asset Verification
@@ -10,6 +10,24 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
   <Capsule
     buttonLabel="Add an Income Source"
+    expansionPanel={
+      <ExistingItemsExpansionPanel
+        label="Income Source"
+        labelQuantity={1}
+      >
+        <div>
+          <div>
+            Employment
+          </div>
+          <div
+            className="css-dufvih"
+          >
+            $100,000
+            /year
+          </div>
+        </div>
+      </ExistingItemsExpansionPanel>
+    }
     label="Income"
     limitReached={false}
     prefix={
@@ -23,6 +41,23 @@ exports[`matches snapshot 1`] = `
   />
   <Capsule
     buttonLabel="Add an Asset"
+    expansionPanel={
+      <ExistingItemsExpansionPanel
+        label="Asset"
+        labelQuantity={1}
+      >
+        <div>
+          <div>
+            Investment
+          </div>
+          <div
+            className="css-dufvih"
+          >
+            $40,000
+          </div>
+        </div>
+      </ExistingItemsExpansionPanel>
+    }
     label="Assets"
     limitReached={false}
     prefix={
