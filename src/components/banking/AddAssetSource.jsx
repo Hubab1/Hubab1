@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from '@emotion/styled';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
@@ -8,6 +8,8 @@ import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import BankingContext from './BankingContext';
+
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -24,10 +26,10 @@ export const Img = styled.img`
 
 export function AddAssetSource (props) {
     const [errorSubmitting, setErrorSubmitting] = useState(false);
+    const context = useContext(BankingContext);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
         setErrorSubmitting(false);
-
         const formData = new FormData();
         formData.append('income_or_asset_type', values.income_or_asset_type);
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
@@ -56,6 +58,7 @@ export function AddAssetSource (props) {
             setErrorSubmitting(true);
             return;
         }
+        context.refreshFinancialSources();
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
         setSubmitting(false);
         setErrorSubmitting(false);
