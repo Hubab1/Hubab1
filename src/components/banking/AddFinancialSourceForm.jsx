@@ -43,7 +43,7 @@ export function AddFinancialSourceForm (props) {
         // Case 1: No requirements defined
         if (!requirement) return true;
 
-        const requireAll = requirement.require_all ?? true;
+        const requireAll = requirement?.require_all ?? true;
         // Case 2: All documents required
         if(requireAll) {
             for (let i in requirement.proof_documents) {
