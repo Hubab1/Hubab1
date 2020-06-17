@@ -186,7 +186,7 @@ it('Case minimum uploaded not met', () => {
                 },
             }}
         />);
-    expect(wrapper.find('input').first().length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
 });
 
 it('Case minimum uploaded met', () => {
@@ -274,6 +274,48 @@ it('Case maximum uploaded met', () => {
             }}
         />);
     expect(wrapper.find('input').length).toBe(0);
+});
+
+it('Case require_all false and no document uploaded', () => {
+    const config = {
+        financial_documents_validations:
+            [
+                {
+                    stream_type: 5,
+                    proof_documents:
+                        [
+                            {
+                                min_required: 2,
+                                id: 1,
+                                description: 'W2 tax form',
+                                max_required: 3,
+                                label: 'W2',
+                            },
+                            {
+                                min_required: 2,
+                                id: 2,
+                                description: '1099 tax form',
+                                max_required: 3,
+                                label: '1099',
+                            },
+                        ],
+                    lease_settings: 2,
+                    require_all: false,
+                    income_or_asset_type: 105,
+                },
+            ],
+    };
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            config={config}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{}}
+        />);
+    expect(wrapper.find('#radioButton1').prop('disabled')).toBe(false);
+    expect(wrapper.find('#radioButton2').prop('disabled')).toBe(false);
 });
 
 it('Case require_all false and one of documents types uploaded, disable the rest', () => {

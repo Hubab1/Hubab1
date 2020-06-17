@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 
 import { INCOME_TYPE_OTHER } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import API from 'app/api';
 import { AddFinancialSourceForm } from './AddFinancialSourceForm';
 
 
