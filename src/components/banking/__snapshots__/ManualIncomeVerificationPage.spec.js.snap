@@ -43,7 +43,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     buttonLabel="Add an Asset"
     expansionPanel={
       <ExistingItemsExpansionPanel
-        label="Asset Source"
+        label="Asset"
         labelQuantity={1}
       >
         <div>
