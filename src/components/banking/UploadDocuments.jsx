@@ -148,6 +148,8 @@ export class UploadDocuments extends React.Component {
 
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
+        if (!uploadedDocuments) return null;
+
         return (
             <UploadedDocuments>
                 {Object.keys(uploadedDocuments).map((docId) => {

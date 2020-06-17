@@ -2,13 +2,18 @@ import { UploadDocuments } from './UploadDocuments';
 import {shallow} from "enzyme";
 import React from "react";
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { isWeakMap } from 'lodash';
 
 
 let defaultProps;
 let store;
 beforeEach(() => {
     defaultProps = {
+        loadDocument: jest.fn(),
+        removeAll: jest.fn(),
+        removeFile: jest.fn(),
         incomeOrAssetType: 105,
+        uploadedDocuments: {},
         streamType: FINANCIAL_STREAM_INCOME,
         config: {
             financial_documents_validations:
@@ -130,7 +135,7 @@ it('Case documents uploaded', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
+                        {id: 1, name: 'abc.png'},
                     ]
                 },
                 // Case stacked
@@ -138,11 +143,44 @@ it('Case documents uploaded', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'def.pdf'},
-                        {name: 'ghi.jpg'},
+                        {id: 2, name: 'def.pdf'},
+                        {id: 3, name: 'ghi.jpg'},
                     ]
                 }
             }}
         />);
     expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Remove buttons work', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                'doc1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 1, name: 'abc.png'},
+                    ]
+                },
+                // Case stacked
+                'doc2': {
+                    id:2,
+                    label: 'W2',
+                    files:[
+                        {id: 2, name: 'def.pdf'},
+                        {id: 3, name: 'ghi.jpg'},
+                    ]
+                }
+            }}
+        />);
+    wrapper.find('a').first().simulate('click');
+    expect(defaultProps.removeAll).toHaveBeenCalledWith('doc1');
+    wrapper.find('a').last().simulate('click');
+    expect(defaultProps.removeFile).toHaveBeenCalledWith('doc2', 3);
 });

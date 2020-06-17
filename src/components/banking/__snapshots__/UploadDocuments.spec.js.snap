@@ -18,39 +18,82 @@ exports[`Case documents uploaded 1`] = `
         className="uploaded-document"
       >
         <div
-          className="uploaded-document-title"
+          className="uploaded-document-type-title"
         >
-          W2
+          <span>
+            W2
+          </span>
+          <a
+            href="javascript:void(0);"
+            onClick={[Function]}
+            role="button"
+          >
+            Remove all (
+            1
+            )
+          </a>
         </div>
         <div
-          className="uploaded-document-filename"
+          className="uploaded-document-display"
         >
           <ForwardRef(render)>
             abc.png
           </ForwardRef(render)>
+          <a
+            href="javascript:void(0);"
+            onClick={[Function]}
+            role="button"
+          >
+            Remove
+          </a>
         </div>
       </div>
       <div
         className="uploaded-document"
       >
         <div
-          className="uploaded-document-title"
+          className="uploaded-document-type-title"
         >
-          W2
+          <span>
+            W2
+          </span>
+          <a
+            href="javascript:void(0);"
+            onClick={[Function]}
+            role="button"
+          >
+            Remove all (
+            2
+            )
+          </a>
         </div>
         <div
-          className="uploaded-document-filename"
+          className="uploaded-document-display"
         >
           <ForwardRef(render)>
             def.pdf
           </ForwardRef(render)>
+          <a
+            href="javascript:void(0);"
+            onClick={[Function]}
+            role="button"
+          >
+            Remove
+          </a>
         </div>
         <div
-          className="uploaded-document-filename"
+          className="uploaded-document-display"
         >
           <ForwardRef(render)>
             ghi.jpg
           </ForwardRef(render)>
+          <a
+            href="javascript:void(0);"
+            onClick={[Function]}
+            role="button"
+          >
+            Remove
+          </a>
         </div>
       </div>
     </ForwardRef(render)>
@@ -103,6 +146,7 @@ exports[`Case multiple required document (require all) 1`] = `
     >
       W2 + 1099 Form
     </ForwardRef(render)>
+    <ForwardRef(render) />
     <ForwardRef(render)
       marginBottom={51}
       marginTop={48}
@@ -229,6 +273,7 @@ exports[`Case only one required document 1`] = `
     >
       W2
     </ForwardRef(render)>
+    <ForwardRef(render) />
     <ForwardRef(render)
       marginBottom={51}
       marginTop={48}
