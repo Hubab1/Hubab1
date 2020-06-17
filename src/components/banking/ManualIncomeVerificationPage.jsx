@@ -60,7 +60,7 @@ export function ManualIncomeVerificationPage () {
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={
                     <ExistingItemsExpansionPanel
-                        label="Asset Source"
+                        label="Asset"
                         labelQuantity={context.bankingData?.asset_sources.length}
                     >
                         {
