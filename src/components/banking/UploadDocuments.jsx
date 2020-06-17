@@ -46,9 +46,11 @@ const UploadedDocuments = styled.div`
         }
     }
     .uploaded-document-type-title {
+        span {
+            font-size: 12px;
+        }
         height: 16px;
         color: #828796;
-        font-size: 12px;
         margin-bottom: 9px;
         padding: 11px 23px 12px 23px;
         display: flex;
@@ -155,7 +157,7 @@ export class UploadDocuments extends React.Component {
                     return (
                         <div className="uploaded-document" key={docId}>
                             <div className="uploaded-document-type-title">
-                                {uploadedDocuments[docId].label}<a onClick={() => this.props.removeAll(docId)} href="javascript:void(0);" role="button">Remove all ({uploadedDocuments[docId].files.length})</a>
+                                <span>{uploadedDocuments[docId].label}</span><a onClick={() => this.props.removeAll(docId)} href="javascript:void(0);" role="button">Remove all ({uploadedDocuments[docId].files.length})</a>
                             </div>
                             {uploadedDocuments[docId].files.map((file, i) => (
                                 <div className="uploaded-document-display" key={file.id}>
