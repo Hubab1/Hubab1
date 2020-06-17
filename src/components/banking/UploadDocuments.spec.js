@@ -21,7 +21,7 @@ beforeEach(() => {
                                     min_required: 1,
                                     id: 1,
                                     description: 'W2 tax form',
-                                    max_required: 1,
+                                    max_required: 3,
                                     label: 'W2',
                                 }
                             ],
@@ -37,7 +37,7 @@ beforeEach(() => {
                                     min_required: 1,
                                     id: 2,
                                     description: '1099 IRS Tax Form',
-                                    max_required: 1,
+                                    max_required: 3,
                                     label: '1099 Form'
                                 },
                                 {
@@ -60,7 +60,7 @@ beforeEach(() => {
                                     min_required: 1,
                                     id: 1,
                                     description: 'W2 tax form',
-                                    max_required: 1,
+                                    max_required: 3,
                                     label: 'W2'
                                 },
                                 {
