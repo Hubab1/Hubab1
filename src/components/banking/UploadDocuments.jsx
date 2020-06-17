@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 
 import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
-import { P, linkButton } from 'assets/styles';
+import { P } from 'assets/styles';
 
 
 const root = css`
@@ -159,11 +159,13 @@ export class UploadDocuments extends React.Component {
                     return (
                         <div className="uploaded-document" key={docId}>
                             <div className="uploaded-document-type-title">
+                                {/* eslint-disable-next-line */}
                                 <span>{uploadedDocuments[docId].label}</span><a onClick={() => this.props.removeAll(docId)} href="javascript:void(0);" role="button">Remove all ({uploadedDocuments[docId].files.length})</a>
                             </div>
                             {uploadedDocuments[docId].files.map((file, i) => (
                                 <div className="uploaded-document-display" key={file.id}>
                                     <FileName>{file.name}</FileName>
+                                    {/* eslint-disable-next-line */}
                                     <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a>
                                 </div>
                             ))}
