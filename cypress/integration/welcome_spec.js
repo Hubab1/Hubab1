@@ -1,6 +1,6 @@
 describe('Welcome', () => {
     it('Visits welcome', () => {
-        cy.visit('http://localhost:3000/1')
+        cy.visit('/1')
 
         cy.url().should('contain', 'welcome')
 

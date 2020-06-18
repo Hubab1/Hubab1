@@ -1,6 +1,6 @@
 describe('Login', () => {
     it('Visits login', () => {
-        cy.visit('http://localhost:3000/1/login');
+        cy.visit('/1/login');
 
         cy.url().should('contain', 'login');
 
@@ -16,7 +16,7 @@ describe('Login', () => {
     });
 
     it('Displays errors', () => {
-        cy.visit('http://localhost:3000/1/login');
+        cy.visit('/1/login');
 
         cy.get('[name="email"]').type('bad email');
         cy.contains('Sign In').click();
@@ -40,7 +40,7 @@ describe('Login', () => {
     });
 
     it('Verifies login', () => {
-        cy.visit('http://localhost:3000/1/login');
+        cy.visit('/1/login');
 
         // TODO: make these global vars
         cy.get('[name="email"]').type('cypress+user1@nestio.com');
