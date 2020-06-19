@@ -23,15 +23,6 @@ exports[`Case documents uploaded 1`] = `
           <span>
             W2
           </span>
-          <a
-            href="javascript:void(0);"
-            onClick={[Function]}
-            role="button"
-          >
-            Remove all (
-            1
-            )
-          </a>
         </div>
         <div
           className="uploaded-document-display"
@@ -39,13 +30,11 @@ exports[`Case documents uploaded 1`] = `
           <ForwardRef(render)>
             abc.png
           </ForwardRef(render)>
-          <a
-            href="javascript:void(0);"
+          <ForwardRef(render)
             onClick={[Function]}
-            role="button"
           >
             Remove
-          </a>
+          </ForwardRef(render)>
         </div>
       </div>
       <div
@@ -57,15 +46,13 @@ exports[`Case documents uploaded 1`] = `
           <span>
             W2
           </span>
-          <a
-            href="javascript:void(0);"
+          <ForwardRef(render)
             onClick={[Function]}
-            role="button"
           >
             Remove all (
             2
             )
-          </a>
+          </ForwardRef(render)>
         </div>
         <div
           className="uploaded-document-display"
@@ -73,13 +60,11 @@ exports[`Case documents uploaded 1`] = `
           <ForwardRef(render)>
             def.pdf
           </ForwardRef(render)>
-          <a
-            href="javascript:void(0);"
+          <ForwardRef(render)
             onClick={[Function]}
-            role="button"
           >
             Remove
-          </a>
+          </ForwardRef(render)>
         </div>
         <div
           className="uploaded-document-display"
@@ -87,13 +72,11 @@ exports[`Case documents uploaded 1`] = `
           <ForwardRef(render)>
             ghi.jpg
           </ForwardRef(render)>
-          <a
-            href="javascript:void(0);"
+          <ForwardRef(render)
             onClick={[Function]}
-            role="button"
           >
             Remove
-          </a>
+          </ForwardRef(render)>
         </div>
       </div>
     </ForwardRef(render)>

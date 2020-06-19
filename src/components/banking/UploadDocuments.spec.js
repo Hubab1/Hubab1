@@ -2,7 +2,7 @@ import { UploadDocuments } from './UploadDocuments';
 import {shallow} from "enzyme";
 import React from "react";
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
-import { isWeakMap } from 'lodash';
+import { LinkButton } from 'assets/styles';
 
 
 let defaultProps;
@@ -166,6 +166,7 @@ it('Remove buttons work', () => {
                     label: 'W2',
                     files:[
                         {id: 1, name: 'abc.png'},
+                        {id: 4, name: 'mmm.pdf'},
                     ]
                 },
                 // Case stacked
@@ -179,8 +180,8 @@ it('Remove buttons work', () => {
                 }
             }}
         />);
-    wrapper.find('a').first().simulate('click');
+    wrapper.find(LinkButton).first().simulate('click');
     expect(defaultProps.removeAll).toHaveBeenCalledWith('doc1');
-    wrapper.find('a').last().simulate('click');
+    wrapper.find(LinkButton).last().simulate('click');
     expect(defaultProps.removeFile).toHaveBeenCalledWith('doc2', 3);
 });
