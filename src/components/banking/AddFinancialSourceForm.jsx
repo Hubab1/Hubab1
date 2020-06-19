@@ -15,8 +15,9 @@ import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, A
 import { Formik } from 'formik';
 import UploadDocuments from "./UploadDocuments";
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+import {connect} from "react-redux";
 
-export default function AddFinancialSourceForm (props) {
+export function AddFinancialSourceForm (props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
     const financialTypeLabel = isAsset ? 'asset' : 'income';
     const selectChoices = isAsset ?
@@ -33,7 +34,26 @@ export default function AddFinancialSourceForm (props) {
         handleChange(e);
         // clear other if other field becomes hidden
         setFieldValue('other', null);
+        setFieldValue('uploadedDocuments', {})
     }
+
+    const uploadedAllDocuments = (uploadedDocuments, type) => {
+        const config = props.config.financial_documents_validations;
+        const requirement = config.find(doc => doc.income_or_asset_type === type);
+
+        if (!requirement) return true;
+
+        const requireAll = requirement?.require_all ?? true;
+
+        const metMinimumRequired = (doc) => {
+            const countUploaded = uploadedDocuments[String(doc.id)]? uploadedDocuments[String(doc.id)].files.length : 0;
+            return countUploaded >= doc.min_required;
+        };
+
+        if (requireAll) return requirement.proof_documents.every(metMinimumRequired);
+        return requirement.proof_documents.some(metMinimumRequired);
+    };
+
     return (
         <Formik
             validationSchema={
@@ -137,7 +157,15 @@ export default function AddFinancialSourceForm (props) {
                                 )
                             }
                         </div>
-                        <ActionButton disabled={!allValuesSet(values, {exclude: ['other']}) || isSubmitting} marginTop={40} marginBottom={20}>
+                        <ActionButton
+                            disabled={
+                                !allValuesSet(values, {exclude: ['other']})
+                                || isSubmitting
+                                || !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
+                            }
+                            marginTop={40}
+                            marginBottom={20}
+                        >
                             {isAsset ? 'Add Asset' : 'Add Income Source'}
                         </ActionButton>
                     </form>
@@ -146,3 +174,9 @@ export default function AddFinancialSourceForm (props) {
         </Formik>
     )
 }
+
+const mapStateToProps = state => ({
+    config: state.configuration,
+});
+
+export default connect(mapStateToProps)(AddFinancialSourceForm)

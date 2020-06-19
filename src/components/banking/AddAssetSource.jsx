@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import styled from '@emotion/styled';
-
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import piggyBank from 'assets/images/piggy-bank.png';
@@ -25,7 +24,7 @@ export const Img = styled.img`
 `;
 
 export function AddAssetSource (props) {
-const context = useContext(BankingContext);
+    const context = useContext(BankingContext);
     const [errorSubmitting, setErrorSubmitting] = useState(false);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);

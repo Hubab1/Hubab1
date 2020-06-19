@@ -124,6 +124,7 @@ export class UploadDocuments extends React.Component {
      onFileChange = (e, selectedDocument) => {
          const id = e.target.id;
          let file = e.target.files[0];
+         if (e.target.value.length === 0) return null;
          let reader = new FileReader();
          reader.readAsDataURL(file);
          reader.onload = () => {
@@ -184,6 +185,30 @@ export class UploadDocuments extends React.Component {
             </UploadedDocuments>
         )
     };
+
+    displayUploadButton = (document) => {
+        const documentRequired = this.documentsRequired;
+        const requireAll = documentRequired?.require_all ?? true;
+        const proof_documents = documentRequired.proof_documents;
+        const { uploadedDocuments } = this.props;
+
+        // Case 1: No documents uploaded
+        if (!document || !uploadedDocuments || Object.keys(uploadedDocuments).length === 0) return true;
+
+        const documentId = document.id;
+
+        // Case 2: 'Require All' is disabled and other documents uploaded
+        const otherDocTypesUploaded = !uploadedDocuments.hasOwnProperty(String(documentId));
+        if (!requireAll && otherDocTypesUploaded) return false;
+
+        // Case 3: 'Max required' reached
+        const settings = proof_documents.find(settings => settings.id === documentId);
+        const uploaded = uploadedDocuments[String(documentId)]? uploadedDocuments[String(documentId)].files.length: 0;
+        if (uploaded >= settings.max_required) return false;
+
+        // Case 4: All other cases
+        return true
+    };
         
     render () {
         const { selectedDocumentIndex, selectedDocument } = this.state;
@@ -201,24 +226,27 @@ export class UploadDocuments extends React.Component {
                         {this.displayUploadedDocuments()}
                         <UploadButtonContainer marginTop={48} marginBottom={51}>
                             {documentRequired.proof_documents.map((doc) => (
-                                <Button
-                                    key={doc.id}
-                                    variant="outlined"
-                                    component="label"
-                                    color="primary"
-                                    classes={{ root, label }}
-                                    fullWidth
-                                >
-                                    Upload {doc.label}
-                                    <input
-                                        id={String(doc.id)}
-                                        type="file"
-                                        name={String(doc.id)}
-                                        accept="image/*,.pdf"
-                                        style={{ display: "none" }}
-                                        onChange={(e) => this.onFileChange(e, doc)}
-                                    />
-                                </Button>
+                                <div key={doc.id}>
+                                    {this.displayUploadButton(doc) && (
+                                        <Button
+                                            variant="outlined"
+                                            component="label"
+                                            color="primary"
+                                            classes={{ root, label }}
+                                            fullWidth
+                                        >
+                                            Upload {doc.label}
+                                            <input
+                                                id={String(doc.id)}
+                                                type="file"
+                                                name={String(doc.id)}
+                                                accept="image/*,.pdf"
+                                                style={{ display: "none" }}
+                                                onChange={(e) => this.onFileChange(e, doc)}
+                                            />
+                                        </Button>
+                                    )}
+                                </div>
                             ))}
                         </UploadButtonContainer>
                     </>
@@ -234,9 +262,11 @@ export class UploadDocuments extends React.Component {
                                 {documentRequired.proof_documents.map((doc, index) => (
                                     <FormControlLabel
                                         key={doc.id}
+                                        id={`radioButton${doc.id}`}
                                         value={index}
                                         control={<Radio />}
                                         label={doc.label}
+                                        disabled={!(selectedDocumentIndex === index) && !this.displayUploadButton(doc)}
                                     />
                                 ))}
                             </RadioGroup>
@@ -245,23 +275,25 @@ export class UploadDocuments extends React.Component {
                             <>
                                 {this.displayUploadedDocuments()}
                                 <UploadButtonContainer marginTop={48} marginBottom={68}>
-                                    <Button
-                                        variant="outlined"
-                                        component="label"
-                                        color="primary"
-                                        classes={{ root, label }}
-                                        fullWidth
-                                    >
-                                        Upload {selectedDocument.label}
-                                        <input
-                                            id={String(selectedDocument.id)}
-                                            type="file"
-                                            name={String(selectedDocument.id)}
-                                            accept="image/*,.pdf,.doc,.docx"
-                                            style={{ display: "none" }}
-                                            onChange={(e) => this.onFileChange(e, selectedDocument)}
-                                        />
-                                    </Button>
+                                    {this.displayUploadButton(selectedDocument) && (
+                                        <Button
+                                            variant="outlined"
+                                            component="label"
+                                            color="primary"
+                                            classes={{ root, label }}
+                                            fullWidth
+                                        >
+                                            Upload {selectedDocument.label}
+                                            <input
+                                                id={String(selectedDocument.id)}
+                                                type="file"
+                                                name={String(selectedDocument.id)}
+                                                accept="image/*,.pdf,.doc,.docx"
+                                                style={{ display: "none" }}
+                                                onChange={(e) => this.onFileChange(e, selectedDocument)}
+                                            />
+                                        </Button>
+                                    )}
                                 </UploadButtonContainer>
                             </>
                         )}
