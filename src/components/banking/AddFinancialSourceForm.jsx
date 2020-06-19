@@ -166,11 +166,11 @@ export function AddFinancialSourceForm (props) {
                             }
                         </div>
                         <ActionButton
-                            // disabled={
-                            //     !allValuesSet(values, {exclude: ['other']})
-                            //     || isSubmitting
-                            //     || !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
-                            // }
+                            disabled={
+                                (!props.isEditing &&!allValuesSet(values, {exclude: ['other']}))
+                                || isSubmitting
+                                || !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
+                            }
                             marginTop={40}
                             marginBottom={20}
                         >
