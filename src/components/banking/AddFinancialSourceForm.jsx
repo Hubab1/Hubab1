@@ -137,7 +137,7 @@ export default function AddFinancialSourceForm (props) {
                                 )
                             }
                         </div>
-                        <ActionButton disabled={!allValuesSet(values, {exclude: ['other']}) || isSubmitting} marginTop={40} marginBottom={20}>
+                        <ActionButton disabled={isSubmitting} marginTop={40} marginBottom={20}>
                             {isAsset ? 'Add Asset' : 'Add Income Source'}
                         </ActionButton>
                     </form>

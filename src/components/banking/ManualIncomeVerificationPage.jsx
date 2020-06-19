@@ -1,4 +1,5 @@
 import React from 'react';
+import { generatePath } from "react-router";
 import styled from '@emotion/styled';
 
 import { BackLink } from 'components/common/BackLink';
@@ -14,6 +15,7 @@ import { styles } from 'assets/styles';
 import BankingContext from './BankingContext';
 import { ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import { prettyCurrency } from 'utils/misc';
+import { Link } from 'react-router-dom';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -46,6 +48,9 @@ export function ManualIncomeVerificationPage () {
                                 <div key={source.id}>
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
+                                    <Link to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                        id: source.id,
+                                    })}>Edit</Link>
                                 </div>
                             ))
                         }

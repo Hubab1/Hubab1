@@ -178,6 +178,7 @@ export class UploadDocuments extends React.Component {
         
     render () {
         const { selectedDocumentIndex, selectedDocument } = this.state;
+        console.log(this.props)
         const documentRequired = this.documentsRequired;
         const requireAll = documentRequired?.require_all ?? true;
 
