@@ -28,16 +28,14 @@ exports[`Matches snapshot 1`] = `
         checked={false}
         className="PrivateSwitchBase-input-4"
         data-indeterminate={false}
-        disabled={false}
         name="checky"
         onChange={[Function]}
         type="checkbox"
       />
       <svg
-        aria-hidden="true"
+        aria-hidden={true}
         className="MuiSvgIcon-root"
         focusable="false"
-        role="presentation"
         viewBox="0 0 24 24"
       >
         <path

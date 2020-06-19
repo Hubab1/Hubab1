@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import uuidv4 from 'uuid/v4';
-import { NavLink } from 'react-router-dom';
 
 import { css } from 'emotion';
 import styled from '@emotion/styled';
