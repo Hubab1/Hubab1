@@ -22,12 +22,12 @@ const SpacedH3 = styled(H3)`
 `;
 
 export function AddIncomeSource (props) {
-const context = useContext(BankingContext);
     const [errorSubmitting, setErrorSubmitting] = useState(false);
+    const context = useContext(BankingContext);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
         setErrorSubmitting(false);
-
+      
         const formData = new FormData();
         formData.append('income_or_asset_type', values.income_or_asset_type);
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));

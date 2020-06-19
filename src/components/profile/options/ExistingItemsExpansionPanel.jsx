@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 function ExistingItemsExpansionPanel({children, defaultExpanded, label, labelQuantity}) {
     const classes = useStyles();
     labelQuantity = labelQuantity ?? 0;
+    if (!labelQuantity) return null;
     const toggleLabel = `${labelQuantity} ${pluralize(label, labelQuantity)}`;
     return (
         <div className={existingItemsContainer}>

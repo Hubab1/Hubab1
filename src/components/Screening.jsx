@@ -126,7 +126,7 @@ export class Screening extends React.Component {
                                         error={errors.have_ssn}
                                         value={values.have_ssn}
                                         row={true}
-                                        defaultValue={true}
+                                        default={true}
                                         onChange={(val) =>
                                             setFieldValue('have_ssn', val.target.value === 'true')}
                                     >

@@ -87,8 +87,6 @@ export function ManualIncomeVerificationPage () {
     );
 }
 
-ManualIncomeVerificationPage.contextTypes = BankingContext;
-
 ManualIncomeVerificationPage.route = ROUTES.MANUAL_INCOME_VERIFICATION;
 
 export default captureRoute(ManualIncomeVerificationPage)
