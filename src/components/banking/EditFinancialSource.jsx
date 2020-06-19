@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { useContext } from 'react';
 
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
@@ -27,7 +26,6 @@ export class EditFinancialSource extends React.Component {
 
     get getInitialValues () {
         const financialSource = this.state.financialSource;
-        // uploadedDocuments
         const uploadedDocuments = {};
     
         // eslint-disable-next-line
@@ -113,6 +111,7 @@ export class EditFinancialSource extends React.Component {
                 <img alt="coin" src={finance} />
                 <Spacer height={30}/>
                 <AddFinancialSourceForm
+                    isEditing
                     initialValues={this.getInitialValues}
                     financialType={FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}

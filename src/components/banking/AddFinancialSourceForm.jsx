@@ -85,6 +85,7 @@ export function AddFinancialSourceForm (props) {
                             <FormControl fullWidth>
                                 <InputLabel htmlFor="income-or-asset-type">{capitalize(financialTypeLabel)} type</InputLabel>
                                 <Select
+                                    disabled={props.isEditing}
                                     error={!!errors.income_or_asset_type}
                                     value={values.income_or_asset_type}
                                     fullWidth
@@ -173,7 +174,7 @@ export function AddFinancialSourceForm (props) {
                             marginTop={40}
                             marginBottom={20}
                         >
-                            {isAsset ? 'Add Asset' : 'Add Income Source'}
+                            {props.isEditing ? 'Save Changes' : isAsset ? 'Add Asset' : 'Add Income Source'}
                         </ActionButton>
                     </form>
                 )

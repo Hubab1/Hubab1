@@ -307,7 +307,6 @@ API.updateFinancialSource = (id, body) => {
         method: 'PATCH',
         body,
         headers: {
-            // 'Content-Type': 'multipart/form-data',
             Authorization: `Token ${auth.getToken()}`
     }}).then(res => {
         if (res.status === 200) {

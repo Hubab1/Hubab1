@@ -57,7 +57,6 @@ const UploadedDocuments = styled.div`
         justify-content: space-between;
     }
     .uploaded-document-display {
-        height: 43px;
         background-color: rgba(38,48,91,0.1);
         border-bottom: 1px solid #C8C8C8;
         padding: 11px 23px 12px 23px;
