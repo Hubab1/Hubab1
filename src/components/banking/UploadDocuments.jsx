@@ -60,6 +60,7 @@ const UploadedDocuments = styled.div`
 `
 
 const FileName = styled.div`
+    white-space: nowrap;
     color: #000000;
     font-size: 16px;
     font-weight: 500;
