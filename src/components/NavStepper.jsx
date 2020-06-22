@@ -12,6 +12,7 @@ import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import { ROUTES } from 'app/constants';
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
@@ -62,6 +63,7 @@ export function VerticalLinearStepper(props) {
 
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
+    const unitUnavailable = (props.currentRoute === ROUTES.UNIT_UNAVAILABLE);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep || MOCKY) {
@@ -72,7 +74,29 @@ export function VerticalLinearStepper(props) {
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {props.applicantStillFinishingApplication && props.navRoutes.map((route, i) => (
+                {unitUnavailable &&
+                    <Step active>
+                        <StepLabel completed classes={{root: iconRoot}}>
+                            <span className="unitUnavailableMsg">We've placed your application on hold for now, 
+                                since the apartment you were interested in is no longer available. Please call us at&nbsp;
+                                <a href={`tel:${props.config.community.contact_phone}`}>
+                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                </a> so we can discuss some other options.
+                            </span>
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress
+                            }}
+                            disabled={false}
+                            onClick={() => props.history.push(props.initialPage)}
+                        >View Progress</Button>
+                    </Step>
+                }
+                {props.applicantStillFinishingApplication && !unitUnavailable && props.navRoutes.map((route, i) => (
                     <Step classes={{
                         root: clsx({
                             [active]: activeStep === i,
