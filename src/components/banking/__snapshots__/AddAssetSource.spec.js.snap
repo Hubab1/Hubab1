@@ -15,7 +15,7 @@ exports[`matches snapshot 1`] = `
   <ForwardRef(render)
     height={30}
   />
-  <AddFinancialSourceForm
+  <UNDEFINED
     financialType={10}
     initialValues={
       Object {
