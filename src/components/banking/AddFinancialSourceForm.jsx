@@ -142,6 +142,9 @@ export function AddFinancialSourceForm (props) {
                                         <UploadDocuments
                                             removeFile={(docId, fileId) => {
                                                 values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
+                                                if (values.uploadedDocuments[docId].files.length === 0) {
+                                                    delete values.uploadedDocuments[docId];
+                                                }
                                                 setFieldValue('uploadedDocuments', values.uploadedDocuments);
                                             }}
                                             removeAll={docId => {
