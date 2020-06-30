@@ -74,7 +74,7 @@ export function IncomeVerificationSummaryPage () {
                         {
                             context.bankingData?.asset_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
+                                    <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                 </div>
                             ))
