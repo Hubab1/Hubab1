@@ -147,6 +147,9 @@ export function AddFinancialSourceForm (props) {
                                                     props.onRemove && props.onRemove([fileId]); // when editing, we want to tell the server to delete this file if it was previously saved already
                                                 }
                                                 values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
+                                                if (values.uploadedDocuments[docId].files.length === 0) {
+                                                    delete values.uploadedDocuments[docId];
+                                                }
                                                 setFieldValue('uploadedDocuments', values.uploadedDocuments);
                                             }}
                                             removeAll={docId => {

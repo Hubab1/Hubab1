@@ -265,7 +265,7 @@ export class UploadDocuments extends React.Component {
                                         value={index}
                                         control={<Radio />}
                                         label={doc.label}
-                                        disabled={!(selectedDocumentIndex === index) && !this.displayUploadButton(doc)}
+                                        disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
                                     />
                                 ))}
                             </RadioGroup>
