@@ -24,8 +24,16 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export function ManualIncomeVerificationPage () {
+export function IncomeVerificationSummaryPage () {
     const context = React.useContext(BankingContext);
+
+    const getSourceLabel = (source) => {
+        if (source.finicity_income_stream_id && source.other) {
+            return source.other;
+        }
+        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label
+    };
+
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
@@ -44,7 +52,7 @@ export function ManualIncomeVerificationPage () {
                         {
                             context.bankingData?.income_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
+                                    <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                 </div>
                             ))
@@ -82,8 +90,8 @@ export function ManualIncomeVerificationPage () {
     );
 }
 
-ManualIncomeVerificationPage.contextTypes = BankingContext;
+IncomeVerificationSummaryPage.contextTypes = BankingContext;
 
-ManualIncomeVerificationPage.route = ROUTES.MANUAL_INCOME_VERIFICATION;
+IncomeVerificationSummaryPage.route = ROUTES.INCOME_VERIFICATION_SUMMARY;
 
-export default captureRoute(ManualIncomeVerificationPage)
+export default captureRoute(IncomeVerificationSummaryPage)
