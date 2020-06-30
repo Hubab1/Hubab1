@@ -61,10 +61,11 @@ export class EditFinancialSource extends React.Component {
         try {
             data = await API.updateFinancialSource(this.props.match.params.id, formData);
         } catch (e) {
-
+            return;
         }
-        
+        this.context.refreshFinancialSources?.();
         setSubmitting(false);
+        this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
     };
     async componentDidMount () {
         this.fetchFinancialSource();
@@ -90,8 +91,8 @@ export class EditFinancialSource extends React.Component {
         const isAsset = financialSource.stream_type === FINANCIAL_STREAM_ASSET;
         return (
             <>
-                <SkinnyH1>Edit {isAsset ? 'Asset' : 'Income Source'}</SkinnyH1>
-                {/* <SpacedH3>Fill in the details below to add your income source.</SpacedH3> */}
+                <SkinnyH1>Add an {isAsset ? 'Asset' : 'Income Source'}</SkinnyH1>
+                <SpacedH3>Fill in the details below to add your {isAsset ? 'Asset' : 'Income Source'}.</SpacedH3>
                 {this.state.errorSubmitting && (
                     <GenericFormMessage
                         type="error"
@@ -103,7 +104,7 @@ export class EditFinancialSource extends React.Component {
                 <AddFinancialSourceForm
                     isEditing
                     initialValues={this.initialValues}
-                    financialType={FINANCIAL_STREAM_INCOME}
+                    financialType={isAsset ? FINANCIAL_STREAM_ASSET : FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}
                 />
                 <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>

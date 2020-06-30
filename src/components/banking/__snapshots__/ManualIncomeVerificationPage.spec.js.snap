@@ -25,6 +25,11 @@ exports[`matches snapshot with some financial sources data 1`] = `
             $100,000
             /year
           </div>
+          <ForwardRef
+            to="/income-employment/manual/financial-sources/123/edit"
+          >
+            Edit
+          </ForwardRef>
         </div>
       </ExistingItemsExpansionPanel>
     }
@@ -55,6 +60,11 @@ exports[`matches snapshot with some financial sources data 1`] = `
           >
             $40,000
           </div>
+          <ForwardRef
+            to="/income-employment/manual/financial-sources/123/edit"
+          >
+            Edit
+          </ForwardRef>
         </div>
       </ExistingItemsExpansionPanel>
     }
