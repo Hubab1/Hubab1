@@ -31,9 +31,9 @@ export class EditFinancialSource extends React.Component {
         // eslint-disable-next-line
         financialSource.uploaded_documents?.forEach( source => {
             // convert list of docs to format used in UploadDocuments.jsx
-            if (!uploadedDocuments[source.type_id]) uploadedDocuments[source.type_id] = {files: []};
-            uploadedDocuments[source.type_id].label = source.type__label;
-            uploadedDocuments[source.type_id].files.push({name: source.filename, id: source.id});
+            if (!uploadedDocuments[source.type.id]) uploadedDocuments[source.type.id] = {files: []};
+            uploadedDocuments[source.type.id].label = source.type.label;
+            uploadedDocuments[source.type.id].files.push({name: source.filename, id: source.id});
         });
         return Object.assign({}, financialSource, {uploadedDocuments: uploadedDocuments});
     }
@@ -45,9 +45,6 @@ export class EditFinancialSource extends React.Component {
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
-        this.removedFiles.forEach(id => {
-            formData.append('removed_files[]', id);
-        });
         if (values.other != null) {
             formData.append('other', values.other);
         }
@@ -56,6 +53,8 @@ export class EditFinancialSource extends React.Component {
                 values.uploadedDocuments[key].files.forEach((v, k) => {
                     if (v.file) {
                         formData.append(`${key}[]`, v.file);
+                    } else {
+                        formData.append(`uploaded_documents[]`, v.id); // already uploaded
                     }
                 });
             }

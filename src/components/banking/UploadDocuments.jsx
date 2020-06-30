@@ -80,6 +80,21 @@ export class UploadDocuments extends React.Component {
         selectedDocument: null,
     };
 
+    componentDidMount () {
+        let label;
+        for (let key in this.props.uploadedDocuments) {
+            label = this.props.uploadedDocuments[key].label;
+        }
+        if (!label) return;
+        const index = this.documentsRequired?.proof_documents.findIndex((proof) => proof.label === label); // find label for existing document to set initial selected values
+        if (index > -1) {
+            this.setState({
+                selectedDocumentIndex: index,
+                selectedDocument: this.documentsRequired.proof_documents[index]
+            });
+        }
+    }
+
     componentDidUpdate (prevProps) {
         if (prevProps.incomeOrAssetType !== this.props.incomeOrAssetType){
             this.setState({
@@ -210,12 +225,11 @@ export class UploadDocuments extends React.Component {
         
     render () {
         const { selectedDocumentIndex, selectedDocument } = this.state;
-        console.log(this.props)
         const documentRequired = this.documentsRequired;
         const requireAll = documentRequired?.require_all ?? true;
 
         if (!documentRequired || documentRequired.proof_documents.length === 0) return null;
-
+        console.log(this.documentsRequired)
         return (
             <>
                 {this.getTitle()}
