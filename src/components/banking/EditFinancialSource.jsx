@@ -21,10 +21,9 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class EditFinancialSource extends React.Component {
-    removedFiles = [];
     state = { errorSubmitting: false, financialSource: null }
 
-    get getInitialValues () {
+    get initialValues () {
         const financialSource = this.state.financialSource;
         const uploadedDocuments = {};
     
@@ -39,7 +38,6 @@ export class EditFinancialSource extends React.Component {
     }
     
     onSubmit = async (values, {setErrors, setSubmitting}) => {
-        console.log(values)
         setSubmitting(true);
         this.setState({errorSubmitting: false});
 
@@ -76,8 +74,6 @@ export class EditFinancialSource extends React.Component {
         try {
             data = await API.getFinancialSource(this.props.match.params.id);
         } catch (e) {
-            alert(e)
-            // setError(data);
             return;
         }
         this.setState({financialSource: data});
@@ -86,11 +82,6 @@ export class EditFinancialSource extends React.Component {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.fetchFinancialSource();
         }
-    }
-
-    onRemove = (fileIds) => {
-        this.removedFiles.push(...fileIds);
-        console.log(this.removedFiles)
     }
 
     render () {
@@ -111,10 +102,9 @@ export class EditFinancialSource extends React.Component {
                 <Spacer height={30}/>
                 <AddFinancialSourceForm
                     isEditing
-                    initialValues={this.getInitialValues}
+                    initialValues={this.initialValues}
                     financialType={FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}
-                    onRemove={this.onRemove}
                 />
                 <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>
             </>

@@ -229,7 +229,7 @@ export class UploadDocuments extends React.Component {
         const requireAll = documentRequired?.require_all ?? true;
 
         if (!documentRequired || documentRequired.proof_documents.length === 0) return null;
-        console.log(this.documentsRequired)
+
         return (
             <>
                 {this.getTitle()}

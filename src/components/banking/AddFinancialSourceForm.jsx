@@ -143,9 +143,6 @@ export function AddFinancialSourceForm (props) {
                                         <UploadDocuments
                                             removeFile={(docId, fileId) => {
                                                 const file = values.uploadedDocuments[docId].files.find(f => f.id === fileId);
-                                                // if (!file?.file) {
-                                                //     props.onRemove && props.onRemove([fileId]); // when editing, we want to tell the server to delete this file if it was previously saved already
-                                                // }
                                                 values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
                                                 if (values.uploadedDocuments[docId].files.length === 0) {
                                                     delete values.uploadedDocuments[docId];
@@ -154,9 +151,6 @@ export function AddFinancialSourceForm (props) {
                                             }}
                                             removeAll={docId => {
                                                 const uploadedDocuments = omit(values.uploadedDocuments, [docId]);
-                                                // props.onRemove && props.onRemove(
-                                                //     values.uploadedDocuments[docId].files.filter(file => !file.file).map(file => file.id)
-                                                // );
                                                 setFieldValue('uploadedDocuments', uploadedDocuments);
                                             }}
                                             incomeOrAssetType={values.income_or_asset_type}
