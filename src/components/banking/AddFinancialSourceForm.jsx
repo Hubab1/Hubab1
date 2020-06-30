@@ -142,7 +142,6 @@ export function AddFinancialSourceForm (props) {
                                         />
                                         <UploadDocuments
                                             removeFile={(docId, fileId) => {
-                                                const file = values.uploadedDocuments[docId].files.find(f => f.id === fileId);
                                                 values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
                                                 if (values.uploadedDocuments[docId].files.length === 0) {
                                                     delete values.uploadedDocuments[docId];

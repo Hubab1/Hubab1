@@ -164,22 +164,22 @@ export class ConnectBankPage extends React.Component {
 
     render () {
         if (!this.props.applicant) {return <div/>}
-        // if (!!this.state.reportData ) {
-        //     return <ReviewAccountsPage 
-        //         incomeNameInitialValues={this.state.reportData.incomeNameInitialValues}
-        //         incomeEntries={this.state.reportData.incomeEntries}
-        //         incomeTotal={this.state.reportData.incomeTotal}
-        //         assetsTotal={this.state.reportData.assetsTotal}
-        //         pushNextPage={this.props._nextRoute}
-        //         resetReportData={() => this.setState({reportData: null})}
-        //     />;
-        // }
-        // if (this.state.showFinicityIframe) {
-        //     return <div className={finicityContainer} id="finicity-container"/>;
-        // }
-        // if (this.state.loadingReport) {
-        //     return <BankVerifying/>;
-        // }
+        if (!!this.state.reportData ) {
+            return <ReviewAccountsPage
+                incomeNameInitialValues={this.state.reportData.incomeNameInitialValues}
+                incomeEntries={this.state.reportData.incomeEntries}
+                incomeTotal={this.state.reportData.incomeTotal}
+                assetsTotal={this.state.reportData.assetsTotal}
+                pushNextPage={this.props._nextRoute}
+                resetReportData={() => this.setState({reportData: null})}
+            />;
+        }
+        if (this.state.showFinicityIframe) {
+            return <div className={finicityContainer} id="finicity-container"/>;
+        }
+        if (this.state.loadingReport) {
+            return <BankVerifying/>;
+        }
         return <VerifyIncome 
             loadingFinicityIframe={!!this.state.loadingFinicityIframe}
             openFinicityIframe={this.openFinicityIframe}

@@ -57,12 +57,12 @@ export class EditFinancialSource extends React.Component {
                 });
             }
         }
-        let data;
         try {
-            data = await API.updateFinancialSource(this.props.match.params.id, formData);
+            await API.updateFinancialSource(this.props.match.params.id, formData);
         } catch (e) {
             return;
         }
+        // eslint-disable-next-line
         this.context.refreshFinancialSources?.();
         setSubmitting(false);
         this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
