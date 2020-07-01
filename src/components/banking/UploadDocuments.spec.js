@@ -2,13 +2,18 @@ import { UploadDocuments } from './UploadDocuments';
 import {shallow, mount} from "enzyme";
 import React from "react";
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { LinkButton } from 'assets/styles';
 
 
 let defaultProps;
 let store;
 beforeEach(() => {
     defaultProps = {
+        loadDocument: jest.fn(),
+        removeAll: jest.fn(),
+        removeFile: jest.fn(),
         incomeOrAssetType: 105,
+        uploadedDocuments: {},
         streamType: FINANCIAL_STREAM_INCOME,
         config: {
             financial_documents_validations:
@@ -130,7 +135,7 @@ it('Case documents uploaded', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
+                        {id: 1, name: 'abc.png'},
                     ]
                 },
                 // Case stacked
@@ -138,8 +143,8 @@ it('Case documents uploaded', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'def.pdf'},
-                        {name: 'ghi.jpg'},
+                        {id: 2, name: 'def.pdf'},
+                        {id: 3, name: 'ghi.jpg'},
                     ]
                 }
             }}
@@ -181,7 +186,7 @@ it('Case minimum uploaded not met', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
+                        {id: 1, name: 'abc.png'},
                     ]
                 },
             }}
@@ -223,8 +228,8 @@ it('Case minimum uploaded met', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
-                        {name: 'def.png'},
+                        {id: 1, name: 'abc.png'},
+                        {id: 2, name: 'def.png'},
                     ]
                 },
             }}
@@ -266,9 +271,9 @@ it('Case maximum uploaded met', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
-                        {name: 'def.png'},
-                        {name: 'ghi.png'},
+                        {id: 1, name: 'abc.png'},
+                        {id: 2, name: 'def.png'},
+                        {id: 3, name: 'ghi.png'},
                     ]
                 },
             }}
@@ -359,7 +364,7 @@ it('Case require_all false and one of documents types uploaded, disable the rest
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
+                        {id: 1, name: 'abc.png'},
                     ]
                 },
             }}
@@ -409,8 +414,8 @@ it('Case require_all is true and only one document type met minimum', () => {
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
-                        {name: 'def.jpg'},
+                        {id: 1, name: 'abc.png'},
+                        {id: 2, name: 'def.jpg'},
                     ]
                 },
             }}
@@ -460,18 +465,84 @@ it('Case require_all is true and all documents types met min and max requirement
                     id:1,
                     label: 'W2',
                     files:[
-                        {name: 'abc.png'},
-                        {name: 'def.jpg'},
+                        {id: 1, name: 'abc.png'},
+                        {id: 2, name: 'def.jpg'},
                     ]
                 },
                 '2': {
                     id: 2,
                     label: '1099',
                     files:[
-                        {name: 'abc.png'},
+                        {id: 1, name: 'abc.png'},
                     ]
                 },
             }}
         />);
     expect(wrapper.find('input').length).toBe(0);
+});
+
+
+
+it('Case documents uploaded', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 1, name: 'abc.png'},
+                    ]
+                },
+                // Case stacked
+                '2': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 2, name: 'def.pdf'},
+                        {id: 3, name: 'ghi.jpg'},
+                    ]
+                }
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Remove buttons work', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                'doc1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 1, name: 'abc.png'},
+                        {id: 4, name: 'mmm.pdf'},
+                    ]
+                },
+                // Case stacked
+                'doc2': {
+                    id:2,
+                    label: 'W2',
+                    files:[
+                        {id: 2, name: 'def.pdf'},
+                        {id: 3, name: 'ghi.jpg'},
+                    ]
+                }
+            }}
+        />);
+    wrapper.find(LinkButton).first().simulate('click');
+    expect(defaultProps.removeAll).toHaveBeenCalledWith('doc1');
+    wrapper.find(LinkButton).last().simulate('click');
+    expect(defaultProps.removeFile).toHaveBeenCalledWith('doc2', 3);
 });

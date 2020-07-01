@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import capitalize from 'lodash/capitalize';
+import omit from 'lodash/omit';
 
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -139,6 +140,17 @@ export function AddFinancialSourceForm (props) {
                                             value={values.estimated_amount}
                                         />
                                         <UploadDocuments
+                                            removeFile={(docId, fileId) => {
+                                                values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
+                                                if (values.uploadedDocuments[docId].files.length === 0) {
+                                                    delete values.uploadedDocuments[docId];
+                                                }
+                                                setFieldValue('uploadedDocuments', values.uploadedDocuments);
+                                            }}
+                                            removeAll={docId => {
+                                                const uploadedDocuments = omit(values.uploadedDocuments, [docId]);
+                                                setFieldValue('uploadedDocuments', uploadedDocuments);
+                                            }}
                                             incomeOrAssetType={values.income_or_asset_type}
                                             streamType={props.financialType}
                                             uploadedDocuments={values.uploadedDocuments}

@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 
 import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
-import { P } from 'assets/styles';
+import { P, LinkButton } from 'assets/styles';
 
 
 const root = css`
@@ -39,7 +39,7 @@ const UploadButtonContainer = styled.div`
 `
 const FileNamesContainer = styled.div`
     background-color: rgba(38,48,91,0.1);
-    .uploaded-document-filename:last-child {
+    .uploaded-document-display:last-child {
         border-bottom: none;
     }
 `
@@ -51,18 +51,25 @@ const UploadedDocuments = styled.div`
             margin-top: 48px;
         }
     }
-    .uploaded-document-title {
+    .uploaded-document-type-title {
+        span {
+            font-size: 12px;
+        }
         height: 16px;
-        width: 260px;
         color: #828796;
-        font-size: 12px;
         margin-bottom: 9px;
+        padding: 11px 23px 12px 23px;
+        display: flex;
+        justify-content: space-between;
     }
-    .uploaded-document-filename {
+    .uploaded-document-display {
         margin-left: 23px;
         margin-right: 23px;
         height: 43px;
         border-bottom: 1px solid #C8C8C8;
+        padding: 11px 23px 12px 23px;
+        display: flex;
+        justify-content: space-between;
     }
 `
 
@@ -73,7 +80,6 @@ const FileName = styled.div`
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 11px 23px 12px 23px;
 `
 
 
@@ -189,25 +195,40 @@ export class UploadDocuments extends React.Component {
 
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
-        if (!uploadedDocuments || uploadedDocuments === {}) return null;
+        if (!uploadedDocuments) return null;
 
         return (
             <UploadedDocuments>
-                {Object.keys(uploadedDocuments).map((docId) => (
-                    <div className="uploaded-document" key={docId}>
-                        <div className="uploaded-document-title">
-                            {this.titleCase(uploadedDocuments[docId].label)}
+                {Object.keys(uploadedDocuments).map((docId) => {
+                    if (!uploadedDocuments[docId].files?.length) {
+                        return null;
+                    }
+                    return (
+                        <div className="uploaded-document" key={docId}>
+                            <div className="uploaded-document-type-title">
+                                {/* eslint-disable-next-line */}
+                                <span>{this.titleCase(uploadedDocuments[docId].label)}</span>
+                                {
+                                    uploadedDocuments[docId].files.length > 1 &&
+                                    <LinkButton
+                                        onClick={() => this.props.removeAll(docId)}>
+                                            Remove all ({uploadedDocuments[docId].files.length})
+                                    </LinkButton>
+                                }
+                            </div>
+                            <FileNamesContainer>
+                                {uploadedDocuments[docId].files.map((file, i) => (
+                                    <div className="uploaded-document-display" key={file.id}>
+                                        <FileName>{file.name}</FileName>
+                                        {/* eslint-disable-next-line */}
+                                        <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
+                                        {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
+                                    </div>
+                                ))}
+                            </FileNamesContainer>
                         </div>
-                        <FileNamesContainer>
-                            {uploadedDocuments[docId].files.map((file, i) => (
-                                <div className="uploaded-document-filename" key={file.id}>
-                                    <FileName >{file.name}</FileName>
-                                </div>
-                            ))}
-                        </FileNamesContainer>
-
-                    </div>
-                ))}
+                    );
+                })}
             </UploadedDocuments>
         )
     };
@@ -294,7 +315,7 @@ export class UploadDocuments extends React.Component {
                                         value={index}
                                         control={<Radio />}
                                         label={this.startCase(doc.label)}
-                                        disabled={!(selectedDocumentIndex === index) && !this.displayUploadButton(doc)}
+                                        disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
                                     />
                                 ))}
                             </RadioGroup>

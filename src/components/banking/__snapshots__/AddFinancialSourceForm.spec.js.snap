@@ -102,6 +102,8 @@ exports[`Matches snapshot showing other field 1`] = `
       <UNDEFINED
         incomeOrAssetType={140}
         loadDocument={[Function]}
+        removeAll={[Function]}
+        removeFile={[Function]}
         uploadedDocuments={Object {}}
       />
     </React.Fragment>

@@ -10,7 +10,6 @@ import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 
-
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -25,11 +24,12 @@ export const Img = styled.img`
 `;
 
 export function AddAssetSource (props) {
-    const [errorSubmitting, setErrorSubmitting] = useState(false);
     const context = useContext(BankingContext);
+    const [errorSubmitting, setErrorSubmitting] = useState(false);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
         setErrorSubmitting(false);
+
         const formData = new FormData();
         formData.append('income_or_asset_type', values.income_or_asset_type);
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
