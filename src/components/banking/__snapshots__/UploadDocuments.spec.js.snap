@@ -97,11 +97,12 @@ exports[`Case documents uploaded 1`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          W2
+          Upload  W2
           <input
             accept="image/*,.pdf"
             id="1"
+            max={2}
+            multiple={true}
             name="1"
             onChange={[Function]}
             style={
@@ -215,11 +216,12 @@ exports[`Case documents uploaded 2`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          W2
+          Upload  W2
           <input
             accept="image/*,.pdf"
             id="1"
+            max={2}
+            multiple={true}
             name="1"
             onChange={[Function]}
             style={
@@ -267,11 +269,12 @@ exports[`Case multiple required document (require all) 1`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          W2
+          Upload 1 W2
           <input
             accept="image/*,.pdf"
             id="1"
+            max={3}
+            multiple={true}
             name="1"
             onChange={[Function]}
             style={
@@ -296,11 +299,12 @@ exports[`Case multiple required document (require all) 1`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          1099 Form
+          Upload 1 1099 Form
           <input
             accept="image/*,.pdf"
             id="2"
+            max={1}
+            multiple={true}
             name="2"
             onChange={[Function]}
             style={
@@ -348,11 +352,12 @@ exports[`Case no uploaded documents 1`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          W2
+          Upload 1 W2
           <input
             accept="image/*,.pdf"
             id="1"
+            max={3}
+            multiple={true}
             name="1"
             onChange={[Function]}
             style={
@@ -400,11 +405,12 @@ exports[`Case only one required document 1`] = `
           fullWidth={true}
           variant="outlined"
         >
-          Upload 
-          W2
+          Upload 1 W2
           <input
             accept="image/*,.pdf"
             id="1"
+            max={3}
+            multiple={true}
             name="1"
             onChange={[Function]}
             style={
