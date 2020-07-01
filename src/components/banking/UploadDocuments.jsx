@@ -37,6 +37,12 @@ const UploadButtonContainer = styled.div`
         margin-bottom: 17px;
     }
 `
+const FileNamesContainer = styled.div`
+    background-color: rgba(38,48,91,0.1);
+    .uploaded-document-display:last-child {
+        border-bottom: none;
+    }
+`
 
 const UploadedDocuments = styled.div`
     .uploaded-document {
@@ -57,7 +63,8 @@ const UploadedDocuments = styled.div`
         justify-content: space-between;
     }
     .uploaded-document-display {
-        background-color: rgba(38,48,91,0.1);
+        margin-left: 23px;
+        margin-right: 23px;
         border-bottom: 1px solid #C8C8C8;
         padding: 11px 23px 12px 23px;
         display: flex;
@@ -66,6 +73,7 @@ const UploadedDocuments = styled.div`
 `
 
 const FileName = styled.div`
+    white-space: nowrap;
     color: #000000;
     font-size: 16px;
     font-weight: 500;
@@ -104,6 +112,18 @@ export class UploadDocuments extends React.Component {
         }
     };
 
+    startCase = (str) => {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' ');
+    };
+
+    titleCase = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+    };
+
     getTitle = () => {
         let type = '';
         if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income'}
@@ -134,31 +154,57 @@ export class UploadDocuments extends React.Component {
         return proofDocuments.map(d => d.label).join(' + ')
     };
 
-     onFileChange = (e, selectedDocument) => {
-         const id = e.target.id;
-         let file = e.target.files[0];
-         if (e.target.value.length === 0) return null;
-         let reader = new FileReader();
-         reader.readAsDataURL(file);
-         reader.onload = () => {
-             let fileInfo = {
-                 name: file.name,
-                 id: uuidv4(),
-                 file: file
-             };
-             let uploadedDocuments = {...this.props.uploadedDocuments};
-             if (uploadedDocuments[id]) {
-                 uploadedDocuments[id].files.push(fileInfo)
-             } else {
-                 uploadedDocuments[id] = {
-                     id: selectedDocument.id,
-                     label: selectedDocument.label,
-                     files: [fileInfo]
-                 };
-             }
-             this.props.loadDocument(uploadedDocuments);
-         };
-     };
+    getRemainingFilesCount = (document) => {
+        const documentRequired = this.documentsRequired;
+        const proof_documents = documentRequired.proof_documents;
+        const { uploadedDocuments } = this.props;
+
+        if (!document || !uploadedDocuments) return { max: 0, min: 0 };
+
+        const settings = proof_documents.find(settings => settings.id === document.id);
+        const uploaded = uploadedDocuments[String(document.id)]? uploadedDocuments[String(document.id)].files.length: 0;
+        return {
+            max: Math.max(0, settings.max_required - uploaded),
+            min: Math.max(0, settings.min_required - uploaded)
+        };
+    };
+
+    onFileChange = (e, selectedDocument) => {
+        const id = e.target.id;
+        if (e.target.value.length === 0) return null;
+
+        const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
+        if (!maxCount) return null;
+
+        for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
+            let file = e.target.files[i];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                let fileInfo = {
+                    name: file.name,
+                    id: uuidv4(),
+                    file: file
+                };
+                let uploadedDocuments = {...this.props.uploadedDocuments};
+                if (uploadedDocuments[id]) {
+                    uploadedDocuments[id].files.push(fileInfo)
+                } else {
+                    uploadedDocuments[id] = {
+                        id: selectedDocument.id,
+                        label: selectedDocument.label,
+                        files: [fileInfo]
+                    };
+                }
+                this.props.loadDocument(uploadedDocuments);
+            };
+        }
+    };
+
+    getUploadButtonLabel = (doc) => {
+        let remaining = this.getRemainingFilesCount(doc)?.min?? 0;
+        return this.startCase(`Upload ${remaining? remaining : ''} ${doc.label}`);
+    };
 
 
     displayUploadedDocuments = () => {
@@ -175,7 +221,7 @@ export class UploadDocuments extends React.Component {
                         <div className="uploaded-document" key={docId}>
                             <div className="uploaded-document-type-title">
                                 {/* eslint-disable-next-line */}
-                                <span>{uploadedDocuments[docId].label}</span>
+                                <span>{this.titleCase(uploadedDocuments[docId].label)}</span>
                                 {
                                     uploadedDocuments[docId].files.length > 1 &&
                                     <LinkButton
@@ -184,14 +230,16 @@ export class UploadDocuments extends React.Component {
                                     </LinkButton>
                                 }
                             </div>
-                            {uploadedDocuments[docId].files.map((file, i) => (
-                                <div className="uploaded-document-display" key={file.id}>
-                                    <FileName>{file.name}</FileName>
-                                    {/* eslint-disable-next-line */}
-                                    <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
-                                    {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
-                                </div>
-                            ))}
+                            <FileNamesContainer>
+                                {uploadedDocuments[docId].files.map((file, i) => (
+                                    <div className="uploaded-document-display" key={file.id}>
+                                        <FileName>{file.name}</FileName>
+                                        {/* eslint-disable-next-line */}
+                                        <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
+                                        {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
+                                    </div>
+                                ))}
+                            </FileNamesContainer>
                         </div>
                     );
                 })}
@@ -248,7 +296,7 @@ export class UploadDocuments extends React.Component {
                                             classes={{ root, label }}
                                             fullWidth
                                         >
-                                            Upload {doc.label}
+                                            {this.getUploadButtonLabel(doc)}
                                             <input
                                                 id={String(doc.id)}
                                                 type="file"
@@ -256,6 +304,8 @@ export class UploadDocuments extends React.Component {
                                                 accept="image/*,.pdf"
                                                 style={{ display: "none" }}
                                                 onChange={(e) => this.onFileChange(e, doc)}
+                                                max={this.getRemainingFilesCount(doc)?.max}
+                                                multiple
                                             />
                                         </Button>
                                     )}
@@ -278,7 +328,7 @@ export class UploadDocuments extends React.Component {
                                         id={`radioButton${doc.id}`}
                                         value={index}
                                         control={<Radio />}
-                                        label={doc.label}
+                                        label={this.startCase(doc.label)}
                                         disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
                                     />
                                 ))}
@@ -296,7 +346,7 @@ export class UploadDocuments extends React.Component {
                                             classes={{ root, label }}
                                             fullWidth
                                         >
-                                            Upload {selectedDocument.label}
+                                            {this.getUploadButtonLabel(selectedDocument)}
                                             <input
                                                 id={String(selectedDocument.id)}
                                                 type="file"
@@ -304,6 +354,8 @@ export class UploadDocuments extends React.Component {
                                                 accept="image/*,.pdf,.doc,.docx"
                                                 style={{ display: "none" }}
                                                 onChange={(e) => this.onFileChange(e, selectedDocument)}
+                                                max={this.getRemainingFilesCount(selectedDocument)?.max}
+                                                multiple
                                             />
                                         </Button>
                                     )}
