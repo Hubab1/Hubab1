@@ -39,7 +39,7 @@ const UploadButtonContainer = styled.div`
 `
 const FileNamesContainer = styled.div`
     background-color: rgba(38,48,91,0.1);
-    .uploaded-document-filename:last-child {
+    .uploaded-document-display:last-child {
         border-bottom: none;
     }
 `
@@ -62,13 +62,9 @@ const UploadedDocuments = styled.div`
         display: flex;
         justify-content: space-between;
     }
-<<<<<<< HEAD
     .uploaded-document-display {
-=======
-    .uploaded-document-filename {
         margin-left: 23px;
         margin-right: 23px;
->>>>>>> 6775a49c09699a2e9804c1e6a72d26d43fb52175
         height: 43px;
         border-bottom: 1px solid #C8C8C8;
         padding: 11px 23px 12px 23px;
@@ -220,14 +216,16 @@ export class UploadDocuments extends React.Component {
                                     </LinkButton>
                                 }
                             </div>
-                            {uploadedDocuments[docId].files.map((file, i) => (
-                                <div className="uploaded-document-display" key={file.id}>
-                                    <FileName>{file.name}</FileName>
-                                    {/* eslint-disable-next-line */}
-                                    <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
-                                    {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
-                                </div>
-                            ))}
+                            <FileNamesContainer>
+                                {uploadedDocuments[docId].files.map((file, i) => (
+                                    <div className="uploaded-document-display" key={file.id}>
+                                        <FileName>{file.name}</FileName>
+                                        {/* eslint-disable-next-line */}
+                                        <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
+                                        {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
+                                    </div>
+                                ))}
+                            </FileNamesContainer>
                         </div>
                     );
                 })}
