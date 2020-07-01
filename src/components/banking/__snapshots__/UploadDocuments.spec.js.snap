@@ -24,18 +24,20 @@ exports[`Case documents uploaded 1`] = `
             W2
           </span>
         </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            abc.png
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+        <ForwardRef(render)>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
+            <ForwardRef(render)>
+              abc.png
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+        </ForwardRef(render)>
       </div>
       <div
         className="uploaded-document"
@@ -54,30 +56,32 @@ exports[`Case documents uploaded 1`] = `
             )
           </ForwardRef(render)>
         </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            def.pdf
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+        <ForwardRef(render)>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            ghi.jpg
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+            <ForwardRef(render)>
+              def.pdf
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
+            <ForwardRef(render)>
+              ghi.jpg
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+        </ForwardRef(render)>
       </div>
     </ForwardRef(render)>
     <ForwardRef(render)
@@ -143,18 +147,20 @@ exports[`Case documents uploaded 2`] = `
             W2
           </span>
         </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            abc.png
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+        <ForwardRef(render)>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
+            <ForwardRef(render)>
+              abc.png
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+        </ForwardRef(render)>
       </div>
       <div
         className="uploaded-document"
@@ -173,30 +179,32 @@ exports[`Case documents uploaded 2`] = `
             )
           </ForwardRef(render)>
         </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            def.pdf
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+        <ForwardRef(render)>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
-        <div
-          className="uploaded-document-display"
-        >
-          <ForwardRef(render)>
-            ghi.jpg
-          </ForwardRef(render)>
-          <ForwardRef(render)
-            onClick={[Function]}
+            <ForwardRef(render)>
+              def.pdf
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+          <div
+            className="uploaded-document-display"
           >
-            Remove
-          </ForwardRef(render)>
-        </div>
+            <ForwardRef(render)>
+              ghi.jpg
+            </ForwardRef(render)>
+            <ForwardRef(render)
+              onClick={[Function]}
+            >
+              Remove
+            </ForwardRef(render)>
+          </div>
+        </ForwardRef(render)>
       </div>
     </ForwardRef(render)>
     <ForwardRef(render)
