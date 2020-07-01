@@ -105,7 +105,7 @@ describe('Application submitted state', function() {
 describe('Unit unavailable state', function() {
     it("Renders a unit unavailable message", function() {
         const defaultProps = {
-            currentRoute: ROUTES.UNIT_UNAVAILABLE,
+            unit_available: false,
             applicantStillFinishingApplication: true,
             navRoutes: [],
             config: {
@@ -122,7 +122,7 @@ describe('Unit unavailable state', function() {
 
     it("View Progress when clicked takes to initialPage set", function() {
         const defaultProps = {
-            currentRoute: ROUTES.UNIT_UNAVAILABLE,
+            unit_available: false,
             applicantStillFinishingApplication: true,
             navRoutes: [],
             config: {

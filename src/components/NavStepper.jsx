@@ -63,7 +63,7 @@ export function VerticalLinearStepper(props) {
 
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
-    const unitUnavailable = (props.currentRoute === ROUTES.UNIT_UNAVAILABLE);
+    const unitUnavailable = (props.unit_available === false);
     function onClickRoute (e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep || MOCKY) {
