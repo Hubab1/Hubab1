@@ -1,7 +1,5 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, {useState, useContext} from 'react';
 import styled from '@emotion/styled';
-
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import piggyBank from 'assets/images/piggy-bank.png';
@@ -9,7 +7,9 @@ import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
+
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -25,18 +25,28 @@ export const Img = styled.img`
 `;
 
 export function AddAssetSource (props) {
+    const [errorSubmitting, setErrorSubmitting] = useState(false);
     const context = useContext(BankingContext);
     const onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
+        setErrorSubmitting(false);
         const formData = new FormData();
         formData.append('income_or_asset_type', values.income_or_asset_type);
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
         formData.append('stream_type', FINANCIAL_STREAM_ASSET);
         formData.append('other', values.other);
+        if (values.uploadedDocuments) {
+            for (let key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v, k) => {
+                    formData.append(`${key}[]`, v.file);
+                });
+            }
+        }
         let response;
         try {
             response = await API.submitFinancialSource(formData);
         } catch {
+            setErrorSubmitting(true);
             return setSubmitting(false);
         }
         if (response.status !== 200) {
@@ -45,17 +55,26 @@ export function AddAssetSource (props) {
                 setErrors(errors);
             }
             setSubmitting(false);
+            setErrorSubmitting(true);
             return;
         }
         context.refreshFinancialSources();
         props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
         setSubmitting(false);
-    }
+        setErrorSubmitting(false);
+    };
+
     return (
         <>
             <SkinnyH1>Add Proof of Assets</SkinnyH1>
             <SpacedH3>Fill in the details below to add your proof of assets.</SpacedH3>
-            <Img alt="piggy bank" src={piggyBank}></Img>
+            {errorSubmitting && (
+                <GenericFormMessage
+                    type="error"
+                    messages={['Oops! We had some trouble uploading your files. Please try again in a little bit.']}
+                />
+            )}
+            <Img alt="piggy bank" src={piggyBank} />
             <Spacer height={30}/>
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
