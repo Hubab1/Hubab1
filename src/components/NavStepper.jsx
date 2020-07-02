@@ -12,7 +12,6 @@ import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import { ROUTES } from 'app/constants';
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
