@@ -92,6 +92,8 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
             hsclient.open(data.url, {
                 testMode: HELLOSIGN_TEST_MODE,
                 skipDomainVerification: HELLOSIGN_TEST_MODE,
+                allowCancel: false,
+                allowDecline: false,
             });
         }
     }

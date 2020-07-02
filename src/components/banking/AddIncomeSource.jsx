@@ -40,7 +40,6 @@ export function AddIncomeSource (props) {
                 });
             }
         }
-      
         let response;
         try {
             response = await API.submitFinancialSource(formData);
