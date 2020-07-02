@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { BackLink } from 'components/common/BackLink';
-import { H1, H3, Spacer } from 'assets/styles';
-import finance from 'assets/images/finance.png';
+import { H1, H3, P, Bold } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
-import { ROUTES, FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { ROUTES, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import API from 'app/api';
-import AddFinancialSourceForm from './AddFinancialSourceForm';
-import GenericFormMessage from 'components/common/GenericFormMessage';
+// import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { prettyCurrency } from 'utils/misc';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -20,51 +19,12 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export class EditFinancialSource extends React.Component {
+export class RemoveFinancialSource extends React.Component {
     state = { errorSubmitting: false, financialSource: null }
-
-    get initialValues () {
-        const financialSource = this.state.financialSource;
-        const uploadedDocuments = {};
-    
-        // eslint-disable-next-line
-        financialSource.uploaded_documents?.forEach( source => {
-            // convert list of docs to format used in UploadDocuments.jsx
-            if (!uploadedDocuments[source.type.id]) uploadedDocuments[source.type.id] = {files: []};
-            uploadedDocuments[source.type.id].label = source.type.label;
-            uploadedDocuments[source.type.id].files.push({name: source.filename, id: source.id});
-        });
-        return Object.assign({}, financialSource, {uploadedDocuments: uploadedDocuments});
-    }
     
     onSubmit = async (values, {setErrors, setSubmitting}) => {
         setSubmitting(true);
         this.setState({errorSubmitting: false});
-
-        const formData = new FormData();
-        formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
-        if (values.other != null) {
-            formData.append('other', values.other);
-        }
-        if (values.uploadedDocuments) {
-            for (let key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach((v, k) => {
-                    if (v.file) {
-                        formData.append(`${key}[]`, v.file);
-                    } else {
-                        formData.append(`uploaded_documents[]`, v.id); // already uploaded
-                    }
-                });
-            }
-        }
-        try {
-            await API.updateFinancialSource(this.props.match.params.id, formData);
-        } catch (e) {
-            return;
-        }
-        // eslint-disable-next-line
-        this.context.refreshFinancialSources?.();
-        setSubmitting(false);
         this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
     };
     async componentDidMount () {
@@ -91,28 +51,23 @@ export class EditFinancialSource extends React.Component {
         const isAsset = financialSource.stream_type === FINANCIAL_STREAM_ASSET;
         return (
             <>
-                <SkinnyH1>Add an {isAsset ? 'Asset' : 'Income Source'}</SkinnyH1>
-                <SpacedH3>Fill in the details below to add your {isAsset ? 'Asset' : 'Income Source'}.</SpacedH3>
-                {this.state.errorSubmitting && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={['Oops! We had some trouble uploading your files. Please try again in a little bit.']}
-                    />
-                )}
-                <img alt="coin" src={finance} />
-                <Spacer height={30}/>
-                <AddFinancialSourceForm
-                    isEditing
-                    initialValues={this.initialValues}
-                    financialType={isAsset ? FINANCIAL_STREAM_ASSET : FINANCIAL_STREAM_INCOME}
-                    onSubmit={this.onSubmit}
-                />
-                <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>
+                <SkinnyH1>Remove {isAsset ? 'Asset' : 'Income Source'}?</SkinnyH1>
+                <SpacedH3>{ALL_INCOME_OR_ASSET_TYPES[financialSource.income_or_asset_type]?.label} - {prettyCurrency(financialSource.estimated_amount)}{isAsset ? '' : '/year'}</SpacedH3>
+                <hr/>
+                <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
+                {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
+                {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
+                <ActionButton onClick={()=>{}} marginBottom={20} marginTop={100}>
+                    Remove {isAsset ? 'Asset' : 'Income Source'}
+                </ActionButton>
+                <ActionButton variant="outlined" marginBottom={20}>
+                    Cancel
+                </ActionButton>
             </>
         );
     }
 }
-EditFinancialSource.route = ROUTES.REMOVE_FINANCIAL_SOURCE;
-EditFinancialSource.contextType = BankingContext;
+RemoveFinancialSource.route = ROUTES.REMOVE_FINANCIAL_SOURCE;
+RemoveFinancialSource.contextType = BankingContext;
 
-export default captureRoute(EditFinancialSource);
+export default captureRoute(RemoveFinancialSource);

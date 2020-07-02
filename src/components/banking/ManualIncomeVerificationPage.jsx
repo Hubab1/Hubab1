@@ -50,7 +50,10 @@ export function ManualIncomeVerificationPage () {
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                     <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;
+                                    <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                        id: source.id,
+                                    })}>Remove</Link>
                                 </div>
                             ))
                         }
@@ -75,7 +78,10 @@ export function ManualIncomeVerificationPage () {
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                     <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;
+                                    <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                        id: source.id,
+                                    })}>Remove</Link>
                                 </div>
                             ))
                         }
