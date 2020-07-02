@@ -73,7 +73,7 @@ export function ManualIncomeVerificationPage () {
                                 <div key={source.id}>
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
-                                    <Link to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                    <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Edit</Link>
                                 </div>
