@@ -5,7 +5,7 @@ import { H1, H3, P, Bold } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import API from 'app/api';
-// import GenericFormMessage from 'components/common/GenericFormMessage';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { prettyCurrency } from 'utils/misc';
@@ -20,11 +20,17 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class RemoveFinancialSource extends React.Component {
-    state = { errorSubmitting: false, financialSource: null }
+    state = { errorSubmitting: false, financialSource: null, submitting: false }
     
-    onSubmit = async (values, {setErrors, setSubmitting}) => {
-        setSubmitting(true);
-        this.setState({errorSubmitting: false});
+    onSubmit = async () => {
+        this.setState({submitting: true});
+        try {
+            await API.deleteFinancialSource();
+        } catch {
+            this.setState({submitting: false, errorSubmitting: true});
+            return;
+        }
+        this.setState({submitting: false});
         this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
     };
     async componentDidMount () {
@@ -54,10 +60,16 @@ export class RemoveFinancialSource extends React.Component {
                 <SkinnyH1>Remove {isAsset ? 'Asset' : 'Income Source'}?</SkinnyH1>
                 <SpacedH3>{ALL_INCOME_OR_ASSET_TYPES[financialSource.income_or_asset_type]?.label} - {prettyCurrency(financialSource.estimated_amount)}{isAsset ? '' : '/year'}</SpacedH3>
                 <hr/>
+                {this.state.errorSubmitting && (
+                    <GenericFormMessage
+                        type="error"
+                        messages={['Oops! We had some trouble removing your financial source. Try again in a little bit.']}
+                    />
+                )}
                 <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
                 {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
                 {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
-                <ActionButton onClick={()=>{}} marginBottom={20} marginTop={100}>
+                <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {isAsset ? 'Asset' : 'Income Source'}
                 </ActionButton>
                 <ActionButton variant="outlined" marginBottom={20}>

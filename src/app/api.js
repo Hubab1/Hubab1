@@ -315,5 +315,17 @@ API.updateFinancialSource = (id, body) => {
         throw new Error();
     })
 }
+API.deleteFinancialSource = (id) => {
+    return fetch(chuck(`/financial-sources/${id}/`), {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+    }}).then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+        throw new Error();
+    })
+}
 
 export default API;
