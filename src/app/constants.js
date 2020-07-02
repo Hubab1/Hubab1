@@ -27,6 +27,7 @@ export const ROUTES = {
     MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
     MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
     EDIT_MANUAL_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/edit',
+    REMOVE_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/remove',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
     SCREENING: '/screening',
