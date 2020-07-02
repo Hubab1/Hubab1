@@ -66,6 +66,11 @@ exports[`matches snapshot with some financial sources data 1`] = `
             $40,000
           </div>
           <ForwardRef
+            style={
+              Object {
+                "textDecoration": "underline",
+              }
+            }
             to="/income-employment/manual/financial-sources/123/edit"
           >
             Edit
