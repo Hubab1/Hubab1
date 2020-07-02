@@ -25,11 +25,13 @@ export class RemoveFinancialSource extends React.Component {
     onSubmit = async () => {
         this.setState({submitting: true});
         try {
-            await API.deleteFinancialSource();
+            await API.deleteFinancialSource(this.props.match.params.id);
         } catch {
             this.setState({submitting: false, errorSubmitting: true});
             return;
         }
+        // eslint-disable-next-line
+        this.context.refreshFinancialSources?.();
         this.setState({submitting: false});
         this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
     };
@@ -72,7 +74,7 @@ export class RemoveFinancialSource extends React.Component {
                 <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {isAsset ? 'Asset' : 'Income Source'}
                 </ActionButton>
-                <ActionButton variant="outlined" marginBottom={20}>
+                <ActionButton onClick={()=>this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION)} variant="outlined" marginBottom={20}>
                     Cancel
                 </ActionButton>
             </>
