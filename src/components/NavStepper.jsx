@@ -7,6 +7,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import clsx from 'clsx';
+import ErrorIcon from '@material-ui/icons/Error';
 
 import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
@@ -75,7 +76,7 @@ export function VerticalLinearStepper(props) {
             <Stepper activeStep={activeStep} orientation="vertical">
                 {unitUnavailable &&
                     <Step active>
-                        <StepLabel completed classes={{root: iconRoot}}>
+                        <StepLabel StepIconComponent={ErrorIcon} active classes={{root: iconRoot}}>
                             <span className="unitUnavailableMsg">We've placed your application on hold for now, 
                                 since the apartment you were interested in is no longer available. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
@@ -85,7 +86,7 @@ export function VerticalLinearStepper(props) {
                         </StepLabel>
                         <Button
                             variant="outlined"
-                            color="primary"
+                            color="default"
                             id="viewProgressButton"
                             classes={{
                                 root: viewProgress
