@@ -49,7 +49,7 @@ const VerifyIncome = props => {
             <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>
-            <Link to={ROUTES.MANUAL_INCOME_VERIFICATION} className={styles.linkNoStyle}>
+            <Link to={ROUTES.INCOME_VERIFICATION_SUMMARY} className={styles.linkNoStyle}>
                 <ActionButton variant="outlined" marginBottom={20}>
                     Verify Manually
                 </ActionButton>
