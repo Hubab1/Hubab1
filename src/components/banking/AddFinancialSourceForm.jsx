@@ -167,7 +167,7 @@ export function AddFinancialSourceForm (props) {
                                 || isSubmitting
                                 || !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
                             }
-                            marginTop={40}
+                            marginTop={68}
                             marginBottom={20}
                         >
                             {props.isEditing ? 'Save Changes' : isAsset ? 'Add Asset' : 'Add Income Source'}

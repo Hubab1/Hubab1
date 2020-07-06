@@ -65,7 +65,7 @@ export class EditFinancialSource extends React.Component {
         // eslint-disable-next-line
         this.context.refreshFinancialSources?.();
         setSubmitting(false);
-        this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
+        this.props.history.push(this.returnLink);
     };
     async componentDidMount () {
         this.fetchFinancialSource();
@@ -85,6 +85,14 @@ export class EditFinancialSource extends React.Component {
         }
     }
 
+    get isAsset () {
+        return this.state.financialSource?.stream_type === FINANCIAL_STREAM_ASSET;
+    }
+
+    get returnLink () {
+        return `${ROUTES.MANUAL_INCOME_VERIFICATION}#${this.isAsset ? 'asset' : 'income'}`;
+    }
+
     render () {
         const financialSource = this.state.financialSource;
         if (!financialSource) return null;
@@ -92,7 +100,7 @@ export class EditFinancialSource extends React.Component {
         return (
             <>
                 <SkinnyH1>Add an {isAsset ? 'Asset' : 'Income Source'}</SkinnyH1>
-                <SpacedH3>Fill in the details below to add your {isAsset ? 'Asset' : 'Income Source'}.</SpacedH3>
+                <SpacedH3>Fill in the details below to add your {isAsset ? 'asset' : 'income source'}.</SpacedH3>
                 {this.state.errorSubmitting && (
                     <GenericFormMessage
                         type="error"
@@ -107,7 +115,7 @@ export class EditFinancialSource extends React.Component {
                     financialType={isAsset ? FINANCIAL_STREAM_ASSET : FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}
                 />
-                <BackLink to={ROUTES.MANUAL_INCOME_VERIFICATION}/>
+                <BackLink to={this.returnLink}/>
             </>
         );
     }
