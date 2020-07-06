@@ -6,6 +6,7 @@ online leasing front end
 
 ## Development Setup
 
+Woodhouse runs on Node 10 (see [.buildkite/docker-compose.yml](.buildkite/docker-compose.yml) for current version)
 
 ### Run Chuck
 

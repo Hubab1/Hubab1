@@ -1,28 +1,27 @@
+import styled from '@emotion/styled';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
+import withRelativeRoutes from 'app/withRelativeRoutes';
+import rent from 'assets/images/rent.png';
+import { H1, SpacedH3 } from 'assets/styles';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import { css } from 'emotion';
+import { Formik } from 'formik';
+import moment from 'moment';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import FormControl from '@material-ui/core/FormControl';
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import {css} from 'emotion';
-import styled from '@emotion/styled';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
 
-import { serializeDate, parseDateISOString } from 'utils/misc';
-import { H1, SpacedH3 } from 'assets/styles';
-import rent from 'assets/images/rent.png';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES } from 'app/constants';
-import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
-import withRelativeRoutes from 'app/withRelativeRoutes';
-import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
-import { offsetDate } from 'utils/misc';
-import { ROLE_PRIMARY_APPLICANT, LEASE_TERMS_IDENTIFIER } from 'app/constants';
-import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
+import * as Yup from 'yup';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -44,6 +43,22 @@ function serializeValues(values) {
     delete serialized.unit;
     return serialized;
 }
+
+function isUnitAvailable(unit, date) {
+    // Don't allow dates before today
+    if (date < moment()) {
+        return false;
+    }
+
+    // If we don't have a unit, then we don't know when it's available
+    if (!unit || !unit.date_available) {
+        return true;
+    }
+
+    // Only allow dates that are on or after the day the unit is available
+    return moment(date) >= moment(unit.date_available);
+}
+
 
 export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -82,6 +97,45 @@ export class LeaseTermsPage extends React.Component {
         }
     }
 
+    getLeaseEndDateText = (lease_start_date, lease_term) => {
+        // TODO: Need to validate that the entered start date is correct
+        if (!lease_start_date || !lease_term) {
+            return "";
+        }
+
+        if (!moment(lease_start_date, true).isValid()) {
+            return "";
+        }
+
+        return `Ends ${offsetDate(lease_start_date, lease_term)}`;
+    }
+
+    validationSchema = Yup.object().shape({
+        lease_start_date: Yup.string().nullable().required('Select a move in date'),
+        unit: Yup.object().nullable().required('Select a Unit'),
+        lease_term: Yup.number().nullable().required('Select a lease term'),
+    }).test(
+        'is-unit-available-for-date',
+        function(values) {  // Can't use arrow syntax since it'll provide the wrong scope
+            const { createError } = this;
+            const { unit, lease_start_date } = values;
+
+            if (!lease_start_date || !unit || !unit.date_available) {
+                return true;
+            }
+
+            if (isUnitAvailable(unit, lease_start_date)) {
+                return true;
+            }
+
+            const date_available = moment(unit.date_available).format('M/D/YY');
+            return createError({
+                path: 'lease_start_date',
+                message: `Oops! Unit ${ unit.unit_number } isn’t available until ${ date_available }`,
+            });
+        }
+    );
+
     render () {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
@@ -96,11 +150,7 @@ export class LeaseTermsPage extends React.Component {
                 <Formik
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
-                    validationSchema={Yup.object().shape({
-                        lease_start_date: Yup.string().nullable().required('Select a move in date'),
-                        unit: Yup.object().nullable().required('Select a Unit'),
-                        lease_term: Yup.number().nullable().required('Select a lease term'),
-                    })}
+                    validationSchema={this.validationSchema}
                 >
                     {({
                         values,
@@ -133,6 +183,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
+                                            shouldDisableDate={(day) => !isUnitAvailable(values.unit, day)}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
@@ -162,7 +213,7 @@ export class LeaseTermsPage extends React.Component {
                                                     <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                                 ))}
                                             </Select>
-                                            <FormHelperText>{values.lease_start_date && values.lease_term && `Ends ${offsetDate(values.lease_start_date, values.lease_term)}`}</FormHelperText>
+                                            <FormHelperText>{this.getLeaseEndDateText(values.lease_start_date, values.lease_term)}</FormHelperText>
                                         </FormControl>
                                     </Grid>
                                 </Grid>
