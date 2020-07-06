@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot when isAsset=false 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Remove 
+    Income Source
+    ?
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+     - 
+    
+    /year
+  </ForwardRef(render)>
+  <ForwardRef(render) />
+  <ForwardRef(render)
+    fontSize={18}
+  >
+    Are you sure you want to remove this 
+    income source
+    ?
+  </ForwardRef(render)>
+  <br />
+  <br />
+  <ForwardRef(render)>
+    Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.
+  </ForwardRef(render)>
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={100}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Remove 
+    Income Source
+  </ActionButton>
+  <ActionButton
+    color="primary"
+    marginBottom={20}
+    onClick={[Function]}
+    successGreen={false}
+    variant="outlined"
+  >
+    Cancel
+  </ActionButton>
+</React.Fragment>
+`;
+
+exports[`snapshot when isAsset=true 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Remove 
+    Asset
+    ?
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+     - 
+    
+    
+  </ForwardRef(render)>
+  <ForwardRef(render) />
+  <ForwardRef(render)
+    fontSize={18}
+  >
+    Are you sure you want to remove this 
+    asset
+    ?
+  </ForwardRef(render)>
+  <br />
+  <br />
+  <ForwardRef(render)>
+    Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.
+  </ForwardRef(render)>
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={100}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Remove 
+    Asset
+  </ActionButton>
+  <ActionButton
+    color="primary"
+    marginBottom={20}
+    onClick={[Function]}
+    successGreen={false}
+    variant="outlined"
+  >
+    Cancel
+  </ActionButton>
+</React.Fragment>
+`;

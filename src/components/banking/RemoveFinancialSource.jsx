@@ -16,7 +16,13 @@ const SkinnyH1 = styled(H1)`
 
 const SpacedH3 = styled(H3)`
     margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 22px;
+`;
+
+const Divider = styled.hr`
+    border-style: none;
+    border-bottom: 2px solid #EEEEEE;
+    margin-bottom: 22px;
 `;
 
 export class RemoveFinancialSource extends React.Component {
@@ -61,7 +67,7 @@ export class RemoveFinancialSource extends React.Component {
             <>
                 <SkinnyH1>Remove {isAsset ? 'Asset' : 'Income Source'}?</SkinnyH1>
                 <SpacedH3>{ALL_INCOME_OR_ASSET_TYPES[financialSource.income_or_asset_type]?.label} - {prettyCurrency(financialSource.estimated_amount)}{isAsset ? '' : '/year'}</SpacedH3>
-                <hr/>
+                <Divider />
                 {this.state.errorSubmitting && (
                     <GenericFormMessage
                         type="error"
