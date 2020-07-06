@@ -77,7 +77,7 @@ export function ManualIncomeVerificationPage (props) {
                                     <Spacer height={10}/>
                                     <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Remove</Link>
@@ -108,7 +108,7 @@ export function ManualIncomeVerificationPage (props) {
                                     <Spacer height={10}/>
                                     <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Remove</Link>

@@ -40,7 +40,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
           >
             Edit
           </ForwardRef>
-             
+                
           <ForwardRef
             style={
               Object {
@@ -98,7 +98,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
           >
             Edit
           </ForwardRef>
-             
+                
           <ForwardRef
             style={
               Object {
