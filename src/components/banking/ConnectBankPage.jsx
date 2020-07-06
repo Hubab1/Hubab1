@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { css } from 'emotion';
 
 import { ROUTES, REPORT_POLL_INTERVAL, APPLICATION_EVENTS, TOS_TYPE_PAYMENTS } from 'app/constants';
-import API, { MOCKY } from 'app/api';
+import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
