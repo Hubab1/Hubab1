@@ -39,7 +39,7 @@ export class RemoveFinancialSource extends React.Component {
         // eslint-disable-next-line
         this.context.refreshFinancialSources?.();
         this.setState({submitting: false});
-        this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION);
+        this.props.history.push(this.returnLink);
     };
     async componentDidMount () {
         this.fetchFinancialSource();
@@ -57,6 +57,14 @@ export class RemoveFinancialSource extends React.Component {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.fetchFinancialSource();
         }
+    }
+
+    get isAsset () {
+        return this.state.financialSource?.stream_type === FINANCIAL_STREAM_ASSET;
+    }
+
+    get returnLink () {
+        return `${ROUTES.MANUAL_INCOME_VERIFICATION}#${this.isAsset ? 'asset' : 'income'}`;
     }
 
     render () {
@@ -80,7 +88,7 @@ export class RemoveFinancialSource extends React.Component {
                 <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {isAsset ? 'Asset' : 'Income Source'}
                 </ActionButton>
-                <ActionButton onClick={()=>this.props.history.push(ROUTES.MANUAL_INCOME_VERIFICATION)} variant="outlined" marginBottom={20}>
+                <ActionButton onClick={()=>this.props.history.push(this.returnLink)} variant="outlined" marginBottom={20}>
                     Cancel
                 </ActionButton>
             </>

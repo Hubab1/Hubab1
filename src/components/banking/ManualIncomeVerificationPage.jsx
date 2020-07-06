@@ -25,6 +25,10 @@ const SpacedH3 = styled(H3)`
     margin-top: 15px;
     margin-bottom: 30px;
 `;
+const linkStyle = {
+    textDecoration: 'underline',
+    fontSize: 14
+};
 
 export function ManualIncomeVerificationPage (props) {
     const context = React.useContext(BankingContext);
@@ -71,10 +75,10 @@ export function ManualIncomeVerificationPage (props) {
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                     <Spacer height={10}/>
-                                    <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Edit</Link>&nbsp;&nbsp;&nbsp;
-                                    <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Remove</Link>
                                 </div>
@@ -102,10 +106,10 @@ export function ManualIncomeVerificationPage (props) {
                                     <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                     <Spacer height={10}/>
-                                    <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Edit</Link>&nbsp;&nbsp;&nbsp;
-                                    <Link style={{textDecoration: 'underline'}} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
                                         id: source.id,
                                     })}>Remove</Link>
                                 </div>
