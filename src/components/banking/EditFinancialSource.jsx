@@ -90,7 +90,7 @@ export class EditFinancialSource extends React.Component {
     }
 
     get returnLink () {
-        return `${ROUTES.MANUAL_INCOME_VERIFICATION}#${this.isAsset ? 'asset' : 'income'}`;
+        return `${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`;
     }
 
     render () {

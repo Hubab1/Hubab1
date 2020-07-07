@@ -60,6 +60,10 @@ export function IncomeVerificationSummaryPage (props) {
         return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label
     };
 
+    const onContinue = () => {
+        props.history.push(ROUTES.FEES_AND_DEPOSITS);
+    };
+
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
@@ -120,7 +124,7 @@ export function IncomeVerificationSummaryPage (props) {
                     </ExistingItemsExpansionPanel>
                 }
             />
-            <ActionButton marginTop={68} marginBottom={20}>
+            <ActionButton marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
             <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
