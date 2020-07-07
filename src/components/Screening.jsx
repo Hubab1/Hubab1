@@ -126,7 +126,7 @@ export class Screening extends React.Component {
                                         error={errors.have_ssn}
                                         value={values.have_ssn}
                                         row={true}
-                                        defaultValue={true}
+                                        default={true}
                                         onChange={(val) =>
                                             setFieldValue('have_ssn', val.target.value === 'true')}
                                     >
@@ -152,8 +152,9 @@ export class Screening extends React.Component {
                                     checked={values.disclaimer}
                                     value={values.disclaimer}
                                     error={errors.disclaimer}
-                                    label="I authorize Nestio to obtain, on behalf of Landlord,
-                                        a background check on me in connection with my rental application."
+                                    label="By submitting this application, I verify that the information provided in
+                                        this application is true and correct. I authorize Funnel Leasing to obtain,
+                                        on behalf of Landlord, a background check on me in connection with my rental application."
                                 />
                                 <ActionButton disabled={(!values.ssn && values.requestSocialSecurityNumber) || !values.disclaimer || isSubmitting} marginTop={31} marginBottom={20}>
                                     Submit

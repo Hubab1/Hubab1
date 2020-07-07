@@ -19,10 +19,9 @@ exports[`AddAnotherButton Matches snapshot 1`] = `
     }
   >
     <svg
-      aria-hidden="true"
+      aria-hidden={true}
       className="MuiSvgIcon-root"
       focusable="false"
-      role="presentation"
       style={
         Object {
           "fontSize": 20,

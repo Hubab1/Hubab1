@@ -75,7 +75,7 @@ export class PaymentForm extends React.Component {
                 <Grid container justify="space-between">
                     <Grid item xs={12}>
                         <StripeElementWrapper 
-                            label="Credit Card Number" 
+                            label="Credit/Debit Card Number"
                             component={CardNumberElement} 
                             handleChangeUpdate={this.handleChangeUpdate}
                         />
