@@ -23,7 +23,7 @@ export const ROUTES = {
     CO_APPLICANTS: '/rental-profile/invite-roommates',
     INCOME_AND_EMPLOYMENT: '/income-employment',
     BANKING: '/income-employment',
-    MANUAL_INCOME_VERIFICATION: '/income-employment/manual',
+    INCOME_VERIFICATION_SUMMARY: '/income-employment/summary',
     MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
     MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
     EDIT_MANUAL_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/edit',

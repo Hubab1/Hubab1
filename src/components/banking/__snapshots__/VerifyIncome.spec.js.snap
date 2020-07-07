@@ -57,7 +57,7 @@ exports[`matches snapshot 1`] = `
   </ActionButton>
   <ForwardRef
     className="css-1qj8w5r"
-    to="/income-employment/manual"
+    to="/income-employment/summary"
   >
     <ActionButton
       color="primary"

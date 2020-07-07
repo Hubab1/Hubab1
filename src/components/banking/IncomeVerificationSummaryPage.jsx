@@ -26,8 +26,10 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export function ManualIncomeVerificationPage (props) {
+
+export function IncomeVerificationSummaryPage (props) {
     const context = React.useContext(BankingContext);
+
     const setScrollPosition = () => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
         window.location.hash = window.decodeURIComponent(window.location.hash);
@@ -43,11 +45,21 @@ export function ManualIncomeVerificationPage (props) {
         };
         scrollToAnchor();
         window.onhashchange = scrollToAnchor;
-    }
+    };
+
     React.useEffect(() => {
         setScrollPosition();
-    }, [])
+    }, []);
+
     const hashValue = props.location?.hash?.substring?.(1) ?? '';
+
+    const getSourceLabel = (source) => {
+        if (source.finicity_income_stream_id && source.other) {
+            return source.other;
+        }
+        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label
+    };
+
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
@@ -68,7 +80,7 @@ export function ManualIncomeVerificationPage (props) {
                         {
                             context.bankingData?.income_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
+                                    <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                     <Spacer height={10}/>
                                     <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
@@ -96,7 +108,7 @@ export function ManualIncomeVerificationPage (props) {
                         {
                             context.bankingData?.asset_sources?.map((source, i) => (
                                 <div key={source.id}>
-                                    <div>{ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label}</div>
+                                    <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                     <Spacer height={10}/>
                                     <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
@@ -116,6 +128,9 @@ export function ManualIncomeVerificationPage (props) {
     );
 }
 
-ManualIncomeVerificationPage.route = ROUTES.MANUAL_INCOME_VERIFICATION;
 
-export default captureRoute(ManualIncomeVerificationPage)
+IncomeVerificationSummaryPage.contextTypes = BankingContext;
+
+IncomeVerificationSummaryPage.route = ROUTES.INCOME_VERIFICATION_SUMMARY;
+
+export default captureRoute(IncomeVerificationSummaryPage)
