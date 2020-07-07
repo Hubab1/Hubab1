@@ -9,6 +9,7 @@ import AddAssetSource from './AddAssetSource';
 import BankingContext from './BankingContext';
 import API from 'app/api';
 import reducer from './reducer';
+import EditFinancialSource from './EditFinancialSource';
 
 function BankingContainer () {
     const [state, dispatch] = React.useReducer(reducer, {});
@@ -30,6 +31,7 @@ function BankingContainer () {
                 <Route path={ROUTES.MANUAL_INCOME_VERIFICATION} component={ManualIncomeVerificationPage} exact/>
                 <Route path={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME} component={AddIncomeSource}/>
                 <Route path={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET} component={AddAssetSource}/>
+                <Route path={ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE} component={EditFinancialSource}/>
             </Switch>
         </BankingContext.Provider>
     );

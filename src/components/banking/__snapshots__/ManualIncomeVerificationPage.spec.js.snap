@@ -12,6 +12,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     buttonLabel="Add an Income Source"
     expansionPanel={
       <ExistingItemsExpansionPanel
+        defaultExpanded={false}
         label="Income Source"
         labelQuantity={1}
       >
@@ -25,11 +26,26 @@ exports[`matches snapshot with some financial sources data 1`] = `
             $100,000
             /year
           </div>
+          <ForwardRef(render)
+            height={10}
+          />
+          <ForwardRef
+            style={
+              Object {
+                "fontSize": 14,
+                "textDecoration": "underline",
+              }
+            }
+            to="/income-employment/manual/financial-sources/123/edit"
+          >
+            Edit
+          </ForwardRef>
         </div>
       </ExistingItemsExpansionPanel>
     }
     label="Income"
     limitReached={false}
+    name="income"
     prefix={
       <img
         alt="coin"
@@ -43,6 +59,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     buttonLabel="Add an Asset"
     expansionPanel={
       <ExistingItemsExpansionPanel
+        defaultExpanded={false}
         label="Asset"
         labelQuantity={1}
       >
@@ -55,11 +72,26 @@ exports[`matches snapshot with some financial sources data 1`] = `
           >
             $40,000
           </div>
+          <ForwardRef(render)
+            height={10}
+          />
+          <ForwardRef
+            style={
+              Object {
+                "fontSize": 14,
+                "textDecoration": "underline",
+              }
+            }
+            to="/income-employment/manual/financial-sources/123/edit"
+          >
+            Edit
+          </ForwardRef>
         </div>
       </ExistingItemsExpansionPanel>
     }
     label="Assets"
     limitReached={false}
+    name="asset"
     prefix={
       <img
         alt="piggy bank"
@@ -72,7 +104,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
   <ActionButton
     color="primary"
     marginBottom={20}
-    marginTop={40}
+    marginTop={68}
     successGreen={false}
     variant="contained"
   >

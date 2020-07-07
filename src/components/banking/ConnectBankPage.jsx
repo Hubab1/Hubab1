@@ -165,7 +165,7 @@ export class ConnectBankPage extends React.Component {
     render () {
         if (!this.props.applicant) {return <div/>}
         if (!!this.state.reportData ) {
-            return <ReviewAccountsPage 
+            return <ReviewAccountsPage
                 incomeNameInitialValues={this.state.reportData.incomeNameInitialValues}
                 incomeEntries={this.state.reportData.incomeEntries}
                 incomeTotal={this.state.reportData.incomeTotal}

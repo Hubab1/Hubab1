@@ -38,6 +38,10 @@ const UploadButtonContainer = styled.div`
     }
 `
 const FileNamesContainer = styled.div`
+    margin-right: -23px;
+    margin-left: -23px;
+    padding-left: 23px;
+    padding-right: 23px;
     background-color: rgba(38,48,91,0.1);
     .uploaded-document-display:last-child {
         border-bottom: none;
@@ -58,16 +62,13 @@ const UploadedDocuments = styled.div`
         height: 16px;
         color: #828796;
         margin-bottom: 9px;
-        padding: 11px 23px 12px 23px;
+        padding: 11px 0px 12px 0px;
         display: flex;
         justify-content: space-between;
     }
     .uploaded-document-display {
-        margin-left: 23px;
-        margin-right: 23px;
-        height: 43px;
         border-bottom: 1px solid #C8C8C8;
-        padding: 11px 23px 12px 23px;
+        padding: 11px 0px 12px 0px;
         display: flex;
         justify-content: space-between;
     }
@@ -88,6 +89,21 @@ export class UploadDocuments extends React.Component {
         selectedDocumentIndex: null,
         selectedDocument: null,
     };
+
+    componentDidMount () {
+        let label;
+        for (let key in this.props.uploadedDocuments) {
+            label = this.props.uploadedDocuments[key].label;
+        }
+        if (!label) return;
+        const index = this.documentsRequired?.proof_documents.findIndex((proof) => proof.label === label); // find label for existing document to set initial selected values
+        if (index > -1) {
+            this.setState({
+                selectedDocumentIndex: index,
+                selectedDocument: this.documentsRequired.proof_documents[index]
+            });
+        }
+    }
 
     componentDidUpdate (prevProps) {
         if (prevProps.incomeOrAssetType !== this.props.incomeOrAssetType){
