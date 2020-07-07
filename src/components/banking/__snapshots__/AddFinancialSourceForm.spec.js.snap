@@ -92,15 +92,12 @@ exports[`Matches snapshot showing other field 1`] = `
         fullWidth={true}
         helperText={false}
         label="Estimated annual income"
-        maximumValue="10000000000000"
         minimumValue="0"
         name="estimated_amount"
         onChange={[Function]}
         outputFormat="string"
         textAlign="left"
-        type="text"
         value=""
-        variant="standard"
       />
       <UNDEFINED
         incomeOrAssetType={140}

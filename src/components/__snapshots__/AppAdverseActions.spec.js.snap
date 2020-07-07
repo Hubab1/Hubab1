@@ -163,11 +163,17 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -343,11 +349,17 @@ exports[`Credit score color Display color green when good credit score 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -523,11 +535,17 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -703,11 +721,17 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -883,11 +907,17 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1063,11 +1093,17 @@ exports[`Display N/A when only credit date is available 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1248,11 +1284,17 @@ exports[`Display adverseFactorsList when Factors 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1428,11 +1470,17 @@ exports[`Display credit data when available 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1576,11 +1624,17 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1732,11 +1786,17 @@ exports[`Matches Snapshot with security deposit 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1880,11 +1940,17 @@ exports[`Matches Snapshot without security deposit 1`] = `
             <ForwardRef(Button) classes={{...}} onClick={[Function: mockConstructor]} variant=\\"contained\\" color=\\"primary\\" type=\\"submit\\" disabled={false} fullWidth={true}>
               <WithStyles(ForwardRef(ButtonBase)) className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
                 <ForwardRef(ButtonBase) classes={{...}} className=\\"MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" component=\\"button\\" disabled={false} focusRipple={true} focusVisibleClassName=\\"Mui-focusVisible\\" type=\\"submit\\" onClick={[Function: mockConstructor]}>
-                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function]} onClick={[Function: mockConstructor]} onFocus={[Function]} onKeyDown={[Function]} onKeyUp={[Function]} onMouseDown={[Function]} onMouseLeave={[Function]} onMouseUp={[Function]} onDragLeave={[Function]} onTouchEnd={[Function]} onTouchMove={[Function]} onTouchStart={[Function]} tabIndex={0} type=\\"submit\\" disabled={false}>
+                  <button className=\\"MuiButtonBase-root MuiButton-root css-11ldqzb MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth\\" onBlur={[Function (anonymous)]} onClick={[Function: mockConstructor]} onFocus={[Function (anonymous)]} onKeyDown={[Function (anonymous)]} onKeyUp={[Function (anonymous)]} onMouseDown={[Function (anonymous)]} onMouseLeave={[Function (anonymous)]} onMouseUp={[Function (anonymous)]} onDragLeave={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} onTouchMove={[Function (anonymous)]} onTouchStart={[Function (anonymous)]} tabIndex={0} type=\\"submit\\" disabled={false}>
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <NoSsr />
+                    <WithStyles(memo) center={false}>
+                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
+                        <span className=\\"MuiTouchRipple-root\\">
+                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
+                        </span>
+                      </ForwardRef(TouchRipple)>
+                    </WithStyles(memo)>
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
