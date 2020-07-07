@@ -41,7 +41,7 @@ export default ({
             email: Yup.string()
                 .email()
                 .required('Email is required'),
-            birthday: Yup.string()	
+            birthday: Yup.string()
                 .required('required'),
             ...(withPassword && {password: Yup.string()
                 .required('Password must be at least 8 characters')
@@ -109,12 +109,18 @@ export default ({
                         </Grid>
                         <Grid item xs={6}>
                             <KeyboardDatePicker	
-                                id="birthday-picker"	
+                                id="birthday-picker"
                                 clearable	
                                 disableFuture	
                                 format="MM/dd/yyyy"	
                                 placeholder="mm/dd/yyyy"	
-                                label="Birthday"	
+                                label="Birthday"
+                                helperText="Must be 18 or older"
+                                maxDate={(() => {
+                                    const d = new Date();
+                                    d.setFullYear(d.getFullYear() - 18);
+                                    return d;
+                                })()}
                                 value={values.birthday || null}	
                                 fullWidth	
                                 onBlur={handleBlur}	
