@@ -86,7 +86,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                             <ForwardRef>
                                               <WithStyles(ForwardRef(SvgIcon))>
                                                 <ForwardRef(SvgIcon) classes={{...}}>
-                                                  <svg className=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" color={[undefined]} aria-hidden={true} role={[undefined]}>
+                                                  <svg className=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" color={[undefined]} aria-hidden=\\"true\\" role=\\"presentation\\">
                                                     <path d=\\"M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z\\" />
                                                     <path fill=\\"none\\" d=\\"M0 0h24v24H0z\\" />
                                                   </svg>
@@ -94,6 +94,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                                               </WithStyles(ForwardRef(SvgIcon))>
                                             </ForwardRef>
                                           </span>
+                                          <NoSsr />
                                         </div>
                                       </ForwardRef(ButtonBase)>
                                     </WithStyles(ForwardRef(ButtonBase))>
@@ -106,7 +107,7 @@ exports[`Price Breackdown section display correct info 1`] = `
                       </WithStyles(ForwardRef(ExpansionPanelSummary))>
                       <WithStyles(ForwardRef(Collapse)) in={false} timeout=\\"auto\\">
                         <ForwardRef(Collapse) classes={{...}} in={false} timeout=\\"auto\\">
-                          <Transition in={false} onEnter={[Function (anonymous)]} onEntered={[Function (anonymous)]} onEntering={[Function (anonymous)]} onExit={[Function (anonymous)]} onExited={[Function (anonymous)]} onExiting={[Function (anonymous)]} addEndListener={[Function: addEndListener]} nodeRef={[undefined]} timeout={{...}} mountOnEnter={false} unmountOnExit={false} appear={false} enter={true} exit={true}>
+                          <Transition in={false} onEnter={[Function: handleEnter]} onEntered={[Function: handleEntered]} onEntering={[Function: handleEntering]} onExit={[Function: handleExit]} onExiting={[Function: handleExiting]} addEndListener={[Function: addEndListener]} timeout={{...}} mountOnEnter={false} unmountOnExit={false} appear={false} enter={true} exit={true} onExited={[Function: noop]}>
                             <div className=\\"MuiCollapse-container MuiCollapse-hidden\\" style={{...}}>
                               <div className=\\"MuiCollapse-wrapper\\">
                                 <div className=\\"MuiCollapse-wrapperInner\\">

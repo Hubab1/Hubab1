@@ -167,13 +167,7 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -353,13 +347,7 @@ exports[`Credit score color Display color green when good credit score 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -539,13 +527,7 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -725,13 +707,7 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -911,13 +887,7 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1097,13 +1067,7 @@ exports[`Display N/A when only credit date is available 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1288,13 +1252,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1474,13 +1432,7 @@ exports[`Display credit data when available 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1628,13 +1580,7 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1790,13 +1736,7 @@ exports[`Matches Snapshot with security deposit 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
@@ -1944,13 +1884,7 @@ exports[`Matches Snapshot without security deposit 1`] = `
                     <span className=\\"MuiButton-label css-1405lf9\\">
                       OK
                     </span>
-                    <WithStyles(memo) center={false}>
-                      <ForwardRef(TouchRipple) classes={{...}} center={false}>
-                        <span className=\\"MuiTouchRipple-root\\">
-                          <TransitionGroup component={{...}} exit={true} childFactory={[Function: childFactory]} />
-                        </span>
-                      </ForwardRef(TouchRipple)>
-                    </WithStyles(memo)>
+                    <NoSsr />
                   </button>
                 </ForwardRef(ButtonBase)>
               </WithStyles(ForwardRef(ButtonBase))>
