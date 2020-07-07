@@ -36,6 +36,8 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
+export const DATE_FORMAT = 'MM/DD/YYYY';
+
 function serializeValues(values) {
     const serialized = Object.assign({}, values);
     serialized.unit_id = serialized.unit.id;
@@ -44,21 +46,41 @@ function serializeValues(values) {
     return serialized;
 }
 
-function isUnitAvailable(unit, date) {
-    // Don't allow dates before today
-    if (date < moment()) {
-        return false;
+export const leaseTermsValidationSchema = Yup.object().test(
+    'is-unit-available-for-date', 'An error has occurred',
+    function(values) {
+        const { createError } = this;
+        const { unit, lease_start_date } = values;
+
+        if (!lease_start_date || !unit || !unit.date_available) {
+            return true;
+        }
+
+        const start_date = moment(lease_start_date, 'MM/DD/YYYY', true);
+        if (!start_date.isValid()) {
+            return true;
+        }
+
+        const date_available = moment(unit.date_available)
+        if (start_date >= date_available) {
+            return true;
+        }
+
+        return createError({
+            path: 'lease_start_date',
+            message: `Oops! Unit ${ unit.unit_number } isn’t available until ${ date_available.format('M/D/YY') }`,
+        });
     }
-
-    // If we don't have a unit, then we don't know when it's available
-    if (!unit || !unit.date_available) {
-        return true;
-    }
-
-    // Only allow dates that are on or after the day the unit is available
-    return moment(date) >= moment(unit.date_available);
-}
-
+).shape({
+    lease_start_date: Yup.string().nullable().test(
+        'is-valid-date', 'Invalid date', value => !value || moment(value, DATE_FORMAT, true).isValid()
+    ).test(
+        'is-after-today', 'Move In Date must be on or after today',
+        value => !value || moment(value, DATE_FORMAT, true).startOf('day') >= moment().startOf('day')
+    ).required('Select a Move In Date'),
+    unit: Yup.object().nullable().required('Select a Unit'),
+    lease_term: Yup.number().nullable().required('Select a Lease Term'),
+});
 
 export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -110,31 +132,17 @@ export class LeaseTermsPage extends React.Component {
         return `Ends ${offsetDate(lease_start_date, lease_term)}`;
     }
 
-    validationSchema = Yup.object().shape({
-        lease_start_date: Yup.string().nullable().required('Select a move in date'),
-        unit: Yup.object().nullable().required('Select a Unit'),
-        lease_term: Yup.number().nullable().required('Select a lease term'),
-    }).test(
-        'is-unit-available-for-date',
-        function(values) {  // Can't use arrow syntax since it'll provide the wrong scope
-            const { createError } = this;
-            const { unit, lease_start_date } = values;
+    getMinLeaseStartDate = (unit) => {
+        const today = moment().startOf('day');
+        const dateAvailable = (unit && unit.date_available) ? moment(unit.date_available) : null;
 
-            if (!lease_start_date || !unit || !unit.date_available) {
-                return true;
-            }
-
-            if (isUnitAvailable(unit, lease_start_date)) {
-                return true;
-            }
-
-            const date_available = moment(unit.date_available).format('M/D/YY');
-            return createError({
-                path: 'lease_start_date',
-                message: `Oops! Unit ${ unit.unit_number } isn’t available until ${ date_available }`,
-            });
+        if (dateAvailable) {
+            return moment.max(today, dateAvailable);
+        } else {
+            return today;
         }
-    );
+    }
+
 
     render () {
         if (!this.props.application) return null;
@@ -150,7 +158,7 @@ export class LeaseTermsPage extends React.Component {
                 <Formik
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
-                    validationSchema={this.validationSchema}
+                    validationSchema={leaseTermsValidationSchema}
                 >
                     {({
                         values,
@@ -183,7 +191,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
-                                            shouldDisableDate={(day) => !isUnitAvailable(values.unit, day)}
+                                            minDate={this.getMinLeaseStartDate(values.unit)}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
@@ -221,7 +229,8 @@ export class LeaseTermsPage extends React.Component {
                             {
                                 values.unit &&
                                 values.lease_start_date &&
-                                values.lease_term && (
+                                values.lease_term &&
+                                !errors.lease_start_date && (
                                     <PriceBreakdown
                                         selectedOptions={{}}
                                         application={this.props.application}
@@ -233,7 +242,7 @@ export class LeaseTermsPage extends React.Component {
                                 )
                             }
                             <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
-                                    Continue
+                                Continue
                             </ActionButton>
                         </form>
                     )}
