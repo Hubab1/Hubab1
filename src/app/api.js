@@ -291,4 +291,29 @@ API.getFinancialSources = () => {
     }})
 }
 
+API.getFinancialSource = id => {
+    return fetch(chuck(`/financial-sources/${id}/`), {
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+    }}).then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+        throw new Error();
+    })
+}
+API.updateFinancialSource = (id, body) => {
+    return fetch(chuck(`/financial-sources/${id}/`), {
+        method: 'PATCH',
+        body,
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+    }}).then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+        throw new Error();
+    })
+}
+
 export default API;

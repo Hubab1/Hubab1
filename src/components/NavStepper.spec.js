@@ -102,3 +102,46 @@ describe('Application submitted state', function() {
     })
 });
 
+describe('Unit unavailable state', function() {
+    it("Renders a unit unavailable message", function() {
+        const defaultProps = {
+            renterProfile: {
+                unit_available: false,
+            },
+            applicantStillFinishingApplication: true,
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            }
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const appCompletedMsg =  wrapper.find('.unitUnavailableMsg');
+        expect(appCompletedMsg.text()).toContain('We\'ve placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at 123-456-7891 so we can discuss some other options.');
+        expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
+    })
+
+    it("View Progress when clicked takes to initialPage set", function() {
+        const defaultProps = {
+            renterProfile: {
+                unit_available: false,
+            },
+            applicantStillFinishingApplication: true,
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            },
+            history: {
+                push: jest.fn(),
+            },
+            initialPage: ROUTES.UNIT_UNAVAILABLE,
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('#viewProgressButton').simulate('click');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/unit-unavailable');
+    })
+});
+
