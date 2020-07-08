@@ -66,10 +66,6 @@ export const leaseTermsValidationSchema = Yup.object().test(
         }
 
         const start_date = Date.parse(lease_start_date);
-        if (isNaN(start_date)) {
-            return createError({path: 'lease_start_date', message: 'Invalid date'});
-        }
-
         const min_available = getMinLeaseStartDate(unit);
         if (new Date(start_date) < min_available) {
             const unitNumber = unit ? unit.unit_number : '';
@@ -82,7 +78,7 @@ export const leaseTermsValidationSchema = Yup.object().test(
         return true;
     }
 ).shape({
-    lease_start_date: Yup.string().nullable().required('Select a Move In Date'),
+    lease_start_date: Yup.date().nullable().typeError('Invalid Date').required('Select a Move In Date'),
     unit: Yup.object().nullable().required('Select a Unit'),
     lease_term: Yup.number().nullable().required('Select a Lease Term'),
 });

@@ -90,7 +90,7 @@ describe('validationSchema', () => {
 
     function getValidData() {
         return {
-            lease_start_date: addDays(referenceDate, 5).toString(),
+            lease_start_date: addDays(referenceDate, 5),
             unit: {
                 id: '1',
                 unit_number: '15',
@@ -129,15 +129,15 @@ describe('validationSchema', () => {
 
         const data = getValidData();
 
-        data.lease_start_date = undefined
+        data.lease_start_date = undefined;
         await verifyErrorMessage(data, 'lease_start_date', errorSelectDate);
 
-        data.lease_start_date = ''
+        data.lease_start_date = null;
         await verifyErrorMessage(data, 'lease_start_date', errorSelectDate);
     });
 
     it ('should be invalid when invalid dates are entered', async () => {
-        const errorInvalidFormat = 'Invalid date';
+        const errorInvalidFormat = 'Invalid Date';
 
         const data = getValidData();
 
@@ -157,13 +157,13 @@ describe('validationSchema', () => {
 
         const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(referenceDate, 'M/d/yy')}`;
 
-        data.lease_start_date = subDays(referenceDate, 2).toString();
+        data.lease_start_date = subDays(referenceDate, 2);
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
 
-        data.lease_start_date = subDays(referenceDate, 1).toString();
+        data.lease_start_date = subDays(referenceDate, 1);
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
 
-        data.lease_start_date = addDays(referenceDate, 1).toString();
+        data.lease_start_date = addDays(referenceDate, 1);
         await verifyValid(data);
     });
 
@@ -175,13 +175,13 @@ describe('validationSchema', () => {
 
         const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(dateAvailable, 'M/d/yy')}`;
 
-        data.lease_start_date = subDays(dateAvailable, 1).toString();
+        data.lease_start_date = subDays(dateAvailable, 1);
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
 
-        data.lease_start_date = new Date(dateAvailable).toString();
+        data.lease_start_date = new Date(dateAvailable);
         await verifyValid(data);
 
-        data.lease_start_date = addDays(dateAvailable, 1).toString();
+        data.lease_start_date = addDays(dateAvailable, 1);
         await verifyValid(data);
     });
 });
