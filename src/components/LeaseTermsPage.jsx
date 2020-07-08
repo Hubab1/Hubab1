@@ -1,11 +1,18 @@
-import styled from '@emotion/styled';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import { css } from 'emotion';
+import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import { format, isValid, parseISO } from 'date-fns';
+
 import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import rent from 'assets/images/rent.png';
@@ -13,15 +20,8 @@ import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
-import { css } from 'emotion';
-import { Formik } from 'formik';
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
-import { format, isValid, parseISO } from 'date-fns';
-
 import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
-import * as Yup from 'yup';
 
 const ImageContainer = styled.div`
     margin-top: 31px;

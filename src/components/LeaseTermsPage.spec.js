@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ValidationError } from 'yup';
 import { addDays, subDays, format } from 'date-fns';
+import { Formik } from 'formik';
 
 import { LeaseTermsPage, leaseTermsValidationSchema } from './LeaseTermsPage';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import PriceBreakdown from './profile/options/PriceBreakdown';
-import { Formik } from 'formik';
 
 
 let defaultProps, updateRenterProfile;
