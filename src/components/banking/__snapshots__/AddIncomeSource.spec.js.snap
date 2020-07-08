@@ -26,7 +26,7 @@ exports[`matches snapshot 1`] = `
     onSubmit={[Function]}
   />
   <BackLink
-    to="/income-employment/manual#income"
+    to="/income-employment/summary#income"
   />
 </React.Fragment>
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ManualIncomeVerificationPage } from './ManualIncomeVerificationPage';
+import { IncomeVerificationSummaryPage } from './IncomeVerificationSummaryPage';
 
 jest.mock("react", () => ({
     ...jest.requireActual("react"),
@@ -33,7 +33,7 @@ beforeEach(() => {
 })
 
 it('matches snapshot with some financial sources data', () => {
-    const wrapper = shallow(<ManualIncomeVerificationPage {...defaultProps}/>);
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps}/>);
     expect(
         wrapper.getElement()
     ).toMatchSnapshot();

@@ -105,6 +105,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     color="primary"
     marginBottom={20}
     marginTop={68}
+    onClick={[Function]}
     successGreen={false}
     variant="contained"
   >
