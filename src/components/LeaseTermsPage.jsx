@@ -15,10 +15,10 @@ import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import { css } from 'emotion';
 import { Formik } from 'formik';
-import moment from 'moment';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
+import { format, isValid, parseISO } from 'date-fns';
 
 import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
 import * as Yup from 'yup';
@@ -36,8 +36,6 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `
 
-export const DATE_FORMAT = 'MM/DD/YYYY';
-
 function serializeValues(values) {
     const serialized = Object.assign({}, values);
     serialized.unit_id = serialized.unit.id;
@@ -46,38 +44,45 @@ function serializeValues(values) {
     return serialized;
 }
 
+function getMinLeaseStartDate(unit) {
+    const today = Date.now();
+    const dateAvailable = (unit && unit.date_available) ? parseISO(unit.date_available) : null;
+
+    if (!dateAvailable || today > dateAvailable) {
+        return new Date(today).setHours(0, 0, 0, 0);
+    } else {
+        return dateAvailable;
+    }
+}
+
 export const leaseTermsValidationSchema = Yup.object().test(
     'is-unit-available-for-date', 'An error has occurred',
     function(values) {
         const { createError } = this;
         const { unit, lease_start_date } = values;
 
-        if (!lease_start_date || !unit || !unit.date_available) {
+        if (!lease_start_date) {
             return true;
         }
 
-        const start_date = moment(lease_start_date, 'MM/DD/YYYY', true);
-        if (!start_date.isValid()) {
-            return true;
+        const start_date = Date.parse(lease_start_date);
+        if (isNaN(start_date)) {
+            return createError({path: 'lease_start_date', message: 'Invalid date'});
         }
 
-        const date_available = moment(unit.date_available)
-        if (start_date >= date_available) {
-            return true;
+        const min_available = getMinLeaseStartDate(unit);
+        if (new Date(start_date) < min_available) {
+            const unitNumber = unit ? unit.unit_number : '';
+            return createError({
+                path: 'lease_start_date',
+                message: `Oops! Unit ${ unitNumber } isn’t available until ${ format(min_available, 'M/d/yy') }`,
+            });
         }
 
-        return createError({
-            path: 'lease_start_date',
-            message: `Oops! Unit ${ unit.unit_number } isn’t available until ${ date_available.format('M/D/YY') }`,
-        });
+        return true;
     }
 ).shape({
-    lease_start_date: Yup.string().nullable().test(
-        'is-valid-date', 'Invalid date', value => !value || moment(value, DATE_FORMAT, true).isValid()
-    ).test(
-        'is-after-today', 'Move In Date must be on or after today',
-        value => !value || moment(value, DATE_FORMAT, true).startOf('day') >= moment().startOf('day')
-    ).required('Select a Move In Date'),
+    lease_start_date: Yup.string().nullable().required('Select a Move In Date'),
     unit: Yup.object().nullable().required('Select a Unit'),
     lease_term: Yup.number().nullable().required('Select a Lease Term'),
 });
@@ -125,24 +130,12 @@ export class LeaseTermsPage extends React.Component {
             return "";
         }
 
-        if (!moment(lease_start_date, true).isValid()) {
+        if (!isValid(lease_start_date)) {
             return "";
         }
 
         return `Ends ${offsetDate(lease_start_date, lease_term)}`;
     }
-
-    getMinLeaseStartDate = (unit) => {
-        const today = moment().startOf('day');
-        const dateAvailable = (unit && unit.date_available) ? moment(unit.date_available) : null;
-
-        if (dateAvailable) {
-            return moment.max(today, dateAvailable);
-        } else {
-            return today;
-        }
-    }
-
 
     render () {
         if (!this.props.application) return null;
@@ -191,7 +184,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
-                                            minDate={this.getMinLeaseStartDate(values.unit)}
+                                            minDate={getMinLeaseStartDate(values.unit)}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>

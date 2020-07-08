@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import { ValidationError } from 'yup';
+import { addDays, subDays, format } from 'date-fns';
 
 import { LeaseTermsPage, leaseTermsValidationSchema } from './LeaseTermsPage';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
@@ -85,16 +85,16 @@ describe('validationSchema', () => {
 
     beforeEach(() => {
         schema = leaseTermsValidationSchema;
-        referenceDate = moment().startOf('day');
+        referenceDate = new Date().setHours(0, 0, 0, 0);
     });
 
     function getValidData() {
         return {
-            lease_start_date: moment(referenceDate).add(5, 'days').format('MM/DD/YYYY'),
+            lease_start_date: addDays(referenceDate, 5).toString(),
             unit: {
                 id: '1',
                 unit_number: '15',
-                date_available: moment(referenceDate).subtract(5, 'days').format('YYYY-MM-DD'),
+                date_available: format(subDays(referenceDate, 5), 'yyyy-MM-dd'),
             },
             lease_term: 12,
         }
@@ -144,43 +144,44 @@ describe('validationSchema', () => {
         data.lease_start_date = 'abc';
         await verifyErrorMessage(data, 'lease_start_date', errorInvalidFormat);
 
-        data.lease_start_date = 'abc-123';
-        await verifyErrorMessage(data, 'lease_start_date', errorInvalidFormat);
-
-        data.lease_start_date = '1/2/345';
-        await verifyErrorMessage(data, 'lease_start_date', errorInvalidFormat);
-
         data.lease_start_date = '14/22/2050';
         await verifyErrorMessage(data, 'lease_start_date', errorInvalidFormat);
     });
 
     it('should verify that the lease start date is on or after today', async () => {
-        const errorDateOld = 'Move In Date must be on or after today';
-
         const data = getValidData();
+        data.unit = {
+            id: 123,
+            unit_number: '15',
+        };
 
-        data.lease_start_date = moment(referenceDate).subtract(2, 'days').format('MM/DD/YYYY');
-        await verifyErrorMessage(data, 'lease_start_date', errorDateOld);
+        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(referenceDate, 'M/d/yy')}`;
 
-        data.lease_start_date = moment(referenceDate).subtract(1, 'days').format('MM/DD/YYYY');
-        await verifyErrorMessage(data, 'lease_start_date', errorDateOld);
+        data.lease_start_date = subDays(referenceDate, 2).toString();
+        await verifyErrorMessage(data, 'lease_start_date', errorMessage);
 
-        data.lease_start_date = moment(referenceDate).format('MM/DD/YYYY');
-        await verifyValid(data);
+        data.lease_start_date = subDays(referenceDate, 1).toString();
+        await verifyErrorMessage(data, 'lease_start_date', errorMessage);
 
-        data.lease_start_date = moment(referenceDate).add(1, 'days').format('MM/DD/YYYY');
+        data.lease_start_date = addDays(referenceDate, 1).toString();
         await verifyValid(data);
     });
 
     it('should verify that the selected lease start date is on or after unit available date', async () => {
         const data = getValidData();
 
-        const dateAvailable = moment(referenceDate).add(7, 'days')
-        data.unit.date_available = dateAvailable.format('YYYY-MM-DD');
+        const dateAvailable = addDays(referenceDate, 7);
+        data.unit.date_available = format(dateAvailable, 'yyyy-MM-dd');
 
-        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${dateAvailable.format('M/D/YY')}`
+        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(dateAvailable, 'M/d/yy')}`;
 
+        data.lease_start_date = subDays(dateAvailable, 1).toString();
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
+
+        data.lease_start_date = new Date(dateAvailable).toString();
+        await verifyValid(data);
+
+        data.lease_start_date = addDays(dateAvailable, 1).toString();
+        await verifyValid(data);
     });
-    
 });
