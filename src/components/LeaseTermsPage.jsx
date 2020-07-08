@@ -46,7 +46,7 @@ function serializeValues(values) {
 
 function getMinLeaseStartDate(unit) {
     const today = Date.now();
-    const dateAvailable = (unit && unit.date_available) ? parseISO(unit.date_available) : null;
+    const dateAvailable = unit?.date_available ? parseISO(unit.date_available) : null;
 
     if (!dateAvailable || today > dateAvailable) {
         return new Date(today).setHours(0, 0, 0, 0);
