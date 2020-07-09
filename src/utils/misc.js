@@ -3,8 +3,6 @@ import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import auth from 'utils/auth';
 
-import { ROLE_GUARANTOR } from 'app/constants';
-
 export function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
         // maybe do some api call to check that this authentication token is valid for this community
@@ -62,27 +60,6 @@ export function formatCurrency(number, decimalPlaces=2) {
 export function prettyCurrency(number, decimalPlaces = 2) {
     return formatCurrency(number, decimalPlaces).replace('.00', '')
 }
-
-export const getIncomeRequirementText = props => {
-    const {config, profile, applicant} = props;
-    const { guarantor_income_requirement_multiplier, applicant_income_requirements } = config;
-
-    if (profile.unit) {
-        const guarantor_income_amount = guarantor_income_requirement_multiplier * profile.unit.price;
-        const applicant_income_amount = applicant_income_requirements * profile.unit.price;
-        if (applicant.role === ROLE_GUARANTOR) {
-            return `The total income required for a guarantor on the application is ${guarantor_income_requirement_multiplier}x the rent: ${formatCurrency(guarantor_income_amount, 0)}`;
-        } else {
-            return `The total income required for all members of the application is ${applicant_income_requirements}x the rent: ${formatCurrency(applicant_income_amount, 0)}`;
-        }
-    } else {
-        if (applicant.role === ROLE_GUARANTOR) {
-            return `The total income required for a guarantor on the application is ${guarantor_income_requirement_multiplier}x the rent`;
-        } else {
-            return `The total income required for all members of the application is ${applicant_income_requirements}x the rent`;
-        }
-    }
-};
 
 // takes a date object and outputs a date string formatted like "1981-12-27"
 export function serializeDate (date) {

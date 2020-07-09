@@ -11,37 +11,72 @@ exports[`matches snapshot with some financial sources data 1`] = `
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
-      <ExistingItemsExpansionPanel
-        defaultExpanded={false}
-        label="Income Source"
-        labelQuantity={1}
-      >
-        <div>
-          <div>
-            Employment
-          </div>
+      <React.Fragment>
+        <div
+          className="css-1qtbm8m"
+        >
           <div
-            className="css-dufvih"
+            className="css-mt9voc"
           >
             $100,000
-            /year
+             Total Annual Income
           </div>
-          <ForwardRef(render)
-            height={10}
-          />
-          <ForwardRef
-            style={
-              Object {
-                "fontSize": 14,
-                "textDecoration": "underline",
-              }
-            }
-            to="/income-employment/manual/financial-sources/123/edit"
+          <p
+            className="css-1pqho16"
           >
-            Edit
-          </ForwardRef>
+            $40,000
+             is the recommended household income.
+            <SimplePopover
+              text="It’s recommended that the yearly combined income of all applicants be 40x the monthly rent."
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
         </div>
-      </ExistingItemsExpansionPanel>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Income Source"
+          labelQuantity={1}
+        >
+          <div>
+            <div>
+              Employment
+            </div>
+            <div
+              className="css-dufvih"
+            >
+              $100,000
+              /year
+            </div>
+            <ForwardRef(render)
+              height={10}
+            />
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/edit"
+            >
+              Edit
+            </ForwardRef>
+          </div>
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
     }
     label="Income"
     limitReached={false}
@@ -58,36 +93,222 @@ exports[`matches snapshot with some financial sources data 1`] = `
   <Capsule
     buttonLabel="Add an Asset"
     expansionPanel={
-      <ExistingItemsExpansionPanel
-        defaultExpanded={false}
-        label="Asset"
-        labelQuantity={1}
-      >
-        <div>
-          <div>
-            Investment
-          </div>
+      <React.Fragment>
+        <div
+          className="css-1qtbm8m"
+        >
           <div
-            className="css-dufvih"
+            className="css-mt9voc"
           >
             $40,000
+             Total Asset Balance
           </div>
-          <ForwardRef(render)
-            height={10}
-          />
-          <ForwardRef
-            style={
-              Object {
-                "fontSize": 14,
-                "textDecoration": "underline",
-              }
-            }
-            to="/income-employment/manual/financial-sources/123/edit"
+          <p
+            className="css-1pqho16"
           >
-            Edit
-          </ForwardRef>
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
         </div>
-      </ExistingItemsExpansionPanel>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Asset"
+          labelQuantity={1}
+        >
+          <div>
+            <div>
+              Investment
+            </div>
+            <div
+              className="css-dufvih"
+            >
+              $40,000
+            </div>
+            <ForwardRef(render)
+              height={10}
+            />
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/edit"
+            >
+              Edit
+            </ForwardRef>
+          </div>
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    marginBottom={20}
+    marginTop={68}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <BackLink
+    to="/income-employment"
+  />
+</React.Fragment>
+`;
+
+exports[`matches snapshot with some financial sources data if guarantor 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-1qtbm8m"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $80,000
+             is the required income for guarantors.
+            <SimplePopover
+              text="The required income for a guarantor is 80x the monthly rent"
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Income Source"
+          labelQuantity={1}
+        >
+          <div>
+            <div>
+              Employment
+            </div>
+            <div
+              className="css-dufvih"
+            >
+              $100,000
+              /year
+            </div>
+            <ForwardRef(render)
+              height={10}
+            />
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/edit"
+            >
+              Edit
+            </ForwardRef>
+          </div>
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-1qtbm8m"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Asset"
+          labelQuantity={1}
+        >
+          <div>
+            <div>
+              Investment
+            </div>
+            <div
+              className="css-dufvih"
+            >
+              $40,000
+            </div>
+            <ForwardRef(render)
+              height={10}
+            />
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/edit"
+            >
+              Edit
+            </ForwardRef>
+          </div>
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
     }
     label="Assets"
     limitReached={false}
