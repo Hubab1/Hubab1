@@ -46,7 +46,7 @@ it('Goes back to manual income verification page on submit', async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
     });
-    expect(defaultProps.history.push).toHaveBeenCalledWith(`${ROUTES.MANUAL_INCOME_VERIFICATION}#income`);
+    expect(defaultProps.history.push).toHaveBeenCalledWith(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`);
 });
 
 it('Doesnt go back on failure to submit', async () => {

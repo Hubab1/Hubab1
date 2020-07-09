@@ -57,7 +57,7 @@ export function AddIncomeSource (props) {
             return;
         }
         context.refreshFinancialSources();
-        props.history.push(`${ROUTES.MANUAL_INCOME_VERIFICATION}#income`);
+        props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`);
         setSubmitting(false);
         setErrorSubmitting(false);
     };
@@ -79,7 +79,7 @@ export function AddIncomeSource (props) {
                 financialType={FINANCIAL_STREAM_INCOME}
                 onSubmit={onSubmit}
             />
-            <BackLink to={`${ROUTES.MANUAL_INCOME_VERIFICATION}#income`}/>
+            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`}/>
         </>
     );
 }

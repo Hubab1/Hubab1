@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'app/constants';
 import ConnectBankPage from './ConnectBankPage';
-import ManualIncomeVerificationPage from './ManualIncomeVerificationPage';
+import IncomeVerificationSummaryPage from './IncomeVerificationSummaryPage';
 import AddIncomeSource from './AddIncomeSource';
 import AddAssetSource from './AddAssetSource';
 import BankingContext from './BankingContext';
@@ -28,8 +28,9 @@ function BankingContainer () {
     return (
         <BankingContext.Provider value={{refreshFinancialSources, bankingData: state.bankingData}}>
             <Switch>
-                <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage} exact/>
-                <Route path={ROUTES.MANUAL_INCOME_VERIFICATION} component={ManualIncomeVerificationPage} exact/>
+                <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={
+                    (props) => <ConnectBankPage {...props} refreshFinancialSources={refreshFinancialSources} />} exact/>
+                <Route path={ROUTES.INCOME_VERIFICATION_SUMMARY} component={IncomeVerificationSummaryPage}/>
                 <Route path={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME} component={AddIncomeSource}/>
                 <Route path={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET} component={AddAssetSource}/>
                 <Route path={ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE} component={EditFinancialSource}/>

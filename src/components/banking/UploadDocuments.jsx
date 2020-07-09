@@ -38,6 +38,10 @@ const UploadButtonContainer = styled.div`
     }
 `
 const FileNamesContainer = styled.div`
+    margin-right: -23px;
+    margin-left: -23px;
+    padding-left: 23px;
+    padding-right: 23px;
     background-color: rgba(38,48,91,0.1);
     .uploaded-document-display:last-child {
         border-bottom: none;
@@ -58,15 +62,13 @@ const UploadedDocuments = styled.div`
         height: 16px;
         color: #828796;
         margin-bottom: 9px;
-        padding: 11px 23px 12px 23px;
+        padding: 11px 0px 12px 0px;
         display: flex;
         justify-content: space-between;
     }
     .uploaded-document-display {
-        margin-left: 23px;
-        margin-right: 23px;
         border-bottom: 1px solid #C8C8C8;
-        padding: 11px 23px 12px 23px;
+        padding: 11px 0px 12px 0px;
         display: flex;
         justify-content: space-between;
     }
