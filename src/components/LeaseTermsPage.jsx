@@ -78,7 +78,7 @@ export const leaseTermsValidationSchema = Yup.object().test(
         return true;
     }
 ).shape({
-    lease_start_date: Yup.date().nullable().typeError('Invalid Date').required('Select a Move In Date'),
+    lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
     unit: Yup.object().nullable().required('Select a Unit'),
     lease_term: Yup.number().nullable().required('Select a Lease Term'),
 });

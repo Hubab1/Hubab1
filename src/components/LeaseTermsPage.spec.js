@@ -137,7 +137,7 @@ describe('validationSchema', () => {
     });
 
     it ('should be invalid when invalid dates are entered', async () => {
-        const errorInvalidFormat = 'Invalid Date';
+        const errorInvalidFormat = 'Invalid Date Format';
 
         const data = getValidData();
 
