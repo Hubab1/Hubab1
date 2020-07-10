@@ -48,7 +48,7 @@ export default ({
                 email: Yup.string()
                     .email()
                     .required('Email is required'),
-                birthday: Yup.date().max(MAX_DATE, 'Must be 18 or older')
+                birthday: Yup.date().typeError('Enter a valid date').max(MAX_DATE, 'Must be 18 or older')
                     .required('required'),
                 ...(withPassword && {password: Yup.string()
                     .required('Password must be at least 8 characters')
@@ -124,7 +124,7 @@ export default ({
                                     label="Birthday"
                                     maxDate={MAX_DATE}
                                     error={submitCount > 0 && !!errors.birthday}
-                                    helperText={submitCount > 0 && errors.birthday}
+                                    helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday ?? 'Must be 18 or older'} // preemptive helper text
                                     value={values.birthday || null}	
                                     fullWidth	
                                     onBlur={handleBlur}	
