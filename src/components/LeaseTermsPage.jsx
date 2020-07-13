@@ -8,21 +8,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import {css} from 'emotion';
+import { css } from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import { format, isValid, parseISO } from 'date-fns';
 
-import { serializeDate, parseDateISOString } from 'utils/misc';
-import { H1, SpacedH3 } from 'assets/styles';
-import rent from 'assets/images/rent.png';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES } from 'app/constants';
-import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
+import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
+import rent from 'assets/images/rent.png';
+import { H1, SpacedH3 } from 'assets/styles';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
-import { offsetDate } from 'utils/misc';
-import { ROLE_PRIMARY_APPLICANT, LEASE_TERMS_IDENTIFIER } from 'app/constants';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
+import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -44,6 +43,45 @@ function serializeValues(values) {
     delete serialized.unit;
     return serialized;
 }
+
+function getMinLeaseStartDate(unit) {
+    const today = Date.now();
+    const dateAvailable = unit?.date_available ? parseISO(unit.date_available) : null;
+
+    if (!dateAvailable || today > dateAvailable) {
+        return new Date(today).setHours(0, 0, 0, 0);
+    } else {
+        return dateAvailable;
+    }
+}
+
+export const leaseTermsValidationSchema = Yup.object().test(
+    'is-unit-available-for-date', 'An error has occurred',
+    function(values) {
+        const { createError } = this;
+        const { unit, lease_start_date } = values;
+
+        if (!lease_start_date) {
+            return true;
+        }
+
+        const start_date = Date.parse(lease_start_date);
+        const min_available = getMinLeaseStartDate(unit);
+        if (new Date(start_date) < min_available) {
+            const unitNumber = unit ? unit.unit_number : '';
+            return createError({
+                path: 'lease_start_date',
+                message: `Oops! Unit ${ unitNumber } isn’t available until ${ format(min_available, 'M/d/yy') }`,
+            });
+        }
+
+        return true;
+    }
+).shape({
+    lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
+    unit: Yup.object().nullable().required('Select a Unit'),
+    lease_term: Yup.number().nullable().required('Select a Lease Term'),
+});
 
 export class LeaseTermsPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -82,6 +120,19 @@ export class LeaseTermsPage extends React.Component {
         }
     }
 
+    getLeaseEndDateText = (lease_start_date, lease_term) => {
+        // TODO: Need to validate that the entered start date is correct
+        if (!lease_start_date || !lease_term) {
+            return "";
+        }
+
+        if (!isValid(lease_start_date)) {
+            return "";
+        }
+
+        return `Ends ${offsetDate(lease_start_date, lease_term)}`;
+    }
+
     render () {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
@@ -96,11 +147,7 @@ export class LeaseTermsPage extends React.Component {
                 <Formik
                     onSubmit={this.onSubmit}
                     initialValues={this.initialValues()}
-                    validationSchema={Yup.object().shape({
-                        lease_start_date: Yup.string().nullable().required('Select a move in date'),
-                        unit: Yup.object().nullable().required('Select a Unit'),
-                        lease_term: Yup.number().nullable().required('Select a lease term'),
-                    })}
+                    validationSchema={leaseTermsValidationSchema}
                 >
                     {({
                         values,
@@ -133,6 +180,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
+                                            minDate={getMinLeaseStartDate(values.unit)}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
@@ -162,7 +210,7 @@ export class LeaseTermsPage extends React.Component {
                                                     <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                                 ))}
                                             </Select>
-                                            <FormHelperText>{values.lease_start_date && values.lease_term && `Ends ${offsetDate(values.lease_start_date, values.lease_term)}`}</FormHelperText>
+                                            <FormHelperText>{this.getLeaseEndDateText(values.lease_start_date, values.lease_term)}</FormHelperText>
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -170,7 +218,8 @@ export class LeaseTermsPage extends React.Component {
                             {
                                 values.unit &&
                                 values.lease_start_date &&
-                                values.lease_term && (
+                                values.lease_term &&
+                                !errors.lease_start_date && (
                                     <PriceBreakdown
                                         selectedOptions={{}}
                                         application={this.props.application}
@@ -182,7 +231,7 @@ export class LeaseTermsPage extends React.Component {
                                 )
                             }
                             <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
-                                    Continue
+                                Continue
                             </ActionButton>
                         </form>
                     )}
