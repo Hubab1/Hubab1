@@ -39,6 +39,9 @@ it('this.handleFetchReports calls API.fetchFinicityReports and setState on succe
 it('if EVENT_INCOME_REPORTS_GENERATED is in applicant.events on mount, sets state.loadingReport = true', () => {
     const defaultProps = {
         applicant : {events: [{ "event": "45" }]},
+        history: {
+            push: jest.fn()
+        },
         refreshFinancialSources: jest.fn().mockResolvedValue({data:{}})
     };
 
@@ -52,7 +55,12 @@ it('if EVENT_INCOME_REPORTS_GENERATED is in applicant.events on mount, sets stat
 });
 
 it('if EVENT_INCOME_REPORTS_GENERATED is not in applicant.events on mount, does not set state.loadingReport = true', () => {
-    const defaultProps = {applicant : {events: [{ "event": "22" }]}}
+    const defaultProps = {
+        history: {
+            push: jest.fn()
+        },
+        applicant : {events: [{ "event": "22" }]}
+    }
 
     const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
 

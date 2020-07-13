@@ -74,6 +74,18 @@ exports[`matches snapshot with some financial sources data 1`] = `
             >
               Edit
             </ForwardRef>
+                  
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/remove"
+            >
+              Remove
+            </ForwardRef>
           </div>
         </ExistingItemsExpansionPanel>
       </React.Fragment>
@@ -136,6 +148,18 @@ exports[`matches snapshot with some financial sources data 1`] = `
               to="/income-employment/manual/financial-sources/123/edit"
             >
               Edit
+            </ForwardRef>
+                  
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/remove"
+            >
+              Remove
             </ForwardRef>
           </div>
         </ExistingItemsExpansionPanel>
@@ -243,6 +267,18 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
             >
               Edit
             </ForwardRef>
+                  
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/remove"
+            >
+              Remove
+            </ForwardRef>
           </div>
         </ExistingItemsExpansionPanel>
       </React.Fragment>
@@ -305,6 +341,18 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
               to="/income-employment/manual/financial-sources/123/edit"
             >
               Edit
+            </ForwardRef>
+                  
+            <ForwardRef
+              style={
+                Object {
+                  "fontSize": 14,
+                  "textDecoration": "underline",
+                }
+              }
+              to="/income-employment/manual/financial-sources/123/remove"
+            >
+              Remove
             </ForwardRef>
           </div>
         </ExistingItemsExpansionPanel>

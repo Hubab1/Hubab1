@@ -29,6 +29,10 @@ const SpacedH3 = styled(H3)`
     margin-top: 15px;
     margin-bottom: 30px;
 `;
+const linkStyle = {
+    textDecoration: 'underline',
+    fontSize: 14
+};
 
 const totals = css`
     text-align: left;
@@ -144,9 +148,12 @@ export function IncomeVerificationSummaryPage (props) {
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                     <Spacer height={10}/>
-                                    <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                        id: source.id,
+                                    })}>Remove</Link>
                                 </div>
                             ))
                         }
@@ -180,9 +187,12 @@ export function IncomeVerificationSummaryPage (props) {
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                     <Spacer height={10}/>
-                                    <Link style={{textDecoration: 'underline', fontSize: 14}} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
                                         id: source.id,
-                                    })}>Edit</Link>
+                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                        id: source.id,
+                                    })}>Remove</Link>
                                 </div>
                             ))
                         }
