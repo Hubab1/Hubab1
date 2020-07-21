@@ -23,16 +23,15 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
         } else {
             fetchPayments();
         }
-    }, [receipt, fetchPayments])
+    }, [receipt, fetchPayments]);
 
     useEffect( () => {
         setPayments(payables);
-    }, [payables])
+    }, [payables]);
 
     useEffect( () => {
         applicant && setReceipt(applicant.receipt);
-    }, [applicant])
-
+    }, [applicant]);
 
 
     const handlePaymentOptionsContinue = (feesSelected, totalPayment) => {
@@ -48,12 +47,12 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
                 } else {
                     return payment
                 }
-            })
+            });
             setPayments(myPayments)
         }
         setTotalPayment(totalPayment);
         setCurrentPage('terms');
-    }
+    };
 
     if (!profile || !applicant || (!payments && !receipt))  return <div/>;
 
@@ -62,6 +61,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
 
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants);
     everyone.unshift(profile.primary_applicant);
+
     if (currentPage === 'options') {
         return <FeesDepositsOptions
             baseAppFee={baseAppFee}
@@ -70,7 +70,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             applicant={applicant}
             holdingDepositAmount={holdingDepositAmount}
             everyone={everyone}
-            payments={payments}
+            payments={payables}
         />
     } else if (currentPage === 'terms') {
         return <PaymentTerms 
