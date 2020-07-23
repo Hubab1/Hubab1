@@ -32,7 +32,6 @@ jest.mock("react", () => ({
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        pageComplete: jest.fn(),
         _navigate: jest.fn(),
         goBack: jest.fn(),
         applicant: {
@@ -66,9 +65,8 @@ it('matches snapshot with some financial sources data if guarantor', () => {
     ).toMatchSnapshot();
 });
 
-it('calls props.pageComplete and _navigate on click continue',  async () => {
+it('calls props._navigate on click continue',  async () => {
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
     await wrapper.find(ActionButton).simulate('click');
     expect(defaultProps._navigate).toHaveBeenCalled();
-    expect(defaultProps.pageComplete).toHaveBeenCalledWith('income_verification');
 });

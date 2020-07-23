@@ -20,7 +20,6 @@ import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
 import Info from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
-import { pageComplete } from 'reducers/renter-profile';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -116,7 +115,6 @@ export function IncomeVerificationSummaryPage (props) {
     }
 
     const onContinue = async () => {
-        await props.pageComplete('income_verification');
         props._navigate(ROUTES.FEES_AND_DEPOSITS);
     };
 
@@ -202,7 +200,7 @@ export function IncomeVerificationSummaryPage (props) {
                     </>
                 }
             />
-            <ActionButton marginTop={68} marginBottom={20} onClick={onContinue}>
+            <ActionButton disabled={!context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
             <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
@@ -221,4 +219,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps, { pageComplete })(captureRoute(IncomeVerificationSummaryPage))
+export default connect(mapStateToProps)(captureRoute(IncomeVerificationSummaryPage))
