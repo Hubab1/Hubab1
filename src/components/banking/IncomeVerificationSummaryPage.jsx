@@ -117,6 +117,7 @@ export function IncomeVerificationSummaryPage (props) {
     const onContinue = async () => {
         props._navigate(ROUTES.FEES_AND_DEPOSITS);
     };
+    const hasNotAddedFinancialSources = !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
 
     return (
         <>
@@ -200,7 +201,7 @@ export function IncomeVerificationSummaryPage (props) {
                     </>
                 }
             />
-            <ActionButton disabled={!context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length} marginTop={68} marginBottom={20} onClick={onContinue}>
+            <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
             <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
