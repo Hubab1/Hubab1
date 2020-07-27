@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import { css } from 'emotion';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 import { formContent, LinkButton } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -72,6 +76,20 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <div className={formContent}>
                         { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
+                        <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
+                        <RadioGroup
+                            aria-label="is 18 or older"
+                            name={'is_dependent'}
+                            error={errors.is_dependent}
+                            value={values.is_dependent}
+                            row={true}
+                            default={true}
+                            onChange={(val) =>
+                                setFieldValue('is_dependent', val.target.value === 'true')}
+                        >
+                            <FormControlLabel value={true} control={<Radio />} label="Yes" />
+                            <FormControlLabel value={false} control={<Radio />} label="No"  />
+                        </RadioGroup>
                         <FormTextInput
                             label="First Name"
                             name="first_name"
@@ -114,7 +132,7 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                                 { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                             </LinkButton>
                         </div>
-                        <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Send {sendToPhone ? 'Text' : 'Email'} Invite</ActionButton>
+                        <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Add Person</ActionButton>
                     </div>
                 </form>
             )

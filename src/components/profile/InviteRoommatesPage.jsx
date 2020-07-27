@@ -59,8 +59,8 @@ export class InviteRoommatesPage extends React.Component {
         } 
         return (
             <Fragment>
-                <H1>Invite Your Roommates</H1>
-                <SpacedH3>Send your roommate an application link via text or email.</SpacedH3>
+                <H1>Add a Person</H1>
+                <SpacedH3>Ehter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`}/>
