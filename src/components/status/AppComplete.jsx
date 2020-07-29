@@ -74,22 +74,21 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                             role={role}
                             handleClickLink={setResendFormValues}
                         /> }
-                    { 
-                        co_applicants && 
-                            co_applicants.map(coApp => {
-                                return <PersonRow 
-                                    key={coApp.id}
-                                    person={coApp} 
-                                    label="Roommate" 
-                                    role={role}
-                                    handleClickLink={setResendFormValues}
-                                />
-                            }) 
+                    {
+                        co_applicants?.map(coApp => {
+                            return <PersonRow
+                                key={coApp.id}
+                                person={coApp}
+                                label="Roommate"
+                                role={role}
+                                handleClickLink={setResendFormValues}
+                            />
+                        })
                     }
                 </CardSection>
             </Card>
             { 
-                guarantors && 
+                guarantors?.length > 0 &&
                     <Card>
                         <CardSection>
                             <CardRow>
