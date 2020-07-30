@@ -12,11 +12,11 @@ let defaultProps;
 beforeEach( () => {
     defaultProps = {
         person: {
-            "phone_number": "(383) 838-4849",
-            "first_name": "kreebs",
-            "last_name": "mcgreebs",
-            "id": 71,
-            "is_registered": false,
+            phone_number: "(383) 838-4849",
+            first_name: "kreebs",
+            last_name: "mcgreebs",
+            id: 71,
+            is_registered: false,
             last_milestone: null
         },
         label: "Roommate",
