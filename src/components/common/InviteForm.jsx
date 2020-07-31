@@ -21,8 +21,8 @@ const linkContainer = css`
 `
 
 
-export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}}) => {
-    const [isAdult, setIsAdult] = useState(null);
+export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}, initialIsAdult=true}) => {
+    const [isAdult, setIsAdult] = useState(initialIsAdult);
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
     const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
 
@@ -76,6 +76,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                 validationSchema={Yup.object().shape({
                     first_name: Yup.string().required('First Name is required'),
                     last_name: Yup.string().required('Last Name is required'),
+                    birthday: Yup.date().typeError('Enter a valid date').required('required'),
                 })}
                 initialValues={initialValues}
                 onSubmit={onSubmitDependent}

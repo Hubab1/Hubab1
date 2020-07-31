@@ -11,6 +11,7 @@ import { InviteForm } from 'components/common/InviteForm';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
+import { serializeDate } from 'utils/misc';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
 
@@ -37,7 +38,9 @@ export class InviteRoommatesPage extends React.Component {
         });
     }
     onSubmitDependent = (values, { setSubmitting, setErrors }) => {
-        this.props.updateRenterProfile({dependents: [values]}).then((res) => {
+        const serialized = Object.assign({}, values);
+        serialized.birthday = serializeDate(serialized.birthday);
+        this.props.updateRenterProfile({dependents: [serialized]}).then((res) => {
             if (res.errors) {
                 const errorsObj = get(res, 'errors.dependents');
                 const errors = errorsObj && Object.values(errorsObj)[0]
@@ -78,6 +81,7 @@ export class InviteRoommatesPage extends React.Component {
                 <SpacedH3>Ehter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm
+                    initialIsAdult={null}
                     onSubmitDependent={this.onSubmitDependent}
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}

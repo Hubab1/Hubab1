@@ -54,15 +54,19 @@ export default function ExistingRoommate({item, type, isDependent}) {
         </Span>
         }
         </div>
+        {
+        !isDependent &&
         <div className={rightAlign}>
             <span className={applicationStatus}>Application Status:</span>
             <br/>
             <P bold color={statusColor}>{getRoommateStatus(item)}</P>
         </div>
+        }
     </Fragment>
 }
 
 ExistingRoommate.propTypes = { 
     item: PropTypes.object,
     type: PropTypes.string,
+    isDependent: PropTypes.bool,
 };
