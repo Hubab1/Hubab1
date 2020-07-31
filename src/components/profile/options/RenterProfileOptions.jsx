@@ -126,7 +126,7 @@ export class RentalProfileOptions extends React.Component {
                                         />)}
                                     {this.props.profile.dependents.map(item =>
                                         <ExistingRoommate
-                                            key={item.id}
+                                            key={`${item.id}-d`}
                                             item={item}
                                             isDependent
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
