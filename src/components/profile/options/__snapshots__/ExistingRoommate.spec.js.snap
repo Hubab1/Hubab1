@@ -11,7 +11,7 @@ exports[`matches snapshot for registered roommate 1`] = `
     </div>
   </div>
   <div
-    className="css-1u4p759"
+    className="text-right"
   >
     <span
       className="css-1rn2trc"
@@ -40,7 +40,7 @@ exports[`matches snapshot for roommate in progress 1`] = `
     </div>
   </div>
   <div
-    className="css-1u4p759"
+    className="text-right"
   >
     <span
       className="css-1rn2trc"
@@ -99,7 +99,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     </div>
   </div>
   <div
-    className="css-1u4p759"
+    className="text-right"
   >
     <span
       className="css-1rn2trc"

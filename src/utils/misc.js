@@ -2,6 +2,8 @@ import memoize from 'lodash/memoize';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import auth from 'utils/auth';
+import { MILESTONE_APPLICANT_SUBMITTED, CO_APPLICANT_STATUS_NOT_STARTED,
+    CO_APPLICANT_STATUS_COMPLETED, CO_APPLICANT_STATUS_IN_PROGRESS } from 'app/constants';
 
 export function sessionIsValidForCommunityId (communityId) {
     if (auth.accessScope() === communityId) {
@@ -88,5 +90,15 @@ export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
     return initialValues;
 }
 
-
-
+export const getRoommateStatus = (item) => {
+    if (!item.last_milestone) return CO_APPLICANT_STATUS_NOT_STARTED;
+    switch (item.last_milestone.event) {
+        case MILESTONE_APPLICANT_SUBMITTED:
+            return CO_APPLICANT_STATUS_COMPLETED;
+        case null:
+        case undefined:
+            return CO_APPLICANT_STATUS_NOT_STARTED;
+        default:
+            return CO_APPLICANT_STATUS_IN_PROGRESS;
+    }
+};

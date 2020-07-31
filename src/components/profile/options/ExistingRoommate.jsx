@@ -3,24 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { P } from 'assets/styles';
-import { link, applicationStatus, inviteeContact, nameContainer, rightAlign } from './styles';
-import { APPLICANT_STATUS_COLOR_MAP, ROUTES, MILESTONE_APPLICANT_SUBMITTED, CO_APPLICANT_STATUS_NOT_STARTED,
-    CO_APPLICANT_STATUS_COMPLETED, CO_APPLICANT_STATUS_IN_PROGRESS } from 'app/constants';
-
+import { link, inviteeContact, nameContainer } from './styles';
+import { applicationStatus } from 'assets/styles';
+import { APPLICANT_STATUS_COLOR_MAP, ROUTES } from 'app/constants';
+import { getRoommateStatus } from 'utils/misc';
 
 export default function ExistingRoommate({item, type}) {
-    const getRoommateStatus = (item) => {
-        if (!item.last_milestone) return CO_APPLICANT_STATUS_NOT_STARTED;
-        switch (item.last_milestone.event) {
-            case MILESTONE_APPLICANT_SUBMITTED:
-                return CO_APPLICANT_STATUS_COMPLETED;
-            case null:
-            case undefined:
-                return CO_APPLICANT_STATUS_NOT_STARTED;
-            default:
-                return CO_APPLICANT_STATUS_IN_PROGRESS;
-        }
-    };
     const statusColor = APPLICANT_STATUS_COLOR_MAP[getRoommateStatus(item)];
 
     return <Fragment>
@@ -49,7 +37,7 @@ export default function ExistingRoommate({item, type}) {
             </div>}
 
         </div>
-        <div className={rightAlign}>
+        <div className="text-right">
             <span className={applicationStatus}>Application Status:</span>
             <br/>
             <P bold color={statusColor}>{getRoommateStatus(item)}</P>

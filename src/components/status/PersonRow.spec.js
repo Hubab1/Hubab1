@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 import { PersonRow } from './PersonRow';
-import { ROLE_PRIMARY_APPLICANT, ROLE_COAPPLICANT } from 'app/constants';
+import { ROLE_PRIMARY_APPLICANT, ROLE_COAPPLICANT, MILESTONE_APPLICANT_SUBMITTED, MILESTONE_RENTAL_PROFILE_COMPLETED } from 'app/constants';
 
 
 let defaultProps;
@@ -12,11 +12,12 @@ let defaultProps;
 beforeEach( () => {
     defaultProps = {
         person: {
-            "phone_number": "(383) 838-4849",
-            "first_name": "kreebs",
-            "last_name": "mcgreebs",
-            "id": 71,
-            "is_registered": false
+            phone_number: "(383) 838-4849",
+            first_name: "kreebs",
+            last_name: "mcgreebs",
+            id: 71,
+            is_registered: false,
+            last_milestone: null
         },
         label: "Roommate",
         role: ROLE_PRIMARY_APPLICANT,
@@ -77,5 +78,32 @@ describe('When logged in applicant is not primary applicant, ', () => {
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
         expect(wrapper.find(Link).length).toEqual(0);
+    })
+});
+describe('status', () => {
+    it('shows complete status', () => {
+        defaultProps.role = ROLE_COAPPLICANT;
+        defaultProps.person.last_milestone = {
+            event: MILESTONE_APPLICANT_SUBMITTED
+        }
+        const wrapper = shallow(<PersonRow {...defaultProps}/>);
+
+        expect(wrapper.text()).toContain('Status:Completed')
+    })
+    it('shows not started status', () => {
+        defaultProps.role = ROLE_COAPPLICANT;
+        defaultProps.person.last_milestone = null;
+        const wrapper = shallow(<PersonRow {...defaultProps}/>);
+
+        expect(wrapper.text()).toContain('Status:Not Started')
+    })
+    it('shows in progress status', () => {
+        defaultProps.role = ROLE_COAPPLICANT;
+        defaultProps.person.last_milestone = {
+            event: MILESTONE_RENTAL_PROFILE_COMPLETED
+        };
+        const wrapper = shallow(<PersonRow {...defaultProps}/>);
+
+        expect(wrapper.text()).toContain('Status:In Progress')
     })
 });
