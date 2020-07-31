@@ -36,6 +36,21 @@ export class InviteRoommatesPage extends React.Component {
             setSubmitting(false);
         });
     }
+    onSubmitDependent = (values, { setSubmitting, setErrors }) => {
+        this.props.updateRenterProfile({dependents: [values]}).then((res) => {
+            if (res.errors) {
+                const errorsObj = get(res, 'errors.dependents');
+                const errors = errorsObj && Object.values(errorsObj)[0]
+                errors ? setErrors(errors) : this.setState({errors: ['There was an error adding your dependent. Please Try again.']})
+            } else {
+                this.setState({confirmSent: true})
+            }
+            setSubmitting(false);
+        }).catch((res) => {
+            this.setState({errors: [res.errors]});
+            setSubmitting(false);
+        });
+    }
 
     canInviteMore () {
         // manually setting this until product figures out how we want to determine the limit
@@ -62,7 +77,11 @@ export class InviteRoommatesPage extends React.Component {
                 <H1>Add a Person</H1>
                 <SpacedH3>Ehter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
-                <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
+                <InviteForm
+                    onSubmitDependent={this.onSubmitDependent}
+                    handleOnSubmit={this.onSubmit}
+                    displayedErrors={this.state.errors}
+                />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`}/>
             </Fragment>
         );

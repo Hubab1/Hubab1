@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { css } from 'emotion';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -20,8 +21,8 @@ const linkContainer = css`
 `
 
 
-export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) => {
-
+export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}}) => {
+    const [isAdult, setIsAdult] = useState(null);
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
     const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
 
@@ -52,44 +53,44 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
         } else {
             setFieldValue('phone_number', '');
         }
-    } 
+    }
 
-    return <Formik
-        validationSchema={validationSchema}
-        initialValues={initialValues}	
-        onSubmit={handleOnSubmit}
-    >
-        {({
-            values,
-            errors,
-            handleChange,
-            submitCount,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            setFieldValue
-        }) => {
-            const formFilled = sendToPhone ?
-                !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
-                !values.last_name || !values.first_name || !values.email         
-            return (
-                <form onSubmit={handleSubmit} autoComplete="off">
-                    <div className={formContent}>
-                        { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
-                        <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
-                        <RadioGroup
-                            aria-label="is 18 or older"
-                            name={'is_dependent'}
-                            error={errors.is_dependent}
-                            value={values.is_dependent}
-                            row={true}
-                            default={true}
-                            onChange={(val) =>
-                                setFieldValue('is_dependent', val.target.value === 'true')}
-                        >
-                            <FormControlLabel value={true} control={<Radio />} label="Yes" />
-                            <FormControlLabel value={false} control={<Radio />} label="No"  />
-                        </RadioGroup>
+    return (
+        <>
+            <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
+                <RadioGroup
+                    aria-label="is 18 or older"
+                    name={'is_dependent'}
+                    value={isAdult}
+                    row={true}
+                    default={true}
+                    onChange={(val) =>
+                        setIsAdult(val.target.value === 'true')
+                    }
+                >
+                    <FormControlLabel value={true} control={<Radio />} label="Yes" />
+                    <FormControlLabel value={false} control={<Radio />} label="No"  />
+                </RadioGroup>
+            {isAdult === false &&
+            <Formik
+                validationSchema={Yup.object().shape({
+                    first_name: Yup.string().required('First Name is required'),
+                    last_name: Yup.string().required('Last Name is required'),
+                })}
+                initialValues={initialValues}
+                onSubmit={onSubmitDependent}
+            >
+                {({
+                    values,
+                    errors,
+                    handleChange,
+                    submitCount,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    setFieldValue
+                }) => {
+                    return <form onSubmit={handleSubmit} autoComplete="off">
                         <FormTextInput
                             label="First Name"
                             name="first_name"
@@ -108,35 +109,101 @@ export const InviteForm = ({handleOnSubmit, displayedErrors, initialValues={}}) 
                             error={errors.last_name}
                             value={values.last_name}
                         />
-                        { sendToPhone ? 
-                            <PhoneNumberInput 
-                                label="Phone Number"
-                                name="phone_number"
-                                value={values.phone_number}
-                                handleChange={handleChange}
-                                error={submitCount > 0 && !!errors.phone_number}
-                                helperText={submitCount > 0 ? errors.phone_number : null}
-                            /> :
-                            <FormTextInput 
-                                label="Email"
-                                name="email"
-                                submitted={submitCount > 0}
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                error={errors.email}
-                                value={values.email}
-                            />
-                        }
-                        <div className={linkContainer}>
-                            <LinkButton type="reset" onClick={() => handleToggleClick(setFieldValue)}>
-                                { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
-                            </LinkButton>
-                        </div>
-                        <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Add Person</ActionButton>
-                    </div>
-                </form>
-            )
-        }}
-    </Formik>
+                        <KeyboardDatePicker
+                            id="birthday-picker"
+                            clearable
+                            disableFuture
+                            format="MM/dd/yyyy"
+                            placeholder="mm/dd/yyyy"
+                            label="Birthday"
+                            error={submitCount > 0 && !!errors.birthday}
+                            value={values.birthday || null}
+                            fullWidth
+                            onBlur={handleBlur}
+                            onChange={e => setFieldValue('birthday', e)}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                        <ActionButton type="submit" disabled={ isSubmitting } marginTop={31} marginBottom={10}>Add Person</ActionButton>
+                    </form>
+                }}
+            </Formik>
+            }
+            {
+            isAdult === true &&
+            <Formik
+                validationSchema={validationSchema}
+                initialValues={initialValues}
+                onSubmit={handleOnSubmit}
+            >
+                {({
+                    values,
+                    errors,
+                    handleChange,
+                    submitCount,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    setFieldValue
+                }) => {
+                    const formFilled = sendToPhone ?
+                        !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
+                        !values.last_name || !values.first_name || !values.email
+                    return (
+                        <form onSubmit={handleSubmit} autoComplete="off">
+                            <div className={formContent}>
+                                { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
+                                <FormTextInput
+                                    label="First Name"
+                                    name="first_name"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.first_name}
+                                    value={values.first_name}
+                                />
+                                <FormTextInput
+                                    label="Last Name"
+                                    name="last_name"
+                                    submitted={submitCount > 0}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    error={errors.last_name}
+                                    value={values.last_name}
+                                />
+                                { sendToPhone ?
+                                    <PhoneNumberInput
+                                        label="Phone Number"
+                                        name="phone_number"
+                                        value={values.phone_number}
+                                        handleChange={handleChange}
+                                        error={submitCount > 0 && !!errors.phone_number}
+                                        helperText={submitCount > 0 ? errors.phone_number : null}
+                                    /> :
+                                    <FormTextInput
+                                        label="Email"
+                                        name="email"
+                                        submitted={submitCount > 0}
+                                        handleChange={handleChange}
+                                        handleBlur={handleBlur}
+                                        error={errors.email}
+                                        value={values.email}
+                                    />
+                                }
+                                <div className={linkContainer}>
+                                    <LinkButton type="reset" onClick={() => handleToggleClick(setFieldValue)}>
+                                        { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
+                                    </LinkButton>
+                                </div>
+                                <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Add Person</ActionButton>
+                            </div>
+                        </form>
+                    )
+                }}
+            </Formik>
+            }
+        </>
+    );
 
 }
