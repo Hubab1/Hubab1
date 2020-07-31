@@ -10,12 +10,12 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
   <div>
     <Capsule
-      buttonLabel="Invite another roommate"
+      buttonLabel="Add another Person"
       expansionPanel={
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Roommates"
-          labelQuantity={2}
+          labelQuantity={3}
         >
           <ExistingRoommate
             item={
@@ -39,6 +39,18 @@ exports[`matches snapshot 1`] = `
                 "last_name": "maguire",
                 "phone_number": "(333) 888-4449",
                 "status": "Completed",
+              }
+            }
+            type="co_applicants"
+          />
+          <ExistingRoommate
+            isDependent={true}
+            item={
+              Object {
+                "first_name": "Bobby",
+                "id": 71,
+                "last_name": "Kennedy",
+                "phone_number": "(555) 822-4841",
               }
             }
             type="co_applicants"
@@ -160,12 +172,12 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
   </ForwardRef(render)>
   <div>
     <Capsule
-      buttonLabel="Invite another roommate"
+      buttonLabel="Add another Person"
       expansionPanel={
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Roommates"
-          labelQuantity={2}
+          labelQuantity={3}
         >
           <ExistingRoommate
             item={
@@ -189,6 +201,18 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
                 "last_name": "maguire",
                 "phone_number": "(333) 888-4449",
                 "status": "Completed",
+              }
+            }
+            type="co_applicants"
+          />
+          <ExistingRoommate
+            isDependent={true}
+            item={
+              Object {
+                "first_name": "Bobby",
+                "id": 71,
+                "last_name": "Kennedy",
+                "phone_number": "(555) 822-4841",
               }
             }
             type="co_applicants"
@@ -345,17 +369,32 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
 `;
 
 exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
-<ExistingRoommate
-  item={
-    Object {
-      "first_name": "kreebs",
-      "id": 71,
-      "is_registered": false,
-      "last_name": "mcgreebs",
-      "phone_number": "(383) 838-4849",
-      "status": "Not Started",
+Array [
+  <ExistingRoommate
+    item={
+      Object {
+        "first_name": "kreebs",
+        "id": 71,
+        "is_registered": false,
+        "last_name": "mcgreebs",
+        "phone_number": "(383) 838-4849",
+        "status": "Not Started",
+      }
     }
-  }
-  type="co_applicants"
-/>
+    type="co_applicants"
+  />,
+  <ExistingRoommate
+    item={
+      Object {
+        "first_name": "jerry",
+        "id": 73,
+        "is_registered": true,
+        "last_name": "maguire",
+        "phone_number": "(333) 888-4449",
+        "status": "Completed",
+      }
+    }
+    type="co_applicants"
+  />,
+]
 `;

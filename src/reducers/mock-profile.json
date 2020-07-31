@@ -45,6 +45,12 @@
             "status": "Completed"
         }
     ],
+    "dependents": [{
+        "phone_number": "(555) 822-4841",
+        "first_name": "Bobby",
+        "last_name": "Kennedy",
+        "id": 71
+    }],
     "id": 17,
     "unit": {
         "unit_number": "12a"
