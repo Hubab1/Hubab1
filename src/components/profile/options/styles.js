@@ -29,11 +29,6 @@ export const existingItemRow = css`
     justify-content: space-between;
 `
 
-export const applicationStatus = css`
-    color: #828796;
-    font-size: 12px;
-`
-
 export const existingItemsContainer = css`
     margin-bottom: 15px;
     border-top: 1px solid #EEEEEE;
@@ -57,10 +52,6 @@ export const link = css`
     color: #2B44FF;
     font-size: 14px;
     text-decoration: underline !important;
-`   
-
-export const rightAlign = css`
-    text-align: right;
 `
 
 export const priceBreakdownContainer = css`

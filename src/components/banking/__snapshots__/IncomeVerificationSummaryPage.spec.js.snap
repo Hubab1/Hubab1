@@ -179,6 +179,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
   />
   <ActionButton
     color="primary"
+    disabled={false}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}
@@ -372,6 +373,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   />
   <ActionButton
     color="primary"
+    disabled={false}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}

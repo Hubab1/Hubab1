@@ -193,6 +193,11 @@ export const colorManatee = css`
     color: #828796 !important;
 `
 
+export const applicationStatus = css`
+    color: #828796;
+    font-size: 12px;
+`
+
 export const styles = {
     formContent,
     cursor,

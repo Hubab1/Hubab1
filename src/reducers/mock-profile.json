@@ -10,11 +10,21 @@
             "first_name": "elvish",
             "last_name": "parsley",
             "id": 74,
-            "is_registered": false
+            "is_registered": false,
+            "last_milestone": {
+                "created_at": "2020-07-23 15:22:49",
+                "event": 220,
+                "id": 10554
+            }
         }],
         "phone_number": "(111) 111-1111",
         "first_name": "frank",
         "last_name": "underwood",
+        "last_milestone": {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 210,
+            "id": 10557
+        },
         "id": 18,
         "client": {
             "person": {
@@ -34,7 +44,8 @@
             "last_name": "mcgreebs",
             "id": 71,
             "is_registered": false,
-            "status": "Not Started"
+            "status": "Not Started",
+            "last_milestone": null
         },
         {
             "phone_number": "(333) 888-4449",
@@ -42,7 +53,12 @@
             "last_name": "maguire",
             "id": 73,
             "is_registered": true,
-            "status": "Completed"
+            "status": "Completed",
+            "last_milestone": {
+                "created_at": "2020-07-23 15:22:49",
+                "event": 210,
+                "id": 10557
+            }
         }
     ],
     "dependents": [{

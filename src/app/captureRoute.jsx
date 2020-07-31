@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { currentRouteReceived } from 'reducers/site-config';
 
+import { MOCKY } from 'app/api';
+import { fetchApplicant } from 'reducers/applicant';
+import { fetchRenterProfile } from 'reducers/renter-profile';
+import { ROUTES } from 'app/constants';
+
 // Second param is deprecated in favor of static param 'route'
 export default function captureRoute(WrappedComponent, route) {
     route = WrappedComponent.route || route;
@@ -12,7 +17,20 @@ export default function captureRoute(WrappedComponent, route) {
             props.currentRouteReceived(route);
         }
         render() {
-            return <WrappedComponent {...this.props} />;
+            return <WrappedComponent
+                _navigate={async (route)=>{
+                    if (!MOCKY) {
+                        this.props.fetchApplicant();
+                        await this.props.fetchRenterProfile();
+                    }
+                    if (this.props.unitAvailable === false) {
+                        return this.props.history.push(ROUTES.UNIT_UNAVAILABLE)
+                    } else {
+                        return this.props.history.push(route)
+                    }
+                }}
+                {...this.props}
+            />;
         }
     };
 
@@ -20,5 +38,5 @@ export default function captureRoute(WrappedComponent, route) {
         currentRouteReceived: PropTypes.func
     }
 
-    return connect(null, {currentRouteReceived})(Component);
+    return connect(null, {currentRouteReceived, fetchApplicant, fetchRenterProfile})(Component);
 }
