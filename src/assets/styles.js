@@ -56,6 +56,10 @@ export const H3 = styled.h3`
     margin: 0;
 `
 
+export const Span = styled.span`
+    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
+`
+
 export const PrimarySpan = withTheme((props) => {
     const { theme, ...rest } = props;
     return (

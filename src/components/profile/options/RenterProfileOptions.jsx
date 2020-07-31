@@ -118,10 +118,17 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={people.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
-                                    {people.map(item =>
+                                    {this.props.profile.co_applicants.map(item =>
                                         <ExistingRoommate
                                             key={item.id}
                                             item={item}
+                                            type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                        />)}
+                                    {this.props.profile.dependents.map(item =>
+                                        <ExistingRoommate
+                                            key={item.id}
+                                            item={item}
+                                            isDependent
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                         />)}
                                 </ExistingItemsExpansionPanel>

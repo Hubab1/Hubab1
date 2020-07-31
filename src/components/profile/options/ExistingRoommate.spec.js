@@ -43,3 +43,19 @@ it('matches snapshot for roommate in progress', () => {
     const wrapper = shallow(<ExistingRoommate item={registered}/>);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+it('doesnt show resend / edit for dependents', () => {
+    const props = {
+        item: {
+            phone_number: "(383) 838-4849",
+            first_name: "kreebs",
+            last_name: "mcgreebs",
+            id: 71
+        },
+    }
+    let wrapper = shallow(<ExistingRoommate {...props} />);
+    expect(wrapper.text()).toContain('Resend');
+    props.isDependent = true;
+    wrapper = shallow(<ExistingRoommate {...props} />);
+    expect(wrapper.text()).not.toContain('Resend');
+});
