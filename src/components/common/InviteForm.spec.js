@@ -70,25 +70,25 @@ describe('sendToPhone is true', () => {
     });
 })
 
-describe('initialIsAdult is set to null', () => {
+describe('initialIsDependent is set to null', () => {
     it('no form should be shown', function () {
         const initialValues = {
             last_name: 'Smith',
             first_name: 'John',
             phone_number: '555-555-5555',
         };
-        const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsAdult={null} />);
+        const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsDependent={null} />);
         expect(wrapper.find(ActionButton).exists()).toBe(false);
     });
 })
-describe('initialIsAdult is set to false', () => {
+describe('initialIsDependent is set to true', () => {
     it('should render dependent form', function () {
         const initialValues = {
             last_name: 'Smith',
             first_name: 'John',
             birthday: 'sefefe',
         };
-        const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsAdult={false} />);
+        const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsDependent={true} />);
         const contents = wrapper.find(Formik).dive();
         expect(contents.find(FormTextInput).length).toEqual(2);
         expect(contents.find(KeyboardDatePicker).length).toEqual(1);

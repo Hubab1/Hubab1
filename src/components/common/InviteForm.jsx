@@ -21,8 +21,8 @@ const linkContainer = css`
 `
 
 
-export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}, initialIsAdult=true}) => {
-    const [isAdult, setIsAdult] = useState(initialIsAdult);
+export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}, initialIsDependent=false}) => {
+    const [isDependent, setIsDependent] = useState(initialIsDependent);
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
     const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
 
@@ -61,17 +61,17 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                 <RadioGroup
                     aria-label="is 18 or older"
                     name={'is_dependent'}
-                    value={isAdult}
+                    value={isDependent}
                     row={true}
                     default={true}
                     onChange={(val) =>
-                        setIsAdult(val.target.value === 'true')
+                        setIsDependent(val.target.value === 'true')
                     }
                 >
-                    <FormControlLabel value={true} control={<Radio />} label="Yes" />
-                    <FormControlLabel value={false} control={<Radio />} label="No"  />
+                    <FormControlLabel value={false} control={<Radio />} label="Yes" /> {/* Note that Yes == false */}
+                    <FormControlLabel value={true} control={<Radio />} label="No"  />
                 </RadioGroup>
-            {isAdult === false &&
+            {isDependent === true &&
             <Formik
                 validationSchema={Yup.object().shape({
                     first_name: Yup.string().required('First Name is required'),
@@ -126,13 +126,13 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                                 'aria-label': 'change date',
                             }}
                         />
-                        <ActionButton type="submit" disabled={ isSubmitting } marginTop={31} marginBottom={10}>Add Person</ActionButton>
+                        <ActionButton type="submit" disabled={ isSubmitting || !values.first_name || !values.last_name || !values.birthday } marginTop={31} marginBottom={10}>Add Person</ActionButton>
                     </form>
                 }}
             </Formik>
             }
             {
-            isAdult === true &&
+            isDependent === false &&
             <Formik
                 validationSchema={validationSchema}
                 initialValues={initialValues}

@@ -78,10 +78,10 @@ export class InviteRoommatesPage extends React.Component {
         return (
             <Fragment>
                 <H1>Add a Person</H1>
-                <SpacedH3>Ehter their info below.</SpacedH3>
+                <SpacedH3>Enter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm
-                    initialIsAdult={null}
+                    initialIsDependent={null}
                     onSubmitDependent={this.onSubmitDependent}
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
