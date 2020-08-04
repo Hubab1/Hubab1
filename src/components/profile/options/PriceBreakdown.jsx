@@ -88,8 +88,7 @@ function PriceBreakdown (props) {
         return (<>{categoryInfo}</>)
     };
 
-    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0
-        && Object.values(priceBreakdown.items_breakdown).reduce((a, b) => (a + b), '');
+    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
 
     return (
         <PriceBreakdownContainer>
