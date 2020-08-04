@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
+import pluralize from 'pluralize';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -82,7 +83,7 @@ function PriceBreakdown (props) {
 
         if (categoryMonthlyPrice != null) {
             if (!categoryMonthlyPrice) categoryMonthlyPrice = '$0';
-            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${props.categoryHelperText}`
+            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`
         }
 
         return (<>{categoryInfo}</>)

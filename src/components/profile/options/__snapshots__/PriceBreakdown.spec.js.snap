@@ -46,7 +46,7 @@ exports[`display correct info 1`] = `
                                              Monthly Rent
                                           </b>
                                           <br />
-                                          $10/mo for 0 storage space
+                                          $10/mo for 3 storage spaces
                                         </p>
                                       </Styled(p)>
                                     </div>
@@ -221,7 +221,7 @@ exports[`display correct info if has included options 1`] = `
                                              Monthly Rent
                                           </b>
                                           <br />
-                                          $10/mo for 0 storage space
+                                          $0/mo for 3 storage spaces
                                         </p>
                                       </Styled(p)>
                                     </div>
@@ -299,7 +299,7 @@ exports[`display correct info if has included options 1`] = `
                                             <div className=\\"css-olqeuu\\">
                                               storage
                                               <span className=\\"pull-right\\">
-                                                $10
+                                                $0
                                               </span>
                                             </div>
                                           </div>
@@ -307,7 +307,7 @@ exports[`display correct info if has included options 1`] = `
                                             <div className=\\"css-olqeuu\\">
                                               pets
                                               <span className=\\"pull-right\\">
-                                                $0
+                                                $10
                                               </span>
                                             </div>
                                           </div>

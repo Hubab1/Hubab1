@@ -7,7 +7,7 @@ import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 const buildProps = () => {
     return {
         application: { id: 123, },
-        selectedOptions: {},
+        selectedOptions: {a: 1, b: 2},
         unitId: 12,
         category: 'storage',
         categoryHelperText: 'storage space',
@@ -36,8 +36,8 @@ it('display correct info if has included options', async () => {
     API.getCurrentFlatQuote = jest.fn().mockReturnValue(Promise.resolve({
         total: '$2,020',
         items_breakdown: {
-            storage: '$10',
-            pets: '' // pets included, serialized as empty string
+            storage: '', // storage included, serialized as empty string
+            pets: '$10'
         },
         base_rent: '$2,000'
     }));
