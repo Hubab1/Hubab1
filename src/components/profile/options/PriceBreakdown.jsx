@@ -79,7 +79,9 @@ function PriceBreakdown (props) {
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
 
         let categoryInfo = 'Your monthly rent may update as you add rental options in the next steps.';
-        if (categoryMonthlyPrice) {
+
+        if (categoryMonthlyPrice != null) {
+            if (!categoryMonthlyPrice) categoryMonthlyPrice = '$0';
             categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${props.categoryHelperText}`
         }
 
@@ -125,9 +127,9 @@ function PriceBreakdown (props) {
                                             Object.keys(priceBreakdown.items_breakdown).map(function(key) {
                                                 return (
                                                     <div key={key}>
-                                                        {priceBreakdown.items_breakdown[key] !== '' && (
+                                                        {priceBreakdown.items_breakdown[key] != null && (
                                                             <div className={existingItemRow}>
-                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
+                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
                                                             </div>
                                                         )}
                                                     </div>
