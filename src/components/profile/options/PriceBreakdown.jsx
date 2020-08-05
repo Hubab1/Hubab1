@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
+import pluralize from 'pluralize';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -79,15 +80,16 @@ function PriceBreakdown (props) {
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
 
         let categoryInfo = 'Your monthly rent may update as you add rental options in the next steps.';
-        if (categoryMonthlyPrice) {
-            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${props.categoryHelperText}`
+
+        if (categoryMonthlyPrice != null) {
+            if (!categoryMonthlyPrice) categoryMonthlyPrice = '$0';
+            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`
         }
 
         return (<>{categoryInfo}</>)
     };
 
-    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0
-        && Object.values(priceBreakdown.items_breakdown).reduce((a, b) => (a + b), '');
+    const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
 
     return (
         <PriceBreakdownContainer>
@@ -125,9 +127,9 @@ function PriceBreakdown (props) {
                                             Object.keys(priceBreakdown.items_breakdown).map(function(key) {
                                                 return (
                                                     <div key={key}>
-                                                        {priceBreakdown.items_breakdown[key] !== '' && (
+                                                        {priceBreakdown.items_breakdown[key] != null && (
                                                             <div className={existingItemRow}>
-                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key]}</span>
+                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
                                                             </div>
                                                         )}
                                                     </div>

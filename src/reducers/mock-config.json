@@ -30,7 +30,7 @@
                 "name": "Garage (12x9)",
                 "payment_time": 10,
                 "type": 10,
-                "included": 0
+                "included": 1
             },
             {
                 "deposit_amount": null,

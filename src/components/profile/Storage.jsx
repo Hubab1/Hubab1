@@ -73,7 +73,7 @@ export const Storage = props => {
                         <ItemAdder
                             key={option.id}
                             title={option.name}
-                            subtitle={`$${option.monthly_amount}/mo per storage space`}
+                            subtitle={`$${option.monthly_amount}/mo per storage space${option.included ? ` (${option.included} incl.)` : ''}`}
                             value={values[option.id]}
                             limit={option.limit}
                             onChange={e => setFieldValue(option.id, e)}
