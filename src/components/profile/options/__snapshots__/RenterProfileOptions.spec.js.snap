@@ -10,7 +10,7 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
   <div>
     <Capsule
-      buttonLabel="Add another Person"
+      buttonLabel="Add Another Person"
       expansionPanel={
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
@@ -63,7 +63,7 @@ exports[`matches snapshot 1`] = `
           />
         </ExistingItemsExpansionPanel>
       }
-      label="I'll be living with roommates"
+      label="I'll be living with other people"
       limitReached={false}
       name="co_applicants"
       prefix={
@@ -183,7 +183,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
   </ForwardRef(render)>
   <div>
     <Capsule
-      buttonLabel="Add another Person"
+      buttonLabel="Add Another Person"
       expansionPanel={
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
@@ -236,7 +236,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           />
         </ExistingItemsExpansionPanel>
       }
-      label="I'll be living with roommates"
+      label="I'll be living with other people"
       limitReached={false}
       name="co_applicants"
       prefix={

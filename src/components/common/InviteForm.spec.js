@@ -78,7 +78,7 @@ describe('initialIsDependent is set to null', () => {
             phone_number: '555-555-5555',
         };
         const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsDependent={null} />);
-        expect(wrapper.find(ActionButton).exists()).toBe(false);
+        expect(wrapper.find(Formik).exists()).toBe(false);
     });
 })
 describe('initialIsDependent is set to true', () => {

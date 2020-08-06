@@ -71,7 +71,7 @@ export class InviteRoommatesPage extends React.Component {
                 buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)}
                 buttonText="Continue"
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
-                secondaryButtonText="Add Another Roommate"
+                secondaryButtonText="Add Another Person"
                 confirmationImage={inviteConfirm}
             />
         } 

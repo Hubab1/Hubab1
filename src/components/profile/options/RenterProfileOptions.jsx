@@ -109,8 +109,8 @@ export class RentalProfileOptions extends React.Component {
                         <Capsule
                             prefix={<img alt="coapplicants" src={coapplicants}></img>}
                             name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
-                            label="I'll be living with roommates"
-                            buttonLabel={!!people.length ? 'Add another Person' : 'Add a Person'}
+                            label="I'll be living with other people"
+                            buttonLabel={!!people.length ? 'Add Another Person' : 'Add a Person'}
                             route={ROUTES.CO_APPLICANTS}
                             expansionPanel={!!people.length &&
                                 <ExistingItemsExpansionPanel

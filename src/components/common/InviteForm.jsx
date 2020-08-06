@@ -71,6 +71,8 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                     <FormControlLabel value={false} control={<Radio />} label="Yes" /> {/* Note that Yes == false */}
                     <FormControlLabel value={true} control={<Radio />} label="No"  />
                 </RadioGroup>
+            {isDependent === null &&
+            <ActionButton disabled={true} marginTop={300} marginBottom={10}>Add Person</ActionButton>}
             {isDependent === true &&
             <Formik
                 validationSchema={Yup.object().shape({
