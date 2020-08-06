@@ -74,7 +74,7 @@ export const Parking = props => {
                         <ItemAdder
                             key={option.id}
                             title={option.name}
-                            subtitle={`$${option.monthly_amount}/mo per parking space`}
+                            subtitle={`$${option.monthly_amount}/mo per parking space${option.included ? ` (${option.included} incl.)` : ''}`}
                             value={values[option.id]}
                             limit={option.limit}
                             onChange={e => setFieldValue(option.id, e)}

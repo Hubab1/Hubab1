@@ -20,4 +20,6 @@ it('renders a ItemAdder component for each option in config.rental_options.parki
     let wrapper = shallow( <Parking {...defaultProps}/> );
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(ItemAdder).length).toEqual(2);
+    expect(wrapper.find(ItemAdder).at(0).prop('subtitle')).toContain('(1 incl.)');
+    expect(wrapper.find(ItemAdder).at(1).prop('subtitle')).not.toContain('incl.');
 });
