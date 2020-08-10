@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { formContent, LinkButton } from 'assets/styles';
+import { formContent, LinkButton, Spacer } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -57,6 +57,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
 
     return (
         <>
+            <Spacer height={30}/>
             <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
                 <RadioGroup
                     aria-label="is 18 or older"
@@ -72,7 +73,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                     <FormControlLabel value={true} control={<Radio />} label="No"  />
                 </RadioGroup>
             {isDependent === null &&
-            <ActionButton disabled={true} marginTop={300} marginBottom={10}>Add Person</ActionButton>}
+            <ActionButton disabled={true} marginTop={170} marginBottom={10}>Add Person</ActionButton>}
             {isDependent === true &&
             <Formik
                 validationSchema={Yup.object().shape({
