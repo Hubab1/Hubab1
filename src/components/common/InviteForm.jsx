@@ -20,6 +20,11 @@ const linkContainer = css`
     text-align: left !important
 `
 
+const MIN_DATE = (() => {
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 18);
+    return d;
+})();
 
 export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, initialValues={}, initialIsDependent=false}) => {
     const [isDependent, setIsDependent] = useState(initialIsDependent);
@@ -79,7 +84,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                 validationSchema={Yup.object().shape({
                     first_name: Yup.string().required('First Name is required'),
                     last_name: Yup.string().required('Last Name is required'),
-                    birthday: Yup.date().typeError('Enter a valid date').required('required'),
+                    birthday: Yup.date().typeError('Enter a valid date').min(MIN_DATE, 'Older than 18').required('required'),
                 })}
                 initialValues={initialValues}
                 onSubmit={onSubmitDependent}
@@ -121,6 +126,8 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                             placeholder="mm/dd/yyyy"
                             label="Birthday"
                             error={submitCount > 0 && !!errors.birthday}
+                            minDate={MIN_DATE}
+                            helperText={submitCount > 0 && errors.birthday}
                             value={values.birthday || null}
                             fullWidth
                             onBlur={handleBlur}
