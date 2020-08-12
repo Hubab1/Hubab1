@@ -152,6 +152,7 @@ export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 export const TOS_TYPE_PAYMENTS = 'TOS_TYPE_PAYMENTS';
 export const TOS_TYPE_NESTIO = 'TOS_TYPE_NESTIO';
 
+export const INCOME_TYPE_FINICITY_AUTOMATED = 135;
 
 export const ALL_INCOME_OR_ASSET_TYPES = {
     // INCOME TYPES
