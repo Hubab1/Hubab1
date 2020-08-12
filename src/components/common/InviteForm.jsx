@@ -78,7 +78,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                     <FormControlLabel value={true} control={<Radio />} label="No"  />
                 </RadioGroup>
             {isDependent === null &&
-            <ActionButton disabled={true} marginTop={170} marginBottom={10}>Add Person</ActionButton>}
+            <ActionButton disabled={true} marginTop={170} marginBottom={20}>Add Person</ActionButton>}
             {isDependent === true &&
             <Formik
                 validationSchema={Yup.object().shape({
@@ -136,7 +136,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                                 'aria-label': 'change date',
                             }}
                         />
-                        <ActionButton type="submit" disabled={ isSubmitting || !values.first_name || !values.last_name || !values.birthday } marginTop={50} marginBottom={10}>Add Person</ActionButton>
+                        <ActionButton type="submit" disabled={ isSubmitting || !values.first_name || !values.last_name || !values.birthday } marginTop={50} marginBottom={20}>Add Person</ActionButton>
                     </form>
                 }}
             </Formik>
@@ -208,7 +208,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                                         { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                                     </LinkButton>
                                 </div>
-                                <ActionButton disabled={ formFilled || isSubmitting} marginTop={50} marginBottom={10}>Send Invite</ActionButton>
+                                <ActionButton disabled={ formFilled || isSubmitting} marginTop={50} marginBottom={20}>Send Invite</ActionButton>
                         </form>
                     )
                 }}
