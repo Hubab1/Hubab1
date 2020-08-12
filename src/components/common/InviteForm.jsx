@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { formContent, LinkButton, Spacer } from 'assets/styles';
+import { LinkButton, Spacer } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -62,7 +62,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
 
     return (
         <>
-            <Spacer height={30}/>
+            <Spacer height={35}/>
             <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
                 <RadioGroup
                     aria-label="is 18 or older"
@@ -84,7 +84,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                 validationSchema={Yup.object().shape({
                     first_name: Yup.string().required('First Name is required'),
                     last_name: Yup.string().required('Last Name is required'),
-                    birthday: Yup.date().typeError('Enter a valid date').min(MIN_DATE, 'Older than 18').required('required'),
+                    birthday: Yup.date().typeError('Enter a valid date').min(MIN_DATE, 'Looks like this person is over 18.').required('required'),
                 })}
                 initialValues={initialValues}
                 onSubmit={onSubmitDependent}
@@ -136,7 +136,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                                 'aria-label': 'change date',
                             }}
                         />
-                        <ActionButton type="submit" disabled={ isSubmitting || !values.first_name || !values.last_name || !values.birthday } marginTop={31} marginBottom={10}>Add Person</ActionButton>
+                        <ActionButton type="submit" disabled={ isSubmitting || !values.first_name || !values.last_name || !values.birthday } marginTop={50} marginBottom={10}>Add Person</ActionButton>
                     </form>
                 }}
             </Formik>
@@ -163,8 +163,9 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                         !values.last_name || !values.first_name || !values.email
                     return (
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            <div className={formContent}>
                                 { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
+                                <div className="color-manatee align-left">We'll send them an invite to apply.</div>
+                                <Spacer height={30}/>
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
@@ -207,8 +208,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                                         { !!sendToPhone ? 'Use email instead' : 'Use phone instead' }
                                     </LinkButton>
                                 </div>
-                                <ActionButton disabled={ formFilled || isSubmitting} marginTop={31} marginBottom={10}>Add Person</ActionButton>
-                            </div>
+                                <ActionButton disabled={ formFilled || isSubmitting} marginTop={50} marginBottom={10}>Send Invite</ActionButton>
                         </form>
                     )
                 }}

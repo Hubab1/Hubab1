@@ -46,7 +46,7 @@ export class InviteRoommatesPage extends React.Component {
                 const errors = errorsObj && Object.values(errorsObj)[0]
                 errors ? setErrors(errors) : this.setState({errors: ['There was an error adding your dependent. Please Try again.']})
             } else {
-                this.setState({confirmSent: true})
+                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
             }
             setSubmitting(false);
         }).catch((res) => {
