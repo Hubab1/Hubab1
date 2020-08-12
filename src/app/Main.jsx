@@ -35,6 +35,7 @@ import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
 import UnitUnavailable from 'components/UnitUnavailable';
+import CriticalError from 'components/common/CriticalError';
 
 export class Main extends Component {
     state = {error: null};
@@ -134,7 +135,7 @@ export class Main extends Component {
 
     render() {
         const { theme, isLoggedIn } = this.props;
-        if (this.state.hasError) return <div>Error getting application form</div>;
+        if (this.state.hasError) return <CriticalError/>;
         if (!theme) return null;
         return (
             <AppContextProvider theme={theme}>
