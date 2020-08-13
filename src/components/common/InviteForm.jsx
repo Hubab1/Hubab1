@@ -100,6 +100,7 @@ export const InviteForm = ({handleOnSubmit, onSubmitDependent, displayedErrors, 
                     setFieldValue
                 }) => {
                     return <form onSubmit={handleSubmit} autoComplete="off">
+                        <Spacer height={30}/>
                         <FormTextInput
                             label="First Name"
                             name="first_name"
