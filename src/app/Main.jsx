@@ -79,11 +79,14 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
+            throw Error('error simulated');
+            // eslint-disable-next-line
             isLoggedIn && await this.props.fetchApplicant();
         } catch {
             // todo: handle community id not found better.
             return this.setState({hasError: true});
         }
+        // eslint-disable-next-line
         this.mountNavigation(isLoggedIn, configuration);
         this.resetTimer();
         this.addIdleEventListeners();
