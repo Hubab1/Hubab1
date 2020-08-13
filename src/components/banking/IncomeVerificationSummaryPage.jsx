@@ -149,6 +149,11 @@ export function IncomeVerificationSummaryPage (props) {
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
                                     {
+                                        source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED && (
+                                            <div className={styles.colorManatee}>Proof of income: Linked bank account</div>
+                                        )
+                                    }
+                                    {
                                         source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
                                             <>
                                                 <Spacer height={10}/>
@@ -193,6 +198,11 @@ export function IncomeVerificationSummaryPage (props) {
                                 <div key={source.id}>
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
+                                    {
+                                        source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED && (
+                                            <div className={styles.colorManatee}>Proof of income: Linked bank account</div>
+                                        )
+                                    }
                                     {
                                     source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
                                         <>

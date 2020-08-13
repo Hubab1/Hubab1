@@ -13,11 +13,16 @@ jest.mock("react", () => ({
                     id: 123,
                     income_or_asset_type: 105,
                     estimated_amount: 100000
+                },
+                {
+                    id: 124,
+                    income_or_asset_type: 135,
+                    estimated_amount: 100000
                 }
             ],
             asset_sources: [
                 {
-                    id: 123,
+                    id: 125,
                     income_or_asset_type: 510,
                     estimated_amount: 40000
                 }
