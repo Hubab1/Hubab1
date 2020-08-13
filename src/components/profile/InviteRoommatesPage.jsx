@@ -11,6 +11,7 @@ import { InviteForm } from 'components/common/InviteForm';
 
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
+import { serializeDate } from 'utils/misc';
 import { updateRenterProfile } from 'reducers/renter-profile';
 
 
@@ -36,6 +37,23 @@ export class InviteRoommatesPage extends React.Component {
             setSubmitting(false);
         });
     }
+    onSubmitDependent = (values, { setSubmitting, setErrors }) => {
+        const serialized = Object.assign({}, values);
+        serialized.birthday = serializeDate(serialized.birthday);
+        this.props.updateRenterProfile({dependents: [serialized]}).then((res) => {
+            if (res.errors) {
+                const errorsObj = get(res, 'errors.dependents');
+                const errors = errorsObj && Object.values(errorsObj)[0]
+                errors ? setErrors(errors) : this.setState({errors: ['There was an error adding your dependent. Please Try again.']})
+            } else {
+                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
+            }
+            setSubmitting(false);
+        }).catch((res) => {
+            this.setState({errors: [res.errors]});
+            setSubmitting(false);
+        });
+    }
 
     canInviteMore () {
         // manually setting this until product figures out how we want to determine the limit
@@ -53,16 +71,21 @@ export class InviteRoommatesPage extends React.Component {
                 buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)}
                 buttonText="Continue"
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
-                secondaryButtonText="Add Another Roommate"
+                secondaryButtonText="Add Another Person"
                 confirmationImage={inviteConfirm}
             />
         } 
         return (
             <Fragment>
-                <H1>Invite Your Roommates</H1>
-                <SpacedH3>Send your roommate an application link via text or email.</SpacedH3>
+                <H1>Add a Person</H1>
+                <SpacedH3>Enter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
-                <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
+                <InviteForm
+                    initialIsDependent={null}
+                    onSubmitDependent={this.onSubmitDependent}
+                    handleOnSubmit={this.onSubmit}
+                    displayedErrors={this.state.errors}
+                />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`}/>
             </Fragment>
         );

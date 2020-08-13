@@ -3,6 +3,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 
 import { Main } from 'app/Main';
+import CriticalError from 'components/common/CriticalError';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
 
@@ -54,7 +55,12 @@ beforeEach(() => {
     jest.useFakeTimers();
 });
 
-
+it('renders <CriticalError/> if hasError=true', () => {
+    const wrapper = shallow( <Main {...defaultProps } theme={{}}/>);
+    expect(wrapper.find(CriticalError).exists()).toBe(false);
+    wrapper.setState({hasError: true});
+    expect(wrapper.find(CriticalError).exists()).toBe(true);
+});
 
 describe('componentDidMount', () => {
     it('calls fetchConfiguration', function() {

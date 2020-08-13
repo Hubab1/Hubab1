@@ -99,6 +99,7 @@ export class RentalProfileOptions extends React.Component {
         const filteredParking = this.filterOptions(RENTER_PROFILE_TYPE_PARKING);
         const filteredStorage = this.filterOptions(RENTER_PROFILE_TYPE_STORAGE);
         const options = this.configurableRentalOptions;
+        const people = this.props.profile.co_applicants.concat(this.props.profile.dependents);
         return (
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
@@ -108,19 +109,26 @@ export class RentalProfileOptions extends React.Component {
                         <Capsule
                             prefix={<img alt="coapplicants" src={coapplicants}></img>}
                             name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
-                            label="I'll be living with roommates"
-                            buttonLabel={!!this.props.profile.co_applicants.length ? 'Invite another roommate' : 'Invite a roommate'}
+                            label="I'll be living with other people"
+                            buttonLabel={!!people.length ? 'Add Another Person' : 'Add a Person'}
                             route={ROUTES.CO_APPLICANTS}
-                            expansionPanel={!!this.props.profile.co_applicants.length &&
+                            expansionPanel={!!people.length &&
                                 <ExistingItemsExpansionPanel
                                     label="Roommates"
-                                    labelQuantity={this.props.profile.co_applicants.length}
+                                    labelQuantity={people.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
                                     {this.props.profile.co_applicants.map(item =>
                                         <ExistingRoommate
                                             key={item.id}
                                             item={item}
+                                            type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                        />)}
+                                    {this.props.profile.dependents.map(item =>
+                                        <ExistingRoommate
+                                            key={`${item.id}-d`}
+                                            item={item}
+                                            isDependent
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                         />)}
                                 </ExistingItemsExpansionPanel>
