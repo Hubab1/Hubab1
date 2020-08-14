@@ -12,19 +12,56 @@ jest.mock("react", () => ({
                 {
                     id: 123,
                     income_or_asset_type: 105,
-                    estimated_amount: 100000
+                    estimated_amount: 100000,
+                    uploaded_documents: [{
+                        id: 4,
+                        filename: 'w2-1.pdf',
+                        type: {
+                            label: 'W2',
+                            id: 1,
+                        }
+                    }]
                 },
                 {
                     id: 124,
                     income_or_asset_type: 135,
-                    estimated_amount: 100000
+                    estimated_amount: 100000,
+                    uploaded_documents: []
+                },
+                {
+                    id: 125,
+                    income_or_asset_type: 500,
+                    estimated_amount: 100000,
+                    uploaded_documents: [{
+                        id: 1,
+                        filename: 'w2-1.pdf',
+                        type: {
+                            label: 'W2',
+                            id: 1,
+                        }
+                    }, {
+                        id: 2,
+                        filename: 'w2-2.pdf',
+                        type: {
+                            label: 'W2',
+                            id: 1,
+                        }
+                    }, {
+                        id: 3,
+                        filename: 'w3.pdf',
+                        type: {
+                            label: 'W3',
+                            id: 2,
+                        }
+                    }]
                 }
             ],
             asset_sources: [
                 {
                     id: 125,
                     income_or_asset_type: 510,
-                    estimated_amount: 40000
+                    estimated_amount: 40000,
+                    uploaded_documents: []
                 }
             ],
             income_total: '100000.00',
