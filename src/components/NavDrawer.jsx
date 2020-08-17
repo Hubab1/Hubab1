@@ -15,7 +15,6 @@ import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 
 import { actions } from 'reducers/store';
-import { Bold } from 'assets/styles';
 import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
