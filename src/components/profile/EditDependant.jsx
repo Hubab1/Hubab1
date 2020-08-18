@@ -21,7 +21,10 @@ export class EditDependant extends React.Component {
 
     updateDependant = (values, { setSubmitting, setErrors }) => {
         const serialized = Object.assign({}, values);
-        serialized.birthday = serializeDate(serialized.birthday);
+        const serializedBirthday = serializeDate(serialized.birthday);
+        if(serializedBirthday) {
+            serialized.birthday = serializedBirthday;
+        }
         serialized.id = this.props.match.params.id;
         this.props.updateRenterProfile({dependents: [serialized]}).then((res) => {
             if (res.errors) {
@@ -34,8 +37,8 @@ export class EditDependant extends React.Component {
                 this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
             }
             setSubmitting(false);
-        }).catch((res) => {
-            this.setState({errors: [res.errors]});
+        }).catch(() => {
+            this.setState({errors: ['There was an error updating your dependent. Please Try again.']});
             setSubmitting(false);
         });
     };
