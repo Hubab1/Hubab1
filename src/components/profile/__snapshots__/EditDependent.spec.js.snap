@@ -14,7 +14,7 @@ exports[`matches snapshot 1`] = `
   />
   <InviteForm
     buttonText="Save Changes"
-    dependentOnly={true}
+    disableTypeChange={true}
     displayedErrors={null}
     handleOnSubmit={[Function]}
     initialIsDependent={true}

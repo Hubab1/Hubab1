@@ -43,6 +43,6 @@ it('Check Invite form values', function() {
         {birthday: null, first_name: "John", id: 1, last_name: "Doe"},
     );
     expect(wrapper.find(InviteForm).prop('buttonText')).toEqual("Save Changes");
-    expect(wrapper.find(InviteForm).prop('dependentOnly')).toBe(true);
+    expect(wrapper.find(InviteForm).prop('disableTypeChange')).toBe(true);
     expect(wrapper.find(InviteForm).prop('initialIsDependent')).toBe(true);
 });

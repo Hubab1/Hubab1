@@ -54,7 +54,7 @@ export class EditDependent extends React.Component {
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm
                     initialIsDependent={true}
-                    dependentOnly={true}
+                    disableTypeChange={true}
                     initialValues={dependent}
                     onSubmitDependent={this.updateDependant}
                     handleOnSubmit={()=> {}}
