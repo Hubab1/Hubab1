@@ -56,7 +56,7 @@ export default function ExistingRoommate({item, type, isDependent}) {
                         </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Link
                             style={linkStyle}
-                            to={null}>Remove
+                        >Remove
                         </Link>
                     </>
                 )

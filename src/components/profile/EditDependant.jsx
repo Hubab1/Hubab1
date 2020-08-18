@@ -8,7 +8,8 @@ import roommatesImage from 'assets/images/roommates.png';
 import { InviteForm } from 'components/common/InviteForm';
 import {connect} from "react-redux";
 import { updateRenterProfile } from 'reducers/renter-profile';
-//import { serializeDate } from 'utils/misc';
+import { serializeDate } from 'utils/misc';
+import get from "lodash/get";
 
 const SpacedH3 = styled(H3)`
     margin-top: 15px;
@@ -19,17 +20,30 @@ export class EditDependant extends React.Component {
     state = {confirmSent: false, errors: null};
 
     updateDependant = (values, { setSubmitting, setErrors }) => {
-        this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
-        setSubmitting(false);
-        // const serialized = Object.assign({}, values);
-        // serialized.birthday = serializeDate(serialized.birthday);
+        const serialized = Object.assign({}, values);
+        serialized.birthday = serializeDate(serialized.birthday);
+        serialized.id = this.props.match.params.id;
+        this.props.updateRenterProfile({dependents: [serialized]}).then((res) => {
+            if (res.errors) {
+                const errorsObj = get(res, 'errors.dependents');
+                const errors = errorsObj && Object.values(errorsObj)[0];
+                errors ? setErrors(errors) : this.setState({
+                    errors: ['There was an error updating your dependent. Please Try again.']
+                });
+            } else {
+                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
+            }
+            setSubmitting(false);
+        }).catch((res) => {
+            this.setState({errors: [res.errors]});
+            setSubmitting(false);
+        });
     };
 
     render () {
         if (this.props.profile == null) return null;
 
         const dependant = this.props.profile.dependents.find(x => x.id === parseInt(this.props.match.params.id));
-
         return (
             <Fragment>
                 <H1>Edit a Person</H1>
