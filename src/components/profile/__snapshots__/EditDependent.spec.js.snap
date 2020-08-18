@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Edit a Person
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Enter their info below.
+  </ForwardRef(render)>
+  <img
+    alt="hand with smartphone in it"
+    src="roommates.png"
+  />
+  <InviteForm
+    buttonText="Save Changes"
+    dependentOnly={true}
+    displayedErrors={null}
+    handleOnSubmit={[Function]}
+    initialIsDependent={true}
+    initialValues={
+      Object {
+        "birthday": null,
+        "first_name": "John",
+        "id": 1,
+        "last_name": "Doe",
+      }
+    }
+    onSubmitDependent={[Function]}
+  />
+  <BackLink
+    to="/rental-profile/options#co_applicants"
+  />
+</React.Fragment>
+`;

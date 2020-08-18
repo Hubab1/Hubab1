@@ -32,7 +32,7 @@ export const InviteForm = (
         displayedErrors,
         initialValues={},
         initialIsDependent=false,
-        dependantOnly=false,
+        dependentOnly=false,
         buttonText='Add Person'
     }) => {
     const [isDependent, setIsDependent] = useState(initialIsDependent);
@@ -81,8 +81,8 @@ export const InviteForm = (
                     setIsDependent(val.target.value === 'true')
                 }
             >
-                <FormControlLabel value={false} control={<Radio />} label="Yes" disabled={dependantOnly} /> {/* Note that Yes == false */}
-                <FormControlLabel value={true} control={<Radio />} label="No"  disabled={dependantOnly} />
+                <FormControlLabel value={false} control={<Radio />} label="Yes" disabled={dependentOnly} /> {/* Note that Yes == false */}
+                <FormControlLabel value={true} control={<Radio />} label="No"  disabled={dependentOnly} />
             </RadioGroup>
             {isDependent === null &&
                 <ActionButton disabled={true} marginTop={170} marginBottom={20}>Add Person</ActionButton>

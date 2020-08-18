@@ -8,7 +8,7 @@ import InviteRoommatesPage from 'components/profile/InviteRoommatesPage';
 import PetsPage from 'components/profile/pets/PetsPage';
 import Storage from 'components/profile/Storage';
 import Parking from 'components/profile/Parking';
-import EditDependant from 'components/profile/EditDependant'
+import EditDependent from 'components/profile/EditDependent'
 
 class RentalProfileContainer extends Component {
     render() {
@@ -20,7 +20,7 @@ class RentalProfileContainer extends Component {
                 <Route path={ROUTES.PETS} component={PetsPage} />
                 <Route path={ROUTES.STORAGE} component={Storage} />
                 <Route path={ROUTES.PARKING} component={Parking} />
-                <Route path={ROUTES.EDIT_DEPENDANT} component={EditDependant} />
+                <Route path={ROUTES.EDIT_DEPENDANT} component={EditDependent} />
             </Switch>
         );
     }

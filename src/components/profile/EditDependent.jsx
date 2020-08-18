@@ -16,7 +16,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export class EditDependant extends React.Component {
+export class EditDependent extends React.Component {
     state = {confirmSent: false, errors: null};
 
     updateDependant = (values, { setSubmitting, setErrors }) => {
@@ -46,7 +46,7 @@ export class EditDependant extends React.Component {
     render () {
         if (this.props.profile == null) return null;
 
-        const dependant = this.props.profile.dependents.find(x => x.id === parseInt(this.props.match.params.id));
+        const dependent = this.props.profile.dependents.find(x => x.id === parseInt(this.props.match.params.id));
         return (
             <Fragment>
                 <H1>Edit a Person</H1>
@@ -54,8 +54,8 @@ export class EditDependant extends React.Component {
                 <img src={roommatesImage} alt="hand with smartphone in it"/>
                 <InviteForm
                     initialIsDependent={true}
-                    dependantOnly={true}
-                    initialValues={dependant}
+                    dependentOnly={true}
+                    initialValues={dependent}
                     onSubmitDependent={this.updateDependant}
                     handleOnSubmit={()=> {}}
                     displayedErrors={this.state.errors}
@@ -70,4 +70,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 });
 
-export default connect(mapStateToProps, {updateRenterProfile})(EditDependant);
+export default connect(mapStateToProps, {updateRenterProfile})(EditDependent);
