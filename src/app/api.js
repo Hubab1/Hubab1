@@ -318,4 +318,17 @@ API.deleteFinancialSource = (id) => {
     })
 }
 
+API.resetApplicantFinancials = () => {
+    return fetch(chuck(`/financial-sources/`), {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+    }}).then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+        throw new Error();
+    })
+}
+
 export default API;

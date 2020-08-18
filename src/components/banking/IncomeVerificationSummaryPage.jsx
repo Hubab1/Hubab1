@@ -20,6 +20,8 @@ import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
 import Info from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
+import ResetApplicantFinancials from './ResetApplicantFinancials';
+import { Typography } from '@material-ui/core';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -52,6 +54,7 @@ const totalsP = css`
 
 export function IncomeVerificationSummaryPage (props) {
     const context = React.useContext(BankingContext);
+    const [showResetFinancials, setShowResetFinancials] = React.useState(false);
 
     const setScrollPosition = () => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
@@ -138,6 +141,13 @@ export function IncomeVerificationSummaryPage (props) {
     };
     const hasNotAddedFinancialSources = !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
 
+    if (showResetFinancials) {
+        return (
+            <ResetApplicantFinancials
+                onCancel={()=>setShowResetFinancials(false)}
+            />
+        )
+    }
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
@@ -237,7 +247,7 @@ export function IncomeVerificationSummaryPage (props) {
             <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
-            <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
+            <Typography classes={{root: styles.cursor}} onClick={()=>setShowResetFinancials(true)} color="primary">Start Income Verification Over</Typography>
         </>
     );
 }
