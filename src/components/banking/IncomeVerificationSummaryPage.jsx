@@ -4,7 +4,6 @@ import { generatePath } from "react-router";
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import { BackLink } from 'components/common/BackLink';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import Capsule from 'components/common/Capsule/Capsule';
 import { H1, H3 } from 'assets/styles';
@@ -144,6 +143,10 @@ export function IncomeVerificationSummaryPage (props) {
     if (showResetFinancials) {
         return (
             <ResetApplicantFinancials
+                onSubmit={()=> {
+                    context.clearFinancialSources();
+                    props.history.push(ROUTES.INCOME_AND_EMPLOYMENT);
+                }}
                 onCancel={()=>setShowResetFinancials(false)}
             />
         )

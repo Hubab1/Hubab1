@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { H1, H3, P, Bold } from 'assets/styles';
+import { H1, P, Bold } from 'assets/styles';
 import API from 'app/api';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
-`;
-
-const SpacedH3 = styled(H3)`
-    margin-top: 15px;
-    margin-bottom: 22px;
 `;
 
 const Divider = styled.hr`
@@ -32,7 +27,6 @@ export class ResetApplicantFinancials extends React.Component {
             this.setState({submitting: false, errorSubmitting: true});
             return;
         }
-        // eslint-disable-next-line
         this.setState({submitting: false});
         this.props.onSubmit();
     };

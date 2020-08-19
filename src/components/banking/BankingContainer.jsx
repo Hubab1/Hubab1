@@ -26,7 +26,11 @@ function BankingContainer () {
     }, []);
 
     return (
-        <BankingContext.Provider value={{refreshFinancialSources, bankingData: state.bankingData}}>
+        <BankingContext.Provider value={{
+            refreshFinancialSources,
+            bankingData: state.bankingData,
+            clearFinancialSources: ()=> dispatch({type: 'BANKING_DATA_CLEARED'})
+        }}>
             <Switch>
                 <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={
                     (props) => <ConnectBankPage {...props} refreshFinancialSources={refreshFinancialSources} />} exact/>
