@@ -56,6 +56,7 @@ export default function ExistingRoommate({item, type, isDependent}) {
                         </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Link
                             style={linkStyle}
+                            to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type: 'dependent' })}
                         >Remove
                         </Link>
                     </>
