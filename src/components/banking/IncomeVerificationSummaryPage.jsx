@@ -11,7 +11,7 @@ import { H1, H3 } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import piggyBank from 'assets/images/piggy-bank.png';
 import captureRoute from 'app/captureRoute';
-import { ROUTES, ROLE_GUARANTOR } from 'app/constants';
+import { ROUTES, ROLE_GUARANTOR, INCOME_TYPE_FINICITY_AUTOMATED } from 'app/constants';
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
 import { styles, Spacer, infoIconRoot } from 'assets/styles';
 import BankingContext from './BankingContext';
@@ -114,6 +114,25 @@ export function IncomeVerificationSummaryPage (props) {
         }
     }
 
+    function getProofString(source) {
+        if (source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED) {
+            return 'Linked bank account';
+        }
+
+        // find all document type labels
+        const typesSet = source.uploaded_documents?.reduce((accum, doc) => {
+            if (doc.type?.label) {
+                accum.add(doc.type.label);
+            }
+            return accum;
+        }, new Set()) || new Set();
+
+        // join labels together with comma
+        const proofs = Array.from(typesSet).join(', ');
+        if (!proofs) return 'None';
+        return proofs;
+    }
+
     const onContinue = async () => {
         props._navigate(ROUTES.FEES_AND_DEPOSITS);
     };
@@ -148,13 +167,20 @@ export function IncomeVerificationSummaryPage (props) {
                                 <div key={source.id}>
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
-                                    <Spacer height={10}/>
-                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                        id: source.id,
-                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
-                                        id: source.id,
-                                    })}>Remove</Link>
+                                    <div className={styles.colorManatee}>Proof of income: {getProofString(source)}</div>
+                                    {
+                                        source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                                            <>
+                                                <Spacer height={10}/>
+                                                <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                                    id: source.id,
+                                                })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                                    id: source.id,
+                                                })}>Remove</Link>
+                                            </>
+                                        )
+                                    }
                                 </div>
                             ))
                         }
@@ -187,13 +213,20 @@ export function IncomeVerificationSummaryPage (props) {
                                 <div key={source.id}>
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
-                                    <Spacer height={10}/>
-                                    <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                        id: source.id,
-                                    })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
-                                        id: source.id,
-                                    })}>Remove</Link>
+                                    <div className={styles.colorManatee}>Proof of asset: {getProofString(source)}</div>
+                                    {
+                                    source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                                        <>
+                                            <Spacer height={10}/>
+                                            <Link style={linkStyle} to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                                id: source.id,
+                                            })}>Edit</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                                                id: source.id,
+                                            })}>Remove</Link>
+                                        </>
+                                    )
+                                    }
                                 </div>
                             ))
                         }
