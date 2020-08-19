@@ -6,6 +6,8 @@ import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import {connect} from "react-redux";
+import API from 'app/api';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -32,18 +34,18 @@ export class RemovePerson extends React.Component {
     onSubmit = async () => {
         this.setState({submitting: true});
         try {
-            //await API.deleteFinancialSource(this.props.match.params.id);
+            await API.deletePerson(this.props.match.params.id);
         } catch {
             this.setState({submitting: false, errorSubmitting: true});
             return;
         }
+        this.props.fetchRenterProfile();
         this.setState({submitting: false});
         this.props.history.push(this.returnLink);
     };
 
 
     render () {
-        console.log('here');
         if (this.props.profile == null) return null;
 
         const role = this.props.match.params.type;
@@ -78,4 +80,4 @@ const mapStateToProps = state => ({
     profile: state.renterProfile,
 });
 
-export default connect(mapStateToProps, {})(RemovePerson);
+export default connect(mapStateToProps, {fetchRenterProfile})(RemovePerson);
