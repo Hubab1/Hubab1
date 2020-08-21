@@ -1,12 +1,17 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
+import { generatePath } from 'react-router';
 import { P, Span } from 'assets/styles';
 import { link, inviteeContact, nameContainer } from './styles';
-import { applicationStatus } from 'assets/styles';
+import { applicationStatus, Spacer } from 'assets/styles';
 import { APPLICANT_STATUS_COLOR_MAP, ROUTES } from 'app/constants';
 import { getRoommateStatus } from 'utils/misc';
+
+const linkStyle = {
+    textDecoration: 'underline',
+    fontSize: 14
+};
 
 export default function ExistingRoommate({item, type, isDependent}) {
     const statusColor = APPLICANT_STATUS_COLOR_MAP[getRoommateStatus(item)];
@@ -34,21 +39,36 @@ export default function ExistingRoommate({item, type, isDependent}) {
                 >
                     Edit/Resend
                 </Link>
-            </div>}
-        {
-        isDependent &&
-        <Span className="color-manatee" fontSize={14}>
-            Under 18
-        </Span>
-        }
+            </div>
+            }
+            {
+
+                isDependent && (
+                    <>
+                        <Span className="color-manatee" fontSize={14}>
+                            Under 18
+                        </Span>
+                        <Spacer height={10}/>
+                        <Link
+                            style={linkStyle}
+                            to={generatePath(ROUTES.EDIT_DEPENDANT, { id: item.id })}
+                        >Edit
+                        </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link
+                            style={linkStyle}
+                        >Remove
+                        </Link>
+                    </>
+                )
+            }
         </div>
         {
-        !isDependent &&
-        <div className="text-right">
-            <span className={applicationStatus}>Application Status:</span>
-            <br/>
-            <P bold color={statusColor}>{getRoommateStatus(item)}</P>
-        </div>
+            !isDependent &&
+            <div className="text-right">
+                <span className={applicationStatus}>Application Status:</span>
+                <br/>
+                <P bold color={statusColor}>{getRoommateStatus(item)}</P>
+            </div>
         }
     </Fragment>
 }
