@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { H1, H3, P, Bold } from 'assets/styles';
-import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import API from 'app/api';
 import GenericFormMessage from 'components/common/GenericFormMessage';
@@ -95,7 +94,7 @@ export class RemoveFinancialSource extends React.Component {
         );
     }
 }
-RemoveFinancialSource.route = ROUTES.REMOVE_FINANCIAL_SOURCE;
+
 RemoveFinancialSource.contextType = BankingContext;
 
-export default captureRoute(RemoveFinancialSource);
+export default RemoveFinancialSource;

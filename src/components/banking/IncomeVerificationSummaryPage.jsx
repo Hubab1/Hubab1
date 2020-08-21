@@ -9,7 +9,6 @@ import Capsule from 'components/common/Capsule/Capsule';
 import { H1, H3 } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import piggyBank from 'assets/images/piggy-bank.png';
-import captureRoute from 'app/captureRoute';
 import { ROUTES, ROLE_GUARANTOR, INCOME_TYPE_FINICITY_AUTOMATED } from 'app/constants';
 import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
 import { styles, Spacer, infoIconRoot } from 'assets/styles';
@@ -21,6 +20,7 @@ import Info from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
 import ResetApplicantFinancials from './ResetApplicantFinancials';
 import { Typography } from '@material-ui/core';
+import BackLink from 'components/common/BackLink';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -136,7 +136,7 @@ export function IncomeVerificationSummaryPage (props) {
     }
 
     const onContinue = async () => {
-        props._navigate(ROUTES.FEES_AND_DEPOSITS);
+        context._nextRoute();
     };
     const hasNotAddedFinancialSources = !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
 
@@ -250,15 +250,13 @@ export function IncomeVerificationSummaryPage (props) {
             <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
-            <Typography classes={{root: styles.cursor}} onClick={()=>setShowResetFinancials(true)} color="primary">Start Income Verification Over</Typography>
+            {hasNotAddedFinancialSources ?
+                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT}/> :
+                <Typography classes={{root: styles.cursor}} onClick={()=>setShowResetFinancials(true)} color="primary">Start Income Verification Over</Typography>
+            }
         </>
     );
 }
-
-
-IncomeVerificationSummaryPage.contextTypes = BankingContext;
-
-IncomeVerificationSummaryPage.route = ROUTES.INCOME_VERIFICATION_SUMMARY;
 
 const mapStateToProps = state => ({
     config: state.configuration,
@@ -266,4 +264,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 })
 
-export default connect(mapStateToProps)(captureRoute(IncomeVerificationSummaryPage))
+export default connect(mapStateToProps)(IncomeVerificationSummaryPage);

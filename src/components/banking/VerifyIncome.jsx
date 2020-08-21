@@ -58,4 +58,5 @@ const VerifyIncome = props => {
     );
 }
 
+
 export default VerifyIncome;

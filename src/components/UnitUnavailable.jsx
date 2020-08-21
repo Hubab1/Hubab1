@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ROUTES } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import { H1, SpacedH3, P } from 'assets/styles';
 import tooslow from 'assets/images/tooslow.png';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import captureRoute from 'app/captureRoute';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -53,4 +53,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(UnitUnavailable, ROUTES.UNIT_UNAVAILABLE));
+export default connect(mapStateToProps)(captureRoute(UnitUnavailable, ROUTES.UNIT_UNAVAILABLE));
