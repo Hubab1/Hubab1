@@ -318,4 +318,18 @@ API.deleteFinancialSource = (id) => {
     })
 }
 
+API.deletePerson = (id) => {
+    return fetch(chuck(`/person/${id}/`), {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        }
+    }).then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+        throw new Error();
+    })
+};
+
 export default API;
