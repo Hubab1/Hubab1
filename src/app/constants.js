@@ -46,6 +46,7 @@ export const ROUTES = {
     PRIVACY_POLICY: '/privacy-policy',
     UNIT_UNAVAILABLE: '/unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
+    REMOVE_PERSON: '/rental-profile/:type/:id/remove',
 };
 
 export const ROUTE_LABELS = {

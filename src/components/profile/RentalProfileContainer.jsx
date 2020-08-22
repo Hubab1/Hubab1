@@ -9,6 +9,7 @@ import PetsPage from 'components/profile/pets/PetsPage';
 import Storage from 'components/profile/Storage';
 import Parking from 'components/profile/Parking';
 import EditDependent from 'components/profile/EditDependent'
+import RemovePerson from 'components/profile/RemovePerson';
 
 class RentalProfileContainer extends Component {
     render() {
@@ -21,6 +22,7 @@ class RentalProfileContainer extends Component {
                 <Route path={ROUTES.STORAGE} component={Storage} />
                 <Route path={ROUTES.PARKING} component={Parking} />
                 <Route path={ROUTES.EDIT_DEPENDANT} component={EditDependent} />
+                <Route path={ROUTES.REMOVE_PERSON} component={RemovePerson} />
             </Switch>
         );
     }
