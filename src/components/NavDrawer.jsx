@@ -15,13 +15,14 @@ import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 
 import { actions } from 'reducers/store';
-import { Bold } from 'assets/styles';
 import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
 import { ROUTES } from 'app/constants';
+import styled from "@emotion/styled";
+import { withStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -75,6 +76,22 @@ const links = css`
   }
 `
 
+const EllipsisText = styled.b`
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : '600'};
+    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
+    width: ${props => props.width ? `${props.width}px` : '50px'};
+`
+
+const StyledBox = withStyles({
+    root: {
+        witheSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+})(Box);
 
 export function PersistentDrawerLeft(props) {
     const appThemeContext = useContext(AppTheme);
@@ -133,12 +150,12 @@ export function PersistentDrawerLeft(props) {
                         <Box display="flex">
                             <Box className={classes.initialsContainer}>{initials}</Box>
                             <Box display="flex" flexDirection="column">
-                                <Box>
-                                    <Bold fontSize={18}>{name}</Bold>
-                                </Box>
-                                <Box>
-                                    {email}
-                                </Box>
+                                <StyledBox width={220} maxWidth={220}>
+                                    <EllipsisText fontSize={18} width={100}>{name}</EllipsisText>
+                                </StyledBox>
+                                <StyledBox width={220} maxWidth={220}>
+                                    <EllipsisText fontWeight={400} width={100}>{email}</EllipsisText>
+                                </StyledBox>
                             </Box>
                         </Box>
                         <Box>
