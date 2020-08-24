@@ -81,9 +81,11 @@ export class RemoveFinancialSource extends React.Component {
                         messages={['Oops! We had some trouble removing your financial source. Try again in a little bit.']}
                     />
                 )}
-                <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
-                {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
-                {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
+                <div className="text-left">
+                    <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
+                    {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
+                    {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
+                </div>
                 <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {isAsset ? 'Asset' : 'Income Source'}
                 </ActionButton>
