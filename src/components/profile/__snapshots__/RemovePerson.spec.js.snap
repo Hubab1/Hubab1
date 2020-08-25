@@ -3,7 +3,8 @@
 exports[`matches snapshot: case dependent 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Remove Person
+    Remove 
+    Person
   </ForwardRef(render)>
   <ForwardRef(render)>
     John Doe
@@ -12,7 +13,9 @@ exports[`matches snapshot: case dependent 1`] = `
   <ForwardRef(render)
     fontSize={18}
   >
-    Are you sure you want to remove this person?
+    Are you sure you want to remove this 
+    person
+    ?
   </ForwardRef(render)>
   <br />
   <br />
@@ -28,7 +31,8 @@ exports[`matches snapshot: case dependent 1`] = `
     successGreen={false}
     variant="contained"
   >
-    Remove Person
+    Remove 
+    Person
   </ActionButton>
   <ActionButton
     color="primary"

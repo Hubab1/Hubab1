@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import { ROUTES, RENTER_PROFILE_IDENTIFIER, RENTER_PROFILE_TYPE_CO_APPLICANTS, RENTER_PROFILE_TYPE_GUARANTOR,
-    RENTER_PROFILE_TYPE_PETS, RENTER_PROFILE_TYPE_PARKING, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
+    RENTER_PROFILE_TYPE_PETS, RENTER_PROFILE_TYPE_PARKING, RENTER_PROFILE_TYPE_STORAGE,
+    RENTER_PROFILE_TYPE_DEPENDENT } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -128,8 +129,7 @@ export class RentalProfileOptions extends React.Component {
                                         <ExistingRoommate
                                             key={`${item.id}-d`}
                                             item={item}
-                                            isDependent
-                                            type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                            type={RENTER_PROFILE_TYPE_DEPENDENT}
                                         />)}
                                 </ExistingItemsExpansionPanel>
                             }
