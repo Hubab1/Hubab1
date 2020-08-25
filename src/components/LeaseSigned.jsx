@@ -8,9 +8,9 @@ import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import contract from 'assets/images/contract.svg';
 import { H1, SpacedH3, P } from 'assets/styles';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import captureRoute from 'app/captureRoute';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -89,4 +89,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(withRelativeRoutes(LeaseSigned, ROUTES.LEASE_SIGNED));
+export default connect(mapStateToProps)(captureRoute(LeaseSigned, ROUTES.LEASE_SIGNED));

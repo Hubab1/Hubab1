@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-import { ROUTES, REPORT_POLL_INTERVAL, APPLICATION_EVENTS, TOS_TYPE_PAYMENTS } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_PAYMENTS } from 'app/constants';
 import API from 'app/api';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
 import PropTypes from "prop-types";
+import BankingContext from './BankingContext';
 
 const finicityContainer = css`
     height: calc(100vh - 66px);
@@ -24,27 +24,6 @@ export class ConnectBankPage extends React.Component {
         loadingReport: false,
     };
 
-    checkReportsGenerated = () => {
-        const eventsSet = new Set(this.props.applicant.events.map(event => parseInt(event.event)));
-        if (eventsSet.has(APPLICATION_EVENTS.EVENT_INCOME_REPORTS_GENERATED)) {
-            this.props.refreshFinancialSources().then( () => {
-                this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
-            });
-        }
-    };
-
-    componentDidMount () {
-        if (this.props.applicant && this.props.applicant.events) {
-            this.checkReportsGenerated();
-        }
-    }
-
-    componentDidUpdate (prevProps, prevState) {
-        if (prevProps.applicant === null && this.props.applicant && prevState === this.state) {
-            this.checkReportsGenerated();
-        }
-    }
-
     componentWillUnmount () {
         clearInterval(window.fetchReportsInterval);
     }
@@ -56,7 +35,7 @@ export class ConnectBankPage extends React.Component {
         }).then( res => {
             if (!res) return;
             clearInterval(window.fetchReportsInterval);
-            this.props.refreshFinancialSources().then( () => {
+            this.context.refreshFinancialSources().then( () => {
                 this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
             });
         })
@@ -169,4 +148,6 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(ConnectBankPage, ROUTES.INCOME_AND_EMPLOYMENT));
+ConnectBankPage.contextType = BankingContext;
+
+export default connect(mapStateToProps)(ConnectBankPage);

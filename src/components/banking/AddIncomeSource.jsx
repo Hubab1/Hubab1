@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
-import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
@@ -83,6 +82,5 @@ export function AddIncomeSource (props) {
         </>
     );
 }
-AddIncomeSource.route = ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME;
 
-export default captureRoute(AddIncomeSource);
+export default AddIncomeSource;

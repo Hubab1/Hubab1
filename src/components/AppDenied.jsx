@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ROUTES } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
 import AppAdverseActions from 'components/AppAdverseActions';
+import captureRoute from 'app/captureRoute';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -88,4 +88,4 @@ const mapStateToProps = state => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(AppDenied, ROUTES.APP_DENIED));
+export default connect(mapStateToProps)(captureRoute(AppDenied, ROUTES.APP_DENIED));

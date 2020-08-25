@@ -74,7 +74,9 @@ jest.mock("react", () => ({
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        _navigate: jest.fn(),
+        history: {
+            push: jest.fn()
+        },
         goBack: jest.fn(),
         applicant: {
             role: ROLE_PRIMARY_APPLICANT
@@ -105,10 +107,4 @@ it('matches snapshot with some financial sources data if guarantor', () => {
     expect(
         wrapper.getElement()
     ).toMatchSnapshot();
-});
-
-it('calls props._navigate on click continue',  async () => {
-    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-    await wrapper.find(ActionButton).simulate('click');
-    expect(defaultProps._navigate).toHaveBeenCalled();
 });

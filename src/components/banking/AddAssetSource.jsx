@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import piggyBank from 'assets/images/piggy-bank.png';
-import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
@@ -85,6 +84,5 @@ export function AddAssetSource (props) {
         </>
     );
 }
-AddAssetSource.route = ROUTES.MANUAL_INCOME_ENTRY_ADD_ASSET;
 
-export default captureRoute(AddAssetSource);
+export default AddAssetSource;

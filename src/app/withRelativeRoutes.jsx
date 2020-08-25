@@ -12,6 +12,11 @@ import { ROUTES } from 'app/constants';
 
 // Second param is deprecated in favor of static param 'route'
 export default function withRelativeRoutes(WrappedComponent, route) {
+    // Make sure route is a top level page route! or else you will break relative routing.
+    if (![ROUTES.ADDRESS, ROUTES.LEASE_TERMS, ROUTES.PROFILE_OPTIONS, ROUTES.INCOME_AND_EMPLOYMENT,
+    ROUTES.FEES_AND_DEPOSITS, ROUTES.SCREENING, ROUTES.APP_COMPLETE].includes(route)) {
+        throw Error(`${route} is invalid. Route must be a top level route! Did you mean to use captureRoute?`);
+    }
     route = WrappedComponent.route || route;
     class Component extends React.Component {
         constructor (props) {

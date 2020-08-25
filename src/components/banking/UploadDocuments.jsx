@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import uuidv4 from 'uuid/v4';
 
 import { css } from 'emotion';
@@ -13,7 +12,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
-import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { P, LinkButton } from 'assets/styles';
 
@@ -383,4 +381,4 @@ const mapStateToProps = state => ({
     config: state.configuration,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(UploadDocuments, ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME));
+export default connect(mapStateToProps)(UploadDocuments);
