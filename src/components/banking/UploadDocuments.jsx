@@ -178,13 +178,13 @@ export class UploadDocuments extends React.Component {
         const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
         if (!maxCount) return null;
 
-        let badFiles = [];
+        let largeFiles = [];
 
         for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
             let file = e.target.files[i];
             let fileSize = file.size / 1024 / 1024; // in MB
             if (fileSize > 10) {
-                badFiles.push(file.name);
+                largeFiles.push(file.name);
             } else {
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -208,10 +208,10 @@ export class UploadDocuments extends React.Component {
                 };
             }
         }
-        if (badFiles.length) {
-            const errorMessage = badFiles.length === 1?
-                `Oops! Your file ${badFiles[0]} is too large. Please save it as 10 MB or smaller and try again.`:
-                `Oops! Your files ${badFiles.join(', ')} are too large. Please save them as 10 MB or smaller each and try again.`;
+        if (largeFiles.length) {
+            const errorMessage = largeFiles.length === 1?
+                `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10 MB or smaller and try again.`:
+                `Oops! Your files ${largeFiles.join(', ')} are too large. Please save them as 10 MB or smaller each and try again.`;
 
             this.props.setError([errorMessage]);
         } else {
