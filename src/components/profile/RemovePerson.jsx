@@ -50,6 +50,7 @@ export class RemovePerson extends React.Component {
         }
 
         if (type === RENTER_PROFILE_TYPE_GUARANTOR) {
+            // TODO: get the guarantors directly from the profile
             return profile.primary_applicant.guarantors.find(x => x.id === parseInt(id));
         }
 
