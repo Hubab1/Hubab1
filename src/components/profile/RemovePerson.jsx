@@ -41,20 +41,17 @@ export class RemovePerson extends React.Component {
         const { match: { params: { type, id } } } = this.props;
         const { profile } = this.props;
 
-        if (type === RENTER_PROFILE_TYPE_DEPENDENT) {
-            return profile.dependents.find(x => x.id === parseInt(id));
+        switch (type) {
+            case RENTER_PROFILE_TYPE_DEPENDENT:
+                return profile.dependents.find(x => x.id === parseInt(id));
+            case RENTER_PROFILE_TYPE_CO_APPLICANTS:
+                return profile.co_applicants.find(x => x.id === parseInt(id));
+            case RENTER_PROFILE_TYPE_GUARANTOR:
+                // TODO: get the guarantors directly from the profile
+                return profile.primary_applicant.guarantors.find(x => x.id === parseInt(id));
+            default:
+                return null;
         }
-
-        if (type === RENTER_PROFILE_TYPE_CO_APPLICANTS) {
-            return profile.co_applicants.find(x => x.id === parseInt(id));
-        }
-
-        if (type === RENTER_PROFILE_TYPE_GUARANTOR) {
-            // TODO: get the guarantors directly from the profile
-            return profile.primary_applicant.guarantors.find(x => x.id === parseInt(id));
-        }
-
-        return null;
     }
 
     onSubmit = async () => {
