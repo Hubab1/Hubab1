@@ -59,7 +59,6 @@ export class RemovePerson extends React.Component {
 
         this.setState({submitting: true});
         try {
-
             if (type === RENTER_PROFILE_TYPE_DEPENDENT) {
                 await API.deletePerson(id);
             } else {
@@ -105,10 +104,10 @@ export class RemovePerson extends React.Component {
                 ) : (
                     <P>{`You're about to remove ${person.first_name}. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
                 )}
-                <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
+                <ActionButton id="submit-btn" disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {personLabel}
                 </ActionButton>
-                <ActionButton onClick={this.onCancel} variant="outlined" marginBottom={20}>
+                <ActionButton id="cancel-btn" onClick={this.onCancel} variant="outlined" marginBottom={20}>
                     Cancel
                 </ActionButton>
             </>

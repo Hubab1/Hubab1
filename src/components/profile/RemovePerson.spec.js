@@ -5,6 +5,7 @@ import mockConfig from 'reducers/mock-config.json';
 import mockApplication from 'reducers/mock-profile.json';
 import mockProfile from 'reducers/mock-profile.json';
 import { RemovePerson } from 'components/profile//RemovePerson';
+import API from 'app/api';
 
 import {
     RENTER_PROFILE_TYPE_CO_APPLICANTS,
@@ -29,6 +30,13 @@ beforeEach(() => {
         application: mockApplication,
         config: mockConfig,
     }
+
+    API.deletePerson = jest.fn().mockReturnValue(Promise.resolve());
+    API.deleteInvitee = jest.fn().mockReturnValue(Promise.resolve());
+});
+
+afterEach(() => {
+    jest.restoreAllMocks();
 });
 
 it('matches snapshot: case dependent', function() {
@@ -40,7 +48,7 @@ it('matches snapshot: case dependent', function() {
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
-it('renders content for dependent person type', () => {
+it.only('renders content for dependent person type', () => {
     const wrapper = shallow(
         <RemovePerson
             {...defaultProps}
@@ -56,6 +64,11 @@ it('renders content for dependent person type', () => {
         'them from being able to apply for this unit as a dependent ' +
         'or from being added to the lease.'
     );
+
+    wrapper.find('#submit-btn').simulate('click');
+
+    expect(API.deletePerson).toHaveBeenCalled();
+    expect(API.deleteInvitee).not.toHaveBeenCalled();
 });
 
 it('renders content for co-applicant person type', () => {
@@ -74,6 +87,11 @@ it('renders content for co-applicant person type', () => {
         'them from being able to apply for this unit as a co-applicant ' +
         'or from being added to the lease.'
     );
+
+    wrapper.find('#submit-btn').simulate('click');
+
+    expect(API.deleteInvitee).toHaveBeenCalled();
+    expect(API.deletePerson).not.toHaveBeenCalled();
 });
 
 it('renders content for guarantor person type', () => {
@@ -92,4 +110,9 @@ it('renders content for guarantor person type', () => {
         'Removing a guarantor prevents them from being able ' +
         'to financially back your lease application.'
     );
+
+    wrapper.find('#submit-btn').simulate('click');
+
+    expect(API.deleteInvitee).toHaveBeenCalled();
+    expect(API.deletePerson).not.toHaveBeenCalled();
 });
