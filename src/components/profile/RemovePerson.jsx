@@ -96,7 +96,7 @@ export class RemovePerson extends React.Component {
                         messages={['Oops! We had some trouble removing this person. Try again in a little bit.']}
                     />
                 )}
-                <Bold fontSize={18}>Are you sure you want to remove this {personLabel.toLowerCase()}?</Bold>
+                <Bold fontSize={18}>{`Are you sure you want to remove this ${personLabel.toLowerCase()}?`}</Bold>
                 <br/>
                 <br/>
                 {role === RENTER_PROFILE_TYPE_GUARANTOR ? (

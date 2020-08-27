@@ -13,9 +13,7 @@ exports[`matches snapshot: case dependent 1`] = `
   <ForwardRef(render)
     fontSize={18}
   >
-    Are you sure you want to remove this 
-    person
-    ?
+    Are you sure you want to remove this person?
   </ForwardRef(render)>
   <br />
   <br />
