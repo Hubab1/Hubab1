@@ -25,6 +25,7 @@ exports[`matches snapshot: case dependent 1`] = `
   <ActionButton
     color="primary"
     disabled={false}
+    id="submit-btn"
     marginBottom={20}
     marginTop={100}
     onClick={[Function]}
@@ -36,6 +37,7 @@ exports[`matches snapshot: case dependent 1`] = `
   </ActionButton>
   <ActionButton
     color="primary"
+    id="cancel-btn"
     marginBottom={20}
     onClick={[Function]}
     successGreen={false}
