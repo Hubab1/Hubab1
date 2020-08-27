@@ -11,6 +11,8 @@ const buildProps = () => {
         unitId: 12,
         category: 'storage',
         categoryHelperText: 'storage space',
+        onError: jest.fn(),
+        onSuccess: jest.fn(),
     }
 };
 
@@ -29,6 +31,8 @@ it('display correct info', async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
     });
+    expect(API.getCurrentFlatQuote).toHaveBeenCalled();
+    expect(props.onSuccess).toHaveBeenCalled();
     expect(wrapper.debug()).toMatchSnapshot();
 })
 it('display correct info if has included options', async () => {
@@ -47,4 +51,14 @@ it('display correct info if has included options', async () => {
         wrapper.update();
     });
     expect(wrapper.debug()).toMatchSnapshot();
+})
+it('calls onerror if api rejects', async () => {
+    const props = buildProps();
+    API.getCurrentFlatQuote = jest.fn().mockRejectedValue();
+    let wrapper = mount(<PriceBreakdown {...props} />);
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(props.onError).toHaveBeenCalled();
 })
