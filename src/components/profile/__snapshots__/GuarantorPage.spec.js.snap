@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Let's Invite a Guarantor
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could't be paid for some reason.
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    <img
+      alt="coin"
+      src="coin.png"
+    />
+  </ForwardRef(render)>
+  <InviteForm
+    displayedErrors={null}
+    handleOnSubmit={[Function]}
+    isGuarantor={true}
+  />
+  <BackLink
+    to="/rental-profile/options#guarantor"
+  />
+</React.Fragment>
+`;

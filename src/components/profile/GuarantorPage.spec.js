@@ -30,3 +30,8 @@ it('sets errors on submit if errors returned', function() {
         expect(setErrors).toHaveBeenCalledWith('not good');
     })
 });
+
+it('matches snapshot', () => {
+    const wrapper = shallow(<GuarantorPage {...defaultProps}/>);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
