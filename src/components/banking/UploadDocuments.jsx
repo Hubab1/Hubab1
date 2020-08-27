@@ -210,8 +210,8 @@ export class UploadDocuments extends React.Component {
         }
         if (largeFiles.length) {
             const errorMessage = largeFiles.length === 1?
-                `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10 MB or smaller and try again.`:
-                `Oops! Your files ${largeFiles.join(', ')} are too large. Please save them as 10 MB or smaller each and try again.`;
+                `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10MB or smaller and try again.`:
+                `Oops! Your files ${largeFiles.join(', ')} are too large. Please save them as 10MB or smaller each and try again.`;
 
             this.props.setError([errorMessage]);
         } else {
