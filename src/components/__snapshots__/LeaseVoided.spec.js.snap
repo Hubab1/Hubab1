@@ -26,7 +26,7 @@ exports[`matches snapshot 1`] = `
     <a
       href="tel:1234445510"
     >
-      123-444-5510
+      123‑444‑5510
     </a>
      if you have any questions.
   </ForwardRef(render)>
