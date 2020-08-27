@@ -102,7 +102,7 @@ it('Case is a guarantor', function () {
     const initialValues = {
         last_name: 'Doe',
         first_name: 'John',
-        birthday: 'john.doe@nest.io',
+        email: 'john.doe@nest.io',
     };
     const wrapper = shallow(
         <InviteForm
@@ -111,8 +111,8 @@ it('Case is a guarantor', function () {
             isGuarantor={true}
         />);
     const contents = wrapper.find(Formik).dive();
-    expect(contents.find(FormTextInput).length).toEqual(2);
-    expect(contents.find(KeyboardDatePicker).length).toEqual(0);
-    expect(contents.find(FormHelperText).length).toEqual(0);
+    expect(contents.find(FormTextInput).length).toEqual(3); // first_name, last_name and email
+    expect(contents.find(KeyboardDatePicker).length).toEqual(0); // no birthday
+    expect(contents.find(FormHelperText).length).toEqual(0); // no help test 'Is this person 18 or older?'
     expect(contents.find(ActionButton).exists()).toBe(true);
 });
