@@ -68,6 +68,7 @@ export class ResendLinkForm extends React.Component {
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
                     initialValues={this.props.location.state.initialValues}
+                    isGuarantor={this.props.location.state.returnRoute.includes('guarantor')}
                 />
                 <BackLink to={this.props.location.state.returnRoute}/>
             </Fragment>
