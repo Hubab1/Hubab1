@@ -48,7 +48,7 @@ it('matches snapshot: case dependent', function() {
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
-it.only('renders content for dependent person type', () => {
+it('renders content for dependent person type', () => {
     const wrapper = shallow(
         <RemovePerson
             {...defaultProps}
