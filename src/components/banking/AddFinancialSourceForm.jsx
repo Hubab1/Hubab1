@@ -156,6 +156,7 @@ export function AddFinancialSourceForm (props) {
                                             streamType={props.financialType}
                                             uploadedDocuments={values.uploadedDocuments}
                                             loadDocument={e => setFieldValue('uploadedDocuments', e)}
+                                            setError={(err) => props.setError(err)}
                                         />
                                     </>
                                 )

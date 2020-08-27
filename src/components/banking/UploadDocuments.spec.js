@@ -82,6 +82,7 @@ beforeEach(() => {
                     }
                 ],
         },
+        setError: jest.fn()
     }
 });
 
@@ -145,6 +146,66 @@ it('Case documents uploaded', () => {
                     files:[
                         {id: 2, name: 'def.pdf'},
                         {id: 3, name: 'ghi.jpg'},
+                    ]
+                }
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case documents uploaded 1 large document', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 1, name: 'abc.png', size: 1},
+                    ]
+                },
+                // Case stacked
+                '2': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 2, name: 'def.pdf', size: 1},
+                        {id: 3, name: 'ghi.jpg', size: 2073741824},
+                    ]
+                }
+            }}
+        />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('Case documents uploaded 2 large document', () => {
+    const wrapper = shallow(
+        <UploadDocuments
+            {...defaultProps}
+            streamType={FINANCIAL_STREAM_ASSET}
+            incomeOrAssetType={105}
+            store={store}
+            uploadedDocuments={{
+                // Case 1 doc
+                '1': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 1, name: 'abc.png', size: 1},
+                    ]
+                },
+                // Case stacked
+                '2': {
+                    id:1,
+                    label: 'W2',
+                    files:[
+                        {id: 2, name: 'def.pdf', size: 2073741824},
+                        {id: 3, name: 'ghi.jpg', size: 2073741824},
                     ]
                 }
             }}
