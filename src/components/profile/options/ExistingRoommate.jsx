@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { P, Span } from 'assets/styles';
 import { css } from 'emotion';
-import cx from 'classnames';
+import clsx from  'clsx';
 import { link, inviteeContact, nameContainer } from './styles';
 import { applicationStatus, Spacer } from 'assets/styles';
 import {
@@ -52,7 +52,7 @@ export default function ExistingRoommate({item, type}) {
                 )}
                 {!isDependent && !didPersonStartApplication && (
                     <Link
-                        className={cx(link, removeLink)}
+                        className={clsx([link, removeLink])}
                         to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type })}
                     >
                         Remove
@@ -71,7 +71,7 @@ export default function ExistingRoommate({item, type}) {
                             Edit
                         </Link>
                         <Link
-                            className={cx(link, removeLink)}
+                            className={clsx([link, removeLink])}
                             to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type })}
                         >
                             Remove
