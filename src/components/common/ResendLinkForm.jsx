@@ -11,6 +11,7 @@ import { BackLink } from 'components/common/BackLink';
 import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { fetchRenterProfile } from 'reducers/renter-profile';
+import { RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -68,6 +69,7 @@ export class ResendLinkForm extends React.Component {
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
                     initialValues={this.props.location.state.initialValues}
+                    isGuarantor={this.props.location.state.returnRoute.includes(RENTER_PROFILE_TYPE_GUARANTOR)}
                 />
                 <BackLink to={this.props.location.state.returnRoute}/>
             </Fragment>

@@ -2,6 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Formik } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import { FormHelperText } from '@material-ui/core';
 
 import { InviteForm } from './InviteForm';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -95,3 +96,23 @@ describe('initialIsDependent is set to true', () => {
         expect(contents.find(ActionButton).exists()).toBe(true);
     });
 })
+
+
+it('Case is a guarantor', function () {
+    const initialValues = {
+        last_name: 'Doe',
+        first_name: 'John',
+        email: 'john.doe@nest.io',
+    };
+    const wrapper = shallow(
+        <InviteForm
+            {...defaultProps}
+            initialValues={initialValues}
+            isGuarantor={true}
+        />);
+    const contents = wrapper.find(Formik).dive();
+    expect(contents.find(FormTextInput).length).toEqual(3); // first_name, last_name and email
+    expect(contents.find(KeyboardDatePicker).length).toEqual(0); // no birthday
+    expect(contents.find(FormHelperText).length).toEqual(0); // no help test 'Is this person 18 or older?'
+    expect(contents.find(ActionButton).exists()).toBe(true);
+});

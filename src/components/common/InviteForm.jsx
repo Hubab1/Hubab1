@@ -33,7 +33,8 @@ export const InviteForm = (
         initialValues={},
         initialIsDependent=false,
         disableTypeChange=false,
-        buttonText='Add Person'
+        buttonText='Add Person',
+        isGuarantor=false,
     }) => {
     const [isDependent, setIsDependent] = useState(initialIsDependent);
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
@@ -70,20 +71,24 @@ export const InviteForm = (
     return (
         <>
             <Spacer height={35}/>
-            <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
-            <RadioGroup
-                aria-label="is 18 or older"
-                name={'is_dependent'}
-                value={isDependent}
-                row={true}
-                default={true}
-                onChange={(val) =>
-                    setIsDependent(val.target.value === 'true')
-                }
-            >
-                <FormControlLabel value={false} control={<Radio />} label="Yes" disabled={disableTypeChange} /> {/* Note that Yes == false */}
-                <FormControlLabel value={true} control={<Radio />} label="No"  disabled={disableTypeChange} />
-            </RadioGroup>
+            {!isGuarantor && (
+                <>
+                    <FormHelperText id="service-animal">Is this person 18 or older?</FormHelperText>
+                    <RadioGroup
+                        aria-label="is 18 or older"
+                        name={'is_dependent'}
+                        value={isDependent}
+                        row={true}
+                        default={true}
+                        onChange={(val) =>
+                            setIsDependent(val.target.value === 'true')
+                        }
+                    >
+                        <FormControlLabel value={false} control={<Radio />} label="Yes" disabled={disableTypeChange} /> {/* Note that Yes == false */}
+                        <FormControlLabel value={true} control={<Radio />} label="No"  disabled={disableTypeChange} />
+                    </RadioGroup>
+                </>
+            )}
             {isDependent === null &&
                 <ActionButton disabled={true} marginTop={170} marginBottom={20}>Add Person</ActionButton>
             }
@@ -182,8 +187,12 @@ export const InviteForm = (
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
-                                <div className="color-manatee align-left">We'll send them an invite to apply.</div>
-                                <Spacer height={30}/>
+                                {!isGuarantor && (
+                                    <>
+                                        <div className="color-manatee align-left">We'll send them an invite to apply.</div>
+                                        <Spacer height={30}/>
+                                    </>
+                                )}
                                 <FormTextInput
                                     label="First Name"
                                     name="first_name"
