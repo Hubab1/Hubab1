@@ -194,5 +194,5 @@ it ('displays error when hasError=true', function () {
     const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
     wrapper.setState({hasError: true});
     expect(wrapper.find(GenericFormDetail).length).toBe(1);
-    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain("Oops, we're having trouble calculating the pricing for your selections. Try selecting a different term, or call us at 555-555-5555 if this still isn’t working in a bit.");
+    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain("Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit.");
 })

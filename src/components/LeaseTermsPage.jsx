@@ -146,7 +146,7 @@ export class LeaseTermsPage extends React.Component {
                 {this.state.hasError && (
                     <GenericFormMessage
                         type="error"
-                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting a different term, or call us at ${prettyFormatPhoneNumber(this.props.config.community.contact_phone)} if this still isn’t working in a bit.`}
+                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${prettyFormatPhoneNumber(this.props.config.community.contact_phone)} if this still isn’t working in a bit.`}
                     />
                 )}
                 <ImageContainer>
