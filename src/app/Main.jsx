@@ -14,6 +14,7 @@ import RegisterPage from 'components/RegisterPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import BankingContainer from 'components/banking/BankingContainer';
 import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
+import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import UnauthenticatedPaymentTerms from 'components/fees-deposits/UnauthenticatedPaymentTerms';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -155,6 +156,7 @@ export class Main extends Component {
                             <Route path={ROUTES.ADDRESS} component={Address} />
                             <Route path={ROUTES.BANKING} component={BankingContainer}/>
                             <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
+                            <Route path={ROUTES.HOLDING_DEPOSIT_AGREEMENT} component={HoldingDepositAgreementContainer} />
                             <Route path={ROUTES.SCREENING} component={SCREENING}/>
                             <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
                             <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm}/>

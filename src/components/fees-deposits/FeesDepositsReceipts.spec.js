@@ -28,7 +28,7 @@ beforeEach(() => {
 it('renders expected headings text', () => {
     let wrapper = shallow( <FeesDepositsReceipt {...defaultProps}/> );
 
-    expect(wrapper.text().includes('Payment Success!')).toBeTruthy();
+    expect(wrapper.text().includes('Payment Successful!')).toBeTruthy();
     expect(wrapper.text().includes('Payment Summary')).toBeTruthy();
 })
 
@@ -36,7 +36,7 @@ it('renders expected headings text', () => {
 it('renders receipt information as expected with holding deposit', () => {
     let wrapper = shallow(<FeesDepositsReceipt {...defaultProps} />);
 
-    expect(wrapper.text().includes('Payment Success!Thank you! We emailed a receipt to slkejhfkajshefjkhek@gm.comPayment Summary')).toBeTruthy();
+    expect(wrapper.text().includes('Payment Successful!Thank you! We emailed a receipt to slkejhfkajshefjkhek@gm.comPayment Summary')).toBeTruthy();
 
     expect(wrapper.text().includes('Total$1,300')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(3);

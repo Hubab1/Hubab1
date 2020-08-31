@@ -30,6 +30,7 @@ export const ROUTES = {
     REMOVE_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/remove',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
+    HOLDING_DEPOSIT_AGREEMENT: '/holding-deposit-agreement',
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms',
@@ -55,6 +56,7 @@ export const ROUTE_LABELS = {
     [ROUTES.PROFILE_OPTIONS]: 'Rental Profile',
     [ROUTES.INCOME_AND_EMPLOYMENT]: 'Income & Employment',
     [ROUTES.FEES_AND_DEPOSITS]: 'Fees & Deposits',
+    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: 'Holding Deposit Agreement',
     [ROUTES.SCREENING]: 'Screening',
     [ROUTES.APP_COMPLETE]: 'Application Complete',
 };

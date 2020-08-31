@@ -32,7 +32,7 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
     const descriptionText = paidByAnother ? 'Your roommates have paid all the application fees!' : `Thank you! We emailed a receipt to ${email}`;
     return (
         <Fragment>
-            <SpacedH1>Payment Success!</SpacedH1>
+            <SpacedH1>Payment Successful!</SpacedH1>
             <SpacedH3>{descriptionText}</SpacedH3>
             <SpacedImg src={receiptImage} alt="receipt"/>
             <Card>
