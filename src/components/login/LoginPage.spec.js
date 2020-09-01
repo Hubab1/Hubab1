@@ -64,7 +64,7 @@ it('renders no application error', function() {
     const wrapper = shallow( < LoginPage {...defaultProps}/> );
     wrapper.instance().auth.login = () => Promise.reject({errors: {error: 'Application does not exist'}});
     return wrapper.instance().onSubmit({}, {setSubmitting: ()=>{}}).then(() => {
-        expect(wrapper.state('errors')).toEqual([`Oops, there is no longer an application associated with this account. Please call us at 444-444-4444 if you have any questions.`]);
+        expect(wrapper.state('errors')).toEqual([`Oops, there is no longer an application associated with this account. Please call us at 444‑444‑4444 if you have any questions.`]);
     });
 });
 
