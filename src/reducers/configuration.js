@@ -28,7 +28,7 @@ export const fetchConfiguration = (communityId, hash) => {
             if (MOCKY) {
                 configuration = mock;
             } else {
-                const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)])
+                const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)]);
                 configuration = data.reduce((config, item) => {
                     return Object.assign(config, item)
                 }, {});
