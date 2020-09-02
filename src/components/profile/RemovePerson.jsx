@@ -28,6 +28,10 @@ const Divider = styled.hr`
     margin-bottom: 22px;
 `;
 
+const Content = styled.div`
+  text-align: left;
+`
+
 export class RemovePerson extends React.Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
 
@@ -90,20 +94,22 @@ export class RemovePerson extends React.Component {
                 <SkinnyH1>Remove {personLabel}</SkinnyH1>
                 <SpacedH3>{`${person.first_name} ${person.last_name}`}</SpacedH3>
                 <Divider />
-                {this.state.errorSubmitting && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={['Oops! We had some trouble removing this person. Try again in a little bit.']}
-                    />
-                )}
-                <Bold fontSize={18}>{`Are you sure you want to remove this ${personLabel.toLowerCase()}?`}</Bold>
-                <br/>
-                <br/>
-                {role === RENTER_PROFILE_TYPE_GUARANTOR ? (
-                    <P>{`You're about to remove ${person.first_name} as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.`}</P>
-                ) : (
-                    <P>{`You're about to remove ${person.first_name}. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
-                )}
+                <Content>
+                    {this.state.errorSubmitting && (
+                        <GenericFormMessage
+                            type="error"
+                            messages={['Oops! We had some trouble removing this person. Try again in a little bit.']}
+                        />
+                    )}
+                    <Bold fontSize={18}>{`Are you sure you want to remove this ${personLabel.toLowerCase()}?`}</Bold>
+                    <br/>
+                    <br/>
+                    {role === RENTER_PROFILE_TYPE_GUARANTOR ? (
+                        <P>{`You're about to remove ${person.first_name} as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.`}</P>
+                    ) : (
+                        <P>{`You're about to remove ${person.first_name}. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
+                    )}
+                </Content>
                 <ActionButton id="submit-btn" disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {personLabel}
                 </ActionButton>
