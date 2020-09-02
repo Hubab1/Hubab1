@@ -23,7 +23,7 @@ export const petsSchema = (config) => Yup.object().shape({
         .of(
             Yup.object({
                 pet_type: Yup.string()
-                    .required('Required'),
+                    .required('Select a Pet'),
                 name: Yup.string().when('pet_type', {
                     is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
                     then: Yup.string()
@@ -50,7 +50,6 @@ export const petsSchema = (config) => Yup.object().shape({
                 })
             })
         )
-        .required('Select a Pet')
 });
 
 
@@ -93,6 +92,8 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
+        console.log('On submit, values: ', values);
+
         const pets = this.serializePetsForPost(values.petOptions);
         this.props.updateRenterProfile({selected_rental_options: pets}).then((res) => {
             setSubmitting(false);
@@ -138,42 +139,47 @@ export class PetsPage extends React.Component {
                             handleBlur,
                             isSubmitting,
                             handleSubmit,
-                        }) => (
-                            <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                                <FieldArray
-                                    name="petOptions"
-                                    render={arrayHelpers => (
-                                        <div>
-                                            {
-                                                values.petOptions.map((petOption, index) => (
-                                                    <PetItem key={petOption.key}
-                                                        arrayHelpers={arrayHelpers}
-                                                        index={index}
-                                                        petOption={petOption}
-                                                        handleChange={handleChange}
-                                                        handleBlur={handleBlur}
-                                                        toggleViewPetRestrictions={this.toggleViewPetRestrictions}
-                                                        petTypeOptions={petTypeOptions}
-                                                    />
-                                                ))
-                                            }
-                                            {/* we do not currently address limits. we will need to get limit for each type of pet.
+                            ...other
+                        }) => {
+                            console.log(other)
+
+                            return (
+                                <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                                    <FieldArray
+                                        name="petOptions"
+                                        render={arrayHelpers => (
+                                            <div>
+                                                {
+                                                    values.petOptions.map((petOption, index) => (
+                                                        <PetItem key={petOption.key}
+                                                                 arrayHelpers={arrayHelpers}
+                                                                 index={index}
+                                                                 petOption={petOption}
+                                                                 handleChange={handleChange}
+                                                                 handleBlur={handleBlur}
+                                                                 toggleViewPetRestrictions={this.toggleViewPetRestrictions}
+                                                                 petTypeOptions={petTypeOptions}
+                                                        />
+                                                    ))
+                                                }
+                                                {/* we do not currently address limits. we will need to get limit for each type of pet.
                                             values.petOptions.length < rental_options_config.pets.limit ?
                                                 <AddAnotherButton
                                                     thing="Pet"
                                                     onClick={() => arrayHelpers.push({key: uuidv4()})}
                                                 />: null
                                             */}
-                                            <AddAnotherButton
-                                                thing="Pet"
-                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
-                                            />
-                                        </div>
-                                    )}
-                                />
-                                <ActionButton disabled={isSubmitting} marginTop={55} marginBottom={20}>Continue</ActionButton>
-                            </form>
-                        )}
+                                                <AddAnotherButton
+                                                    thing="Pet"
+                                                    onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                />
+                                            </div>
+                                        )}
+                                    />
+                                    <ActionButton disabled={isSubmitting} marginTop={55} marginBottom={20}>Continue</ActionButton>
+                                </form>
+                            )
+                        }}
                     </Formik>
                     <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
                 </div>
