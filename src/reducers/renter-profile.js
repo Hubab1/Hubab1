@@ -118,7 +118,7 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.PROFILE_OPTIONS]: events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: false, // TODO: replace by the event that should be created once signed the agreement
+    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.EVENT_HOLDING_DEPOSIT_SIGNED),
     [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
     [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
 });

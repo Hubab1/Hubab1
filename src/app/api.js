@@ -177,8 +177,8 @@ API.generateFinicityReports = () => {
     }).then(res => res.json());
 }
 
-API.embeddedSigningUrl = () => {
-    return fetch(chuck('/embedded-signing-url/'), {
+API.embeddedSigningUrl = (type) => {
+    return fetch(chuck(`/embedded-signing-url/?document_type=${type}`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },

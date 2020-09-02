@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, HELLOSIGN_TEST_MODE } from 'app/constants';
+import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, EVENT_HOLDING_DEPOSIT_SIGNED } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from "./HoldingDepositAgreementView";
 import hsclient from 'utils/hsclient';
 import HoldingDepositAgreementConfirmation from "./HoldingDepositAgreementConfirmation";
+import API from 'app/api';
 
-
-export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configuration, profile, applicant}) => {
+export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configuration, profile, applicant, applicantUpdated}) => {
     const [currentPage, setCurrentPage] = useState('sign');
 
     useEffect(() => {
-        // TODO: Replace by real event when created
-        const signedAgreement = !!profile.events.find(e => String(e.event) === String('Applicant signed Agreement event here'));
+        const signedAgreement = !!profile.events.find(e => String(e.event) === String(EVENT_HOLDING_DEPOSIT_SIGNED));
         if (signedAgreement) {
             setCurrentPage('signed');
         }
@@ -22,17 +21,23 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
 
     useEffect(()=>{
         hsclient.on('sign', async () => {
-            // TODO: Add signing agreement logic here
+            const newApplicant = await API.fetchApplicant();
+            const signedAgreement = newApplicant.events.find(e => parseInt(e.event) === parseInt(EVENT_HOLDING_DEPOSIT_SIGNED));
+            if (!signedAgreement) {
+                newApplicant.events.push({event: EVENT_HOLDING_DEPOSIT_SIGNED, milestone: false});
+            }
+            applicantUpdated(newApplicant);
+            // holding deposit may not be ready by the time of navigation to the lease signed page
+            setTimeout(()=> setCurrentPage('signed'), 2500);
         });
         return () => {
             hsclient.off('sign');
         }
-    }, []);
+    }, [applicantUpdated]);
 
     const openEmbeddedSigning = async () => {
-        // TODO: Replace by real API when created
-        // const data = await API.holdingDepositAgreementUrl();
-        const data = { url: 'https://app.hellosign.com/editor/embeddedSign?signature_id=123'};
+        const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
+
         if (data.url) {
             hsclient.open(data.url, {
                 testMode: HELLOSIGN_TEST_MODE,
