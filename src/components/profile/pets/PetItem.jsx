@@ -52,7 +52,7 @@ export default class PetItem extends React.Component {
             </FormControl>
         );
     }
-    
+
     renderDogFields () {
         const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
         return (
@@ -132,18 +132,18 @@ export default class PetItem extends React.Component {
             </Fragment>
         );
     }
-    
+
     onChangePetType = (value) => {
         const { petOption, arrayHelpers, index } = this.props;
         this.cache[petOption.pet_type] = Object.assign({}, petOption);
         arrayHelpers.replace(index, Object.assign(Object.assign({pet_type: value, key: petOption.key, service_animal: 'false'}, this.cache[value])));
     }
     render () {
-        const { index, arrayHelpers, petOption, petTypeOptions, totalPets } = this.props;
+        const { index, arrayHelpers, petOption, petTypeOptions } = this.props;
         return (
             <div>
                 <PetTypeSelect
-                    showCancelButton={totalPets > 1 || index > 0}
+                    showCancelButton={true}
                     onCancel={() => arrayHelpers.remove(index)}
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}

@@ -154,7 +154,6 @@ export class PetsPage extends React.Component {
                                                         handleBlur={handleBlur}
                                                         toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                         petTypeOptions={petTypeOptions}
-                                                        totalPets={values.petOptions.length}
                                                     />
                                                 ))
                                             }
