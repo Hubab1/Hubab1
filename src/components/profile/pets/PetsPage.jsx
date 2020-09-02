@@ -145,14 +145,15 @@ export class PetsPage extends React.Component {
                                         <div>
                                             {
                                                 values.petOptions.map((petOption, index) => (
-                                                    <PetItem key={petOption.key}
-                                                             arrayHelpers={arrayHelpers}
-                                                             index={index}
-                                                             petOption={petOption}
-                                                             handleChange={handleChange}
-                                                             handleBlur={handleBlur}
-                                                             toggleViewPetRestrictions={this.toggleViewPetRestrictions}
-                                                             petTypeOptions={petTypeOptions}
+                                                    <PetItem
+                                                        key={petOption.key}
+                                                        arrayHelpers={arrayHelpers}
+                                                        index={index}
+                                                        petOption={petOption}
+                                                        handleChange={handleChange}
+                                                        handleBlur={handleBlur}
+                                                        toggleViewPetRestrictions={this.toggleViewPetRestrictions}
+                                                        petTypeOptions={petTypeOptions}
                                                     />
                                                 ))
                                             }
