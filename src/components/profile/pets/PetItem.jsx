@@ -143,7 +143,6 @@ export default class PetItem extends React.Component {
         return (
             <div>
                 <PetTypeSelect
-                    showCancelButton={true}
                     onCancel={() => arrayHelpers.remove(index)}
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
