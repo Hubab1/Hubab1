@@ -7,7 +7,11 @@ exports[`matches snapshot: case dependent 1`] = `
     Person
   </ForwardRef(render)>
   <ForwardRef(render)>
-    John Doe
+    <ForwardRef(render)>
+      John
+       
+      Doe
+    </ForwardRef(render)>
   </ForwardRef(render)>
   <ForwardRef(render) />
   <ForwardRef(render)>
@@ -19,7 +23,11 @@ exports[`matches snapshot: case dependent 1`] = `
     <br />
     <br />
     <ForwardRef(render)>
-      You're about to remove John. Removing a person prevents them from being able to apply for this unit as a dependent or from being added to the lease.
+      You're about to remove 
+      <ForwardRef(render)>
+        John
+      </ForwardRef(render)>
+      . Removing a person prevents them from being able to apply for this unit as a dependent or from being added to the lease.
     </ForwardRef(render)>
   </ForwardRef(render)>
   <ActionButton

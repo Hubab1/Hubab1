@@ -22,6 +22,10 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 22px;
 `;
 
+const CapitalizedSpan = styled.span`
+  text-transform: capitalize;
+`
+
 const Divider = styled.hr`
     border-style: none;
     border-bottom: 2px solid #EEEEEE;
@@ -92,7 +96,7 @@ export class RemovePerson extends React.Component {
         return (
             <>
                 <SkinnyH1>Remove {personLabel}</SkinnyH1>
-                <SpacedH3>{`${person.first_name} ${person.last_name}`}</SpacedH3>
+                <SpacedH3><CapitalizedSpan>{person.first_name} {person.last_name}</CapitalizedSpan></SpacedH3>
                 <Divider />
                 <Content>
                     {this.state.errorSubmitting && (
@@ -105,9 +109,9 @@ export class RemovePerson extends React.Component {
                     <br/>
                     <br/>
                     {role === RENTER_PROFILE_TYPE_GUARANTOR ? (
-                        <P>{`You're about to remove ${person.first_name} as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.`}</P>
+                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan> as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.</P>
                     ) : (
-                        <P>{`You're about to remove ${person.first_name}. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
+                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan>{`. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
                     )}
                 </Content>
                 <ActionButton id="submit-btn" disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
