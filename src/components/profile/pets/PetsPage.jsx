@@ -137,6 +137,7 @@ export class PetsPage extends React.Component {
                             handleBlur,
                             isSubmitting,
                             handleSubmit,
+                            dirty
                         }) => (
                             <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                                 <FieldArray
@@ -171,7 +172,13 @@ export class PetsPage extends React.Component {
                                         </div>
                                     )}
                                 />
-                                <ActionButton disabled={isSubmitting} marginTop={55} marginBottom={20}>Continue</ActionButton>
+                                <ActionButton
+                                    disabled={isSubmitting || !dirty}
+                                    marginTop={55}
+                                    marginBottom={20}
+                                >
+                                    Save Changes
+                                </ActionButton>
                             </form>
                         )}
                     </Formik>
