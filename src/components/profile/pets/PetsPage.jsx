@@ -138,14 +138,17 @@ export class PetsPage extends React.Component {
                             isSubmitting,
                             handleSubmit,
                             dirty
-                        }) => (
-                            <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                                <FieldArray
-                                    name="petOptions"
-                                    render={arrayHelpers => (
-                                        <div>
-                                            {
-                                                values.petOptions.map((petOption, index) => (
+                        }) => {
+                            const disableSubmit = !dirty || isSubmitting;
+                            const submitLabel = values.petOptions.length === 1 && values.petOptions[0].key === 'first-pet' ? 'Add Pet' : 'Save Changes';
+
+                            return (
+                                <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                                    <FieldArray
+                                        name="petOptions"
+                                        render={arrayHelpers => (
+                                            <div>
+                                                {values.petOptions.map((petOption, index) => (
                                                     <PetItem
                                                         key={petOption.key}
                                                         arrayHelpers={arrayHelpers}
@@ -156,31 +159,31 @@ export class PetsPage extends React.Component {
                                                         toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                         petTypeOptions={petTypeOptions}
                                                     />
-                                                ))
-                                            }
-                                            {/* we do not currently address limits. we will need to get limit for each type of pet.
+                                                ))}
+                                                {/* we do not currently address limits. we will need to get limit for each type of pet.
                                             values.petOptions.length < rental_options_config.pets.limit ?
                                                 <AddAnotherButton
                                                     thing="Pet"
                                                     onClick={() => arrayHelpers.push({key: uuidv4()})}
                                                 />: null
                                             */}
-                                            <AddAnotherButton
-                                                thing="Pet"
-                                                onClick={() => arrayHelpers.push({key: uuidv4()})}
-                                            />
-                                        </div>
-                                    )}
-                                />
-                                <ActionButton
-                                    disabled={isSubmitting || !dirty}
-                                    marginTop={55}
-                                    marginBottom={20}
-                                >
-                                    Save Changes
-                                </ActionButton>
-                            </form>
-                        )}
+                                                <AddAnotherButton
+                                                    thing="Pet"
+                                                    onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                />
+                                            </div>
+                                        )}
+                                    />
+                                    <ActionButton
+                                        disabled={disableSubmit}
+                                        marginTop={55}
+                                        marginBottom={20}
+                                    >
+                                        {submitLabel}
+                                    </ActionButton>
+                                </form>
+                            )
+                        }}
                     </Formik>
                     <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
                 </div>
