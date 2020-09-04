@@ -13,6 +13,7 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { format, isValid, parseISO } from 'date-fns';
 
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import rent from 'assets/images/rent.png';
@@ -22,6 +23,7 @@ import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
 import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
+import { prettyFormatPhoneNumber } from 'utils/misc';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -141,6 +143,12 @@ export class LeaseTermsPage extends React.Component {
                 <H1>Lease Terms</H1>
                 {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
                 {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
+                {this.state.hasError && (
+                    <GenericFormMessage
+                        type="error"
+                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${prettyFormatPhoneNumber(this.props.config.community.contact_phone)} if this still isn’t working in a bit.`}
+                    />
+                )}
                 <ImageContainer>
                     <img src={rent} alt="for rent sign"/>
                 </ImageContainer>
@@ -227,6 +235,8 @@ export class LeaseTermsPage extends React.Component {
                                         category={"lease_terms"}
                                         moveInDate={values.lease_start_date}
                                         leaseTerm={values.lease_term}
+                                        onError={()=>this.setState({hasError: true})}
+                                        onSuccess={()=>this.setState({hasError: false})}
                                     />
                                 )
                             }

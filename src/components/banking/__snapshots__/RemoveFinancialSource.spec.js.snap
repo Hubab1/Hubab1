@@ -13,18 +13,22 @@ exports[`snapshot when isAsset=false 1`] = `
     /year
   </ForwardRef(render)>
   <ForwardRef(render) />
-  <ForwardRef(render)
-    fontSize={18}
+  <div
+    className="text-left"
   >
-    Are you sure you want to remove this 
-    income source
-    ?
-  </ForwardRef(render)>
-  <br />
-  <br />
-  <ForwardRef(render)>
-    Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.
-  </ForwardRef(render)>
+    <ForwardRef(render)
+      fontSize={18}
+    >
+      Are you sure you want to remove this 
+      income source
+      ?
+    </ForwardRef(render)>
+    <br />
+    <br />
+    <ForwardRef(render)>
+      Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.
+    </ForwardRef(render)>
+  </div>
   <ActionButton
     color="primary"
     disabled={false}
@@ -62,18 +66,22 @@ exports[`snapshot when isAsset=true 1`] = `
     
   </ForwardRef(render)>
   <ForwardRef(render) />
-  <ForwardRef(render)
-    fontSize={18}
+  <div
+    className="text-left"
   >
-    Are you sure you want to remove this 
-    asset
-    ?
-  </ForwardRef(render)>
-  <br />
-  <br />
-  <ForwardRef(render)>
-    Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.
-  </ForwardRef(render)>
+    <ForwardRef(render)
+      fontSize={18}
+    >
+      Are you sure you want to remove this 
+      asset
+      ?
+    </ForwardRef(render)>
+    <br />
+    <br />
+    <ForwardRef(render)>
+      Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.
+    </ForwardRef(render)>
+  </div>
   <ActionButton
     color="primary"
     disabled={false}

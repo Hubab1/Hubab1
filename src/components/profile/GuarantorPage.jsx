@@ -60,11 +60,11 @@ export class GuarantorPage extends React.Component {
         return (
             <Fragment>
                 <H1>Let's Invite a Guarantor</H1>
-                <SpacedH3>Send your guarantor an application link via text or email.</SpacedH3>
+                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could't be paid for some reason.</SpacedH3>
                 <ImageContainer>
                     <img src={coin} alt="coin"/>
                 </ImageContainer>
-                <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} />
+                <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} isGuarantor={true} />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`}/>
             </Fragment>
         );

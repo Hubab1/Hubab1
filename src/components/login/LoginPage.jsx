@@ -9,13 +9,17 @@ import { fetchApplicant } from 'reducers/applicant';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import LoginForm from 'components/common/LoginForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-
 import auth from 'utils/auth';
+import { prettyFormatPhoneNumber } from 'utils/misc';
+
+const BAD_CREDENTIALS_ERROR = 'The email and password you entered do not match our records. Please try again.';
+const NO_APPLICATION_ERROR = (phone) => `Oops, there is no longer an application associated with this account. Please call us at ${phone} if you have any questions.`;
+const GENERIC_ERROR = 'Oops, something has gone wrong.';
 
 export class LoginPage extends React.Component {
-    state = {errors: null}
+    state = { errors: null };
 
-    auth=auth
+    auth=auth;
 
     get errors() {
         if (this.state.errors) {
@@ -25,6 +29,14 @@ export class LoginPage extends React.Component {
             return this.props.location.state.errors;
         }
         return null;
+    }
+
+    get_error_message(error) {
+        switch(error) {
+            case 'Invalid credentials' : return BAD_CREDENTIALS_ERROR;
+            case 'Application does not exist' : return NO_APPLICATION_ERROR(prettyFormatPhoneNumber(this.props.community.contact_phone));
+            default: return GENERIC_ERROR;
+        }
     }
 
     onSubmit = (values, { setSubmitting }) => {
@@ -37,11 +49,11 @@ export class LoginPage extends React.Component {
                 history.replace(this.props.initialPage);
             });
         }).catch((res) => {
-            const errorMessage = 'The email and password you entered do not match our records. Please try again.';
-            this.setState({errors: [errorMessage]});
+            const error = res.errors?.error;
+            this.setState({errors: [this.get_error_message(error)]});
             setSubmitting(false);
         });
-    }
+    };
 
     render () {
         return (
@@ -69,14 +81,16 @@ LoginPage.propTypes = {
     profile: PropTypes.object,
     initialPage: PropTypes.string,
     communityId: PropTypes.string,
+    community: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
-    communityId: state.siteConfig.basename
+    communityId: state.siteConfig.basename,
+    community: state.configuration && state.configuration.community,
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
+const mapDispatchToProps = { fetchRenterProfile, fetchApplicant, configuration: PropTypes.object };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

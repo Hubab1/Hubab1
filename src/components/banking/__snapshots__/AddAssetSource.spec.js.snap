@@ -24,6 +24,7 @@ exports[`matches snapshot 1`] = `
       }
     }
     onSubmit={[Function]}
+    setError={[Function]}
   />
   <BackLink
     to="/income-employment/summary#asset"

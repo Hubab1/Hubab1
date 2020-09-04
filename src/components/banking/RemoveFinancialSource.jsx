@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { H1, H3, P, Bold } from 'assets/styles';
-import captureRoute from 'app/captureRoute';
 import { ROUTES, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import API from 'app/api';
 import GenericFormMessage from 'components/common/GenericFormMessage';
@@ -82,9 +81,11 @@ export class RemoveFinancialSource extends React.Component {
                         messages={['Oops! We had some trouble removing your financial source. Try again in a little bit.']}
                     />
                 )}
-                <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
-                {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
-                {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
+                <div className="text-left">
+                    <Bold fontSize={18}>Are you sure you want to remove this {isAsset ? 'asset' : 'income source'}?</Bold><br/><br/>
+                    {!isAsset && <P>Removing this income source means that all uploaded files associated with it will be deleted and it will no longer count towards your total annual income.</P>}
+                    {isAsset && <P>Removing this asset means that all uploaded files associated with it will be deleted and it will no longer count towards your total asset balance.</P>}
+                </div>
                 <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
                     Remove {isAsset ? 'Asset' : 'Income Source'}
                 </ActionButton>
@@ -95,7 +96,7 @@ export class RemoveFinancialSource extends React.Component {
         );
     }
 }
-RemoveFinancialSource.route = ROUTES.REMOVE_FINANCIAL_SOURCE;
+
 RemoveFinancialSource.contextType = BankingContext;
 
-export default captureRoute(RemoveFinancialSource);
+export default RemoveFinancialSource;

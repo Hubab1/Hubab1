@@ -7,6 +7,7 @@ import { Formik } from 'formik';
 import { LeaseTermsPage, leaseTermsValidationSchema } from './LeaseTermsPage';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import PriceBreakdown from './profile/options/PriceBreakdown';
+import GenericFormDetail from './common/GenericFormMessage';
 
 
 let defaultProps, updateRenterProfile;
@@ -15,7 +16,10 @@ beforeEach(() => {
     defaultProps = {
         application: {},
         config: {
-            lease_term_options: []
+            lease_term_options: [],
+            community: {
+                contact_phone: '555-555-5555'
+            }
         },
         isPrimaryApplicant: true,
         updateRenterProfile: updateRenterProfile,
@@ -185,3 +189,10 @@ describe('validationSchema', () => {
         await verifyValid(data);
     });
 });
+
+it ('displays error when hasError=true', function () {
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
+    wrapper.setState({hasError: true});
+    expect(wrapper.find(GenericFormDetail).length).toBe(1);
+    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain("Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit.");
+})

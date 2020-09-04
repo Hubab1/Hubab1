@@ -10,7 +10,6 @@ import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
 import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -19,6 +18,7 @@ import { prettyCurrency } from 'utils/misc';
 import { useEffect } from 'react';
 import AppAdverseActions from 'components/AppAdverseActions';
 import clsx from 'clsx';
+import captureRoute from 'app/captureRoute';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;
@@ -172,4 +172,4 @@ const mapDispatchToProps = {
     applicantUpdated
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(AppApproved, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AppApproved, ROUTES.APP_APPROVED));

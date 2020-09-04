@@ -104,6 +104,7 @@ exports[`Matches snapshot showing other field 1`] = `
         loadDocument={[Function]}
         removeAll={[Function]}
         removeFile={[Function]}
+        setError={[Function]}
         uploadedDocuments={Object {}}
       />
     </React.Fragment>

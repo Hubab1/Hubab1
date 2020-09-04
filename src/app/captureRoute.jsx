@@ -10,6 +10,7 @@ import { ROUTES } from 'app/constants';
 
 // Second param is deprecated in favor of static param 'route'
 export default function captureRoute(WrappedComponent, route) {
+    // Make sure route is a top level page route! or else you will break relative routing.
     route = WrappedComponent.route || route;
     class Component extends React.Component {
         constructor (props) {

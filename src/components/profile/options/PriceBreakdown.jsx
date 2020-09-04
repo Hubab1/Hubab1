@@ -55,6 +55,7 @@ function PriceBreakdown (props) {
     const classes = useStyles();
     const [priceBreakdown, setPriceBreakdown] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
 
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
@@ -67,8 +68,18 @@ function PriceBreakdown (props) {
             move_in_date: serializeDate(props.moveInDate)
         };
         API.getCurrentFlatQuote(body).then((result) => {
+            if (result.errors) {
+                props.onError && props.onError(result.errors);
+                setHasError(true);
+                return;
+            }
+            props.onSuccess && props.onSuccess(result);
+            setHasError(false);
             setPriceBreakdown(result);
             setIsLoading(false);
+        }).catch(() => {
+            props.onError && props.onError();
+            setHasError(true);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.application.id, stringifiedSelectedOptions, props.unitId, props.leaseTerm, props.moveInDate]);
@@ -90,6 +101,8 @@ function PriceBreakdown (props) {
     };
 
     const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
+
+    if (hasError) return null;
 
     return (
         <PriceBreakdownContainer>

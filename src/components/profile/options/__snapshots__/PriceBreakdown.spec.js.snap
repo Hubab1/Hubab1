@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`display correct info 1`] = `
-"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\">
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
   <Styled(div)>
     <div className=\\"css-1gbujtk\\">
       <div className=\\"css-101ez95\\">
@@ -176,7 +176,7 @@ exports[`display correct info 1`] = `
 `;
 
 exports[`display correct info if has included options 1`] = `
-"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\">
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
   <Styled(div)>
     <div className=\\"css-1gbujtk\\">
       <div className=\\"css-101ez95\\">

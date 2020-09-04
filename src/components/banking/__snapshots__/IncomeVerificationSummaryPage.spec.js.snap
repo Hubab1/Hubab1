@@ -264,9 +264,17 @@ exports[`matches snapshot with some financial sources data 1`] = `
   >
     Continue
   </ActionButton>
-  <BackLink
-    to="/income-employment"
-  />
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
 </React.Fragment>
 `;
 
@@ -534,8 +542,16 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   >
     Continue
   </ActionButton>
-  <BackLink
-    to="/income-employment"
-  />
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
 </React.Fragment>
 `;

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ROUTES } from 'app/constants';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import { H1, SpacedH3, P } from 'assets/styles';
 import cancelled from 'assets/images/cancelled.png';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import captureRoute from 'app/captureRoute';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -49,4 +49,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(AppCancelled, ROUTES.APP_CANCELLED));
+export default connect(mapStateToProps)(captureRoute(AppCancelled, ROUTES.APP_CANCELLED));

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import withRelativeRoutes from 'app/withRelativeRoutes';
 import uuidv4 from 'uuid/v4';
 
 import { css } from 'emotion';
@@ -13,7 +12,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
-import { ROUTES } from 'app/constants';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { P, LinkButton } from 'assets/styles';
 
@@ -178,28 +176,44 @@ export class UploadDocuments extends React.Component {
         const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
         if (!maxCount) return null;
 
+        let largeFiles = [];
+
         for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
             let file = e.target.files[i];
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                let fileInfo = {
-                    name: file.name,
-                    id: uuidv4(),
-                    file: file
-                };
-                let uploadedDocuments = {...this.props.uploadedDocuments};
-                if (uploadedDocuments[id]) {
-                    uploadedDocuments[id].files.push(fileInfo)
-                } else {
-                    uploadedDocuments[id] = {
-                        id: selectedDocument.id,
-                        label: selectedDocument.label,
-                        files: [fileInfo]
+            let fileSize = file.size / 1024 / 1024; // in MB
+            if (fileSize > 10) {
+                largeFiles.push(file.name);
+            } else {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    let fileInfo = {
+                        name: file.name,
+                        id: uuidv4(),
+                        file: file
                     };
-                }
-                this.props.loadDocument(uploadedDocuments);
-            };
+                    let uploadedDocuments = {...this.props.uploadedDocuments};
+                    if (uploadedDocuments[id]) {
+                        uploadedDocuments[id].files.push(fileInfo)
+                    } else {
+                        uploadedDocuments[id] = {
+                            id: selectedDocument.id,
+                            label: selectedDocument.label,
+                            files: [fileInfo]
+                        };
+                    }
+                    this.props.loadDocument(uploadedDocuments);
+                };
+            }
+        }
+        if (largeFiles.length) {
+            const errorMessage = largeFiles.length === 1?
+                `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10MB or smaller and try again.`:
+                `Oops! Your files ${largeFiles.join(', ')} are too large. Please save them as 10MB or smaller each and try again.`;
+
+            this.props.setError([errorMessage]);
+        } else {
+            this.props.setError([])
         }
     };
 
@@ -377,10 +391,11 @@ UploadDocuments.propTypes = {
     streamType: PropTypes.number.isRequired,
     loadDocument: PropTypes.func.isRequired,
     uploadedDocuments: PropTypes.object.isRequired,
+    setError: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
     config: state.configuration,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(UploadDocuments, ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME));
+export default connect(mapStateToProps)(UploadDocuments);
