@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
 import { H1, H3, P, Bold } from 'assets/styles';
-import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
+import {
+    ROUTES,
+    RENTER_PROFILE_TYPE_CO_APPLICANTS,
+    RENTER_PROFILE_TYPE_DEPENDENT,
+    RENTER_PROFILE_TYPE_GUARANTOR
+} from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import {connect} from "react-redux";
@@ -18,11 +22,19 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 22px;
 `;
 
+const CapitalizedSpan = styled.span`
+  text-transform: capitalize;
+`
+
 const Divider = styled.hr`
     border-style: none;
     border-bottom: 2px solid #EEEEEE;
     margin-bottom: 22px;
 `;
+
+const Content = styled.div`
+  text-align: left;
+`
 
 export class RemovePerson extends React.Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
@@ -31,44 +43,81 @@ export class RemovePerson extends React.Component {
         return `${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`;
     }
 
+    get person () {
+        if (!this.props.profile) return null;
+
+        const { match: { params: { type, id } } } = this.props;
+        const { profile } = this.props;
+
+        switch (type) {
+            case RENTER_PROFILE_TYPE_DEPENDENT:
+                return profile.dependents.find(x => x.id === parseInt(id));
+            case RENTER_PROFILE_TYPE_CO_APPLICANTS:
+                return profile.co_applicants.find(x => x.id === parseInt(id));
+            case RENTER_PROFILE_TYPE_GUARANTOR:
+                // TODO: get the guarantors directly from the profile
+                return profile.primary_applicant.guarantors.find(x => x.id === parseInt(id));
+            default:
+                return null;
+        }
+    }
+
     onSubmit = async () => {
+        const { match: { params: { type, id } } } = this.props;
+
         this.setState({submitting: true});
         try {
-            await API.deletePerson(this.props.match.params.id);
+            if (type === RENTER_PROFILE_TYPE_DEPENDENT) {
+                await API.deletePerson(id);
+            } else {
+                await API.deleteInvitee(id);
+            }
+
+            this.props.fetchRenterProfile();
+            this.setState({submitting: false});
+            this.props.history.push(this.returnLink);
         } catch {
             this.setState({submitting: false, errorSubmitting: true});
-            return;
         }
-        this.props.fetchRenterProfile();
-        this.setState({submitting: false});
+    };
+
+    onCancel = () => {
         this.props.history.push(this.returnLink);
     };
 
-
     render () {
-        if (this.props.profile == null) return null;
+        if (!this.props.profile|| !this.person) return null;
 
-        const role = this.props.match.params.type;
+        const { match } = this.props;
+        const person = this.person;
+        const role = match.params.type === RENTER_PROFILE_TYPE_CO_APPLICANTS ? 'co-applicant' : match.params.type;
+        const personLabel = role === RENTER_PROFILE_TYPE_GUARANTOR ? 'Guarantor' : 'Person';
 
-        // TODO: when removing co_applicants and/or guarantors implemented. Assign person based on this.props.match.params.type
-        const person = this.props.profile.dependents.find(x => x.id === parseInt(this.props.match.params.id));
         return (
             <>
-                <SkinnyH1>Remove Person</SkinnyH1>
-                <SpacedH3>{`${person.first_name} ${person.last_name}`}</SpacedH3>
+                <SkinnyH1>Remove {personLabel}</SkinnyH1>
+                <SpacedH3><CapitalizedSpan>{person.first_name} {person.last_name}</CapitalizedSpan></SpacedH3>
                 <Divider />
-                {this.state.errorSubmitting && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={['Oops! We had some trouble removing this person. Try again in a little bit.']}
-                    />
-                )}
-                <Bold fontSize={18}>Are you sure you want to remove this person?</Bold><br/><br/>
-                <P>{`You're about to remove ${person.first_name}. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
-                <ActionButton disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
-                    Remove Person
+                <Content>
+                    {this.state.errorSubmitting && (
+                        <GenericFormMessage
+                            type="error"
+                            messages={['Oops! We had some trouble removing this person. Try again in a little bit.']}
+                        />
+                    )}
+                    <Bold fontSize={18}>{`Are you sure you want to remove this ${personLabel.toLowerCase()}?`}</Bold>
+                    <br/>
+                    <br/>
+                    {role === RENTER_PROFILE_TYPE_GUARANTOR ? (
+                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan> as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.</P>
+                    ) : (
+                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan>{`. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
+                    )}
+                </Content>
+                <ActionButton id="submit-btn" disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>
+                    Remove {personLabel}
                 </ActionButton>
-                <ActionButton onClick={()=>this.props.history.push(this.returnLink)} variant="outlined" marginBottom={20}>
+                <ActionButton id="cancel-btn" onClick={this.onCancel} variant="outlined" marginBottom={20}>
                     Cancel
                 </ActionButton>
             </>

@@ -145,6 +145,7 @@ export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
 };
 
 export const RENTER_PROFILE_TYPE_CO_APPLICANTS = 'co_applicants';
+export const RENTER_PROFILE_TYPE_DEPENDENT = 'dependent';
 export const RENTER_PROFILE_TYPE_GUARANTOR = 'guarantor';
 export const RENTER_PROFILE_TYPE_PETS = 'pets';
 export const RENTER_PROFILE_TYPE_PARKING = 'parking';

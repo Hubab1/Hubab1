@@ -72,7 +72,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
         (383) 838-4849
       </span>
     </div>
-    <div>
+    <React.Fragment>
       <br />
       <ForwardRef
         className="css-3v3cqv"
@@ -89,14 +89,20 @@ exports[`matches snapshot for unregistered roommate 1`] = `
                 "last_name": "mcgreebs",
                 "phone_number": "(383) 838-4849",
               },
-              "returnRoute": "/rental-profile/options#undefined",
+              "returnRoute": "/rental-profile/options#co_applicants",
             },
           }
         }
       >
         Edit/Resend
       </ForwardRef>
-    </div>
+    </React.Fragment>
+    <ForwardRef
+      className="css-3v3cqv css-1oxgg1n"
+      to="/rental-profile/co_applicants/71/remove"
+    >
+      Remove
+    </ForwardRef>
   </div>
   <div
     className="text-right"

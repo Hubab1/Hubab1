@@ -345,4 +345,18 @@ API.deletePerson = (id) => {
     })
 };
 
+API.deleteInvitee = (id) => {
+    return fetch(chuck(`/invitees/${id}/`), {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`
+        }
+    }).then(res => {
+        if (res.status >= 200 && res.status < 300) {
+            return;
+        }
+        throw new Error();
+    })
+};
+
 export default API;
