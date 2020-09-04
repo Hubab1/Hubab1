@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 import { ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
-    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED, ROLE_GUARANTOR,
+    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED,
     APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
@@ -101,7 +101,7 @@ selectors.selectOrderedRoutes = createSelector(
             role === ROLE_PRIMARY_APPLICANT && ROUTES.PROFILE_OPTIONS,
             enableAutomaticIncomeVerification && ROUTES.INCOME_AND_EMPLOYMENT,
             ROUTES.FEES_AND_DEPOSITS,
-            role !== ROLE_GUARANTOR && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
+            role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             ROUTES.SCREENING,
             ROUTES.APP_COMPLETE,
         ].filter(r => !!r);
@@ -131,9 +131,9 @@ selectors.canAccessRoute = (state, route) => {
      Here contains logic around access permissions for certain pages.
      This is not totally comprehensive.
     */
-   // These pages should always be accessible
-   if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
-       return true;
+    // These pages should always be accessible
+    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+        return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
     // check if page was completed
