@@ -23,7 +23,7 @@ export const applicationUnit = css`
 `;
 
 export const HoldingDepositAgreementView = ({profile, configuration, handleContinue, handleClickBack}) => {
-    if (!profile || ! configuration) return null;
+    if (!profile) return null;
 
     const {
         unit,
@@ -36,9 +36,9 @@ export const HoldingDepositAgreementView = ({profile, configuration, handleConti
             <H1>Holding Deposit Agreement</H1>
             <SpacedH3>You&apos;ll have to agree to some terms to move forward with the application process.</SpacedH3>
             <Img src={contract}/>
-            <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
+            <div className={applicationUnit}>{buildingName}{unitNumber}</div>
             <Spacer height={40}/>
-            <ActionButton onClick={() => handleContinue()} marginTop={30} marginBottom={20}>View and Sign Agreement</ActionButton>
+            <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>View and Sign Agreement</ActionButton>
             <BackLink to={handleClickBack}/>
         </Fragment>
     )

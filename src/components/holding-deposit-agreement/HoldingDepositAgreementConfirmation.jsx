@@ -34,10 +34,10 @@ export const HoldingDepositAgreementConfirmation = ({profile, configuration, han
             <H1>Thanks for Signing!</H1>
             <SpacedH3>We&apos;ll send you an email with a copy of the signed agreement.</SpacedH3>
             <Img src={contract}/>
-            <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
+            <div className={applicationUnit}>{buildingName}{unitNumber}</div>
             <Spacer height={40}/>
-            <ActionButton onClick={() => handleContinue()} marginTop={30} marginBottom={20}>Continue</ActionButton>
-            <ActionButton onClick={() => viewDocument()} variant="outlined" marginBottom={20}>
+            <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>Continue</ActionButton>
+            <ActionButton onClick={viewDocument} variant="outlined" marginBottom={20}>
                 Review Holding Deposit Agreement
             </ActionButton>
         </Fragment>
