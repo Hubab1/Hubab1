@@ -141,7 +141,7 @@ export default class PetItem extends React.Component {
 
     render () {
         const { index, arrayHelpers, petOption, petTypeOptions } = this.props;
-        const hideCancelButton = index === 0 && petOption.key;
+        const hideCancelButton = Boolean(index === 0 && petOption.key);
 
         return (
             <div>
