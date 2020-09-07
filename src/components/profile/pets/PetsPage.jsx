@@ -150,7 +150,7 @@ export class PetsPage extends React.Component {
                                             <div>
                                                 {values.petOptions.map((petOption, index) => (
                                                     <PetItem
-                                                        key={petOption.key}
+                                                        key={index}
                                                         arrayHelpers={arrayHelpers}
                                                         index={index}
                                                         petOption={petOption}

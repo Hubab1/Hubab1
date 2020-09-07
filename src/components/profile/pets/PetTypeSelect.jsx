@@ -56,10 +56,10 @@ function PetTypeSelect(props) {
 }
 
 PetTypeSelect.propTypes = {
-    onCancel: PropTypes.func,
-    onChange: PropTypes.func,
-    petTypeOptions: PropTypes.array,
-    hideCancelButton: PropTypes.bool,
+    onCancel: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    petTypeOptions: PropTypes.array.isRequired,
+    hideCancelButton: PropTypes.bool.isRequired,
     value: PropTypes.string,
 };
 
