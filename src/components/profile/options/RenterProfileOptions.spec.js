@@ -7,6 +7,7 @@ import { RentalProfileOptions } from './RenterProfileOptions';
 import mockConfig from 'reducers/mock-config.json';
 import mockProfile from 'reducers/mock-profile.json';
 import { RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
+import GenericFormDetail from 'components/common/GenericFormMessage';
 
 
 let defaultProps;
@@ -25,6 +26,11 @@ beforeEach(() => {
 it('renders a Capsule component for each option in config.rental_options', function() {
     const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
     expect(wrapper.find(Capsule).length).toEqual(5);
+});
+it('renders GenericFormDetail if hasError=true', function() {
+    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+    wrapper.setState({hasError: true});
+    expect(wrapper.find(GenericFormDetail).length).toEqual(1);
 });
 
 it('matches snapshot', () => {
