@@ -59,6 +59,8 @@ export class PaymentForm extends React.Component {
                         this.props.fetchRenterProfile();
                         this.props.onSuccess(res);
                     }
+                }).catch(() => {
+                    this.setState({errors: ["There was an error with your payment submission. Please try again."], submitting: false});
                 });
             } else {
                 this.setState({errors: [genericErrorMessage], submitting: false});        
