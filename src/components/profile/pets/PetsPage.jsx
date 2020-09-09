@@ -23,7 +23,7 @@ export const petsSchema = (config) => Yup.object().shape({
         .of(
             Yup.object({
                 pet_type: Yup.string()
-                    .required('Select a Pet'),
+                    .required('Required'),
                 name: Yup.string().when('pet_type', {
                     is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
                     then: Yup.string()
@@ -113,6 +113,7 @@ export class PetsPage extends React.Component {
         if (profile.selected_rental_options.pets) {
             profile.selected_rental_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets));
         }
+
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
         return (
             <Fragment>
@@ -148,18 +149,22 @@ export class PetsPage extends React.Component {
                                         name="petOptions"
                                         render={arrayHelpers => (
                                             <div>
-                                                {values.petOptions.map((petOption, index) => (
-                                                    <PetItem
-                                                        key={index}
-                                                        arrayHelpers={arrayHelpers}
-                                                        index={index}
-                                                        petOption={petOption}
-                                                        handleChange={handleChange}
-                                                        handleBlur={handleBlur}
-                                                        toggleViewPetRestrictions={this.toggleViewPetRestrictions}
-                                                        petTypeOptions={petTypeOptions}
-                                                    />
-                                                ))}
+                                                {values.petOptions.map((petOption, index) => {
+                                                    console.log({ petOption });
+
+                                                    return (
+                                                        <PetItem
+                                                            key={index}
+                                                            arrayHelpers={arrayHelpers}
+                                                            index={index}
+                                                            petOption={petOption}
+                                                            handleChange={handleChange}
+                                                            handleBlur={handleBlur}
+                                                            toggleViewPetRestrictions={this.toggleViewPetRestrictions}
+                                                            petTypeOptions={petTypeOptions}
+                                                        />
+                                                    )
+                                                })}
                                                 {/* we do not currently address limits. we will need to get limit for each type of pet.
                                             values.petOptions.length < rental_options_config.pets.limit ?
                                                 <AddAnotherButton
