@@ -173,11 +173,12 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.existingPets.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
                                 >
-                                    {this.existingPets.map(item =>
+                                    {this.existingPets.map((item, index) =>
                                         <ExistingPet
-                                            key={item.key}
+                                            key={index}
                                             item={item}
-                                        />)}
+                                        />
+                                    )}
                                 </ExistingItemsExpansionPanel>
                             }
 
