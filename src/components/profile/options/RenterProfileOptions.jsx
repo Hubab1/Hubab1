@@ -118,15 +118,15 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={people.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
-                                    {this.props.profile.co_applicants.map((item, index) =>
+                                    {this.props.profile.co_applicants.map((item) =>
                                         <ExistingRoommate
-                                            key={index}
+                                            key={`co_applicant-${item.id}`}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                         />)}
-                                    {this.props.profile.dependents.map((item, index) =>
+                                    {this.props.profile.dependents.map((item) =>
                                         <ExistingRoommate
-                                            key={index}
+                                            key={`dependent-${item.id}`}
                                             item={item}
                                             isDependent
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
@@ -150,9 +150,9 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.primary_applicant.guarantors.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
                                 >
-                                    {this.props.profile.primary_applicant.guarantors.map((item, index) =>
+                                    {this.props.profile.primary_applicant.guarantors.map((item) =>
                                         <ExistingRoommate
-                                            key={index}
+                                            key={`guarantor-${item.id}`}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_GUARANTOR}
                                         />)}
