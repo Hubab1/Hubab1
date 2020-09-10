@@ -65,7 +65,11 @@ export class RegisterPage extends React.Component {
                 history.replace(this.props.initialPage);
             });
         }).catch((res) => {
-            this.setState({errors: [res.errors.error]});
+            if (res?.errors?.error) {
+                this.setState({errors: [res.errors.error]});
+            } else {
+                this.setState({errors: ['Oops, something went wrong. Try again.']});
+            }
             setSubmitting(false);
         });
     }

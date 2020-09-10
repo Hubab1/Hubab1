@@ -19,6 +19,7 @@ https://nestiolistings.com/api/onlineleasing/api-doc/#/
 
 Make sure the following is added to `settings_local.py` in Chuck to avoid cors issues
 
+    DEFAULT_PROTOCOL = 'https'
     ALLOWED_HOSTS = '*'
     CORS_ORIGIN_ALLOW_ALL = True
     CORS_ALLOW_CREDENTIALS = True
@@ -131,10 +132,10 @@ this is just to name a few
 
 Run Cypress GUI
 
-    $ npm cypress:open
+    $ npm run cypress:open
 
 Run Cypress CLI 
 
     $ npm run cy:run
     
-- _it will use the systems node version_
+- it will use the systems node version

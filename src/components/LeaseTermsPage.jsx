@@ -104,6 +104,8 @@ export class LeaseTermsPage extends React.Component {
                 await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
                 this.props._nextRoute();
             }
+        } catch {
+            this.setState({hasError: true});
         } finally {
             setSubmitting(false);
         }
