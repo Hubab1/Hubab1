@@ -3,10 +3,10 @@
 exports[`matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Verify Your Income Instantly
+    Verify Your Income
   </ForwardRef(render)>
   <ForwardRef(render)>
-    Confirm that you qualify for this apartment by linking your bank account.
+    Verifying your income will help us ensure that you qualify for this apartment.
   </ForwardRef(render)>
   <img
     alt="vault"

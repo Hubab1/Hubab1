@@ -37,8 +37,8 @@ const bodyRow = css`
 const VerifyIncome = props => {
     return (
         <Fragment>
-            <H1>Verify Your Income Instantly</H1>
-            <SpacedH3>Confirm that you qualify for this apartment by linking your bank account.</SpacedH3>
+            <H1>Verify Your Income</H1>
+            <SpacedH3>Verifying your income will help us ensure that you qualify for this apartment.</SpacedH3>
             <img src={safeImage} alt="vault"/>
             <div className={bodyContainer}>
                 <div className={bodyRow}>
