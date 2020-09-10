@@ -16,10 +16,11 @@ exports[`matches snapshot 1`] = `
     className="css-1qmtr65"
   >
     <div
-      className="css-1xu96tg"
+      className="css-1ezfrk2"
     >
       <img
         alt="padlock"
+        className="css-uvjnz5"
         height="28"
         src="padlock.png"
         width="18"
@@ -32,7 +33,7 @@ exports[`matches snapshot 1`] = `
       </ForwardRef(render)>
     </div>
     <div
-      className="css-1xu96tg"
+      className="css-1ezfrk2"
     >
       <GreenCheckIcon />
       <ForwardRef(render)>
@@ -40,6 +41,23 @@ exports[`matches snapshot 1`] = `
           Your money is safe.
         </ForwardRef(render)>
          This does not authorize any transactions from your account.
+      </ForwardRef(render)>
+    </div>
+    <div
+      className="css-1ezfrk2"
+    >
+      <img
+        alt="thunder"
+        className="css-uvjnz5"
+        height="28"
+        src="thunder.jpg"
+        width="18"
+      />
+      <ForwardRef(render)>
+        <ForwardRef(render)>
+          Link your bank account for instant verification.
+        </ForwardRef(render)>
+         If your income is directly deposited to your bank account.
       </ForwardRef(render)>
     </div>
   </div>

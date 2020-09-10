@@ -6,6 +6,7 @@ import { styles } from 'assets/styles';
 import GreenCheckIcon from 'components/common/GreenCheckIcon';
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
+import thunderImage from 'assets/images/connect-bank/thunder.jpg';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
 import GenericFormMessage from 'components/common/GenericFormMessage';
@@ -24,9 +25,13 @@ const bodyContainer = css`
     p{ margin-left: 15px;}
 `
 
+const iconColumn = css`
+    margin-top: 5px;
+`
+
 const bodyRow = css`
     display: flex;
-    :first-of-type{margin-bottom: 20px;}
+    margin-bottom: 20px;
 `
 
 const VerifyIncome = props => {
@@ -37,12 +42,16 @@ const VerifyIncome = props => {
             <img src={safeImage} alt="vault"/>
             <div className={bodyContainer}>
                 <div className={bodyRow}>
-                    <img src={padlockImage} alt="padlock" width="18" height="28"/>
+                    <img src={padlockImage} alt="padlock" width="18" height="28" className={iconColumn} />
                     <P><Bold>Your data is safe.</Bold> Bank level encryption is used to connect and your credentials are never stored.</P>
                 </div>
                 <div className={bodyRow}>
                     <GreenCheckIcon/>
                     <P><Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.</P>
+                </div>
+                <div className={bodyRow}>
+                    <img src={thunderImage} alt="thunder" width="18" height="28" className={iconColumn} />
+                    <P><Bold>Link your bank account for instant verification.</Bold> If your income is directly deposited to your bank account.</P>
                 </div>
             </div>
             {!!props.errors && <GenericFormMessage type="error" messages={props.errors}/>}
