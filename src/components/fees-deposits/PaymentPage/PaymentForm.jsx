@@ -37,8 +37,8 @@ export class PaymentForm extends React.Component {
             this.setState({submitting: false});
             return this.props.onSuccess(mockReceipt);
         }
-        this.setState({submitting: true})
-        const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
+        this.setState({submitting: true});
+        const genericErrorMessage = "Oops, we're having trouble processing your payment. Try again in a bit.";
         return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
             if (res.token) {
                 const data = {
@@ -48,11 +48,7 @@ export class PaymentForm extends React.Component {
                 };
                 API.stripePayment(data).then(res => {
                     if (res.errors) {
-                        if (res.errors.error) {
-                            this.setState({errors: [res.errors.error.message], submitting: false});
-                        } else {
-                            this.setState({errors: ["There was an error with your payment submission. Please try again."], submitting: false});
-                        }
+                        this.setState({errors: [genericErrorMessage], submitting: false});
                     } else {
                         this.setState({submitting: false});
                         this.props.fetchApplicant();
@@ -60,7 +56,7 @@ export class PaymentForm extends React.Component {
                         this.props.onSuccess(res);
                     }
                 }).catch(() => {
-                    this.setState({errors: ["There was an error with your payment submission. Please try again."], submitting: false});
+                    this.setState({errors: [genericErrorMessage], submitting: false});
                 });
             } else {
                 this.setState({errors: [genericErrorMessage], submitting: false});        
@@ -68,7 +64,8 @@ export class PaymentForm extends React.Component {
         }).catch( res => {
             this.setState({errors: [genericErrorMessage], submitting: false});        
         });
-    }
+    };
+
     render() {
         const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (

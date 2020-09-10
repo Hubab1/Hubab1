@@ -39,7 +39,7 @@ it('handleSubmit sets error on API fail', function() {
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
         expect(API.stripePayment).toHaveBeenCalledWith({token: 123});
-        expect(wrapper.state().errors).toEqual(['dooty doot doot']);
+        expect(wrapper.state().errors).toEqual(["Oops, we're having trouble processing your payment. Try again in a bit."]);
         expect(wrapper.state().submitting).toBeFalsy();
     });
 });
@@ -50,13 +50,13 @@ it('handles server error', function() {
     API.stripePayment = jest.fn().mockRejectedValue({})
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
-        expect(wrapper.state().errors).toContain("There was an error with your payment submission. Please try again.");
+        expect(wrapper.state().errors).toContain("Oops, we're having trouble processing your payment. Try again in a bit.");
     });
 });
 
 it('handleSubmit sets error on stripe fail', function() {
     defaultProps.stripe.createToken = jest.fn().mockRejectedValue('boo')
-    const genericErrorMessage = 'There was an error processing your credit card. Please try again.';
+    const genericErrorMessage = "Oops, we're having trouble processing your payment. Try again in a bit.";
 
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 
