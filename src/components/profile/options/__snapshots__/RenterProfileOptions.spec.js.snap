@@ -50,7 +50,6 @@ exports[`matches snapshot 1`] = `
             type="co_applicants"
           />
           <ExistingRoommate
-            isDependent={true}
             item={
               Object {
                 "first_name": "Bobby",
@@ -59,7 +58,7 @@ exports[`matches snapshot 1`] = `
                 "phone_number": "(555) 822-4841",
               }
             }
-            type="co_applicants"
+            type="dependent"
           />
         </ExistingItemsExpansionPanel>
       }
@@ -223,7 +222,6 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
             type="co_applicants"
           />
           <ExistingRoommate
-            isDependent={true}
             item={
               Object {
                 "first_name": "Bobby",
@@ -232,7 +230,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
                 "phone_number": "(555) 822-4841",
               }
             }
-            type="co_applicants"
+            type="dependent"
           />
         </ExistingItemsExpansionPanel>
       }
