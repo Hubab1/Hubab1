@@ -184,8 +184,8 @@ API.embeddedSigningUrl = (type) => {
         },
     }).then(res => res.json());
 }
-API.leaseDocumentUrl = () => {
-    return fetch(chuck('/lease-document-url/'), {
+API.leaseDocumentUrl = (type) => {
+    return fetch(chuck(`/lease-document-url/?document_type=${type}`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },

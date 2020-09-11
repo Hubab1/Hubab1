@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, MILESTONE_HOLDING_DEPOSIT_SIGNED } from 'app/constants';
+import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from "./HoldingDepositAgreementView";
@@ -14,7 +14,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
     const [currentPage, setCurrentPage] = useState('sign');
 
     useEffect(() => {
-        const signedAgreement = !!profile.events.find(e => String(e.event) === String(MILESTONE_HOLDING_DEPOSIT_SIGNED));
+        const signedAgreement = !!profile.events.find(e => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED));
         if (signedAgreement) {
             setCurrentPage('signed');
         }
@@ -23,9 +23,9 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
     useEffect(()=>{
         hsclient.on('sign', async () => {
             const newApplicant = await API.fetchApplicant();
-            const signedAgreement = newApplicant.events.find(e => parseInt(e.event) === parseInt(MILESTONE_HOLDING_DEPOSIT_SIGNED));
+            const signedAgreement = newApplicant.events.find(e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED));
             if (!signedAgreement) {
-                newApplicant.events.push({event: MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: false});
+                newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: false});
             }
             applicantUpdated(newApplicant);
             // holding deposit may not be ready by the time of navigation to the lease signed page
@@ -44,6 +44,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
                 testMode: HELLOSIGN_TEST_MODE,
                 skipDomainVerification: HELLOSIGN_TEST_MODE,
                 allowDecline: false,
+                allowCancel: false,
             });
         }
     };
