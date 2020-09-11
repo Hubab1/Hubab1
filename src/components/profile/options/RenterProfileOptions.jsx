@@ -128,15 +128,15 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={people.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                 >
-                                    {this.props.profile.co_applicants.map(item =>
+                                    {this.props.profile.co_applicants.map((item) =>
                                         <ExistingRoommate
-                                            key={item.id}
+                                            key={`co_applicant-${item.id}`}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                                         />)}
-                                    {this.props.profile.dependents.map(item =>
+                                    {this.props.profile.dependents.map((item) =>
                                         <ExistingRoommate
-                                            key={`${item.id}-d`}
+                                            key={`dependent-${item.id}`}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_DEPENDENT}
                                         />)}
@@ -159,9 +159,9 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.props.profile.primary_applicant.guarantors.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
                                 >
-                                    {this.props.profile.primary_applicant.guarantors.map(item =>
+                                    {this.props.profile.primary_applicant.guarantors.map((item) =>
                                         <ExistingRoommate
-                                            key={item.id}
+                                            key={`guarantor-${item.id}`}
                                             item={item}
                                             type={RENTER_PROFILE_TYPE_GUARANTOR}
                                         />)}
@@ -182,11 +182,12 @@ export class RentalProfileOptions extends React.Component {
                                     labelQuantity={this.existingPets.length}
                                     defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
                                 >
-                                    {this.existingPets.map(item =>
+                                    {this.existingPets.map((item, index) =>
                                         <ExistingPet
-                                            key={item.key}
+                                            key={index}
                                             item={item}
-                                        />)}
+                                        />
+                                    )}
                                 </ExistingItemsExpansionPanel>
                             }
 

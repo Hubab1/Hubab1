@@ -14,29 +14,33 @@ const cancelButton = css`
 `
 
 function PetTypeSelect(props) {
-    const { onCancel, onChange, petTypeOptions, showCancelButton, value } = props;
+    const { onDelete, onChange, petTypeOptions, hideCancelButton, value } = props;
     const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].filter(petType => petTypeOptions.includes(petType))
 
     return (
         <Fragment>
             <div className={petTypeLabelHeader}>
                 <span className={petTypeLabel}>Type</span>
-                {showCancelButton && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={onCancel}/>}
+                {!hideCancelButton && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={onDelete}/>}
             </div>
             <div className={petTypeContainer}>
                 {sortedPetTypeOptions.map(type => {
                     const label = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type]
                     if (value === type) {
-                        return <Button 
-                            key={type}
-                            variant="contained"
-                            color="primary"
-                            classes={{root: petButtonRoot}}
-                        >
-                            {label}
-                        </Button>
-                    } else {
-                        return <Button 
+                        return (
+                            <Button
+                                key={type}
+                                variant="contained"
+                                color="primary"
+                                classes={{root: petButtonRoot}}
+                            >
+                                {label}
+                            </Button>
+                        )
+                    }
+
+                    return (
+                        <Button
                             key={type}
                             classes={{root: petButtonRoot}}
                             variant="outlined"
@@ -44,7 +48,7 @@ function PetTypeSelect(props) {
                         >
                             {label}
                         </Button>
-                    }
+                    )
                 })}
             </div>
         </Fragment>
@@ -52,8 +56,10 @@ function PetTypeSelect(props) {
 }
 
 PetTypeSelect.propTypes = {
-    petTypeOptions: PropTypes.array,
-    onChange: PropTypes.func,
+    onDelete: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    petTypeOptions: PropTypes.array.isRequired,
+    hideCancelButton: PropTypes.bool.isRequired,
     value: PropTypes.string,
 };
 

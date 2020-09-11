@@ -7,6 +7,9 @@ describe('petsSchema', function() {
     const defaultConfig = {
         petMaxWeight: Infinity
     };
+    it('allows 0 pets', function () {
+        expect(()=>petsSchema(defaultConfig).validateSync({petOptions: []})).not.toThrow();
+    })
     it('must have a pet type', function(){
         expect(()=>petsSchema(defaultConfig).validateSync({petOptions: [{name: 'doggy', weight: '5kg', breed: 'pit bull'}]})).toThrow();
     })
