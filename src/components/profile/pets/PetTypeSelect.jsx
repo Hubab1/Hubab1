@@ -14,14 +14,14 @@ const cancelButton = css`
 `
 
 function PetTypeSelect(props) {
-    const { onCancel, onChange, petTypeOptions, hideCancelButton, value } = props;
+    const { onDelete, onChange, petTypeOptions, hideCancelButton, value } = props;
     const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].filter(petType => petTypeOptions.includes(petType))
 
     return (
         <Fragment>
             <div className={petTypeLabelHeader}>
                 <span className={petTypeLabel}>Type</span>
-                {!hideCancelButton && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={onCancel}/>}
+                {!hideCancelButton && <Cancel role="button" style={{fontSize: 17}} className={cancelButton} onClick={onDelete}/>}
             </div>
             <div className={petTypeContainer}>
                 {sortedPetTypeOptions.map(type => {
@@ -56,7 +56,7 @@ function PetTypeSelect(props) {
 }
 
 PetTypeSelect.propTypes = {
-    onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     petTypeOptions: PropTypes.array.isRequired,
     hideCancelButton: PropTypes.bool.isRequired,

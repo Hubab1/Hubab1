@@ -54,7 +54,7 @@ export default class PetItem extends React.Component {
     }
 
     renderDogFields () {
-        const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
+        const { petOption, handleChange, handleBlur, handleDelete, index, toggleViewPetRestrictions } = this.props;
         return (
             <Fragment>
                 <FormTextInput
@@ -140,14 +140,14 @@ export default class PetItem extends React.Component {
     }
 
     render () {
-        const { index, arrayHelpers, petOption, petTypeOptions } = this.props;
+        const { index, arrayHelpers, petOption, petTypeOptions, handleDelete } = this.props;
         const hideCancelButton = Boolean(index === 0 && petOption.key);
 
         return (
             <div>
                 <PetTypeSelect
                     hideCancelButton={hideCancelButton}
-                    onCancel={() => arrayHelpers.remove(index)}
+                    onDelete={() => handleDelete(arrayHelpers, index)}
                     onChange={this.onChangePetType}
                     value={petOption.pet_type}
                     petTypeOptions={petTypeOptions}

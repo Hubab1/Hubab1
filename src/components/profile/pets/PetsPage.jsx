@@ -19,45 +19,50 @@ import BackLink from 'components/common/BackLink';
 import { ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, RENTER_PROFILE_TYPE_PETS } from 'app/constants';
 
 export const petsSchema = (config) => Yup.object().shape({
-    petOptions: Yup.array()
-        .of(
-            Yup.object({
-                pet_type: Yup.string()
-                    .required('Required'),
-                name: Yup.string().when('pet_type', {
-                    is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
-                    then: Yup.string()
-                        .required('Required'),
-                    otherwise: Yup.string().notRequired()
-                }),
-                weight: Yup.number().when('pet_type', {
-                    is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
-                    then: Yup.number().typeError('Please enter numbers only')
-                        .required('Required').max(config.petMaxWeight, `Your pet exceeds the maximum allowed weight of ${config.petMaxWeight} lb. Please call us at ${config.communityPhoneNumber} before continuing your application.`),
-                    otherwise: Yup.number().notRequired()
-                }),
-                breed: Yup.string().when('pet_type', {
-                    is: RENTAL_OPTIONS_PETS_DOGS,
-                    then: Yup.string()
-                        .required('Required'),
-                    otherwise: Yup.string().notRequired()
-                }),
-                description: Yup.string().when('pet_type', {
-                    is: RENTAL_OPTIONS_PETS_OTHER,
-                    then: Yup.string()
-                        .required('Required'),
-                    otherwise: Yup.string().notRequired()
-                })
+    petOptions: Yup.array().of(
+        Yup.object({
+            name: Yup.string().when('pet_type', {
+                is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
+                then: Yup.string().required('Required'),
+                otherwise: Yup.string().notRequired()
+            }),
+            weight: Yup.number().when('pet_type', {
+                is: (value) => [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS].includes(value),
+                then: Yup.number().typeError('Please enter numbers only')
+                    .required('Required').max(config.petMaxWeight, `Your pet exceeds the maximum allowed weight of ${config.petMaxWeight} lb. Please call us at ${config.communityPhoneNumber} before continuing your application.`),
+                otherwise: Yup.number().notRequired()
+            }),
+            breed: Yup.string().when('pet_type', {
+                is: RENTAL_OPTIONS_PETS_DOGS,
+                then: Yup.string().required('Required'),
+                otherwise: Yup.string().notRequired()
+            }),
+            description: Yup.string().when('pet_type', {
+                is: RENTAL_OPTIONS_PETS_OTHER,
+                then: Yup.string().required('Required'),
+                otherwise: Yup.string().notRequired()
             })
-        )
-});
+        })
+    )
+})
 
+const FIRST_PET = { key:'first-pet', service_animal: 'false' }
+const PET_PLACEHOLDER = { key:'pet-placeholder', service_animal: 'false' }
 
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
         errors: null
+    }
+
+    emptyPetFilter = (petOption) => {
+        const keys = Object.keys(petOption)
+        if (keys.length === 2 && petOption[keys[0]] === PET_PLACEHOLDER.key && petOption[keys[1]] === PET_PLACEHOLDER.service_animal) {
+            return false;
+        }
+
+        return true
     }
 
     serializePetsForPost = (petOptions) => {
@@ -92,7 +97,7 @@ export class PetsPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
-        const pets = this.serializePetsForPost(values.petOptions);
+        const pets = this.serializePetsForPost(values.petOptions.filter(this.emptyPetFilter));
         this.props.updateRenterProfile({selected_rental_options: pets}).then((res) => {
             setSubmitting(false);
             this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
@@ -100,6 +105,14 @@ export class PetsPage extends React.Component {
             this.setState({errors: res.errors});
             setSubmitting(false);
         });
+    }
+
+    handleDelete = (arrayHelpers, index) => {
+        arrayHelpers.remove(index);
+
+        if (index === 0) {
+            arrayHelpers.push(PET_PLACEHOLDER)
+        }
     }
 
     render () {
@@ -114,7 +127,7 @@ export class PetsPage extends React.Component {
             profile.selected_rental_options.pets.forEach(item => selectedPetOptions.push(...item.leasing_context.pets));
         }
 
-        const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [{key:'first-pet', service_animal: 'false'}];
+        const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [FIRST_PET];
         return (
             <Fragment>
                 <div className={clsx({'hide-element': (viewPetPolicy || viewPetRestrictions)})}>
@@ -138,10 +151,12 @@ export class PetsPage extends React.Component {
                             handleBlur,
                             isSubmitting,
                             handleSubmit,
-                            dirty
+                            dirty,
+                            errors
                         }) => {
                             const disableSubmit = !dirty || isSubmitting;
                             const submitLabel = values.petOptions.length === 1 && values.petOptions[0].key === 'first-pet' ? 'Add Pet' : 'Save Changes';
+                            console.log('errors: ', errors)
 
                             return (
                                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
@@ -157,6 +172,7 @@ export class PetsPage extends React.Component {
                                                             index={index}
                                                             petOption={petOption}
                                                             handleChange={handleChange}
+                                                            handleDelete={this.handleDelete}
                                                             handleBlur={handleBlur}
                                                             toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                             petTypeOptions={petTypeOptions}
