@@ -91,7 +91,8 @@ export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
     state => state.applicant?.role,
     state => state.configuration?.enable_automatic_income_verification,
-    (role, enableAutomaticIncomeVerification) => {
+    state => state.configuration?.enable_holding_deposit_agreement,
+    (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement) => {
         if (role == null || enableAutomaticIncomeVerification == null) return;
 
         return [
@@ -100,6 +101,7 @@ selectors.selectOrderedRoutes = createSelector(
             role === ROLE_PRIMARY_APPLICANT && ROUTES.PROFILE_OPTIONS,
             enableAutomaticIncomeVerification && ROUTES.INCOME_AND_EMPLOYMENT,
             ROUTES.FEES_AND_DEPOSITS,
+            role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             ROUTES.SCREENING,
             ROUTES.APP_COMPLETE,
         ].filter(r => !!r);
@@ -116,6 +118,7 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.PROFILE_OPTIONS]: events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
     [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
     [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
 });
@@ -128,9 +131,9 @@ selectors.canAccessRoute = (state, route) => {
      Here contains logic around access permissions for certain pages.
      This is not totally comprehensive.
     */
-   // These pages should always be accessible
-   if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
-       return true;
+    // These pages should always be accessible
+    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+        return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
     // check if page was completed
