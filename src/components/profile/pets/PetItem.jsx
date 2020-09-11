@@ -54,7 +54,7 @@ export default class PetItem extends React.Component {
     }
 
     renderDogFields () {
-        const { petOption, handleChange, handleBlur, handleDelete, index, toggleViewPetRestrictions } = this.props;
+        const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
         return (
             <Fragment>
                 <FormTextInput
