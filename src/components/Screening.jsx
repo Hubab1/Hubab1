@@ -62,6 +62,7 @@ export class Screening extends React.Component {
             }
             setSubmitting(false);
         }).catch(() => {
+            this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]})
             setSubmitting(false);
         })
     };

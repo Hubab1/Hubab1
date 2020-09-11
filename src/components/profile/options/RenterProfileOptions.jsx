@@ -22,6 +22,7 @@ import ExistingParkingOrStorage from './ExistingParkingOrStorage';
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
 import Capsule from 'components/common/Capsule/Capsule';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -33,7 +34,7 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class RentalProfileOptions extends React.Component {
-    state = { submitting: false };
+    state = { submitting: false, hasError: false };
 
     setScrollPosition = () => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
@@ -67,6 +68,8 @@ export class RentalProfileOptions extends React.Component {
         try {
             this.setState({submitting: true});
             await this.props.pageComplete(RENTER_PROFILE_IDENTIFIER);
+        } catch {
+            this.setState({hasError: true});
         } finally {
             this.setState({submitting: false});
         }
@@ -105,6 +108,12 @@ export class RentalProfileOptions extends React.Component {
             <Fragment>
                 <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
                 <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
+                {this.state.hasError && (
+                    <GenericFormMessage
+                        type="error"
+                        messages="Oops, something went wrong. Try again."
+                    />
+                )}
                 <div>
                     {options.has(RENTER_PROFILE_TYPE_CO_APPLICANTS) &&
                         <Capsule
