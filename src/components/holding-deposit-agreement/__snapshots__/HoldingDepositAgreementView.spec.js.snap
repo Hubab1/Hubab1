@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches Snapshot 1`] = `
+"<Fragment>
+  <Styled(h1)>
+    Holding Deposit Agreement
+  </Styled(h1)>
+  <Styled(h3)>
+    You&#39;ll have to agree to some terms to move forward with the application process.
+  </Styled(h3)>
+  <Styled(img) src=\\"contract.svg\\" />
+  <div className=\\"css-lygmaw\\">
+     Unit Unit 14F
+  </div>
+  <Styled(div) height={40} />
+  <ActionButton onClick={[Function: mockConstructor]} marginTop={30} marginBottom={20} variant=\\"contained\\" color=\\"primary\\" successGreen={false}>
+    View and Sign Agreement
+  </ActionButton>
+  <BackLink to={[Function: mockConstructor]} />
+</Fragment>"
+`;

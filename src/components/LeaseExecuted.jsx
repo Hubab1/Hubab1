@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import { ROUTES } from 'app/constants';
+import { ROUTES, DOCUMENT_TYPE_LEASE } from 'app/constants';
 import captureRoute from 'app/captureRoute';
 import API from 'app/api';
 import house from 'assets/images/house.svg';
@@ -25,7 +25,7 @@ export function LeaseExecuted(props) {
     const [url, setUrl] = useState('');
     useEffect(() => {
         (async ()=>{
-            const response = await API.leaseDocumentUrl();
+            const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
     }, [])

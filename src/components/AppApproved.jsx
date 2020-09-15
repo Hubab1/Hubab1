@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
-import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS } from 'app/constants';
+import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE } from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -87,7 +87,7 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
     };
 
     const openEmbeddedSigning = async () => {
-        const data = await API.embeddedSigningUrl();
+        const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
         if (data.url) {
             hsclient.open(data.url, {
                 testMode: HELLOSIGN_TEST_MODE,
