@@ -48,6 +48,16 @@ export const HoldingDepositAgreementConfirmation = ({profile, configuration, han
         }
     };
 
+    const getButtonText = () => {
+        if (loading) {
+            return 'Loading...';
+        }
+        if (url) {
+            return 'Review Holding Deposit Agreement';
+        }
+        return 'Retrieve Holding Deposit Agreement...';
+    };
+
     if (!profile || ! configuration) return null;
 
     const {
@@ -66,7 +76,7 @@ export const HoldingDepositAgreementConfirmation = ({profile, configuration, han
             {retried && !!error && <GenericFormMessage type="error" messages={error}/>}
             <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>Continue</ActionButton>
             <ActionButton disabled={loading} onClick={url ? undefined : onClick} href={url} variant="outlined" marginBottom={20}>
-                Review Holding Deposit Agreement
+                {getButtonText()}
             </ActionButton>
         </Fragment>
     )
