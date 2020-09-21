@@ -226,7 +226,6 @@ selectors.selectGuarantorRequested = createSelector(
     state => state.applicant && state.applicant.events,
     (applicantEvents) => {
         if (!applicantEvents) return false;
-        // if applicant has submitted milestone, they're not completing fields anymore
         return applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_REQUEST_GUARANTOR));
     }
 );

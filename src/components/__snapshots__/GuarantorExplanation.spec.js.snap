@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <ForwardRef(render)>
+    <ForwardRef(render)>
+      Guarantors
+    </ForwardRef(render)>
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    A guarantor is someone who agrees to be legally responsible for the rent if you are unable to pay. Guarantors are required to make 40x the monthly rent.
+  </ForwardRef(render)>
+  <br />
+  <ForwardRef(render)>
+    Please call us at 
+    <a
+      href="tel:1234445510"
+    >
+      123‑444‑5510
+    </a>
+     if you have any questions or if you are unable or unwilling to add a guarantor.
+  </ForwardRef(render)>
+  <ActionButton
+    color="primary"
+    marginTop={189}
+    onClick={[MockFunction]}
+    successGreen={false}
+    variant="contained"
+  >
+    Got It
+  </ActionButton>
+</div>
+`;

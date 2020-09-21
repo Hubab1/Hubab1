@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot 1`] = `
+<React.Fragment>
+  <div
+    className=""
+  >
+    <ForwardRef(render)>
+      Please Add a Guarantor
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      We're requiring that you add a guarantor in order to move forward with your application.
+    </ForwardRef(render)>
+    <ForwardRef(render)
+      src="add-guarantor.png"
+    />
+    <div
+      className="css-1qcaui9"
+      id="application-unit"
+    >
+      <ForwardRef(render)
+        onClick={[Function]}
+      >
+        What's a guarantor?
+      </ForwardRef(render)>
+    </div>
+    <ForwardRef(render)>
+      <span
+        className="css-hzs5zf"
+      >
+        Unfortunately, we will not be able to approve your application without a guarantor. 
+      </span>
+      <ForwardRef(render)
+        onClick={[Function]}
+      >
+        Learn why
+      </ForwardRef(render)>
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      Call us at 
+      <a
+        href="tel:undefined"
+      >
+        
+      </a>
+       if you have any questions or if you are unable or unwilling to add a guarantor.
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;

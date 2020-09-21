@@ -45,6 +45,16 @@ it('Matches Snapshot with security deposit', async () => {
     expect(wrapper.debug()).toMatchSnapshot();
 });
 
+it('Matches Snapshot when requesting a guarantor', async () => {
+    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
+    let wrapper = mount( <AppAdverseActions {...defaultProps} guarantorRequested={true} /> );
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(wrapper.debug()).toMatchSnapshot();
+});
+
 it('Do not display adverseFactorsList when no factor and no credit data', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
     let wrapper = mount( <AppAdverseActions {...defaultProps}/> );
