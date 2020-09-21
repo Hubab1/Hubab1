@@ -37,6 +37,7 @@ import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
 import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
+import GuarantorRequested from 'components/GuarantorRequested'
 
 export class Main extends Component {
     state = {error: null};
@@ -169,6 +170,7 @@ export class Main extends Component {
                             <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                             <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                             <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
+                            <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
                         </NavDrawer>}
                     </Switch>
                 </div>

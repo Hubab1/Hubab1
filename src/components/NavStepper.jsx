@@ -74,7 +74,7 @@ export function VerticalLinearStepper(props) {
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {unitUnavailable &&
+                {unitUnavailable && !props.guarantorRequested &&
                     <Step active>
                         <StepLabel StepIconComponent={()=><ErrorIcon color='primary'/>} active classes={{root: iconRoot}}>
                             <span className="unitUnavailableMsg">We've placed your application on hold for now, 
@@ -96,7 +96,7 @@ export function VerticalLinearStepper(props) {
                         >View Progress</Button>
                     </Step>
                 }
-                {props.applicantStillFinishingApplication && !unitUnavailable && props.navRoutes.map((route, i) => (
+                {props.applicantStillFinishingApplication && !unitUnavailable && !props.guarantorRequested && props.navRoutes.map((route, i) => (
                     <Step classes={{
                         root: clsx({
                             [active]: activeStep === i,
@@ -109,7 +109,28 @@ export function VerticalLinearStepper(props) {
                         <StepLabel icon={' '} completed={i < firstUncompletedStep}>{route.name}</StepLabel>
                     </Step>
                 ))}
-                {!props.applicantStillFinishingApplication &&
+                {props.guarantorRequested &&
+                    <Step active>
+                        <StepLabel StepIconComponent={()=><ErrorIcon color='primary'/>} active classes={{root: iconRoot}}>
+                            <span className="appCompletedMsg">We’re waiting for you to add a guarantor. Please call us at&nbsp;
+                                <a href={`tel:${props.config.community.contact_phone}`}>
+                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                </a> if you have any questions or if you are unable or unwilling to add a guarantor.
+                            </span>
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress
+                            }}
+                            disabled={false}
+                            onClick={() => props.history.push(props.initialPage)}
+                        >View Progress</Button>
+                    </Step>
+                }
+                {!props.applicantStillFinishingApplication && !props.guarantorRequested &&
                     <Step active>
                         <StepLabel completed classes={{root: iconRoot}}>
                             <span className="appCompletedMsg">Your application has been completed and submitted. Please call us at&nbsp;
@@ -145,6 +166,7 @@ const mapStateToProps = state => ({
     currentRoute: state.siteConfig.currentRoute,
     initialPage: selectors.selectInitialPage(state),
     applicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
+    guarantorRequested: selectors.selectGuarantorRequested(state),
     renterProfile: state.renterProfile,
     config: state.configuration,
 });

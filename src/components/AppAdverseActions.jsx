@@ -138,7 +138,7 @@ export function AppAdverseActions (props) {
                         props.unitNumber && <>,</>}{props.unitNumber}.
                     </P>
                     <br/>
-                    {props.securityDeposit && (
+                    {props.securityDeposit && !props.guarantorRequested && (
                         <>
                             <P>
                                 Unfortunately, we are unable to approve your rental application under our standard terms
@@ -152,7 +152,18 @@ export function AppAdverseActions (props) {
                         </>
 
                     )}
-                    {!props.securityDeposit && (
+                    {props.guarantorRequested && (
+                        <>
+                            <P>
+                                Unfortunately, we are unable to approve your rental application under our standard terms and conditions because you do not meet the required household income.
+                            </P>
+                            <br />
+                            <P>
+                                We can, however, reevaluate your rental application if you add a guarantor. Guarantors are required to make 40x the monthly rent.
+                            </P>
+                        </>
+                    )}
+                    {!props.securityDeposit && !props.guarantorRequested && (
                         <P>
                             Unfortunately, we are unable to approve your rental application.
                         </P>
@@ -232,6 +243,7 @@ AppAdverseActions.propTypes = {
     securityDeposit: PropTypes.string,
     onAgree: PropTypes.func.isRequired,
     configuration: PropTypes.object,
+    guarantorRequested: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
