@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { GuarantorRequested } from './GuarantorRequested';
-import {ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR} from 'app/constants';
+import {ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES} from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 const buildProps = (
@@ -60,6 +60,16 @@ it('Primary Applicant', () => {
         role: ROLE_PRIMARY_APPLICANT,
     };
 
-    const wrapper = shallow(<GuarantorRequested {...buildProps()} applicant={primaryApplicant} isPrimaryApplicant={true} />);
+    const defaultProps = {
+        ...buildProps(),
+        history: {
+            push: jest.fn(),
+        },
+        initialPage: '/guarantor_request',
+    };
+
+    const wrapper = shallow(<GuarantorRequested {...defaultProps} applicant={primaryApplicant} isPrimaryApplicant={true} />);
     expect(wrapper.find(ActionButton)).toHaveLength(1);
+    wrapper.find(ActionButton).at(0).simulate('click');
+    expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.GUARANTOR);
 });

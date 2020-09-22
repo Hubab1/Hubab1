@@ -65,6 +65,10 @@ export class GuarantorRequested extends React.Component {
         });
     };
 
+    addGuarantor = () => {
+        this.props.history.push(ROUTES.GUARANTOR);
+    };
+
     render () {
         const { profile, configuration, applicant, isPrimaryApplicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
@@ -103,7 +107,7 @@ export class GuarantorRequested extends React.Component {
                         </a> if you have any questions or if you are unable or unwilling to add a guarantor.
                     </Contact>
                     {isPrimaryApplicant &&
-                        <ActionButton marginTop={65}>Add a Guarantor</ActionButton>
+                        <ActionButton onClick={this.addGuarantor} marginTop={65}>Add a Guarantor</ActionButton>
                     }
 
                 </div>
