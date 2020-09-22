@@ -10,9 +10,11 @@ import styled from '@emotion/styled';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
 import { fetchRenterProfile } from 'reducers/renter-profile';
+import { fetchApplicant } from 'reducers/applicant';
 import API from 'app/api';
 import { InviteForm } from 'components/common/InviteForm';
 import BackLink from 'components/common/BackLink';
+import { selectors } from 'reducers/renter-profile';
 
 
 const ImageContainer = styled.div`
@@ -46,14 +48,24 @@ export class GuarantorPage extends React.Component {
             this.setState({errors: [res.errors]});
             setSubmitting(false);
         });
-    }
+    };
+
+    handleContinueAfterInviteSent = () => {
+        if (!this.props.guarantorRequested) {
+            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)
+        } else {
+            this.props.fetchApplicant().then(() => {
+                this.props.history.push(this.props.initialPage);
+            });
+        }
+    };
 
     render () {
         if (this.state.confirmSent) {
             return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
-                buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)}
+                buttonClick={this.handleContinueAfterInviteSent}
                 buttonText="Continue"
             />
         }
@@ -71,4 +83,9 @@ export class GuarantorPage extends React.Component {
     }
 }
 
-export default connect(null, {fetchRenterProfile})(GuarantorPage);
+const mapStateToProps = state => ({
+    guarantorRequested: selectors.selectGuarantorRequested(state),
+    initialPage: selectors.selectInitialPage(state),
+});
+
+export default connect(mapStateToProps, {fetchRenterProfile, fetchApplicant})(GuarantorPage);
