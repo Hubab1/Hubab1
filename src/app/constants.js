@@ -66,7 +66,8 @@ export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
 
 export const REPORT_POLL_INTERVAL = 10000;
 
-export const STRIPE_PUBLISHABLE_KEY = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
+export const STRIPE_PUBLISHABLE_KEY_DEMO = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
+export const STRIPE_PUBLISHABLE_KEY_LIVE = 'pk_live_96Wm4LI5GkUtEFjhJq6WmDQv00feQM9V8E';
 export const HELLOSIGN_CLIENT_ID = '530b26fda96d75b4abef002d9876fb7c';
 
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';

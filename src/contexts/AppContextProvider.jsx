@@ -6,7 +6,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
 
 
-import { STRIPE_PUBLISHABLE_KEY } from 'app/constants';
+import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
 
 export const AppTheme = React.createContext();
 
@@ -40,12 +40,14 @@ function getThemeValues (config, materialTheme) {
     }
 }
 
-function AppContextProvider (props) {
+export function AppContextProvider (props) {
+    const stripeApiKey = props.config.use_demo_config ? STRIPE_PUBLISHABLE_KEY_DEMO : STRIPE_PUBLISHABLE_KEY_LIVE;
+
     return (
         <MuiThemeProvider theme={props.theme}>
             <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <StripeProvider apiKey={STRIPE_PUBLISHABLE_KEY}>
+                    <StripeProvider apiKey={stripeApiKey}>
                         {props.children}
                     </StripeProvider>
                 </MuiPickersUtilsProvider>
