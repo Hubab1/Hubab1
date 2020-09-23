@@ -186,7 +186,7 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
-            if (eventsSet.has(MILESTONE_REQUEST_GUARANTOR)) {
+            if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
                 return ROUTES.GUARANTOR_REQUESTED;
             }
 
