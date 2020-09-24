@@ -28,13 +28,8 @@ exports[`Matches snapshot 1`] = `
       <span
         className="css-hzs5zf"
       >
-        Unfortunately, we will not be able to approve your application without a guarantor. 
+        Unfortunately, we will not be able to approve your application without a guarantor. If you’d like to add a guarantor, the primary applicant, Sam Henkey, can do so on behalf of everyone by logging into their account.
       </span>
-      <ForwardRef(render)
-        onClick={[Function]}
-      >
-        Learn why
-      </ForwardRef(render)>
     </ForwardRef(render)>
     <ForwardRef(render)>
       Call us at 
@@ -45,6 +40,15 @@ exports[`Matches snapshot 1`] = `
       </a>
        if you have any questions or if you are unable or unwilling to add a guarantor.
     </ForwardRef(render)>
+    <ActionButton
+      color="primary"
+      marginTop={65}
+      onClick={[Function]}
+      successGreen={false}
+      variant="contained"
+    >
+      Learn Why
+    </ActionButton>
   </div>
 </React.Fragment>
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { GuarantorRequested } from './GuarantorRequested';
 import {ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES} from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -46,8 +46,9 @@ it('Matches snapshot', () => {
 });
 
 it('Case Co-applicant', () => {
-    const wrapper = shallow(<GuarantorRequested {...buildProps()} />);
-    expect(wrapper.find(ActionButton)).toHaveLength(0);
+    const wrapper = mount(<GuarantorRequested {...buildProps()} />);
+    expect(wrapper.find(ActionButton)).toHaveLength(1);
+    expect(wrapper.find(ActionButton).text()).toEqual('Learn Why');
 });
 
 it('Primary Applicant', () => {

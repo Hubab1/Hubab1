@@ -96,10 +96,18 @@ export class GuarantorRequested extends React.Component {
                         <LinkButton onClick={this.toggleViewGuarantorExplanation}>What's a guarantor?</LinkButton>
                     </div>
                     <DescriptionMessage>
-                        <span className={requestGuarantorHelpText}>
-                            Unfortunately, we will not be able to approve your application without a guarantor.&nbsp;
-                        </span>
-                        <LinkButton onClick={this.toggleViewRequestReason}>Learn why</LinkButton>
+                        {isPrimaryApplicant? (
+                            <>
+                                <span className={requestGuarantorHelpText}>
+                                    Unfortunately, we will not be able to approve your application without a guarantor.&nbsp;
+                                </span>
+                                <LinkButton onClick={this.toggleViewRequestReason}>Learn why</LinkButton>
+                            </>
+                        ) : (
+                            <span className={requestGuarantorHelpText}>
+                                Unfortunately, we will not be able to approve your application without a guarantor. If you’d like to add a guarantor, the primary applicant, Sam Henkey, can do so on behalf of everyone by logging into their account.
+                            </span>
+                        )}
                     </DescriptionMessage>
                     <Contact>
                         Call us at&nbsp;
@@ -107,8 +115,9 @@ export class GuarantorRequested extends React.Component {
                             {prettyFormatPhoneNumber(contactPhone)}
                         </a> if you have any questions or if you are unable or unwilling to add a guarantor.
                     </Contact>
-                    {isPrimaryApplicant &&
-                        <ActionButton onClick={this.addGuarantor} marginTop={65}>Add a Guarantor</ActionButton>
+                    {isPrimaryApplicant?
+                        (<ActionButton onClick={this.addGuarantor} marginTop={65}>Add a Guarantor</ActionButton>):
+                        (<ActionButton onClick={this.toggleViewRequestReason} marginTop={65}>Learn Why</ActionButton>)
                     }
 
                 </div>
