@@ -12,12 +12,12 @@ export const Subtitle = styled.small`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-`
+`;
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
     padding: 20px;
-`
+`;
 
 const CreditScore = styled.div`
     width: 48px;
@@ -35,11 +35,11 @@ const CreditScore = styled.div`
     border-color: ${props => props.color || "#828796"};
     margin-left: 1px;
     margin-right: 9px;
-`
+`;
 
 const CreditScoreDetails = styled.div`
     padding-top: 3px;
-`
+`;
 
 const Decision = styled.div`
     margin-top: 13px;
@@ -65,7 +65,7 @@ const AdverseActionsFactors = styled.ul`
 
 const IndentedRow = styled(CardRow)`
     justify-content: initial;
-`
+`;
 
 export function AppAdverseActions (props) {
     const { configuration } = props;

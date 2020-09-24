@@ -223,10 +223,12 @@ selectors.selectApplicantStillFinishingApplication = createSelector(
 );
 
 selectors.selectGuarantorRequested = createSelector(
-    state => state.applicant && state.applicant.events,
-    (applicantEvents) => {
-        if (!applicantEvents) return false;
-        return applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_REQUEST_GUARANTOR));
+    state => state => state.applicant && state.applicant.events,
+    state => state.renterProfile,
+    (events, profile) => {
+        if (!(events && profile)) return false;
+        const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
+        return applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR);
     }
 );
 
