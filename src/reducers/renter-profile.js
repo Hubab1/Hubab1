@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 import { ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
-    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED,
+    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED, MILESTONE_REQUEST_GUARANTOR,
     APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
@@ -186,9 +186,14 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
+            if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
+                return ROUTES.GUARANTOR_REQUESTED;
+            }
+
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
                 return ROUTES.APP_COMPLETE;
             }
+
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
             const route = orderedRoutes.find(r => !accessibleRoutes[r]);
@@ -214,6 +219,16 @@ selectors.selectApplicantStillFinishingApplication = createSelector(
         if (!applicantEvents) return false;
         // if applicant has submitted milestone, they're not completing fields anymore
         return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
+    }
+);
+
+selectors.selectGuarantorRequested = createSelector(
+    state => state => state.applicant && state.applicant.events,
+    state => state.renterProfile,
+    (events, profile) => {
+        if (!(events && profile)) return false;
+        const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
+        return applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR);
     }
 );
 
