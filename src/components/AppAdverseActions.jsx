@@ -118,6 +118,8 @@ export function AppAdverseActions (props) {
         }
     };
 
+    const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
+
     return (
         <div>
             <Header>
@@ -159,7 +161,7 @@ export function AppAdverseActions (props) {
                             </P>
                             <br />
                             <P>
-                                We can, however, reevaluate your rental application if you add a guarantor. Guarantors are required to make 40x the monthly rent.
+                                {`We can, however, reevaluate your rental application if you add a guarantor. Guarantors are required to make ${guarantor_income_requirement_multiplier}x the monthly rent.`}
                             </P>
                         </>
                     )}
