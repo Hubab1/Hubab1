@@ -41,7 +41,7 @@ function getThemeValues (config, materialTheme) {
 }
 
 export function AppContextProvider (props) {
-    const stripeApiKey = props.config.use_demo_config ? STRIPE_PUBLISHABLE_KEY_DEMO : STRIPE_PUBLISHABLE_KEY_LIVE;
+    const stripeApiKey = props.config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
 
     return (
         <MuiThemeProvider theme={props.theme}>

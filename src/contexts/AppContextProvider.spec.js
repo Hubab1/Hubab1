@@ -59,4 +59,12 @@ describe('Stripe Provider', () => {
 
         expect(wrapper.find(StripeProvider).prop('apiKey')).toBe(STRIPE_PUBLISHABLE_KEY_LIVE);
     });
+
+    it('should use demo api key when use_demo_config is missing', () => {
+        delete defaultProps.config.use_demo_config;
+
+        const wrapper = shallow(<AppContextProvider {...defaultProps}/>);
+
+        expect(wrapper.find(StripeProvider).prop('apiKey')).toBe(STRIPE_PUBLISHABLE_KEY_DEMO);
+    });
 });
