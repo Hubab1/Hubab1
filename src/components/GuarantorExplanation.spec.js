@@ -6,7 +6,8 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         onAgree: jest.fn(),
-        contactPhone: '1234445510'
+        contactPhone: '1234445510',
+        multiplier: 60,
     }
 })
 

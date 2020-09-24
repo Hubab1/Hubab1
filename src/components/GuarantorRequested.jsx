@@ -84,6 +84,7 @@ export class GuarantorRequested extends React.Component {
         const denialDecisionDate = last_status_change.created_at;
         const { name } = applicant.client.person;
         const contactPhone = configuration.community.contact_phone;
+        const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
 
         return (
             <>
@@ -115,6 +116,7 @@ export class GuarantorRequested extends React.Component {
                     <GuarantorExplanation
                         onAgree={this.toggleViewGuarantorExplanation}
                         contactPhone={contactPhone}
+                        multiplier={guarantor_income_requirement_multiplier}
                     />
                 }
                 {viewRequestReason &&

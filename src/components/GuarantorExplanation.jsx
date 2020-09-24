@@ -40,8 +40,7 @@ export default function GuarantorExplanation (props) {
                 <H1>Guarantors</H1>
             </Header>
             <Policy>
-                A guarantor is someone who agrees to be legally responsible for the rent if you are unable to pay. Guarantors are required to make 40x the monthly rent.
-            </Policy>
+                {`A guarantor is someone who agrees to be legally responsible for the rent if you are unable to pay. Guarantors are required to make ${props.multiplier}x the monthly rent.`}</Policy>
             <br/>
             <Contact>
                 Please call us at&nbsp;
@@ -57,4 +56,5 @@ export default function GuarantorExplanation (props) {
 GuarantorExplanation.propTypes = {
     onAgree: PropTypes.func.isRequired,
     contactPhone: PropTypes.string,
+    multiplier: PropTypes.number.isRequired,
 };
