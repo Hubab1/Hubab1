@@ -20,7 +20,8 @@ beforeEach(() => {
                 [0, "Poor"],
                 [550, "Good"],
                 [650, "Great"],
-            ]
+            ],
+            guarantor_income_requirement_multiplier: 40,
         },
     };
 });
