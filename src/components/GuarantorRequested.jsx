@@ -85,6 +85,7 @@ export class GuarantorRequested extends React.Component {
         const { name } = applicant.client.person;
         const contactPhone = configuration.community.contact_phone;
         const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
+        const primaryApplicantFullName = `${profile.primary_applicant.first_name} ${profile.primary_applicant.last_name}`
 
         return (
             <>
@@ -105,7 +106,7 @@ export class GuarantorRequested extends React.Component {
                             </>
                         ) : (
                             <span className={requestGuarantorHelpText}>
-                                Unfortunately, we will not be able to approve your application without a guarantor. If you’d like to add a guarantor, the primary applicant, Sam Henkey, can do so on behalf of everyone by logging into their account.
+                                {`Unfortunately, we will not be able to approve your application without a guarantor. If you’d like to add a guarantor, the primary applicant, ${primaryApplicantFullName}, can do so on behalf of everyone by logging into their account.`}
                             </span>
                         )}
                     </DescriptionMessage>

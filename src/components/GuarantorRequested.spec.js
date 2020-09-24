@@ -25,6 +25,10 @@ const buildProps = (
             last_status_change: {
                 created_at: '2020-05-06 04:06:23'
             },
+            primary_applicant: {
+                first_name: 'John',
+                last_name: 'Doe'
+            }
         },
         configuration: {
             community: {
