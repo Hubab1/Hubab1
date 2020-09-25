@@ -20,7 +20,8 @@ beforeEach(() => {
                 [0, "Poor"],
                 [550, "Good"],
                 [650, "Great"],
-            ]
+            ],
+            guarantor_income_requirement_multiplier: 40,
         },
     };
 });
@@ -38,6 +39,16 @@ it('Matches Snapshot without security deposit', async () => {
 it('Matches Snapshot with security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
     let wrapper = mount( <AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} /> );
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(wrapper.debug()).toMatchSnapshot();
+});
+
+it('Matches Snapshot when requesting a guarantor', async () => {
+    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
+    let wrapper = mount( <AppAdverseActions {...defaultProps} guarantorRequested={true} /> );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();

@@ -12,12 +12,12 @@ export const Subtitle = styled.small`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-`
+`;
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
     padding: 20px;
-`
+`;
 
 const CreditScore = styled.div`
     width: 48px;
@@ -35,11 +35,11 @@ const CreditScore = styled.div`
     border-color: ${props => props.color || "#828796"};
     margin-left: 1px;
     margin-right: 9px;
-`
+`;
 
 const CreditScoreDetails = styled.div`
     padding-top: 3px;
-`
+`;
 
 const Decision = styled.div`
     margin-top: 13px;
@@ -65,7 +65,7 @@ const AdverseActionsFactors = styled.ul`
 
 const IndentedRow = styled(CardRow)`
     justify-content: initial;
-`
+`;
 
 export function AppAdverseActions (props) {
     const { configuration } = props;
@@ -118,6 +118,8 @@ export function AppAdverseActions (props) {
         }
     };
 
+    const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
+
     return (
         <div>
             <Header>
@@ -138,7 +140,7 @@ export function AppAdverseActions (props) {
                         props.unitNumber && <>,</>}{props.unitNumber}.
                     </P>
                     <br/>
-                    {props.securityDeposit && (
+                    {props.securityDeposit && !props.guarantorRequested && (
                         <>
                             <P>
                                 Unfortunately, we are unable to approve your rental application under our standard terms
@@ -152,7 +154,18 @@ export function AppAdverseActions (props) {
                         </>
 
                     )}
-                    {!props.securityDeposit && (
+                    {props.guarantorRequested && (
+                        <>
+                            <P>
+                                Unfortunately, we are unable to approve your rental application under our standard terms and conditions because you do not meet the required household income.
+                            </P>
+                            <br />
+                            <P>
+                                {`We can, however, reevaluate your rental application if you add a guarantor. Guarantors are required to make ${guarantor_income_requirement_multiplier}x the monthly rent.`}
+                            </P>
+                        </>
+                    )}
+                    {!props.securityDeposit && !props.guarantorRequested && (
                         <P>
                             Unfortunately, we are unable to approve your rental application.
                         </P>
@@ -232,6 +245,7 @@ AppAdverseActions.propTypes = {
     securityDeposit: PropTypes.string,
     onAgree: PropTypes.func.isRequired,
     configuration: PropTypes.object,
+    guarantorRequested: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
