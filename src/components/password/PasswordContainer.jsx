@@ -8,7 +8,6 @@ import ResetPassword from 'components/password/ResetPassword/ResetPassword';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 
 
-
 class PasswordContainer extends Component {
     render() {
         return (

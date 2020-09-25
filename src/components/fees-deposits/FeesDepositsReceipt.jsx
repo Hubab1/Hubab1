@@ -10,14 +10,13 @@ import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
 
 
-
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 0 10%;
-`
+`;
 
 const SpacedImg = styled.img`
     margin: 15px 0;
-`
+`;
 
 export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email, receipt, paidByAnother}) => {
     if (!receipt) return <div/>;
@@ -47,14 +46,14 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                         activeApplicantFeePaid={paidByAnother}
                     />
                     {
-                        !!holdingDepositAmount && 
+                        !!holdingDepositAmount &&
                             <HoldingDeposit
                                 holdingDepositAmount={prettyCurrency(holdingDepositAmount)}
                                 holdingDepositPaid={paidByAnother}
                             />
                     }
-                    {   
-                        !paidByAnother && 
+                    {
+                        !paidByAnother &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>
@@ -66,7 +65,7 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
             </Card>
             <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>Continue</ActionButton>
         </Fragment>
-    )
-}
+    );
+};
 
 export default FeesDepositsReceipt;

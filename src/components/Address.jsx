@@ -22,7 +22,7 @@ const ImageContainer = styled.div`
         max-height: 105px;
         max-width: 114px;
     }
-`
+`;
 
 
 export class Address extends React.Component {
@@ -36,7 +36,7 @@ export class Address extends React.Component {
             }
             setSubmitting(false);
         });
-    }
+    };
 
     initialValues () {
         const applicant = this.props.applicant;
@@ -46,7 +46,7 @@ export class Address extends React.Component {
             address_city: applicant.address_city,
             address_state: applicant.address_state,
             address_postal_code: applicant.address_postal_code,
-        }
+        };
     }
 
     render () {
@@ -140,22 +140,28 @@ export class Address extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <ActionButton marginTop={50} disabled={!allValuesSet(values, {exclude: ['address_line_2']}) || isSubmitting}>Continue</ActionButton>
+                            <ActionButton
+                                marginTop={50}
+                                disabled={!allValuesSet(values, {exclude: ['address_line_2']}) || isSubmitting}
+                            >
+                                Continue
+                            </ActionButton>
                         </form>
                     )}
                 </Formik>
             </Fragment>
-        )
+        );
     }
 }
 
 Address.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
-    applicant: PropTypes.object
-}
+    applicant: PropTypes.object,
+    _nextRoute: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
     applicant: state.applicant
-})
+});
 
 export default connect(mapStateToProps, {updateApplicant})(withRelativeRoutes(Address, ROUTES.ADDRESS));

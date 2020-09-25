@@ -41,7 +41,7 @@ const buildProps = (
         },
         applicant: applicant,
         applicantUpdated: jest.fn()
-    }
+    };
 };
 
 it('Matches snapshot', () => {

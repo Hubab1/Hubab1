@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Formik } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { FormHelperText } from '@material-ui/core';
@@ -18,13 +18,13 @@ beforeEach(() => {
             email: 'johnsmithakjsehfbhi@gmail.com',
         },
         onSubmitDependent: jest.fn()
-    }
+    };
 });
 
 describe('sendToPhone is false', () => {
     describe('all form fields filled in', () => {
         it('ActionButton is not disabled', function () {
-            let wrapper = shallow(<InviteForm {...defaultProps}/>);
+            const wrapper = shallow(<InviteForm {...defaultProps}/>);
             const contents = wrapper.find(Formik).dive();
             expect(contents.find(ActionButton).prop('disabled')).toBe(false);
         });
@@ -51,7 +51,7 @@ describe('sendToPhone is true', () => {
             phone_number: '555-555-5555',
         };
         it('ActionButton is not disabled', function () {
-            let wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} />);
+            const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} />);
             const contents = wrapper.find(Formik).dive();
             expect(contents.find(ActionButton).prop('disabled')).toBe(false);
         });
@@ -69,7 +69,7 @@ describe('sendToPhone is true', () => {
             expect(contents.find(ActionButton).prop('disabled')).toBe(true);
         });
     });
-})
+});
 
 describe('initialIsDependent is set to null', () => {
     it('no form should be shown', function () {
@@ -81,7 +81,7 @@ describe('initialIsDependent is set to null', () => {
         const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsDependent={null} />);
         expect(wrapper.find(Formik).exists()).toBe(false);
     });
-})
+});
 describe('initialIsDependent is set to true', () => {
     it('should render dependent form', function () {
         const initialValues = {
@@ -95,7 +95,7 @@ describe('initialIsDependent is set to true', () => {
         expect(contents.find(KeyboardDatePicker).length).toEqual(1);
         expect(contents.find(ActionButton).exists()).toBe(true);
     });
-})
+});
 
 
 it('Case is a guarantor', function () {

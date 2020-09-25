@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import pluralize from 'pluralize';
@@ -26,7 +26,7 @@ const priceBreakdownWrapper = css`
     a {
         text-decoration: none;
     }
-`
+`;
 
 const contentContainer = css`
     display: flex;
@@ -34,13 +34,13 @@ const contentContainer = css`
     align-items: center;
     text-transform: none;
     padding-bottom: 16px;
-`
+`;
 const anchor = css`
     position: relative;
     top: -90px;
-`
+`;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
         padding: 0,
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 const PriceBreakdownContainer = styled.div`
     margin-bottom: 20px;
-`
+`;
 
 function PriceBreakdown (props) {
     const classes = useStyles();
@@ -94,10 +94,10 @@ function PriceBreakdown (props) {
 
         if (categoryMonthlyPrice != null) {
             if (!categoryMonthlyPrice) categoryMonthlyPrice = '$0';
-            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`
+            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`;
         }
 
-        return (<>{categoryInfo}</>)
+        return (<>{categoryInfo}</>);
     };
 
     const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
@@ -134,7 +134,7 @@ function PriceBreakdown (props) {
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails classes={{root:classes.root}}>
                                         <div className={existingItemRow}>
-                                            Base Rent<span className={"pull-right"}>{priceBreakdown.base_rent}</span>
+                                            Base Rent<span className={'pull-right'}>{priceBreakdown.base_rent}</span>
                                         </div>
                                         {
                                             Object.keys(priceBreakdown.items_breakdown).map(function(key) {
@@ -142,11 +142,11 @@ function PriceBreakdown (props) {
                                                     <div key={key}>
                                                         {priceBreakdown.items_breakdown[key] != null && (
                                                             <div className={existingItemRow}>
-                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
+                                                                {key}<span className={'pull-right'}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
                                                             </div>
                                                         )}
                                                     </div>
-                                                )
+                                                );
                                             })
                                         }
                                         <CardRowTotal>
@@ -172,6 +172,6 @@ PriceBreakdown.propTypes = {
     unitId: PropTypes.number,
     category: PropTypes.string,
     categoryHelperText: PropTypes.string,
-}
+};
 
 export default PriceBreakdown;

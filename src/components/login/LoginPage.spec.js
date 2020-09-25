@@ -5,12 +5,12 @@ import { LoginPage } from 'components/login/LoginPage';
 
 jest.mock('utils/auth', () => {
     class Auth {
-        setSession = (token) => {
+        setSession = () => {
             return true;
-        }
-        login = (u, p) => {
+        };
+        login = () => {
             return Promise.resolve({ token: 'abc' });
-        }
+        };
         isAuthenticated() {
             return true;
         }
@@ -20,7 +20,7 @@ jest.mock('utils/auth', () => {
 
 jest.mock('app/history', () => {
     class History {
-        push(val) {
+        push() {
             return true;
         }
     }
@@ -30,7 +30,7 @@ jest.mock('app/history', () => {
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        communityId: "123",
+        communityId: '123',
         location: {
             state: {
 
@@ -39,7 +39,7 @@ beforeEach(() => {
         community: {
             contact_phone: '4444444444'
         },
-    }
+    };
 });
 
 
@@ -77,6 +77,6 @@ it('renders genereic error', function() {
 });
 
 it('renders errors from location state', () => {
-    const wrapper = shallow( < LoginPage {...defaultProps} location={{state: {errors: "You have been logged out"}}}/> );
+    const wrapper = shallow( < LoginPage {...defaultProps} location={{state: {errors: 'You have been logged out'}}}/> );
     expect(wrapper.getElement()).toMatchSnapshot();
 });

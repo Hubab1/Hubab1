@@ -3,9 +3,9 @@ import { css } from 'emotion';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import { LinkButton, Spacer } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -62,7 +62,7 @@ export const InviteForm = (
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone);
         if (!sendToPhone) {
-            setFieldValue('email', null)
+            setFieldValue('email', null);
         } else {
             setFieldValue('phone_number', '');
         }
@@ -161,7 +161,7 @@ export const InviteForm = (
                             >
                                 {buttonText}
                             </ActionButton>
-                        </form>
+                        </form>;
                     }}
                 </Formik>
             }
@@ -183,13 +183,13 @@ export const InviteForm = (
                     }) => {
                         const formFilled = sendToPhone ?
                             !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
-                            !values.last_name || !values.first_name || !values.email
+                            !values.last_name || !values.first_name || !values.email;
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
                                 {!isGuarantor && (
                                     <>
-                                        <div className="color-manatee align-left">We'll send them an invite to apply.</div>
+                                        <div className="color-manatee align-left">We&apos;ll send them an invite to apply.</div>
                                         <Spacer height={30}/>
                                     </>
                                 )}
@@ -237,7 +237,7 @@ export const InviteForm = (
                                 </div>
                                 <ActionButton disabled={ formFilled || isSubmitting} marginTop={50} marginBottom={20}>Send Invite</ActionButton>
                             </form>
-                        )
+                        );
                     }}
                 </Formik>
             }

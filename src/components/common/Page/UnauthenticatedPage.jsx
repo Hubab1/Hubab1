@@ -10,13 +10,13 @@ export const container = css`
   text-align: center;
   margin: auto;
   padding-bottom: 25px;
-`
+`;
 
 export const subContainer = css`
     padding: 30px 20px;
     max-width: 500px;
     margin: auto;
-`
+`;
 
 
 export class UnauthenticatedPage extends React.Component {
@@ -27,7 +27,8 @@ export class UnauthenticatedPage extends React.Component {
                 <Banner style={{
                     backgroundColor: this.context.bannerBackground,
                     color: this.context.bannerColor
-                }}>
+                }}
+                >
                     <Logo src={this.context.logo} alt="company logo" />
                 </Banner>
                 <div className={subContainer}>

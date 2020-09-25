@@ -26,7 +26,7 @@ const renterProfile = createSlice({
         },
         renterProfileUpdated(state, action) {
             return produce(state, draft => {
-                Object.assign(draft, action.payload)
+                Object.assign(draft, action.payload);
             });
         },
     },
@@ -51,7 +51,7 @@ export const fetchRenterProfile = () => {
         }
         dispatch(renterProfileReceived(profile));
         return profile;
-    }
+    };
 };
 
 
@@ -66,24 +66,24 @@ export const updateRenterProfile = (newData, stateUpdate=null) => {
         }
         return API.patchApplication(newData).then(res => {
             if (res.errors) {
-                return res
+                return res;
             }
             return dispatch({
                 type: renterProfileUpdated.toString(),
                 payload: stateUpdate || res
             });
         }).catch((e) => {
-            return { errors: [e.message]}
-        })
-    }
+            return { errors: [e.message]};
+        });
+    };
 };
 
 export const pageComplete = (page) => {
     return dispatch => {
         return API.postPageComplete(page).then(() => {
             dispatch(fetchRenterProfile());
-        })
-    }
+        });
+    };
 };
 
 // selectors
@@ -141,10 +141,7 @@ selectors.canAccessRoute = (state, route) => {
         return true;
     }
     //  route is next page
-    if (route === selectors.selectInitialPage(state)) {
-        return true;
-    }
-    return false;
+    return route === selectors.selectInitialPage(state);
 };
 
 selectors.selectInitialPage = createSelector(
@@ -223,7 +220,7 @@ selectors.selectApplicantStillFinishingApplication = createSelector(
 );
 
 selectors.selectGuarantorRequested = createSelector(
-    state => state => state.applicant && state.applicant.events,
+    state => state.applicant && state.applicant.events,
     state => state.renterProfile,
     (events, profile) => {
         if (!(events && profile)) return false;

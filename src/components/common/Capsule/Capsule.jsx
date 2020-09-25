@@ -24,7 +24,7 @@ function Capsule (props) {
                     </div>
                 </div>
                 {props.expansionPanel}
-                { props.limitReached ? 
+                { props.limitReached ?
                     <P size={14} color="#828796">
                         {`You’ve reached the maximum number of ${props.name}s our community allows`}
                     </P> :
@@ -47,7 +47,7 @@ function Capsule (props) {
 
 Capsule.defaultProps = {
     limitReached: false,
-}
+};
 
 Capsule.propTypes = {
     prefix: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -56,6 +56,6 @@ Capsule.propTypes = {
     route: PropTypes.string,
     expansionPanel: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     limitReached: PropTypes.bool,
-}
+};
 
 export default Capsule;

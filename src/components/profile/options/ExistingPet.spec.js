@@ -7,12 +7,12 @@ import { RENTAL_OPTIONS_PETS_DOGS } from 'app/constants';
 
 it('renders pet info correctly', () => {
     const petItem = {
-                key:"first-pet",
-                name:"stuart",
-                weight:"12",
-                breed:"chiwowzerz",
+                key:'first-pet',
+                name:'stuart',
+                weight:'12',
+                breed:'chiwowzerz',
                 pet_type:RENTAL_OPTIONS_PETS_DOGS,
-                service_animal:"true",
+                service_animal:'true',
     };
     const wrapper = shallow(<ExistingPet item={petItem}/>);
     expect(wrapper.text()).toEqual('Dog - Service Animalstuart, chiwowzerz, 12lbs');

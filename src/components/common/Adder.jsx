@@ -12,20 +12,20 @@ const valueDisplay = css`
     font-size: 30px;
     color: #1C2B6D;
     user-select: none;
-`
+`;
 export default function Adder(props) {
     const onFloor = props.value <= props.floor;
     const onCeil = props.value >= props.ceil;
     const decrement = () => {
         if (!onFloor) {
-            props.onChange(props.value - 1)
+            props.onChange(props.value - 1);
         }
-    }
+    };
     const increment = () => {
         if (!onCeil) {
-            props.onChange(props.value + 1)
+            props.onChange(props.value + 1);
         }
-    }
+    };
     return <Box display="flex" alignItems="center">
         <IconButton disabled={onFloor} onClick={decrement}>
             <RemoveCircleOutlineSharpIcon fontSize="large" />
@@ -34,7 +34,7 @@ export default function Adder(props) {
         <IconButton disabled={onCeil} onClick={increment}>
             <AddCircleOutlineSharpIcon fontSize="large"/>
         </IconButton>
-    </Box>
+    </Box>;
 }
 
 Adder.defaultProps = {
@@ -42,4 +42,4 @@ Adder.defaultProps = {
     floor: 0,
     ceil: 10,
     size: '24px',
-}
+};

@@ -32,13 +32,14 @@ export function LeaseSigned(props) {
         setLoading(true);
         const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
         setUrl(response ? response.url : undefined);
-        setError(response.url ? undefined : 'Lease document is still processing. Please try again later.')
+        setError(response.url ? undefined : 'Lease document is still processing. Please try again later.');
         setLoading(false);
     };
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
-    }, [])
+    }, []);
+
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;
@@ -58,24 +59,30 @@ export function LeaseSigned(props) {
             return 'View Lease';
         }
         return 'Retrieve Lease...';
-    }
+    };
 
     return (
         <>
             <H1>Thanks for Signing!</H1>
-            <SpacedH3>We'll let you know when everyone has signed the lease.</SpacedH3>
+            <SpacedH3>{`We'll let you know when everyone has signed the lease.`}</SpacedH3>
             <Img src={contract}/>
             <div>
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
             </div>
             <div className={buttonsContainer}>
                 {retried && !!error && <GenericFormMessage type="error" messages={error}/>}
-                <ActionButton disabled={loading} onClick={url ? undefined : onClick} href={url} marginTop={30} variant="outlined">
+                <ActionButton
+                    disabled={loading}
+                    onClick={url ? undefined : onClick}
+                    href={url}
+                    marginTop={30}
+                    variant="outlined"
+                >
                     {getButtonText()}
                 </ActionButton>
             </div>
         </>
-    )
+    );
 }
 
 LeaseSigned.propTypes = {

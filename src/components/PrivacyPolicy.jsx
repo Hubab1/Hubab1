@@ -17,8 +17,8 @@ export function PrivacyPolicy(props) {
             return res.text();
         }).then((res) => {
             setHtml(res);
-        })
-    }, [])
+        });
+    }, []);
     if (!html) return null;
     const base = (
         <>
@@ -26,9 +26,13 @@ export function PrivacyPolicy(props) {
             <br/>
             <Card>
                 <ScrollableTermsCardSection>
-                    <div dangerouslySetInnerHTML={{
-                        __html: html
-                    }}/>
+                    <div
+                        dangerouslySetInnerHTML={
+                            {
+                                __html: html
+                            }
+                        }
+                    />
                 </ScrollableTermsCardSection>
             </Card>
         </>

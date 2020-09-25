@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
 import { Elements } from  'react-stripe-elements';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
@@ -14,7 +14,7 @@ import { ROUTES } from 'app/constants';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 10% 30px 10%;
-`
+`;
 
 const bodyRow = css`
     display: flex;
@@ -23,17 +23,17 @@ const bodyRow = css`
     margin: 30px 30px 0 30px;
     font-weight: 300;
     align-items: center;
-`
+`;
 
 const bodyText = css`
     margin-left: 15px;
     text-align: left;
-`
+`;
 
 const linkStyle = css`
     color: #828796;
     font-weight: 300;
-`
+`;
 
 export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, handleClickBack}) =>  {
     return (
@@ -58,13 +58,13 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
                     totalPayment={totalPayment}
                     payments={payments}
                 />
-            </Elements> 
+            </Elements>
             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
                 <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
             </LinkButton>
         </Fragment>
     );
-}
+};
 
 export default PaymentPage;
 

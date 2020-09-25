@@ -19,7 +19,7 @@ const linkContainer = css`
     text-align: left !important;
     margin-bottom: 50px;
     margin-top: 10px;
-`
+`;
 
 export default ({
     initialValues,
@@ -105,7 +105,7 @@ export default ({
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <PhoneNumberInput 
+                                <PhoneNumberInput
                                     label="Phone Number"
                                     name="phone_number"
                                     value={values.phone_number}
@@ -115,24 +115,24 @@ export default ({
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <KeyboardDatePicker	
+                                <KeyboardDatePicker
                                     id="birthday-picker"
-                                    clearable	
-                                    disableFuture	
-                                    format="MM/dd/yyyy"	
-                                    placeholder="mm/dd/yyyy"	
+                                    clearable
+                                    disableFuture
+                                    format="MM/dd/yyyy"
+                                    placeholder="mm/dd/yyyy"
                                     label="Birthday"
                                     maxDate={MAX_DATE}
                                     error={submitCount > 0 && !!errors.birthday}
                                     helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday ?? 'Must be 18 or older'} // preemptive helper text
-                                    value={values.birthday || null}	
-                                    fullWidth	
-                                    onBlur={handleBlur}	
-                                    onChange={e => setFieldValue('birthday', e)}	
-                                    KeyboardButtonProps={{	
-                                        'aria-label': 'change date',	
-                                    }}	
-                                />	
+                                    value={values.birthday || null}
+                                    fullWidth
+                                    onBlur={handleBlur}
+                                    onChange={e => setFieldValue('birthday', e)}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 {
@@ -179,4 +179,4 @@ export default ({
             )}
         </Formik>
     );
-}
+};

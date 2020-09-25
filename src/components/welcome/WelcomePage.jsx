@@ -19,7 +19,7 @@ export class WelcomePage extends Component {
 
     getFirstName () {
         const { client, invitee } = this.props.configuration;
-        if ( client && client.person ) { 
+        if ( client && client.person ) {
             return client.person.first_name;
         } else if ( invitee && invitee.first_name ) {
             return invitee.first_name;
@@ -33,8 +33,8 @@ export class WelcomePage extends Component {
         const { building_name, city, state, postal_code, normalized_street_address } = community;
 
         const firstName = this.getFirstName();
-        const cityStateZip = `${city}, ${state} ${postal_code}`
-        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,'
+        const cityStateZip = `${city}, ${state} ${postal_code}`;
+        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
         return (
             <Fragment>
                 <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background}/>
@@ -61,7 +61,7 @@ export class WelcomePage extends Component {
                         { unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link 
+                        <Link
                             to={{pathname: ROUTES.SIGNUP}}
                             style={{ textDecoration: 'none' }}
                         >
@@ -82,10 +82,7 @@ export class WelcomePage extends Component {
 
 WelcomePage.propTypes = {
     configuration: PropTypes.object.isRequired,
-    theme: PropTypes.shape({
-        palette: PropTypes.object
-    }).isRequired
-}
+};
 
 const mapStateToProps = state => ({
     configuration: state.configuration

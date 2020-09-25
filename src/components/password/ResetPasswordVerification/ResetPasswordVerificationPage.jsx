@@ -13,49 +13,48 @@ import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
-`
+`;
 
 export class ResetPasswordVerificationPage extends React.Component {
-
     componentDidMount() {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const phoneNumber = this.props.history.location.state.phoneNumber
+        const phoneNumber = this.props.history.location.state.phoneNumber;
         const code = values.resetCode;
         const communityId = this.props.communityId;
 
         return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
             if (res.errors) {
-                setErrors({resetCode: "Invalid Error Code"})
+                setErrors({resetCode: 'Invalid Error Code'});
             } else{
                 this.props.history.push({
-                    pathname: ROUTES.RESET_PASSWORD, 
+                    pathname: ROUTES.RESET_PASSWORD,
                     state: {token: res.token}
                 });
             }
             setSubmitting(false);
-        }).catch((res) => {
-            setErrors({resetCode: "Invalid Error Code"})
-            setSubmitting(false);   
-        })
-    }
+        }).catch(() => {
+            setErrors({resetCode: 'Invalid Error Code'});
+            setSubmitting(false);
+        });
+    };
 
     handleClickLink = () => {
         const { communityId, history } = this.props;
         const phoneNumber = history.location.state.phoneNumber;
 
         API.passwordResetRequest(phoneNumber, communityId);
-    }
+    };
 
     render () {
-        if (!this.props.history.location.state) return <div></div>;
+        if (!this.props.history.location.state) return <div />;
         const phoneNumber = this.props.history.location.state.phoneNumber;
         return (
             <Fragment>
                 <H1>
-                    Enter Verification Code 
+                    Enter Verification Code
                 </H1>
                 <SpacedH3>
                 We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
@@ -77,7 +76,6 @@ export class ResetPasswordVerificationPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting,
                         submitForm,
                     }) => {
                         const wrappedHandleChange = (event) => {
@@ -85,7 +83,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                             if (event.target.value.length === 6) {
                                 setTimeout(submitForm, 0);
                             }
-                        }
+                        };
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 <div className={formContent}>
@@ -104,11 +102,11 @@ export class ResetPasswordVerificationPage extends React.Component {
                                     </div>
                                 </div>
                             </form>
-                        )
+                        );
 
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
+                <P>Didn&apos;t Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
             </Fragment>
         );
     }
@@ -117,7 +115,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 ResetPasswordVerificationPage.propTypes = {
     profile: PropTypes.object,
     history: PropTypes.object,
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

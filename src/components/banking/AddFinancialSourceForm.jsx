@@ -7,15 +7,16 @@ import * as Yup from 'yup';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import capitalize from 'lodash/capitalize';
 import omit from 'lodash/omit';
+import PropTypes from 'prop-types';
 
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Spacer } from 'assets/styles';
 import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, ASSET_TYPE_OTHER } from 'app/constants';
 import { Formik } from 'formik';
-import UploadDocuments from "./UploadDocuments";
+import UploadDocuments from './UploadDocuments';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 export function AddFinancialSourceForm (props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
@@ -34,7 +35,7 @@ export function AddFinancialSourceForm (props) {
         handleChange(e);
         // clear other if other field becomes hidden
         setFieldValue('other', null);
-        setFieldValue('uploadedDocuments', {})
+        setFieldValue('uploadedDocuments', {});
     }
 
     const uploadedAllDocuments = (uploadedDocuments, type) => {
@@ -177,11 +178,20 @@ export function AddFinancialSourceForm (props) {
                 )
             }
         </Formik>
-    )
+    );
 }
+
+AddFinancialSourceForm.propTypes = {
+    initialValues: PropTypes.object,
+    config: PropTypes.object,
+    onSubmit: PropTypes.func,
+    setError: PropTypes.func,
+    financialType: PropTypes.number,
+    isEditing: PropTypes.bool,
+};
 
 const mapStateToProps = state => ({
     config: state.configuration,
 });
 
-export default connect(mapStateToProps)(AddFinancialSourceForm)
+export default connect(mapStateToProps)(AddFinancialSourceForm);

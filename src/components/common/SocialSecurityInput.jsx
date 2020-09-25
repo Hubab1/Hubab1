@@ -30,7 +30,7 @@ const transformDisplay = (val) => {
     displayVal = displayVal.replace(/[0-9]/g, '*');
 
     return displayVal;
-}
+};
 
 const transformValue = (inputVal, realVal) => {
     if (typeof realVal !== 'string') {
@@ -62,30 +62,30 @@ const transformValue = (inputVal, realVal) => {
     }
 
     return realVal;
-}
+};
 
 export default function SocialSecurityInput (props) {
     const [showText, setShowText] = useState(false);
     const [displayVal, setDisplayVal] = useState('');
 
     const syncInput = (e) => {
-        let val = e.target.value;
+        const val = e.target.value;
         if (!showText) {
             setDisplayVal(transformDisplay(val));
         } else {
             setDisplayVal(transformValue(val, props.value));
         }
         props.setFieldValue(transformValue(val, props.value));
-    }
+    };
 
     const toggleVisibility = () => {
         if (!showText) {
-            setDisplayVal(props.value)
+            setDisplayVal(props.value);
         } else {
             setDisplayVal(transformDisplay(props.value));
         }
         setShowText(!showText);
-    }
+    };
 
     return (
         <TextField
@@ -108,6 +108,6 @@ export default function SocialSecurityInput (props) {
                 </InputAdornment>
             )}}
         />
-    )
+    );
 
 }

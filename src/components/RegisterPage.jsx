@@ -27,16 +27,16 @@ export class RegisterPage extends React.Component {
     get applicantInfo () {
         const client = this.props.configuration.client;
         const invitee = this.props.configuration.invitee;
-        const baseInitialValues = {first_name: '', last_name: '', phone_number: '', email: '', birthday: '', password: ''}
+        const baseInitialValues = {first_name: '', last_name: '', phone_number: '', email: '', birthday: '', password: ''};
 
         if (client && client.person) {
             const { first_name, last_name, email, phone_1 } = client.person;
             let { date_of_birth } = client.person;
-            // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone	
-            if (date_of_birth) {	
-                date_of_birth = parseDateISOString(date_of_birth);	
-            }	
-            return Object.assign({}, baseInitialValues, 
+            // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
+            if (date_of_birth) {
+                date_of_birth = parseDateISOString(date_of_birth);
+            }
+            return Object.assign({}, baseInitialValues,
                 {first_name, last_name, email, phone_number: phone_1, id: client.id, birthday: date_of_birth}
             );
         } else if (invitee && invitee.first_name) {
@@ -107,7 +107,7 @@ RegisterPage.propTypes = {
     leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
     configuration: PropTypes.object
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

@@ -37,7 +37,7 @@ export class EditFinancialSource extends React.Component {
         return Object.assign({}, financialSource, {uploadedDocuments: uploadedDocuments});
     }
     
-    onSubmit = async (values, {setErrors, setSubmitting}) => {
+    onSubmit = async (values, {setSubmitting}) => {
         setSubmitting(true);
         this.setState({errorSubmitting: false});
 
@@ -47,8 +47,8 @@ export class EditFinancialSource extends React.Component {
             formData.append('other', values.other);
         }
         if (values.uploadedDocuments) {
-            for (let key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach((v, k) => {
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach(v => {
                     if (v.file) {
                         formData.append(`${key}[]`, v.file);
                     } else {

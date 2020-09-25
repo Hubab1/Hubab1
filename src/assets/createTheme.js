@@ -8,14 +8,14 @@ export default (primaryColor='#2B44FF', secondaryColor='#2B44FF') => createMuiTh
         ]
     },
     palette: {
-        primary: {  
+        primary: {
             main: primaryColor
         },
         secondary: {
             main: secondaryColor
         },
         background: {
-            default: "#ffffff"
+            default: '#ffffff',
         }
     }
 });

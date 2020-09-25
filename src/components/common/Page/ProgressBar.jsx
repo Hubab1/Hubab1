@@ -11,7 +11,7 @@ export const Track = styled.div`
     opacity: ${props => props.opacity};
     height: 100%;
     box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
-`
+`;
 
 export const Bar = styled.div`
     position: absolute;
@@ -19,13 +19,13 @@ export const Bar = styled.div`
     background-color: ${props => props.background};
     opacity: ${props => props.opacity};
     height: 100%;
-`
+`;
 
 
 export const Container = styled.div`
     position: relative;
     height: 10px;
-`
+`;
 
 
 function ProgressBar (props) {
@@ -48,6 +48,6 @@ function ProgressBar (props) {
 
 ProgressBar.propTypes = {
     percent: PropTypes.number
-}
+};
 
 export default ProgressBar;

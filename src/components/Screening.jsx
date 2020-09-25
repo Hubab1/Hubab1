@@ -17,54 +17,54 @@ import SocialSecurityInput from 'components/common/SocialSecurityInput';
 import API, { MOCKY } from 'app/api';
 
 import ssl from 'assets/images/ssl-image.png';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from 'components/common/Checkbox';
 
 const Image = styled.img`
     width: 91px;
     height: 32px;
-`
+`;
 
 const securityBlurb = css`
     color: #828796;
     font-size: 13px;
-`
+`;
 
 const centerText = css`
     text-align: center;
-`
+`;
 
 const gridContainer = css`
     padding: 20px 0 20px 0;
-`
+`;
 
 const socialSecurityPrompt = css`
     margin-bottom: 15px;
-`
+`;
 
 export class Screening extends React.Component {
-    state = {errors: null}
+    state = {errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
-        let body = {...values};
+        const body = {...values};
         if (!values.have_ssn) {
             body.ssn = '000-00-0000';
         }
         API.postPassthrough(body).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
-                this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]})
+                this.setState({errors: ['Oops! We ran into some issues trying to obtain your screening reports. Please try again later.']});
             } else {
                 this.props._nextRoute();
             }
             setSubmitting(false);
         }).catch(() => {
-            this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]})
+            this.setState({errors: ['Oops! We ran into some issues trying to obtain your screening reports. Please try again later.']});
             setSubmitting(false);
-        })
+        });
     };
 
     render () {
@@ -75,9 +75,9 @@ export class Screening extends React.Component {
         };
         return (
             <Fragment>
-                <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
+                <H1>You&apos;re almost done, {this.props.applicant.client.person.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
-                <img src={portfolioImg} alt="portfolio"></img>
+                <img src={portfolioImg} alt="portfolio" />
                 <br/>
                 <br/>
                 <Formik
@@ -147,7 +147,7 @@ export class Screening extends React.Component {
                                         helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
                                     />
                                 )}
-                                <Checkbox 
+                                <Checkbox
                                     name="disclaimer"
                                     onChange={handleChange}
                                     checked={values.disclaimer}
@@ -172,6 +172,6 @@ export class Screening extends React.Component {
 const mapStateToProps = state => ({
     applicant: state.applicant,
     buildingName: state.configuration.community.building_name || state.configuration.community.normalized_street_address
-})
+});
 
 export default connect(mapStateToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));

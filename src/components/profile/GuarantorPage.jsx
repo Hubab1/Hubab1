@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
         max-height: 90px;
         max-width: 90px;
     }
-`
+`;
 
 export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -52,7 +52,7 @@ export class GuarantorPage extends React.Component {
 
     handleContinueAfterInviteSent = () => {
         if (!this.props.guarantorRequested) {
-            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)
+            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`);
         } else {
             this.props.fetchApplicant().then(() => {
                 this.props.history.push(this.props.initialPage);
@@ -67,12 +67,12 @@ export class GuarantorPage extends React.Component {
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
                 buttonClick={this.handleContinueAfterInviteSent}
                 buttonText="Continue"
-            />
+                   />;
         }
         return (
             <Fragment>
-                <H1>Let's Invite a Guarantor</H1>
-                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could't be paid for some reason.</SpacedH3>
+                <H1>Let&apos;s Invite a Guarantor</H1>
+                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could&apos;t be paid for some reason.</SpacedH3>
                 <ImageContainer>
                     <img src={coin} alt="coin"/>
                 </ImageContainer>

@@ -17,7 +17,7 @@ import { RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS
 
 const root = css`
     flex-direction: row !important;
-`
+`;
 
 const ErrorMessage = ({ name }) => (
     <Field
@@ -26,7 +26,7 @@ const ErrorMessage = ({ name }) => (
             const error = getIn(form.errors, name);
             const touch = getIn(form.touched, name);
             const submitCount = form.submitCount;
-            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>
+            return <ErrorDetail>{(touch && error) || submitCount ? error : null}</ErrorDetail>;
         }}
     />
 );
@@ -136,7 +136,7 @@ export default class PetItem extends React.Component {
     onChangePetType = (value) => {
         const { petOption, arrayHelpers, index } = this.props;
         this.cache[petOption.pet_type] = { ...petOption };
-        arrayHelpers.replace(index, { pet_type: value, key: petOption.key, service_animal: 'false', ...this.cache[value] })
+        arrayHelpers.replace(index, { pet_type: value, key: petOption.key, service_animal: 'false', ...this.cache[value] });
     }
 
     render () {
@@ -157,6 +157,6 @@ export default class PetItem extends React.Component {
                 {petOption.pet_type === RENTAL_OPTIONS_PETS_CATS && this.renderCatFields()}
                 {petOption.pet_type === RENTAL_OPTIONS_PETS_OTHER && this.renderOtherFields()}
             </div>
-        )
+        );
     }
 }

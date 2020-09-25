@@ -9,7 +9,7 @@ import {
 } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 import API from 'app/api';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 
@@ -24,7 +24,7 @@ const SpacedH3 = styled(H3)`
 
 const CapitalizedSpan = styled.span`
   text-transform: capitalize;
-`
+`;
 
 const Divider = styled.hr`
     border-style: none;
@@ -34,7 +34,7 @@ const Divider = styled.hr`
 
 const Content = styled.div`
   text-align: left;
-`
+`;
 
 export class RemovePerson extends React.Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
@@ -109,9 +109,9 @@ export class RemovePerson extends React.Component {
                     <br/>
                     <br/>
                     {role === RENTER_PROFILE_TYPE_GUARANTOR ? (
-                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan> as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.</P>
+                        <P>You&apos;re about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan> as guarantor. Removing a guarantor prevents them from being able to financially back your lease application.</P>
                     ) : (
-                        <P>You're about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan>{`. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
+                        <P>You&apos;re about to remove <CapitalizedSpan>{person.first_name}</CapitalizedSpan>{`. Removing a person prevents them from being able to apply for this unit as a ${role} or from being added to the lease.`}</P>
                     )}
                 </Content>
                 <ActionButton id="submit-btn" disabled={this.state.submitting} onClick={this.onSubmit} marginBottom={20} marginTop={100}>

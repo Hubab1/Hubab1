@@ -7,12 +7,9 @@ import LoginForm from 'components/common/LoginForm';
 import auth from 'utils/auth';
 
 
-
 export class VerifyAccount extends React.Component {
-    state = {errors: null}
-
-    auth=auth
-
+    state = {errors: null};
+    auth=auth;
 
     onSubmit = (values, { setSubmitting }) => {
         return auth.login(values.email, values.password, this.props.communityId).then((res) => {
@@ -20,12 +17,12 @@ export class VerifyAccount extends React.Component {
             setSubmitting(false);
             if (this.state.errors) this.setState({errors: null});
             this.props.setVerified();
-        }).catch((res) => {
+        }).catch(() => {
             const errorMessage = 'The email and password you entered do not match our records. Please try again.';
             this.setState({errors: [errorMessage]});
             setSubmitting(false);
         });
-    }
+    };
 
     render () {
         return (
@@ -52,6 +49,6 @@ VerifyAccount.propTypes = {
     communityId: PropTypes.string,
     setVerified: PropTypes.func,
     email: PropTypes.string,
-}
+};
 
 export default VerifyAccount;

@@ -17,7 +17,7 @@ const reducer = {
 export const actions = {};
 actions.logout = () => ({
     type: 'USER_LOGOUT'
-})
+});
 
 export default configureStore({
     reducer

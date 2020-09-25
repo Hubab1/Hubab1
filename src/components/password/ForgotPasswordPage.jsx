@@ -17,28 +17,28 @@ import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
-`
+`;
 
 export class ForgotPasswordPage extends React.Component {
-    state = {errors: null}
+    state = {errors: null};
 
-    onSubmit = (values, { setSubmitting, setErrors }) => {
+    onSubmit = (values, { setSubmitting }) => {
         const { communityId } = this.props;
         
         API.passwordResetRequest(values.phone, communityId).then( (res) => {
             if (res.errors) {
-                this.setState({errors: ["Applicant does not exist"]})
+                this.setState({errors: ['Applicant does not exist']});
             } else {
                 this.props.history.push({
-                    pathname: ROUTES.VERIFY_PASSWORD_CODE, 
+                    pathname: ROUTES.VERIFY_PASSWORD_CODE,
                     state: {phoneNumber: values.phone}
                 });
             }
             setSubmitting(false);
         }).catch( () => {
-            this.setState({errors: ["Applicant does not exist"]})
+            this.setState({errors: ['Applicant does not exist']});
             setSubmitting(false);
-        })
+        });
     }
 
     render () {
@@ -70,7 +70,7 @@ export class ForgotPasswordPage extends React.Component {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
                                 {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
-                                <PhoneNumberInput 
+                                <PhoneNumberInput
                                     label="Phone Number"
                                     name="phone"
                                     value={values.phone}
@@ -94,7 +94,7 @@ export class ForgotPasswordPage extends React.Component {
 ForgotPasswordPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
     profile: PropTypes.object
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

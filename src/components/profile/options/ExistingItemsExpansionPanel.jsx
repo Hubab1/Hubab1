@@ -10,7 +10,7 @@ import pluralize from 'pluralize';
 import { existingItemsContainer, existingItemRow } from './styles';
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
         padding: 0
@@ -37,7 +37,7 @@ function ExistingItemsExpansionPanel({children, defaultExpanded, label, labelQua
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
-    )
+    );
 }
 
 ExistingItemsExpansionPanel.propTypes = {

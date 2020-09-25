@@ -9,20 +9,20 @@ const centerAlign = css`
     padding: 20px 20% 25px 20%;
     max-width: 400px;
     margin: 110px auto;
-`
+`;
 
 const Img = styled.img`
     width: 155px;
     height: auto;
-`
+`;
 
 export default function CriticalError () {
     return (
         <div className={centerAlign}>
             <H1>System Unavailable</H1>
-            <H3>Oops! We're having some trouble connecting to our system. Check back soon.</H3>
+            <H3>Oops! We&apos;re having some trouble connecting to our system. Check back soon.</H3>
             <Spacer height={25} />
-            <Img alt='system error' src={image} />
+            <Img alt="system error" src={image} />
         </div>
     );
 }

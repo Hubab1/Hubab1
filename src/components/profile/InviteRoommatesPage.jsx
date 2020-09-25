@@ -17,7 +17,7 @@ import { updateRenterProfile } from 'reducers/renter-profile';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 20px 15%;s
-`
+`;
 
 export class InviteRoommatesPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -26,10 +26,10 @@ export class InviteRoommatesPage extends React.Component {
         this.props.updateRenterProfile({co_applicants: [values]}).then((res) => {
             if (res.errors) {
                 const coApplicantsErrorsObj = get(res, 'errors.co_applicants');
-                const coApplicantErrors = coApplicantsErrorsObj && Object.values(coApplicantsErrorsObj)[0]
-                coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']})
+                const coApplicantErrors = coApplicantsErrorsObj && Object.values(coApplicantsErrorsObj)[0];
+                coApplicantErrors ? setErrors(coApplicantErrors) : this.setState({errors: ['There was an error sending your roommate an invite. Please Try again.']});
             } else {
-                this.setState({confirmSent: true})
+                this.setState({confirmSent: true});
             }
             setSubmitting(false);
         }).catch((res) => {
@@ -43,10 +43,10 @@ export class InviteRoommatesPage extends React.Component {
         this.props.updateRenterProfile({dependents: [serialized]}).then((res) => {
             if (res.errors) {
                 const errorsObj = get(res, 'errors.dependents');
-                const errors = errorsObj && Object.values(errorsObj)[0]
-                errors ? setErrors(errors) : this.setState({errors: ['There was an error adding your dependent. Please Try again.']})
+                const errors = errorsObj && Object.values(errorsObj)[0];
+                errors ? setErrors(errors) : this.setState({errors: ['There was an error adding your dependent. Please Try again.']});
             } else {
-                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
+                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
             }
             setSubmitting(false);
         }).catch((res) => {
@@ -65,7 +65,7 @@ export class InviteRoommatesPage extends React.Component {
 
     render () {
         if (this.state.confirmSent) {
-            return <ConfirmationPage 
+            return <ConfirmationPage
                 successMessage="Invite Sent!"
                 secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
                 buttonClick={()=>this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)}
@@ -73,8 +73,8 @@ export class InviteRoommatesPage extends React.Component {
                 secondaryButtonClick={this.canInviteMore() ? () => this.setState({confirmSent: false}) : null}
                 secondaryButtonText="Add Another Person"
                 confirmationImage={inviteConfirm}
-            />
-        } 
+                   />;
+        }
         return (
             <Fragment>
                 <H1>Add a Person</H1>
@@ -94,6 +94,6 @@ export class InviteRoommatesPage extends React.Component {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-})
+});
 
 export default connect(mapStateToProps, {updateRenterProfile})(InviteRoommatesPage);

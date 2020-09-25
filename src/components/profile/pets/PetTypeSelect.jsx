@@ -11,11 +11,11 @@ import { RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS
 const cancelButton = css`
     color: #828796;
     cursor: pointer;
-`
+`;
 
 function PetTypeSelect(props) {
     const { onDelete, onChange, petTypeOptions, hideCancelButton, value } = props;
-    const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].filter(petType => petTypeOptions.includes(petType))
+    const sortedPetTypeOptions = [RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER].filter(petType => petTypeOptions.includes(petType));
 
     return (
         <Fragment>
@@ -25,7 +25,7 @@ function PetTypeSelect(props) {
             </div>
             <div className={petTypeContainer}>
                 {sortedPetTypeOptions.map(type => {
-                    const label = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type]
+                    const label = PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP[type];
                     if (value === type) {
                         return (
                             <Button
@@ -36,7 +36,7 @@ function PetTypeSelect(props) {
                             >
                                 {label}
                             </Button>
-                        )
+                        );
                     }
 
                     return (
@@ -48,7 +48,7 @@ function PetTypeSelect(props) {
                         >
                             {label}
                         </Button>
-                    )
+                    );
                 })}
             </div>
         </Fragment>

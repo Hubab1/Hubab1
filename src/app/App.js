@@ -10,10 +10,10 @@ import { basenameReceived } from 'reducers/site-config';
 export class App extends Component {
     componentDidMount () {
         const basename = window.location.pathname.split('/')[1];
-        let siteConfig = {};
+        const siteConfig = {};
         siteConfig.basename = basename;
 
-        let params = queryString.parse(window.location.search);
+        const params = queryString.parse(window.location.search);
         siteConfig.hash = params.v;
         
         this.props.basenameReceived(siteConfig);

@@ -7,7 +7,7 @@ import { BackLink } from 'components/common/BackLink';
 
 
 import contract from 'assets/images/contract.svg';
-import {css} from "emotion";
+import {css} from 'emotion';
 
 export const Img = styled.img`
     padding-top: 14px;
@@ -41,7 +41,7 @@ export const HoldingDepositAgreementView = ({profile, configuration, handleConti
             <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>View and Sign Agreement</ActionButton>
             <BackLink to={handleClickBack}/>
         </Fragment>
-    )
+    );
 };
 
 export default HoldingDepositAgreementView;

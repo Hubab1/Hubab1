@@ -13,7 +13,8 @@ export default class ResetPassword extends React.Component {
     state = {
         confirmReset: false,
         errors: null
-    }
+    };
+
     onSubmit = (values, { setSubmitting }) => {
         const token = this.props.history.location.state.token;
 
@@ -21,14 +22,14 @@ export default class ResetPassword extends React.Component {
             if (res.errors) {
                 this.setState({errors: res.errors});
             } else {
-                this.setState({confirmReset: true})
+                this.setState({confirmReset: true});
             }
             setSubmitting(false);
-        }).catch((res) => {
-            this.setState({errors: ['There was an error with resetting your password. Please try again.']})
+        }).catch(() => {
+            this.setState({errors: ['There was an error with resetting your password. Please try again.']});
             setSubmitting(false);
-        })
-    }
+        });
+    };
 
     render () {
         if (this.state.confirmReset) {
@@ -37,7 +38,7 @@ export default class ResetPassword extends React.Component {
                 confirmationImage={thumbsUp}
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
-            />
+                   />;
         }
         return (
             <Fragment>

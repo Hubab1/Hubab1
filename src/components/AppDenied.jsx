@@ -71,7 +71,7 @@ export class AppDenied extends React.Component {
                     />
                 }
             </>
-        )
+        );
     }
 }
 

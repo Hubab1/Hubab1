@@ -14,7 +14,7 @@ export const BackgroundImage = styled.div( props => ({
     zIndex: -5,
     opacity:  props.opacity,
     backgroundImage: `url(${props.url})`,
-}))
+}));
 
 export const BackgroundImageTint = styled.div( props => ({
     position: 'absolute',
@@ -25,12 +25,12 @@ export const BackgroundImageTint = styled.div( props => ({
     zIndex: -4,
     opacity: .6,
     background: props.background
-}))
+}));
 
 export const LogoContainer = styled.div`
     text-align: center;
     margin-top: 20px;
-`
+`;
 
 export const WelcomeFlexContainer = styled.div`
     label: welcome__container;
@@ -41,7 +41,7 @@ export const WelcomeFlexContainer = styled.div`
     color: white;
     height: 100%;
     width: 100%;
-`
+`;
 
 export const WelcomeTextContainer = styled.div`
     label: welcome__content;
@@ -53,14 +53,14 @@ export const WelcomeTextContainer = styled.div`
     max-width: 500px;
     position: relative;
 
-`
+`;
 
 export const WelcomeFooterContainer = styled.div`
     label: welcome__footer;
     margin: 2% 10%;
     height: 15%;
     text-align: center;
-`
+`;
 
 export const HomeImageContainer = styled.div`
     position: relative;
@@ -72,7 +72,7 @@ export const HomeImageContainer = styled.div`
     background: inherit;
     text-align: center;
     padding: 10px 10px 0 10px;
-    margin: 0 auto;`
+    margin: 0 auto;`;
 
 
 export const WhiteButton = withStyles({

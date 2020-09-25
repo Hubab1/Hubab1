@@ -8,7 +8,7 @@ import InviteRoommatesPage from 'components/profile/InviteRoommatesPage';
 import PetsPage from 'components/profile/pets/PetsPage';
 import Storage from 'components/profile/Storage';
 import Parking from 'components/profile/Parking';
-import EditDependent from 'components/profile/EditDependent'
+import EditDependent from 'components/profile/EditDependent';
 import RemovePerson from 'components/profile/RemovePerson';
 
 class RentalProfileContainer extends Component {

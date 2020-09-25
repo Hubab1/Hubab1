@@ -8,7 +8,7 @@ import lightbulb from 'assets/images/lightbulb.png';
 const Bulb = styled.img`
     width: 50px;
     height: 46px;
-`
+`;
 
 export default function Tip (props) {
     return (
@@ -25,10 +25,10 @@ export default function Tip (props) {
                 </Grid>
             </Grid>
         </Grid>
-    )
+    );
 }
 
 Tip.propTypes = {
     header: PropTypes.any,
     text: PropTypes.any,
-}
+};

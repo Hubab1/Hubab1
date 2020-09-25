@@ -20,7 +20,7 @@ const ImageContainer = styled.div`
         max-height: 90px;
         max-width: 90px;
     }
-`
+`;
 
 export class ResendLinkForm extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -32,22 +32,22 @@ export class ResendLinkForm extends React.Component {
             setSubmitting(false);
             if (res.error_type === 'ValidationError') {
                 if (!values.email && !values.phone_number ) {
-                    return this.setState({errors: ['Phone Number or Email are required']})
+                    return this.setState({errors: ['Phone Number or Email are required']});
                 } else if (!values.email) {
-                    return setErrors({phone_number: res.errors.phone_number[0], email: null})
+                    return setErrors({phone_number: res.errors.phone_number[0], email: null});
                 } else if (!values.phone_number) {
-                    return setErrors({email: res.errors.email[0], phone_number: null})
+                    return setErrors({email: res.errors.email[0], phone_number: null});
                 } else {
-                    return this.setState({errors: ['There was an error with your submission. Please try again.']})
+                    return this.setState({errors: ['There was an error with your submission. Please try again.']});
                 }
             }
             this.props.fetchRenterProfile();
-            this.setState({confirmSent: true})
-        }).catch((res) => {
+            this.setState({confirmSent: true});
+        }).catch(() => {
             this.setState({errors: ['There was an error with your submission. Please try again.']});
             setSubmitting(false);
         });
-    }
+    };
 
     render () {
         if (this.state.confirmSent) {
@@ -56,7 +56,7 @@ export class ResendLinkForm extends React.Component {
                 secondarySuccessMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
                 buttonClick={()=>this.props.history.push(this.props.location.state.returnRoute)}
                 buttonText={this.props.location.state.confirmationButtonText}
-            />
+                   />;
         }
         return (
             <Fragment>

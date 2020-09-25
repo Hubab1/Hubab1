@@ -13,7 +13,7 @@ const buildProps = () => {
         categoryHelperText: 'storage space',
         onError: jest.fn(),
         onSuccess: jest.fn(),
-    }
+    };
 };
 
 it('display correct info', async () => {
@@ -26,7 +26,7 @@ it('display correct info', async () => {
         },
         base_rent: '$2,000'
     }));
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -34,7 +34,7 @@ it('display correct info', async () => {
     expect(API.getCurrentFlatQuote).toHaveBeenCalled();
     expect(props.onSuccess).toHaveBeenCalled();
     expect(wrapper.debug()).toMatchSnapshot();
-})
+});
 it('display correct info if has included options', async () => {
     const props = buildProps();
     API.getCurrentFlatQuote = jest.fn().mockReturnValue(Promise.resolve({
@@ -45,20 +45,20 @@ it('display correct info if has included options', async () => {
         },
         base_rent: '$2,000'
     }));
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
     });
     expect(wrapper.debug()).toMatchSnapshot();
-})
+});
 it('calls onerror if api rejects', async () => {
     const props = buildProps();
     API.getCurrentFlatQuote = jest.fn().mockRejectedValue();
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
     });
     expect(props.onError).toHaveBeenCalled();
-})
+});

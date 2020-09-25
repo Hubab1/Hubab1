@@ -27,8 +27,8 @@ export const fetchPayments = () => {
             payments = await API.fetchPaymentOptions();
         }
         dispatch(paymentsReceived(payments.payables));
-        return payments.payables
-    }
+        return payments.payables;
+    };
 };
 
 // selectors

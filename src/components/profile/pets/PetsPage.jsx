@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import clsx from  'clsx';
 import { Formik, FieldArray } from 'formik';
@@ -16,7 +17,9 @@ import PetRestrictions from 'components/profile/pets/PetRestrictions';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
-import { ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, RENTER_PROFILE_TYPE_PETS } from 'app/constants';
+import {
+    ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, RENTER_PROFILE_TYPE_PETS,
+} from 'app/constants';
 
 export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array().of(
@@ -44,26 +47,25 @@ export const petsSchema = (config) => Yup.object().shape({
             })
         })
     )
-})
+});
 
-const FIRST_PET = { key:'first-pet', service_animal: 'false' }
-const PET_PLACEHOLDER = { key:'pet-placeholder', service_animal: 'false' }
+const FIRST_PET = { key:'first-pet', service_animal: 'false' };
+const PET_PLACEHOLDER = { key:'pet-placeholder', service_animal: 'false' };
 
 export class PetsPage extends React.Component {
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
         errors: null
-    }
+    };
 
     emptyPetFilter = (petOption) => {
-        const keys = Object.keys(petOption)
-        if (keys.length === 2 && petOption[keys[0]] === PET_PLACEHOLDER.key && petOption[keys[1]] === PET_PLACEHOLDER.service_animal) {
-            return false;
-        }
-
-        return true
-    }
+        const keys = Object.keys(petOption);
+        return !(
+            keys.length === 2 && petOption[keys[0]] === PET_PLACEHOLDER.key
+            && petOption[keys[1]] === PET_PLACEHOLDER.service_animal
+        );
+    };
 
     serializePetsForPost = (petOptions) => {
         const petRentalOptions = this.props.configuration.rental_options.pets;
@@ -86,34 +88,34 @@ export class PetsPage extends React.Component {
         });
 
         return selectedRentalOptionsArray;
-    }
+    };
 
     toggleViewPetPolicy = () => {
         this.setState({viewPetPolicy: !this.state.viewPetPolicy});
-    }
+    };
 
     toggleViewPetRestrictions = () => {
         this.setState({viewPetRestrictions: !this.state.viewPetRestrictions});
-    }
+    };
 
     onSubmit = (values, { setSubmitting }) => {
         const pets = this.serializePetsForPost(values.petOptions.filter(this.emptyPetFilter));
-        this.props.updateRenterProfile({selected_rental_options: pets}).then((res) => {
+        this.props.updateRenterProfile({selected_rental_options: pets}).then(() => {
             setSubmitting(false);
             this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
         }).catch((res) => {
             this.setState({errors: res.errors});
             setSubmitting(false);
         });
-    }
+    };
 
     handleDelete = (arrayHelpers, index) => {
         arrayHelpers.remove(index);
 
         if (index === 0) {
-            arrayHelpers.push(PET_PLACEHOLDER)
+            arrayHelpers.push(PET_PLACEHOLDER);
         }
-    }
+    };
 
     render () {
         if (!this.props.profile || !this.props.configuration) return null;
@@ -135,7 +137,9 @@ export class PetsPage extends React.Component {
                     <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
                     <img className={petsImageMargin} src={petsImage} alt="cartoon of a person playing with a dog"/>
                     <div className={policyDiv}>
-                        <P fontSize={14}>Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicyClassName}>Read it now!</span></P>
+                        <P fontSize={14}>
+                            Have you read the pet policy? <span role="button" onClick={this.toggleViewPetPolicy} className={viewPetPolicyClassName}>Read it now!</span>
+                        </P>
                     </div>
                     <Formik
                         validationSchema={petsSchema({
@@ -152,11 +156,9 @@ export class PetsPage extends React.Component {
                             isSubmitting,
                             handleSubmit,
                             dirty,
-                            errors
                         }) => {
                             const disableSubmit = !dirty || isSubmitting;
                             const submitLabel = values.petOptions.length === 1 && values.petOptions[0].key === 'first-pet' ? 'Add Pet' : 'Save Changes';
-                            console.log('errors: ', errors)
 
                             return (
                                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
@@ -177,15 +179,17 @@ export class PetsPage extends React.Component {
                                                             toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                             petTypeOptions={petTypeOptions}
                                                         />
-                                                    )
+                                                    );
                                                 })}
-                                                {/* we do not currently address limits. we will need to get limit for each type of pet.
-                                            values.petOptions.length < rental_options_config.pets.limit ?
-                                                <AddAnotherButton
-                                                    thing="Pet"
-                                                    onClick={() => arrayHelpers.push({key: uuidv4()})}
-                                                />: null
-                                            */}
+                                                {
+                                                    /* we do not currently address limits. we will need to get limit for each type of pet.
+                                                    values.petOptions.length < rental_options_config.pets.limit ?
+                                                    <AddAnotherButton
+                                                        thing="Pet"
+                                                        onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                    />: null
+                                                    */
+                                                }
                                                 <AddAnotherButton
                                                     thing="Pet"
                                                     onClick={() => arrayHelpers.push({key: uuidv4()})}
@@ -201,7 +205,7 @@ export class PetsPage extends React.Component {
                                         {submitLabel}
                                     </ActionButton>
                                 </form>
-                            )
+                            );
                         }}
                     </Formik>
                     <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
@@ -224,6 +228,13 @@ export class PetsPage extends React.Component {
         );
     }
 }
+
+PetsPage.propTypes = {
+    profile: PropTypes.object,
+    configuration: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,

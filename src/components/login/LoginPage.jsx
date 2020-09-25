@@ -82,7 +82,7 @@ LoginPage.propTypes = {
     initialPage: PropTypes.string,
     communityId: PropTypes.string,
     community: PropTypes.object,
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

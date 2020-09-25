@@ -31,8 +31,8 @@ const CreditScore = styled.div`
     border: 1px solid;
     font-weight: bold;
     color: #828796;
-    color: ${props => props.color || "#828796"};
-    border-color: ${props => props.color || "#828796"};
+    color: ${props => props.color || '#828796'};
+    border-color: ${props => props.color || '#828796'};
     margin-left: 1px;
     margin-right: 9px;
 `;
@@ -61,7 +61,7 @@ const AdverseActionsFactors = styled.ul`
     li:last-child {
         margin-bottom:0;
     }
-`
+`;
 
 const IndentedRow = styled(CardRow)`
     justify-content: initial;
@@ -73,18 +73,24 @@ export function AppAdverseActions (props) {
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
     const [isReady, setIsReady] = useState(false);
+
     useEffect(() => {
         API.getAdverseActions().then(res => {
             if (res.adverse_factors) setAdverseFactors(res.adverse_factors);
             if (res.request_date) {
                 const formattedDate = new Date(res.request_date);
-                setRequestDate(formattedDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+                setRequestDate(
+                    formattedDate.toLocaleDateString(
+                        'en-US',
+                        { year: 'numeric', month: '2-digit', day: '2-digit' }
+                        )
+                );
             }
             if (res.credit_score) setCreditScore(res.credit_score);
             setIsReady(true);
         }).catch(() => {
             setIsReady(true);
-        })
+        });
     }, []);
 
     const getButtonText = () => {
@@ -97,8 +103,7 @@ export function AppAdverseActions (props) {
         return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
 
-
-    let getCreditScoreColor = (score) => {
+    const getCreditScoreColor = (score) => {
         const ratingConfig = configuration.credit_score_rating_config;
 
         if (!ratingConfig || !ratingConfig.length || !score || isNaN(score))
@@ -112,9 +117,9 @@ export function AppAdverseActions (props) {
         }
 
         switch(index) {
-            case 0: return "#60C28D";
-            case 1: return "#FCC022";
-            default: return "#D0021B";
+            case 0: return '#60C28D';
+            case 1: return '#FCC022';
+            default: return '#D0021B';
         }
     };
 
@@ -235,7 +240,7 @@ export function AppAdverseActions (props) {
             )}
             <ActionButton disabled={!isReady} marginTop={39} onClick={props.onAgree}>{getButtonText()}</ActionButton>
         </div>
-    )
+    );
 }
 AppAdverseActions.propTypes = {
     date: PropTypes.string,

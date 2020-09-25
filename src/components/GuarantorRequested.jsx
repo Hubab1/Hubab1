@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import AppAdverseActions from 'components/AppAdverseActions';
 import captureRoute from 'app/captureRoute';
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import GuarantorExplanation from "./GuarantorExplanation";
+import GuarantorExplanation from './GuarantorExplanation';
 
 
 export const requestGuarantorHelpText = css`
@@ -85,16 +85,18 @@ export class GuarantorRequested extends React.Component {
         const { name } = applicant.client.person;
         const contactPhone = configuration.community.contact_phone;
         const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
-        const primaryApplicantFullName = `${profile.primary_applicant.first_name} ${profile.primary_applicant.last_name}`
+        const primaryApplicantFullName = `${profile.primary_applicant.first_name} ${profile.primary_applicant.last_name}`;
 
         return (
             <>
                 <div className={clsx({'hide-element': viewRequestReason || viewGuarantorExplanation})}>
                     <H1>Please Add a Guarantor</H1>
-                    <SpacedH3>We're requiring that you add a guarantor in order to move forward with your application.</SpacedH3>
+                    <SpacedH3>
+                        {`We're requiring that you add a guarantor in order to move forward with your application.`}
+                    </SpacedH3>
                     <Img src={addGuarantor}/>
                     <div id="application-unit" className={explanationLink}>
-                        <LinkButton onClick={this.toggleViewGuarantorExplanation}>What's a guarantor?</LinkButton>
+                        <LinkButton onClick={this.toggleViewGuarantorExplanation}>{`What's a guarantor?`}</LinkButton>
                     </div>
                     <DescriptionMessage>
                         {isPrimaryApplicant? (
@@ -140,7 +142,7 @@ export class GuarantorRequested extends React.Component {
                     />
                 }
             </>
-        )
+        );
     }
 }
 
@@ -149,6 +151,7 @@ GuarantorRequested.propTypes = {
     configuration: PropTypes.object,
     applicant: PropTypes.object,
     isPrimaryApplicant: PropTypes.bool,
+    history: PropTypes.object,
 };
 
 

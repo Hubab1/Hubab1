@@ -50,7 +50,7 @@ export default function GuarantorExplanation (props) {
             </Contact>
             <ActionButton onClick={props.onAgree} marginTop={189}>Got It</ActionButton>
         </div>
-    )
+    );
 }
 
 GuarantorExplanation.propTypes = {

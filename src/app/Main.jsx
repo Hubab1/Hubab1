@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import AppContextProvider from 'contexts/AppContextProvider';
@@ -37,13 +38,14 @@ import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
 import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
-import GuarantorRequested from 'components/GuarantorRequested'
+import GuarantorRequested from 'components/GuarantorRequested';
+
 
 export class Main extends Component {
     state = {error: null};
 
     mountNavigation(isAuthenticated, configuration) {
-        const { fetchRenterProfile, history, location } = this.props;
+        const { history, location } = this.props;
         const pathname = location.pathname;
 
         const clientRegistered = configuration.client && configuration.client.applicant_id;
@@ -64,7 +66,7 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            fetchRenterProfile().then(() => {
+            this.props.fetchRenterProfile().then(() => {
                 if (!this.props.canAccessCurrentRoute()) {
                     history.replace(this.props.initialPage);
 
@@ -178,6 +180,23 @@ export class Main extends Component {
         );
     }
 }
+
+Main.propTypes = {
+    profile: PropTypes.object,
+    isLoggedIn: PropTypes.bool,
+    configuration: PropTypes.object,
+    communityId: PropTypes.string,
+    hash: PropTypes.string,
+    initialPage: PropTypes.string,
+    canAccessCurrentRoute: PropTypes.func,
+    theme: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    fetchConfiguration: PropTypes.func,
+    fetchApplicant: PropTypes.func,
+    logout: PropTypes.func,
+    history: PropTypes.object,
+    location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,

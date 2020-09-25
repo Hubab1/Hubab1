@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import API from 'app/api';
 import { RemoveFinancialSource } from './RemoveFinancialSource';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { ROUTES, FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
+import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 
 let defaultProps;
 beforeEach(() => {
@@ -17,8 +17,8 @@ beforeEach(() => {
         history: {
             push: jest.fn()
         }
-    }
-})
+    };
+});
 
 it('delete financial source on submit', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});

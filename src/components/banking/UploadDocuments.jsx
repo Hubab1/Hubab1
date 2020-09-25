@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -19,12 +19,12 @@ import { P, LinkButton } from 'assets/styles';
 const root = css`
     border-radius: 21.5px !important;
     height: 45px;
-`
+`;
 
 const label = css`
     text-transform: none;
     font-size: 16px;
-`
+`;
 
 const UploadButtonContainer = styled.div`
     margin-top: ${props => props.marginTop ? `${props.marginTop}px` : 0};
@@ -34,7 +34,7 @@ const UploadButtonContainer = styled.div`
     label {
         margin-bottom: 17px;
     }
-`
+`;
 const FileNamesContainer = styled.div`
     margin-right: -23px;
     margin-left: -23px;
@@ -44,7 +44,7 @@ const FileNamesContainer = styled.div`
     .uploaded-document-display:last-child {
         border-bottom: none;
     }
-`
+`;
 
 const UploadedDocuments = styled.div`
     .uploaded-document {
@@ -70,7 +70,7 @@ const UploadedDocuments = styled.div`
         display: flex;
         justify-content: space-between;
     }
-`
+`;
 
 const FileName = styled.div`
     white-space: nowrap;
@@ -79,7 +79,7 @@ const FileName = styled.div`
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-`
+`;
 
 
 export class UploadDocuments extends React.Component {
@@ -90,7 +90,7 @@ export class UploadDocuments extends React.Component {
 
     componentDidMount () {
         let label;
-        for (let key in this.props.uploadedDocuments) {
+        for (const key in this.props.uploadedDocuments) {
             label = this.props.uploadedDocuments[key].label;
         }
         if (!label) return;
@@ -121,16 +121,16 @@ export class UploadDocuments extends React.Component {
     };
 
     titleCase = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
 
     getTitle = () => {
         let type = '';
-        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income'}
-        else if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset'}
+        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income';}
+        else if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset';}
         return (
             <P margin="43px 0 0 0">{`Proof of ${type}:`}</P>
-        )
+        );
     };
 
     handleChange = event => {
@@ -149,9 +149,9 @@ export class UploadDocuments extends React.Component {
 
     getProofsLabel = () => {
         const documentRequired = this.documentsRequired;
-        let proofDocuments = documentRequired.proof_documents;
+        const proofDocuments = documentRequired.proof_documents;
 
-        return proofDocuments.map(d => d.label).join(' + ')
+        return proofDocuments.map(d => d.label).join(' + ');
     };
 
     getRemainingFilesCount = (document) => {
@@ -176,25 +176,25 @@ export class UploadDocuments extends React.Component {
         const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
         if (!maxCount) return null;
 
-        let largeFiles = [];
+        const largeFiles = [];
 
         for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
-            let file = e.target.files[i];
-            let fileSize = file.size / 1024 / 1024; // in MB
+            const file = e.target.files[i];
+            const fileSize = file.size / 1024 / 1024; // in MB
             if (fileSize > 10) {
                 largeFiles.push(file.name);
             } else {
-                let reader = new FileReader();
+                const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
-                    let fileInfo = {
+                    const fileInfo = {
                         name: file.name,
                         id: uuidv4(),
                         file: file
                     };
-                    let uploadedDocuments = {...this.props.uploadedDocuments};
+                    const uploadedDocuments = {...this.props.uploadedDocuments};
                     if (uploadedDocuments[id]) {
-                        uploadedDocuments[id].files.push(fileInfo)
+                        uploadedDocuments[id].files.push(fileInfo);
                     } else {
                         uploadedDocuments[id] = {
                             id: selectedDocument.id,
@@ -213,12 +213,12 @@ export class UploadDocuments extends React.Component {
 
             this.props.setError([errorMessage]);
         } else {
-            this.props.setError([])
+            this.props.setError([]);
         }
     };
 
     getUploadButtonLabel = (doc) => {
-        let remaining = this.getRemainingFilesCount(doc)?.min?? 0;
+        const remaining = this.getRemainingFilesCount(doc)?.min?? 0;
         return this.startCase(`Upload ${remaining? remaining : ''} ${doc.label}`);
     };
 
@@ -241,13 +241,14 @@ export class UploadDocuments extends React.Component {
                                 {
                                     uploadedDocuments[docId].files.length > 1 &&
                                     <LinkButton
-                                        onClick={() => this.props.removeAll(docId)}>
+                                        onClick={() => this.props.removeAll(docId)}
+                                    >
                                             Remove all ({uploadedDocuments[docId].files.length})
                                     </LinkButton>
                                 }
                             </div>
                             <FileNamesContainer>
-                                {uploadedDocuments[docId].files.map((file, i) => (
+                                {uploadedDocuments[docId].files.map((file) => (
                                     <div className="uploaded-document-display" key={file.id}>
                                         <FileName>{file.name}</FileName>
                                         {/* eslint-disable-next-line */}
@@ -260,7 +261,7 @@ export class UploadDocuments extends React.Component {
                     );
                 })}
             </UploadedDocuments>
-        )
+        );
     };
 
     displayUploadButton = (document) => {
@@ -284,7 +285,7 @@ export class UploadDocuments extends React.Component {
         if (uploaded >= settings.max_required) return false;
 
         // Case 4: All other cases
-        return true
+        return true;
     };
         
     render () {
@@ -318,7 +319,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(doc.id)}
                                                 accept="image/*,.pdf"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, doc)}
                                                 max={this.getRemainingFilesCount(doc)?.max}
                                                 multiple
@@ -368,7 +369,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(selectedDocument.id)}
                                                 accept="image/*,.pdf,.doc,.docx"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, selectedDocument)}
                                                 max={this.getRemainingFilesCount(selectedDocument)?.max}
                                                 multiple
@@ -381,7 +382,7 @@ export class UploadDocuments extends React.Component {
                     </>
                 )}
             </>
-        )
+        );
     }
 }
 

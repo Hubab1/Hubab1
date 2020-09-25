@@ -32,10 +32,10 @@ ActionButton.propTypes = {
     marginTop: PropTypes.number,
     marginBottom: PropTypes.number,
     variant: PropTypes.string,
-}
+};
 
 ActionButton.defaultProps = {
     variant: 'contained',
     color: 'primary',
     successGreen: false,
-}
+};

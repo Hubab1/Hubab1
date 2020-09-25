@@ -34,8 +34,8 @@ export function AddIncomeSource (props) {
         formData.append('stream_type', FINANCIAL_STREAM_INCOME);
         formData.append('other', values.other);
         if (values.uploadedDocuments) {
-            for (let key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach((v, k) => {
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach(v => {
                     formData.append(`${key}[]`, v.file);
                 });
             }

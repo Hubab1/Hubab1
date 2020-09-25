@@ -16,6 +16,6 @@ exports[`Matches Snapshot 1`] = `
   <ActionButton onClick={[Function: mockConstructor]} marginTop={30} marginBottom={20} variant=\\"contained\\" color=\\"primary\\" successGreen={false}>
     View and Sign Agreement
   </ActionButton>
-  <BackLink to={[Function: mockConstructor]} />
+  <BackLink to=\\"some_route\\" />
 </Fragment>"
 `;

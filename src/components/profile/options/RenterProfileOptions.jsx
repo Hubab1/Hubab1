@@ -106,8 +106,8 @@ export class RentalProfileOptions extends React.Component {
         const people = this.props.profile.co_applicants.concat(this.props.profile.dependents);
         return (
             <Fragment>
-                <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
-                <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
+                <SkinnyH1>Let&apos;s Set Up Your Rental Profile</SkinnyH1>
+                <SpacedH3>Complete the sections that apply to you and skip the ones that don&apos;t.</SpacedH3>
                 {this.state.hasError && (
                     <GenericFormMessage
                         type="error"
@@ -174,7 +174,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={cat} />}
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
-                            buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
+                            buttonLabel={this.existingPets.length ? 'Manage pets' : 'Add a pet'}
                             route={ROUTES.PETS}
                             expansionPanel={!!this.existingPets.length &&
                                 <ExistingItemsExpansionPanel
@@ -198,7 +198,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img src={addparking} alt="car parking"/>}
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
-                            buttonLabel={(filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
+                            buttonLabel={(filteredParking.length > 0) ? 'Manage Parking' : 'Add Parking'}
                             route={ROUTES.PARKING}
                             expansionPanel={filteredParking.length > 0 &&
                                 <ExistingItemsExpansionPanel
@@ -223,7 +223,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img src={addstorage} alt="storage" />}
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
-                            buttonLabel={(filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
+                            buttonLabel={(filteredStorage.length > 0) ? 'Manage Storage' : 'Add Storage'}
                             route={ROUTES.STORAGE}
                             expansionPanel={filteredStorage.length > 0 &&
                                 <ExistingItemsExpansionPanel
