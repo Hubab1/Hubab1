@@ -76,7 +76,7 @@ export function VerticalLinearStepper(props) {
             <Stepper activeStep={activeStep} orientation="vertical">
                 {unitUnavailable && !props.guarantorRequested &&
                     <Step active>
-                        <StepLabel StepIconComponent={()=><ErrorIcon color='primary'/>} active classes={{root: iconRoot}}>
+                        <StepLabel StepIconComponent={()=><ErrorIcon color="primary"/>} active classes={{root: iconRoot}}>
                             <span className="unitUnavailableMsg">
                                 {`We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at `}
                                 <a href={`tel:${props.config.community.contact_phone}`}>

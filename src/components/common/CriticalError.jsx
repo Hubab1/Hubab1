@@ -22,7 +22,7 @@ export default function CriticalError () {
             <H1>System Unavailable</H1>
             <H3>Oops! We&apos;re having some trouble connecting to our system. Check back soon.</H3>
             <Spacer height={25} />
-            <Img alt='system error' src={image} />
+            <Img alt="system error" src={image} />
         </div>
     );
 }

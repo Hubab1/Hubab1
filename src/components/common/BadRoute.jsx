@@ -19,7 +19,7 @@ export default function BadRoute () {
         <div className={centerAlign}>
             <H1>Page Not Found</H1>
             <SpacedH3>The requested URL was not found on this server.</SpacedH3>
-            <img alt='404 page' src={Img404} />
+            <img alt="404 page" src={Img404} />
         </div>
     );
 }

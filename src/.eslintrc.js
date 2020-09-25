@@ -18,9 +18,9 @@ module.exports = {
     },
     "rules" : {
         //"eol-last": [1],
-        //"jsx-quotes": ["error", "prefer-double"],
-        //"no-console": ["error", { "allow": ["warn", "error"] }],
-        //"no-debugger": ["error"],
+        "jsx-quotes": ["error", "prefer-double"],
+        "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+        "no-debugger": ["error"],
         "no-multiple-empty-lines": ["error", {"max": 2}],
         //"no-shadow": ["error"],
         "no-trailing-spaces": ["error", { "skipBlankLines": true }],

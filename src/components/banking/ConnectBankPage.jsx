@@ -99,7 +99,7 @@ export class ConnectBankPage extends React.Component {
                         });
                     },
                     loaded: () => {
-                        console.log('iframe has loaded');
+                        console.info('iframe has loaded');
                     },
                     route: function(event) {
                         if (event.data && event.data.screen === 'Search') {
