@@ -172,6 +172,11 @@ PriceBreakdown.propTypes = {
     unitId: PropTypes.number,
     category: PropTypes.string,
     categoryHelperText: PropTypes.string,
+    leaseTerm: PropTypes.number,
+    moveInDate: PropTypes.string,
+    onError: PropTypes.func,
+    onSuccess: PropTypes.func,
+    name: PropTypes.string,
 };
 
 export default PriceBreakdown;
