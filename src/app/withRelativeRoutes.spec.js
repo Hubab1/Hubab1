@@ -29,7 +29,7 @@ const WrappedComponent = ()=><div>Wrapped Component Text</div>;
 describe('application completed', function () {
     it('prevents you from acccessing anything but the initialPage', function() {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
-        let wrapper = mount(
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
@@ -42,7 +42,7 @@ describe('application completed', function () {
     });
     it('allows accessing initialPage', function() {
         const Component = withRelativeRoutes(WrappedComponent, '/application-complete');
-        let wrapper = mount(
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
@@ -57,7 +57,7 @@ describe('application completed', function () {
 describe('application not completed', function () {
     it('doesnt prevent you from acccessing anything but the initialPage', function() {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
-        let wrapper = mount(
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
@@ -70,7 +70,7 @@ describe('application not completed', function () {
     });
     it('_nextRoute() pushes props._next if unitAvailable !== false', function() {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
-        let wrapper = mount(
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
@@ -84,7 +84,7 @@ describe('application not completed', function () {
     });
     it('_nextRoute() pushes unit unavaible page if unitAvailable === false', function() {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
-        let wrapper = mount(
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 unitAvailable={false}

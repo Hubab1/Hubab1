@@ -96,7 +96,7 @@ describe('Application submitted state', function() {
             },
             initialPage: '/application-complete',
         };
-        let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
     });
@@ -177,7 +177,7 @@ describe('Guarantor requested state', function() {
             initialPage: '/guarantor_request',
             guarantorRequested: true,
         };
-        let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/guarantor_request');
     });

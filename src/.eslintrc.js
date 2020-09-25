@@ -25,7 +25,7 @@ module.exports = {
         //"no-shadow": ["error"],
         //"no-trailing-spaces": ["error", { "skipBlankLines": true }],
         //"no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
-        //"prefer-const": ["error"],
+        "prefer-const": ["error"],
         "quotes": [2, "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
         "react/display-name": 0,
         "react/jsx-closing-bracket-location": 2,

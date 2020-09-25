@@ -22,13 +22,13 @@ beforeEach(() => {
 describe('<ActionButton/>', () => {
     describe('all form fields filled in', () => {
         it('ActionButton is not disabled', function () {
-            let wrapper = mount(<Address {...defaultProps}/>);
+            const wrapper = mount(<Address {...defaultProps}/>);
             expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
         });
     });
 
     describe('missing form value', () => {
-        let applicant = {
+        const applicant = {
             address_street: '123 Fulton st',
             address_city: 'New York',
             address_state: '',
@@ -40,7 +40,7 @@ describe('<ActionButton/>', () => {
         });
     });
     describe('missing optional form value address_line_2', () => {
-        let applicant = {
+        const applicant = {
             address_street: '123 Fulton st',
             address_city: 'New York',
             address_state: 'NY',

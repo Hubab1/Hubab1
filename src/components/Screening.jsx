@@ -49,7 +49,7 @@ export class Screening extends React.Component {
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
-        let body = {...values};
+        const body = {...values};
         if (!values.have_ssn) {
             body.ssn = '000-00-0000';
         }
@@ -75,7 +75,7 @@ export class Screening extends React.Component {
         };
         return (
             <Fragment>
-                <H1>{`You're almost done, ${this.props.applicant.client.person.first_name}!`}</H1>
+                <H1>You&apos;re almost done, {this.props.applicant.client.person.first_name}!</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
                 <img src={portfolioImg} alt="portfolio" />
                 <br/>
