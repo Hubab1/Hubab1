@@ -45,7 +45,7 @@ export default function PetRestrictions (props) {
             </Contact>
             <ActionButton onClick={props.onAgree}>Got It</ActionButton>
         </div>
-    )
+    );
 }
 
 PetRestrictions.propTypes = {

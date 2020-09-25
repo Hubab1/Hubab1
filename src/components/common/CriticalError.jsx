@@ -9,12 +9,12 @@ const centerAlign = css`
     padding: 20px 20% 25px 20%;
     max-width: 400px;
     margin: 110px auto;
-`
+`;
 
 const Img = styled.img`
     width: 155px;
     height: auto;
-`
+`;
 
 export default function CriticalError () {
     return (

@@ -10,18 +10,18 @@ export const Subtitle = styled.small`
     font-size: 15px;
     line-height: 18px;
     text-align: center;
-`
+`;
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
     padding: 20px;
-`
+`;
 
 const Policy = styled.div`
     margin-top: 30px;
     white-space: pre-line;
     margin-bottom: 36px;
-`
+`;
 
 export default function PetPolicy (props) {
     return (
@@ -36,11 +36,11 @@ export default function PetPolicy (props) {
             </Policy>
             <ActionButton onClick={props.onAgree}>Got It</ActionButton>
         </div>
-    )
+    );
 }
 
 PetPolicy.propTypes = {
     date: PropTypes.string,
     policy: PropTypes.string,
     onAgree: PropTypes.func.isRequired
-}
+};

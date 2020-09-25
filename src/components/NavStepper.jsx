@@ -32,7 +32,7 @@ const active = css`
     .MuiStepLabel-active {
         font-weight: bold !important;
     }
-`
+`;
 
 const accessible = css`
     cursor: pointer !important;

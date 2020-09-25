@@ -19,7 +19,7 @@ const linkContainer = css`
     text-align: left !important;
     margin-bottom: 50px;
     margin-top: 10px;
-`
+`;
 
 export default ({
     initialValues,
@@ -179,4 +179,4 @@ export default ({
             )}
         </Formik>
     );
-}
+};

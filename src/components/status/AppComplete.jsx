@@ -26,10 +26,10 @@ export const AppComplete = ({profile, configuration, applicant}) => {
             initialValues={resendFormValues} 
             handleConfirmationClick={setResendFormValues}
             confirmationButtonText="Back to Application Status"
-        />
+        />;
     }
     const { unit, primary_applicant, co_applicants } = profile;
-    const { guarantors } = primary_applicant
+    const { guarantors } = primary_applicant;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const role = applicant.role;
 
@@ -82,7 +82,7 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                                 label="Roommate"
                                 role={role}
                                 handleClickLink={setResendFormValues}
-                            />
+                            />;
                         })
                     }
                 </CardSection>
@@ -102,7 +102,7 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                                         label="Guarantor" 
                                         role={role}
                                         handleClickLink={setResendFormValues}
-                                    />
+                                    />;
                                 }) 
 
                             }
@@ -110,20 +110,20 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                     </Card>
             }
         </Fragment>
-    )
-}
+    );
+};
 
 AppComplete.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
     applicant: PropTypes.object,
-}
+};
 
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant,
-})
+});
 
 export default connect(mapStateToProps, null)(withRelativeRoutes(AppComplete, ROUTES.APP_COMPLETE));

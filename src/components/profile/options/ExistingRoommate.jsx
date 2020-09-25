@@ -17,7 +17,7 @@ import { getRoommateStatus } from 'utils/misc';
 
 const removeLink = css`
   margin-left: 15px;
-`
+`;
 
 export default function ExistingRoommate({item, type}) {
     const isDependent = type === RENTER_PROFILE_TYPE_DEPENDENT;
@@ -87,7 +87,7 @@ export default function ExistingRoommate({item, type}) {
                 </div>
             )}
         </>
-    )
+    );
 }
 
 ExistingRoommate.propTypes = {

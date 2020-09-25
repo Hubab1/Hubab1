@@ -20,8 +20,8 @@ beforeEach(() => {
         updateApplication: jest.fn(),
         communityId: '123',
         applicant: mockApplicant,
-    }
-})
+    };
+});
 
 it('renders VerifyAccount when not verified', () => {
     const wrapper = shallow(<AccountPage {...defaultProps}/>);
@@ -59,7 +59,7 @@ it('calls API.passwordReset onChangePasswordSubmit', function() {
 });
 
 it('renders errors if has errors', function() {
-    const errorMessage = 'There was an error with resetting your password. Please try again.'
+    const errorMessage = 'There was an error with resetting your password. Please try again.';
 
     auth.getToken = jest.fn().mockReturnValue('123');
 

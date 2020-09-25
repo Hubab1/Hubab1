@@ -28,7 +28,7 @@ const PhoneNumberInput = (props) => {
             }
         </InputMask>
     );
-}
+};
 
 PhoneNumberInput.propTypes = {
     label: PropTypes.string,

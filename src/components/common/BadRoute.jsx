@@ -7,12 +7,12 @@ import { H1, H3 } from 'assets/styles';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 20% 25px 20%;
-`
+`;
 
 const centerAlign = css`
     text-align: center;
     margin-top: 200px;
-`
+`;
 
 export default function BadRoute () {
     return (

@@ -35,7 +35,7 @@ export function AddFinancialSourceForm (props) {
         handleChange(e);
         // clear other if other field becomes hidden
         setFieldValue('other', null);
-        setFieldValue('uploadedDocuments', {})
+        setFieldValue('uploadedDocuments', {});
     }
 
     const uploadedAllDocuments = (uploadedDocuments, type) => {

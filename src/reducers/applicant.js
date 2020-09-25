@@ -14,7 +14,7 @@ const applicant = createSlice({
         },
         applicantUpdated(state, action) {
             return produce(state, draft => {
-                Object.assign(draft, action.payload)
+                Object.assign(draft, action.payload);
             });
         },
     },

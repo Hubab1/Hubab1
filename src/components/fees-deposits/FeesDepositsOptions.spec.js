@@ -25,8 +25,8 @@ beforeEach(() => {
         baseAppFee: 100.55,
         handleContinue: jest.fn(),
 
-    }
-})
+    };
+});
 
 it('renders ApplicationFees', function() {
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
@@ -49,7 +49,7 @@ it('renders Holding Deposit when there is a holding deposit with correct total f
     expect(wrapper.find(HoldingDeposit)).toBeTruthy();
     expect(wrapper.text().includes('Total$1,100')).toBeTruthy();
     expect(wrapper.find(PaidText).length).toBe(0);
-})
+});
 
 it('renders Holding Deposit Paid when there is a holding deposit with correct total fees and holding deposit payment paid is true', () => {
     const payments = [{
@@ -71,13 +71,13 @@ it('renders Holding Deposit Paid when there is a holding deposit with correct to
         "amount": 1000.00,
         "paid": true,
         "stripe_id": ""
-    }]
+    }];
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} /> );
 
     expect(wrapper.find(HoldingDeposit)).toBeTruthy();
     expect(wrapper.find(HoldingDeposit).props().holdingDepositPaid).toEqual(true);
     expect(wrapper.text().includes('Total$100.55')).toBeTruthy();
-})
+});
 
 it('does not render Holding Deposit when there is no holding deposit with correct total fees', () => {
     defaultProps.holdingDepositAmount = '';
@@ -95,7 +95,7 @@ it('does not render Holding Deposit when there is no holding deposit with correc
 
     expect(wrapper.text().includes('Holding Deposit <SimplePopover />$1000')).not.toBeTruthy();
     expect(wrapper.text().includes('Total$100')).toBeTruthy();
-})
+});
 
 it('does not render Total when no holding deposit and fees are paid', () => {
     defaultProps.holdingDepositAmount = '';
@@ -108,11 +108,11 @@ it('does not render Total when no holding deposit and fees are paid', () => {
         "amount": 100.00,
         "paid": true,
         "stripe_id": ""
-    }]
+    }];
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} /> );
 
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
-})
+});
 
 it('does not render Total when holding deposit paid and fees are paid', () => {
     defaultProps.holdingDepositAmount = 1000;
@@ -120,7 +120,7 @@ it('does not render Total when holding deposit paid and fees are paid', () => {
     defaultProps.payments[1].paid = true;
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} /> );
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
-})
+});
 
 it('renders expected header text', () => {
     const payments = [{
@@ -132,10 +132,10 @@ it('renders expected header text', () => {
         "amount": 100.00,
         "paid": true,
         "stripe_id": ""
-    }]
+    }];
 
     let wrapper = shallow( <FeesDepositsOptions {...defaultProps} payments={payments} receipt={null} /> );
 
     expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
     expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();
-})
+});

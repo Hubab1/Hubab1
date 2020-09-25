@@ -13,8 +13,8 @@ beforeEach(() => {
         fetchApplicant: jest.fn(),
         fetchRenterProfile: jest.fn(),
         onSuccess: jest.fn(),
-    }
-})
+    };
+});
 
 it('Shows a messsage about stripe processing', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
@@ -23,7 +23,7 @@ it('Shows a messsage about stripe processing', function() {
 it('handleSubmit sets paymentSuccess to true on Success', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 
-    API.stripePayment = jest.fn().mockResolvedValue({success: 'payment succeeded!'})
+    API.stripePayment = jest.fn().mockResolvedValue({success: 'payment succeeded!'});
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
         expect(API.stripePayment).toHaveBeenCalledWith({token: 123});
@@ -35,7 +35,7 @@ it('handleSubmit sets paymentSuccess to true on Success', function() {
 it('handleSubmit sets error on API fail', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 
-    API.stripePayment = jest.fn().mockResolvedValue({errors: {error: {message: 'dooty doot doot'}}})
+    API.stripePayment = jest.fn().mockResolvedValue({errors: {error: {message: 'dooty doot doot'}}});
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
         expect(API.stripePayment).toHaveBeenCalledWith({token: 123});
@@ -47,7 +47,7 @@ it('handleSubmit sets error on API fail', function() {
 it('handles server error', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 
-    API.stripePayment = jest.fn().mockRejectedValue({})
+    API.stripePayment = jest.fn().mockRejectedValue({});
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
         expect(wrapper.state().errors).toContain("Oops, we're having trouble processing your payment. Try again in a bit.");
@@ -55,7 +55,7 @@ it('handles server error', function() {
 });
 
 it('handleSubmit sets error on stripe fail', function() {
-    defaultProps.stripe.createToken = jest.fn().mockRejectedValue('boo')
+    defaultProps.stripe.createToken = jest.fn().mockRejectedValue('boo');
     const genericErrorMessage = "Oops, we're having trouble processing your payment. Try again in a bit.";
 
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );

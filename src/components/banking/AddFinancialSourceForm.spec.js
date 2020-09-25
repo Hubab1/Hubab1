@@ -17,7 +17,7 @@ beforeEach(() => {
             income_or_asset_type: 10,
             estimated_amount: '1111'
         }
-    }
+    };
 });
 
 it('Disables submit if all values not set', async () => {

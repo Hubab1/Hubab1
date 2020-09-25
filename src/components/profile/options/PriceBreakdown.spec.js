@@ -13,7 +13,7 @@ const buildProps = () => {
         categoryHelperText: 'storage space',
         onError: jest.fn(),
         onSuccess: jest.fn(),
-    }
+    };
 };
 
 it('display correct info', async () => {
@@ -34,7 +34,7 @@ it('display correct info', async () => {
     expect(API.getCurrentFlatQuote).toHaveBeenCalled();
     expect(props.onSuccess).toHaveBeenCalled();
     expect(wrapper.debug()).toMatchSnapshot();
-})
+});
 it('display correct info if has included options', async () => {
     const props = buildProps();
     API.getCurrentFlatQuote = jest.fn().mockReturnValue(Promise.resolve({
@@ -51,7 +51,7 @@ it('display correct info if has included options', async () => {
         wrapper.update();
     });
     expect(wrapper.debug()).toMatchSnapshot();
-})
+});
 it('calls onerror if api rejects', async () => {
     const props = buildProps();
     API.getCurrentFlatQuote = jest.fn().mockRejectedValue();
@@ -61,4 +61,4 @@ it('calls onerror if api rejects', async () => {
         wrapper.update();
     });
     expect(props.onError).toHaveBeenCalled();
-})
+});

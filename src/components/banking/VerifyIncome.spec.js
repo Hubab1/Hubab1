@@ -6,8 +6,8 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         errors: 'Some random error'
-    }
-})
+    };
+});
 
 
 it('matches snapshot', () => {

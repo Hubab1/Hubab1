@@ -83,7 +83,7 @@ export function IncomeVerificationSummaryPage (props) {
         if (source.finicity_income_stream_id && source.other) {
             return source.other;
         }
-        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label
+        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label;
     };
 
     const getIncomeRequirementText = (config, profile, applicant) => {
@@ -102,7 +102,7 @@ export function IncomeVerificationSummaryPage (props) {
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>}
                 </p>
-            )
+            );
         }
         else {
             return (

@@ -17,8 +17,8 @@ export function PrivacyPolicy(props) {
             return res.text();
         }).then((res) => {
             setHtml(res);
-        })
-    }, [])
+        });
+    }, []);
     if (!html) return null;
     const base = (
         <>

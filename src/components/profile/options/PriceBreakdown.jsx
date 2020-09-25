@@ -26,7 +26,7 @@ const priceBreakdownWrapper = css`
     a {
         text-decoration: none;
     }
-`
+`;
 
 const contentContainer = css`
     display: flex;
@@ -34,11 +34,11 @@ const contentContainer = css`
     align-items: center;
     text-transform: none;
     padding-bottom: 16px;
-`
+`;
 const anchor = css`
     position: relative;
     top: -90px;
-`
+`;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 const PriceBreakdownContainer = styled.div`
     margin-bottom: 20px;
-`
+`;
 
 function PriceBreakdown (props) {
     const classes = useStyles();
@@ -94,10 +94,10 @@ function PriceBreakdown (props) {
 
         if (categoryMonthlyPrice != null) {
             if (!categoryMonthlyPrice) categoryMonthlyPrice = '$0';
-            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`
+            categoryInfo = `${categoryMonthlyPrice}/mo for ${categoryCount} ${pluralize(props.categoryHelperText, categoryCount)}`;
         }
 
-        return (<>{categoryInfo}</>)
+        return (<>{categoryInfo}</>);
     };
 
     const hasRentalOptions = priceBreakdown.items_breakdown && Object.keys(priceBreakdown.items_breakdown).length !==0;
@@ -146,7 +146,7 @@ function PriceBreakdown (props) {
                                                             </div>
                                                         )}
                                                     </div>
-                                                )
+                                                );
                                             })
                                         }
                                         <CardRowTotal>
@@ -172,6 +172,6 @@ PriceBreakdown.propTypes = {
     unitId: PropTypes.number,
     category: PropTypes.string,
     categoryHelperText: PropTypes.string,
-}
+};
 
 export default PriceBreakdown;

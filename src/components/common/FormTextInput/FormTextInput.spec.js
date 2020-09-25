@@ -13,8 +13,8 @@ beforeEach(() => {
         value: 'orange',
         label: 'fruits',
         type: 'text'
-    }
-})
+    };
+});
 
 describe('FormTextInput', function() {
     describe('regular text input', function() {
@@ -22,19 +22,19 @@ describe('FormTextInput', function() {
             expect(
                 renderer.create(<FormTextInput {...defaultProps}/>)
             ).toMatchSnapshot();
-        })
+        });
         it('can add endAdornment', function() {
             expect(
                 renderer.create(<FormTextInput {...defaultProps} endAdornment={<span>Lb</span>}/>)
             ).toMatchSnapshot();
-        })
+        });
     });
     describe('password input', function() {
         it('Matches snapshot', function() {
             expect(
                 renderer.create(<FormTextInput {...defaultProps} type="password"/>)
             ).toMatchSnapshot();
-        })
+        });
         it('showValidationText shows validation text before submit', function() {
             expect(
                 renderer.create(
@@ -47,6 +47,6 @@ describe('FormTextInput', function() {
                     />
                 )
             ).toMatchSnapshot();
-        })
+        });
     });
-})
+});

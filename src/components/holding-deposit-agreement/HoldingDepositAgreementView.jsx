@@ -41,7 +41,7 @@ export const HoldingDepositAgreementView = ({profile, configuration, handleConti
             <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>View and Sign Agreement</ActionButton>
             <BackLink to={handleClickBack}/>
         </Fragment>
-    )
+    );
 };
 
 export default HoldingDepositAgreementView;

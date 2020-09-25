@@ -28,7 +28,7 @@ export class PaymentForm extends React.Component {
     }
 
     handleChangeUpdate = (changeObj) => {
-        this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}))
+        this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}));
     }
 
     handleSubmit = (e) => {
@@ -107,7 +107,7 @@ export class PaymentForm extends React.Component {
                     { `Pay ${prettyCurrency(this.props.totalPayment)}` }
                 </ActionButton>
             </form>
-        )
+        );
     }
 }
 

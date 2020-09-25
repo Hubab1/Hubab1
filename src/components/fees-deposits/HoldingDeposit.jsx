@@ -9,7 +9,7 @@ import SimplePopover from 'components/common/SimplePopover';
 
 const CardRowBorderlessPadded = styled(CardRowBorderless)`
     padding: 15px 0;
-`
+`;
 
 export const HoldingDeposit = ({
     holdingDepositPaid=false,
@@ -29,6 +29,6 @@ export const HoldingDeposit = ({
             {holdingDepositPaid ? <PaidText /> : <P>{holdingDepositAmount}</P>}
         </div>
     </CardRowBorderlessPadded>;
-}
+};
 
 export default HoldingDeposit;

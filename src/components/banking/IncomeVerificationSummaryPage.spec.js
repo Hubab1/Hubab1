@@ -91,8 +91,8 @@ beforeEach(() => {
             }
         }
 
-    }
-})
+    };
+});
 
 it('matches snapshot with some financial sources data', () => {
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps}/>);
@@ -102,7 +102,7 @@ it('matches snapshot with some financial sources data', () => {
 });
 
 it('matches snapshot with some financial sources data if guarantor', () => {
-    defaultProps.applicant.role = ROLE_GUARANTOR
+    defaultProps.applicant.role = ROLE_GUARANTOR;
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
     expect(
         wrapper.getElement()

@@ -88,9 +88,9 @@ FormTextInput.propTypes = {
     showValidationText: PropTypes.bool,
     touched: PropTypes.bool,
     disabled: PropTypes.bool,
-}
+};
 
 FormTextInput.defaultProps = {
     type: 'text',
     inputProps: {}
-}
+};

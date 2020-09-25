@@ -129,4 +129,4 @@ describe('onContinue', function () {
             expect(defaultProps._nextRoute).toHaveBeenCalled();
         });
     });
-})
+});

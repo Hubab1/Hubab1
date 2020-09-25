@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
-import fuzzaldrin from "fuzzaldrin-plus"
+import fuzzaldrin from "fuzzaldrin-plus";
 
 import API from 'app/api';
 
@@ -77,7 +77,7 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
             return keep;
         });
     }
-    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'})
+    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'});
 }
 
 const useStyles = makeStyles(theme => ({
@@ -121,12 +121,12 @@ export default function AvailableUnitsSelector (props) {
         API.fetchAvailableUnits().then(units => {
             if (units.length) setUnits(units);
             setIsReady(true);
-        })
-    }, [])
+        });
+    }, []);
 
     const handleChange = (val) => {
         props.update(val);
-    }
+    };
     
     const classes = useStyles();
     return (
@@ -168,9 +168,9 @@ export default function AvailableUnitsSelector (props) {
                         }),
                     );
                     if (!isReady) {
-                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>]
+                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
                     } else if  (suggestions.length === 0) {
-                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>]
+                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
                     }
                     return (
                         <div className={classes.container}>

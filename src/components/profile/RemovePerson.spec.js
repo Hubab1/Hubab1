@@ -29,7 +29,7 @@ beforeEach(() => {
         },
         application: mockApplication,
         config: mockConfig,
-    }
+    };
 
     API.deletePerson = jest.fn().mockReturnValue(Promise.resolve());
     API.deleteInvitee = jest.fn().mockReturnValue(Promise.resolve());

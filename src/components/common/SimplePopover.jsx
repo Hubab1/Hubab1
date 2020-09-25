@@ -10,7 +10,7 @@ const cancelButton = css`
     position: absolute;
     top: 10px;
     right: 5px;
-`
+`;
 
 const useStyles = makeStyles(theme => ({
     typography: {
@@ -75,4 +75,4 @@ export default function SimplePopover(props) {
 
 SimplePopover.defaultProps = {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-}
+};

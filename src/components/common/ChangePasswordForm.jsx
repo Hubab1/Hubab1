@@ -14,7 +14,7 @@ import GenericFormMessage from 'components/common/GenericFormMessage';
 const imgSpacing = css`
     margin-top: 20px;
     margin-bottom: 10px;
-`
+`;
 
 export function ChangePasswordForm(props) {
 
@@ -82,6 +82,6 @@ export function ChangePasswordForm(props) {
 
 ChangePasswordForm.propTypes = {
     onSubmit: PropTypes.func,
-}
+};
 
 export default ChangePasswordForm;

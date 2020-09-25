@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
@@ -29,7 +29,7 @@ export class AccountPage extends React.Component {
             phone_number: applicant.phone_number,
             email: applicant.email,
             birthday
-        }
+        };
     }
 
     onAccountDetailsSubmit = (values, { setSubmitting, setErrors }) => {
@@ -90,7 +90,7 @@ export class AccountPage extends React.Component {
                 communityId={this.props.communityId}
                 setVerified={() => this.setState({verified: true})}
                 email={this.initialValues.email}
-            />
+            />;
         }
         if (this.state.showChangePassword) {
             return <>
@@ -107,7 +107,7 @@ export class AccountPage extends React.Component {
                     {" "}
                     Go Back
                 </span>
-            </>
+            </>;
         }
         return (
             <>
@@ -128,7 +128,7 @@ AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
     applicant: PropTypes.object,
-}
+};
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,

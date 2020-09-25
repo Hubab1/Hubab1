@@ -65,7 +65,7 @@ describe('VerticalLinearStepper', () => {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps}/>);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
-})
+});
 
 describe('Application submitted state', function() {
     it('renders an application already submited message', function() {
@@ -99,7 +99,7 @@ describe('Application submitted state', function() {
         let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
-    })
+    });
 });
 
 describe('Unit unavailable state', function() {
@@ -142,7 +142,7 @@ describe('Unit unavailable state', function() {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/unit-unavailable');
-    })
+    });
 });
 
 describe('Guarantor requested state', function() {
@@ -180,6 +180,6 @@ describe('Guarantor requested state', function() {
         let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/guarantor_request');
-    })
+    });
 });
 

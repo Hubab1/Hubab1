@@ -79,7 +79,7 @@ export const HoldingDepositAgreementConfirmation = ({profile, configuration, han
                 {getButtonText()}
             </ActionButton>
         </Fragment>
-    )
+    );
 };
 
 export default HoldingDepositAgreementConfirmation;

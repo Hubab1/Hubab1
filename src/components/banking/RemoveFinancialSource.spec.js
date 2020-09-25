@@ -17,8 +17,8 @@ beforeEach(() => {
         history: {
             push: jest.fn()
         }
-    }
-})
+    };
+});
 
 it('delete financial source on submit', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});

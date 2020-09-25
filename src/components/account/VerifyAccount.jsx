@@ -52,6 +52,6 @@ VerifyAccount.propTypes = {
     communityId: PropTypes.string,
     setVerified: PropTypes.func,
     email: PropTypes.string,
-}
+};
 
 export default VerifyAccount;

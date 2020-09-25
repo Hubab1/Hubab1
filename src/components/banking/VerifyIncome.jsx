@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
-`
+`;
 
 const bodyContainer = css`
     margin: 40px 10px 40px 30px;
@@ -23,16 +23,16 @@ const bodyContainer = css`
     display: flex;
     flex-direction: column;
     p{ margin-left: 15px;}
-`
+`;
 
 const iconColumn = css`
     margin-top: 5px;
-`
+`;
 
 const bodyRow = css`
     display: flex;
     margin-bottom: 20px;
-`
+`;
 
 const VerifyIncome = props => {
     return (
@@ -65,7 +65,7 @@ const VerifyIncome = props => {
             </Link>
         </Fragment>
     );
-}
+};
 
 
 export default VerifyIncome;

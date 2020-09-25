@@ -18,8 +18,8 @@ beforeEach(() => {
         profile: mockProfile,
         applicant: mockApplicant,
         payments: mockPayments.payables,
-    }
-})
+    };
+});
 
 it('fees are set from profile selected_rental_options', function() {
     let wrapper = shallow( <FeesDepositsContainer {...defaultProps} /> );

@@ -21,10 +21,10 @@ const AddAnotherButton = (props) => (
 
 AddAnotherButton.propTypes = {
     fontSize: PropTypes.number
-}
+};
 
 AddAnotherButton.defaultProps = {
     fontSize: 13
-}
+};
 
 export default AddAnotherButton;

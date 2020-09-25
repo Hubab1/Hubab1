@@ -37,7 +37,7 @@ function ExistingItemsExpansionPanel({children, defaultExpanded, label, labelQua
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
-    )
+    );
 }
 
 ExistingItemsExpansionPanel.propTypes = {

@@ -12,11 +12,11 @@ beforeEach(() => {
         onChange: ()=>{},
         error: false,
         label: 'I authorize Nestio to obtain, on behalf of Landlord'
-    }
-})
+    };
+});
 
 it('Matches snapshot', function() {
     expect(
         renderer.create(<Checkbox {...defaultProps}/>)
     ).toMatchSnapshot();
-})
+});

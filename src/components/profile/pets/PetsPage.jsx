@@ -179,7 +179,7 @@ export class PetsPage extends React.Component {
                                                             toggleViewPetRestrictions={this.toggleViewPetRestrictions}
                                                             petTypeOptions={petTypeOptions}
                                                         />
-                                                    )
+                                                    );
                                                 })}
                                                 {
                                                     /* we do not currently address limits. we will need to get limit for each type of pet.
@@ -205,7 +205,7 @@ export class PetsPage extends React.Component {
                                         {submitLabel}
                                     </ActionButton>
                                 </form>
-                            )
+                            );
                         }}
                     </Formik>
                     <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>

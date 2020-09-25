@@ -19,12 +19,12 @@ import { P, LinkButton } from 'assets/styles';
 const root = css`
     border-radius: 21.5px !important;
     height: 45px;
-`
+`;
 
 const label = css`
     text-transform: none;
     font-size: 16px;
-`
+`;
 
 const UploadButtonContainer = styled.div`
     margin-top: ${props => props.marginTop ? `${props.marginTop}px` : 0};
@@ -34,7 +34,7 @@ const UploadButtonContainer = styled.div`
     label {
         margin-bottom: 17px;
     }
-`
+`;
 const FileNamesContainer = styled.div`
     margin-right: -23px;
     margin-left: -23px;
@@ -44,7 +44,7 @@ const FileNamesContainer = styled.div`
     .uploaded-document-display:last-child {
         border-bottom: none;
     }
-`
+`;
 
 const UploadedDocuments = styled.div`
     .uploaded-document {
@@ -70,7 +70,7 @@ const UploadedDocuments = styled.div`
         display: flex;
         justify-content: space-between;
     }
-`
+`;
 
 const FileName = styled.div`
     white-space: nowrap;
@@ -79,7 +79,7 @@ const FileName = styled.div`
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-`
+`;
 
 
 export class UploadDocuments extends React.Component {
@@ -121,16 +121,16 @@ export class UploadDocuments extends React.Component {
     };
 
     titleCase = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
 
     getTitle = () => {
         let type = '';
-        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income'}
-        else if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset'}
+        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income';}
+        else if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset';}
         return (
             <P margin="43px 0 0 0">{`Proof of ${type}:`}</P>
-        )
+        );
     };
 
     handleChange = event => {
@@ -151,7 +151,7 @@ export class UploadDocuments extends React.Component {
         const documentRequired = this.documentsRequired;
         let proofDocuments = documentRequired.proof_documents;
 
-        return proofDocuments.map(d => d.label).join(' + ')
+        return proofDocuments.map(d => d.label).join(' + ');
     };
 
     getRemainingFilesCount = (document) => {
@@ -194,7 +194,7 @@ export class UploadDocuments extends React.Component {
                     };
                     let uploadedDocuments = {...this.props.uploadedDocuments};
                     if (uploadedDocuments[id]) {
-                        uploadedDocuments[id].files.push(fileInfo)
+                        uploadedDocuments[id].files.push(fileInfo);
                     } else {
                         uploadedDocuments[id] = {
                             id: selectedDocument.id,
@@ -213,7 +213,7 @@ export class UploadDocuments extends React.Component {
 
             this.props.setError([errorMessage]);
         } else {
-            this.props.setError([])
+            this.props.setError([]);
         }
     };
 
@@ -260,7 +260,7 @@ export class UploadDocuments extends React.Component {
                     );
                 })}
             </UploadedDocuments>
-        )
+        );
     };
 
     displayUploadButton = (document) => {
@@ -284,7 +284,7 @@ export class UploadDocuments extends React.Component {
         if (uploaded >= settings.max_required) return false;
 
         // Case 4: All other cases
-        return true
+        return true;
     };
         
     render () {
@@ -381,7 +381,7 @@ export class UploadDocuments extends React.Component {
                     </>
                 )}
             </>
-        )
+        );
     }
 }
 

@@ -24,7 +24,7 @@ const SpacedH3 = styled(H3)`
 
 const CapitalizedSpan = styled.span`
   text-transform: capitalize;
-`
+`;
 
 const Divider = styled.hr`
     border-style: none;
@@ -34,7 +34,7 @@ const Divider = styled.hr`
 
 const Content = styled.div`
   text-align: left;
-`
+`;
 
 export class RemovePerson extends React.Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };

@@ -7,7 +7,7 @@ import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 export const UnauthenticatedPaymentTerms = (props) => {
     return <UnauthenticatedPage>
         <PaymentTerms/>
-    </UnauthenticatedPage>
-}
+    </UnauthenticatedPage>;
+};
 
 export default UnauthenticatedPaymentTerms;

@@ -83,7 +83,7 @@ beforeEach(() => {
                 ],
         },
         setError: jest.fn()
-    }
+    };
 });
 
 it('Case only one required document', () => {
@@ -103,12 +103,12 @@ it('Case require one of multiple document', () => {
 
 it('Test title when uploading for income', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_INCOME} incomeOrAssetType={105} store={store} />);
-    expect(wrapper.childAt(0).text()).toMatch('Proof of income:')
+    expect(wrapper.childAt(0).text()).toMatch('Proof of income:');
 });
 
 it('Test title when uploading for asset', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_ASSET} incomeOrAssetType={105} store={store} />);
-    expect(wrapper.childAt(0).text()).toMatch('Proof of asset:')
+    expect(wrapper.childAt(0).text()).toMatch('Proof of asset:');
 });
 
 it('Case no uploaded documents', () => {

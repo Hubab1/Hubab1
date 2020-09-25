@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-import StripeInput from './StripeInput'
+import StripeInput from './StripeInput';
 
 
 class StripeElementWrapper extends PureComponent {
@@ -22,18 +22,18 @@ class StripeElementWrapper extends PureComponent {
     }
   
     handleBlur = () => {
-        this.setState({ focused: false })
+        this.setState({ focused: false });
     }
   
     handleFocus = () => {
-        this.setState({ focused: true })
+        this.setState({ focused: true });
     }
   
     handleChange = changeObj => {
         this.setState({
             error: changeObj.error,
             empty: changeObj.empty,
-        })
+        });
         this.props.handleChangeUpdate(changeObj);
     }
   
@@ -66,7 +66,7 @@ class StripeElementWrapper extends PureComponent {
                     }
                 </FormControl>
             </div>
-        )
+        );
     }
 }
 

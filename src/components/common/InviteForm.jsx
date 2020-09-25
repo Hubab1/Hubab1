@@ -62,7 +62,7 @@ export const InviteForm = (
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone);
         if (!sendToPhone) {
-            setFieldValue('email', null)
+            setFieldValue('email', null);
         } else {
             setFieldValue('phone_number', '');
         }
@@ -161,7 +161,7 @@ export const InviteForm = (
                             >
                                 {buttonText}
                             </ActionButton>
-                        </form>
+                        </form>;
                     }}
                 </Formik>
             }
@@ -183,7 +183,7 @@ export const InviteForm = (
                     }) => {
                         const formFilled = sendToPhone ?
                             !values.last_name || !values.first_name || !values.phone_number || values.phone_number === '(___) ___-____' :
-                            !values.last_name || !values.first_name || !values.email
+                            !values.last_name || !values.first_name || !values.email;
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
@@ -237,7 +237,7 @@ export const InviteForm = (
                                 </div>
                                 <ActionButton disabled={ formFilled || isSubmitting} marginTop={50} marginBottom={20}>Send Invite</ActionButton>
                             </form>
-                        )
+                        );
                     }}
                 </Formik>
             }

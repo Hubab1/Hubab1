@@ -18,7 +18,7 @@ beforeEach(() => {
             email: 'johnsmithakjsehfbhi@gmail.com',
         },
         onSubmitDependent: jest.fn()
-    }
+    };
 });
 
 describe('sendToPhone is false', () => {
@@ -69,7 +69,7 @@ describe('sendToPhone is true', () => {
             expect(contents.find(ActionButton).prop('disabled')).toBe(true);
         });
     });
-})
+});
 
 describe('initialIsDependent is set to null', () => {
     it('no form should be shown', function () {
@@ -81,7 +81,7 @@ describe('initialIsDependent is set to null', () => {
         const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} initialIsDependent={null} />);
         expect(wrapper.find(Formik).exists()).toBe(false);
     });
-})
+});
 describe('initialIsDependent is set to true', () => {
     it('should render dependent form', function () {
         const initialValues = {
@@ -95,7 +95,7 @@ describe('initialIsDependent is set to true', () => {
         expect(contents.find(KeyboardDatePicker).length).toEqual(1);
         expect(contents.find(ActionButton).exists()).toBe(true);
     });
-})
+});
 
 
 it('Case is a guarantor', function () {

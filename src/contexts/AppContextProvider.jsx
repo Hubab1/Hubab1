@@ -23,7 +23,7 @@ function getThemeValues (config, materialTheme) {
             progressBarTrackOpacity: 1,
             progressBarBackground: materialTheme.palette.primary.main,
             progressBarOpacity: 0.7
-        }
+        };
     } else {
         return {
             dark_mode: false,
@@ -36,7 +36,7 @@ function getThemeValues (config, materialTheme) {
             progressBarTrackOpacity: 0.3,
             progressBarBackground: materialTheme.palette.primary.main,
             progressBarOpacity: 1
-        }
+        };
     }
 }
 
@@ -51,11 +51,11 @@ function AppContextProvider (props) {
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>
-    )
+    );
 }
 
 const mapStateToProps = state => ({
     config: state.configuration
-})
+});
 
 export default connect(mapStateToProps)(AppContextProvider);

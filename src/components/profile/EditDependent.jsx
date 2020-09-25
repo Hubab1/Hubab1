@@ -34,7 +34,7 @@ export class EditDependent extends React.Component {
                     errors: ['There was an error updating your dependent. Please Try again.']
                 });
             } else {
-                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
+                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
             }
             setSubmitting(false);
         }).catch(() => {

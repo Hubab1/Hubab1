@@ -39,7 +39,7 @@ export const UnitUnavailable = ({profile, configuration}) => {
                 </P>
             </div>
         </>
-    )
+    );
 };
 
 UnitUnavailable.propTypes = {

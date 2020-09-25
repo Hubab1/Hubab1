@@ -27,7 +27,7 @@ function BankingContainer (props) {
         (async () => {
             const data = await refreshFinancialSources();
             if (data?.income_sources?.length || data?.asset_sources?.length) {
-                props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY)
+                props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
             }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

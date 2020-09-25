@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
         max-height: 90px;
         max-width: 90px;
     }
-`
+`;
 
 export class GuarantorPage extends React.Component {
     state = {confirmSent: false, errors: null};
@@ -52,7 +52,7 @@ export class GuarantorPage extends React.Component {
 
     handleContinueAfterInviteSent = () => {
         if (!this.props.guarantorRequested) {
-            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`)
+            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`);
         } else {
             this.props.fetchApplicant().then(() => {
                 this.props.history.push(this.props.initialPage);
@@ -67,7 +67,7 @@ export class GuarantorPage extends React.Component {
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
                 buttonClick={this.handleContinueAfterInviteSent}
                 buttonText="Continue"
-            />
+            />;
         }
         return (
             <Fragment>

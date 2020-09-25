@@ -33,7 +33,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
         });
         return () => {
             hsclient.off('sign');
-        }
+        };
     }, [applicantUpdated]);
 
     const openEmbeddedSigning = async () => {
@@ -60,7 +60,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
                 handleContinue={_nextRoute}
                 viewDocument={openEmbeddedSigning}
             />
-        )
+        );
     } else {
         return (
             <HoldingDepositAgreementView

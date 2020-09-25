@@ -15,8 +15,8 @@ beforeEach(() => {
         history: {
             push: jest.fn()
         }
-    }
-})
+    };
+});
 
 it('sets initial values', async () => {
     API.getFinancialSource = jest.fn().mockReturnValue({

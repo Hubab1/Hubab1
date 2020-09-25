@@ -16,13 +16,13 @@ beforeEach(() => {
         },
         fontSize: 15,
         thing: "Pet"
-    }
-})
+    };
+});
 
 describe('AddAnotherButton', function() {
     it('Matches snapshot', function() {
         expect(
             renderer.create(<AddAnotherButton {...defaultProps}/>)
         ).toMatchSnapshot();
-    })
-})
+    });
+});

@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -9,12 +9,12 @@ import captureRoute from 'app/captureRoute';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
-`
+`;
 
 const BodyP = styled(P)`
     font-size: 14px;
     margin: 0 0 12px 0;
-`
+`;
 
 
 export const PaymentTerms = ({handleClickBack, goToPayment}) => {
@@ -58,7 +58,7 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
                 </LinkButton>
             </Fragment>
         }
-    </Fragment>
-}
+    </Fragment>;
+};
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

@@ -18,7 +18,7 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
                 contact_phone: '1234445510'
             }
         },
-    }
+    };
 };
 
 it('matches snapshot', () => {

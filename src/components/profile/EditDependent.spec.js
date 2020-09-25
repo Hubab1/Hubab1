@@ -20,7 +20,7 @@ beforeEach(() => {
         },
         application: mockApplication,
         config: mockConfig,
-    }
+    };
 });
 
 it('matches snapshot', function() {

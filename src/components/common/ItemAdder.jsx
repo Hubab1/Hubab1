@@ -6,11 +6,11 @@ import { css } from 'emotion';
 
 const title = css`
     font-size: 20px;
-`
+`;
 const subtitle = css`
     font-size: 16px;
     color: #444B58;
-`
+`;
 export default function ItemAdder(props) {
     return <Box display="flex" flexGrow={1} justifyContent="space-between" alignItems="center" padding="10px">
         <div>

@@ -17,7 +17,7 @@ import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
-`
+`;
 
 export class ForgotPasswordPage extends React.Component {
     state = {errors: null}
@@ -27,7 +27,7 @@ export class ForgotPasswordPage extends React.Component {
         
         API.passwordResetRequest(values.phone, communityId).then( (res) => {
             if (res.errors) {
-                this.setState({errors: ["Applicant does not exist"]})
+                this.setState({errors: ["Applicant does not exist"]});
             } else {
                 this.props.history.push({
                     pathname: ROUTES.VERIFY_PASSWORD_CODE, 
@@ -36,9 +36,9 @@ export class ForgotPasswordPage extends React.Component {
             }
             setSubmitting(false);
         }).catch( () => {
-            this.setState({errors: ["Applicant does not exist"]})
+            this.setState({errors: ["Applicant does not exist"]});
             setSubmitting(false);
-        })
+        });
     }
 
     render () {
@@ -94,7 +94,7 @@ export class ForgotPasswordPage extends React.Component {
 ForgotPasswordPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
     profile: PropTypes.object
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

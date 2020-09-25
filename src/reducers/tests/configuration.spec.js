@@ -25,9 +25,9 @@ describe('fetchConfiguration', () => {
 
             expect(store.getActions()).toEqual(
                 [configurationReceived(configData)]
-            )
-        })
-    })
+            );
+        });
+    });
 
     it('should call fetchConfiguration and fetchPersonalizedInfo if communityId and hash are provided', () =>{
 
@@ -46,11 +46,11 @@ describe('fetchConfiguration', () => {
 
             expect(store.getActions()).toEqual(
                 [configurationReceived(configData)]
-            )
-        })
-    })
+            );
+        });
+    });
 
-})
+});
 
 describe('selectTheme', () => {
     it('recomputes theme only when colors change', () => {
@@ -69,5 +69,5 @@ describe('selectTheme', () => {
             secondary_color: 'cccccc'
         }});
         expect(themeTwo).not.toEqual(themeThree);
-    })
-})
+    });
+});

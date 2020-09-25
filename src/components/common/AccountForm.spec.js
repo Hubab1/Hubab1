@@ -10,7 +10,7 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         showConsentInput: true
-    }
+    };
 });
 
 it('shows checkbox when showConsentInput=true', function () {

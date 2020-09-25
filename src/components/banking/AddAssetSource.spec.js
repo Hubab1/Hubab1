@@ -24,8 +24,8 @@ beforeEach(() => {
             income_or_asset_type: 10,
             estimated_amount: '1111'
         }
-    }
-})
+    };
+});
 
 it('matches snapshot', () => {
     const wrapper = shallow(<AddAssetSource {...defaultProps}/>);

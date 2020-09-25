@@ -16,21 +16,21 @@ import { prettyCurrency } from 'utils/misc';
 
 const SelfSelectedAmountContainer = styled.div`
     margin: auto 0;
-`
+`;
 
 const IndentedRow = styled(CardRowBorderless)`
     margin: 0 0 5px 32px;
-`
+`;
 
 const root = css`
     width: 100%;
     margin-top: 10px !important;
-`
+`;
 
 const ApplicationFeesContainer = styled.div`
     padding: 15px 0;
     border-bottom: 1px solid #EEEEEE;
-`
+`;
 
 export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, activeApplicantFeePaid=false, numUnpaidApplicants=0 }) => {
 
@@ -77,18 +77,18 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                     everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
             }
         </ApplicationFeesContainer>
-    )
-}
+    );
+};
 
 export const EveryoneRow = ({person, baseAppFee}) => {
     const name = person.client ? 
         person.client.person.name : 
-        `${person.first_name} ${person.last_name}`
+        `${person.first_name} ${person.last_name}`;
     return <IndentedRow>
         <P color="#454B57">{name}</P>
         <div>{ person.applicationFeePaid ? <PaidText/> : <P>{prettyCurrency(baseAppFee)}</P> } </div>
-    </IndentedRow>
-}
+    </IndentedRow>;
+};
 
 
 export default ApplicationFees;

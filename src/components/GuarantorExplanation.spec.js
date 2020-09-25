@@ -8,8 +8,8 @@ beforeEach(() => {
         onAgree: jest.fn(),
         contactPhone: '1234445510',
         multiplier: 60,
-    }
-})
+    };
+});
 
 it('matches snapshot', () => {
     const wrapper = shallow(<GuarantorExplanation {...defaultProps} />);

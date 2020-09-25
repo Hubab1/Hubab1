@@ -13,7 +13,7 @@ import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
-`
+`;
 
 export class ResetPasswordVerificationPage extends React.Component {
 
@@ -22,13 +22,13 @@ export class ResetPasswordVerificationPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const phoneNumber = this.props.history.location.state.phoneNumber
+        const phoneNumber = this.props.history.location.state.phoneNumber;
         const code = values.resetCode;
         const communityId = this.props.communityId;
 
         return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
             if (res.errors) {
-                setErrors({resetCode: "Invalid Error Code"})
+                setErrors({resetCode: "Invalid Error Code"});
             } else{
                 this.props.history.push({
                     pathname: ROUTES.RESET_PASSWORD, 
@@ -37,9 +37,9 @@ export class ResetPasswordVerificationPage extends React.Component {
             }
             setSubmitting(false);
         }).catch((res) => {
-            setErrors({resetCode: "Invalid Error Code"})
+            setErrors({resetCode: "Invalid Error Code"});
             setSubmitting(false);   
-        })
+        });
     }
 
     handleClickLink = () => {
@@ -85,7 +85,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                             if (event.target.value.length === 6) {
                                 setTimeout(submitForm, 0);
                             }
-                        }
+                        };
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 <div className={formContent}>
@@ -104,7 +104,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                                     </div>
                                 </div>
                             </form>
-                        )
+                        );
 
                     }}
                 </Formik>
@@ -117,7 +117,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 ResetPasswordVerificationPage.propTypes = {
     profile: PropTypes.object,
     history: PropTypes.object,
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,

@@ -21,8 +21,8 @@ beforeEach(() => {
         email: "slkejhfkajshefjkhek@gm.com",
         receipt: mockReceipt,
         everyone: everyone
-    }
-})
+    };
+});
 
 
 it('renders expected headings text', () => {
@@ -30,7 +30,7 @@ it('renders expected headings text', () => {
 
     expect(wrapper.text().includes('Payment Successful!')).toBeTruthy();
     expect(wrapper.text().includes('Payment Summary')).toBeTruthy();
-})
+});
 
 
 it('renders receipt information as expected with holding deposit', () => {
@@ -41,7 +41,7 @@ it('renders receipt information as expected with holding deposit', () => {
     expect(wrapper.text().includes('Total$1,300')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(3);
     expect(wrapper.find(HoldingDeposit).props().holdingDepositAmount).toEqual("$1,000");
-})
+});
 
 it('renders receipt information as expected when one applicant fee on receipt, no holding deposit', () => {
     let receipt = {
@@ -62,16 +62,16 @@ it('renders receipt information as expected when one applicant fee on receipt, n
         "stripe_id": "932923482jdf33",
         "paid_by": 18
 
-    }
+    };
     let wrapper = shallow(<FeesDepositsReceipt {...defaultProps} payments={null} receipt={receipt} />);
     expect(wrapper.text().includes('Total$200.50')).toBeTruthy();
     expect(wrapper.find(ApplicationFees).props().everyone.length).toEqual(1);
     expect(wrapper.find(HoldingDeposit).length).toEqual(0);
-})
+});
 
 it('does not render total when passed paidByAnother, and shows correct alternate h3 text', () => {
     let wrapper = shallow( <FeesDepositsReceipt {...defaultProps} paidByAnother={true}/> );
 
     expect(wrapper.text().includes('Your roommates have paid all the application fees!')).toBeTruthy();
     expect(wrapper.text().includes('Total')).not.toBeTruthy();
-})
+});

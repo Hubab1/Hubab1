@@ -18,7 +18,7 @@ beforeEach(() => {
         },
         initialPage: '/rental_profile',
         fetchApplicant: jest.fn().mockResolvedValue({}),
-    }
+    };
 });
 
 it('fetches renter profile on submit', function() {
@@ -26,7 +26,7 @@ it('fetches renter profile on submit', function() {
     let wrapper = shallow( <GuarantorPage {...defaultProps}/> );
     return wrapper.instance().onSubmit({}, {setSubmitting: jest.fn()}).then(() => {
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalled();
-    })
+    });
 });
 
 it('sets errors on submit if errors returned', function() {
@@ -36,7 +36,7 @@ it('sets errors on submit if errors returned', function() {
     return wrapper.instance().onSubmit({}, {setSubmitting: jest.fn(), setErrors}).then(() => {
         expect(defaultProps.fetchRenterProfile).not.toHaveBeenCalled();
         expect(setErrors).toHaveBeenCalledWith('not good');
-    })
+    });
 });
 
 it('matches snapshot', () => {
@@ -57,5 +57,5 @@ it('Confirmation Page - Add guarantor after requested', function() {
     wrapper.setState({ confirmSent: true });
     expect(wrapper.find(ConfirmationPage).exists()).toBeTruthy();
     wrapper.find(ConfirmationPage).dive().find(ActionButton).at(0).simulate('click');
-    expect(defaultProps.fetchApplicant).toHaveBeenCalled()
+    expect(defaultProps.fetchApplicant).toHaveBeenCalled();
 });

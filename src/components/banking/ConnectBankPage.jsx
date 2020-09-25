@@ -13,7 +13,7 @@ const finicityContainer = css`
     height: calc(100vh - 66px);
     max-width: 450px;
     margin: -15px -20px -45px -20px;
-`   
+`;   
 
 
 export class ConnectBankPage extends React.Component {
@@ -31,14 +31,14 @@ export class ConnectBankPage extends React.Component {
     handleFetchReports = () => {
         API.fetchFinicityReports().then((res) => {
             if (res.status === 202) return;
-            return res.json()
+            return res.json();
         }).then( res => {
             if (!res) return;
             clearInterval(window.fetchReportsInterval);
             this.context.refreshFinancialSources().then( () => {
                 this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
             });
-        })
+        });
     };
 
     openFinicityIframe = () => {
@@ -78,7 +78,7 @@ export class ConnectBankPage extends React.Component {
                                     errors: [
                                         "There was an error generating your income and assets report. Please try again."
                                     ]
-                                })
+                                });
                             });
                         } else {
                             this.setState({
@@ -99,7 +99,7 @@ export class ConnectBankPage extends React.Component {
                         });
                     },
                     loaded: () => {
-                        console.log('iframe has loaded')
+                        console.log('iframe has loaded');
                     },
                     route: function(event) {
                         if (event.data && event.data.screen === 'Search') {
@@ -115,7 +115,7 @@ export class ConnectBankPage extends React.Component {
                                     errors: ['There was an error accepting the terms of use. Please try again.'],
                                     loadingFinicityIframe: false
                                 });
-                            })
+                            });
                         }
                     },
                 })
@@ -124,7 +124,7 @@ export class ConnectBankPage extends React.Component {
     };
 
     render () {
-        if (!this.props.applicant) {return <div/>}
+        if (!this.props.applicant) {return <div/>;}
         if (this.state.showFinicityIframe) {
             return <div className={finicityContainer} id="finicity-container"/>;
         }
@@ -135,7 +135,7 @@ export class ConnectBankPage extends React.Component {
             loadingFinicityIframe={!!this.state.loadingFinicityIframe}
             openFinicityIframe={this.openFinicityIframe}
             errors={this.state.errors}
-        />
+        />;
     }
 }
 

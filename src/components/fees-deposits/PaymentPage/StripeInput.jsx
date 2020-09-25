@@ -10,7 +10,7 @@ const styles = () => ({
         cursor: 'text',
         fontFamily: 'proxima-nova'
     },
-})  
+});  
 
 const _StripeInput = props => {
 
@@ -52,14 +52,14 @@ const _StripeInput = props => {
                 }
             }}
         />  
-    )
-}
+    );
+};
 
 _StripeInput.defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
-}
+};
 
 _StripeInput.propTypes = {
     classes: PropTypes.object.isRequired,
@@ -68,7 +68,7 @@ _StripeInput.propTypes = {
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     onChange: PropTypes.func,
-}
+};
 
 const StripeInput = withStyles(styles, {withTheme: true})(_StripeInput);
 

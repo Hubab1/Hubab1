@@ -39,5 +39,5 @@ export const PersonRow = ({person, label, role}) => {
                 </Link>
             }                        
         </div>
-    </CardRow>
-}
+    </CardRow>;
+};

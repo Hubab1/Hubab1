@@ -16,7 +16,7 @@ beforeEach(() => {
             address_postal_code: '10038',
         },
         updateApplicant: jest.fn()
-    }
+    };
 });
 
 describe('<ActionButton/>', () => {

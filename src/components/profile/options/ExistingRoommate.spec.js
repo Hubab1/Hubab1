@@ -18,7 +18,7 @@ it('matches snapshot for unregistered roommate', () => {
         id: 71,
         is_registered: false,
         last_milestone: null,
-    }
+    };
     const wrapper = shallow(<ExistingRoommate item={unregistered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
@@ -32,7 +32,7 @@ it('matches snapshot for registered roommate', () => {
         id: 71,
         is_registered: true,
         last_milestone: {event: MILESTONE_APPLICANT_SUBMITTED}
-    }
+    };
     const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
@@ -45,7 +45,7 @@ it('matches snapshot for roommate in progress', () => {
         id: 71,
         is_registered: true,
         last_milestone: {event: MILESTONE_APPLICATION_FEE_COMPLETED}
-    }
+    };
     const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
@@ -58,7 +58,7 @@ it('doesnt show resend / edit for dependents', () => {
             last_name: "mcgreebs",
             id: 71
         },
-    }
+    };
     let wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
     expect(wrapper.text()).toContain('Resend');
     wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_DEPENDENT} />);
@@ -74,7 +74,7 @@ it('can remove invitee while he didnt start his application', () => {
             id: 71,
             last_milestone: null
         },
-    }
+    };
     const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
     expect(wrapper.text()).toContain('Remove');
 });
@@ -88,7 +88,7 @@ it('can not remove invitee while he already started his application', () => {
             id: 71,
             last_milestone: {event: MILESTONE_APPLICANT_SUBMITTED}
         },
-    }
+    };
     const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
     expect(wrapper.text()).not.toContain('Remove');
 });

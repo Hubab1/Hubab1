@@ -14,7 +14,7 @@ beforeEach(() => {
         profile: mockProfile,
         configuration: mockConfig,
         applicant: mockApplicant,
-    }
+    };
 });
 
 it('renders a PersonRow for each applicant and guarantor', () => {

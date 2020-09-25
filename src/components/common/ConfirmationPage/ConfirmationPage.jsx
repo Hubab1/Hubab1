@@ -9,7 +9,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 
 const SpacedH3 = styled(H3)`
     margin: 15px 15% 20px 15%;
-`
+`;
 
 export default function ConfirmationPage (props) {
     const {

@@ -8,7 +8,7 @@ import { blackLinkRoot, arrowIcon } from 'assets/styles';
 export const BackLink = props => {
     return <Link to={props.to} className={blackLinkRoot}>
         <ArrowBackIos classes={{root: arrowIcon}}/>Go Back 
-    </Link>
+    </Link>;
 };
 
 // for the back buttons that are not links

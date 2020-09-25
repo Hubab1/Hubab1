@@ -27,7 +27,7 @@ export class RegisterPage extends React.Component {
     get applicantInfo () {
         const client = this.props.configuration.client;
         const invitee = this.props.configuration.invitee;
-        const baseInitialValues = {first_name: '', last_name: '', phone_number: '', email: '', birthday: '', password: ''}
+        const baseInitialValues = {first_name: '', last_name: '', phone_number: '', email: '', birthday: '', password: ''};
 
         if (client && client.person) {
             const { first_name, last_name, email, phone_1 } = client.person;
@@ -107,7 +107,7 @@ RegisterPage.propTypes = {
     leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
     configuration: PropTypes.object
-}
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
