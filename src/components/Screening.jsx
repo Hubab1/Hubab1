@@ -75,7 +75,7 @@ export class Screening extends React.Component {
         };
         return (
             <Fragment>
-                <H1>You're almost done, {this.props.applicant.client.person.first_name}!</H1>
+                <H1>{`You're almost done, ${this.props.applicant.client.person.first_name}!`}</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
                 <img src={portfolioImg} alt="portfolio"></img>
                 <br/>

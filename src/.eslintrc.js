@@ -36,7 +36,7 @@ module.exports = {
         //"react-hooks/exhaustive-deps": "error",
         //"react/no-string-refs": ["error"],
         //"react/no-find-dom-node": ["error"],
-        //"react/no-unescaped-entities": ["error"],
+        "react/no-unescaped-entities": ["error"],
         "semi": ["error", "always"]
     }
 };

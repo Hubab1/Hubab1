@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ValidationError } from 'yup';
 import { addDays, subDays, format } from 'date-fns';
 import { Formik } from 'formik';
 
