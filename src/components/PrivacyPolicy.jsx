@@ -26,9 +26,13 @@ export function PrivacyPolicy(props) {
             <br/>
             <Card>
                 <ScrollableTermsCardSection>
-                    <div dangerouslySetInnerHTML={{
-                        __html: html
-                    }}/>
+                    <div
+                        dangerouslySetInnerHTML={
+                            {
+                                __html: html
+                            }
+                        }
+                    />
                 </ScrollableTermsCardSection>
             </Card>
         </>
