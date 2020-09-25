@@ -8,7 +8,6 @@ import { FeesDepositsContainer } from './FeesDepositsContainer';
 import FeesDepositsOptions from './FeesDepositsOptions';
 
 
-
 let defaultProps;
 const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);
 everyone.unshift(mockApplicant);

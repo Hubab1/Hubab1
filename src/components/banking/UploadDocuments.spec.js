@@ -543,7 +543,6 @@ it('Case require_all is true and all documents types met min and max requirement
 });
 
 
-
 it('Case documents uploaded', () => {
     const wrapper = shallow(
         <UploadDocuments

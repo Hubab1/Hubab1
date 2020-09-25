@@ -21,7 +21,7 @@ module.exports = {
         //"jsx-quotes": ["error", "prefer-double"],
         //"no-console": ["error", { "allow": ["warn", "error"] }],
         //"no-debugger": ["error"],
-        //"no-multiple-empty-lines": ["error", {"max": 2}],
+        "no-multiple-empty-lines": ["error", {"max": 2}],
         //"no-shadow": ["error"],
         "no-trailing-spaces": ["error", { "skipBlankLines": true }],
         "no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],

@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import { root } from 'components/common/FormTextInput/styles';
 
 
-
 const PhoneNumberInput = (props) => {
     const { label, name, value, handleChange, error, helperText} = props;
     return (

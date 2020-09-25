@@ -7,7 +7,6 @@ import LoginForm from 'components/common/LoginForm';
 import auth from 'utils/auth';
 
 
-
 export class VerifyAccount extends React.Component {
     state = {errors: null};
     auth=auth;

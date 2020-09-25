@@ -11,7 +11,6 @@ import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
 
 
-
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 0 10%;
 `;

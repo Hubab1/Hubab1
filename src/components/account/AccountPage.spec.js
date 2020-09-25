@@ -11,7 +11,6 @@ import auth from 'utils/auth';
 import API from 'app/api';
 
 
-
 let defaultProps;
 
 beforeEach(() => {
