@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-
+import PropTypes from 'prop-types';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
@@ -96,6 +96,13 @@ export const Parking = props => {
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`}/>
         </Box>
     </>;
+};
+
+Parking.propTypes = {
+    config: PropTypes.object,
+    application: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
