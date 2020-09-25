@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
@@ -95,6 +96,13 @@ export const Storage = props => {
             <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
         </Box>
     </>;
+};
+
+Storage.propTypes = {
+    application: PropTypes.object,
+    config: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
