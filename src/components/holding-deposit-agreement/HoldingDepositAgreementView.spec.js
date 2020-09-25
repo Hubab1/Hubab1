@@ -8,7 +8,7 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         handleContinue: jest.fn(),
-        handleClickBack: jest.fn(),
+        handleClickBack: 'some_route',
         configuration: {
             community: {
                 buildingName: 'Monterey Pines Apartments',

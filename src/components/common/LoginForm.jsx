@@ -24,7 +24,7 @@ export function LoginForm ({handleOnSubmit, includeRegister=false, buttonText, f
                     .required('Password is required')
             })}
             onSubmit={handleOnSubmit}
-            initialValues={{email}}
+            initialValues={{email, password: ''}}
         >
             {({
                 values,

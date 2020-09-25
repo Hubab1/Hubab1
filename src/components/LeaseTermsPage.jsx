@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -32,11 +33,11 @@ const ImageContainer = styled.div`
         max-height: 136px;
         max-width: 136px;
     }
-`
+`;
 
 const gridContainer = css`
     padding: 20px 0 20px 0;
-`
+`;
 
 function serializeValues(values) {
     const serialized = Object.assign({}, values);
@@ -109,7 +110,7 @@ export class LeaseTermsPage extends React.Component {
         } finally {
             setSubmitting(false);
         }
-    }
+    };
 
     initialValues () {
         const application = this.props.application;
@@ -119,23 +120,23 @@ export class LeaseTermsPage extends React.Component {
         }
         return {
             lease_start_date,
-            lease_term: application.lease_term,
+            lease_term: application.lease_term || '',
             unit: application.unit
-        }
+        };
     }
 
     getLeaseEndDateText = (lease_start_date, lease_term) => {
         // TODO: Need to validate that the entered start date is correct
         if (!lease_start_date || !lease_term) {
-            return "";
+            return '';
         }
 
         if (!isValid(lease_start_date)) {
-            return "";
+            return '';
         }
 
         return `Ends ${offsetDate(lease_start_date, lease_term)}`;
-    }
+    };
 
     render () {
         if (!this.props.application) return null;
@@ -220,7 +221,9 @@ export class LeaseTermsPage extends React.Component {
                                                     <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
                                                 ))}
                                             </Select>
-                                            <FormHelperText>{this.getLeaseEndDateText(values.lease_start_date, values.lease_term)}</FormHelperText>
+                                            <FormHelperText>
+                                                {this.getLeaseEndDateText(values.lease_start_date, values.lease_term)}
+                                            </FormHelperText>
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -234,7 +237,7 @@ export class LeaseTermsPage extends React.Component {
                                         selectedOptions={{}}
                                         application={this.props.application}
                                         unitId={values.unit.id}
-                                        category={"lease_terms"}
+                                        category={'lease_terms'}
                                         moveInDate={values.lease_start_date}
                                         leaseTerm={values.lease_term}
                                         onError={()=>this.setState({hasError: true})}
@@ -242,7 +245,11 @@ export class LeaseTermsPage extends React.Component {
                                     />
                                 )
                             }
-                            <ActionButton disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting} marginTop={31} marginBottom={20}>
+                            <ActionButton
+                                disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting}
+                                marginTop={31}
+                                marginBottom={20}
+                            >
                                 Continue
                             </ActionButton>
                         </form>
@@ -252,6 +259,14 @@ export class LeaseTermsPage extends React.Component {
         );
     }
 }
+
+LeaseTermsPage.propTypes = {
+    isPrimaryApplicant: PropTypes.bool,
+    application: PropTypes.object,
+    config: PropTypes.object,
+    pageComplete: PropTypes.func,
+    updateRenterProfile: PropTypes.func,
+};
 
 export default connect((state) => ({
     isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,

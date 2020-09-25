@@ -36,13 +36,8 @@ beforeEach(() => {
                 unit_number: "4B"
             }
         },
-        theme: {palette:
-            {primary:
-                {main: "rgba(40,97,101,1)"}
-            }
-        }
     };
-})
+});
 
 it('renders Hello <client name> when client is included in configuration', function(){
     const wrapper = shallow(<WelcomePage {...defaultProps}/>);

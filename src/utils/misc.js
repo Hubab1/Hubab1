@@ -6,12 +6,7 @@ import { MILESTONE_APPLICANT_SUBMITTED, CO_APPLICANT_STATUS_NOT_STARTED,
     CO_APPLICANT_STATUS_COMPLETED, CO_APPLICANT_STATUS_IN_PROGRESS } from 'app/constants';
 
 export function sessionIsValidForCommunityId (communityId) {
-    if (auth.accessScope() === communityId) {
-        // maybe do some api call to check that this authentication token is valid for this community
-        // eg const isValidSession = await API.checkToken(community, auth.getToken());
-        return true;
-    }
-    return false;
+    return auth.accessScope() === communityId;
 }
 
 export function hexToRGB(hex, alpha) {
@@ -20,9 +15,9 @@ export function hexToRGB(hex, alpha) {
         b = parseInt(hex.slice(5, 7), 16);
 
     if (alpha) {
-        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     } else {
-        return "rgb(" + r + ", " + g + ", " + b + ")";
+        return `rgb(${r}, ${g}, ${b})`;
     }
 }
 
@@ -88,7 +83,7 @@ export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
         });
     }
     return initialValues;
-}
+};
 
 export const getRoommateStatus = (item) => {
     if (!item.last_milestone) return CO_APPLICANT_STATUS_NOT_STARTED;

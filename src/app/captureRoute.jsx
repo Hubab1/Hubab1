@@ -18,26 +18,35 @@ export default function captureRoute(WrappedComponent, route) {
             props.currentRouteReceived(route);
         }
         render() {
-            return <WrappedComponent
-                _navigate={async (route)=>{
-                    if (!MOCKY) {
-                        this.props.fetchApplicant();
-                        await this.props.fetchRenterProfile();
+            return (
+                <WrappedComponent
+                    _navigate={
+                        async (route) => {
+                            if (!MOCKY) {
+                                this.props.fetchApplicant();
+                                await this.props.fetchRenterProfile();
+                            }
+                            if (this.props.unitAvailable === false) {
+                                return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
+                            } else {
+                                return this.props.history.push(route);
+                            }
+                        }
                     }
-                    if (this.props.unitAvailable === false) {
-                        return this.props.history.push(ROUTES.UNIT_UNAVAILABLE)
-                    } else {
-                        return this.props.history.push(route)
-                    }
-                }}
-                {...this.props}
-            />;
+                    {...this.props}
+                />);
         }
-    };
-
-    Component.propTypes = {
-        currentRouteReceived: PropTypes.func
     }
 
-    return connect(null, {currentRouteReceived, fetchApplicant, fetchRenterProfile})(Component);
+    Component.propTypes = {
+        currentRouteReceived: PropTypes.func,
+        fetchApplicant: PropTypes.func,
+        fetchRenterProfile: PropTypes.func,
+        history: PropTypes.object,
+    };
+
+    return connect(
+        null,
+        {currentRouteReceived, fetchApplicant, fetchRenterProfile})
+    (Component);
 }

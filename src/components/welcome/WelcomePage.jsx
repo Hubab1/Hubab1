@@ -33,8 +33,8 @@ export class WelcomePage extends Component {
         const { building_name, city, state, postal_code, normalized_street_address } = community;
 
         const firstName = this.getFirstName();
-        const cityStateZip = `${city}, ${state} ${postal_code}`
-        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,'
+        const cityStateZip = `${city}, ${state} ${postal_code}`;
+        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
         return (
             <Fragment>
                 <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background}/>
@@ -82,10 +82,7 @@ export class WelcomePage extends Component {
 
 WelcomePage.propTypes = {
     configuration: PropTypes.object.isRequired,
-    theme: PropTypes.shape({
-        palette: PropTypes.object
-    }).isRequired
-}
+};
 
 const mapStateToProps = state => ({
     configuration: state.configuration
