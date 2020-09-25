@@ -22,7 +22,6 @@ module.exports = {
         "no-console": ["error", { "allow": ["warn", "error", "info"] }],
         "no-debugger": ["error"],
         "no-multiple-empty-lines": ["error", {"max": 2}],
-        //"no-shadow": ["error"],
         "no-trailing-spaces": ["error", { "skipBlankLines": true }],
         "no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
         "prefer-const": ["error"],
@@ -30,13 +29,16 @@ module.exports = {
         "react/display-name": 0,
         "react/jsx-closing-bracket-location": 2,
         "react/no-danger": 0,
-        //"react/prop-types": [2, {"ignore": ["className"]}],
         "react/no-deprecated": 0,
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
         "react/no-string-refs": ["error"],
         "react/no-find-dom-node": ["error"],
         "react/no-unescaped-entities": ["error"],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+
+        // TODO: Fix those progressively
+        "no-shadow": ["error"],
+        "react/prop-types": [2, {"ignore": ["className"]}],
     }
 };
