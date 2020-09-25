@@ -13,7 +13,8 @@ export default class ResetPassword extends React.Component {
     state = {
         confirmReset: false,
         errors: null
-    }
+    };
+
     onSubmit = (values, { setSubmitting }) => {
         const token = this.props.history.location.state.token;
 
@@ -24,11 +25,11 @@ export default class ResetPassword extends React.Component {
                 this.setState({confirmReset: true});
             }
             setSubmitting(false);
-        }).catch((res) => {
+        }).catch(() => {
             this.setState({errors: ['There was an error with resetting your password. Please try again.']});
             setSubmitting(false);
         });
-    }
+    };
 
     render () {
         if (this.state.confirmReset) {

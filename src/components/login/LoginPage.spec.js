@@ -5,12 +5,12 @@ import { LoginPage } from 'components/login/LoginPage';
 
 jest.mock('utils/auth', () => {
     class Auth {
-        setSession = (token) => {
+        setSession = () => {
             return true;
-        }
-        login = (u, p) => {
+        };
+        login = () => {
             return Promise.resolve({ token: 'abc' });
-        }
+        };
         isAuthenticated() {
             return true;
         }
@@ -20,7 +20,7 @@ jest.mock('utils/auth', () => {
 
 jest.mock('app/history', () => {
     class History {
-        push(val) {
+        push() {
             return true;
         }
     }

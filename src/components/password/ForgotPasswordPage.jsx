@@ -20,9 +20,9 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class ForgotPasswordPage extends React.Component {
-    state = {errors: null}
+    state = {errors: null};
 
-    onSubmit = (values, { setSubmitting, setErrors }) => {
+    onSubmit = (values, { setSubmitting }) => {
         const { communityId } = this.props;
         
         API.passwordResetRequest(values.phone, communityId).then( (res) => {

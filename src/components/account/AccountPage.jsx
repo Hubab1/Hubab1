@@ -56,7 +56,7 @@ export class AccountPage extends React.Component {
             });
             setSubmitting(false);
         });
-    }
+    };
 
     onChangePasswordSubmit = (values, { setSubmitting }) => {
         const token = auth.getToken();
@@ -75,13 +75,13 @@ export class AccountPage extends React.Component {
                 });
             }
             setSubmitting(false);
-        }).catch((res) => {
+        }).catch(() => {
             this.setState({
                 resetPasswordErrors: ['There was an error with resetting your password. Please try again.']
             });
             setSubmitting(false);
         });
-    }
+    };
 
 
     render () {

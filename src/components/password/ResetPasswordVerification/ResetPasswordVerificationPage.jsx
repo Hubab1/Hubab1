@@ -16,7 +16,6 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class ResetPasswordVerificationPage extends React.Component {
-
     componentDidMount() {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
@@ -36,21 +35,21 @@ export class ResetPasswordVerificationPage extends React.Component {
                 });
             }
             setSubmitting(false);
-        }).catch((res) => {
+        }).catch(() => {
             setErrors({resetCode: 'Invalid Error Code'});
             setSubmitting(false);
         });
-    }
+    };
 
     handleClickLink = () => {
         const { communityId, history } = this.props;
         const phoneNumber = history.location.state.phoneNumber;
 
         API.passwordResetRequest(phoneNumber, communityId);
-    }
+    };
 
     render () {
-        if (!this.props.history.location.state) return <div></div>;
+        if (!this.props.history.location.state) return <div />;
         const phoneNumber = this.props.history.location.state.phoneNumber;
         return (
             <Fragment>
@@ -77,7 +76,6 @@ export class ResetPasswordVerificationPage extends React.Component {
                         submitCount,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting,
                         submitForm,
                     }) => {
                         const wrappedHandleChange = (event) => {
@@ -108,7 +106,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
+                <P>Didn&apos;t Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
             </Fragment>
         );
     }

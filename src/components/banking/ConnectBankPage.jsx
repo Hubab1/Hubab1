@@ -66,12 +66,12 @@ export class ConnectBankPage extends React.Component {
                                 loadingReport: true,
                                 loadingFinicityIframe: false
                             });
-                            API.generateFinicityReports().then( (res) => {
+                            API.generateFinicityReports().then(() => {
                                 window.fetchReportsInterval = window.setInterval(
                                     this.handleFetchReports,
                                     REPORT_POLL_INTERVAL
                                 );
-                            }).catch( (res) => {
+                            }).catch(() => {
                                 this.setState({
                                     showFinicityIframe: false,
                                     loadingFinicityIframe: false,
@@ -91,7 +91,7 @@ export class ConnectBankPage extends React.Component {
                     cancel: () => {
                         this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
                     },
-                    error: (err) => {
+                    error: () => {
                         this.setState({
                             showFinicityIframe: false,
                             errors: ['There was an error attempting to get your records. Please try again.'],

@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { AccountPage } from './AccountPage';
-import { LinkButton } from 'assets/styles';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
 import AccountForm from 'components/common/AccountForm';
 import VerifyAccount from 'components/account/VerifyAccount';

@@ -10,7 +10,7 @@ import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
 
 
-export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payables, profile, applicant, fetchPayments}) => {
+export const FeesDepositsContainer = ({_prev, _nextRoute, payables, profile, applicant, fetchPayments}) => {
 
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
@@ -97,8 +97,6 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             paidByAnother={receipt.paid_by !== applicant.id}
                />;
     }
-
-    
 };
 
 const mapStateToProps = state => ({

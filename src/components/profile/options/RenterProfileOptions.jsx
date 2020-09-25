@@ -106,8 +106,8 @@ export class RentalProfileOptions extends React.Component {
         const people = this.props.profile.co_applicants.concat(this.props.profile.dependents);
         return (
             <Fragment>
-                <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
-                <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
+                <SkinnyH1>Let&apos;s Set Up Your Rental Profile</SkinnyH1>
+                <SpacedH3>Complete the sections that apply to you and skip the ones that don&apos;t.</SpacedH3>
                 {this.state.hasError && (
                     <GenericFormMessage
                         type="error"

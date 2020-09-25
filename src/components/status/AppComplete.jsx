@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
-
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import lightbulb from 'assets/images/lightbulb.png';
@@ -13,8 +12,6 @@ import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/st
 import { PersonRow } from './PersonRow';
 import { FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
 import ResendLinkForm from 'components/common//ResendLinkForm';
-
-
 
 export const AppComplete = ({profile, configuration, applicant}) => {
 
@@ -35,8 +32,8 @@ export const AppComplete = ({profile, configuration, applicant}) => {
 
     return (
         <Fragment>
-            <H1>Hooray! You're done.</H1>
-            <SpacedH3>We'll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
+            <H1>Hooray! You&apos;re done.</H1>
+            <SpacedH3>We&apos;ll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
             <FolderImage src={statusFolder}/>
             <div className={gridContainer}>
                 <Grid container spacing={2} alignItems="center">

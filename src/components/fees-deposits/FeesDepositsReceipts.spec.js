@@ -6,9 +6,6 @@ import mockApplicant from 'reducers/applicant-mock';
 import { FeesDepositsReceipt } from './FeesDepositsReceipt';
 import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
-import PaidText from './PaidText';
-
-
 
 let defaultProps;
 const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);

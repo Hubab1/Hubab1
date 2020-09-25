@@ -24,8 +24,6 @@ it('calls API.passwordReset onSubmit', function() {
 });
 
 it('renders errors if has errors', function() {
-    const token = defaultProps.history.location.state.token;
-
     const wrapper = shallow( <ResetPassword {...defaultProps}/> );
     API.passwordReset = jest.fn().mockReturnValue(
         Promise.resolve(
@@ -35,5 +33,4 @@ it('renders errors if has errors', function() {
     return wrapper.instance().onSubmit({ password: 'Abagail' }, { setSubmitting: function() {} }).then(() => {
         expect(wrapper.state('errors')).toEqual(['Invalid credentials']);
     });
-
 });

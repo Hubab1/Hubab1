@@ -71,8 +71,8 @@ export class GuarantorPage extends React.Component {
         }
         return (
             <Fragment>
-                <H1>Let's Invite a Guarantor</H1>
-                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could't be paid for some reason.</SpacedH3>
+                <H1>Let&apos;s Invite a Guarantor</H1>
+                <SpacedH3>Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it could&apos;t be paid for some reason.</SpacedH3>
                 <ImageContainer>
                     <img src={coin} alt="coin"/>
                 </ImageContainer>

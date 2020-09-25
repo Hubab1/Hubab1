@@ -35,7 +35,7 @@ export function AddIncomeSource (props) {
         formData.append('other', values.other);
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach((v, k) => {
+                values.uploadedDocuments[key].files.forEach(v => {
                     formData.append(`${key}[]`, v.file);
                 });
             }

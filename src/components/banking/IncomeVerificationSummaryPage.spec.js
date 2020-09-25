@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { IncomeVerificationSummaryPage } from './IncomeVerificationSummaryPage';
 import { ROLE_GUARANTOR, ROLE_PRIMARY_APPLICANT } from 'app/constants';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),

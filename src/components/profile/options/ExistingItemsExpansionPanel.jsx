@@ -10,7 +10,7 @@ import pluralize from 'pluralize';
 import { existingItemsContainer, existingItemRow } from './styles';
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
         padding: 0

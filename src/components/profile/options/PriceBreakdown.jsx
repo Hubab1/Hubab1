@@ -40,7 +40,7 @@ const anchor = css`
     top: -90px;
 `;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
         padding: 0,

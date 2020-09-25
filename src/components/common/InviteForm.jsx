@@ -189,7 +189,7 @@ export const InviteForm = (
                                 { displayedErrors && <GenericFormMessage type="error" messages={displayedErrors}/> }
                                 {!isGuarantor && (
                                     <>
-                                        <div className="color-manatee align-left">We'll send them an invite to apply.</div>
+                                        <div className="color-manatee align-left">We&apos;ll send them an invite to apply.</div>
                                         <Spacer height={30}/>
                                     </>
                                 )}

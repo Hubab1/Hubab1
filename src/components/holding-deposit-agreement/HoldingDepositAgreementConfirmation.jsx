@@ -23,7 +23,7 @@ export const applicationUnit = css`
   padding-top: 10px;
 `;
 
-export const HoldingDepositAgreementConfirmation = ({profile, configuration, handleContinue, viewDocument}) => {
+export const HoldingDepositAgreementConfirmation = ({profile, configuration, handleContinue}) => {
     const [url, setUrl] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);

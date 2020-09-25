@@ -177,7 +177,7 @@ export function IncomeVerificationSummaryPage (props) {
                             defaultExpanded={hashValue === 'income'}
                         >
                             {
-                                context.bankingData?.income_sources?.map((source, i) => (
+                                context.bankingData?.income_sources?.map((source) => (
                                     <div key={source.id}>
                                         <div>{getSourceLabel(source)}</div>
                                         <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
@@ -228,7 +228,7 @@ export function IncomeVerificationSummaryPage (props) {
                             labelQuantity={context.bankingData?.asset_sources.length}
                             defaultExpanded={hashValue === 'asset'}
                         >
-                            {context.bankingData?.asset_sources?.map((source, i) => (
+                            {context.bankingData?.asset_sources?.map((source) => (
                                 <div key={source.id}>
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>

@@ -25,11 +25,11 @@ export class PaymentForm extends React.Component {
         cardCvc: false,
         submitting: false,
         errors: null
-    }
+    };
 
     handleChangeUpdate = (changeObj) => {
         this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}));
-    }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -61,7 +61,7 @@ export class PaymentForm extends React.Component {
             } else {
                 this.setState({errors: [genericErrorMessage], submitting: false});
             }
-        }).catch( res => {
+        }).catch( () => {
             this.setState({errors: [genericErrorMessage], submitting: false});
         });
     };
@@ -96,7 +96,7 @@ export class PaymentForm extends React.Component {
                 </Grid>
                 <P textAlign="left" fontSize={12} margin="37px 0 0 0" color="#000000">
                     Stripe and its affiliates will be processing this transaction for Nestio.
-                    Please see Nestio's <Link to={ROUTES.TERMS} target="_blank">terms of service</Link> for more information.
+                    Please see Nestio&apos;s <Link to={ROUTES.TERMS} target="_blank">terms of service</Link> for more information.
                 </P>
                 <ActionButton
                     marginTop={35}

@@ -248,7 +248,7 @@ export class UploadDocuments extends React.Component {
                                 }
                             </div>
                             <FileNamesContainer>
-                                {uploadedDocuments[docId].files.map((file, i) => (
+                                {uploadedDocuments[docId].files.map((file) => (
                                     <div className="uploaded-document-display" key={file.id}>
                                         <FileName>{file.name}</FileName>
                                         {/* eslint-disable-next-line */}

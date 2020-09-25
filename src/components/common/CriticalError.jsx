@@ -20,7 +20,7 @@ export default function CriticalError () {
     return (
         <div className={centerAlign}>
             <H1>System Unavailable</H1>
-            <H3>Oops! We're having some trouble connecting to our system. Check back soon.</H3>
+            <H3>Oops! We&apos;re having some trouble connecting to our system. Check back soon.</H3>
             <Spacer height={25} />
             <Img alt='system error' src={image} />
         </div>
