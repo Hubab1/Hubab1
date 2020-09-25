@@ -51,7 +51,7 @@ export class RentalProfileOptions extends React.Component {
         };
         scrollToAnchor();
         window.onhashchange = scrollToAnchor;
-    }
+    };
 
     componentDidMount() {
         if (!this.props.profile) return null;
@@ -64,6 +64,7 @@ export class RentalProfileOptions extends React.Component {
             this.setScrollPosition();
         }
     }
+
     onContinue = async () => {
         try {
             this.setState({submitting: true});
@@ -74,7 +75,7 @@ export class RentalProfileOptions extends React.Component {
             this.setState({submitting: false});
         }
         this.props._nextRoute();
-    }
+    };
 
     get configurableRentalOptions () {
         const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
@@ -94,8 +95,7 @@ export class RentalProfileOptions extends React.Component {
     }
 
     filterOptions = option => this.props.profile.selected_rental_options[option] ?
-        this.props.profile.selected_rental_options[option].filter(option => option.quantity > 0) :
-        []
+        this.props.profile.selected_rental_options[option].filter(option => option.quantity > 0) : [];
 
     render () {
         if (this.props.profile == null) return null;
@@ -257,6 +257,8 @@ RentalProfileOptions.propTypes = {
     config: PropTypes.object,
     profile: PropTypes.object,
     location: PropTypes.object,
+    _nextRoute: PropTypes.func,
+    _prev: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
