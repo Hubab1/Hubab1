@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { APPLICANT_STATUS_COLOR_MAP, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import { applicationStatus, link, P, CardRow } from 'assets/styles';
@@ -40,4 +41,10 @@ export const PersonRow = ({person, label, role}) => {
             }
         </div>
     </CardRow>;
+};
+
+PersonRow.propTypes = {
+    person: PropTypes.object,
+    label: PropTypes.string,
+    role: PropTypes.string,
 };

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import queryString from 'query-string';
-
+import PropTypes from 'prop-types';
 import Main from 'app/Main';
 import BadRoute from 'components/common/BadRoute';
 import { basenameReceived } from 'reducers/site-config';
@@ -30,6 +30,11 @@ export class App extends Component {
         );
     }
 }
+
+App.propTypes = {
+    basenameReceived: PropTypes.func,
+    basename: PropTypes.func,
+};
 
 const mapStateToProps = state => ({basename: state.siteConfig.basename});
 const mapDispatchToProps = {basenameReceived};

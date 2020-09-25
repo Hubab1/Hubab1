@@ -38,7 +38,7 @@ module.exports = {
         "semi": ["error", "always"],
 
         // TODO: Fix those progressively
-        "no-shadow": ["error"],
+        //"no-shadow": ["error"],
         "react/prop-types": [2, {"ignore": ["className"]}],
     }
 };

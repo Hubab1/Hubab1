@@ -4,6 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
+import PropTypes from 'prop-types';
 
 
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
@@ -55,6 +56,12 @@ export function AppContextProvider (props) {
         </MuiThemeProvider>
     );
 }
+
+AppContextProvider.propTypes = {
+    children: PropTypes.array,
+    config: PropTypes.object,
+    theme: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     config: state.configuration
