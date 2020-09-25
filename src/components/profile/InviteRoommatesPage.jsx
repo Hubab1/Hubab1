@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import get from 'lodash/get';
-
+import PropTypes from 'prop-types';
 import { H1, H3 } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';
@@ -91,6 +91,12 @@ export class InviteRoommatesPage extends React.Component {
         );
     }
 }
+
+InviteRoommatesPage.propTypes = {
+    profile: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
