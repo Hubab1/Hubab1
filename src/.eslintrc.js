@@ -17,7 +17,7 @@ module.exports = {
         },
     },
     "rules" : {
-        //"eol-last": [1],
+        "eol-last": [1],
         "jsx-quotes": ["error", "prefer-double"],
         "no-console": ["error", { "allow": ["warn", "error", "info"] }],
         "no-debugger": ["error"],
