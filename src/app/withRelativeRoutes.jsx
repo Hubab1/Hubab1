@@ -25,6 +25,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
             // if applicant is done with application, make most routes inaccessible
             this.stayOrPushRoute();
         }
+
         stayOrPushRoute = () => {
             const props = this.props;
             if (!props.initialPage) {
@@ -36,7 +37,8 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                 this.blockRender = false;
                 props.currentRouteReceived(route);
             }
-        }
+        };
+
         componentDidUpdate(prevProps) {
             const props = this.props;
             if (!prevProps.initialPage && props.initialPage) {
@@ -52,26 +54,39 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
         render() {
             if (this.blockRender) return null;
-            return <WrappedComponent {...this.props}
-                _nextRoute={async ()=>{
-                    if (!MOCKY) {
-                        this.props.fetchApplicant();
-                        await this.props.fetchRenterProfile();
+            return (
+                <WrappedComponent
+                    {...this.props}
+                    _nextRoute={
+                        async () => {
+                            if (!MOCKY) {
+                                this.props.fetchApplicant();
+                                await this.props.fetchRenterProfile();
+                            }
+                            if (this.props.unitAvailable === false) {
+                                return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
+                            } else {
+                                return this.props.history.push(this.props._next);
+                            }
+                        }
                     }
-                    if (this.props.unitAvailable === false) {
-                        return this.props.history.push(ROUTES.UNIT_UNAVAILABLE)
-                    } else {
-                        return this.props.history.push(this.props._next)
-                    }
-                }}
-                _prevRoute={()=>this.props.history.push(this.props._prev)}
-            />;
+                    _prevRoute={() => this.props.history.push(this.props._prev)}
+                />);
         }
-    };
+    }
 
     Component.propTypes = {
-        history: PropTypes.object
-    }
+        history: PropTypes.object,
+        _next: PropTypes.string,
+        _prev: PropTypes.string,
+        initialPage: PropTypes.string,
+        unitAvailable: PropTypes.bool,
+        applicant: PropTypes.object,
+        selectApplicantStillFinishingApplication: PropTypes.bool,
+        fetchApplicant: PropTypes.func,
+        fetchRenterProfile: PropTypes.func,
+        currentRouteReceived: PropTypes.func,
+    };
 
     const mapStateToProps = state => ({
         _next: selectors.selectNextRoute(state),

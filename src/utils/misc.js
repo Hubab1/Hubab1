@@ -55,7 +55,7 @@ export function formatCurrency(number, decimalPlaces=2) {
 }
 
 export function prettyCurrency(number, decimalPlaces = 2) {
-    return formatCurrency(number, decimalPlaces).replace('.00', '')
+    return formatCurrency(number, decimalPlaces).replace('.00', '');
 }
 
 // takes a date object and outputs a date string formatted like "1981-12-27"
@@ -65,7 +65,7 @@ export function serializeDate (date) {
 }
 
 export function parseDateISOString(s) {
-    let ds = s.split(/\D/).map(s => parseInt(s));
+    const ds = s.split(/\D/).map(s => parseInt(s));
     ds[1] = ds[1] - 1; // adjust month
     return new Date(...ds);
 }

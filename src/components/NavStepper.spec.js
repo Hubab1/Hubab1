@@ -118,9 +118,9 @@ describe('Unit unavailable state', function() {
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg =  wrapper.find('.unitUnavailableMsg');
-        expect(appCompletedMsg.text()).toContain('We\'ve placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at 123‑456‑7891 so we can discuss some other options.');
+        expect(appCompletedMsg.text()).toContain("We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at 123‑456‑7891 so we can discuss some other options.");
         expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
-    })
+    });
 
     it("View Progress when clicked takes to initialPage set", function() {
         const defaultProps = {

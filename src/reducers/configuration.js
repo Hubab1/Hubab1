@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
+import {createSlice} from '@reduxjs/toolkit';
+import {createSelector} from 'reselect';
 
-import API, { MOCKY } from 'app/api';
+import API, {MOCKY} from 'app/api';
 import createTheme from 'assets/createTheme';
 import mock from './mock-config';
 
@@ -11,7 +11,7 @@ const configuration = createSlice({
     reducers: {
         configurationReceived(state, action) {
             state = action.payload;
-            state.dark = true
+            state.dark = true;
             return state;
         }
     }
@@ -30,7 +30,7 @@ export const fetchConfiguration = (communityId, hash) => {
             } else {
                 const data = await Promise.all([API.fetchConfiguration(communityId), API.fetchPersonalizedInfo(communityId, hash)]);
                 configuration = data.reduce((config, item) => {
-                    return Object.assign(config, item)
+                    return Object.assign(config, item);
                 }, {});
             }
         } else {
@@ -41,8 +41,8 @@ export const fetchConfiguration = (communityId, hash) => {
             }
         }
         dispatch(configurationReceived(configuration));
-        return configuration
-    }
+        return configuration;
+    };
 };
 
 // selectors
@@ -54,7 +54,6 @@ selectors.selectTheme = createSelector(
         if (primary_color == null || secondary_color == null) return null;
         const primaryColor = `#${primary_color}`;
         const secondaryColor = `#${secondary_color}`;
-        const theme = createTheme(primaryColor, secondaryColor);
-        return theme;
+        return createTheme(primaryColor, secondaryColor);
     }
 );

@@ -43,6 +43,7 @@ export default function captureRoute(WrappedComponent, route) {
         fetchApplicant: PropTypes.func,
         fetchRenterProfile: PropTypes.func,
         history: PropTypes.object,
+        unitAvailable: PropTypes.bool,
     };
 
     return connect(

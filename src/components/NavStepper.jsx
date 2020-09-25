@@ -13,19 +13,20 @@ import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
     },
 }));
+
 const iconRoot = css`
     align-items: flex-start !important;
     .appCompletedMsg {
         color: #828796;
     }
-`
+`;
 
 const active = css`
     .MuiStepLabel-active {
@@ -37,9 +38,8 @@ const accessible = css`
     cursor: pointer !important;
     .Mui-disabled {
         cursor: pointer !important;
-
     }
-`
+`;
 
 const viewProgress = css`
     width: 192px;
@@ -48,7 +48,7 @@ const viewProgress = css`
     font-size: 16px !important;
     margin: 30px auto !important;
     display: block !important;
-`
+`;
 
 export function getStepperIndex(routes, currentRoute) {
     for (let i = 0; i < routes.length; i++) {
@@ -77,8 +77,8 @@ export function VerticalLinearStepper(props) {
                 {unitUnavailable && !props.guarantorRequested &&
                     <Step active>
                         <StepLabel StepIconComponent={()=><ErrorIcon color='primary'/>} active classes={{root: iconRoot}}>
-                            <span className="unitUnavailableMsg">We've placed your application on hold for now, 
-                                since the apartment you were interested in is no longer available. Please call us at&nbsp;
+                            <span className="unitUnavailableMsg">
+                                {`We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at `}
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
                                 </a> so we can discuss some other options.
@@ -111,7 +111,11 @@ export function VerticalLinearStepper(props) {
                 ))}
                 {props.guarantorRequested &&
                     <Step active>
-                        <StepLabel StepIconComponent={()=><ErrorIcon color='primary'/>} active classes={{root: iconRoot}}>
+                        <StepLabel
+                            StepIconComponent={()=><ErrorIcon color="primary"/>}
+                            active
+                            classes={{root: iconRoot}}
+                        >
                             <span className="appCompletedMsg">We’re waiting for you to add a guarantor. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
@@ -138,7 +142,6 @@ export function VerticalLinearStepper(props) {
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
                                 </a> if you have any questions.
                             </span>
-
                         </StepLabel>
                         <Button
                             variant="outlined"

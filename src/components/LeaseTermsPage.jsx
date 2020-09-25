@@ -266,6 +266,7 @@ LeaseTermsPage.propTypes = {
     config: PropTypes.object,
     pageComplete: PropTypes.func,
     updateRenterProfile: PropTypes.func,
+    _nextRoute: PropTypes.func,
 };
 
 export default connect((state) => ({

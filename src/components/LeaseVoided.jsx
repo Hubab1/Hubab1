@@ -42,7 +42,7 @@ export const LeaseVoided = ({profile, configuration}) => {
                 &nbsp;if you have any questions.
             </P>
         </>
-    )
+    );
 };
 
 LeaseVoided.propTypes = {

@@ -12,7 +12,7 @@ exports[`VerticalLinearStepper matches snapshot 1`] = `
       active={true}
       classes={
         Object {
-          "root": "css-1wi6ago css-chjgpa",
+          "root": "css-1wi6ago css-1sqracp",
         }
       }
       onClick={[Function]}
@@ -28,7 +28,7 @@ exports[`VerticalLinearStepper matches snapshot 1`] = `
       active={false}
       classes={
         Object {
-          "root": "css-chjgpa",
+          "root": "css-1sqracp",
         }
       }
       onClick={[Function]}
@@ -44,7 +44,7 @@ exports[`VerticalLinearStepper matches snapshot 1`] = `
       active={true}
       classes={
         Object {
-          "root": "css-chjgpa",
+          "root": "css-1sqracp",
         }
       }
       onClick={[Function]}
