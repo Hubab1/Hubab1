@@ -46,7 +46,8 @@ class StripeElementWrapper extends PureComponent {
                     <InputLabel
                         focused={focused}
                         shrink={focused || !empty}
-                        error={!!error}>
+                        error={!!error}
+                    >
                         {label}
                     </InputLabel>
                     <Input

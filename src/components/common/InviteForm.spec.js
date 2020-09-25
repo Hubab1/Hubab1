@@ -24,7 +24,7 @@ beforeEach(() => {
 describe('sendToPhone is false', () => {
     describe('all form fields filled in', () => {
         it('ActionButton is not disabled', function () {
-            let wrapper = shallow(<InviteForm {...defaultProps}/>);
+            const wrapper = shallow(<InviteForm {...defaultProps}/>);
             const contents = wrapper.find(Formik).dive();
             expect(contents.find(ActionButton).prop('disabled')).toBe(false);
         });
@@ -51,7 +51,7 @@ describe('sendToPhone is true', () => {
             phone_number: '555-555-5555',
         };
         it('ActionButton is not disabled', function () {
-            let wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} />);
+            const wrapper = shallow(<InviteForm {...defaultProps} initialValues={initialValues} />);
             const contents = wrapper.find(Formik).dive();
             expect(contents.find(ActionButton).prop('disabled')).toBe(false);
         });

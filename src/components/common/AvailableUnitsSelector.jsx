@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
-import fuzzaldrin from "fuzzaldrin-plus";
+import fuzzaldrin from 'fuzzaldrin-plus';
 
 import API from 'app/api';
 
@@ -55,7 +55,8 @@ function renderSuggestion(suggestionProps) {
                     <span
                         dangerouslySetInnerHTML={{
                             __html: fuzzaldrin.wrap(suggestion.unit_number, inputValue)}
-                        }/>
+                        }
+                    />
             }
         </MenuItem>
     );

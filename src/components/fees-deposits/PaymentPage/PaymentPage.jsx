@@ -58,7 +58,7 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
                     totalPayment={totalPayment}
                     payments={payments}
                 />
-            </Elements> 
+            </Elements>
             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
                 <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
             </LinkButton>

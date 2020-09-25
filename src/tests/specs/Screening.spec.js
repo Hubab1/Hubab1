@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {Screening} from "components/Screening";
+import {Screening} from 'components/Screening';
 import SocialSecurityInput from 'components/common/SocialSecurityInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
 it('Match initial snapshot', function() {
-    let props = {
+    const props = {
         applicant: {
             id: 123,
             client: {
@@ -23,7 +23,7 @@ it('Match initial snapshot', function() {
 });
 
 it('Display SSN field by default', function() {
-    let props = {
+    const props = {
         applicant: {
             id: 123,
             client: {
@@ -40,7 +40,7 @@ it('Display SSN field by default', function() {
 });
 
 it('shows generic error message', function() {
-    let props = {
+    const props = {
         applicant: {
             id: 123,
             client: {

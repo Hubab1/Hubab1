@@ -37,7 +37,7 @@ export default class ResetPassword extends React.Component {
                 confirmationImage={thumbsUp}
                 buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
                 buttonText="Sign in"
-            />;
+                   />;
         }
         return (
             <Fragment>

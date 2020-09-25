@@ -10,7 +10,7 @@ const styles = () => ({
         cursor: 'text',
         fontFamily: 'proxima-nova'
     },
-});  
+});
 
 const _StripeInput = props => {
 
@@ -51,7 +51,7 @@ const _StripeInput = props => {
                     color: '#eb1c26'
                 }
             }}
-        />  
+        />
     );
 };
 

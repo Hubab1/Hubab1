@@ -38,7 +38,8 @@ function BankingContainer (props) {
             bankingData: state.bankingData,
             clearFinancialSources: ()=> dispatch({type: 'BANKING_DATA_CLEARED'}),
             _nextRoute: props._nextRoute,
-        }}>
+        }}
+        >
             <Switch>
                 <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage} exact/>
                 <Route path={ROUTES.INCOME_VERIFICATION_SUMMARY} component={IncomeVerificationSummaryPage}/>

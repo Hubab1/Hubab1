@@ -39,13 +39,13 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
         <ApplicationFeesContainer>
             <CardRowBorderless>
                 <P>
-                    Application Fee 
-                    {" "}
+                    Application Fee
+                    {' '}
                     <SimplePopover text={applicationFeeCopy}>
                         <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
                     </SimplePopover>
                 </P>
-                { 
+                {
                     activeApplicantFeePaid ?
                         <PaidText/> :
                         everyone.length > 1 ? <P/> : <P>{prettyCurrency(baseAppFee)}</P>
@@ -73,7 +73,7 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
                     </CardRowBorderless>
             }
             {
-                !activeApplicantFeePaid && applicationFeesSelected === 'everyone' && 
+                !activeApplicantFeePaid && applicationFeesSelected === 'everyone' &&
                     everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
             }
         </ApplicationFeesContainer>
@@ -81,8 +81,8 @@ export const ApplicationFees = ({applicationFeesSelected='everyone', handleChang
 };
 
 export const EveryoneRow = ({person, baseAppFee}) => {
-    const name = person.client ? 
-        person.client.person.name : 
+    const name = person.client ?
+        person.client.person.name :
         `${person.first_name} ${person.last_name}`;
     return <IndentedRow>
         <P color="#454B57">{name}</P>

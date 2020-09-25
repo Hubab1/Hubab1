@@ -28,17 +28,17 @@ export class ResetPasswordVerificationPage extends React.Component {
 
         return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
             if (res.errors) {
-                setErrors({resetCode: "Invalid Error Code"});
+                setErrors({resetCode: 'Invalid Error Code'});
             } else{
                 this.props.history.push({
-                    pathname: ROUTES.RESET_PASSWORD, 
+                    pathname: ROUTES.RESET_PASSWORD,
                     state: {token: res.token}
                 });
             }
             setSubmitting(false);
         }).catch((res) => {
-            setErrors({resetCode: "Invalid Error Code"});
-            setSubmitting(false);   
+            setErrors({resetCode: 'Invalid Error Code'});
+            setSubmitting(false);
         });
     }
 
@@ -55,7 +55,7 @@ export class ResetPasswordVerificationPage extends React.Component {
         return (
             <Fragment>
                 <H1>
-                    Enter Verification Code 
+                    Enter Verification Code
                 </H1>
                 <SpacedH3>
                 We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.

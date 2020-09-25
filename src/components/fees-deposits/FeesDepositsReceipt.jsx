@@ -47,14 +47,14 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
                         activeApplicantFeePaid={paidByAnother}
                     />
                     {
-                        !!holdingDepositAmount && 
+                        !!holdingDepositAmount &&
                             <HoldingDeposit
                                 holdingDepositAmount={prettyCurrency(holdingDepositAmount)}
                                 holdingDepositPaid={paidByAnother}
                             />
                     }
-                    {   
-                        !paidByAnother && 
+                    {
+                        !paidByAnother &&
                             <CardRowTotal>
                                 <P bold>Total</P>
                                 <div>

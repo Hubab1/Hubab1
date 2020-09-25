@@ -7,9 +7,9 @@ import { ResetPasswordVerificationPage } from './ResetPasswordVerificationPage';
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        communityId: "1",
+        communityId: '1',
         fetchRenterProfile: jest.fn(),
-        history: {location: {pathname: "/password/verify", search: "", hash: "", state: {phoneNumber: "(222) 222-2222"}}},
+        history: {location: {pathname: '/password/verify', search: '', hash: '', state: {phoneNumber: '(222) 222-2222'}}},
         profile: null
     };
 });

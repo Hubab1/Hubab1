@@ -83,8 +83,8 @@ export const Storage = props => {
                         <PriceBreakdown
                             selectedOptions={values}
                             application={props.application}
-                            category={"Storage"}
-                            categoryHelperText={"storage spaces"}
+                            category={'Storage'}
+                            categoryHelperText={'storage spaces'}
                         />
                     )}
                     <ActionButton>Add Storage</ActionButton>

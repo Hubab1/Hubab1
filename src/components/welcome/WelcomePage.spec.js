@@ -11,29 +11,29 @@ beforeEach(() => {
             application_fee: null,
             background: 'some background image url',
             community: {
-                building_name: "The Excelsior",
-                building_number: "601",
-                city: "New York",
-                normalized_street_address: "601 W 57TH ST",
-                postal_code: "10019",
-                state: "NY",
+                building_name: 'The Excelsior',
+                building_number: '601',
+                city: 'New York',
+                normalized_street_address: '601 W 57TH ST',
+                postal_code: '10019',
+                state: 'NY',
             },
             id: 1,
             logo: 'logo of a pegasus flying over the moon',
-            primary_color: "286165",
-            secondary_color: "FFFFFF",
+            primary_color: '286165',
+            secondary_color: 'FFFFFF',
             client: {
                 person: {
-                    email: "callieapi@example.com",
-                    first_name: "Callie",
+                    email: 'callieapi@example.com',
+                    first_name: 'Callie',
                     id: 280066,
-                    last_name: "Api",
-                    phone_1: "1234543123",
+                    last_name: 'Api',
+                    phone_1: '1234543123',
                 }
             },
             unit: {
                 id: 2747820,
-                unit_number: "4B"
+                unit_number: '4B'
             }
         },
     };

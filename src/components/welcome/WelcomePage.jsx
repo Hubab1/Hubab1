@@ -19,7 +19,7 @@ export class WelcomePage extends Component {
 
     getFirstName () {
         const { client, invitee } = this.props.configuration;
-        if ( client && client.person ) { 
+        if ( client && client.person ) {
             return client.person.first_name;
         } else if ( invitee && invitee.first_name ) {
             return invitee.first_name;
@@ -61,7 +61,7 @@ export class WelcomePage extends Component {
                         { unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link 
+                        <Link
                             to={{pathname: ROUTES.SIGNUP}}
                             style={{ textDecoration: 'none' }}
                         >

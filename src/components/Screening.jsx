@@ -147,7 +147,7 @@ export class Screening extends React.Component {
                                         helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
                                     />
                                 )}
-                                <Checkbox 
+                                <Checkbox
                                     name="disclaimer"
                                     onChange={handleChange}
                                     checked={values.disclaimer}

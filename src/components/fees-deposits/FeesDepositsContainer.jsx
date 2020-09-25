@@ -71,12 +71,12 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             holdingDepositAmount={holdingDepositAmount}
             everyone={everyone}
             payments={payables}
-        />;
+               />;
     } else if (currentPage === 'terms') {
-        return <PaymentTerms 
+        return <PaymentTerms
             handleClickBack={() => setCurrentPage('options')}
             goToPayment={() => setCurrentPage('payment')}
-        />;
+               />;
     } else if (currentPage === 'payment') {
         return <PaymentPage
             handleSuccess={() => setCurrentPage('receipt')}
@@ -84,7 +84,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             handleClickBack={() => setCurrentPage('terms')}
             payments={payments}
             totalPayment={totalPayment}
-        />;
+               />;
     } else if (currentPage === 'receipt') {
         if (!receipt) return <div/>;
         return <FeesDepositsReceipt
@@ -95,7 +95,7 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             everyone={everyone}
             email={applicant.client.person.email}
             paidByAnother={receipt.paid_by !== applicant.id}
-        />;
+               />;
     }
 
     

@@ -73,10 +73,10 @@ export class AccountPage extends React.Component {
                     showChangePassword: false,
                     resetPasswordErrors: null,
                 });
-            }   
+            }
             setSubmitting(false);
         }).catch((res) => {
-            this.setState({                
+            this.setState({
                 resetPasswordErrors: ['There was an error with resetting your password. Please try again.']
             });
             setSubmitting(false);
@@ -90,7 +90,7 @@ export class AccountPage extends React.Component {
                 communityId={this.props.communityId}
                 setVerified={() => this.setState({verified: true})}
                 email={this.initialValues.email}
-            />;
+                   />;
         }
         if (this.state.showChangePassword) {
             return <>
@@ -99,12 +99,12 @@ export class AccountPage extends React.Component {
                     onSubmit={this.onChangePasswordSubmit}
                     errors={this.state.resetPasswordErrors}
                 />
-                <span 
+                <span
                     className={blackLinkRoot}
                     onClick={() => this.setState({showChangePassword: false})}
                 >
                     <ArrowBackIos classes={{root: arrowIcon}}/>
-                    {" "}
+                    {' '}
                     Go Back
                 </span>
             </>;

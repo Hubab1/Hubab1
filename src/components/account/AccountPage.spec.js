@@ -65,7 +65,7 @@ it('renders errors if has errors', function() {
 
     const wrapper = shallow( <AccountPage {...defaultProps}/> );
     API.passwordReset = jest.fn().mockReturnValue(
-        Promise.resolve( 
+        Promise.resolve(
             {errors: [errorMessage]}
         )
     );

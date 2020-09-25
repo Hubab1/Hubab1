@@ -7,8 +7,8 @@ import API from 'app/api';
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        communityId: "1",
-        history: {location: {pathname: "/password/verify", search: "", hash: "", state: {token: "secret token"}}},
+        communityId: '1',
+        history: {location: {pathname: '/password/verify', search: '', hash: '', state: {token: 'secret token'}}},
         profile: null
     };
 });
@@ -28,7 +28,7 @@ it('renders errors if has errors', function() {
 
     const wrapper = shallow( <ResetPassword {...defaultProps}/> );
     API.passwordReset = jest.fn().mockReturnValue(
-        Promise.resolve( 
+        Promise.resolve(
             {errors: ['Invalid credentials']}
         )
     );

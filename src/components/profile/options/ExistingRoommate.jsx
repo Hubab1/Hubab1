@@ -41,7 +41,7 @@ export default function ExistingRoommate({item, type}) {
                                 pathname: ROUTES.RESEND_INVITE,
                                 state: {
                                     initialValues: item,
-                                    confirmationButtonText: "Back to Rental Profile",
+                                    confirmationButtonText: 'Back to Rental Profile',
                                     returnRoute: `${ROUTES.PROFILE_OPTIONS}#${type}`
                                 }
                             }}

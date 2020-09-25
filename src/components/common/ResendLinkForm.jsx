@@ -56,7 +56,7 @@ export class ResendLinkForm extends React.Component {
                 secondarySuccessMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
                 buttonClick={()=>this.props.history.push(this.props.location.state.returnRoute)}
                 buttonText={this.props.location.state.confirmationButtonText}
-            />;
+                   />;
         }
         return (
             <Fragment>

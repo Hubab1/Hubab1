@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import pluralize from 'pluralize';
@@ -134,7 +134,7 @@ function PriceBreakdown (props) {
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails classes={{root:classes.root}}>
                                         <div className={existingItemRow}>
-                                            Base Rent<span className={"pull-right"}>{priceBreakdown.base_rent}</span>
+                                            Base Rent<span className={'pull-right'}>{priceBreakdown.base_rent}</span>
                                         </div>
                                         {
                                             Object.keys(priceBreakdown.items_breakdown).map(function(key) {
@@ -142,7 +142,7 @@ function PriceBreakdown (props) {
                                                     <div key={key}>
                                                         {priceBreakdown.items_breakdown[key] != null && (
                                                             <div className={existingItemRow}>
-                                                                {key}<span className={"pull-right"}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
+                                                                {key}<span className={'pull-right'}>{priceBreakdown.items_breakdown[key] || '$0'}</span>
                                                             </div>
                                                         )}
                                                     </div>

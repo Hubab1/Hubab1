@@ -30,7 +30,7 @@ jest.mock('app/history', () => {
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
-        communityId: "123",
+        communityId: '123',
         location: {
             state: {
 
@@ -77,6 +77,6 @@ it('renders genereic error', function() {
 });
 
 it('renders errors from location state', () => {
-    const wrapper = shallow( < LoginPage {...defaultProps} location={{state: {errors: "You have been logged out"}}}/> );
+    const wrapper = shallow( < LoginPage {...defaultProps} location={{state: {errors: 'You have been logged out'}}}/> );
     expect(wrapper.getElement()).toMatchSnapshot();
 });

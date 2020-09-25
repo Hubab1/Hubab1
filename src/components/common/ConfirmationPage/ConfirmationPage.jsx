@@ -13,20 +13,20 @@ const SpacedH3 = styled(H3)`
 
 export default function ConfirmationPage (props) {
     const {
-        successMessage, secondarySuccessMessage, buttonClick, buttonText, 
+        successMessage, secondarySuccessMessage, buttonClick, buttonText,
         secondaryButtonClick, secondaryButtonText, confirmationImage } = props;
     return (
         <Fragment>
             <H1>{successMessage}</H1>
             { secondarySuccessMessage && <SpacedH3>{secondarySuccessMessage}</SpacedH3>}
-            { confirmationImage && 
+            { confirmationImage &&
                 <ImageContainer>
-                    <img src={confirmationImage} alt="confirmation"/> 
+                    <img src={confirmationImage} alt="confirmation"/>
                 </ImageContainer>
             }
             <ActionButton marginTop={30} onClick={buttonClick}>{buttonText}</ActionButton>
-            { 
-                secondaryButtonClick && 
+            {
+                secondaryButtonClick &&
                 <ActionButton marginTop={15} onClick={secondaryButtonClick} variant="outlined">
                     {secondaryButtonText}
                 </ActionButton> }

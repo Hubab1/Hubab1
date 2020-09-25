@@ -24,25 +24,25 @@ beforeEach(() => {
 });
 
 it('matches snapshot', function() {
-    let wrapper = shallow(<EditDependent
+    const wrapper = shallow(<EditDependent
         {...defaultProps}
-        match={{params: {id: 1}, isExact: true, path: "", url: ""}}
-    /> );
+        match={{params: {id: 1}, isExact: true, path: '', url: ''}}
+                            /> );
 
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('Check Invite form values', function() {
-    let wrapper = shallow(<EditDependent
+    const wrapper = shallow(<EditDependent
         {...defaultProps}
-        match={{params: {id: 1}, isExact: true, path: "", url: ""}}
-    /> );
+        match={{params: {id: 1}, isExact: true, path: '', url: ''}}
+                            /> );
 
     expect(wrapper.find(InviteForm).exists()).toBeTruthy();
     expect(wrapper.find(InviteForm).prop('initialValues')).toMatchObject(
-        {birthday: null, first_name: "John", id: 1, last_name: "Doe"},
+        {birthday: null, first_name: 'John', id: 1, last_name: 'Doe'},
     );
-    expect(wrapper.find(InviteForm).prop('buttonText')).toEqual("Save Changes");
+    expect(wrapper.find(InviteForm).prop('buttonText')).toEqual('Save Changes');
     expect(wrapper.find(InviteForm).prop('disableTypeChange')).toBe(true);
     expect(wrapper.find(InviteForm).prop('initialIsDependent')).toBe(true);
 });

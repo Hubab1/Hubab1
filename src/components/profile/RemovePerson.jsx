@@ -9,7 +9,7 @@ import {
 } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 import API from 'app/api';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 

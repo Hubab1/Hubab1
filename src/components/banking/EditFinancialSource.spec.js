@@ -85,6 +85,6 @@ it('onSubmit submits correct form data', async () => {
     }, {setErrors: jest.fn(), setSubmitting: jest.fn()});
     expect(API.updateFinancialSource.mock.calls[0][0]).toEqual('666');
     const formData = API.updateFinancialSource.mock.calls[0][1];
-    expect(formData.getAll('uploaded_documents[]')).toEqual(["5"]);
-    expect(formData.getAll('1[]')).toEqual(["file"]);
+    expect(formData.getAll('uploaded_documents[]')).toEqual(['5']);
+    expect(formData.getAll('1[]')).toEqual(['file']);
 });

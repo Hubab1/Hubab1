@@ -7,19 +7,19 @@ import { blackLinkRoot, arrowIcon } from 'assets/styles';
 
 export const BackLink = props => {
     return <Link to={props.to} className={blackLinkRoot}>
-        <ArrowBackIos classes={{root: arrowIcon}}/>Go Back 
+        <ArrowBackIos classes={{root: arrowIcon}}/>Go Back
     </Link>;
 };
 
 // for the back buttons that are not links
-export const BackButton = ({text="Go Back", onClick=()=>{}}) => {
+export const BackButton = ({text='Go Back', onClick=()=>{}}) => {
     return (
         <span
             className={blackLinkRoot}
             onClick={onClick}
         >
             <ArrowBackIos classes={{root: arrowIcon}}/>
-            {" "}
+            {' '}
             {text}
         </span>
     );

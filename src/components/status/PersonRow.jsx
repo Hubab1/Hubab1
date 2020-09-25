@@ -23,21 +23,21 @@ export const PersonRow = ({person, label, role}) => {
                 <br/>
                 <P bold color={statusColor}>{getRoommateStatus(person)}</P>
             </div>
-            { showResendLink && 
-                <Link 
+            { showResendLink &&
+                <Link
                     className={link}
                     to={{
                         pathname: ROUTES.RESEND_INVITE,
                         state: {
                             initialValues: person,
-                            confirmationButtonText: "Back to Application Status",
+                            confirmationButtonText: 'Back to Application Status',
                             returnRoute: ROUTES.APP_COMPLETE
                         }
                     }}
                 >
                     Edit/Resend
                 </Link>
-            }                        
+            }
         </div>
     </CardRow>;
 };

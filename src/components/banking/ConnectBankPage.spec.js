@@ -14,7 +14,7 @@ beforeEach(() => {
 it('this.openFinicityIframe sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
     const wrapper = shallow(<ConnectBankPage/>);
 
-    API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({success: true, reasonCode: "OK"}));
+    API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({success: true, reasonCode: 'OK'}));
 
     expect(wrapper.state().loadingFinicityIframe).toEqual(false);
     expect(wrapper.state().showFinicityIframe).toEqual(false);
@@ -33,5 +33,5 @@ it('this.handleFetchReports calls API.fetchFinicityReports and setState on succe
     API.fetchFinicityReports = jest.fn().mockReturnValue(Promise.resolve(data));
 
     wrapper.instance().handleFetchReports();
-    expect(API.fetchFinicityReports).toHaveBeenCalled();  
+    expect(API.fetchFinicityReports).toHaveBeenCalled();
 });

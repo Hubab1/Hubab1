@@ -23,7 +23,7 @@ beforeEach(() => {
 
 it('fetches renter profile on submit', function() {
     API.inviteGuarantor = jest.fn().mockResolvedValue({});
-    let wrapper = shallow( <GuarantorPage {...defaultProps}/> );
+    const wrapper = shallow( <GuarantorPage {...defaultProps}/> );
     return wrapper.instance().onSubmit({}, {setSubmitting: jest.fn()}).then(() => {
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalled();
     });
@@ -31,7 +31,7 @@ it('fetches renter profile on submit', function() {
 
 it('sets errors on submit if errors returned', function() {
     API.inviteGuarantor = jest.fn().mockResolvedValue({errors: {guarantors: ['not good']}});
-    let wrapper = shallow( <GuarantorPage {...defaultProps}/> );
+    const wrapper = shallow( <GuarantorPage {...defaultProps}/> );
     const setErrors = jest.fn();
     return wrapper.instance().onSubmit({}, {setSubmitting: jest.fn(), setErrors}).then(() => {
         expect(defaultProps.fetchRenterProfile).not.toHaveBeenCalled();
@@ -45,7 +45,7 @@ it('matches snapshot', () => {
 });
 
 it('Confirmation Page - Add guarantor from rental options', function() {
-    let wrapper = shallow( <GuarantorPage {...defaultProps}/> );
+    const wrapper = shallow( <GuarantorPage {...defaultProps}/> );
     wrapper.setState({ confirmSent: true });
     expect(wrapper.find(ConfirmationPage).exists()).toBeTruthy();
     wrapper.find(ConfirmationPage).dive().find(ActionButton).at(0).simulate('click');
@@ -53,7 +53,7 @@ it('Confirmation Page - Add guarantor from rental options', function() {
 });
 
 it('Confirmation Page - Add guarantor after requested', function() {
-    let wrapper = shallow( <GuarantorPage {...defaultProps} guarantorRequested={true} /> );
+    const wrapper = shallow( <GuarantorPage {...defaultProps} guarantorRequested={true} /> );
     wrapper.setState({ confirmSent: true });
     expect(wrapper.find(ConfirmationPage).exists()).toBeTruthy();
     wrapper.find(ConfirmationPage).dive().find(ActionButton).at(0).simulate('click');

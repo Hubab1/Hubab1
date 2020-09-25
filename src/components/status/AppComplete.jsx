@@ -20,13 +20,13 @@ export const AppComplete = ({profile, configuration, applicant}) => {
 
     const [resendFormValues, setResendFormValues] = useState();
 
-    if (!profile || ! configuration) return null;       
+    if (!profile || ! configuration) return null;
     if (resendFormValues) {
-        return <ResendLinkForm 
-            initialValues={resendFormValues} 
+        return <ResendLinkForm
+            initialValues={resendFormValues}
             handleConfirmationClick={setResendFormValues}
             confirmationButtonText="Back to Application Status"
-        />;
+               />;
     }
     const { unit, primary_applicant, co_applicants } = profile;
     const { guarantors } = primary_applicant;
@@ -67,10 +67,10 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                     <CardRow>
                         <P bold>Applicant Status</P>
                     </CardRow>
-                    { primary_applicant && 
-                        <PersonRow 
-                            person={primary_applicant} 
-                            label="Main Applicant" 
+                    { primary_applicant &&
+                        <PersonRow
+                            person={primary_applicant}
+                            label="Main Applicant"
                             role={role}
                             handleClickLink={setResendFormValues}
                         /> }
@@ -82,28 +82,28 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                                 label="Roommate"
                                 role={role}
                                 handleClickLink={setResendFormValues}
-                            />;
+                                   />;
                         })
                     }
                 </CardSection>
             </Card>
-            { 
+            {
                 guarantors?.length > 0 &&
                     <Card>
                         <CardSection>
                             <CardRow>
                                 <P bold>Guarantor Status</P>
-                            </CardRow> 
+                            </CardRow>
                             {
                                 guarantors.map(guarantor => {
-                                    return <PersonRow 
+                                    return <PersonRow
                                         key={guarantor.id}
-                                        person={guarantor} 
-                                        label="Guarantor" 
+                                        person={guarantor}
+                                        label="Guarantor"
                                         role={role}
                                         handleClickLink={setResendFormValues}
-                                    />;
-                                }) 
+                                           />;
+                                })
 
                             }
                         </CardSection>

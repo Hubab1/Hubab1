@@ -10,12 +10,12 @@ beforeEach(() => {
         theme: {
             palette: {
                 primary: {
-                    main: "#FFFFFF"
+                    main: '#FFFFFF'
                 }
             }
         },
         fontSize: 15,
-        thing: "Pet"
+        thing: 'Pet'
     };
 });
 

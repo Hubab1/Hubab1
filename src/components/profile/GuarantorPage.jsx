@@ -67,7 +67,7 @@ export class GuarantorPage extends React.Component {
                 secondarySuccessMessage="You’ll be able to check in on your guarantor's progress once you complete your application."
                 buttonClick={this.handleContinueAfterInviteSent}
                 buttonText="Continue"
-            />;
+                   />;
         }
         return (
             <Fragment>

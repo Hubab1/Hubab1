@@ -48,7 +48,7 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
                 <BodyP>5) Applicant  agrees  to  provide  proof  of$100,000.00liability  insurance  by  lease  commencement  date.  Thepreferred provider is: erenterplan.com (888) 205-8118.6)A non-refundable application processing fee is required to prepare the rental agreement documents and toverify applicant’s credit history, rental reference and employment.7)If said premises are not vacated by present resident on proposed move-out date and the present resident isstill  in  possession,  the  holding  deposit  will  be  returned  in  full  to  applicant.  The  holding  deposit  does  notguarantee occupancy.8)Credit  approval  is  based  on:  (1)  one  year  positive  rental  history;  (2)  good  credit  (note:  late  mortgagepayments, foreclosure, or bankruptcy may result in denial); (3) one year current employment history</BodyP>
             </ScrollableTermsCardSection>
         </Card>
-        { !!handleClickBack && 
+        { !!handleClickBack &&
             <Fragment>
                 <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
                     Agree and Continue

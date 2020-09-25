@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -90,7 +90,7 @@ export class UploadDocuments extends React.Component {
 
     componentDidMount () {
         let label;
-        for (let key in this.props.uploadedDocuments) {
+        for (const key in this.props.uploadedDocuments) {
             label = this.props.uploadedDocuments[key].label;
         }
         if (!label) return;
@@ -149,7 +149,7 @@ export class UploadDocuments extends React.Component {
 
     getProofsLabel = () => {
         const documentRequired = this.documentsRequired;
-        let proofDocuments = documentRequired.proof_documents;
+        const proofDocuments = documentRequired.proof_documents;
 
         return proofDocuments.map(d => d.label).join(' + ');
     };
@@ -176,23 +176,23 @@ export class UploadDocuments extends React.Component {
         const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
         if (!maxCount) return null;
 
-        let largeFiles = [];
+        const largeFiles = [];
 
         for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
-            let file = e.target.files[i];
-            let fileSize = file.size / 1024 / 1024; // in MB
+            const file = e.target.files[i];
+            const fileSize = file.size / 1024 / 1024; // in MB
             if (fileSize > 10) {
                 largeFiles.push(file.name);
             } else {
-                let reader = new FileReader();
+                const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
-                    let fileInfo = {
+                    const fileInfo = {
                         name: file.name,
                         id: uuidv4(),
                         file: file
                     };
-                    let uploadedDocuments = {...this.props.uploadedDocuments};
+                    const uploadedDocuments = {...this.props.uploadedDocuments};
                     if (uploadedDocuments[id]) {
                         uploadedDocuments[id].files.push(fileInfo);
                     } else {
@@ -218,7 +218,7 @@ export class UploadDocuments extends React.Component {
     };
 
     getUploadButtonLabel = (doc) => {
-        let remaining = this.getRemainingFilesCount(doc)?.min?? 0;
+        const remaining = this.getRemainingFilesCount(doc)?.min?? 0;
         return this.startCase(`Upload ${remaining? remaining : ''} ${doc.label}`);
     };
 
@@ -241,7 +241,8 @@ export class UploadDocuments extends React.Component {
                                 {
                                     uploadedDocuments[docId].files.length > 1 &&
                                     <LinkButton
-                                        onClick={() => this.props.removeAll(docId)}>
+                                        onClick={() => this.props.removeAll(docId)}
+                                    >
                                             Remove all ({uploadedDocuments[docId].files.length})
                                     </LinkButton>
                                 }
@@ -318,7 +319,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(doc.id)}
                                                 accept="image/*,.pdf"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, doc)}
                                                 max={this.getRemainingFilesCount(doc)?.max}
                                                 multiple
@@ -368,7 +369,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(selectedDocument.id)}
                                                 accept="image/*,.pdf,.doc,.docx"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, selectedDocument)}
                                                 max={this.getRemainingFilesCount(selectedDocument)?.max}
                                                 multiple

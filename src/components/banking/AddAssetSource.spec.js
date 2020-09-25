@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import {act} from "react-dom/test-utils";
+import {act} from 'react-dom/test-utils';
 
 import { AddAssetSource } from './AddAssetSource';
 import { ROUTES } from 'app/constants';
 import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 
-jest.mock("react", () => ({
-    ...jest.requireActual("react"),
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
     useContext: () => ({
         refreshFinancialSources: ()=>{}
     })

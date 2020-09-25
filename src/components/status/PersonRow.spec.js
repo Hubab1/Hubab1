@@ -12,14 +12,14 @@ let defaultProps;
 beforeEach( () => {
     defaultProps = {
         person: {
-            phone_number: "(383) 838-4849",
-            first_name: "kreebs",
-            last_name: "mcgreebs",
+            phone_number: '(383) 838-4849',
+            first_name: 'kreebs',
+            last_name: 'mcgreebs',
             id: 71,
             is_registered: false,
             last_milestone: null
         },
-        label: "Roommate",
+        label: 'Roommate',
         role: ROLE_PRIMARY_APPLICANT,
         handleClick: jest.fn()
 
@@ -44,7 +44,7 @@ describe('When logged in applicant is primary applicant, ', () => {
 
     it('renders PersonRow for guarantor who has registered with appropriate text and no Link', () => {
         defaultProps.person.is_registered = true;
-        defaultProps.label = "Guarantor";
+        defaultProps.label = 'Guarantor';
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
         expect(wrapper.find(Link).length).toEqual(0);
@@ -53,7 +53,7 @@ describe('When logged in applicant is primary applicant, ', () => {
 
     it('renders PersonRow for guarantor who has not registered with appropriate text and Link', () => {
         defaultProps.person.is_registered = false;
-        defaultProps.label = "Guarantor";
+        defaultProps.label = 'Guarantor';
 
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 
@@ -63,7 +63,7 @@ describe('When logged in applicant is primary applicant, ', () => {
 
     it('renders PersonRow for main applicant with appropriate text and no Link', () => {
         defaultProps.person.is_registered = false;
-        defaultProps.label = "Main Applicant";
+        defaultProps.label = 'Main Applicant';
 
         const wrapper = shallow(<PersonRow {...defaultProps}/>);
 

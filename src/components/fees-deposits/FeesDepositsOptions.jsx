@@ -27,7 +27,7 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
     const applicationFeesPeople = everyone.map(person => {
         const applicationFeePaid = !!payments.find(payment => (
             ( parseInt(payment.applicant) === person.id || parseInt(payment.invitee) === person.id ) &&
-            parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && 
+            parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE &&
             payment.paid
         ));
         return Object.assign({}, person, {applicationFeePaid});
@@ -36,8 +36,8 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
     const activeApplicantFeePaid = applicationFeesPeople.find( person => person.id === applicant.id ).applicationFeePaid;
     const numUnpaidApplicants = payments.filter(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_APPLICATION_FEE && !payment.paid)).length;
     
-    const totalApplicationFee = applicationFeesSelected === 'self' ? 
-        baseAppFee : 
+    const totalApplicationFee = applicationFeesSelected === 'self' ?
+        baseAppFee :
         baseAppFee * numUnpaidApplicants;
 
     const holdingDepositPaid = !!payments.find(payment => (parseInt(payment.type) === LINE_ITEM_TYPE_HOLDING_DEPOSIT && payment.paid));
@@ -49,7 +49,7 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
     return (
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
-            <SpacedImg src={paymentWallet} alt={"wallet"}/>
+            <SpacedImg src={paymentWallet} alt={'wallet'}/>
             <Card>
                 <CardSection>
                     <CardRow>
@@ -65,13 +65,13 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
                         numUnpaidApplicants={numUnpaidApplicants}
                     />
                     {
-                        !!holdingDepositAmount && 
+                        !!holdingDepositAmount &&
                             <HoldingDeposit
                                 holdingDepositPaid={holdingDepositPaid}
                                 holdingDepositAmount={prettyCurrency(holdingDepositAmount)}
                             />
                     }
-                    {   
+                    {
                         ( (!holdingDepositPaid && !!holdingDepositAmount) || !activeApplicantFeePaid ) &&
                             <CardRowTotal>
                                 <P bold>Total</P>

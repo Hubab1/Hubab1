@@ -69,7 +69,7 @@ export default function SocialSecurityInput (props) {
     const [displayVal, setDisplayVal] = useState('');
 
     const syncInput = (e) => {
-        let val = e.target.value;
+        const val = e.target.value;
         if (!showText) {
             setDisplayVal(transformDisplay(val));
         } else {

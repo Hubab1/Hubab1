@@ -84,8 +84,8 @@ export const Parking = props => {
                         <PriceBreakdown
                             selectedOptions={values}
                             application={props.application}
-                            category={"Parking"}
-                            categoryHelperText={"parking spaces"}
+                            category={'Parking'}
+                            categoryHelperText={'parking spaces'}
                         />
                     )}
                     <ActionButton>Add Parking</ActionButton>

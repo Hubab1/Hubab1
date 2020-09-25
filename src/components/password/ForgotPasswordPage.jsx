@@ -27,16 +27,16 @@ export class ForgotPasswordPage extends React.Component {
         
         API.passwordResetRequest(values.phone, communityId).then( (res) => {
             if (res.errors) {
-                this.setState({errors: ["Applicant does not exist"]});
+                this.setState({errors: ['Applicant does not exist']});
             } else {
                 this.props.history.push({
-                    pathname: ROUTES.VERIFY_PASSWORD_CODE, 
+                    pathname: ROUTES.VERIFY_PASSWORD_CODE,
                     state: {phoneNumber: values.phone}
                 });
             }
             setSubmitting(false);
         }).catch( () => {
-            this.setState({errors: ["Applicant does not exist"]});
+            this.setState({errors: ['Applicant does not exist']});
             setSubmitting(false);
         });
     }
@@ -70,7 +70,7 @@ export class ForgotPasswordPage extends React.Component {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
                                 {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
-                                <PhoneNumberInput 
+                                <PhoneNumberInput
                                     label="Phone Number"
                                     name="phone"
                                     value={values.phone}

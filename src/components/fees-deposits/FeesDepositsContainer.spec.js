@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 
 it('fees are set from profile selected_rental_options', function() {
-    let wrapper = shallow( <FeesDepositsContainer {...defaultProps} /> );
+    const wrapper = shallow( <FeesDepositsContainer {...defaultProps} /> );
     const feesDepositsOptionsComponent = wrapper.find(FeesDepositsOptions);
     expect(feesDepositsOptionsComponent.exists()).toBe(true);
     expect(feesDepositsOptionsComponent.prop('baseAppFee')).toBe(125.5);

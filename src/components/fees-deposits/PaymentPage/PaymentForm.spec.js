@@ -61,7 +61,7 @@ it('handleSubmit sets error on stripe fail', function() {
     const wrapper = shallow( <PaymentForm {...defaultProps}/> );
 
     return wrapper.instance().handleSubmit({preventDefault: () => {} }).then(() => {
-        expect(wrapper.state().errors).toEqual([genericErrorMessage]);        
+        expect(wrapper.state().errors).toEqual([genericErrorMessage]);
         expect(wrapper.state().submitting).toBeFalsy();
     });
 });

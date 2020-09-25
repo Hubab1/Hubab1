@@ -174,7 +174,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img alt="dog" src={cat} />}
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
-                            buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
+                            buttonLabel={this.existingPets.length ? 'Manage pets' : 'Add a pet'}
                             route={ROUTES.PETS}
                             expansionPanel={!!this.existingPets.length &&
                                 <ExistingItemsExpansionPanel
@@ -198,7 +198,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img src={addparking} alt="car parking"/>}
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
-                            buttonLabel={(filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
+                            buttonLabel={(filteredParking.length > 0) ? 'Manage Parking' : 'Add Parking'}
                             route={ROUTES.PARKING}
                             expansionPanel={filteredParking.length > 0 &&
                                 <ExistingItemsExpansionPanel
@@ -223,7 +223,7 @@ export class RentalProfileOptions extends React.Component {
                             prefix={<img src={addstorage} alt="storage" />}
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
-                            buttonLabel={(filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
+                            buttonLabel={(filteredStorage.length > 0) ? 'Manage Storage' : 'Add Storage'}
                             route={ROUTES.STORAGE}
                             expansionPanel={filteredStorage.length > 0 &&
                                 <ExistingItemsExpansionPanel

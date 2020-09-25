@@ -26,7 +26,7 @@ it('display correct info', async () => {
         },
         base_rent: '$2,000'
     }));
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -45,7 +45,7 @@ it('display correct info if has included options', async () => {
         },
         base_rent: '$2,000'
     }));
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -55,7 +55,7 @@ it('display correct info if has included options', async () => {
 it('calls onerror if api rejects', async () => {
     const props = buildProps();
     API.getCurrentFlatQuote = jest.fn().mockRejectedValue();
-    let wrapper = mount(<PriceBreakdown {...props} />);
+    const wrapper = mount(<PriceBreakdown {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();

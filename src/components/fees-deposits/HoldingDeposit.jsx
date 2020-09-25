@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Info from '@material-ui/icons/Info';
 import styled from '@emotion/styled';
 
@@ -20,7 +20,7 @@ export const HoldingDeposit = ({
     return <CardRowBorderlessPadded>
         <P>
             Holding Deposit
-            {" "}
+            {' '}
             <SimplePopover text={holdingDepositCopy}>
                 <Info classes={{root: infoIconRoot}} style={{color: '#828796', width: 16}} />
             </SimplePopover>

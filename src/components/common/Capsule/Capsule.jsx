@@ -24,7 +24,7 @@ function Capsule (props) {
                     </div>
                 </div>
                 {props.expansionPanel}
-                { props.limitReached ? 
+                { props.limitReached ?
                     <P size={14} color="#828796">
                         {`You’ve reached the maximum number of ${props.name}s our community allows`}
                     </P> :

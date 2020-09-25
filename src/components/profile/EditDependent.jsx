@@ -6,10 +6,10 @@ import { H1, H3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
 import roommatesImage from 'assets/images/roommates.png';
 import { InviteForm } from 'components/common/InviteForm';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { serializeDate } from 'utils/misc';
-import get from "lodash/get";
+import get from 'lodash/get';
 
 const SpacedH3 = styled(H3)`
     margin-top: 15px;

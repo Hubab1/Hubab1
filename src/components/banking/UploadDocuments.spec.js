@@ -1,6 +1,6 @@
 import { UploadDocuments } from './UploadDocuments';
-import {shallow, mount} from "enzyme";
-import React from "react";
+import {shallow, mount} from 'enzyme';
+import React from 'react';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { LinkButton } from 'assets/styles';
 

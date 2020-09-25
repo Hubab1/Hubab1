@@ -17,7 +17,7 @@ export class BannerLogo extends React.Component {
         return (
             <div className={container}>
                 <Logo src={this.context.logo} alt="company logo" />
-            </div>      
+            </div>
         );
     }
 }

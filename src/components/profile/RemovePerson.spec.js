@@ -40,10 +40,10 @@ afterEach(() => {
 });
 
 it('matches snapshot: case dependent', function() {
-    let wrapper = shallow(<RemovePerson
+    const wrapper = shallow(<RemovePerson
         {...defaultProps}
-        match={{params: {id: 1, type: 'dependent'}, isExact: true, path: "", url: ""}}
-    /> );
+        match={{params: {id: 1, type: 'dependent'}, isExact: true, path: '', url: ''}}
+                            /> );
 
     expect(wrapper.getElement()).toMatchSnapshot();
 });

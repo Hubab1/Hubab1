@@ -74,5 +74,5 @@ export default function SimplePopover(props) {
 }
 
 SimplePopover.defaultProps = {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
 };

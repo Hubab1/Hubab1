@@ -27,7 +27,8 @@ export class UnauthenticatedPage extends React.Component {
                 <Banner style={{
                     backgroundColor: this.context.bannerBackground,
                     color: this.context.bannerColor
-                }}>
+                }}
+                >
                     <Logo src={this.context.logo} alt="company logo" />
                 </Banner>
                 <div className={subContainer}>
