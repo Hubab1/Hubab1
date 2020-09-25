@@ -12,6 +12,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import {connect} from 'react-redux';
 import API from 'app/api';
 import { fetchRenterProfile } from 'reducers/renter-profile';
+import PropTypes from 'prop-types';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -124,6 +125,13 @@ export class RemovePerson extends React.Component {
         );
     }
 }
+
+RemovePerson.propTypes = {
+    profile: PropTypes.object,
+    match: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,

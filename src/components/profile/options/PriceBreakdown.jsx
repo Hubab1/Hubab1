@@ -173,7 +173,7 @@ PriceBreakdown.propTypes = {
     category: PropTypes.string,
     categoryHelperText: PropTypes.string,
     leaseTerm: PropTypes.number,
-    moveInDate: PropTypes.string,
+    moveInDate: PropTypes.any,
     onError: PropTypes.func,
     onSuccess: PropTypes.func,
     name: PropTypes.string,
