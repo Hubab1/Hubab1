@@ -17,9 +17,9 @@ import SocialSecurityInput from 'components/common/SocialSecurityInput';
 import API, { MOCKY } from 'app/api';
 
 import ssl from 'assets/images/ssl-image.png';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from 'components/common/Checkbox';
 
 const Image = styled.img`
@@ -45,7 +45,7 @@ const socialSecurityPrompt = css`
 `;
 
 export class Screening extends React.Component {
-    state = {errors: null}
+    state = {errors: null};
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
         if (MOCKY) return this.props._nextRoute();
@@ -56,13 +56,13 @@ export class Screening extends React.Component {
         API.postPassthrough(body).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
-                this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]});
+                this.setState({errors: ['Oops! We ran into some issues trying to obtain your screening reports. Please try again later.']});
             } else {
                 this.props._nextRoute();
             }
             setSubmitting(false);
         }).catch(() => {
-            this.setState({errors: ["Oops! We ran into some issues trying to obtain your screening reports. Please try again later."]});
+            this.setState({errors: ['Oops! We ran into some issues trying to obtain your screening reports. Please try again later.']});
             setSubmitting(false);
         });
     };
@@ -77,7 +77,7 @@ export class Screening extends React.Component {
             <Fragment>
                 <H1>{`You're almost done, ${this.props.applicant.client.person.first_name}!`}</H1>
                 <SpacedH3>To finish qualifying for this apartment, your Social Security number will be used for a background check.</SpacedH3>
-                <img src={portfolioImg} alt="portfolio"></img>
+                <img src={portfolioImg} alt="portfolio" />
                 <br/>
                 <br/>
                 <Formik

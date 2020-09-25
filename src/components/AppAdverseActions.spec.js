@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { AppAdverseActions } from './AppAdverseActions';
 import API from 'app/api';
-import {act} from "react-dom/test-utils";
+import { act } from 'react-dom/test-utils';
 
 
 let defaultProps;
@@ -17,9 +17,9 @@ beforeEach(() => {
         onAgree: jest.fn(),
         configuration: {
             credit_score_rating_config: [
-                [0, "Poor"],
-                [550, "Good"],
-                [650, "Great"],
+                [0, 'Poor'],
+                [550, 'Good'],
+                [650, 'Great'],
             ],
             guarantor_income_requirement_multiplier: 40,
         },

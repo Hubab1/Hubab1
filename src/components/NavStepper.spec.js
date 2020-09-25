@@ -103,7 +103,7 @@ describe('Application submitted state', function() {
 });
 
 describe('Unit unavailable state', function() {
-    it("Renders a unit unavailable message", function() {
+    it('Renders a unit unavailable message', function() {
         const defaultProps = {
             renterProfile: {
                 unit_available: false,
@@ -122,7 +122,7 @@ describe('Unit unavailable state', function() {
         expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
     });
 
-    it("View Progress when clicked takes to initialPage set", function() {
+    it('View Progress when clicked takes to initialPage set', function() {
         const defaultProps = {
             renterProfile: {
                 unit_available: false,

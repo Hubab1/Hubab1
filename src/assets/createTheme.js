@@ -15,7 +15,7 @@ export default (primaryColor='#2B44FF', secondaryColor='#2B44FF') => createMuiTh
             main: secondaryColor
         },
         background: {
-            default: "#ffffff"
+            default: '#ffffff',
         }
     }
 });
