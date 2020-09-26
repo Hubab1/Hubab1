@@ -204,8 +204,8 @@ export default function AvailableUnitsSelector (props) {
 AvailableUnitsSelector.propTypes = {
     update: PropTypes.func,
     error: PropTypes.bool,
-    helperText: PropTypes.string,
-    errors: PropTypes.array,
+    helperText: PropTypes.bool,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
     disabled: PropTypes.bool,
     initialValue: PropTypes.any,
 };

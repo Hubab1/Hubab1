@@ -32,6 +32,8 @@ ActionButton.propTypes = {
     marginTop: PropTypes.number,
     marginBottom: PropTypes.number,
     variant: PropTypes.string,
+    href: PropTypes.string,
+    children: PropTypes.any,
 };
 
 ActionButton.defaultProps = {
