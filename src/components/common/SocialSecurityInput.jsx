@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-
+import PropTypes from 'prop-types';
 
 // SSN mask adapted from this: https://codepen.io/anon/pen/zVeJpz
 function replaceAt (str, index, character) {
@@ -111,3 +111,14 @@ export default function SocialSecurityInput (props) {
     );
 
 }
+
+SocialSecurityInput.propTypes = {
+    name: PropTypes.string,
+    setFieldValue: PropTypes.func,
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    value: PropTypes.string,
+    error: PropTypes.string,
+    submitted: PropTypes.bool,
+    helperText: PropTypes.string,
+};
