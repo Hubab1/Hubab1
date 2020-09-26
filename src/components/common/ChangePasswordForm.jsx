@@ -82,6 +82,7 @@ export function ChangePasswordForm(props) {
 
 ChangePasswordForm.propTypes = {
     onSubmit: PropTypes.func,
+    errors: PropTypes.array,
 };
 
 export default ChangePasswordForm;
