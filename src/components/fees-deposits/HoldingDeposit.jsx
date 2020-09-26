@@ -1,7 +1,7 @@
 import React from 'react';
 import Info from '@material-ui/icons/Info';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 import PaidText from './PaidText';
 import SimplePopover from 'components/common/SimplePopover';
@@ -29,6 +29,11 @@ export const HoldingDeposit = ({
             {holdingDepositPaid ? <PaidText /> : <P>{holdingDepositAmount}</P>}
         </div>
     </CardRowBorderlessPadded>;
+};
+
+HoldingDeposit.propTypes = {
+    holdingDepositPaid: PropTypes.bool,
+    holdingDepositAmount: PropTypes.string,
 };
 
 export default HoldingDeposit;
