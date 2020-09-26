@@ -393,6 +393,7 @@ UploadDocuments.propTypes = {
     loadDocument: PropTypes.func.isRequired,
     uploadedDocuments: PropTypes.object.isRequired,
     setError: PropTypes.func.isRequired,
+    removeAll: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
