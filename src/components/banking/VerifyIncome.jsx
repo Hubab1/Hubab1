@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-
+import PropTypes from 'prop-types';
 import { styles } from 'assets/styles';
 import GreenCheckIcon from 'components/common/GreenCheckIcon';
 import safeImage from 'assets/images/connect-bank/safe.png';
@@ -67,5 +67,10 @@ const VerifyIncome = props => {
     );
 };
 
+VerifyIncome.propTypes = {
+    errors: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    loadingFinicityIframe: PropTypes.bool,
+    openFinicityIframe: PropTypes.func,
+};
 
 export default VerifyIncome;

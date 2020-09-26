@@ -21,6 +21,8 @@ const linkContainer = css`
     margin-top: 10px;
 `;
 
+// TODO: Avoid anon func
+/* eslint-disable react/prop-types */
 export default ({
     initialValues,
     onSubmit,
