@@ -82,6 +82,9 @@ LoginPage.propTypes = {
     initialPage: PropTypes.string,
     communityId: PropTypes.string,
     community: PropTypes.object,
+    location: PropTypes.object,
+    history: PropTypes.object,
+    fetchApplicant: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
