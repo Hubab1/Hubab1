@@ -6,7 +6,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
+import PropTypes from 'prop-types';
 import { LinkButton, Spacer } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
@@ -243,4 +243,15 @@ export const InviteForm = (
             }
         </>
     );
+};
+
+InviteForm.propTypes = {
+    handleOnSubmit: PropTypes.func,
+    onSubmitDependent: PropTypes.func,
+    displayedErrors: PropTypes.array,
+    initialValues: PropTypes.object,
+    initialIsDependent: PropTypes.bool,
+    disableTypeChange: PropTypes.bool,
+    buttonText: PropTypes.string,
+    isGuarantor: PropTypes.bool,
 };
