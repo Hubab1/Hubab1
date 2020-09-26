@@ -63,8 +63,8 @@ export function VerticalLinearStepper(props) {
 
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
-    const unitUnavailable = (props.renterProfile?.unit_available === false);
-    function onClickRoute (e, route, i) {
+    const unitUnavailable = props.renterProfile?.unit_available === false;
+    function onClickRoute(e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep || MOCKY) {
             props.history.push(route.value);
@@ -74,14 +74,19 @@ export function VerticalLinearStepper(props) {
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {unitUnavailable && !props.guarantorRequested &&
+                {unitUnavailable && !props.guarantorRequested && (
                     <Step active>
-                        <StepLabel StepIconComponent={()=><ErrorIcon color="primary"/>} active classes={{root: iconRoot}}>
+                        <StepLabel
+                            StepIconComponent={() => <ErrorIcon color="primary" />}
+                            active
+                            classes={{ root: iconRoot }}
+                        >
                             <span className="unitUnavailableMsg">
                                 {`We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at `}
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a> so we can discuss some other options.
+                                </a>{' '}
+                                so we can discuss some other options.
                             </span>
                         </StepLabel>
                         <Button
@@ -89,37 +94,48 @@ export function VerticalLinearStepper(props) {
                             color="default"
                             id="viewProgressButton"
                             classes={{
-                                root: viewProgress
+                                root: viewProgress,
                             }}
                             disabled={false}
                             onClick={() => props.history.push(props.initialPage)}
-                        >View Progress</Button>
+                        >
+                            View Progress
+                        </Button>
                     </Step>
-                }
-                {props.applicantStillFinishingApplication && !unitUnavailable && !props.guarantorRequested && props.navRoutes.map((route, i) => (
-                    <Step classes={{
-                        root: clsx({
-                            [active]: activeStep === i,
-                            [accessible]: i <= firstUncompletedStep,
-                        })}}
-                        key={route.name}
-                        onClick={(e) => onClickRoute(e, route, i)}
-                        active={i === activeStep || i === firstUncompletedStep}
-                    >
-                        <StepLabel icon={' '} completed={i < firstUncompletedStep}>{route.name}</StepLabel>
-                    </Step>
-                ))}
-                {props.guarantorRequested &&
+                )}
+                {props.applicantStillFinishingApplication &&
+                    !unitUnavailable &&
+                    !props.guarantorRequested &&
+                    props.navRoutes.map((route, i) => (
+                        <Step
+                            classes={{
+                                root: clsx({
+                                    [active]: activeStep === i,
+                                    [accessible]: i <= firstUncompletedStep,
+                                }),
+                            }}
+                            key={route.name}
+                            onClick={(e) => onClickRoute(e, route, i)}
+                            active={i === activeStep || i === firstUncompletedStep}
+                        >
+                            <StepLabel icon={' '} completed={i < firstUncompletedStep}>
+                                {route.name}
+                            </StepLabel>
+                        </Step>
+                    ))}
+                {props.guarantorRequested && (
                     <Step active>
                         <StepLabel
-                            StepIconComponent={()=><ErrorIcon color="primary"/>}
+                            StepIconComponent={() => <ErrorIcon color="primary" />}
                             active
-                            classes={{root: iconRoot}}
+                            classes={{ root: iconRoot }}
                         >
-                            <span className="appCompletedMsg">We’re waiting for you to add a guarantor. Please call us at&nbsp;
+                            <span className="appCompletedMsg">
+                                We’re waiting for you to add a guarantor. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a> if you have any questions or if you are unable or unwilling to add a guarantor.
+                                </a>{' '}
+                                if you have any questions or if you are unable or unwilling to add a guarantor.
                             </span>
                         </StepLabel>
                         <Button
@@ -127,20 +143,24 @@ export function VerticalLinearStepper(props) {
                             color="primary"
                             id="viewProgressButton"
                             classes={{
-                                root: viewProgress
+                                root: viewProgress,
                             }}
                             disabled={false}
                             onClick={() => props.history.push(props.initialPage)}
-                        >View Progress</Button>
+                        >
+                            View Progress
+                        </Button>
                     </Step>
-                }
-                {!props.applicantStillFinishingApplication && !props.guarantorRequested &&
+                )}
+                {!props.applicantStillFinishingApplication && !props.guarantorRequested && (
                     <Step active>
-                        <StepLabel completed classes={{root: iconRoot}}>
-                            <span className="appCompletedMsg">Your application has been completed and submitted. Please call us at&nbsp;
+                        <StepLabel completed classes={{ root: iconRoot }}>
+                            <span className="appCompletedMsg">
+                                Your application has been completed and submitted. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a> if you have any questions.
+                                </a>{' '}
+                                if you have any questions.
                             </span>
                         </StepLabel>
                         <Button
@@ -148,13 +168,15 @@ export function VerticalLinearStepper(props) {
                             color="primary"
                             id="viewProgressButton"
                             classes={{
-                                root: viewProgress
+                                root: viewProgress,
                             }}
                             disabled={false}
                             onClick={() => props.history.push(props.initialPage)}
-                        >View Progress</Button>
+                        >
+                            View Progress
+                        </Button>
                     </Step>
-                }
+                )}
             </Stepper>
         </div>
     );
@@ -168,14 +190,14 @@ VerticalLinearStepper.propTypes = {
     history: PropTypes.object,
     config: PropTypes.object,
     applicantStillFinishingApplication: PropTypes.bool,
-    guarantorRequested: PropTypes.bool,
+    //guarantorRequested: PropTypes.bool,
 };
 
 const mapDispatchToProps = {
-    logout: actions.logout
+    logout: actions.logout,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     navRoutes: selectors.selectNav(state),
     currentRoute: state.siteConfig.currentRoute,
     initialPage: selectors.selectInitialPage(state),
