@@ -1,15 +1,14 @@
 import React from 'react';
 import { css } from 'emotion';
-
+import PropTypes from 'prop-types';
 import { Banner } from './styles';
 import { Logo } from 'assets/styles';
 import { AppTheme } from 'contexts/AppContextProvider';
 
-
 export const container = css`
-  text-align: center;
-  margin: auto;
-  padding-bottom: 25px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 25px;
 `;
 
 export const subContainer = css`
@@ -18,25 +17,27 @@ export const subContainer = css`
     margin: auto;
 `;
 
-
 export class UnauthenticatedPage extends React.Component {
     static contextType = AppTheme;
-    render () {
+    render() {
         return (
             <div className={container}>
-                <Banner style={{
-                    backgroundColor: this.context.bannerBackground,
-                    color: this.context.bannerColor
-                }}
+                <Banner
+                    style={{
+                        backgroundColor: this.context.bannerBackground,
+                        color: this.context.bannerColor,
+                    }}
                 >
                     <Logo src={this.context.logo} alt="company logo" />
                 </Banner>
-                <div className={subContainer}>
-                    {this.props.children}
-                </div>
+                <div className={subContainer}>{this.props.children}</div>
             </div>
         );
     }
 }
+
+UnauthenticatedPage.propTypes = {
+    children: PropTypes.array,
+};
 
 export default UnauthenticatedPage;

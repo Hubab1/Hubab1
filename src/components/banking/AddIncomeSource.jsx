@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useContext } from 'react';
-
+import PropTypes from 'prop-types';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
@@ -21,13 +21,13 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export function AddIncomeSource (props) {
+export function AddIncomeSource(props) {
     const [errors, setErrors] = useState([]);
     const context = useContext(BankingContext);
-    const onSubmit = async (values, {setErrors, setSubmitting}) => {
+    const onSubmit = async (values, { setErrors, setSubmitting }) => {
         setSubmitting(true);
         setErrors([]);
-      
+
         const formData = new FormData();
         formData.append('income_or_asset_type', values.income_or_asset_type);
         formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
@@ -35,7 +35,7 @@ export function AddIncomeSource (props) {
         formData.append('other', values.other);
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach(v => {
+                values.uploadedDocuments[key].files.forEach((v) => {
                     formData.append(`${key}[]`, v.file);
                 });
             }
@@ -66,23 +66,23 @@ export function AddIncomeSource (props) {
         <>
             <SkinnyH1>Add an Income Source</SkinnyH1>
             <SpacedH3>Fill in the details below to add your income source.</SpacedH3>
-            {errors.length > 0 && (
-                <GenericFormMessage
-                    type="error"
-                    messages={errors}
-                />
-            )}
+            {errors.length > 0 && <GenericFormMessage type="error" messages={errors} />}
             <img alt="coin" src={finance} />
-            <Spacer height={30}/>
+            <Spacer height={30} />
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
                 financialType={FINANCIAL_STREAM_INCOME}
                 onSubmit={onSubmit}
                 setError={(err) => setErrors(err)}
             />
-            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`}/>
+            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`} />
         </>
     );
 }
+
+AddIncomeSource.propTypes = {
+    history: PropTypes.object,
+    initialValues: PropTypes.object,
+};
 
 export default AddIncomeSource;

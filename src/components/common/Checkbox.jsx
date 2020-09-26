@@ -19,7 +19,9 @@ const gridContainer = css`
     align-items: flex-start;
 `;
 
-export default function ({name, value, checked, onChange, error, label}) {
+// TODO: Avoid anon functions
+//eslint-disable-next-line react/prop-types
+export default function ({ name, value, checked, onChange, error, label }) {
     return (
         <div className={gridContainer}>
             <Checkbox

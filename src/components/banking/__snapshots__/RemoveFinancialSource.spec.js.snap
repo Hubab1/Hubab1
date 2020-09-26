@@ -8,7 +8,8 @@ exports[`snapshot when isAsset=false 1`] = `
     ?
   </ForwardRef(render)>
   <ForwardRef(render)>
-     - 
+     -
+     
     
     /year
   </ForwardRef(render)>
@@ -61,7 +62,8 @@ exports[`snapshot when isAsset=true 1`] = `
     ?
   </ForwardRef(render)>
   <ForwardRef(render)>
-     - 
+     -
+     
     
     
   </ForwardRef(render)>

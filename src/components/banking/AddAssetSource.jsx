@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import styled from '@emotion/styled';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
@@ -8,6 +8,8 @@ import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
+import PropTypes from 'prop-types';
+
 const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
 
 const SkinnyH1 = styled(H1)`
@@ -23,10 +25,10 @@ export const Img = styled.img`
     height: 83px;
 `;
 
-export function AddAssetSource (props) {
+export function AddAssetSource(props) {
     const context = useContext(BankingContext);
     const [errors, setErrors] = useState([]);
-    const onSubmit = async (values, {setErrors, setSubmitting}) => {
+    const onSubmit = async (values, { setErrors, setSubmitting }) => {
         setSubmitting(true);
         setErrors([]);
 
@@ -37,7 +39,7 @@ export function AddAssetSource (props) {
         formData.append('other', values.other);
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach(v => {
+                values.uploadedDocuments[key].files.forEach((v) => {
                     formData.append(`${key}[]`, v.file);
                 });
             }
@@ -68,23 +70,23 @@ export function AddAssetSource (props) {
         <>
             <SkinnyH1>Add Proof of Assets</SkinnyH1>
             <SpacedH3>Fill in the details below to add your proof of assets.</SpacedH3>
-            {errors.length > 0 && (
-                <GenericFormMessage
-                    type="error"
-                    messages={errors}
-                />
-            )}
+            {errors.length > 0 && <GenericFormMessage type="error" messages={errors} />}
             <Img alt="piggy bank" src={piggyBank} />
-            <Spacer height={30}/>
+            <Spacer height={30} />
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
                 financialType={FINANCIAL_STREAM_ASSET}
                 onSubmit={onSubmit}
                 setError={(err) => setErrors(err)}
             />
-            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`}/>
+            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`} />
         </>
     );
 }
+
+AddAssetSource.propTypes = {
+    history: PropTypes.object,
+    initialValues: PropTypes.object,
+};
 
 export default AddAssetSource;

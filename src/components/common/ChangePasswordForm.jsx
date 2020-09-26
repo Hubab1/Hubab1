@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { css } from 'emotion';
 
-
 import changePassword from 'assets/images/change-password.jpeg';
 import { formContent } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -17,33 +16,23 @@ const imgSpacing = css`
 `;
 
 export function ChangePasswordForm(props) {
-
     return (
         <Formik
             validationSchema={Yup.object({
-                password: Yup.string().min(8, 'Password must be at least 8 characters')
+                password: Yup.string()
+                    .min(8, 'Password must be at least 8 characters')
                     .required('Password is required'),
                 password_confirm: Yup.string()
                     .oneOf([Yup.ref('password')], 'Oops! Passwords do not match.')
-                    .required('Please confirm password')
+                    .required('Please confirm password'),
             })}
-
             onSubmit={props.onSubmit}
         >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                submitCount,
-                handleBlur,
-                handleSubmit,
-                isSubmitting
-            }) => (
+            {({ values, errors, touched, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <img className={imgSpacing} src={changePassword} alt="welcome sign" width="101" height="91" />
                     <div className={formContent}>
-                        { props.errors && <GenericFormMessage type="error" messages={props.errors}/> }
+                        {props.errors && <GenericFormMessage type="error" messages={props.errors} />}
                         <div>
                             <FormTextInput
                                 label="Enter new password"
@@ -82,6 +71,7 @@ export function ChangePasswordForm(props) {
 
 ChangePasswordForm.propTypes = {
     onSubmit: PropTypes.func,
+    errors: PropTypes.array,
 };
 
 export default ChangePasswordForm;

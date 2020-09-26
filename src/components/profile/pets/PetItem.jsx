@@ -6,7 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
+import PropTypes from 'prop-types';
 import { ErrorDetail } from 'assets/styles';
 import { viewPetPolicy } from './styles';
 
@@ -31,16 +31,20 @@ const ErrorMessage = ({ name }) => (
     />
 );
 
-export default class PetItem extends React.Component {
-    cache = {}
+ErrorMessage.propTypes = {
+    name: PropTypes.string,
+};
 
-    renderServiceAnimalField () {
+export default class PetItem extends React.Component {
+    cache = {};
+
+    renderServiceAnimalField() {
         const { petOption, handleChange, index } = this.props;
         return (
             <FormControl component="fieldset">
                 <FormHelperText id="service-animal">Is this a service animal?</FormHelperText>
                 <RadioGroup
-                    classes={{root}}
+                    classes={{ root }}
                     aria-label="service-animal"
                     name={`petOptions[${index}].service_animal`}
                     onChange={handleChange}
@@ -53,7 +57,7 @@ export default class PetItem extends React.Component {
         );
     }
 
-    renderDogFields () {
+    renderDogFields() {
         const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
         return (
             <Fragment>
@@ -72,7 +76,9 @@ export default class PetItem extends React.Component {
                     handleBlur={handleBlur}
                     value={petOption.breed}
                 />
-                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>View pet restrictions</span>
+                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>
+                    View pet restrictions
+                </span>
                 <ErrorMessage name={`petOptions[${index}].breed`} />
                 <FormTextInput
                     label="Weight"
@@ -80,7 +86,7 @@ export default class PetItem extends React.Component {
                     handleChange={handleChange}
                     handleBlur={handleBlur}
                     value={petOption.weight}
-                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
+                    endAdornment={<span style={{ color: '#828796' }}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
                 {this.renderServiceAnimalField()}
@@ -88,7 +94,7 @@ export default class PetItem extends React.Component {
         );
     }
 
-    renderCatFields () {
+    renderCatFields() {
         const { petOption, handleChange, handleBlur, index } = this.props;
         return (
             <Fragment>
@@ -106,7 +112,7 @@ export default class PetItem extends React.Component {
                     handleChange={handleChange}
                     handleBlur={handleBlur}
                     value={petOption.weight}
-                    endAdornment={<span style={{color: '#828796'}}>Lb</span>}
+                    endAdornment={<span style={{ color: '#828796' }}>Lb</span>}
                 />
                 <ErrorMessage name={`petOptions[${index}].weight`} />
                 {this.renderServiceAnimalField()}
@@ -114,7 +120,7 @@ export default class PetItem extends React.Component {
         );
     }
 
-    renderOtherFields () {
+    renderOtherFields() {
         const { petOption, handleChange, handleBlur, index, toggleViewPetRestrictions } = this.props;
         return (
             <Fragment>
@@ -126,7 +132,9 @@ export default class PetItem extends React.Component {
                     value={petOption.description}
                     helperText="Please share a bit about your pet"
                 />
-                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>View pet restrictions</span>
+                <span role="button" onClick={toggleViewPetRestrictions} className={viewPetPolicy}>
+                    View pet restrictions
+                </span>
                 <ErrorMessage name={`petOptions[${index}].description`} />
                 {this.renderServiceAnimalField()}
             </Fragment>
@@ -136,10 +144,15 @@ export default class PetItem extends React.Component {
     onChangePetType = (value) => {
         const { petOption, arrayHelpers, index } = this.props;
         this.cache[petOption.pet_type] = { ...petOption };
-        arrayHelpers.replace(index, { pet_type: value, key: petOption.key, service_animal: 'false', ...this.cache[value] });
-    }
+        arrayHelpers.replace(index, {
+            pet_type: value,
+            key: petOption.key,
+            service_animal: 'false',
+            ...this.cache[value],
+        });
+    };
 
-    render () {
+    render() {
         const { index, arrayHelpers, petOption, petTypeOptions, handleDelete } = this.props;
         const hideCancelButton = Boolean(index === 0 && petOption.key);
 
@@ -160,3 +173,14 @@ export default class PetItem extends React.Component {
         );
     }
 }
+
+PetItem.propTypes = {
+    petOption: PropTypes.object,
+    handleChange: PropTypes.func,
+    index: PropTypes.number,
+    handleBlur: PropTypes.func,
+    toggleViewPetRestrictions: PropTypes.func,
+    arrayHelpers: PropTypes.any,
+    petTypeOptions: PropTypes.array,
+    handleDelete: PropTypes.func,
+};

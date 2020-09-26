@@ -15,7 +15,6 @@ const finicityContainer = css`
     margin: -15px -20px -45px -20px;
 `;
 
-
 export class ConnectBankPage extends React.Component {
     state = {
         showFinicityIframe: false,
@@ -24,127 +23,138 @@ export class ConnectBankPage extends React.Component {
         loadingReport: false,
     };
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         clearInterval(window.fetchReportsInterval);
     }
 
     handleFetchReports = () => {
-        API.fetchFinicityReports().then((res) => {
-            if (res.status === 202) return;
-            return res.json();
-        }).then( res => {
-            if (!res) return;
-            clearInterval(window.fetchReportsInterval);
-            this.context.refreshFinancialSources().then( () => {
-                this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+        API.fetchFinicityReports()
+            .then((res) => {
+                if (res.status === 202) return;
+                return res.json();
+            })
+            .then((res) => {
+                if (!res) return;
+                clearInterval(window.fetchReportsInterval);
+                this.context.refreshFinancialSources().then(() => {
+                    this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                });
             });
-        });
     };
 
     openFinicityIframe = () => {
-        this.setState({loadingFinicityIframe: true});
-        API.createFinicityUrl().then(res => {
+        this.setState({ loadingFinicityIframe: true });
+        API.createFinicityUrl().then((res) => {
             if (!res || !res.link) {
                 return this.setState({
                     showFinicityIframe: false,
-                    errors: ['There was a problem with the request. Please try again.']
+                    errors: ['There was a problem with the request. Please try again.'],
                 });
             }
             this.setState(
                 {
                     showFinicityIframe: true,
-                    errors: null
-                }, () => window.finicityConnect.connectIFrame(res.link, {
-                    selector: '#finicity-container',
-                    overlay: 'rgba(255,255,255, 0)',
-                    success: (data) => {
-                        // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
-                        if (!!data.success) {
-                            this.setState({
-                                showFinicityIframe: null,
-                                errors: null,
-                                loadingReport: true,
-                                loadingFinicityIframe: false
-                            });
-                            API.generateFinicityReports().then(() => {
-                                window.fetchReportsInterval = window.setInterval(
-                                    this.handleFetchReports,
-                                    REPORT_POLL_INTERVAL
-                                );
-                            }).catch(() => {
+                    errors: null,
+                },
+                () =>
+                    window.finicityConnect.connectIFrame(res.link, {
+                        selector: '#finicity-container',
+                        overlay: 'rgba(255,255,255, 0)',
+                        success: (data) => {
+                            // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
+                            if (!!data.success) {
+                                this.setState({
+                                    showFinicityIframe: null,
+                                    errors: null,
+                                    loadingReport: true,
+                                    loadingFinicityIframe: false,
+                                });
+                                API.generateFinicityReports()
+                                    .then(() => {
+                                        window.fetchReportsInterval = window.setInterval(
+                                            this.handleFetchReports,
+                                            REPORT_POLL_INTERVAL
+                                        );
+                                    })
+                                    .catch(() => {
+                                        this.setState({
+                                            showFinicityIframe: false,
+                                            loadingFinicityIframe: false,
+                                            errors: [
+                                                'There was an error generating your income and assets report. Please try again.',
+                                            ],
+                                        });
+                                    });
+                            } else {
                                 this.setState({
                                     showFinicityIframe: false,
+                                    errors: ['There was an error accessing your information. Please try again.'],
                                     loadingFinicityIframe: false,
-                                    errors: [
-                                        'There was an error generating your income and assets report. Please try again.'
-                                    ]
                                 });
-                            });
-                        } else {
+                            }
+                        },
+                        cancel: () => {
+                            this.setState({ showFinicityIframe: false, loadingFinicityIframe: false });
+                        },
+                        error: () => {
                             this.setState({
                                 showFinicityIframe: false,
-                                errors: ['There was an error accessing your information. Please try again.'],
-                                loadingFinicityIframe: false
+                                errors: ['There was an error attempting to get your records. Please try again.'],
+                                loadingFinicityIframe: false,
                             });
-                        }
-                    },
-                    cancel: () => {
-                        this.setState({showFinicityIframe: false, loadingFinicityIframe: false});
-                    },
-                    error: () => {
-                        this.setState({
-                            showFinicityIframe: false,
-                            errors: ['There was an error attempting to get your records. Please try again.'],
-                            loadingFinicityIframe: false
-                        });
-                    },
-                    loaded: () => {
-                        console.info('iframe has loaded');
-                    },
-                    route: function(event) {
-                        if (event.data && event.data.screen === 'Search') {
-                            const body = {
-                                type: TOS_TYPE_PAYMENTS,
-                                context: {
-                                    time: Date.now(),
-                                }
-                            };
-                            API.acceptTerms(body).catch(() => {
-                                this.setState({
-                                    showFinicityIframe: false,
-                                    errors: ['There was an error accepting the terms of use. Please try again.'],
-                                    loadingFinicityIframe: false
+                        },
+                        loaded: () => {
+                            console.info('iframe has loaded');
+                        },
+                        route: function (event) {
+                            if (event.data && event.data.screen === 'Search') {
+                                const body = {
+                                    type: TOS_TYPE_PAYMENTS,
+                                    context: {
+                                        time: Date.now(),
+                                    },
+                                };
+                                API.acceptTerms(body).catch(() => {
+                                    this.setState({
+                                        showFinicityIframe: false,
+                                        errors: ['There was an error accepting the terms of use. Please try again.'],
+                                        loadingFinicityIframe: false,
+                                    });
                                 });
-                            });
-                        }
-                    },
-                })
+                            }
+                        },
+                    })
             );
         });
     };
 
-    render () {
-        if (!this.props.applicant) {return <div/>;}
+    render() {
+        if (!this.props.applicant) {
+            return <div />;
+        }
         if (this.state.showFinicityIframe) {
-            return <div className={finicityContainer} id="finicity-container"/>;
+            return <div className={finicityContainer} id="finicity-container" />;
         }
         if (this.state.loadingReport) {
-            return <BankVerifying/>;
+            return <BankVerifying />;
         }
-        return <VerifyIncome
-            loadingFinicityIframe={!!this.state.loadingFinicityIframe}
-            openFinicityIframe={this.openFinicityIframe}
-            errors={this.state.errors}
-               />;
+        return (
+            <VerifyIncome
+                loadingFinicityIframe={!!this.state.loadingFinicityIframe}
+                openFinicityIframe={this.openFinicityIframe}
+                errors={this.state.errors}
+            />
+        );
     }
 }
 
 ConnectBankPage.propTypes = {
     applicant: PropTypes.object,
     refreshFinancialSources: PropTypes.func,
+    history: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 

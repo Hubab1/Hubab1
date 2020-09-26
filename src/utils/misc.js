@@ -2,10 +2,14 @@ import memoize from 'lodash/memoize';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import auth from 'utils/auth';
-import { MILESTONE_APPLICANT_SUBMITTED, CO_APPLICANT_STATUS_NOT_STARTED,
-    CO_APPLICANT_STATUS_COMPLETED, CO_APPLICANT_STATUS_IN_PROGRESS } from 'app/constants';
+import {
+    MILESTONE_APPLICANT_SUBMITTED,
+    CO_APPLICANT_STATUS_NOT_STARTED,
+    CO_APPLICANT_STATUS_COMPLETED,
+    CO_APPLICANT_STATUS_IN_PROGRESS,
+} from 'app/constants';
 
-export function sessionIsValidForCommunityId (communityId) {
+export function sessionIsValidForCommunityId(communityId) {
     return auth.accessScope() === communityId;
 }
 
@@ -49,7 +53,7 @@ export function prettyFormatPhoneNumber(phoneNumber) {
 }
 
 // You probably wanna use pretty currency instead
-export function formatCurrency(number, decimalPlaces=2) {
+export function formatCurrency(number, decimalPlaces = 2) {
     if (typeof number !== 'number') return '';
     return '$' + number.toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
@@ -59,26 +63,29 @@ export function prettyCurrency(number, decimalPlaces = 2) {
 }
 
 // takes a date object and outputs a date string formatted like "1981-12-27"
-export function serializeDate (date) {
-    if ((date instanceof Date) === false) return undefined;
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+export function serializeDate(date) {
+    if (date instanceof Date === false) return undefined;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 export function parseDateISOString(s) {
-    const ds = s.split(/\D/).map(s => parseInt(s));
+    const ds = s.split(/\D/).map((str) => parseInt(str));
     ds[1] = ds[1] - 1; // adjust month
     return new Date(...ds);
 }
 
-export const offsetDate = memoize((fromDate, offsetMonths) => {
-    const newDate = addMonths(fromDate, offsetMonths);
-    return format(newDate, 'MMMM do, yyyy');
-}, (a, b) => `${a}-${b}`);
+export const offsetDate = memoize(
+    (fromDate, offsetMonths) => {
+        const newDate = addMonths(fromDate, offsetMonths);
+        return format(newDate, 'MMMM do, yyyy');
+    },
+    (a, b) => `${a}-${b}`
+);
 
 export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
     const initialValues = {};
     if (!!rawSelectedRentalOptions) {
-        rawSelectedRentalOptions.forEach(option => {
+        rawSelectedRentalOptions.forEach((option) => {
             initialValues[option.rental_option.id] = option.quantity;
         });
     }

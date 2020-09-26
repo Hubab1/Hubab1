@@ -20,56 +20,49 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class ForgotPasswordPage extends React.Component {
-    state = {errors: null};
+    state = { errors: null };
 
     onSubmit = (values, { setSubmitting }) => {
         const { communityId } = this.props;
-        
-        API.passwordResetRequest(values.phone, communityId).then( (res) => {
-            if (res.errors) {
-                this.setState({errors: ['Applicant does not exist']});
-            } else {
-                this.props.history.push({
-                    pathname: ROUTES.VERIFY_PASSWORD_CODE,
-                    state: {phoneNumber: values.phone}
-                });
-            }
-            setSubmitting(false);
-        }).catch( () => {
-            this.setState({errors: ['Applicant does not exist']});
-            setSubmitting(false);
-        });
-    }
 
-    render () {
+        API.passwordResetRequest(values.phone, communityId)
+            .then((res) => {
+                if (res.errors) {
+                    this.setState({ errors: ['Applicant does not exist'] });
+                } else {
+                    this.props.history.push({
+                        pathname: ROUTES.VERIFY_PASSWORD_CODE,
+                        state: { phoneNumber: values.phone },
+                    });
+                }
+                setSubmitting(false);
+            })
+            .catch(() => {
+                this.setState({ errors: ['Applicant does not exist'] });
+                setSubmitting(false);
+            });
+    };
+
+    render() {
         return (
             <Fragment>
-                <H1>
-                    Forgot Your Password?
-                </H1>
-                <SpacedH3>
-                    Don’t worry! We’ll send you a text message with a code to reset your password.
-                </SpacedH3>
-                <img src={forgotPassword} alt="hand with smartphone in it"/>
+                <H1>Forgot Your Password?</H1>
+                <SpacedH3>Don’t worry! We’ll send you a text message with a code to reset your password.</SpacedH3>
+                <img src={forgotPassword} alt="hand with smartphone in it" />
                 <Formik
                     validationSchema={Yup.object().shape({
                         phone: Yup.string()
                             .required('Phone Number is required')
-                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number')
+                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
                     })}
                     onSubmit={this.onSubmit}
                 >
-                    {({
-                        values,
-                        errors,
-                        handleChange,
-                        submitCount,
-                        handleSubmit,
-                        isSubmitting
-                    }) => (
+                    {({ values, errors, handleChange, submitCount, handleSubmit, isSubmitting }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
-                                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
+                                {!!this.state.errors && (
+                                    <GenericFormMessage type="error" messages={this.state.errors} />
+                                )}
                                 <PhoneNumberInput
                                     label="Phone Number"
                                     name="phone"
@@ -81,7 +74,7 @@ export class ForgotPasswordPage extends React.Component {
                                 <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={20}>
                                     Send Text
                                 </ActionButton>
-                                <BackLink to={ROUTES.LOGIN}/>
+                                <BackLink to={ROUTES.LOGIN} />
                             </div>
                         </form>
                     )}
@@ -93,12 +86,14 @@ export class ForgotPasswordPage extends React.Component {
 
 ForgotPasswordPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
-    profile: PropTypes.object
+    profile: PropTypes.object,
+    communityId: PropTypes.string,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    communityId: state.siteConfig.basename
+    communityId: state.siteConfig.basename,
 });
 
 const mapDispatchToProps = { fetchRenterProfile };
