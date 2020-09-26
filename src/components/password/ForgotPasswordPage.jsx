@@ -93,7 +93,9 @@ export class ForgotPasswordPage extends React.Component {
 
 ForgotPasswordPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
-    profile: PropTypes.object
+    profile: PropTypes.object,
+    communityId: PropTypes.string,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
