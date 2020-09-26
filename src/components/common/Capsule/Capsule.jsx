@@ -56,6 +56,8 @@ Capsule.propTypes = {
     route: PropTypes.string,
     expansionPanel: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     limitReached: PropTypes.bool,
+    name: PropTypes.string,
+    tip: PropTypes.string,
 };
 
 export default Capsule;
