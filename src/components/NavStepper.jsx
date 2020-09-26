@@ -190,7 +190,7 @@ VerticalLinearStepper.propTypes = {
     history: PropTypes.object,
     config: PropTypes.object,
     applicantStillFinishingApplication: PropTypes.bool,
-    //guarantorRequested: PropTypes.bool,
+    guarantorRequested: PropTypes.bool,
 };
 
 const mapDispatchToProps = {
