@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
@@ -9,9 +10,7 @@ import fuzzaldrin from 'fuzzaldrin-plus';
 
 import API from 'app/api';
 
-
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
-
 
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
@@ -201,3 +200,12 @@ export default function AvailableUnitsSelector (props) {
         </div>
     );
 }
+
+AvailableUnitsSelector.propTypes = {
+    update: PropTypes.func,
+    error: PropTypes.bool,
+    helperText: PropTypes.string,
+    errors: PropTypes.array,
+    disabled: PropTypes.bool,
+    initialValue: PropTypes.any,
+};

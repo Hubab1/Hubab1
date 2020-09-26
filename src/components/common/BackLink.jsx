@@ -11,6 +11,14 @@ export const BackLink = props => {
     </Link>;
 };
 
+BackLink.propTypes = {
+    to: PropTypes.string,
+};
+
+BackLink.defaultProps = {
+    to: '/'
+};
+
 // for the back buttons that are not links
 export const BackButton = ({text='Go Back', onClick=()=>{}}) => {
     return (
@@ -25,12 +33,7 @@ export const BackButton = ({text='Go Back', onClick=()=>{}}) => {
     );
 };
 
-BackLink.defaultProps = {
-    to: '/'
-};
-
-BackLink.propTypes = {
-    to: PropTypes.string,
+BackButton.propTypes = {
     text: PropTypes.string,
     onClick: PropTypes.func,
 };
