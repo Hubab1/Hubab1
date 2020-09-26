@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import receiptImage from 'assets/images/receipt.png';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1, SpacedH3 } from 'assets/styles';
@@ -66,6 +66,15 @@ export const FeesDepositsReceipt = ({baseAppFee, handleContinue, everyone, email
             <ActionButton onClick={handleContinue} marginTop={30} marginBottom={20}>Continue</ActionButton>
         </Fragment>
     );
+};
+
+FeesDepositsReceipt.propTypes = {
+    baseAppFee: PropTypes.number,
+    handleContinue: PropTypes.func,
+    everyone: PropTypes.array,
+    email: PropTypes.string,
+    receipt: PropTypes.object,
+    paidByAnother: PropTypes.bool,
 };
 
 export default FeesDepositsReceipt;
