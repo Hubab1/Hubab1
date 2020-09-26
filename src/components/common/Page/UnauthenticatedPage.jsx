@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-
+import PropTypes from 'prop-types';
 import { Banner } from './styles';
 import { Logo } from 'assets/styles';
 import { AppTheme } from 'contexts/AppContextProvider';
@@ -38,5 +38,9 @@ export class UnauthenticatedPage extends React.Component {
         );
     }
 }
+
+UnauthenticatedPage.propTypes = {
+    children: PropTypes.array,
+};
 
 export default UnauthenticatedPage;
