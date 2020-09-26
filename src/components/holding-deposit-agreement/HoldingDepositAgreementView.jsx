@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { H1, SpacedH3, Spacer } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
@@ -42,6 +42,13 @@ export const HoldingDepositAgreementView = ({profile, configuration, handleConti
             <BackLink to={handleClickBack}/>
         </Fragment>
     );
+};
+
+HoldingDepositAgreementView.propTypes = {
+    profile: PropTypes.object,
+    configuration: PropTypes.object,
+    handleContinue: PropTypes.func,
+    handleClickBack: PropTypes.string,
 };
 
 export default HoldingDepositAgreementView;
