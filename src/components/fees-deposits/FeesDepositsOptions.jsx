@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
 import paymentWallet from 'assets/images/payment-wallet.png';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1 } from 'assets/styles';
@@ -85,6 +85,16 @@ export const FeesDepositsOptions = ({baseAppFee, holdingDepositAmount, handleCon
             <BackLink to={handleClickBack}/>
         </Fragment>
     );
+};
+
+FeesDepositsOptions.propTypes = {
+    baseAppFee: PropTypes.number,
+    holdingDepositAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // TODO: Fix this
+    handleContinue: PropTypes.func,
+    handleClickBack: PropTypes.string,
+    everyone: PropTypes.array,
+    applicant: PropTypes.object,
+    payments: PropTypes.array,
 };
 
 export default FeesDepositsOptions;
