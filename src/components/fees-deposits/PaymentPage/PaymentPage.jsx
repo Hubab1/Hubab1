@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { Link } from 'react-router-dom';
 import { Elements } from  'react-stripe-elements';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-
+import PropTypes from 'prop-types';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import creditCardImage from 'assets/images/credit-card.png';
 import { H1, H3, LinkButton, blackLinkRoot, arrowIcon } from 'assets/styles';
@@ -64,6 +64,14 @@ export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, h
             </LinkButton>
         </Fragment>
     );
+};
+
+PaymentPage.propTypes = {
+    applicant: PropTypes.object,
+    totalPayment: PropTypes.number,
+    payments: PropTypes.array,
+    handleSuccess: PropTypes.func,
+    handleClickBack: PropTypes.func,
 };
 
 export default PaymentPage;
