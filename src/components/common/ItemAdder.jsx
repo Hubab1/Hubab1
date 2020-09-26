@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-
+import PropTypes from 'prop-types';
 import Adder from 'components/common/Adder';
 import { css } from 'emotion';
 
@@ -20,3 +20,11 @@ export default function ItemAdder(props) {
         <Adder ceil={props.limit} onChange={props.onChange} value={props.value}/>
     </Box>;
 }
+
+ItemAdder.propTypes = {
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    limit: PropTypes.number,
+    onChange: PropTypes.func,
+    value: PropTypes.number,
+};
