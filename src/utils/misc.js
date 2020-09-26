@@ -65,7 +65,7 @@ export function serializeDate (date) {
 }
 
 export function parseDateISOString(s) {
-    const ds = s.split(/\D/).map(s => parseInt(s));
+    const ds = s.split(/\D/).map(str => parseInt(str));
     ds[1] = ds[1] - 1; // adjust month
     return new Date(...ds);
 }

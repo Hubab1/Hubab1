@@ -8,6 +8,8 @@ import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
+import PropTypes from 'prop-types';
+
 const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
 
 const SkinnyH1 = styled(H1)`
@@ -86,5 +88,10 @@ export function AddAssetSource (props) {
         </>
     );
 }
+
+AddAssetSource.propTypes = {
+    history: PropTypes.object,
+    initialValues: PropTypes.object,
+};
 
 export default AddAssetSource;

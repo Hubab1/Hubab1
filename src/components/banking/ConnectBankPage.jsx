@@ -142,6 +142,7 @@ export class ConnectBankPage extends React.Component {
 ConnectBankPage.propTypes = {
     applicant: PropTypes.object,
     refreshFinancialSources: PropTypes.func,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

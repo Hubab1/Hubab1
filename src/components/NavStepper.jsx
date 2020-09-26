@@ -8,7 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import clsx from 'clsx';
 import ErrorIcon from '@material-ui/icons/Error';
-
+import PropTypes from 'prop-types';
 import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
@@ -159,6 +159,17 @@ export function VerticalLinearStepper(props) {
         </div>
     );
 }
+
+VerticalLinearStepper.propTypes = {
+    navRoutes: PropTypes.array,
+    currentRoute: PropTypes.string,
+    initialPage: PropTypes.string,
+    renterProfile: PropTypes.object,
+    history: PropTypes.object,
+    config: PropTypes.object,
+    applicantStillFinishingApplication: PropTypes.bool,
+    guarantorRequested: PropTypes.bool,
+};
 
 const mapDispatchToProps = {
     logout: actions.logout

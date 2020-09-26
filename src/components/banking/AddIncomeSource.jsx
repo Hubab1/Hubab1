@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
 import { useContext } from 'react';
-
+import PropTypes from 'prop-types';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
@@ -84,5 +84,10 @@ export function AddIncomeSource (props) {
         </>
     );
 }
+
+AddIncomeSource.propTypes = {
+    history: PropTypes.object,
+    initialValues: PropTypes.object,
+};
 
 export default AddIncomeSource;

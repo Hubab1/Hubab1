@@ -10,6 +10,7 @@ import API from 'app/api';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
+import PropTypes from 'prop-types';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -120,6 +121,12 @@ export class EditFinancialSource extends React.Component {
         );
     }
 }
+
+EditFinancialSource.propTypes = {
+    match: PropTypes.object,
+    history: PropTypes.object,
+};
+
 EditFinancialSource.route = ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE;
 EditFinancialSource.contextType = BankingContext;
 

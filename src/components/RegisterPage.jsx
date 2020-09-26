@@ -106,7 +106,10 @@ RegisterPage.propTypes = {
     fetchRenterProfile: PropTypes.func,
     leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
-    configuration: PropTypes.object
+    configuration: PropTypes.object,
+    history: PropTypes.object,
+    initialPage: PropTypes.string,
+    fetchApplicant: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

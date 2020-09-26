@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { H1, P, Bold, Spacer } from 'assets/styles';
 import API from 'app/api';
 import GenericFormMessage from 'components/common/GenericFormMessage';
@@ -60,5 +60,10 @@ export class ResetApplicantFinancials extends React.Component {
         );
     }
 }
+
+ResetApplicantFinancials.propTypes = {
+    onSubmit: PropTypes.func,
+    onCancel: PropTypes.func,
+};
 
 export default ResetApplicantFinancials;

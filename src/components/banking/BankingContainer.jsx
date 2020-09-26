@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import { ROUTES } from 'app/constants';
 import ConnectBankPage from './ConnectBankPage';
 import IncomeVerificationSummaryPage from './IncomeVerificationSummaryPage';
@@ -50,6 +50,11 @@ function BankingContainer (props) {
             </Switch>
         </BankingContext.Provider>
     );
+};
+
+BankingContainer.propTypes = {
+    history: PropTypes.object,
+    _nextRoute: PropTypes.func,
 };
 
 export default withRelativeRoutes(BankingContainer, ROUTES.INCOME_AND_EMPLOYMENT);

@@ -8,6 +8,7 @@ import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { prettyCurrency } from 'utils/misc';
+import PropTypes from 'prop-types';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -96,6 +97,11 @@ export class RemoveFinancialSource extends React.Component {
         );
     }
 }
+
+RemoveFinancialSource.propTypes = {
+    match: PropTypes.object,
+    history: PropTypes.object,
+};
 
 RemoveFinancialSource.contextType = BankingContext;
 

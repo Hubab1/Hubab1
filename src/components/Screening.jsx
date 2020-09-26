@@ -6,7 +6,7 @@ import {css} from 'emotion';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import * as Yup from 'yup';
-
+import PropTypes from 'prop-types';
 import { ROUTES } from 'app/constants';
 import { H1, SpacedH3, P } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -168,6 +168,11 @@ export class Screening extends React.Component {
         );
     }
 }
+
+Screening.propTypes = {
+    _nextRoute: PropTypes.func,
+    applicant: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     applicant: state.applicant,

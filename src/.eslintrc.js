@@ -36,9 +36,9 @@ module.exports = {
         "react/no-find-dom-node": ["error"],
         "react/no-unescaped-entities": ["error"],
         "semi": ["error", "always"],
+        "react/prop-types": [2, {"ignore": ["className"]}],
 
         // TODO: Fix those progressively
         //"no-shadow": ["error"],
-        "react/prop-types": [2, {"ignore": ["className"]}],
     }
 };
