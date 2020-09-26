@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-
-
+import PropTypes from 'prop-types';
 import resendEnvelope from 'assets/images/resendEnvelope.png';
 import { H1, SpacedH3 } from 'assets/styles';
-
 import API from 'app/api';
 import { BackLink } from 'components/common/BackLink';
 import { InviteForm } from 'components/common/InviteForm';
@@ -76,5 +74,11 @@ export class ResendLinkForm extends React.Component {
         );
     }
 }
+
+ResendLinkForm.propTypes = {
+    fetchRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+    location: PropTypes.object,
+};
 
 export default connect(null, {fetchRenterProfile})(ResendLinkForm);
