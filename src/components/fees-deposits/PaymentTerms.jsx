@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-
+import PropTypes from 'prop-types';
 import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
@@ -59,6 +59,11 @@ export const PaymentTerms = ({handleClickBack, goToPayment}) => {
             </Fragment>
         }
     </Fragment>;
+};
+
+PaymentTerms.propTypes = {
+    handleClickBack: PropTypes.func,
+    goToPayment: PropTypes.func,
 };
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);
