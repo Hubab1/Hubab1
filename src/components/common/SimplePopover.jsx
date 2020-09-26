@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -72,6 +73,11 @@ export default function SimplePopover(props) {
         </>
     );
 }
+
+SimplePopover.propTypes = {
+    text: PropTypes.string,
+    children: PropTypes.object,
+};
 
 SimplePopover.defaultProps = {
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
