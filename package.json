@@ -76,8 +76,7 @@
     },
     "lint-staged": {
         "*.{js,jsx}": [
-            "pretty-quick --staged --pattern 'src/**/*.{js,jsx}'",
-            "eslint src/**/*.jsx src/**/*.js --fix"
+            "pretty-quick --staged --pattern 'src/**/*.{js,jsx}'"
         ]
     }
 }
