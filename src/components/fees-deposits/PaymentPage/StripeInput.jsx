@@ -13,7 +13,6 @@ const styles = () => ({
 });
 
 const _StripeInput = props => {
-
     const {
         classes: c,
         inputRef,
@@ -68,6 +67,7 @@ _StripeInput.propTypes = {
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     onChange: PropTypes.func,
+    inputRef: PropTypes.any,
 };
 
 const StripeInput = withStyles(styles, {withTheme: true})(_StripeInput);
