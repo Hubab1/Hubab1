@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 
 // SSN mask adapted from this: https://codepen.io/anon/pen/zVeJpz
-function replaceAt (str, index, character) {
-    return str.substr(0, index) + character + str.substr(index+character.length);
+function replaceAt(str, index, character) {
+    return str.substr(0, index) + character + str.substr(index + character.length);
 }
 
 const transformDisplay = (val) => {
@@ -64,7 +64,7 @@ const transformValue = (inputVal, realVal) => {
     return realVal;
 };
 
-export default function SocialSecurityInput (props) {
+export default function SocialSecurityInput(props) {
     const [showText, setShowText] = useState(false);
     const [displayVal, setDisplayVal] = useState('');
 
@@ -97,19 +97,17 @@ export default function SocialSecurityInput (props) {
             label="Social Security Number"
             helperText={props.helperText}
             value={displayVal}
-            InputProps={{ endAdornment: (
-                <InputAdornment position="end">
-                    <IconButton
-                        aria-label="Toggle social security number visibility"
-                        onClick={toggleVisibility}
-                    >
-                        {showText ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                </InputAdornment>
-            )}}
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton aria-label="Toggle social security number visibility" onClick={toggleVisibility}>
+                            {showText ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }}
         />
     );
-
 }
 
 SocialSecurityInput.propTypes = {

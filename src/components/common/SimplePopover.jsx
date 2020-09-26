@@ -13,15 +13,14 @@ const cancelButton = css`
     right: 5px;
 `;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     typography: {
         padding: theme.spacing(2, 4, 2, 2),
-        maxWidth: '500px !important'
-
+        maxWidth: '500px !important',
     },
     root: {
         display: 'inline',
-    }
+    },
 }));
 
 export default function SimplePopover(props) {
@@ -45,7 +44,7 @@ export default function SimplePopover(props) {
                 aria-describedby={id}
                 aria-haspopup="true"
                 classes={{
-                    root: classes.root
+                    root: classes.root,
                 }}
                 onClick={handleClick}
             >
@@ -67,7 +66,7 @@ export default function SimplePopover(props) {
             >
                 <Typography className={classes.typography}>
                     {props.text}
-                    <Cancel onClick={handleClose} role="button" style={{fontSize: 17}} className={cancelButton} />
+                    <Cancel onClick={handleClose} role="button" style={{ fontSize: 17 }} className={cancelButton} />
                 </Typography>
             </Popover>
         </>
@@ -80,5 +79,5 @@ SimplePopover.propTypes = {
 };
 
 SimplePopover.defaultProps = {
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
 };

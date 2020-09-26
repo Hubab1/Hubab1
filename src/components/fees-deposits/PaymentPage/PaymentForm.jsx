@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from  'react-stripe-elements';
+import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from 'react-stripe-elements';
 import Lock from '@material-ui/icons/Lock';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -17,60 +17,64 @@ import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 
-
 export class PaymentForm extends React.Component {
     state = {
         cardNumber: false,
         cardExpiry: false,
         cardCvc: false,
         submitting: false,
-        errors: null
+        errors: null,
     };
 
     handleChangeUpdate = (changeObj) => {
-        this.setState(prevState => Object.assign(prevState, {[changeObj.elementType]: changeObj.complete}));
+        this.setState((prevState) => Object.assign(prevState, { [changeObj.elementType]: changeObj.complete }));
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
         if (MOCKY) {
-            this.setState({submitting: false});
+            this.setState({ submitting: false });
             return this.props.onSuccess(mockReceipt);
         }
-        this.setState({submitting: true});
+        this.setState({ submitting: true });
         const genericErrorMessage = "Oops, we're having trouble processing your payment. Try again in a bit.";
-        return this.props.stripe.createToken({type: 'card', name: 'client card'}).then( res => {
-            if (res.token) {
-                const data = {
-                    token: res.token.id,
-                    payables: this.props.payments,
-                    total: this.props.totalPayment
-                };
-                API.stripePayment(data).then(res => {
-                    if (res.errors) {
-                        this.setState({errors: [genericErrorMessage], submitting: false});
-                    } else {
-                        this.setState({submitting: false});
-                        this.props.fetchApplicant();
-                        this.props.fetchRenterProfile();
-                        this.props.onSuccess(res);
-                    }
-                }).catch(() => {
-                    this.setState({errors: [genericErrorMessage], submitting: false});
-                });
-            } else {
-                this.setState({errors: [genericErrorMessage], submitting: false});
-            }
-        }).catch( () => {
-            this.setState({errors: [genericErrorMessage], submitting: false});
-        });
+        return this.props.stripe
+            .createToken({ type: 'card', name: 'client card' })
+            .then((res) => {
+                if (res.token) {
+                    const data = {
+                        token: res.token.id,
+                        payables: this.props.payments,
+                        total: this.props.totalPayment,
+                    };
+                    API.stripePayment(data)
+                        .then((res) => {
+                            if (res.errors) {
+                                this.setState({ errors: [genericErrorMessage], submitting: false });
+                            } else {
+                                this.setState({ submitting: false });
+                                this.props.fetchApplicant();
+                                this.props.fetchRenterProfile();
+                                this.props.onSuccess(res);
+                            }
+                        })
+                        .catch(() => {
+                            this.setState({ errors: [genericErrorMessage], submitting: false });
+                        });
+                } else {
+                    this.setState({ errors: [genericErrorMessage], submitting: false });
+                }
+            })
+            .catch(() => {
+                this.setState({ errors: [genericErrorMessage], submitting: false });
+            });
     };
 
     render() {
         const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
-                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors}/>}
+                {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors} />}
                 <Grid container justify="space-between">
                     <Grid item xs={12}>
                         <StripeElementWrapper
@@ -95,16 +99,19 @@ export class PaymentForm extends React.Component {
                     </Grid>
                 </Grid>
                 <P textAlign="left" fontSize={12} margin="37px 0 0 0" color="#000000">
-                    Stripe and its affiliates will be processing this transaction for Nestio.
-                    Please see Nestio&apos;s <Link to={ROUTES.TERMS} target="_blank">terms of service</Link> for more information.
+                    Stripe and its affiliates will be processing this transaction for Nestio. Please see Nestio&apos;s{' '}
+                    <Link to={ROUTES.TERMS} target="_blank">
+                        terms of service
+                    </Link>{' '}
+                    for more information.
                 </P>
                 <ActionButton
                     marginTop={35}
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >
-                    <Lock style={{width: 16, marginRight: 8}}/>
-                    { `Pay ${prettyCurrency(this.props.totalPayment)}` }
+                    <Lock style={{ width: 16, marginRight: 8 }} />
+                    {`Pay ${prettyCurrency(this.props.totalPayment)}`}
                 </ActionButton>
             </form>
         );
@@ -120,4 +127,4 @@ PaymentForm.propTypes = {
     fetchRenterProfile: PropTypes.func,
 };
 
-export default connect(null, {fetchApplicant,  fetchRenterProfile})(injectStripe(PaymentForm));
+export default connect(null, { fetchApplicant, fetchRenterProfile })(injectStripe(PaymentForm));

@@ -2,39 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 
-
 const styles = () => ({
     root: {
         width: '100%',
         padding: '6px 0 7px',
         cursor: 'text',
-        fontFamily: 'proxima-nova'
+        fontFamily: 'proxima-nova',
     },
 });
 
-const _StripeInput = props => {
-    const {
-        classes: c,
-        inputRef,
-        component: Component,
-        onFocus,
-        onBlur,
-        onChange,
-    } = props;
+const _StripeInput = (props) => {
+    const { classes: c, inputRef, component: Component, onFocus, onBlur, onChange } = props;
 
     const [mountNode, setMountNode] = React.useState(null);
 
     React.useImperativeHandle(
         inputRef,
         () => ({
-            focus: () => mountNode.focus()
+            focus: () => mountNode.focus(),
         }),
         [mountNode]
     );
-  
+
     return (
         <Component
-            onReady={ setMountNode }
+            onReady={setMountNode}
             className={c.root}
             onFocus={onFocus}
             onBlur={onBlur}
@@ -47,8 +39,8 @@ const _StripeInput = props => {
                     color: 'black',
                 },
                 invalid: {
-                    color: '#eb1c26'
-                }
+                    color: '#eb1c26',
+                },
             }}
         />
     );
@@ -70,6 +62,6 @@ _StripeInput.propTypes = {
     inputRef: PropTypes.any,
 };
 
-const StripeInput = withStyles(styles, {withTheme: true})(_StripeInput);
+const StripeInput = withStyles(styles, { withTheme: true })(_StripeInput);
 
 export default StripeInput;

@@ -13,7 +13,6 @@ import PaidText from './PaidText';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 import { prettyCurrency } from 'utils/misc';
 
-
 const SelfSelectedAmountContainer = styled.div`
     margin: auto 0;
 `;
@@ -29,53 +28,58 @@ const root = css`
 
 const ApplicationFeesContainer = styled.div`
     padding: 15px 0;
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
 `;
 
-export const ApplicationFees = ({applicationFeesSelected='everyone', handleChange, everyone, baseAppFee, activeApplicantFeePaid=false, numUnpaidApplicants=0 }) => {
-
+export const ApplicationFees = ({
+    applicationFeesSelected = 'everyone',
+    handleChange,
+    everyone,
+    baseAppFee,
+    activeApplicantFeePaid = false,
+    numUnpaidApplicants = 0,
+}) => {
     const applicationFeeCopy = `Application fee is $${baseAppFee} per person to run a credit check and background screening.`;
     return (
         <ApplicationFeesContainer>
             <CardRowBorderless>
                 <P>
-                    Application Fee
-                    {' '}
+                    Application Fee{' '}
                     <SimplePopover text={applicationFeeCopy}>
-                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
+                        <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
                     </SimplePopover>
                 </P>
-                {
-                    activeApplicantFeePaid ?
-                        <PaidText/> :
-                        everyone.length > 1 ? <P/> : <P>{prettyCurrency(baseAppFee)}</P>
-                }
+                {activeApplicantFeePaid ? (
+                    <PaidText />
+                ) : everyone.length > 1 ? (
+                    <P />
+                ) : (
+                    <P>{prettyCurrency(baseAppFee)}</P>
+                )}
             </CardRowBorderless>
-            {
-                !activeApplicantFeePaid && everyone.length > 1 && !!numUnpaidApplicants &&
-                    <CardRowBorderless style={{border:'none', paddingBottom:0}}>
-                        <FormControl component="fieldset" classes={{root}}>
-                            <RadioGroup
-                                aria-label="payment-options"
-                                name="payment-options"
-                                value={applicationFeesSelected}
-                                onChange={(event) => handleChange(event.target.value)}
-                            >
-                                <CardRowBorderless>
-                                    <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
-                                    <SelfSelectedAmountContainer>
-                                        { applicationFeesSelected === 'self' ? <P>{prettyCurrency(baseAppFee)}</P> : <P/> }
-                                    </SelfSelectedAmountContainer>
-                                </CardRowBorderless>
-                                <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
-                            </RadioGroup>
-                        </FormControl>
-                    </CardRowBorderless>
-            }
-            {
-                !activeApplicantFeePaid && applicationFeesSelected === 'everyone' &&
-                    everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee}/>)
-            }
+            {!activeApplicantFeePaid && everyone.length > 1 && !!numUnpaidApplicants && (
+                <CardRowBorderless style={{ border: 'none', paddingBottom: 0 }}>
+                    <FormControl component="fieldset" classes={{ root }}>
+                        <RadioGroup
+                            aria-label="payment-options"
+                            name="payment-options"
+                            value={applicationFeesSelected}
+                            onChange={(event) => handleChange(event.target.value)}
+                        >
+                            <CardRowBorderless>
+                                <FormControlLabel value="self" control={<Radio />} label="Just Myself" />
+                                <SelfSelectedAmountContainer>
+                                    {applicationFeesSelected === 'self' ? <P>{prettyCurrency(baseAppFee)}</P> : <P />}
+                                </SelfSelectedAmountContainer>
+                            </CardRowBorderless>
+                            <FormControlLabel value="everyone" control={<Radio />} label="Everyone" />
+                        </RadioGroup>
+                    </FormControl>
+                </CardRowBorderless>
+            )}
+            {!activeApplicantFeePaid &&
+                applicationFeesSelected === 'everyone' &&
+                everyone.map((person, index) => <EveryoneRow key={index} person={person} baseAppFee={baseAppFee} />)}
         </ApplicationFeesContainer>
     );
 };
@@ -89,14 +93,14 @@ ApplicationFees.propTypes = {
     numUnpaidApplicants: PropTypes.number,
 };
 
-export const EveryoneRow = ({person, baseAppFee}) => {
-    const name = person.client ?
-        person.client.person.name :
-        `${person.first_name} ${person.last_name}`;
-    return <IndentedRow>
-        <P color="#454B57">{name}</P>
-        <div>{ person.applicationFeePaid ? <PaidText/> : <P>{prettyCurrency(baseAppFee)}</P> } </div>
-    </IndentedRow>;
+export const EveryoneRow = ({ person, baseAppFee }) => {
+    const name = person.client ? person.client.person.name : `${person.first_name} ${person.last_name}`;
+    return (
+        <IndentedRow>
+            <P color="#454B57">{name}</P>
+            <div>{person.applicationFeePaid ? <PaidText /> : <P>{prettyCurrency(baseAppFee)}</P>} </div>
+        </IndentedRow>
+    );
 };
 
 EveryoneRow.propTypes = {

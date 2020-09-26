@@ -9,16 +9,18 @@ const title = css`
 `;
 const subtitle = css`
     font-size: 16px;
-    color: #444B58;
+    color: #444b58;
 `;
 export default function ItemAdder(props) {
-    return <Box display="flex" flexGrow={1} justifyContent="space-between" alignItems="center" padding="10px">
-        <div>
-            <div className={title}>{props.title}</div>
-            {!!props.subtitle && <div className={subtitle}>{props.subtitle}</div>}
-        </div>
-        <Adder ceil={props.limit} onChange={props.onChange} value={props.value}/>
-    </Box>;
+    return (
+        <Box display="flex" flexGrow={1} justifyContent="space-between" alignItems="center" padding="10px">
+            <div>
+                <div className={title}>{props.title}</div>
+                {!!props.subtitle && <div className={subtitle}>{props.subtitle}</div>}
+            </div>
+            <Adder ceil={props.limit} onChange={props.onChange} value={props.value} />
+        </Box>
+    );
 }
 
 ItemAdder.propTypes = {

@@ -9,37 +9,41 @@ import SimplePopover from 'components/common/SimplePopover';
 
 import { anchor, buttonRoot, contentContainer, label, prefix, paperRoot, container } from './styles';
 
-
-function Capsule (props) {
+function Capsule(props) {
     return (
         <div className={container}>
-            <div id={props.name} className={anchor}/>
+            <div id={props.name} className={anchor} />
             <div className={paperRoot}>
                 <div className={contentContainer}>
                     <div className={prefix}>{props.prefix}</div>
-                    <div className={label}>{props.label}&nbsp;
-                        {props.tip && <SimplePopover text={props.tip}>
-                            <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
-                        </SimplePopover>}
+                    <div className={label}>
+                        {props.label}&nbsp;
+                        {props.tip && (
+                            <SimplePopover text={props.tip}>
+                                <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                            </SimplePopover>
+                        )}
                     </div>
                 </div>
                 {props.expansionPanel}
-                { props.limitReached ?
+                {props.limitReached ? (
                     <P size={14} color="#828796">
                         {`You’ve reached the maximum number of ${props.name}s our community allows`}
-                    </P> :
+                    </P>
+                ) : (
                     <Link to={props.route}>
                         <Button
                             variant="outlined"
                             color="primary"
                             fullWidth
                             classes={{
-                                root: buttonRoot
-
+                                root: buttonRoot,
                             }}
-                        >{props.buttonLabel}</Button>
+                        >
+                            {props.buttonLabel}
+                        </Button>
                     </Link>
-                }
+                )}
             </div>
         </div>
     );

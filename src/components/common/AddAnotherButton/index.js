@@ -9,15 +9,13 @@ const AddAnotherButton = (props) => (
         style={{
             color: '#2B44FF',
             display: 'inline-block',
-            cursor: 'pointer'
+            cursor: 'pointer',
         }}
         onClick={props.onClick}
     >
-        <span style={{fontSize: props.fontSize}}>
-            <AddCircle
-                style={{verticalAlign: 'middle', fontSize: props.fontSize + 5}}
-            />
-            <span style={{verticalAlign: 'middle'}}>
+        <span style={{ fontSize: props.fontSize }}>
+            <AddCircle style={{ verticalAlign: 'middle', fontSize: props.fontSize + 5 }} />
+            <span style={{ verticalAlign: 'middle' }}>
                 {props.children ? props.children : `Add Another ${props.thing}`}
             </span>
         </span>
@@ -32,7 +30,7 @@ AddAnotherButton.propTypes = {
 };
 
 AddAnotherButton.defaultProps = {
-    fontSize: 13
+    fontSize: 13,
 };
 
 export default AddAnotherButton;

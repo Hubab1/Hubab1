@@ -24,17 +24,17 @@ const ImageContainer = styled.div`
     }
 `;
 
-export const Storage = props => {
+export const Storage = (props) => {
     const [errorSubmitting, setErrorSubmitting] = useState(false);
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
         setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
-        Object.entries(values).forEach(option => {
-            selectedRentalOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]});
+        Object.entries(values).forEach((option) => {
+            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1] });
         });
-        const selectedRentalOptions = Object.assign({}, {selected_rental_options: selectedRentalOptionsArray});
+        const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
         return props.updateRenterProfile(selectedRentalOptions).then((res) => {
             if (res.errors) {
                 setErrors(res.errors);
@@ -49,53 +49,51 @@ export const Storage = props => {
     const initialStorageOptions = props.application.selected_rental_options.storage;
 
     const storageOptions = props.config.rental_options.storage || [];
-    return <>
-        <H1>Storage</H1>
-        <SpacedH3>We help you make room for what matters most.</SpacedH3>
-        <ImageContainer>
-            <img src={storageImage} alt="storage"/>
-        </ImageContainer>
-        <Formik
-            onSubmit={onSubmit}
-            initialValues={rentalOptionsInitialValues(initialStorageOptions)}
-        >
-            {({
-                values,
-                handleSubmit,
-                setFieldValue,
-            }) => (
-                <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    {errorSubmitting &&
-                        <GenericFormMessage
-                            type="error" messages={['We couldn’t save your storage options. Please try again.']}
-                        />
-                    }
-                    { storageOptions.map(option =>
-                        <ItemAdder
-                            key={option.id}
-                            title={option.name}
-                            subtitle={`$${option.monthly_amount}/mo per storage space${option.included ? ` (${option.included} incl.)` : ''}`}
-                            value={values[option.id]}
-                            limit={option.limit}
-                            onChange={e => setFieldValue(option.id, e)}
-                        />)
-                    }
-                    {Object.values(values).reduce((a, b) => (a + b), 0) > 0 && (
-                        <PriceBreakdown
-                            selectedOptions={values}
-                            application={props.application}
-                            category={'Storage'}
-                            categoryHelperText={'storage spaces'}
-                        />
-                    )}
-                    <ActionButton>Add Storage</ActionButton>
-                </form>
-            )}
-        </Formik>
-        <Box padding="20px">
-            <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`}/>
-        </Box>
-    </>;
+    return (
+        <>
+            <H1>Storage</H1>
+            <SpacedH3>We help you make room for what matters most.</SpacedH3>
+            <ImageContainer>
+                <img src={storageImage} alt="storage" />
+            </ImageContainer>
+            <Formik onSubmit={onSubmit} initialValues={rentalOptionsInitialValues(initialStorageOptions)}>
+                {({ values, handleSubmit, setFieldValue }) => (
+                    <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                        {errorSubmitting && (
+                            <GenericFormMessage
+                                type="error"
+                                messages={['We couldn’t save your storage options. Please try again.']}
+                            />
+                        )}
+                        {storageOptions.map((option) => (
+                            <ItemAdder
+                                key={option.id}
+                                title={option.name}
+                                subtitle={`$${option.monthly_amount}/mo per storage space${
+                                    option.included ? ` (${option.included} incl.)` : ''
+                                }`}
+                                value={values[option.id]}
+                                limit={option.limit}
+                                onChange={(e) => setFieldValue(option.id, e)}
+                            />
+                        ))}
+                        {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
+                            <PriceBreakdown
+                                selectedOptions={values}
+                                application={props.application}
+                                category={'Storage'}
+                                categoryHelperText={'storage spaces'}
+                            />
+                        )}
+                        <ActionButton>Add Storage</ActionButton>
+                    </form>
+                )}
+            </Formik>
+            <Box padding="20px">
+                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`} />
+            </Box>
+        </>
+    );
 };
 
 Storage.propTypes = {
@@ -105,7 +103,7 @@ Storage.propTypes = {
     history: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     config: state.configuration,
     application: state.renterProfile,
 });

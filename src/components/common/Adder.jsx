@@ -6,12 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveCircleOutlineSharpIcon from '@material-ui/icons/RemoveCircleOutlineSharp';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 
-
 const valueDisplay = css`
     width: 30px;
     text-align: center;
     font-size: 30px;
-    color: #1C2B6D;
+    color: #1c2b6d;
     user-select: none;
 `;
 
@@ -28,15 +27,17 @@ export default function Adder(props) {
             props.onChange(props.value + 1);
         }
     };
-    return <Box display="flex" alignItems="center">
-        <IconButton disabled={onFloor} onClick={decrement}>
-            <RemoveCircleOutlineSharpIcon fontSize="large" />
-        </IconButton>
-        <div className={valueDisplay}>{props.value}</div>
-        <IconButton disabled={onCeil} onClick={increment}>
-            <AddCircleOutlineSharpIcon fontSize="large"/>
-        </IconButton>
-    </Box>;
+    return (
+        <Box display="flex" alignItems="center">
+            <IconButton disabled={onFloor} onClick={decrement}>
+                <RemoveCircleOutlineSharpIcon fontSize="large" />
+            </IconButton>
+            <div className={valueDisplay}>{props.value}</div>
+            <IconButton disabled={onCeil} onClick={increment}>
+                <AddCircleOutlineSharpIcon fontSize="large" />
+            </IconButton>
+        </Box>
+    );
 }
 
 Adder.propTypes = {

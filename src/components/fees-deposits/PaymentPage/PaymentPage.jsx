@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { Elements } from  'react-stripe-elements';
+import { Elements } from 'react-stripe-elements';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import PropTypes from 'prop-types';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
@@ -35,32 +35,38 @@ const linkStyle = css`
     font-weight: 300;
 `;
 
-export const PaymentPage = ({applicant, totalPayment, payments, handleSuccess, handleClickBack}) =>  {
+export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack }) => {
     return (
         <Fragment>
             <H1>Almost There, {applicant.client.person.first_name}!</H1>
-            <SpacedH3>The application fee and holding deposit for this apartment is {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for screening.</SpacedH3>
+            <SpacedH3>
+                The application fee and holding deposit for this apartment is{' '}
+                {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for
+                screening.
+            </SpacedH3>
             <img src={creditCardImage} alt="credit card"></img>
             <div className={bodyRow}>
-                <img src={padlockImage} alt="padlock" width="18" height="28"/>
+                <img src={padlockImage} alt="padlock" width="18" height="28" />
                 <div className={bodyText}>
-                    This app will never make any transaction on your behalf. We guard your data and you can read more about our <Link className={linkStyle} target="_blank" to={ROUTES.PRIVACY_POLICY}>privacy policy here.</Link>
+                    This app will never make any transaction on your behalf. We guard your data and you can read more
+                    about our{' '}
+                    <Link className={linkStyle} target="_blank" to={ROUTES.PRIVACY_POLICY}>
+                        privacy policy here.
+                    </Link>
                 </div>
             </div>
             <Elements
                 /* elements requires direct import of fonts */
-                fonts={[{
-                    cssSrc: 'https://use.typekit.net/asb6wyn.css'
-                }]}
+                fonts={[
+                    {
+                        cssSrc: 'https://use.typekit.net/asb6wyn.css',
+                    },
+                ]}
             >
-                <PaymentForm
-                    onSuccess={handleSuccess}
-                    totalPayment={totalPayment}
-                    payments={payments}
-                />
+                <PaymentForm onSuccess={handleSuccess} totalPayment={totalPayment} payments={payments} />
             </Elements>
             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
-                <ArrowBackIos classes={{root: arrowIcon}}/> Go Back
+                <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
             </LinkButton>
         </Fragment>
     );
@@ -75,5 +81,3 @@ PaymentPage.propTypes = {
 };
 
 export default PaymentPage;
-
-

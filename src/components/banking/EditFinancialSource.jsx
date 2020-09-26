@@ -22,25 +22,25 @@ const SpacedH3 = styled(H3)`
 `;
 
 export class EditFinancialSource extends React.Component {
-    state = { errorSubmitting: false, financialSource: null }
+    state = { errorSubmitting: false, financialSource: null };
 
-    get initialValues () {
+    get initialValues() {
         const financialSource = this.state.financialSource;
         const uploadedDocuments = {};
-    
+
         // eslint-disable-next-line
-        financialSource.uploaded_documents?.forEach( source => {
+        financialSource.uploaded_documents?.forEach((source) => {
             // convert list of docs to format used in UploadDocuments.jsx
-            if (!uploadedDocuments[source.type.id]) uploadedDocuments[source.type.id] = {files: []};
+            if (!uploadedDocuments[source.type.id]) uploadedDocuments[source.type.id] = { files: [] };
             uploadedDocuments[source.type.id].label = source.type.label;
-            uploadedDocuments[source.type.id].files.push({name: source.filename, id: source.id});
+            uploadedDocuments[source.type.id].files.push({ name: source.filename, id: source.id });
         });
-        return Object.assign({}, financialSource, {uploadedDocuments: uploadedDocuments});
+        return Object.assign({}, financialSource, { uploadedDocuments: uploadedDocuments });
     }
-    
-    onSubmit = async (values, {setSubmitting}) => {
+
+    onSubmit = async (values, { setSubmitting }) => {
         setSubmitting(true);
-        this.setState({errorSubmitting: false});
+        this.setState({ errorSubmitting: false });
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
@@ -49,7 +49,7 @@ export class EditFinancialSource extends React.Component {
         }
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach(v => {
+                values.uploadedDocuments[key].files.forEach((v) => {
                     if (v.file) {
                         formData.append(`${key}[]`, v.file);
                     } else {
@@ -68,33 +68,33 @@ export class EditFinancialSource extends React.Component {
         setSubmitting(false);
         this.props.history.push(this.returnLink);
     };
-    async componentDidMount () {
+    async componentDidMount() {
         this.fetchFinancialSource();
     }
-    async fetchFinancialSource () {
+    async fetchFinancialSource() {
         let data;
         try {
             data = await API.getFinancialSource(this.props.match.params.id);
         } catch (e) {
             return;
         }
-        this.setState({financialSource: data});
+        this.setState({ financialSource: data });
     }
-    componentDidUpdate (prevProps) {
+    componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.fetchFinancialSource();
         }
     }
 
-    get isAsset () {
+    get isAsset() {
         return this.state.financialSource?.stream_type === FINANCIAL_STREAM_ASSET;
     }
 
-    get returnLink () {
+    get returnLink() {
         return `${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`;
     }
 
-    render () {
+    render() {
         const financialSource = this.state.financialSource;
         if (!financialSource) return null;
         const isAsset = financialSource.stream_type === FINANCIAL_STREAM_ASSET;
@@ -109,14 +109,14 @@ export class EditFinancialSource extends React.Component {
                     />
                 )}
                 <img alt="coin" src={finance} />
-                <Spacer height={30}/>
+                <Spacer height={30} />
                 <AddFinancialSourceForm
                     isEditing
                     initialValues={this.initialValues}
                     financialType={isAsset ? FINANCIAL_STREAM_ASSET : FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}
                 />
-                <BackLink to={this.returnLink}/>
+                <BackLink to={this.returnLink} />
             </>
         );
     }
