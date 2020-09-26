@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { H1, SpacedH3, Spacer } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
@@ -80,6 +80,12 @@ export const HoldingDepositAgreementConfirmation = ({profile, configuration, han
             </ActionButton>
         </Fragment>
     );
+};
+
+HoldingDepositAgreementConfirmation.propTypes = {
+    profile: PropTypes.object,
+    configuration: PropTypes.object,
+    handleContinue: PropTypes.func,
 };
 
 export default HoldingDepositAgreementConfirmation;
