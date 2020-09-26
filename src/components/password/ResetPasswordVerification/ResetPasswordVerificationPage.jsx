@@ -115,6 +115,7 @@ export class ResetPasswordVerificationPage extends React.Component {
 ResetPasswordVerificationPage.propTypes = {
     profile: PropTypes.object,
     history: PropTypes.object,
+    communityId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
