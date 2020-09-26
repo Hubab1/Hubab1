@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-
+import PropTypes from 'prop-types';
 import { BackLink } from 'components/common/BackLink';
 import { H1, H3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
@@ -66,6 +66,14 @@ export class EditDependent extends React.Component {
         );
     }
 }
+
+EditDependent.propTypes = {
+    profile: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    match: PropTypes.object,
+    history: PropTypes.object,
+};
+
 const mapStateToProps = state => ({
     profile: state.renterProfile,
 });
