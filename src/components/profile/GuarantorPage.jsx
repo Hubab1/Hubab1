@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
-
+import PropTypes from 'prop-types';
 import coin from 'assets/images/coin.png';
 import { H1, SpacedH3 } from 'assets/styles';
 
@@ -82,6 +82,14 @@ export class GuarantorPage extends React.Component {
         );
     }
 }
+
+GuarantorPage.propTypes = {
+    guarantorRequested: PropTypes.bool,
+    initialPage: PropTypes.string,
+    fetchRenterProfile: PropTypes.func,
+    fetchApplicant: PropTypes.func,
+    history: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
     guarantorRequested: selectors.selectGuarantorRequested(state),
