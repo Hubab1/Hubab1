@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,7 @@ const valueDisplay = css`
     color: #1C2B6D;
     user-select: none;
 `;
+
 export default function Adder(props) {
     const onFloor = props.value <= props.floor;
     const onCeil = props.value >= props.ceil;
@@ -36,6 +38,14 @@ export default function Adder(props) {
         </IconButton>
     </Box>;
 }
+
+Adder.propTypes = {
+    value: PropTypes.number,
+    floor: PropTypes.number,
+    ceil: PropTypes.number,
+    size: PropTypes.string,
+    onChange: PropTypes.func,
+};
 
 Adder.defaultProps = {
     value: 0,
