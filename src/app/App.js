@@ -33,7 +33,7 @@ export class App extends Component {
 
 App.propTypes = {
     basenameReceived: PropTypes.func,
-    basename: PropTypes.func,
+    basename: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({ basename: state.siteConfig.basename });

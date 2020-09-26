@@ -56,7 +56,7 @@ export function AppContextProvider(props) {
 }
 
 AppContextProvider.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.any,
     config: PropTypes.object,
     theme: PropTypes.object,
 };

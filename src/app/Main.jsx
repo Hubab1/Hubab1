@@ -40,9 +40,8 @@ import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import GuarantorRequested from 'components/GuarantorRequested';
 
-
 export class Main extends Component {
-    state = {error: null};
+    state = { error: null };
 
     mountNavigation(isAuthenticated, configuration) {
         const { history, location } = this.props;
@@ -53,14 +52,17 @@ export class Main extends Component {
         const hasRegistered = clientRegistered || inviteeRegistered;
 
         if (!isAuthenticated) {
-            if (pathname.includes('login') || pathname.includes('signup') ||
-                pathname.includes('password') || pathname.includes('terms') ||
+            if (
+                pathname.includes('login') ||
+                pathname.includes('signup') ||
+                pathname.includes('password') ||
+                pathname.includes('terms') ||
                 pathname.includes('privacy-policy')
-            ) return;
+            )
+                return;
             if (!configuration.client || !configuration.invitee) {
                 history.replace(ROUTES.WELCOME);
-            }
-            else if (hasRegistered) {
+            } else if (hasRegistered) {
                 history.replace(ROUTES.LOGIN);
             } else {
                 history.replace(ROUTES.WELCOME);
@@ -69,13 +71,12 @@ export class Main extends Component {
             this.props.fetchRenterProfile().then(() => {
                 if (!this.props.canAccessCurrentRoute()) {
                     history.replace(this.props.initialPage);
-
                 }
             });
         }
     }
 
-    async componentDidMount () {
+    async componentDidMount() {
         const communityId = this.props.communityId;
         const hash = this.props.hash;
         const isLoggedIn = auth.isAuthenticated() && sessionIsValidForCommunityId(communityId);
@@ -83,10 +84,10 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            isLoggedIn && await this.props.fetchApplicant();
+            isLoggedIn && (await this.props.fetchApplicant());
         } catch {
             // todo: handle community id not found better.
-            return this.setState({hasError: true});
+            return this.setState({ hasError: true });
         }
         this.mountNavigation(isLoggedIn, configuration);
         this.resetTimer();
@@ -95,36 +96,36 @@ export class Main extends Component {
 
     addIdleEventListeners = () => {
         // assign document events
-        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach((eventType) => {
             document.addEventListener(eventType, this.resetTimer);
         });
 
         // assign window events
-        ['load', 'scroll'].forEach(eventType => {
+        ['load', 'scroll'].forEach((eventType) => {
             window.addEventListener(eventType, this.resetTimer);
         });
-    }
+    };
 
     removeIdleEventListeners = () => {
-        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach(eventType => {
+        ['mousemove', 'touchstart', 'scroll', 'touchend', 'click', 'touchmove', 'keypress'].forEach((eventType) => {
             document.removeEventListener(eventType, this.resetTimer);
         });
 
         // assign window events
-        ['load', 'scroll'].forEach(eventType => {
+        ['load', 'scroll'].forEach((eventType) => {
             window.removeEventListener(eventType, this.resetTimer);
         });
-    }
+    };
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.removeIdleEventListeners();
     }
 
     resetTimer = () => {
         clearTimeout(this.time);
         const SECOND = 1000;
-        this.time = setTimeout(this.logout, SECOND*60*15);
-    }
+        this.time = setTimeout(this.logout, SECOND * 60 * 15);
+    };
 
     logout = () => {
         if (this.props.isLoggedIn) {
@@ -132,14 +133,14 @@ export class Main extends Component {
             localStorage.clear();
             this.props.history.push({
                 pathname: ROUTES.LOGIN,
-                state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}
+                state: { errors: 'Oops, your session has timed-out. Please log back in to continue.' },
             });
         }
-    }
+    };
 
     render() {
         const { theme, isLoggedIn } = this.props;
-        if (this.state.hasError) return <CriticalError/>;
+        if (this.state.hasError) return <CriticalError />;
         if (!theme) return null;
         return (
             <AppContextProvider theme={theme}>
@@ -151,29 +152,34 @@ export class Main extends Component {
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
-                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage}/>}
-                        {isLoggedIn && <NavDrawer>
-                            <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
-                            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-                            <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
-                            <Route path={ROUTES.ADDRESS} component={Address} />
-                            <Route path={ROUTES.BANKING} component={BankingContainer}/>
-                            <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer}/>
-                            <Route path={ROUTES.HOLDING_DEPOSIT_AGREEMENT} component={HoldingDepositAgreementContainer} />
-                            <Route path={ROUTES.SCREENING} component={SCREENING}/>
-                            <Route path={ROUTES.APP_COMPLETE} component={AppComplete}/>
-                            <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm}/>
-                            <Route path={ROUTES.APP_APPROVED} component={AppApproved}/>
-                            <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned}/>
-                            <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted}/>
-                            <Route path={ROUTES.APP_DENIED} component={AppDenied}/>
-                            <Route path={ROUTES.APP_CANCELLED} component={AppCancelled}/>
-                            <Route path={ROUTES.TERMS} component={TermsPage}/>
-                            <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
-                            <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
-                            <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
-                            <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
-                        </NavDrawer>}
+                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
+                        {isLoggedIn && (
+                            <NavDrawer>
+                                <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
+                                <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+                                <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
+                                <Route path={ROUTES.ADDRESS} component={Address} />
+                                <Route path={ROUTES.BANKING} component={BankingContainer} />
+                                <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer} />
+                                <Route
+                                    path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
+                                    component={HoldingDepositAgreementContainer}
+                                />
+                                <Route path={ROUTES.SCREENING} component={SCREENING} />
+                                <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />
+                                <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm} />
+                                <Route path={ROUTES.APP_APPROVED} component={AppApproved} />
+                                <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned} />
+                                <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted} />
+                                <Route path={ROUTES.APP_DENIED} component={AppDenied} />
+                                <Route path={ROUTES.APP_CANCELLED} component={AppCancelled} />
+                                <Route path={ROUTES.TERMS} component={TermsPage} />
+                                <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
+                                <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                                <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
+                                <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
+                            </NavDrawer>
+                        )}
                     </Switch>
                 </div>
             </AppContextProvider>
@@ -198,7 +204,7 @@ Main.propTypes = {
     location: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     isLoggedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
     configuration: state.configuration,
@@ -209,7 +215,6 @@ const mapStateToProps = state => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = {fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout};
-
+const mapDispatchToProps = { fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

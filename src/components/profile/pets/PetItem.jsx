@@ -180,7 +180,7 @@ PetItem.propTypes = {
     index: PropTypes.number,
     handleBlur: PropTypes.func,
     toggleViewPetRestrictions: PropTypes.func,
-    arrayHelpers: PropTypes.array,
+    arrayHelpers: PropTypes.any,
     petTypeOptions: PropTypes.array,
     handleDelete: PropTypes.func,
 };
