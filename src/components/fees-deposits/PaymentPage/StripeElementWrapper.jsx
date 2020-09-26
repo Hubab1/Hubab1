@@ -13,21 +13,22 @@ class StripeElementWrapper extends PureComponent {
     static propTypes = {
         component: PropTypes.func.isRequired,
         label: PropTypes.string.isRequired,
-    }
+        handleChangeUpdate: PropTypes.func,
+    };
   
     state = {
         focused: false,
         empty: true,
         error: false,
-    }
+    };
   
     handleBlur = () => {
         this.setState({ focused: false });
-    }
+    };
   
     handleFocus = () => {
         this.setState({ focused: true });
-    }
+    };
   
     handleChange = changeObj => {
         this.setState({
@@ -35,7 +36,7 @@ class StripeElementWrapper extends PureComponent {
             empty: changeObj.empty,
         });
         this.props.handleChangeUpdate(changeObj);
-    }
+    };
   
     render() {
         const { component, label } = this.props;
