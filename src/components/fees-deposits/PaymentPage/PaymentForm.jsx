@@ -114,7 +114,10 @@ export class PaymentForm extends React.Component {
 PaymentForm.propTypes = {
     onSuccess: PropTypes.func,
     totalPayment: PropTypes.number,
-    payments: PropTypes.array
+    payments: PropTypes.array,
+    stripe: PropTypes.object,
+    fetchApplicant: PropTypes.func,
+    fetchRenterProfile: PropTypes.func,
 };
 
 export default connect(null, {fetchApplicant,  fetchRenterProfile})(injectStripe(PaymentForm));
