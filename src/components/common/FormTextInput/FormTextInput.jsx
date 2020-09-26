@@ -88,6 +88,12 @@ FormTextInput.propTypes = {
     showValidationText: PropTypes.bool,
     touched: PropTypes.bool,
     disabled: PropTypes.bool,
+    label: PropTypes.string,
+    submitted: PropTypes.bool,
+    endAdornment: PropTypes.object,
+    helperText: PropTypes.string,
+    startAdornment: PropTypes.object,
+    inputProps: PropTypes.object,
 };
 
 FormTextInput.defaultProps = {
