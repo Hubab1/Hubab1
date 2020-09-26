@@ -31,6 +31,8 @@ BackLink.defaultProps = {
 
 BackLink.propTypes = {
     to: PropTypes.string,
+    text: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 export default BackLink;
