@@ -146,16 +146,12 @@ selectors.canAccessRoute = (state, route) => {
 
 export const DIRECT_ROUTES = [
     ROUTES.PAYMENT_DETAILS
-]
+];
 
 const getDirectRoute = (route) => {
     if (!route) return null;
-    return DIRECT_ROUTES.find(r => route.includes(r))
-}
-
-
-
-
+    return DIRECT_ROUTES.find(r => route.includes(r));
+};
 
 
 selectors.selectInitialPage = createSelector(
