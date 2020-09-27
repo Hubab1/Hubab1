@@ -144,12 +144,26 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
+export const DIRECT_ROUTES = [
+    ROUTES.PAYMENT_DETAILS
+]
+
+const getDirectRoute = (route) => {
+    if (!route) return null;
+    return DIRECT_ROUTES.find(r => route.includes(r))
+}
+
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
     state => state.applicant,
     state => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
+        const directRoute = getDirectRoute(window.location.pathname);
+        if (directRoute) {
+            return directRoute;
+        }
+
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map(event => parseInt(event.event)));
             const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
