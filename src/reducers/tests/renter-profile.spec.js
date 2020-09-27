@@ -1,5 +1,16 @@
-import { APPLICATION_EVENTS, APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_COMPLETED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, MILESTONE_APPLICANT_SUBMITTED, ROLE_PRIMARY_APPLICANT, ROLE_CO_APPLICANT, ROUTES, APPLICATION_STATUS_CANCELED } from 'app/constants';
-import { selectors } from 'reducers/renter-profile';
+import {
+    APPLICATION_EVENTS,
+    APPLICATION_STATUS_APPROVED,
+    APPLICATION_STATUS_COMPLETED,
+    APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+    MILESTONE_APPLICANT_SUBMITTED,
+    ROLE_PRIMARY_APPLICANT,
+    ROLE_CO_APPLICANT,
+    ROUTES,
+    APPLICATION_STATUS_CANCELED
+} from 'app/constants';
+import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
+import {whenMergePropsIsOmitted} from "react-redux/lib/connect/mergeProps";
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -93,7 +104,6 @@ describe('canAccessRoute', () => {
     });
 });
 
-
 describe('selectOrderedRoutes', () => {
     it('Shows correct pages for primary applicant', () => {
         const pages = selectors.selectOrderedRoutes({
@@ -164,8 +174,19 @@ describe('selectOrderedRoutes', () => {
     });
 });
 
-
 describe('selectInitialPage', () => {
+    it('allows direct routes', () => {
+        DIRECT_ROUTES.forEach(route => {
+            delete window.location;
+            window.location = { pathname: route };
+
+            const initialPage = selectors.selectInitialPage({});
+            expect(initialPage).toBe(route);
+        });
+
+        window.location = '';
+    });
+
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({
