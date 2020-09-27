@@ -153,6 +153,11 @@ const getDirectRoute = (route) => {
     return DIRECT_ROUTES.find(r => route.includes(r))
 }
 
+
+
+
+
+
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     state => state.applicant && state.applicant.events,
