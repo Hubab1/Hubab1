@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentDetails renders the correct number of rows 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Payment Details
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Here’s the breakdown for unit 
+    1
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    <div
+      className="css-1umq6o3"
+    >
+      <div
+        className="css-vutzwz"
+      >
+        <img
+          alt="coin"
+          src="lightbulb.png"
+        />
+      </div>
+      <div
+        className="css-1s5wtrg"
+      >
+        <div
+          className="css-eizsos"
+        >
+          Payment breakdown
+        </div>
+        <div>
+          Move in date: 
+          12/15/2020
+        </div>
+        <div>
+          Lease term: 
+          12
+           months
+        </div>
+      </div>
+    </div>
+    <React.Fragment>
+      <PaymentItemsExpansionPanel
+        amount="620"
+        defaultExpanded={false}
+        label="due at application"
+      >
+        <PaymentDetailRows
+          paymentObject={
+            Object {
+              "items": Array [],
+              "total": "620",
+            }
+          }
+          paymentType="application"
+        />
+      </PaymentItemsExpansionPanel>
+      <PaymentItemsExpansionPanel
+        amount="0"
+        defaultExpanded={false}
+        label="due at move in"
+      >
+        <PaymentDetailRows
+          paymentObject={
+            Object {
+              "items": Array [],
+              "total": "0",
+            }
+          }
+          paymentType="move_in"
+        />
+      </PaymentItemsExpansionPanel>
+      <PaymentItemsExpansionPanel
+        amount="1234"
+        defaultExpanded={false}
+        label="monthly rent"
+      >
+        <PaymentDetailRows
+          paymentObject={
+            Object {
+              "items": Array [],
+              "total": "1234",
+            }
+          }
+          paymentType="monthly_fees"
+        />
+      </PaymentItemsExpansionPanel>
+    </React.Fragment>
+  </ForwardRef(render)>
+</React.Fragment>
+`;
