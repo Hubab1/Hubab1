@@ -6,7 +6,11 @@ import { createSelector } from 'reselect';
 import { ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
-    ROUTES, ROLE_PRIMARY_APPLICANT, APPLICATION_EVENTS, MILESTONE_APPLICANT_SUBMITTED, MILESTONE_REQUEST_GUARANTOR,
+    ROUTES,
+    ROLE_PRIMARY_APPLICANT,
+    APPLICATION_EVENTS,
+    MILESTONE_APPLICANT_SUBMITTED,
+    MILESTONE_REQUEST_GUARANTOR,
     APPLICATION_STATUSES,
 } from 'app/constants';
 import mock from './mock-profile';
@@ -18,14 +22,14 @@ const renterProfile = createSlice({
         renterProfileReceived(state, action) {
             state = action.payload;
             if (state.pets) {
-                state.pets.forEach(pet => pet.key = uuidv4());
+                state.pets.forEach((pet) => (pet.key = uuidv4()));
             } else {
-                state.pets = [{key: uuidv4()}];
+                state.pets = [{ key: uuidv4() }];
             }
             return state;
         },
         renterProfileUpdated(state, action) {
-            return produce(state, draft => {
+            return produce(state, (draft) => {
                 Object.assign(draft, action.payload);
             });
         },
@@ -33,8 +37,8 @@ const renterProfile = createSlice({
     extraReducers: {
         USER_LOGOUT: () => {
             return null;
-        }
-    }
+        },
+    },
 });
 
 const { actions, reducer } = renterProfile;
@@ -42,7 +46,7 @@ export const { renterProfileReceived, renterProfileUpdated } = actions;
 export default reducer;
 
 export const fetchRenterProfile = () => {
-    return async dispatch => {
+    return async (dispatch) => {
         let profile;
         if (MOCKY) {
             profile = mock;
@@ -54,32 +58,33 @@ export const fetchRenterProfile = () => {
     };
 };
 
-
-export const updateRenterProfile = (newData, stateUpdate=null) => {
-    return dispatch => {
+export const updateRenterProfile = (newData, stateUpdate = null) => {
+    return (dispatch) => {
         if (MOCKY) {
             dispatch({
                 type: renterProfileUpdated.toString(),
-                payload: stateUpdate || newData
+                payload: stateUpdate || newData,
             });
             return Promise.resolve({});
         }
-        return API.patchApplication(newData).then(res => {
-            if (res.errors) {
-                return res;
-            }
-            return dispatch({
-                type: renterProfileUpdated.toString(),
-                payload: stateUpdate || res
+        return API.patchApplication(newData)
+            .then((res) => {
+                if (res.errors) {
+                    return res;
+                }
+                return dispatch({
+                    type: renterProfileUpdated.toString(),
+                    payload: stateUpdate || res,
+                });
+            })
+            .catch((e) => {
+                return { errors: [e.message] };
             });
-        }).catch((e) => {
-            return { errors: [e.message]};
-        });
     };
 };
 
 export const pageComplete = (page) => {
-    return dispatch => {
+    return (dispatch) => {
         return API.postPageComplete(page).then(() => {
             dispatch(fetchRenterProfile());
         });
@@ -89,9 +94,9 @@ export const pageComplete = (page) => {
 // selectors
 export const selectors = {};
 selectors.selectOrderedRoutes = createSelector(
-    state => state.applicant?.role,
-    state => state.configuration?.enable_automatic_income_verification,
-    state => state.configuration?.enable_holding_deposit_agreement,
+    (state) => state.applicant?.role,
+    (state) => state.configuration?.enable_automatic_income_verification,
+    (state) => state.configuration?.enable_holding_deposit_agreement,
     (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement) => {
         if (role == null || enableAutomaticIncomeVerification == null) return;
 
@@ -104,7 +109,7 @@ selectors.selectOrderedRoutes = createSelector(
             role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             ROUTES.SCREENING,
             ROUTES.APP_COMPLETE,
-        ].filter(r => !!r);
+        ].filter((r) => !!r);
     }
 );
 
@@ -115,7 +120,9 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 const pageCompleted = (events, applicant) => ({
     [ROUTES.ADDRESS]: ADDRESS_FIELDS.some((field) => !!applicant[field]),
     [ROUTES.LEASE_TERMS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
-    [ROUTES.PROFILE_OPTIONS]: events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) || events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
+    [ROUTES.PROFILE_OPTIONS]:
+        events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) ||
+        events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
@@ -135,7 +142,7 @@ selectors.canAccessRoute = (state, route) => {
     if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
         return true;
     }
-    const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
+    const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
     // check if page was completed
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
         return true;
@@ -144,21 +151,18 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
-export const DIRECT_ROUTES = [
-    ROUTES.PAYMENT_DETAILS
-];
+export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS];
 
 const getDirectRoute = (route) => {
     if (!route) return null;
-    return DIRECT_ROUTES.find(r => route.includes(r));
+    return DIRECT_ROUTES.find((r) => route.includes(r));
 };
-
 
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
-    state => state.applicant && state.applicant.events,
-    state => state.applicant,
-    state => state.renterProfile,
+    (state) => state.applicant && state.applicant.events,
+    (state) => state.applicant,
+    (state) => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         const directRoute = getDirectRoute(window.location.pathname);
         if (directRoute) {
@@ -166,8 +170,10 @@ selectors.selectInitialPage = createSelector(
         }
 
         if (orderedRoutes && events && applicant && profile) {
-            const eventsSet = new Set(events.map(event => parseInt(event.event)));
-            const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
+            const eventsSet = new Set(events.map((event) => parseInt(event.event)));
+            const applicationEvents = profile.events
+                ? new Set(profile.events.map((event) => parseInt(event.event)))
+                : null;
 
             // eslint-disable-next-line default-case
             switch (profile.status) {
@@ -208,7 +214,7 @@ selectors.selectInitialPage = createSelector(
 
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
 
-            const route = orderedRoutes.find(r => !accessibleRoutes[r]);
+            const route = orderedRoutes.find((r) => !accessibleRoutes[r]);
             if (route) return route;
             console.error('Could not determine current page.');
         }
@@ -217,48 +223,45 @@ selectors.selectInitialPage = createSelector(
 
 selectors.selectNextRoute = createSelector(
     selectors.selectOrderedRoutes,
-    state => state.siteConfig.currentRoute,
+    (state) => state.siteConfig.currentRoute,
     (orderedRoutes, currentRoute) => {
         if (orderedRoutes && currentRoute) {
-            return orderedRoutes[orderedRoutes.indexOf(currentRoute)+1];
+            return orderedRoutes[orderedRoutes.indexOf(currentRoute) + 1];
         }
     }
 );
 
 selectors.selectApplicantStillFinishingApplication = createSelector(
-    state => state.applicant && state.applicant.events,
+    (state) => state.applicant && state.applicant.events,
     (applicantEvents) => {
         if (!applicantEvents) return false;
         // if applicant has submitted milestone, they're not completing fields anymore
-        return !applicantEvents.find(e => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
+        return !applicantEvents.find((e) => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
 );
 
 selectors.selectGuarantorRequested = createSelector(
-    state => state.applicant && state.applicant.events,
-    state => state.renterProfile,
+    (state) => state.applicant && state.applicant.events,
+    (state) => state.renterProfile,
     (events, profile) => {
         if (!(events && profile)) return false;
-        const applicationEvents = profile.events? new Set(profile.events.map(event => parseInt(event.event))): null;
+        const applicationEvents = profile.events ? new Set(profile.events.map((event) => parseInt(event.event))) : null;
         return applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR);
     }
 );
 
 selectors.selectPrevRoute = createSelector(
     selectors.selectOrderedRoutes,
-    state => state.siteConfig.currentRoute,
+    (state) => state.siteConfig.currentRoute,
     (orderedRoutes, currentRoute) => {
         if (orderedRoutes && currentRoute) {
-            return orderedRoutes[orderedRoutes.indexOf(currentRoute)-1];
+            return orderedRoutes[orderedRoutes.indexOf(currentRoute) - 1];
         }
     }
 );
 
-selectors.selectNav = createSelector(
-    selectors.selectOrderedRoutes,
-    (orderedRoutes) => {
-        if (orderedRoutes) {
-            return orderedRoutes.map(r => ({name: ROUTE_LABELS[r], value: r}));
-        }
+selectors.selectNav = createSelector(selectors.selectOrderedRoutes, (orderedRoutes) => {
+    if (orderedRoutes) {
+        return orderedRoutes.map((r) => ({ name: ROUTE_LABELS[r], value: r }));
     }
-);
+});
