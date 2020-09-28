@@ -22,7 +22,7 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
         />
       </div>
       <div
-        className="css-mxlzzw"
+        className="css-1s5wtrg"
       >
         <div
           className="css-eizsos"
@@ -34,7 +34,7 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
           12/15/2020
         </div>
         <div>
-          Lease term:  
+          Lease term: 
           12
            months
         </div>
