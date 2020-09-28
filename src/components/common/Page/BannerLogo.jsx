@@ -9,7 +9,7 @@ export const container = css`
   text-align: center;
   margin: auto;
   padding: 10px 0;
-`
+`;
 
 export class BannerLogo extends React.Component {
     static contextType = AppTheme;
@@ -17,14 +17,14 @@ export class BannerLogo extends React.Component {
         return (
             <div className={container}>
                 <Logo src={this.context.logo} alt="company logo" />
-            </div>      
+            </div>
         );
     }
 }
 
 BannerLogo.propTypes = {
     logo: PropTypes.string
-}
+};
 
 
 export default BannerLogo;

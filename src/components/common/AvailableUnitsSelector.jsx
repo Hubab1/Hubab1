@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
-import fuzzaldrin from "fuzzaldrin-plus"
+import fuzzaldrin from 'fuzzaldrin-plus';
 
 import API from 'app/api';
 
-
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
-
 
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
@@ -33,7 +32,6 @@ function renderInput(inputProps) {
     );
 }
 
-
 function renderSuggestion(suggestionProps) {
     const { suggestion, index, itemProps, highlightedIndex, selectedItem, inputValue } = suggestionProps;
     const inputLength = inputValue.length;
@@ -49,26 +47,28 @@ function renderSuggestion(suggestionProps) {
             style={{
                 fontWeight: isSelected ? 600 : 'inherit',
             }}
-        > {
-                inputLength === 0 ?
-                    suggestion.unit_number :
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: fuzzaldrin.wrap(suggestion.unit_number, inputValue)}
-                        }/>
-            }
+        >
+            {' '}
+            {inputLength === 0 ? (
+                suggestion.unit_number
+            ) : (
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: fuzzaldrin.wrap(suggestion.unit_number, inputValue),
+                    }}
+                />
+            )}
         </MenuItem>
     );
 }
 
-function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
+function getSuggestions(allSuggestions, value, { showEmpty = false } = {}) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     if (inputLength === 0 && showEmpty) {
         let count = 0;
-        return allSuggestions.filter(suggestion => {
-            const keep =
-            count < 5 && suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue;
+        return allSuggestions.filter((suggestion) => {
+            const keep = count < 5 && suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue;
 
             if (keep) {
                 count += 1;
@@ -77,10 +77,10 @@ function getSuggestions (allSuggestions, value, { showEmpty = false } = {}) {
             return keep;
         });
     }
-    return fuzzaldrin.filter(allSuggestions, value, {key: 'unit_number'})
+    return fuzzaldrin.filter(allSuggestions, value, { key: 'unit_number' });
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         height: 250,
@@ -96,7 +96,7 @@ const useStyles = makeStyles(theme => ({
         left: 0,
         right: 0,
         maxHeight: 240,
-        overflow: 'auto'
+        overflow: 'auto',
     },
     chip: {
         margin: theme.spacing(0.5, 0.25),
@@ -113,27 +113,27 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AvailableUnitsSelector (props) {
+export default function AvailableUnitsSelector(props) {
     const [units, setUnits] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        API.fetchAvailableUnits().then(units => {
+        API.fetchAvailableUnits().then((units) => {
             if (units.length) setUnits(units);
             setIsReady(true);
-        })
-    }, [])
+        });
+    }, []);
 
     const handleChange = (val) => {
         props.update(val);
-    }
-    
+    };
+
     const classes = useStyles();
     return (
         <div>
             <Downshift
                 id="downshift-options"
-                itemToString={item => (item ? item.unit_number : '')}
+                itemToString={(item) => (item ? item.unit_number : '')}
                 onChange={handleChange}
                 initialSelectedItem={props.initialValue}
             >
@@ -150,7 +150,7 @@ export default function AvailableUnitsSelector (props) {
                     selectedItem,
                 }) => {
                     const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
-                        onChange: event => {
+                        onChange: (event) => {
                             if (event.target.value === '') {
                                 clearSelection();
                             }
@@ -165,12 +165,12 @@ export default function AvailableUnitsSelector (props) {
                             itemProps: getItemProps({ item: suggestion }),
                             highlightedIndex,
                             selectedItem,
-                        }),
+                        })
                     );
                     if (!isReady) {
-                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>]
-                    } else if  (suggestions.length === 0) {
-                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>]
+                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
+                    } else if (suggestions.length === 0) {
+                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
                     }
                     return (
                         <div className={classes.container}>
@@ -200,3 +200,12 @@ export default function AvailableUnitsSelector (props) {
         </div>
     );
 }
+
+AvailableUnitsSelector.propTypes = {
+    update: PropTypes.func,
+    error: PropTypes.bool,
+    helperText: PropTypes.bool,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
+    disabled: PropTypes.bool,
+    initialValue: PropTypes.any,
+};

@@ -5,11 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import { root } from 'components/common/FormTextInput/styles';
 
 
-
 const PhoneNumberInput = (props) => {
-    const { label, name, value, handleChange, error, helperText} = props; 
+    const { label, name, value, handleChange, error, helperText} = props;
     return (
-        <InputMask 
+        <InputMask
             mask="(999) 999-9999"
             label={label}
             name={name}
@@ -18,17 +17,17 @@ const PhoneNumberInput = (props) => {
             onChange={handleChange}
             classes={ {root} }
         >
-            {(inputProps) => 
+            {(inputProps) =>
                 <TextField
                     {...inputProps}
                     error={error}
                     helperText={helperText}
                     fullWidth
-                /> 
+                />
             }
         </InputMask>
     );
-}
+};
 
 PhoneNumberInput.propTypes = {
     label: PropTypes.string,

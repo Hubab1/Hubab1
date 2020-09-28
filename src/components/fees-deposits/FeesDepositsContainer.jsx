@@ -10,7 +10,7 @@ import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
 
 
-export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payables, profile, applicant, fetchPayments}) => {
+export const FeesDepositsContainer = ({_prev, _nextRoute, payables, profile, applicant, fetchPayments}) => {
 
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
@@ -45,10 +45,10 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
                 } else if (parseInt(payment.type_ === LINE_ITEM_TYPE_HOLDING_DEPOSIT)) {
                     return Object.assign({}, payment, {paid: true});
                 } else {
-                    return payment
+                    return payment;
                 }
             });
-            setPayments(myPayments)
+            setPayments(myPayments);
         }
         setTotalPayment(totalPayment);
         setCurrentPage('terms');
@@ -71,12 +71,12 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             holdingDepositAmount={holdingDepositAmount}
             everyone={everyone}
             payments={payables}
-        />
+               />;
     } else if (currentPage === 'terms') {
-        return <PaymentTerms 
+        return <PaymentTerms
             handleClickBack={() => setCurrentPage('options')}
             goToPayment={() => setCurrentPage('payment')}
-        />
+               />;
     } else if (currentPage === 'payment') {
         return <PaymentPage
             handleSuccess={() => setCurrentPage('receipt')}
@@ -84,9 +84,9 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             handleClickBack={() => setCurrentPage('terms')}
             payments={payments}
             totalPayment={totalPayment}
-        />
+               />;
     } else if (currentPage === 'receipt') {
-        if (!receipt) return <div/>
+        if (!receipt) return <div/>;
         return <FeesDepositsReceipt
             receipt={receipt}
             handleContinue={_nextRoute}
@@ -95,11 +95,9 @@ export const FeesDepositsContainer = ({_prev, _nextRoute, configuration, payable
             everyone={everyone}
             email={applicant.client.person.email}
             paidByAnother={receipt.paid_by !== applicant.id}
-        />
+               />;
     }
-
-    
-}
+};
 
 const mapStateToProps = state => ({
     applicant: state.applicant,

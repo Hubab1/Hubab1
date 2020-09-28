@@ -9,7 +9,7 @@ export const label = css`
     font-weight: 400;
     display: flex;
     font-size: 16px;
-`
+`;
 export const paperRoot = css`
     box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
     border-width: 0px !important;
@@ -19,7 +19,7 @@ export const paperRoot = css`
     .MuiButton-root {
         font-weight: 600;
     }
-`
+`;
 
 export const existingItemRow = css`
     border-top: 1px solid #EEEEEE;
@@ -27,7 +27,7 @@ export const existingItemRow = css`
     display: flex;
     text-align: left;
     justify-content: space-between;
-`
+`;
 
 export const existingItemsContainer = css`
     margin-bottom: 15px;
@@ -36,27 +36,27 @@ export const existingItemsContainer = css`
     .MuiExpansionPanelSummary-root {
         padding: 0;
     }
-`
+`;
 
 export const nameContainer = css`
     text-align: left;
-`
+`;
 
 export const inviteeContact = css`
     font-size: 14px;
     color: #828796;
-`
+`;
 
 export const link = css`
     display: inline-block;
     color: #2B44FF;
     font-size: 14px;
     text-decoration: underline !important;
-`
+`;
 
 export const priceBreakdownContainer = css`
     .MuiExpansionPanelSummary-root {
         padding: 0;
         border-top: 1px solid #EEEEEE;
     }
-`
+`;

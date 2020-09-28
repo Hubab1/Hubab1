@@ -20,10 +20,12 @@ import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
+
 import { APPLICATION_EVENTS, ROUTES } from 'app/constants';
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
-import { H3, SpacedH3 } from 'assets/styles';
+import { H3 } from 'assets/styles';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#ffffff',
         color: '#000000'
     },
-    toolbar: { 
+    toolbar: {
         minHeight: 76
     },
     accountDetails: {
@@ -83,7 +85,7 @@ const links = css`
   > a:not(:last-child) {
       margin-right: 20px;
   }
-`
+`;
 
 const EllipsisText = styled.b`
     white-space: nowrap;  
@@ -92,7 +94,7 @@ const EllipsisText = styled.b`
     font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : '600'};
     font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
     width: ${props => props.width ? `${props.width}px` : '50px'};
-`
+`;
 
 const StyledBox = withStyles({
     root: {
@@ -145,7 +147,7 @@ export function PersistentDrawerLeft(props) {
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
-                    <div className={classes.padRight}></div>
+                    <div className={classes.padRight} />
                 </Toolbar>
                 <ProgressBar percent={33}/>
             </AppBar>
@@ -213,10 +215,18 @@ export function PersistentDrawerLeft(props) {
     );
 }
 
+PersistentDrawerLeft.propTypes = {
+    logout: PropTypes.func,
+    history: PropTypes.object,
+    applicant: PropTypes.object,
+    children: PropTypes.array,
+    profile: PropTypes.object,
+};
+
 const mapStateToProps = state => ({
     applicant: state.applicant,
     profile: state.renterProfile
-})
+});
 
 const mapDispatchToProps = {
     logout: actions.logout

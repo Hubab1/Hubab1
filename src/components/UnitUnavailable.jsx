@@ -32,14 +32,14 @@ export const UnitUnavailable = ({profile, configuration}) => {
             <SpacedH3>Sorry, unit {profile.unit.unit_number} is no longer available.</SpacedH3>
             <Img src={tooslow}/>
             <div className="align-left">
-                <P>Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!</P>
+                <P>{`Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!`}</P>
                 <br/>
                 <P bold>Call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
                     &nbsp;so we can discuss other options.
                 </P>
             </div>
         </>
-    )
+    );
 };
 
 UnitUnavailable.propTypes = {

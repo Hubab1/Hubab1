@@ -13,79 +13,66 @@ import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
-`
+`;
 
 export class ResetPasswordVerificationPage extends React.Component {
-
     componentDidMount() {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
-        const phoneNumber = this.props.history.location.state.phoneNumber
+        const phoneNumber = this.props.history.location.state.phoneNumber;
         const code = values.resetCode;
         const communityId = this.props.communityId;
 
-        return API.passwordResetVerification(phoneNumber, code, communityId).then((res) => {
-            if (res.errors) {
-                setErrors({resetCode: "Invalid Error Code"})
-            } else{
-                this.props.history.push({
-                    pathname: ROUTES.RESET_PASSWORD, 
-                    state: {token: res.token}
-                });
-            }
-            setSubmitting(false);
-        }).catch((res) => {
-            setErrors({resetCode: "Invalid Error Code"})
-            setSubmitting(false);   
-        })
-    }
+        return API.passwordResetVerification(phoneNumber, code, communityId)
+            .then((res) => {
+                if (res.errors) {
+                    setErrors({ resetCode: 'Invalid Error Code' });
+                } else {
+                    this.props.history.push({
+                        pathname: ROUTES.RESET_PASSWORD,
+                        state: { token: res.token },
+                    });
+                }
+                setSubmitting(false);
+            })
+            .catch(() => {
+                setErrors({ resetCode: 'Invalid Error Code' });
+                setSubmitting(false);
+            });
+    };
 
     handleClickLink = () => {
         const { communityId, history } = this.props;
         const phoneNumber = history.location.state.phoneNumber;
 
         API.passwordResetRequest(phoneNumber, communityId);
-    }
+    };
 
-    render () {
-        if (!this.props.history.location.state) return <div></div>;
+    render() {
+        if (!this.props.history.location.state) return <div />;
         const phoneNumber = this.props.history.location.state.phoneNumber;
         return (
             <Fragment>
-                <H1>
-                    Enter Verification Code 
-                </H1>
+                <H1>Enter Verification Code</H1>
                 <SpacedH3>
-                We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
+                    We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
                 </SpacedH3>
-                <img src={forgotPassword} alt="hand with smartphone in it"/>
+                <img src={forgotPassword} alt="hand with smartphone in it" />
                 <Formik
                     validationSchema={Yup.object().shape({
-                        resetCode: Yup.string()
-                            .max(6, 'Invalid code')
-                            .matches(/^\d+$/, 'Only numbers are allowed')
+                        resetCode: Yup.string().max(6, 'Invalid code').matches(/^\d+$/, 'Only numbers are allowed'),
                     })}
                     onSubmit={this.onSubmit}
                 >
-                    {({
-                        values,
-                        errors,
-                        touched,
-                        handleChange,
-                        submitCount,
-                        handleBlur,
-                        handleSubmit,
-                        isSubmitting,
-                        submitForm,
-                    }) => {
+                    {({ values, errors, touched, handleChange, submitCount, handleBlur, handleSubmit, submitForm }) => {
                         const wrappedHandleChange = (event) => {
                             handleChange(event);
                             if (event.target.value.length === 6) {
                                 setTimeout(submitForm, 0);
                             }
-                        }
+                        };
                         return (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 <div className={formContent}>
@@ -97,18 +84,19 @@ export class ResetPasswordVerificationPage extends React.Component {
                                             handleChange={wrappedHandleChange}
                                             handleBlur={handleBlur}
                                             error={errors.resetCode}
-                                            touched={touched.resetCode }
+                                            touched={touched.resetCode}
                                             value={values.resetCode}
                                             type="tel"
                                         />
                                     </div>
                                 </div>
                             </form>
-                        )
-
+                        );
                     }}
                 </Formik>
-                <P>Didn't Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton></P>
+                <P>
+                    Didn&apos;t Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton>
+                </P>
             </Fragment>
         );
     }
@@ -117,11 +105,12 @@ export class ResetPasswordVerificationPage extends React.Component {
 ResetPasswordVerificationPage.propTypes = {
     profile: PropTypes.object,
     history: PropTypes.object,
-}
+    communityId: PropTypes.string,
+};
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    communityId: state.siteConfig.basename
+    communityId: state.siteConfig.basename,
 });
 
 export default connect(mapStateToProps, null)(ResetPasswordVerificationPage);

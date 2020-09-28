@@ -21,15 +21,15 @@ beforeEach(() => {
         history: {
             push: jest.fn(),
         }
-    }
+    };
 });
 
 const WrappedComponent = ()=><div>Wrapped Component Text</div>;
 
 describe('application completed', function () {
     it('prevents you from acccessing anything but the initialPage', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms')
-        let wrapper = mount(
+        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
@@ -39,10 +39,10 @@ describe('application completed', function () {
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
         expect(wrapper.instance().blockRender).toBe(true);
         expect(wrapper.html()).toBe(null);
-    })
+    });
     it('allows accessing initialPage', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/application-complete')
-        let wrapper = mount(
+        const Component = withRelativeRoutes(WrappedComponent, '/application-complete');
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
@@ -52,12 +52,12 @@ describe('application completed', function () {
         expect(defaultProps.history.push).not.toHaveBeenCalled();
         expect(defaultProps.currentRouteReceived).toHaveBeenCalledWith('/application-complete');
         expect(wrapper.text()).toEqual('Wrapped Component Text');
-    })
+    });
 });
 describe('application not completed', function () {
     it('doesnt prevent you from acccessing anything but the initialPage', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms')
-        let wrapper = mount(
+        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
@@ -67,10 +67,10 @@ describe('application not completed', function () {
         expect(defaultProps.history.push).not.toHaveBeenCalled();
         expect(defaultProps.currentRouteReceived).toHaveBeenCalledWith('/lease-terms');
         expect(wrapper.text()).toEqual('Wrapped Component Text');
-    })
+    });
     it('_nextRoute() pushes props._next if unitAvailable !== false', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms')
-        let wrapper = mount(
+        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
@@ -79,12 +79,12 @@ describe('application not completed', function () {
             />
         );
         wrapper.find('WrappedComponent').props()._nextRoute().then(() => {
-            expect(defaultProps.history.push).toHaveBeenCalledWith('someroute')
+            expect(defaultProps.history.push).toHaveBeenCalledWith('someroute');
         });
     });
     it('_nextRoute() pushes unit unavaible page if unitAvailable === false', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms')
-        let wrapper = mount(
+        const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
+        const wrapper = mount(
             <Component
                 {...defaultProps}
                 unitAvailable={false}
@@ -93,7 +93,7 @@ describe('application not completed', function () {
             />
         );
         wrapper.find('WrappedComponent').props()._nextRoute().then(() => {
-            expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.UNIT_UNAVAILABLE)
+            expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.UNIT_UNAVAILABLE);
         });
     });
 });

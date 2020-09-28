@@ -1,7 +1,6 @@
 import auth from 'utils/auth';
 import fetch from 'app/fetch';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
-
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 export function chuck(path) {
@@ -10,13 +9,14 @@ export function chuck(path) {
 
 const getWithHeaders = (url) => fetch(url, {
     headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
     }
 }).then(res => res.json());
 
 const CHUCK_BASE_LEASE_SETTINGS = (communityId) => `${CHUCK_BASE_URL}/api/onlineleasing/communities/${communityId}/`;
-const CHUCK_PERSONALIZED_LEASE_SETTINGS = (communityId, hash) => `${CHUCK_BASE_URL}/api/onlineleasing/communities/${communityId}/personalized/${hash}`;
+const CHUCK_PERSONALIZED_LEASE_SETTINGS =
+    (communityId, hash) => `${CHUCK_BASE_URL}/api/onlineleasing/communities/${communityId}/personalized/${hash}`;
 
 const API = {};
 
@@ -24,7 +24,7 @@ API.fetchConfiguration = (communityId) => {
     return getWithHeaders(CHUCK_BASE_LEASE_SETTINGS(communityId));
 };
 
-API.fetchPrivacyPolicy = (communityId) => {
+API.fetchPrivacyPolicy = () => {
     return fetch(chuck('/privacy-policy'));
 };
 
@@ -54,7 +54,7 @@ API.fetchAvailableUnits = () => {
         {id: 8, unit_number: '2C', price: 5000.00},
         {id: 9, unit_number: '2D', price: 2450.99},
         {id: 10, unit_number: '2E', price: 2450.99},
-    ])
+    ]);
     return fetch(chuck('/available-units/'), {
         method: 'GET',
         headers: {
@@ -71,7 +71,7 @@ API.patchApplication = (data) => {
         },
         body: JSON.stringify(data)
     }).then(res => res.json());
-}
+};
 
 API.putApplicant = (data) => {
     return fetch(chuck('/applicant/'), {
@@ -81,7 +81,7 @@ API.putApplicant = (data) => {
         },
         body: JSON.stringify(data)
     }).then(res => res.json());
-}
+};
 
 API.fetchRenterProfile = () => {
     return fetch(chuck('/application/'), {
@@ -139,18 +139,18 @@ API.passwordResetVerification = (phone_number, code, lease_settings_id) => {
         method: 'POST',
         body: JSON.stringify({ phone_number, code, lease_settings_id })
     }).then(res => res.json());
-}
+};
 
 API.passwordReset = (password, token) => {
     return fetch(chuck('/password-change/'), {
         method: 'PUT',
         body: JSON.stringify({password}),
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             'AUTHORIZATION': `token ${token}`,
         }
     }).then(res => res.json());
-}
+};
 
 API.inviteGuarantor = (data) => {
     return fetch(chuck('/guarantors/'), {
@@ -160,14 +160,15 @@ API.inviteGuarantor = (data) => {
         },
         body: JSON.stringify(data)
     }).then(res => res.json());
-}
+};
 
 API.createFinicityUrl = () => {
     return fetch(chuck('/generate-finicity-link/'), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
-    }).then(res => res.json());}
+    }).then(res => res.json());
+};
 
 API.generateFinicityReports = () => {
     return fetch(chuck('/generate-finicity-reports/'), {
@@ -175,7 +176,7 @@ API.generateFinicityReports = () => {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => res.json());
-}
+};
 
 API.embeddedSigningUrl = (type) => {
     return fetch(chuck(`/embedded-signing-url/?document_type=${type}`), {
@@ -183,14 +184,15 @@ API.embeddedSigningUrl = (type) => {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => res.json());
-}
+};
+
 API.leaseDocumentUrl = (type) => {
     return fetch(chuck(`/lease-document-url/?document_type=${type}`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => res.json());
-}
+};
 
 API.fetchFinicityReports = () => {
     return fetch(chuck('/fetch-finicity-reports/'), {
@@ -198,7 +200,7 @@ API.fetchFinicityReports = () => {
             Authorization: `Token ${auth.getToken()}`
         },
     });
-}
+};
 
 API.stripePayment = (data) => {
     return fetch(chuck('/payment/'), {
@@ -208,7 +210,7 @@ API.stripePayment = (data) => {
         },
         body: JSON.stringify(data)
     }).then(res => res.json());
-}
+};
 
 API.updateInvitee = (data, inviteeId) => {
     return fetch(chuck(`/invitees/${inviteeId}/`), {
@@ -218,7 +220,7 @@ API.updateInvitee = (data, inviteeId) => {
         },
         body: JSON.stringify(data)
     }).then(res => res.json());
-}
+};
 
 API.postPassthrough = data => (
     fetch(chuck('/passthrough/'), {
@@ -228,7 +230,7 @@ API.postPassthrough = data => (
         },
         body: JSON.stringify(data)
     }).then(res => res.json())
-)
+);
 
 API.fetchPaymentOptions = () => {
     return fetch(chuck('/payment-options/'), {
@@ -237,9 +239,9 @@ API.fetchPaymentOptions = () => {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => {
-        return res.json()
+        return res.json();
     });
-}
+};
 
 API.getCurrentFlatQuote = (data) => {
     return fetch(chuck('/payment-breakdown/'), {
@@ -249,9 +251,9 @@ API.getCurrentFlatQuote = (data) => {
         },
         body: JSON.stringify(data)
     }).then(res => {
-        return res.json()
+        return res.json();
     });
-}
+};
 
 API.getAdverseActions = () => {
     return fetch(chuck('/applicant/adverse-action/'), {
@@ -260,103 +262,110 @@ API.getAdverseActions = () => {
             Authorization: `Token ${auth.getToken()}`
         },
     }).then(res => {
-        return res.json()
+        return res.json();
     });
-}
+};
 
 API.submitFinancialSource = (data) => {
     return fetch(chuck('/financial-sources/'), {
         method: 'POST',
         headers: {
-            "AUTHORIZATION": `Token ${auth.getToken()}`,
+            'AUTHORIZATION': `Token ${auth.getToken()}`,
         },
         body: data
-    })
+    });
 };
 
 API.getFinancialSources = () => {
     return fetch(chuck('/financial-sources/'), {
         headers: {
-            Authorization: `Token ${auth.getToken()}`
-    }})
-}
+            'Authorization': `Token ${auth.getToken()}`
+        }
+    });
+};
 
 API.getFinancialSource = id => {
     return fetch(chuck(`/financial-sources/${id}/`), {
         headers: {
-            Authorization: `Token ${auth.getToken()}`
-    }}).then(res => {
+            'Authorization': `Token ${auth.getToken()}`
+        }
+    }).then(res => {
         if (res.status === 200) {
             return res.json();
         }
         throw new Error();
-    })
-}
+    });
+};
+
 API.updateFinancialSource = (id, body) => {
     return fetch(chuck(`/financial-sources/${id}/`), {
         method: 'PATCH',
         body,
         headers: {
-            Authorization: `Token ${auth.getToken()}`
-    }}).then(res => {
+            'Authorization': `Token ${auth.getToken()}`
+        }
+    }).then(res => {
         if (res.status === 200) {
             return res.json();
         }
         throw new Error();
-    })
-}
+    });
+};
+
 API.deleteFinancialSource = (id) => {
     return fetch(chuck(`/financial-sources/${id}/`), {
         method: 'DELETE',
         headers: {
-            Authorization: `Token ${auth.getToken()}`
-    }}).then(res => {
+            'Authorization': `Token ${auth.getToken()}`
+        }
+    }).then(res => {
         if (res.status === 200) {
             return res.json();
         }
         throw new Error();
-    })
-}
+    });
+};
 
 API.resetApplicantFinancials = () => {
     return fetch(chuck(`/financial-sources/`), {
         method: 'DELETE',
         headers: {
-            Authorization: `Token ${auth.getToken()}`
-    }}).then(res => {
+            'Authorization': `Token ${auth.getToken()}`
+        }
+    }).then(res => {
         if (res.status >= 200 && res.status < 300) {
             return Promise.resolve();
         }
         throw new Error();
-    })
-}
+    });
+};
 
 API.deletePerson = (id) => {
     return fetch(chuck(`/person/${id}/`), {
         method: 'DELETE',
         headers: {
-            Authorization: `Token ${auth.getToken()}`
+            'Authorization': `Token ${auth.getToken()}`
         }
     }).then(res => {
         if (res.status >= 200 && res.status < 300) {
             return;
         }
         throw new Error();
-    })
+    });
 };
 
 API.deleteInvitee = (id) => {
     return fetch(chuck(`/invitees/${id}/`), {
         method: 'DELETE',
         headers: {
-            Authorization: `Token ${auth.getToken()}`
+            'Authorization': `Token ${auth.getToken()}`
         }
     }).then(res => {
         if (res.status >= 200 && res.status < 300) {
             return;
         }
         throw new Error();
-    })
+    });
 };
 
 export default API;

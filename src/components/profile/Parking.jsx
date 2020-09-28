@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-
+import PropTypes from 'prop-types';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
@@ -15,7 +15,6 @@ import { rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
-
 const ImageContainer = styled.div`
     margin-top: 31px;
     margin-bottom: 31px;
@@ -25,17 +24,17 @@ const ImageContainer = styled.div`
     }
 `;
 
-export const Parking = props => {
+export const Parking = (props) => {
     const [errorSubmitting, setErrorSubmitting] = useState(false);
     if (!props.config || !props.application) return null;
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
         setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
-        Object.entries(values).forEach(option => {
-            selectedRentalOptionsArray.push({ rental_option: {id: parseInt(option[0])}, quantity: option[1]});
+        Object.entries(values).forEach((option) => {
+            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1] });
         });
-        const selectedRentalOptions = Object.assign({}, {selected_rental_options: selectedRentalOptionsArray});
+        const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
 
         return props.updateRenterProfile(selectedRentalOptions).then((res) => {
             if (res.errors) {
@@ -49,56 +48,61 @@ export const Parking = props => {
     };
     const initialParkingOptions = props.application.selected_rental_options.parking;
     const parkingOptions = props.config.rental_options.parking || [];
-    return <>
-        <H1>Parking</H1>
-        <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
-        <ImageContainer>
-            <img src={parkingImage} alt="car parking"/>
-        </ImageContainer>
-        <Formik
-            onSubmit={onSubmit}
-            initialValues={rentalOptionsInitialValues(initialParkingOptions)}
-        >
-            {({
-                values,
-                handleSubmit,
-                setFieldValue,
-            }) => (
-                <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                    {errorSubmitting &&
-                        <GenericFormMessage
-                            type="error" messages={['We couldn’t save your parking options. Please try again.']}
-                        />
-                    }
-                    { parkingOptions.map(option =>
-                        <ItemAdder
-                            key={option.id}
-                            title={option.name}
-                            subtitle={`$${option.monthly_amount}/mo per parking space${option.included ? ` (${option.included} incl.)` : ''}`}
-                            value={values[option.id]}
-                            limit={option.limit}
-                            onChange={e => setFieldValue(option.id, e)}
-                        />
-                    )}
-                    {Object.values(values).reduce((a, b) => (a + b), 0) > 0 && (
-                        <PriceBreakdown
-                            selectedOptions={values}
-                            application={props.application}
-                            category={"Parking"}
-                            categoryHelperText={"parking spaces"}
-                        />
-                    )}
-                    <ActionButton>Add Parking</ActionButton>
-                </form>
-            )}
-        </Formik>
-        <Box padding="20px">
-            <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`}/>
-        </Box>
-    </>;
+    return (
+        <>
+            <H1>Parking</H1>
+            <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
+            <ImageContainer>
+                <img src={parkingImage} alt="car parking" />
+            </ImageContainer>
+            <Formik onSubmit={onSubmit} initialValues={rentalOptionsInitialValues(initialParkingOptions)}>
+                {({ values, handleSubmit, setFieldValue }) => (
+                    <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                        {errorSubmitting && (
+                            <GenericFormMessage
+                                type="error"
+                                messages={['We couldn’t save your parking options. Please try again.']}
+                            />
+                        )}
+                        {parkingOptions.map((option) => (
+                            <ItemAdder
+                                key={option.id}
+                                title={option.name}
+                                subtitle={`$${option.monthly_amount}/mo per parking space${
+                                    option.included ? ` (${option.included} incl.)` : ''
+                                }`}
+                                value={values[option.id]}
+                                limit={option.limit}
+                                onChange={(e) => setFieldValue(option.id, e)}
+                            />
+                        ))}
+                        {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
+                            <PriceBreakdown
+                                selectedOptions={values}
+                                application={props.application}
+                                category={'Parking'}
+                                categoryHelperText={'parking spaces'}
+                            />
+                        )}
+                        <ActionButton>Add Parking</ActionButton>
+                    </form>
+                )}
+            </Formik>
+            <Box padding="20px">
+                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`} />
+            </Box>
+        </>
+    );
 };
 
-const mapStateToProps = state => ({
+Parking.propTypes = {
+    config: PropTypes.object,
+    application: PropTypes.object,
+    updateRenterProfile: PropTypes.func,
+    history: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
     config: state.configuration,
     application: state.renterProfile,
 });

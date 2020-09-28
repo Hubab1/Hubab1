@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
 import { ROUTES } from 'app/constants';
 
@@ -65,7 +65,7 @@ describe('VerticalLinearStepper', () => {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps}/>);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
-})
+});
 
 describe('Application submitted state', function() {
     it('renders an application already submited message', function() {
@@ -96,14 +96,14 @@ describe('Application submitted state', function() {
             },
             initialPage: '/application-complete',
         };
-        let wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
-    })
+    });
 });
 
 describe('Unit unavailable state', function() {
-    it("Renders a unit unavailable message", function() {
+    it('Renders a unit unavailable message', function() {
         const defaultProps = {
             renterProfile: {
                 unit_available: false,
@@ -118,11 +118,11 @@ describe('Unit unavailable state', function() {
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg =  wrapper.find('.unitUnavailableMsg');
-        expect(appCompletedMsg.text()).toContain('We\'ve placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at 123‑456‑7891 so we can discuss some other options.');
+        expect(appCompletedMsg.text()).toContain("We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at 123‑456‑7891 so we can discuss some other options.");
         expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
-    })
+    });
 
-    it("View Progress when clicked takes to initialPage set", function() {
+    it('View Progress when clicked takes to initialPage set', function() {
         const defaultProps = {
             renterProfile: {
                 unit_available: false,
@@ -142,6 +142,44 @@ describe('Unit unavailable state', function() {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/unit-unavailable');
-    })
+    });
+});
+
+describe('Guarantor requested state', function() {
+    it('renders request guarantor message', function() {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            },
+            initialPage: '/guarantor_request',
+            guarantorRequested: true,
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const appCompletedMsg =  wrapper.find('.appCompletedMsg');
+        expect(appCompletedMsg.text()).toContain('We’re waiting for you to add a guarantor. Please call us at 123‑456‑7891 if you have any questions or if you are unable or unwilling to add a guarantor.');
+        expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
+    });
+
+    it('View Progress when clicked takes to the initialPage set', function () {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891'
+                }
+            },
+            history: {
+                push: jest.fn(),
+            },
+            initialPage: '/guarantor_request',
+            guarantorRequested: true,
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('#viewProgressButton').simulate('click');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/guarantor_request');
+    });
 });
 

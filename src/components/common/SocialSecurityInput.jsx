@@ -4,11 +4,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-
+import PropTypes from 'prop-types';
 
 // SSN mask adapted from this: https://codepen.io/anon/pen/zVeJpz
-function replaceAt (str, index, character) {
-    return str.substr(0, index) + character + str.substr(index+character.length);
+function replaceAt(str, index, character) {
+    return str.substr(0, index) + character + str.substr(index + character.length);
 }
 
 const transformDisplay = (val) => {
@@ -30,7 +30,7 @@ const transformDisplay = (val) => {
     displayVal = displayVal.replace(/[0-9]/g, '*');
 
     return displayVal;
-}
+};
 
 const transformValue = (inputVal, realVal) => {
     if (typeof realVal !== 'string') {
@@ -62,30 +62,30 @@ const transformValue = (inputVal, realVal) => {
     }
 
     return realVal;
-}
+};
 
-export default function SocialSecurityInput (props) {
+export default function SocialSecurityInput(props) {
     const [showText, setShowText] = useState(false);
     const [displayVal, setDisplayVal] = useState('');
 
     const syncInput = (e) => {
-        let val = e.target.value;
+        const val = e.target.value;
         if (!showText) {
             setDisplayVal(transformDisplay(val));
         } else {
             setDisplayVal(transformValue(val, props.value));
         }
         props.setFieldValue(transformValue(val, props.value));
-    }
+    };
 
     const toggleVisibility = () => {
         if (!showText) {
-            setDisplayVal(props.value)
+            setDisplayVal(props.value);
         } else {
             setDisplayVal(transformDisplay(props.value));
         }
         setShowText(!showText);
-    }
+    };
 
     return (
         <TextField
@@ -97,17 +97,26 @@ export default function SocialSecurityInput (props) {
             label="Social Security Number"
             helperText={props.helperText}
             value={displayVal}
-            InputProps={{ endAdornment: (
-                <InputAdornment position="end">
-                    <IconButton
-                        aria-label="Toggle social security number visibility"
-                        onClick={toggleVisibility}
-                    >
-                        {showText ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                </InputAdornment>
-            )}}
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton aria-label="Toggle social security number visibility" onClick={toggleVisibility}>
+                            {showText ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }}
         />
-    )
-
+    );
 }
+
+SocialSecurityInput.propTypes = {
+    name: PropTypes.string,
+    setFieldValue: PropTypes.func,
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    value: PropTypes.string,
+    error: PropTypes.string,
+    submitted: PropTypes.bool,
+    helperText: PropTypes.string,
+};

@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { AccountPage } from './AccountPage';
-import { LinkButton } from 'assets/styles';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
 import AccountForm from 'components/common/AccountForm';
 import VerifyAccount from 'components/account/VerifyAccount';
@@ -12,7 +11,6 @@ import auth from 'utils/auth';
 import API from 'app/api';
 
 
-
 let defaultProps;
 
 beforeEach(() => {
@@ -20,8 +18,8 @@ beforeEach(() => {
         updateApplication: jest.fn(),
         communityId: '123',
         applicant: mockApplicant,
-    }
-})
+    };
+});
 
 it('renders VerifyAccount when not verified', () => {
     const wrapper = shallow(<AccountPage {...defaultProps}/>);
@@ -59,13 +57,13 @@ it('calls API.passwordReset onChangePasswordSubmit', function() {
 });
 
 it('renders errors if has errors', function() {
-    const errorMessage = 'There was an error with resetting your password. Please try again.'
+    const errorMessage = 'There was an error with resetting your password. Please try again.';
 
     auth.getToken = jest.fn().mockReturnValue('123');
 
     const wrapper = shallow( <AccountPage {...defaultProps}/> );
     API.passwordReset = jest.fn().mockReturnValue(
-        Promise.resolve( 
+        Promise.resolve(
             {errors: [errorMessage]}
         )
     );

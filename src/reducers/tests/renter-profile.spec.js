@@ -58,7 +58,7 @@ describe('canAccessRoute', () => {
             pets: null,
             lease_term: 6,
         },
-        applicant: { address_street: '123 main st', role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+        applicant: {role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
     };
     it('privacy policy is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);

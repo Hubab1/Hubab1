@@ -2,10 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { IncomeVerificationSummaryPage } from './IncomeVerificationSummaryPage';
 import { ROLE_GUARANTOR, ROLE_PRIMARY_APPLICANT } from 'app/constants';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 
-jest.mock("react", () => ({
-    ...jest.requireActual("react"),
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
     useContext: () => ({
         bankingData: {
             income_sources: [
@@ -91,8 +90,8 @@ beforeEach(() => {
             }
         }
 
-    }
-})
+    };
+});
 
 it('matches snapshot with some financial sources data', () => {
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps}/>);
@@ -102,7 +101,7 @@ it('matches snapshot with some financial sources data', () => {
 });
 
 it('matches snapshot with some financial sources data if guarantor', () => {
-    defaultProps.applicant.role = ROLE_GUARANTOR
+    defaultProps.applicant.role = ROLE_GUARANTOR;
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
     expect(
         wrapper.getElement()

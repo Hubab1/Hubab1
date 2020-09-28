@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import HoldingDepositAgreementView from "./HoldingDepositAgreementView";
+import HoldingDepositAgreementView from './HoldingDepositAgreementView';
 import hsclient from 'utils/hsclient';
-import HoldingDepositAgreementConfirmation from "./HoldingDepositAgreementConfirmation";
+import HoldingDepositAgreementConfirmation from './HoldingDepositAgreementConfirmation';
 import API from 'app/api';
 import { applicantUpdated } from 'reducers/applicant';
 
@@ -33,7 +33,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
         });
         return () => {
             hsclient.off('sign');
-        }
+        };
     }, [applicantUpdated]);
 
     const openEmbeddedSigning = async () => {
@@ -60,7 +60,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
                 handleContinue={_nextRoute}
                 viewDocument={openEmbeddedSigning}
             />
-        )
+        );
     } else {
         return (
             <HoldingDepositAgreementView

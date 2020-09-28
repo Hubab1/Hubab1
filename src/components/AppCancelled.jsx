@@ -35,7 +35,7 @@ export const AppCancelled = ({profile, configuration}) => {
                 &nbsp;if you have any questions or if you’d like to start a new application.
             </P>
         </>
-    )
+    );
 };
 
 AppCancelled.propTypes = {

@@ -50,7 +50,7 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             },
         },
         applicantUpdated: jest.fn()
-    }
+    };
 };
 
 it('displays some legal words about the lease', () => {
@@ -59,7 +59,7 @@ it('displays some legal words about the lease', () => {
     API.fetchApplicant = jest.fn().mockReturnValue({events: []});
     const wrapper = shallow(<AppApproved {...props} />);
     expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
-})
+});
 
 describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
@@ -69,8 +69,8 @@ describe('hellosign modal', () => {
         const wrapper = shallow(<AppApproved {...props} />);
         wrapper.find(ActionButton).simulate('click');
         expect(API.embeddedSigningUrl).toHaveBeenCalled();
-    })
-})
+    });
+});
 
 describe('application unit', () => {
     it('displays building name when no unit', () => {
@@ -79,7 +79,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<AppApproved {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
 
     it('displays building name without unit when no unit number', () => {
@@ -87,7 +87,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<AppApproved {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
 
     it('displays building name with unit when has unit number', () => {
@@ -95,7 +95,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<AppApproved {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F');
     });
 
     it('displays normalized street address and unit number when no building name', () => {
@@ -103,7 +103,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<AppApproved {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F')
+        expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F');
     });
 });
 
@@ -113,7 +113,7 @@ describe('Lease not sent', () => {
         props.profile.events = [];
 
         const wrapper = shallow(<AppApproved {...props} />);
-        expect(wrapper.text()).toContain('email with instructions on how to sign the lease')
+        expect(wrapper.text()).toContain('email with instructions on how to sign the lease');
         expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
 });

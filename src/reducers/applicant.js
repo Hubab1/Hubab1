@@ -14,7 +14,7 @@ const applicant = createSlice({
         },
         applicantUpdated(state, action) {
             return produce(state, draft => {
-                Object.assign(draft, action.payload)
+                Object.assign(draft, action.payload);
             });
         },
     },
@@ -38,8 +38,8 @@ export const fetchApplicant = () => {
             applicant = await API.fetchApplicant();
         }
         dispatch(applicantReceived(applicant));
-        return applicant
-    }
+        return applicant;
+    };
 };
 
 export const updateApplicant = (newData) => {
@@ -50,11 +50,11 @@ export const updateApplicant = (newData) => {
         }
         return API.putApplicant(newData).then(res => {
             if (res.errors) {
-                return res
+                return res;
             }
             return dispatch(applicantUpdated(res));
-        })
-    }
+        });
+    };
 };
 
 // selectors

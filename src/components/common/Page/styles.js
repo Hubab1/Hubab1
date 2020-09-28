@@ -8,7 +8,7 @@ export const drawerContent = css`
     margin: auto;
     padding-bottom: 25px;
     min-width: 300px;
-`
+`;
 
 export const Banner = styled.div`
     height: 80px;
@@ -18,4 +18,4 @@ export const Banner = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
-`
+`;

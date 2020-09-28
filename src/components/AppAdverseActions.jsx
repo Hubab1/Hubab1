@@ -12,12 +12,12 @@ export const Subtitle = styled.small`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-`
+`;
 
 const Header = styled.div`
     border-bottom: 1px solid #EEEEEE;
     padding: 20px;
-`
+`;
 
 const CreditScore = styled.div`
     width: 48px;
@@ -31,15 +31,15 @@ const CreditScore = styled.div`
     border: 1px solid;
     font-weight: bold;
     color: #828796;
-    color: ${props => props.color || "#828796"};
-    border-color: ${props => props.color || "#828796"};
+    color: ${props => props.color || '#828796'};
+    border-color: ${props => props.color || '#828796'};
     margin-left: 1px;
     margin-right: 9px;
-`
+`;
 
 const CreditScoreDetails = styled.div`
     padding-top: 3px;
-`
+`;
 
 const Decision = styled.div`
     margin-top: 13px;
@@ -61,11 +61,11 @@ const AdverseActionsFactors = styled.ul`
     li:last-child {
         margin-bottom:0;
     }
-`
+`;
 
 const IndentedRow = styled(CardRow)`
     justify-content: initial;
-`
+`;
 
 export function AppAdverseActions (props) {
     const { configuration } = props;
@@ -73,18 +73,24 @@ export function AppAdverseActions (props) {
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
     const [isReady, setIsReady] = useState(false);
+
     useEffect(() => {
         API.getAdverseActions().then(res => {
             if (res.adverse_factors) setAdverseFactors(res.adverse_factors);
             if (res.request_date) {
                 const formattedDate = new Date(res.request_date);
-                setRequestDate(formattedDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+                setRequestDate(
+                    formattedDate.toLocaleDateString(
+                        'en-US',
+                        { year: 'numeric', month: '2-digit', day: '2-digit' }
+                        )
+                );
             }
             if (res.credit_score) setCreditScore(res.credit_score);
             setIsReady(true);
         }).catch(() => {
             setIsReady(true);
-        })
+        });
     }, []);
 
     const getButtonText = () => {
@@ -97,8 +103,7 @@ export function AppAdverseActions (props) {
         return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
 
-
-    let getCreditScoreColor = (score) => {
+    const getCreditScoreColor = (score) => {
         const ratingConfig = configuration.credit_score_rating_config;
 
         if (!ratingConfig || !ratingConfig.length || !score || isNaN(score))
@@ -112,11 +117,13 @@ export function AppAdverseActions (props) {
         }
 
         switch(index) {
-            case 0: return "#60C28D";
-            case 1: return "#FCC022";
-            default: return "#D0021B";
+            case 0: return '#60C28D';
+            case 1: return '#FCC022';
+            default: return '#D0021B';
         }
     };
+
+    const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
 
     return (
         <div>
@@ -138,7 +145,7 @@ export function AppAdverseActions (props) {
                         props.unitNumber && <>,</>}{props.unitNumber}.
                     </P>
                     <br/>
-                    {props.securityDeposit && (
+                    {props.securityDeposit && !props.guarantorRequested && (
                         <>
                             <P>
                                 Unfortunately, we are unable to approve your rental application under our standard terms
@@ -152,7 +159,18 @@ export function AppAdverseActions (props) {
                         </>
 
                     )}
-                    {!props.securityDeposit && (
+                    {props.guarantorRequested && (
+                        <>
+                            <P>
+                                Unfortunately, we are unable to approve your rental application under our standard terms and conditions because you do not meet the required household income.
+                            </P>
+                            <br />
+                            <P>
+                                {`We can, however, reevaluate your rental application if you add a guarantor. Guarantors are required to make ${guarantor_income_requirement_multiplier}x the monthly rent.`}
+                            </P>
+                        </>
+                    )}
+                    {!props.securityDeposit && !props.guarantorRequested && (
                         <P>
                             Unfortunately, we are unable to approve your rental application.
                         </P>
@@ -222,7 +240,7 @@ export function AppAdverseActions (props) {
             )}
             <ActionButton disabled={!isReady} marginTop={39} onClick={props.onAgree}>{getButtonText()}</ActionButton>
         </div>
-    )
+    );
 }
 AppAdverseActions.propTypes = {
     date: PropTypes.string,
@@ -232,6 +250,7 @@ AppAdverseActions.propTypes = {
     securityDeposit: PropTypes.string,
     onAgree: PropTypes.func.isRequired,
     configuration: PropTypes.object,
+    guarantorRequested: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

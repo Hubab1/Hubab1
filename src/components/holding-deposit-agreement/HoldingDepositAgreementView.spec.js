@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import HoldingDepositAgreementView from "./HoldingDepositAgreementView";
+import HoldingDepositAgreementView from './HoldingDepositAgreementView';
 
 
 let defaultProps;
@@ -8,7 +8,7 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         handleContinue: jest.fn(),
-        handleClickBack: jest.fn(),
+        handleClickBack: 'some_route',
         configuration: {
             community: {
                 buildingName: 'Monterey Pines Apartments',
@@ -24,6 +24,6 @@ beforeEach(() => {
 });
 
 it('Matches Snapshot', async () => {
-    let wrapper = shallow( <HoldingDepositAgreementView {...defaultProps}/> );
+    const wrapper = shallow( <HoldingDepositAgreementView {...defaultProps}/> );
     expect(wrapper.debug()).toMatchSnapshot();
 });

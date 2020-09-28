@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
-
 import { ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import lightbulb from 'assets/images/lightbulb.png';
@@ -14,29 +13,27 @@ import { PersonRow } from './PersonRow';
 import { FolderImage, BulbImage, statusBlurb, gridContainer } from './styles';
 import ResendLinkForm from 'components/common//ResendLinkForm';
 
-
-
 export const AppComplete = ({profile, configuration, applicant}) => {
 
     const [resendFormValues, setResendFormValues] = useState();
 
-    if (!profile || ! configuration) return null;       
+    if (!profile || ! configuration) return null;
     if (resendFormValues) {
-        return <ResendLinkForm 
-            initialValues={resendFormValues} 
+        return <ResendLinkForm
+            initialValues={resendFormValues}
             handleConfirmationClick={setResendFormValues}
             confirmationButtonText="Back to Application Status"
-        />
+               />;
     }
     const { unit, primary_applicant, co_applicants } = profile;
-    const { guarantors } = primary_applicant
+    const { guarantors } = primary_applicant;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const role = applicant.role;
 
     return (
         <Fragment>
-            <H1>Hooray! You're done.</H1>
-            <SpacedH3>We'll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
+            <H1>Hooray! You&apos;re done.</H1>
+            <SpacedH3>We&apos;ll notify you about your application status, but you can always come back here to check the progress!</SpacedH3>
             <FolderImage src={statusFolder}/>
             <div className={gridContainer}>
                 <Grid container spacing={2} alignItems="center">
@@ -67,10 +64,10 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                     <CardRow>
                         <P bold>Applicant Status</P>
                     </CardRow>
-                    { primary_applicant && 
-                        <PersonRow 
-                            person={primary_applicant} 
-                            label="Main Applicant" 
+                    { primary_applicant &&
+                        <PersonRow
+                            person={primary_applicant}
+                            label="Main Applicant"
                             role={role}
                             handleClickLink={setResendFormValues}
                         /> }
@@ -82,48 +79,48 @@ export const AppComplete = ({profile, configuration, applicant}) => {
                                 label="Roommate"
                                 role={role}
                                 handleClickLink={setResendFormValues}
-                            />
+                                   />;
                         })
                     }
                 </CardSection>
             </Card>
-            { 
+            {
                 guarantors?.length > 0 &&
                     <Card>
                         <CardSection>
                             <CardRow>
                                 <P bold>Guarantor Status</P>
-                            </CardRow> 
+                            </CardRow>
                             {
                                 guarantors.map(guarantor => {
-                                    return <PersonRow 
+                                    return <PersonRow
                                         key={guarantor.id}
-                                        person={guarantor} 
-                                        label="Guarantor" 
+                                        person={guarantor}
+                                        label="Guarantor"
                                         role={role}
                                         handleClickLink={setResendFormValues}
-                                    />
-                                }) 
+                                           />;
+                                })
 
                             }
                         </CardSection>
                     </Card>
             }
         </Fragment>
-    )
-}
+    );
+};
 
 AppComplete.propTypes = {
     profile: PropTypes.object,
     configuration: PropTypes.object,
     applicant: PropTypes.object,
-}
+};
 
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant,
-})
+});
 
 export default connect(mapStateToProps, null)(withRelativeRoutes(AppComplete, ROUTES.APP_COMPLETE));

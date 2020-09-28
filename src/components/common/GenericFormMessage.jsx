@@ -13,21 +13,21 @@ const errorContainer = css`
     justify-content: center;
     font-size: 14px;
     line-height: 16px;
-`
+`;
 
 const darkGreen = css`
     background-color: #67C18B;
-`
+`;
 
 const darkRed = css`
     background-color: #FB6D68;
-`
+`;
 const lightRed = css`
     background-color: #FEF0EF;
-`
+`;
 const lightGreen = css`
     background-color: rgba(103,193,139,0.1);
-`
+`;
 
 const iconDiv = css`
     padding: 5px;
@@ -35,7 +35,7 @@ const iconDiv = css`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const messageDiv = css`
     display: inline-block;
@@ -45,7 +45,7 @@ const messageDiv = css`
     justify-content: flex-start;
     align-items: center;
     flex-grow: 1;
-`
+`;
 
 export default function GenericFormDetail (props) {
     if (!props.messages) return null;
@@ -61,7 +61,7 @@ export default function GenericFormDetail (props) {
                         <Fragment key={error}>
                             {error} <br/>
                         </Fragment>
-                    )
+                    );
                 })}
             </div>
         </div>
@@ -70,9 +70,9 @@ export default function GenericFormDetail (props) {
 
 GenericFormDetail.defaultProps = {
     type: 'success'
-}
+};
 
 GenericFormDetail.propTypes = {
     messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     type: PropTypes.oneOf(['sucess', 'error']),
-}
+};

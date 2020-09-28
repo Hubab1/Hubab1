@@ -9,7 +9,9 @@ import Box from '@material-ui/core/Box';
 import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
-import { ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE } from 'app/constants';
+import {
+    ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE
+} from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -58,7 +60,9 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
         hsclient.on('sign', async () => {
             // ensure FE has the applicant signed milestone before navigating to next screen
             const newApplicant = await API.fetchApplicant();
-            const leaseSignedMilestone = newApplicant.events.find(e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE));
+            const leaseSignedMilestone = newApplicant.events.find(
+                e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
+            );
             if (!leaseSignedMilestone) {
                 newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, milestone: true});
             }
@@ -68,7 +72,7 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
         });
         return () => {
             hsclient.off('sign');
-        }
+        };
     }, [applicantUpdated, history]);
 
     if (!profile || ! configuration) return null;
@@ -83,7 +87,7 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
     const { name } = applicant.client.person;
 
     const toggleViewAdverseActions = () => {
-        setViewAdverseActions(!viewAdverseActions)
+        setViewAdverseActions(!viewAdverseActions);
     };
 
     const openEmbeddedSigning = async () => {
@@ -96,18 +100,19 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
                 allowDecline: false,
             });
         }
-    }
+    };
+
     const leaseSent = !!profile.events.find(e => String(e.event) === String(MILESTONE_LEASE_SENT));
 
     return (
         <>
             <div className={clsx({'hide-element': viewAdverseActions})}>
-                <H1>You've Been Approved!</H1>
+                <H1>{`You've Been Approved!`}</H1>
                 {
-                    leaseSent && <SpacedH3>All that's left to do is sign the lease.</SpacedH3>
+                    leaseSent && <SpacedH3>{`All that's left to do is sign the lease.`}</SpacedH3>
                 }
                 {
-                    !leaseSent && <SpacedH3>We'll send an email with instructions on how to sign the lease shortly.</SpacedH3>
+                    !leaseSent && <SpacedH3>{`We'll send an email with instructions on how to sign the lease shortly.`}</SpacedH3>
                 }
                 <ApprovedImage src={approvedSign}/>
                 <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
@@ -151,7 +156,7 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
                 />
             }
         </>
-    )
+    );
 };
 
 AppApproved.propTypes = {
@@ -159,6 +164,8 @@ AppApproved.propTypes = {
     configuration: PropTypes.object,
     updateApplicant: PropTypes.object,
     applicant: PropTypes.object,
+    history: PropTypes.object,
+    applicantUpdated: PropTypes.func,
 };
 
 

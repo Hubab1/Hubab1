@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
@@ -15,36 +15,35 @@ import Button from '@material-ui/core/Button';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { P, LinkButton } from 'assets/styles';
 
-
 const root = css`
     border-radius: 21.5px !important;
     height: 45px;
-`
+`;
 
 const label = css`
     text-transform: none;
     font-size: 16px;
-`
+`;
 
 const UploadButtonContainer = styled.div`
-    margin-top: ${props => props.marginTop ? `${props.marginTop}px` : 0};
-    margin-bottom: ${props => props.marginTop ? `${props.marginTop}px` : 0};
+    margin-top: ${(props) => (props.marginTop ? `${props.marginTop}px` : 0)};
+    margin-bottom: ${(props) => (props.marginTop ? `${props.marginTop}px` : 0)};
     text-decoration: none;
     display: block;
     label {
         margin-bottom: 17px;
     }
-`
+`;
 const FileNamesContainer = styled.div`
     margin-right: -23px;
     margin-left: -23px;
     padding-left: 23px;
     padding-right: 23px;
-    background-color: rgba(38,48,91,0.1);
+    background-color: rgba(38, 48, 91, 0.1);
     .uploaded-document-display:last-child {
         border-bottom: none;
     }
-`
+`;
 
 const UploadedDocuments = styled.div`
     .uploaded-document {
@@ -65,12 +64,12 @@ const UploadedDocuments = styled.div`
         justify-content: space-between;
     }
     .uploaded-document-display {
-        border-bottom: 1px solid #C8C8C8;
+        border-bottom: 1px solid #c8c8c8;
         padding: 11px 0px 12px 0px;
         display: flex;
         justify-content: space-between;
     }
-`
+`;
 
 const FileName = styled.div`
     white-space: nowrap;
@@ -79,8 +78,7 @@ const FileName = styled.div`
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-`
-
+`;
 
 export class UploadDocuments extends React.Component {
     state = {
@@ -88,9 +86,9 @@ export class UploadDocuments extends React.Component {
         selectedDocument: null,
     };
 
-    componentDidMount () {
+    componentDidMount() {
         let label;
-        for (let key in this.props.uploadedDocuments) {
+        for (const key in this.props.uploadedDocuments) {
             label = this.props.uploadedDocuments[key].label;
         }
         if (!label) return;
@@ -98,19 +96,19 @@ export class UploadDocuments extends React.Component {
         if (index > -1) {
             this.setState({
                 selectedDocumentIndex: index,
-                selectedDocument: this.documentsRequired.proof_documents[index]
+                selectedDocument: this.documentsRequired.proof_documents[index],
             });
         }
     }
 
-    componentDidUpdate (prevProps) {
-        if (prevProps.incomeOrAssetType !== this.props.incomeOrAssetType){
+    componentDidUpdate(prevProps) {
+        if (prevProps.incomeOrAssetType !== this.props.incomeOrAssetType) {
             this.setState({
                 selectedDocumentIndex: null,
                 selectedDocument: null,
             });
         }
-    };
+    }
 
     startCase = (str) => {
         return str
@@ -121,37 +119,38 @@ export class UploadDocuments extends React.Component {
     };
 
     titleCase = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
 
     getTitle = () => {
         let type = '';
-        if (this.props.streamType === FINANCIAL_STREAM_INCOME) { type = 'income'}
-        else if (this.props.streamType === FINANCIAL_STREAM_ASSET) { type = 'asset'}
-        return (
-            <P margin="43px 0 0 0">{`Proof of ${type}:`}</P>
-        )
+        if (this.props.streamType === FINANCIAL_STREAM_INCOME) {
+            type = 'income';
+        } else if (this.props.streamType === FINANCIAL_STREAM_ASSET) {
+            type = 'asset';
+        }
+        return <P margin="43px 0 0 0">{`Proof of ${type}:`}</P>;
     };
 
-    handleChange = event => {
+    handleChange = (event) => {
         const documentRequired = this.documentsRequired;
         const index = parseInt(event.target.value);
         this.setState({
             selectedDocumentIndex: index,
-            selectedDocument: documentRequired.proof_documents[index]
+            selectedDocument: documentRequired.proof_documents[index],
         });
     };
 
-    get documentsRequired () {
+    get documentsRequired() {
         const config = this.props.config.financial_documents_validations;
-        return config.find(doc => doc.income_or_asset_type === this.props.incomeOrAssetType);
-    };
+        return config.find((doc) => doc.income_or_asset_type === this.props.incomeOrAssetType);
+    }
 
     getProofsLabel = () => {
         const documentRequired = this.documentsRequired;
-        let proofDocuments = documentRequired.proof_documents;
+        const proofDocuments = documentRequired.proof_documents;
 
-        return proofDocuments.map(d => d.label).join(' + ')
+        return proofDocuments.map((d) => d.label).join(' + ');
     };
 
     getRemainingFilesCount = (document) => {
@@ -161,11 +160,13 @@ export class UploadDocuments extends React.Component {
 
         if (!document || !uploadedDocuments) return { max: 0, min: 0 };
 
-        const settings = proof_documents.find(settings => settings.id === document.id);
-        const uploaded = uploadedDocuments[String(document.id)]? uploadedDocuments[String(document.id)].files.length: 0;
+        const settings = proof_documents.find((settings) => settings.id === document.id);
+        const uploaded = uploadedDocuments[String(document.id)]
+            ? uploadedDocuments[String(document.id)].files.length
+            : 0;
         return {
             max: Math.max(0, settings.max_required - uploaded),
-            min: Math.max(0, settings.min_required - uploaded)
+            min: Math.max(0, settings.min_required - uploaded),
         };
     };
 
@@ -173,33 +174,33 @@ export class UploadDocuments extends React.Component {
         const id = e.target.id;
         if (e.target.value.length === 0) return null;
 
-        const maxCount = this.getRemainingFilesCount(selectedDocument)?.max?? 0;
+        const maxCount = this.getRemainingFilesCount(selectedDocument)?.max ?? 0;
         if (!maxCount) return null;
 
-        let largeFiles = [];
+        const largeFiles = [];
 
-        for (let i = 0; i < (e.target.files.length<= maxCount? e.target.files.length: maxCount); i++) {
-            let file = e.target.files[i];
-            let fileSize = file.size / 1024 / 1024; // in MB
+        for (let i = 0; i < (e.target.files.length <= maxCount ? e.target.files.length : maxCount); i++) {
+            const file = e.target.files[i];
+            const fileSize = file.size / 1024 / 1024; // in MB
             if (fileSize > 10) {
                 largeFiles.push(file.name);
             } else {
-                let reader = new FileReader();
+                const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
-                    let fileInfo = {
+                    const fileInfo = {
                         name: file.name,
                         id: uuidv4(),
-                        file: file
+                        file: file,
                     };
-                    let uploadedDocuments = {...this.props.uploadedDocuments};
+                    const uploadedDocuments = { ...this.props.uploadedDocuments };
                     if (uploadedDocuments[id]) {
-                        uploadedDocuments[id].files.push(fileInfo)
+                        uploadedDocuments[id].files.push(fileInfo);
                     } else {
                         uploadedDocuments[id] = {
                             id: selectedDocument.id,
                             label: selectedDocument.label,
-                            files: [fileInfo]
+                            files: [fileInfo],
                         };
                     }
                     this.props.loadDocument(uploadedDocuments);
@@ -207,21 +208,23 @@ export class UploadDocuments extends React.Component {
             }
         }
         if (largeFiles.length) {
-            const errorMessage = largeFiles.length === 1?
-                `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10MB or smaller and try again.`:
-                `Oops! Your files ${largeFiles.join(', ')} are too large. Please save them as 10MB or smaller each and try again.`;
+            const errorMessage =
+                largeFiles.length === 1
+                    ? `Oops! Your file ${largeFiles[0]} is too large. Please save it as 10MB or smaller and try again.`
+                    : `Oops! Your files ${largeFiles.join(
+                          ', '
+                      )} are too large. Please save them as 10MB or smaller each and try again.`;
 
             this.props.setError([errorMessage]);
         } else {
-            this.props.setError([])
+            this.props.setError([]);
         }
     };
 
     getUploadButtonLabel = (doc) => {
-        let remaining = this.getRemainingFilesCount(doc)?.min?? 0;
-        return this.startCase(`Upload ${remaining? remaining : ''} ${doc.label}`);
+        const remaining = this.getRemainingFilesCount(doc)?.min ?? 0;
+        return this.startCase(`Upload ${remaining ? remaining : ''} ${doc.label}`);
     };
-
 
     displayUploadedDocuments = () => {
         const { uploadedDocuments } = this.props;
@@ -238,20 +241,20 @@ export class UploadDocuments extends React.Component {
                             <div className="uploaded-document-type-title">
                                 {/* eslint-disable-next-line */}
                                 <span>{this.titleCase(uploadedDocuments[docId].label)}</span>
-                                {
-                                    uploadedDocuments[docId].files.length > 1 &&
-                                    <LinkButton
-                                        onClick={() => this.props.removeAll(docId)}>
-                                            Remove all ({uploadedDocuments[docId].files.length})
+                                {uploadedDocuments[docId].files.length > 1 && (
+                                    <LinkButton onClick={() => this.props.removeAll(docId)}>
+                                        Remove all ({uploadedDocuments[docId].files.length})
                                     </LinkButton>
-                                }
+                                )}
                             </div>
                             <FileNamesContainer>
-                                {uploadedDocuments[docId].files.map((file, i) => (
+                                {uploadedDocuments[docId].files.map((file) => (
                                     <div className="uploaded-document-display" key={file.id}>
                                         <FileName>{file.name}</FileName>
                                         {/* eslint-disable-next-line */}
-                                        <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>Remove</LinkButton>
+                                        <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>
+                                            Remove
+                                        </LinkButton>
                                         {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
                                     </div>
                                 ))}
@@ -260,7 +263,7 @@ export class UploadDocuments extends React.Component {
                     );
                 })}
             </UploadedDocuments>
-        )
+        );
     };
 
     displayUploadButton = (document) => {
@@ -279,15 +282,15 @@ export class UploadDocuments extends React.Component {
         if (!requireAll && otherDocTypesUploaded) return false;
 
         // Case 3: 'Max required' reached
-        const settings = proof_documents.find(settings => settings.id === documentId);
-        const uploaded = uploadedDocuments[String(documentId)]? uploadedDocuments[String(documentId)].files.length: 0;
+        const settings = proof_documents.find((settings) => settings.id === documentId);
+        const uploaded = uploadedDocuments[String(documentId)] ? uploadedDocuments[String(documentId)].files.length : 0;
         if (uploaded >= settings.max_required) return false;
 
         // Case 4: All other cases
-        return true
+        return true;
     };
-        
-    render () {
+
+    render() {
         const { selectedDocumentIndex, selectedDocument } = this.state;
         const documentRequired = this.documentsRequired;
         const requireAll = documentRequired?.require_all ?? true;
@@ -297,7 +300,7 @@ export class UploadDocuments extends React.Component {
         return (
             <>
                 {this.getTitle()}
-                {requireAll || documentRequired.proof_documents.length ===1 ? (
+                {requireAll || documentRequired.proof_documents.length === 1 ? (
                     <>
                         <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
                         {this.displayUploadedDocuments()}
@@ -318,7 +321,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(doc.id)}
                                                 accept="image/*,.pdf"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, doc)}
                                                 max={this.getRemainingFilesCount(doc)?.max}
                                                 multiple
@@ -368,7 +371,7 @@ export class UploadDocuments extends React.Component {
                                                 type="file"
                                                 name={String(selectedDocument.id)}
                                                 accept="image/*,.pdf,.doc,.docx"
-                                                style={{ display: "none" }}
+                                                style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, selectedDocument)}
                                                 max={this.getRemainingFilesCount(selectedDocument)?.max}
                                                 multiple
@@ -381,7 +384,7 @@ export class UploadDocuments extends React.Component {
                     </>
                 )}
             </>
-        )
+        );
     }
 }
 
@@ -392,9 +395,10 @@ UploadDocuments.propTypes = {
     loadDocument: PropTypes.func.isRequired,
     uploadedDocuments: PropTypes.object.isRequired,
     setError: PropTypes.func.isRequired,
+    removeAll: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     config: state.configuration,
 });
 

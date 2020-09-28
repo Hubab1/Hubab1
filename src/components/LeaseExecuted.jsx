@@ -28,7 +28,7 @@ export function LeaseExecuted(props) {
             const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
-    }, [])
+    }, []);
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;
@@ -36,7 +36,7 @@ export function LeaseExecuted(props) {
     return (
         <>
             <H1>Welcome To Your New Home!</H1>
-            <SpacedH3>Your application has been completed and we can't wait for you to move in.</SpacedH3>
+            <SpacedH3>{`Your application has been completed and we can't wait for you to move in.`}</SpacedH3>
             <Img src={house}/>
             <div>
                 <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
@@ -47,18 +47,17 @@ export function LeaseExecuted(props) {
                 </ActionButton>
             </div>
         </>
-    )
+    );
 }
 
 LeaseExecuted.propTypes = {
     unit: PropTypes.object,
     community: PropTypes.object,
-}
+};
 
 const mapStateToProps = state => ({
     unit: state.renterProfile && state.renterProfile.unit,
     community: state.configuration && state.configuration.community,
 });
-
 
 export default connect(mapStateToProps)(captureRoute(LeaseExecuted, ROUTES.LEASE_EXECUTED));

@@ -5,9 +5,16 @@ import { connect } from 'react-redux';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
-import { ROUTES, RENTER_PROFILE_IDENTIFIER, RENTER_PROFILE_TYPE_CO_APPLICANTS, RENTER_PROFILE_TYPE_GUARANTOR,
-    RENTER_PROFILE_TYPE_PETS, RENTER_PROFILE_TYPE_PARKING, RENTER_PROFILE_TYPE_STORAGE,
-    RENTER_PROFILE_TYPE_DEPENDENT } from 'app/constants';
+import {
+    ROUTES,
+    RENTER_PROFILE_IDENTIFIER,
+    RENTER_PROFILE_TYPE_CO_APPLICANTS,
+    RENTER_PROFILE_TYPE_GUARANTOR,
+    RENTER_PROFILE_TYPE_PETS,
+    RENTER_PROFILE_TYPE_PARKING,
+    RENTER_PROFILE_TYPE_STORAGE,
+    RENTER_PROFILE_TYPE_DEPENDENT,
+} from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -51,7 +58,7 @@ export class RentalProfileOptions extends React.Component {
         };
         scrollToAnchor();
         window.onhashchange = scrollToAnchor;
-    }
+    };
 
     componentDidMount() {
         if (!this.props.profile) return null;
@@ -60,44 +67,48 @@ export class RentalProfileOptions extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!prevProps.profile && !!this.props.profile){
+        if (!prevProps.profile && !!this.props.profile) {
             this.setScrollPosition();
         }
     }
+
     onContinue = async () => {
         try {
-            this.setState({submitting: true});
+            this.setState({ submitting: true });
             await this.props.pageComplete(RENTER_PROFILE_IDENTIFIER);
         } catch {
-            this.setState({hasError: true});
+            this.setState({ hasError: true });
         } finally {
-            this.setState({submitting: false});
+            this.setState({ submitting: false });
         }
         this.props._nextRoute();
-    }
+    };
 
-    get configurableRentalOptions () {
+    get configurableRentalOptions() {
         const activeRentalOptions = new Set([RENTER_PROFILE_TYPE_CO_APPLICANTS]);
-        Object.keys(this.props.config.rental_options).forEach(key => activeRentalOptions.add(key.toLowerCase()));
+        Object.keys(this.props.config.rental_options).forEach((key) => activeRentalOptions.add(key.toLowerCase()));
         if (this.props.config.allow_guarantors) {
             activeRentalOptions.add(RENTER_PROFILE_TYPE_GUARANTOR);
         }
         return activeRentalOptions;
     }
 
-    get existingPets () {
+    get existingPets() {
         const existingPets = [];
         if (this.props.profile.selected_rental_options.pets) {
-            this.props.profile.selected_rental_options.pets.forEach(item => existingPets.push(...item.leasing_context.pets));
+            this.props.profile.selected_rental_options.pets.forEach((item) =>
+                existingPets.push(...item.leasing_context.pets)
+            );
         }
         return existingPets;
     }
 
-    filterOptions = option => this.props.profile.selected_rental_options[option] ?
-        this.props.profile.selected_rental_options[option].filter(option => option.quantity > 0) :
-        []
+    filterOptions = (option) =>
+        this.props.profile.selected_rental_options[option]
+            ? this.props.profile.selected_rental_options[option].filter((option) => option.quantity > 0)
+            : [];
 
-    render () {
+    render() {
         if (this.props.profile == null) return null;
         const hashValue = !!this.props.location.hash ? this.props.location.hash.substring(1) : '';
         const filteredParking = this.filterOptions(RENTER_PROFILE_TYPE_PARKING);
@@ -106,45 +117,46 @@ export class RentalProfileOptions extends React.Component {
         const people = this.props.profile.co_applicants.concat(this.props.profile.dependents);
         return (
             <Fragment>
-                <SkinnyH1>Let's Set Up Your Rental Profile</SkinnyH1>
-                <SpacedH3>Complete the sections that apply to you and skip the ones that don't.</SpacedH3>
+                <SkinnyH1>Let&apos;s Set Up Your Rental Profile</SkinnyH1>
+                <SpacedH3>Complete the sections that apply to you and skip the ones that don&apos;t.</SpacedH3>
                 {this.state.hasError && (
-                    <GenericFormMessage
-                        type="error"
-                        messages="Oops, something went wrong. Try again."
-                    />
+                    <GenericFormMessage type="error" messages="Oops, something went wrong. Try again." />
                 )}
                 <div>
-                    {options.has(RENTER_PROFILE_TYPE_CO_APPLICANTS) &&
+                    {options.has(RENTER_PROFILE_TYPE_CO_APPLICANTS) && (
                         <Capsule
                             prefix={<img alt="coapplicants" src={coapplicants}></img>}
                             name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                             label="I'll be living with other people"
                             buttonLabel={!!people.length ? 'Add Another Person' : 'Add a Person'}
                             route={ROUTES.CO_APPLICANTS}
-                            expansionPanel={!!people.length &&
-                                <ExistingItemsExpansionPanel
-                                    label="Roommates"
-                                    labelQuantity={people.length}
-                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
-                                >
-                                    {this.props.profile.co_applicants.map((item) =>
-                                        <ExistingRoommate
-                                            key={`co_applicant-${item.id}`}
-                                            item={item}
-                                            type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
-                                        />)}
-                                    {this.props.profile.dependents.map((item) =>
-                                        <ExistingRoommate
-                                            key={`dependent-${item.id}`}
-                                            item={item}
-                                            type={RENTER_PROFILE_TYPE_DEPENDENT}
-                                        />)}
-                                </ExistingItemsExpansionPanel>
+                            expansionPanel={
+                                !!people.length && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Roommates"
+                                        labelQuantity={people.length}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                    >
+                                        {this.props.profile.co_applicants.map((item) => (
+                                            <ExistingRoommate
+                                                key={`co_applicant-${item.id}`}
+                                                item={item}
+                                                type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                            />
+                                        ))}
+                                        {this.props.profile.dependents.map((item) => (
+                                            <ExistingRoommate
+                                                key={`dependent-${item.id}`}
+                                                item={item}
+                                                type={RENTER_PROFILE_TYPE_DEPENDENT}
+                                            />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
                             }
                         />
-                    }
-                    {options.has(RENTER_PROFILE_TYPE_GUARANTOR) &&
+                    )}
+                    {options.has(RENTER_PROFILE_TYPE_GUARANTOR) && (
                         <Capsule
                             prefix={<img alt="coins" src={guarantor}></img>}
                             name={RENTER_PROFILE_TYPE_GUARANTOR}
@@ -153,99 +165,123 @@ export class RentalProfileOptions extends React.Component {
                             route={ROUTES.GUARANTOR}
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
                             limitReached={!!this.props.profile.primary_applicant.guarantors.length}
-                            expansionPanel={!!this.props.profile.primary_applicant.guarantors.length &&
-                                <ExistingItemsExpansionPanel
-                                    label="Guarantor"
-                                    labelQuantity={this.props.profile.primary_applicant.guarantors.length}
-                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
-                                >
-                                    {this.props.profile.primary_applicant.guarantors.map((item) =>
-                                        <ExistingRoommate
-                                            key={`guarantor-${item.id}`}
-                                            item={item}
-                                            type={RENTER_PROFILE_TYPE_GUARANTOR}
-                                        />)}
-                                </ExistingItemsExpansionPanel>
+                            expansionPanel={
+                                !!this.props.profile.primary_applicant.guarantors.length && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Guarantor"
+                                        labelQuantity={this.props.profile.primary_applicant.guarantors.length}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
+                                    >
+                                        {this.props.profile.primary_applicant.guarantors.map((item) => (
+                                            <ExistingRoommate
+                                                key={`guarantor-${item.id}`}
+                                                item={item}
+                                                type={RENTER_PROFILE_TYPE_GUARANTOR}
+                                            />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
                             }
                         />
-                    }
-                    {options.has(RENTER_PROFILE_TYPE_PETS) &&
+                    )}
+                    {options.has(RENTER_PROFILE_TYPE_PETS) && (
                         <Capsule
                             prefix={<img alt="dog" src={cat} />}
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
-                            buttonLabel={this.existingPets.length ? "Manage pets" : "Add a pet"}
+                            buttonLabel={this.existingPets.length ? 'Manage pets' : 'Add a pet'}
                             route={ROUTES.PETS}
-                            expansionPanel={!!this.existingPets.length &&
-                                <ExistingItemsExpansionPanel
-                                    label="Pets"
-                                    labelQuantity={this.existingPets.length}
-                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
-                                >
-                                    {this.existingPets.map((item, index) =>
-                                        <ExistingPet
-                                            key={index}
-                                            item={item}
-                                        />
-                                    )}
-                                </ExistingItemsExpansionPanel>
+                            expansionPanel={
+                                !!this.existingPets.length && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Pets"
+                                        labelQuantity={this.existingPets.length}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PETS}
+                                    >
+                                        {this.existingPets.map((item, index) => (
+                                            <ExistingPet key={index} item={item} />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
                             }
-
                         />
-                    }
-                    {options.has(RENTER_PROFILE_TYPE_PARKING) &&
+                    )}
+                    {options.has(RENTER_PROFILE_TYPE_PARKING) && (
                         <Capsule
-                            prefix={<img src={addparking} alt="car parking"/>}
+                            prefix={<img src={addparking} alt="car parking" />}
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
-                            buttonLabel={(filteredParking.length > 0) ? "Manage Parking" : "Add Parking"}
+                            buttonLabel={filteredParking.length > 0 ? 'Manage Parking' : 'Add Parking'}
                             route={ROUTES.PARKING}
-                            expansionPanel={filteredParking.length > 0 &&
-                                <ExistingItemsExpansionPanel
-                                    label="Parking Space"
-                                    labelQuantity={this.props.profile.selected_rental_options.parking.reduce((totalSelected, selectedOption) => {
-                                        return totalSelected += selectedOption.quantity;
-                                    }, 0)}
-                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
-                                >
-                                    {filteredParking.map(item =>
-                                        <ExistingParkingOrStorage
-                                            key={item.id}
-                                            quantity={item.quantity}
-                                            rentalOption={this.props.config.rental_options.parking.find(option => option.id === item.rental_option.id)}
-                                        />)}
-                                </ExistingItemsExpansionPanel>
+                            expansionPanel={
+                                filteredParking.length > 0 && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Parking Space"
+                                        labelQuantity={this.props.profile.selected_rental_options.parking.reduce(
+                                            (totalSelected, selectedOption) => {
+                                                return (totalSelected += selectedOption.quantity);
+                                            },
+                                            0
+                                        )}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
+                                    >
+                                        {filteredParking.map((item) => (
+                                            <ExistingParkingOrStorage
+                                                key={item.id}
+                                                quantity={item.quantity}
+                                                rentalOption={this.props.config.rental_options.parking.find(
+                                                    (option) => option.id === item.rental_option.id
+                                                )}
+                                            />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
                             }
                         />
-                    }
-                    {options.has(RENTER_PROFILE_TYPE_STORAGE) &&
+                    )}
+                    {options.has(RENTER_PROFILE_TYPE_STORAGE) && (
                         <Capsule
                             prefix={<img src={addstorage} alt="storage" />}
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
-                            buttonLabel={(filteredStorage.length > 0) ? "Manage Storage" : "Add Storage"}
+                            buttonLabel={filteredStorage.length > 0 ? 'Manage Storage' : 'Add Storage'}
                             route={ROUTES.STORAGE}
-                            expansionPanel={filteredStorage.length > 0 &&
-                                <ExistingItemsExpansionPanel
-                                    label="Storage Space"
-                                    labelQuantity={this.props.profile.selected_rental_options.storage.reduce((totalSelected, selectedOption) => {
-                                        return totalSelected += selectedOption.quantity;
-                                    }, 0)}
-                                    defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
-                                >
-                                    {filteredStorage.map(item =>
-                                        <ExistingParkingOrStorage
-                                            key={item.id}
-                                            quantity={item.quantity}
-                                            rentalOption={this.props.config.rental_options.storage.find(option => option.id === item.rental_option.id)}
-                                        />)}
-                                </ExistingItemsExpansionPanel>
+                            expansionPanel={
+                                filteredStorage.length > 0 && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Storage Space"
+                                        labelQuantity={this.props.profile.selected_rental_options.storage.reduce(
+                                            (totalSelected, selectedOption) => {
+                                                return (totalSelected += selectedOption.quantity);
+                                            },
+                                            0
+                                        )}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
+                                    >
+                                        {filteredStorage.map((item) => (
+                                            <ExistingParkingOrStorage
+                                                key={item.id}
+                                                quantity={item.quantity}
+                                                rentalOption={this.props.config.rental_options.storage.find(
+                                                    (option) => option.id === item.rental_option.id
+                                                )}
+                                            />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
                             }
                         />
-                    }
+                    )}
                 </div>
-                <ActionButton disabled={this.state.submitting} onClick={this.onContinue} marginTop={60} marginBottom={27}>Continue</ActionButton>
-                <BackLink to={this.props._prev}/>
+                <ActionButton
+                    disabled={this.state.submitting}
+                    onClick={this.onContinue}
+                    marginTop={60}
+                    marginBottom={27}
+                >
+                    Continue
+                </ActionButton>
+                <BackLink to={this.props._prev} />
             </Fragment>
         );
     }
@@ -257,9 +293,11 @@ RentalProfileOptions.propTypes = {
     config: PropTypes.object,
     profile: PropTypes.object,
     location: PropTypes.object,
+    _nextRoute: PropTypes.func,
+    _prev: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     config: state.configuration,
     profile: state.renterProfile,
 });
@@ -269,4 +307,7 @@ const mapDispatchToProps = {
     pageComplete,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRelativeRoutes(RentalProfileOptions, ROUTES.PROFILE_OPTIONS));

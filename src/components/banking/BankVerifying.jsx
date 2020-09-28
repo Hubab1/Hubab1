@@ -6,12 +6,12 @@ import piggybank from 'assets/images/piggybank.gif';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
-`
+`;
 
 const Piggy = styled.img`
     max-width: 300px;
     max-height: 300px;
-`
+`;
 
 function BankVerifying () {
     return (

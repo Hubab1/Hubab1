@@ -67,7 +67,7 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
             leasing_context: {},
             rental_option: {id: 102},
             quoted_fee_amount:null,
-            quoted_monthly_amount:"55.00",
+            quoted_monthly_amount:'55.00',
             quoted_deposit_amount:null,
             id: 19002,
             quantity: 2,
@@ -76,7 +76,7 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
             leasing_context: {},
             rental_option: {id: 63},
             quoted_fee_amount:null,
-            quoted_monthly_amount:"75.00",
+            quoted_monthly_amount:'75.00',
             quoted_deposit_amount:null,
             id: 19002,
             quantity: 0,
@@ -100,7 +100,7 @@ it('passes expansion panel defaultExpanded=True if anchor hash for rental option
         leasing_context: {},
         rental_option: {id: 102},
         quoted_fee_amount:null,
-        quoted_monthly_amount:"55.00",
+        quoted_monthly_amount:'55.00',
         quoted_deposit_amount:null,
         id: 19002,
         quantity: 2,
@@ -129,4 +129,4 @@ describe('onContinue', function () {
             expect(defaultProps._nextRoute).toHaveBeenCalled();
         });
     });
-})
+});

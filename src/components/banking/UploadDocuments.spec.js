@@ -1,6 +1,6 @@
 import { UploadDocuments } from './UploadDocuments';
-import {shallow, mount} from "enzyme";
-import React from "react";
+import { shallow } from 'enzyme';
+import React from 'react';
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { LinkButton } from 'assets/styles';
 
@@ -83,7 +83,7 @@ beforeEach(() => {
                 ],
         },
         setError: jest.fn()
-    }
+    };
 });
 
 it('Case only one required document', () => {
@@ -103,12 +103,12 @@ it('Case require one of multiple document', () => {
 
 it('Test title when uploading for income', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_INCOME} incomeOrAssetType={105} store={store} />);
-    expect(wrapper.childAt(0).text()).toMatch('Proof of income:')
+    expect(wrapper.childAt(0).text()).toMatch('Proof of income:');
 });
 
 it('Test title when uploading for asset', () => {
     const wrapper = shallow(<UploadDocuments {...defaultProps} streamType={FINANCIAL_STREAM_ASSET} incomeOrAssetType={105} store={store} />);
-    expect(wrapper.childAt(0).text()).toMatch('Proof of asset:')
+    expect(wrapper.childAt(0).text()).toMatch('Proof of asset:');
 });
 
 it('Case no uploaded documents', () => {
@@ -541,7 +541,6 @@ it('Case require_all is true and all documents types met min and max requirement
         />);
     expect(wrapper.find('input').length).toBe(0);
 });
-
 
 
 it('Case documents uploaded', () => {

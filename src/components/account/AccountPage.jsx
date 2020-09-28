@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos'
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
@@ -29,7 +29,7 @@ export class AccountPage extends React.Component {
             phone_number: applicant.phone_number,
             email: applicant.email,
             birthday
-        }
+        };
     }
 
     onAccountDetailsSubmit = (values, { setSubmitting, setErrors }) => {
@@ -56,7 +56,7 @@ export class AccountPage extends React.Component {
             });
             setSubmitting(false);
         });
-    }
+    };
 
     onChangePasswordSubmit = (values, { setSubmitting }) => {
         const token = auth.getToken();
@@ -73,15 +73,15 @@ export class AccountPage extends React.Component {
                     showChangePassword: false,
                     resetPasswordErrors: null,
                 });
-            }   
+            }
             setSubmitting(false);
-        }).catch((res) => {
-            this.setState({                
+        }).catch(() => {
+            this.setState({
                 resetPasswordErrors: ['There was an error with resetting your password. Please try again.']
             });
             setSubmitting(false);
         });
-    }
+    };
 
 
     render () {
@@ -90,7 +90,7 @@ export class AccountPage extends React.Component {
                 communityId={this.props.communityId}
                 setVerified={() => this.setState({verified: true})}
                 email={this.initialValues.email}
-            />
+                   />;
         }
         if (this.state.showChangePassword) {
             return <>
@@ -99,15 +99,15 @@ export class AccountPage extends React.Component {
                     onSubmit={this.onChangePasswordSubmit}
                     errors={this.state.resetPasswordErrors}
                 />
-                <span 
+                <span
                     className={blackLinkRoot}
                     onClick={() => this.setState({showChangePassword: false})}
                 >
                     <ArrowBackIos classes={{root: arrowIcon}}/>
-                    {" "}
+                    {' '}
                     Go Back
                 </span>
-            </>
+            </>;
         }
         return (
             <>
@@ -128,7 +128,7 @@ AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
     applicant: PropTypes.object,
-}
+};
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,

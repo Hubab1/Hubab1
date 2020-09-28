@@ -17,7 +17,7 @@ import { getRoommateStatus } from 'utils/misc';
 
 const removeLink = css`
   margin-left: 15px;
-`
+`;
 
 export default function ExistingRoommate({item, type}) {
     const isDependent = type === RENTER_PROFILE_TYPE_DEPENDENT;
@@ -41,7 +41,7 @@ export default function ExistingRoommate({item, type}) {
                                 pathname: ROUTES.RESEND_INVITE,
                                 state: {
                                     initialValues: item,
-                                    confirmationButtonText: "Back to Rental Profile",
+                                    confirmationButtonText: 'Back to Rental Profile',
                                     returnRoute: `${ROUTES.PROFILE_OPTIONS}#${type}`
                                 }
                             }}
@@ -87,7 +87,7 @@ export default function ExistingRoommate({item, type}) {
                 </div>
             )}
         </>
-    )
+    );
 }
 
 ExistingRoommate.propTypes = {

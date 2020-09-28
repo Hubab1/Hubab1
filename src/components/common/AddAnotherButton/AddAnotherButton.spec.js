@@ -10,19 +10,19 @@ beforeEach(() => {
         theme: {
             palette: {
                 primary: {
-                    main: "#FFFFFF"
+                    main: '#FFFFFF'
                 }
             }
         },
         fontSize: 15,
-        thing: "Pet"
-    }
-})
+        thing: 'Pet'
+    };
+});
 
 describe('AddAnotherButton', function() {
     it('Matches snapshot', function() {
         expect(
             renderer.create(<AddAnotherButton {...defaultProps}/>)
         ).toMatchSnapshot();
-    })
-})
+    });
+});

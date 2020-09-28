@@ -19,7 +19,7 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
                 contact_phone: '1234445510'
             }
         },
-    }
+    };
 };
 
 it('matches snapshot', () => {
@@ -34,7 +34,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<LeaseVoided {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
 
     it('displays building name without unit when no unit number', () => {
@@ -42,7 +42,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<LeaseVoided {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
 
     it('displays building name with unit when has unit number', () => {
@@ -50,7 +50,7 @@ describe('application unit', () => {
 
         const wrapper = shallow(<LeaseVoided {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F')
+        expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F');
     });
 
     it('displays normalized street address and unit number when no building name', () => {
@@ -58,6 +58,6 @@ describe('application unit', () => {
 
         const wrapper = shallow(<LeaseVoided {...props} />);
 
-        expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F')
+        expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F');
     });
 });

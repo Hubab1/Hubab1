@@ -8,8 +8,8 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         onSubmit: jest.fn()
-    }
-})
+    };
+});
 
 it('calls reset applicant endpoint and finally calls props.onSubmit', async () => {
     API.resetApplicantFinancials = jest.fn().mockReturnValue({});

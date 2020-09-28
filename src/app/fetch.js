@@ -28,4 +28,4 @@ export default async (...args) => {
         return Promise.reject('InvalidTokenError');
     }
     return res;
-}
+};

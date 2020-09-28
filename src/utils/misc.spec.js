@@ -11,4 +11,4 @@ describe('prettyCurrency', () => {
         expect(prettyCurrency(120.50, 0)).toEqual('$121');
         expect(prettyCurrency(120.49, 0)).toEqual('$120');
     });
-})
+});
