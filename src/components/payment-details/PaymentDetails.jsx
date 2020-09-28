@@ -15,9 +15,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import { makeStyles } from '@material-ui/core/styles';
 import { PaymentDetailRows } from 'components/payment-details/PaymentDetailRow';
 import { styles } from './styles';
-import { format, parseISO } from "date-fns";
+import { format, parseISO } from 'date-fns';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
         padding: 0
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export const PaymentCard = styled(Card)`
     padding: 15px
-`
+`;
 
 export const PaymentDetails = ({profile, configuration}) => {
     if (!profile || !configuration) return null;
@@ -36,7 +36,7 @@ export const PaymentDetails = ({profile, configuration}) => {
     return (
         <>
             <H1>Payment Details</H1>
-            <SpacedH3>Here's the breakdown for unit {profile.unit.unit_number}</SpacedH3>
+            <SpacedH3>Here’s the breakdown for unit {profile.unit.unit_number}</SpacedH3>
             <PaymentCard>
                 <div className={styles.headerContainer}>
                     <div className={styles.imageWrapper}>
@@ -51,21 +51,21 @@ export const PaymentDetails = ({profile, configuration}) => {
                 <>
                     <PaymentItemsExpansionPanel
                         amount={profile.fees_breakdown.application_fees.total}
-                        label={"due at application"}
-                        defaultExpanded={true}
+                        label={'due at application'}
+                        defaultExpanded={false}
                     >
                         <PaymentDetailRows paymentObject={profile.fees_breakdown.application_fees} paymentType="application" />
                     </PaymentItemsExpansionPanel>
                     <PaymentItemsExpansionPanel
                         amount={profile.fees_breakdown.move_in_fees.total}
-                        label={"due at move in"}
+                        label={'due at move in'}
                         defaultExpanded={false}
                     >
                         <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees} paymentType="move_in" />
                     </PaymentItemsExpansionPanel>
                     <PaymentItemsExpansionPanel
                         amount={profile.fees_breakdown.monthly_fees.total}
-                        label={"monthly rent"}
+                        label={'monthly rent'}
                         defaultExpanded={false}
                     >
                         <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees} paymentType="monthly_fees" />
@@ -73,7 +73,12 @@ export const PaymentDetails = ({profile, configuration}) => {
                 </>
             </PaymentCard>
         </>
-    )
+    );
+};
+
+PaymentDetails.propTypes = {
+    profile: PropTypes.object,
+    configuration: PropTypes.object,
 };
 
 function PaymentItemsExpansionPanel({children, defaultExpanded, label, amount}) {
@@ -96,13 +101,14 @@ function PaymentItemsExpansionPanel({children, defaultExpanded, label, amount}) 
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
-    )
+    );
 }
 
-
-PaymentDetails.propTypes = {
-    profile: PropTypes.object,
-    configuration: PropTypes.object,
+PaymentItemsExpansionPanel.propTypes = {
+    children: PropTypes.object,
+    defaultExpanded: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

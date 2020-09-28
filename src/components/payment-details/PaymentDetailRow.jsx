@@ -15,12 +15,13 @@ export function PaymentDetailRows({ paymentObject, paymentType }) {
         />
     ));
 
-    rows.push(<PaymentDetailRow
-        key={`total${paymentType}`}
-        name="Total"
-        paymentTotal={paymentObject.total}
-        className={styles.paymentDetailTotal}
-    />);
+    rows.push(
+        <PaymentDetailRow
+            key={`total${paymentType}`}
+            name="Total"
+            paymentTotal={paymentObject.total}
+            className={styles.paymentDetailTotal}
+        />);
 
     return rows;
 }
