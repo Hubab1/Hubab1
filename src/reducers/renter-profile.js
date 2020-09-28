@@ -128,7 +128,6 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
     [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
     [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
-    [ROUTES.PAYMENT_DETAILS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
 });
 
 selectors.canAccessRoute = (state, route) => {
@@ -145,6 +144,10 @@ selectors.canAccessRoute = (state, route) => {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
+
+    if (route === ROUTES.PAYMENT_DETAILS) {
+        return eventsSet.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
+    }
 
     // check if page was completed
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {

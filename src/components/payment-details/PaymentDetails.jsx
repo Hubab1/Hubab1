@@ -29,7 +29,7 @@ export const PaymentCard = styled(Card)`
 `;
 
 export const PaymentDetails = ({ profile, configuration }) => {
-    if (!profile || !configuration) return null;
+    if (!profile || !configuration || !profile.lease_start_date) return null;
 
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
 
