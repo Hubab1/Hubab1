@@ -61,7 +61,7 @@ export const ROUTE_LABELS = {
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: 'Holding Deposit Agreement',
     [ROUTES.SCREENING]: 'Screening',
     [ROUTES.APP_COMPLETE]: 'Application Complete',
-    [ROUTES.PAYMENT_DETAILS]: 'Payment Breakdown',
+    [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
 
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';

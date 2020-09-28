@@ -85,4 +85,4 @@ export const styles = {
     paymentDetailRow,
     paymentDetailTotal,
     title,
-}
+};

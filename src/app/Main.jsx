@@ -180,7 +180,6 @@ export class Main extends Component {
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
                                 <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
                                 <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />
-
                             </NavDrawer>
                         )}
                     </Switch>
