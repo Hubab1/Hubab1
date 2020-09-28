@@ -132,10 +132,12 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
     // These pages should always be accessible
-    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+
+    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.PAYMENT_DETAILS].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map(event => parseInt(event.event)));
+
     // check if page was completed
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
         return true;
