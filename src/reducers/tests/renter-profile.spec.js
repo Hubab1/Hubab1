@@ -8,7 +8,7 @@ import {
     ROLE_CO_APPLICANT,
     ROUTES,
     APPLICATION_STATUS_CANCELED,
-    EVENT_LEASE_TERMS_COMPLETED
+    EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
 import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
 import { whenMergePropsIsOmitted } from 'react-redux/lib/connect/mergeProps';
