@@ -10,25 +10,25 @@ describe('PaymentDetails', () => {
             profile: {
                 lease_start_date: '2020-12-15',
                 unit: {
-                    unit_number: 1
+                    unit_number: 1,
                 },
                 lease_term: 12,
                 fees_breakdown: {
                     application_fees: {
                         total: '620',
-                        items: []
+                        items: [],
                     },
                     move_in_fees: {
                         total: '0',
-                        items: []
+                        items: [],
                     },
                     monthly_fees: {
                         total: '1234',
-                        items: []
-                    }
-                }
+                        items: [],
+                    },
+                },
             },
-            configuration: {}
+            configuration: {},
         };
     });
 

@@ -13,7 +13,7 @@ describe('PaymentDetailRows', () => {
                 price: '125',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 125
+                paymentTotal: 125,
             },
             {
                 amount: '1,300',
@@ -23,8 +23,7 @@ describe('PaymentDetailRows', () => {
                 price: '1,300',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 1300
-
+                paymentTotal: 1300,
             },
             {
                 amount: '0',
@@ -34,8 +33,8 @@ describe('PaymentDetailRows', () => {
                 price: '55',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 0
-            }
+                paymentTotal: 0,
+            },
         ],
         paymentType: 'move in',
     };
@@ -43,7 +42,7 @@ describe('PaymentDetailRows', () => {
     it('renders the correct number of rows', () => {
         const props = {
             paymentObject,
-            paymentType: 'move in'
+            paymentType: 'move in',
         };
 
         const wrapper = shallow(<PaymentDetailRows {...props} />);
@@ -54,7 +53,6 @@ describe('PaymentDetailRows', () => {
 });
 
 describe('PaymentDetailRow', () => {
-
     it('should render as expected with quantity 1', () => {
         const props = {
             name: 'Base Rent',
@@ -73,7 +71,7 @@ describe('PaymentDetailRow', () => {
             paymentTotal: '2,200',
             quantity: 10,
             price: '220',
-            className: 'paymentRow'
+            className: 'paymentRow',
         };
         const wrapper = shallow(<PaymentDetailRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
@@ -85,7 +83,7 @@ describe('PaymentDetailRow', () => {
             paymentTotal: '0',
             quantity: 0,
             price: '220',
-            className: 'paymentRow'
+            className: 'paymentRow',
         };
         const wrapper = shallow(<PaymentDetailRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
@@ -98,7 +96,7 @@ describe('PaymentDetailRow', () => {
             quantity: 2,
             price: '100',
             included: 5,
-            className: 'paymentRow'
+            className: 'paymentRow',
         };
         const wrapper = shallow(<PaymentDetailRow {...props} />);
 
@@ -106,11 +104,11 @@ describe('PaymentDetailRow', () => {
         expect(wrapper.getElement()).toMatchSnapshot();
 
         // included = quantity
-        wrapper.setProps({quantity: 5});
+        wrapper.setProps({ quantity: 5 });
         expect(wrapper.getElement()).toMatchSnapshot();
 
         // included < quantity
-        wrapper.setProps({quantity: 8, paymentTotal: '300'});
+        wrapper.setProps({ quantity: 8, paymentTotal: '300' });
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });

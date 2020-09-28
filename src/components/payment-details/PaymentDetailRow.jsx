@@ -3,7 +3,7 @@ import React from 'react';
 import { styles } from './styles';
 
 export function PaymentDetailRows({ paymentObject, paymentType }) {
-    const rows = paymentObject.items.map(item => (
+    const rows = paymentObject.items.map((item) => (
         <PaymentDetailRow
             key={`${item.name}-${paymentType}`}
             name={item.name}
@@ -21,7 +21,8 @@ export function PaymentDetailRows({ paymentObject, paymentType }) {
             name="Total"
             paymentTotal={paymentObject.total}
             className={styles.paymentDetailTotal}
-        />);
+        />
+    );
 
     return rows;
 }
@@ -50,7 +51,6 @@ PaymentDetailRow.propTypes = {
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     included: PropTypes.number,
 };
-
 
 // This should match the logic in chuck
 export function getRentalOptionFeeDisplayName(name, price, quantity = 1, included = 0) {

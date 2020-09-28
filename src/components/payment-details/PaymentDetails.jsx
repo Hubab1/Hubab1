@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ROUTES } from 'app/constants';
-import { Card, H1,  SpacedH3 } from 'assets/styles';
+import { Card, H1, SpacedH3 } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
 import lightbulb from 'assets/images/lightbulb.png';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -20,15 +20,15 @@ import { format, parseISO } from 'date-fns';
 const useStyles = makeStyles(() => ({
     root: {
         display: 'block',
-        padding: 0
+        padding: 0,
     },
 }));
 
 export const PaymentCard = styled(Card)`
-    padding: 15px
+    padding: 15px;
 `;
 
-export const PaymentDetails = ({profile, configuration}) => {
+export const PaymentDetails = ({ profile, configuration }) => {
     if (!profile || !configuration) return null;
 
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
@@ -45,7 +45,7 @@ export const PaymentDetails = ({profile, configuration}) => {
                     <div className={styles.cardHeader}>
                         <div className={styles.title}>Payment breakdown</div>
                         <div>Move in date: {leaseStartDate}</div>
-                        <div>Lease term:  {profile.lease_term} months</div>
+                        <div>Lease term: {profile.lease_term} months</div>
                     </div>
                 </div>
                 <>
@@ -54,7 +54,10 @@ export const PaymentDetails = ({profile, configuration}) => {
                         label={'due at application'}
                         defaultExpanded={false}
                     >
-                        <PaymentDetailRows paymentObject={profile.fees_breakdown.application_fees} paymentType="application" />
+                        <PaymentDetailRows
+                            paymentObject={profile.fees_breakdown.application_fees}
+                            paymentType="application"
+                        />
                     </PaymentItemsExpansionPanel>
                     <PaymentItemsExpansionPanel
                         amount={profile.fees_breakdown.move_in_fees.total}
@@ -68,7 +71,10 @@ export const PaymentDetails = ({profile, configuration}) => {
                         label={'monthly rent'}
                         defaultExpanded={false}
                     >
-                        <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees} paymentType="monthly_fees" />
+                        <PaymentDetailRows
+                            paymentObject={profile.fees_breakdown.monthly_fees}
+                            paymentType="monthly_fees"
+                        />
                     </PaymentItemsExpansionPanel>
                 </>
             </PaymentCard>
@@ -81,21 +87,19 @@ PaymentDetails.propTypes = {
     configuration: PropTypes.object,
 };
 
-function PaymentItemsExpansionPanel({children, defaultExpanded, label, amount}) {
+function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount }) {
     const classes = useStyles();
 
     return (
         <div className={styles.itemsContainer}>
             <ExpansionPanel elevation={0} defaultExpanded={defaultExpanded}>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                >
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <>
                         <b>${amount}</b>&nbsp;{label}
                     </>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails classes={{root:classes.root}}>
-                    {React.Children.map(children, child => (
+                <ExpansionPanelDetails classes={{ root: classes.root }}>
+                    {React.Children.map(children, (child) => (
                         <div className={styles.itemRow}>{child}</div>
                     ))}
                 </ExpansionPanelDetails>
@@ -108,13 +112,12 @@ PaymentItemsExpansionPanel.propTypes = {
     children: PropTypes.object,
     defaultExpanded: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired
+    amount: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
 });
-
 
 export default connect(mapStateToProps)(captureRoute(PaymentDetails, ROUTES.PAYMENT_DETAILS));
