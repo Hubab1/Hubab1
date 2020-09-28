@@ -21,7 +21,7 @@ import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
 
-import { APPLICATION_EVENTS, ROUTES } from 'app/constants';
+import { ROUTES } from 'app/constants';
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
 import { H3 } from 'assets/styles';
@@ -128,8 +128,6 @@ export function PersistentDrawerLeft(props) {
     const { name, email } = props.applicant.client.person;
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
-    const events = props.applicant.events.map((event) => parseInt(event.event));
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -170,7 +168,7 @@ export function PersistentDrawerLeft(props) {
                         <Box>
                             <Link to={ROUTES.ACCOUNT}>Account Details</Link>
                         </Box>
-                        {props.canAccessRoute(ROUTES.PAYMENT_DETAILS) && (
+                        {props.canAccessRoute(ROUTES.PAYMENT_DETAILS) && props.profile?.fees_breakdown && (
                             <Box>
                                 <H3 className={classes.paymentsTitle}>Payments</H3>
                                 <ul className={classes.paymentSections}>
