@@ -128,6 +128,7 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
     [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
     [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
+    [ROUTES.PAYMENT_DETAILS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
 });
 
 selectors.canAccessRoute = (state, route) => {
@@ -140,11 +141,7 @@ selectors.canAccessRoute = (state, route) => {
     */
     // These pages should always be accessible
 
-    if (
-        [ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.PAYMENT_DETAILS].includes(
-            route
-        )
-    ) {
+    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
