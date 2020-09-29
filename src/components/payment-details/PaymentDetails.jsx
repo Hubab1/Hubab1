@@ -48,35 +48,30 @@ export const PaymentDetails = ({ profile, configuration }) => {
                         <div>Lease term: {profile.lease_term} months</div>
                     </div>
                 </div>
-                <>
-                    <PaymentItemsExpansionPanel
-                        amount={profile.fees_breakdown.application_fees.total}
-                        label={'due at application'}
-                        defaultExpanded={false}
-                    >
-                        <PaymentDetailRows
-                            paymentObject={profile.fees_breakdown.application_fees}
-                            paymentType="application"
-                        />
-                    </PaymentItemsExpansionPanel>
-                    <PaymentItemsExpansionPanel
-                        amount={profile.fees_breakdown.move_in_fees.total}
-                        label={'due at move in'}
-                        defaultExpanded={false}
-                    >
-                        <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees} paymentType="move_in" />
-                    </PaymentItemsExpansionPanel>
-                    <PaymentItemsExpansionPanel
-                        amount={profile.fees_breakdown.monthly_fees.total}
-                        label={'monthly rent'}
-                        defaultExpanded={false}
-                    >
-                        <PaymentDetailRows
-                            paymentObject={profile.fees_breakdown.monthly_fees}
-                            paymentType="monthly_fees"
-                        />
-                    </PaymentItemsExpansionPanel>
-                </>
+                <PaymentItemsExpansionPanel
+                    amount={profile.fees_breakdown.application_fees.total}
+                    label={'due at application'}
+                    defaultExpanded={false}
+                >
+                    <PaymentDetailRows
+                        paymentObject={profile.fees_breakdown.application_fees}
+                        paymentType="application"
+                    />
+                </PaymentItemsExpansionPanel>
+                <PaymentItemsExpansionPanel
+                    amount={profile.fees_breakdown.move_in_fees.total}
+                    label={'due at move in'}
+                    defaultExpanded={false}
+                >
+                    <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees} paymentType="move_in" />
+                </PaymentItemsExpansionPanel>
+                <PaymentItemsExpansionPanel
+                    amount={profile.fees_breakdown.monthly_fees.total}
+                    label={'monthly rent'}
+                    defaultExpanded={false}
+                >
+                    <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees} paymentType="monthly_fees" />
+                </PaymentItemsExpansionPanel>
             </PaymentCard>
         </>
     );
