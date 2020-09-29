@@ -30,7 +30,6 @@ export const PaymentCard = styled(Card)`
     padding: 15px;
 `;
 
-// eslint-disable-next-line react/prop-types
 export const PaymentDetails = ({ profile, configuration, payables, fetchPayments }) => {
     useEffect(() => {
         fetchPayments();
@@ -42,7 +41,7 @@ export const PaymentDetails = ({ profile, configuration, payables, fetchPayments
 
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
 
-    const allPaymentsPaid = payables.filter((payment) => payment.paid).length === payables.length;
+    const allPaymentsPaid = !payables.find((payment) => !payment.paid);
 
     return (
         <>
@@ -90,7 +89,7 @@ export const PaymentDetails = ({ profile, configuration, payables, fetchPayments
 };
 
 PaymentDetails.propTypes = {
-    applicant: PropTypes.object,
+    fetchPayments: PropTypes.func.isRequired,
     profile: PropTypes.object,
     configuration: PropTypes.object.isRequired,
     payables: PropTypes.array,
@@ -132,7 +131,6 @@ PaymentItemsExpansionPanel.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
-    applicant: state.applicant,
     configuration: state.configuration,
     payables: state.payments,
 });
