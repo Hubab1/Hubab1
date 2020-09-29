@@ -25,12 +25,12 @@ import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     list: {
         width: 300,
     },
     padRight: {
-        width: 48
+        width: 48,
     },
     drawerHeader: {
         display: 'flex',
@@ -41,14 +41,14 @@ const useStyles = makeStyles(theme => ({
     },
     darkThemeAppbar: {
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText
+        color: theme.palette.primary.contrastText,
     },
     liteThemeAppbar: {
         backgroundColor: '#ffffff',
-        color: '#000000'
+        color: '#000000',
     },
     toolbar: {
-        minHeight: 76
+        minHeight: 76,
     },
     accountDetails: {
         padding: '28px 15px 15px 15px',
@@ -67,30 +67,30 @@ const useStyles = makeStyles(theme => ({
     },
     logout: {
         fontWeight: 600,
-        'text-transform': 'none'
+        'text-transform': 'none',
     },
 }));
 
 const links = css`
-  > a:not(:last-child) {
-      margin-right: 20px;
-  }
+    > a:not(:last-child) {
+        margin-right: 20px;
+    }
 `;
 
 const EllipsisText = styled.b`
-    white-space: nowrap;  
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
-    font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : '600'};
-    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
-    width: ${props => props.width ? `${props.width}px` : '50px'};
+    text-overflow: ellipsis;
+    font-weight: ${(props) => (props.fontWeight ? `${props.fontWeight}` : '600')};
+    font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : 'inherit')};
+    width: ${(props) => (props.width ? `${props.width}px` : '50px')};
 `;
 
 const StyledBox = withStyles({
     root: {
         witheSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
+        textOverflow: 'ellipsis',
     },
 })(Box);
 
@@ -107,14 +107,15 @@ export function PersistentDrawerLeft(props) {
         setOpen(false);
     }
 
-    function logout () {
+    function logout() {
         localStorage.clear();
         props.logout();
         props.history.push(ROUTES.LOGIN);
     }
     if (!props.applicant) return null;
-    const { name, email } = props.applicant.client.person;
-    const initials = name.split(' ').map(word => word[0].toUpperCase());
+    const name = `${props.applicant.first_name} ${props.applicant.last_name}`;
+    const email = props.applicant.email;
+    const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
     return (
         <div className={classes.root}>
@@ -122,40 +123,34 @@ export function PersistentDrawerLeft(props) {
             <AppBar
                 color="primary"
                 position="fixed"
-                classes={{colorPrimary: appThemeContext.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar}}
+                classes={{
+                    colorPrimary: appThemeContext?.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar,
+                }}
             >
                 <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="Open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                    >
+                    <IconButton color="inherit" aria-label="Open drawer" onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
                     <div className={classes.padRight} />
                 </Toolbar>
-                <ProgressBar percent={33}/>
+                <ProgressBar percent={33} />
             </AppBar>
-            <Drawer
-                anchor="left"
-                open={open}
-                onClose={handleDrawerClose}
-            >
-                <div
-                    className={classes.list}
-                    role="presentation"
-                >
-                    <Box className={classes.accountDetails} >
+            <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
+                <div className={classes.list} role="presentation">
+                    <Box className={classes.accountDetails}>
                         <Box display="flex">
                             <Box className={classes.initialsContainer}>{initials}</Box>
                             <Box display="flex" flexDirection="column">
                                 <StyledBox width={220} maxWidth={220}>
-                                    <EllipsisText fontSize={18} width={100}>{name}</EllipsisText>
+                                    <EllipsisText fontSize={18} width={100}>
+                                        {name}
+                                    </EllipsisText>
                                 </StyledBox>
                                 <StyledBox width={220} maxWidth={220}>
-                                    <EllipsisText fontWeight={400} width={100}>{email}</EllipsisText>
+                                    <EllipsisText fontWeight={400} width={100}>
+                                        {email}
+                                    </EllipsisText>
                                 </StyledBox>
                             </Box>
                         </Box>
@@ -164,12 +159,16 @@ export function PersistentDrawerLeft(props) {
                         </Box>
                     </Box>
                     <Divider />
-                    <NavStepper onRouteClicked={handleDrawerClose}/>
+                    <NavStepper onRouteClicked={handleDrawerClose} />
                     <Divider />
                     <Box display="flex" justifyContent="space-between" alignItems="center" padding="0 15px">
-                        <Button onClick={logout} classes={{root: classes.logout}}>Logout</Button>
+                        <Button onClick={logout} classes={{ root: classes.logout }}>
+                            Logout
+                        </Button>
                         <div className={links}>
-                            <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>Privacy</Link>
+                            <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
+                                Privacy
+                            </Link>
                             <Link to={ROUTES.TERMS}>Terms of Use</Link>
                         </div>
                     </Box>
@@ -177,9 +176,7 @@ export function PersistentDrawerLeft(props) {
             </Drawer>
             <main>
                 <div className={classes.drawerHeader} />
-                <div className={drawerContent}>
-                    {props.children}
-                </div>
+                <div className={drawerContent}>{props.children}</div>
             </main>
         </div>
     );
@@ -190,15 +187,14 @@ PersistentDrawerLeft.propTypes = {
     history: PropTypes.object,
     applicant: PropTypes.object,
     children: PropTypes.array,
-
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
 const mapDispatchToProps = {
-    logout: actions.logout
+    logout: actions.logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PersistentDrawerLeft));
