@@ -43,6 +43,7 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
     <PaymentItemsExpansionPanel
       amount="620"
       defaultExpanded={false}
+      isPaid={true}
       label="due at application"
     >
       <PaymentDetailRows

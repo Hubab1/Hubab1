@@ -1,6 +1,7 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { PaymentDetails } from 'components/payment-details/PaymentDetails';
 import React from 'react';
+import PaidText from 'components/common/PaidText';
 
 describe('PaymentDetails', () => {
     let defaultProps;
@@ -29,11 +30,29 @@ describe('PaymentDetails', () => {
                 },
             },
             configuration: {},
+            payables: [{ paid: true }, { paid: true }, { paid: true }],
+            fetchPayments: jest.fn(),
         };
     });
 
     it('renders the correct number of rows', () => {
         const wrapper = shallow(<PaymentDetails {...defaultProps} />);
         expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('renders the "Paid" text if all due at application payments have been paid', () => {
+        const wrapper = mount(<PaymentDetails {...defaultProps} />);
+
+        expect(defaultProps.fetchPayments).toBeCalledTimes(1);
+        expect(wrapper.find(PaidText).length).toEqual(1);
+    });
+
+    it('does not render the "Paid" text if some due at application payments have not been paid', () => {
+        const payables = [{ paid: true }, { paid: false }, { paid: true }];
+
+        const wrapper = mount(<PaymentDetails {...{ ...defaultProps, payables }} />);
+
+        expect(defaultProps.fetchPayments).toBeCalledTimes(1);
+        expect(wrapper.find(PaidText).length).toEqual(0);
     });
 });

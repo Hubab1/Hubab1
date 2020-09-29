@@ -52,6 +52,12 @@ export const itemRow = css`
     font-size: 15px;
 `;
 
+export const paidText = css`
+    position: absolute;
+    right: 28px;
+    top: 13px;
+`;
+
 export const paymentDetailRow = css`
     display: flex;
     justify-content: space-between;
@@ -83,6 +89,7 @@ export const styles = {
     itemsContainer,
     itemRow,
     imageWrapper,
+    paidText,
     paymentDetailRow,
     paymentDetailTotal,
     title,
