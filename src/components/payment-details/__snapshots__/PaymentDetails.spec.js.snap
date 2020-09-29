@@ -40,53 +40,51 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
         </div>
       </div>
     </div>
-    <React.Fragment>
-      <PaymentItemsExpansionPanel
-        amount="620"
-        defaultExpanded={false}
-        label="due at application"
-      >
-        <PaymentDetailRows
-          paymentObject={
-            Object {
-              "items": Array [],
-              "total": "620",
-            }
+    <PaymentItemsExpansionPanel
+      amount="620"
+      defaultExpanded={false}
+      label="due at application"
+    >
+      <PaymentDetailRows
+        paymentObject={
+          Object {
+            "items": Array [],
+            "total": "620",
           }
-          paymentType="application"
-        />
-      </PaymentItemsExpansionPanel>
-      <PaymentItemsExpansionPanel
-        amount="0"
-        defaultExpanded={false}
-        label="due at move in"
-      >
-        <PaymentDetailRows
-          paymentObject={
-            Object {
-              "items": Array [],
-              "total": "0",
-            }
+        }
+        paymentType="application"
+      />
+    </PaymentItemsExpansionPanel>
+    <PaymentItemsExpansionPanel
+      amount="0"
+      defaultExpanded={false}
+      label="due at move in"
+    >
+      <PaymentDetailRows
+        paymentObject={
+          Object {
+            "items": Array [],
+            "total": "0",
           }
-          paymentType="move_in"
-        />
-      </PaymentItemsExpansionPanel>
-      <PaymentItemsExpansionPanel
-        amount="1234"
-        defaultExpanded={false}
-        label="monthly rent"
-      >
-        <PaymentDetailRows
-          paymentObject={
-            Object {
-              "items": Array [],
-              "total": "1234",
-            }
+        }
+        paymentType="move_in"
+      />
+    </PaymentItemsExpansionPanel>
+    <PaymentItemsExpansionPanel
+      amount="1234"
+      defaultExpanded={false}
+      label="monthly rent"
+    >
+      <PaymentDetailRows
+        paymentObject={
+          Object {
+            "items": Array [],
+            "total": "1234",
           }
-          paymentType="monthly_fees"
-        />
-      </PaymentItemsExpansionPanel>
-    </React.Fragment>
+        }
+        paymentType="monthly_fees"
+      />
+    </PaymentItemsExpansionPanel>
   </ForwardRef(render)>
 </React.Fragment>
 `;
