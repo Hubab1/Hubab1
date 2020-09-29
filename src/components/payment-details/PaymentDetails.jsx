@@ -83,8 +83,8 @@ export const PaymentDetails = ({ profile, configuration }) => {
 };
 
 PaymentDetails.propTypes = {
-    profile: PropTypes.object,
-    configuration: PropTypes.object,
+    profile: PropTypes.object.isRequired,
+    configuration: PropTypes.object.isRequired,
 };
 
 function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount }) {
@@ -94,9 +94,7 @@ function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount }
         <div className={styles.itemsContainer}>
             <ExpansionPanel elevation={0} defaultExpanded={defaultExpanded}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <>
-                        <b>${amount}</b>&nbsp;{label}
-                    </>
+                    <b>${amount}</b>&nbsp;{label}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails classes={{ root: classes.root }}>
                     {React.Children.map(children, (child) => (
