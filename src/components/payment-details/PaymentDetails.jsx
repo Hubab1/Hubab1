@@ -92,7 +92,7 @@ PaymentDetails.propTypes = {
     fetchPayments: PropTypes.func.isRequired,
     profile: PropTypes.object,
     configuration: PropTypes.object.isRequired,
-    payables: PropTypes.array,
+    payables: PropTypes.array.isRequired,
 };
 
 function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {
@@ -132,7 +132,7 @@ PaymentItemsExpansionPanel.propTypes = {
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
-    payables: state.payments,
+    payables: state.payments || [],
 });
 
 export default connect(mapStateToProps, { fetchPayments })(captureRoute(PaymentDetails, ROUTES.PAYMENT_DETAILS));
