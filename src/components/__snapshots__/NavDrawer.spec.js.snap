@@ -111,7 +111,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
           Logout
         </ForwardRef(WithStyles)>
         <div
-          className="css-9rzwg3"
+          className="css-1f9n4qq"
         >
           <ForwardRef
             target="_blank"
