@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
+import { ROUTES, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from './HoldingDepositAgreementView';
@@ -38,11 +38,12 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
-
-        if (data.url) {
-            hsclient.open(data.url, {
-                testMode: HELLOSIGN_TEST_MODE,
-                skipDomainVerification: HELLOSIGN_TEST_MODE,
+        const url = data.url;
+        const testMode = data.test_mode !== false;
+        if (url) {
+            hsclient.open(url, {
+                testMode: testMode,
+                skipDomainVerification: testMode,
                 allowDecline: false,
                 allowCancel: false,
             });

@@ -16,7 +16,7 @@ jest.mock('utils/hsclient', () => {
             this.events[name]();
         }
     }
-    ;
+
     mockhsclient = new HSclient();
     return mockhsclient;
 });
@@ -55,7 +55,7 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
 
 it('displays some legal words about the lease', () => {
     const props = buildProps('Fake Building', '123 Fake Street', null);
-    API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test'});
+    API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test', test_mode: true});
     API.fetchApplicant = jest.fn().mockReturnValue({events: []});
     const wrapper = shallow(<AppApproved {...props} />);
     expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
@@ -64,7 +64,7 @@ it('displays some legal words about the lease', () => {
 describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
-        API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test'});
+        API.embeddedSigningUrl = jest.fn().mockReturnValue({url: 'test', test_mode: true});
         API.fetchApplicant = jest.fn().mockReturnValue({events: []});
         const wrapper = shallow(<AppApproved {...props} />);
         wrapper.find(ActionButton).simulate('click');

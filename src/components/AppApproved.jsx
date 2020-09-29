@@ -10,7 +10,7 @@ import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
 import {
-    ROUTES, HELLOSIGN_TEST_MODE, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE
+    ROUTES, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE
 } from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
@@ -92,10 +92,12 @@ export const AppApproved = ({profile, configuration, history, applicantUpdated, 
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
-        if (data.url) {
-            hsclient.open(data.url, {
-                testMode: HELLOSIGN_TEST_MODE,
-                skipDomainVerification: HELLOSIGN_TEST_MODE,
+        const url = data.url;
+        const testMode = data.test_mode !== false;
+        if (url) {
+            hsclient.open(url, {
+                testMode: testMode,
+                skipDomainVerification: testMode,
                 allowCancel: false,
                 allowDecline: false,
             });
