@@ -59,7 +59,7 @@ export const AppApproved = ({ profile, configuration, history, applicantUpdated,
             // ensure FE has the applicant signed milestone before navigating to next screen
             const newApplicant = await API.fetchApplicant();
             const leaseSignedMilestone = newApplicant.events.find(
-                e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
+                (e) => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
             );
             if (!leaseSignedMilestone) {
                 newApplicant.events.push({
@@ -101,7 +101,7 @@ export const AppApproved = ({ profile, configuration, history, applicantUpdated,
         }
     };
 
-    const leaseSent = !!profile.events.find(e => String(e.event) === String(MILESTONE_LEASE_SENT));
+    const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT));
 
     return (
         <>
@@ -177,7 +177,7 @@ AppApproved.propTypes = {
     applicantUpdated: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     applicant: state.applicant,
     configuration: state.configuration,
@@ -187,7 +187,4 @@ const mapDispatchToProps = {
     applicantUpdated,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(captureRoute(AppApproved, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AppApproved, ROUTES.APP_APPROVED));

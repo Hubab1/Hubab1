@@ -12,7 +12,7 @@ jest.mock('utils/hsclient', () => {
         on = (name, cb) => {
             this.events[name] = cb;
         };
-        _trigger = name => {
+        _trigger = (name) => {
             this.events[name]();
         };
     }

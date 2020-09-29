@@ -22,7 +22,7 @@ export const HoldingDepositAgreementContainer = ({
 
     useEffect(() => {
         const signedAgreement = !!profile.events.find(
-            e => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+            (e) => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
         );
         if (signedAgreement) {
             setCurrentPage('signed');
@@ -33,7 +33,7 @@ export const HoldingDepositAgreementContainer = ({
         hsclient.on('sign', async () => {
             const newApplicant = await API.fetchApplicant();
             const signedAgreement = newApplicant.events.find(
-                e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+                (e) => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
             );
             if (!signedAgreement) {
                 newApplicant.events.push({
@@ -89,7 +89,7 @@ export const HoldingDepositAgreementContainer = ({
     }
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
     payables: state.payments,
