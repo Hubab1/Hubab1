@@ -8,7 +8,7 @@ exports[`renders the component matches snapshot 1`] = `
     </ForwardRef(render)>
     <ForwardRef(render)>
       Make sure everything looks good before signing the lease.
-    </ForwardReif(render)>
+    </ForwardRef(render)>
     <PaymentDetailsCard
       payables={Array []}
       profile={
@@ -31,7 +31,7 @@ exports[`renders the component matches snapshot 1`] = `
   <ActionButton
     color="primary"
     marginTop={30}
-    onClick={[Functon]}
+    onClick={[Function]}
     successGreen={false}
     variant="contained"
   >
