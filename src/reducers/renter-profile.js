@@ -108,7 +108,7 @@ selectors.selectOrderedRoutes = createSelector(
             ROUTES.FEES_AND_DEPOSITS,
             role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             //ROUTES.SCREENING,
-            ROUTES.APP_COMPLETE,
+            ROUTES.APP_APPROVED,
         ].filter((r) => !!r);
     }
 );
@@ -206,7 +206,7 @@ selectors.selectInitialPage = createSelector(
             }
 
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
-                return ROUTES.APP_COMPLETE;
+                return ROUTES.APP_APPROVED;
             }
 
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);

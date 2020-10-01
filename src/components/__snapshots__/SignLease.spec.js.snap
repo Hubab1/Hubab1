@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component matches snapshot 1`] = `
+<React.Fragment>
+  <div>
+    <ForwardRef(render)>
+      Payment Details
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      Make sure everything looks good before signing the lease.
+    </ForwardReif(render)>
+    <PaymentDetailsCard
+      payables={Array []}
+      profile={
+        Object {
+          "events": Array [
+            Object {
+              "event": "270",
+            },
+          ],
+          "last_status_change": Object {
+            "created_at": "2020-05-06 04:06:23",
+          },
+          "unit": Object {
+            "unit_number": null,
+          },
+        }
+      }
+    />
+  </div>
+  <ActionButton
+    color="primary"
+    marginTop={30}
+    onClick={[Functon]}
+    successGreen={false}
+    variant="contained"
+  >
+    View & Sign Lease
+  </ActionButton>
+  <br />
+  <ForwardRef
+    className="css-vq6rzm"
+    to="/application-approved"
+  >
+    <UNDEFINED
+      classes={
+        Object {
+          "root": "css-13z8uwt",
+        }
+      }
+    />
+     Go Back
+  </ForwardRef>
+</React.Fragment>
+`;

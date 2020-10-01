@@ -5,7 +5,6 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
-import { applicantUpdated } from 'reducers/applicant';
 import { ROUTES, MILESTONE_LEASE_SENT } from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
@@ -48,7 +47,7 @@ export const securityDepositTip = css`
     margin-top: 28px;
 `;
 
-export const AppApproved = ({ profile, configuration, history, applicantUpdated, applicant }) => {
+export const AppApproved = ({ profile, configuration, history, applicant }) => {
     const [viewAdverseActions, setViewAdverseActions] = useState(false);
 
     if (!profile || !configuration) return null;
@@ -68,7 +67,7 @@ export const AppApproved = ({ profile, configuration, history, applicantUpdated,
         });
     };
 
-    const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT)) || true;
+    const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT));
 
     return (
         <>
@@ -152,8 +151,4 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
 });
 
-const mapDispatchToProps = {
-    applicantUpdated,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AppApproved, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps)(captureRoute(AppApproved, ROUTES.APP_APPROVED));

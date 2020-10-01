@@ -9,13 +9,13 @@ exports[`matches snapshot whithout security deposit 1`] = `
       You've Been Approved!
     </ForwardRef(render)>
     <ForwardRef(render)>
-      All that's left to do is sign the lease.
+      All that's left to do is review your payment details and sign the lease.
     </ForwardRef(render)>
     <ForwardRef(render)
       src="approvedSign.svg"
     />
     <div
-      className="css-lygmaw"
+      className="css-x0fehc"
       id="application-unit"
     >
       Fake Building
@@ -41,7 +41,7 @@ exports[`matches snapshot whithout security deposit 1`] = `
           successGreen={false}
           variant="contained"
         >
-          Review & Sign Lease
+          Continue
         </ActionButton>
       </ForwardRef(StyledComponent)>
     </div>
@@ -58,13 +58,13 @@ exports[`matches snapshot with security deposit 1`] = `
       You've Been Approved!
     </ForwardRef(render)>
     <ForwardRef(render)>
-      All that's left to do is sign the lease.
+      All that's left to do is review your payment details and sign the lease.
     </ForwardRef(render)>
     <ForwardRef(render)
       src="approvedSign.svg"
     />
     <div
-      className="css-lygmaw"
+      className="css-x0fehc"
       id="application-unit"
     >
       Fake Building
@@ -103,15 +103,17 @@ exports[`matches snapshot with security deposit 1`] = `
           xs={9}
         >
           <span
-            className="css-bbr70h"
+            className="css-1c1ccge"
           >
-            A 
+            A
+             
             <ForwardRef(render)
               fontSize={14}
               fontWeight={600}
             >
               $123.45
-               security deposit 
+               security deposit
+               
             </ForwardRef(render)>
             is required for this application. 
           </span>
@@ -139,7 +141,7 @@ exports[`matches snapshot with security deposit 1`] = `
           successGreen={false}
           variant="contained"
         >
-          Review & Sign Lease
+          Continue
         </ActionButton>
       </ForwardRef(StyledComponent)>
     </div>

@@ -32,7 +32,7 @@ export const ROUTES = {
     FEES_AND_DEPOSITS: '/fees-deposits',
     HOLDING_DEPOSIT_AGREEMENT: '/holding-deposit-agreement',
     SCREENING: '/screening',
-    APP_COMPLETE: '/application-approved',
+    APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms',
     PAYMENT_TERMS: '/payment-terms',
     ACCOUNT: '/account',
