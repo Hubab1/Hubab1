@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
+import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
+import Info from '@material-ui/icons/Info';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import Capsule from 'components/common/Capsule/Capsule';
-import { H1, H3 } from 'assets/styles';
-import finance from 'assets/images/finance.png';
-import piggyBank from 'assets/images/piggy-bank.png';
-import { ROUTES, ROLE_GUARANTOR, INCOME_TYPE_FINICITY_AUTOMATED } from 'app/constants';
-import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
-import { styles, Spacer, infoIconRoot } from 'assets/styles';
-import BankingContext from './BankingContext';
-import { ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
+import { ROUTES, ROLE_GUARANTOR, INCOME_TYPE_FINICITY_AUTOMATED, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
-import Info from '@material-ui/icons/Info';
-import { Link } from 'react-router-dom';
 import ResetApplicantFinancials from './ResetApplicantFinancials';
-import { Typography } from '@material-ui/core';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import Capsule from 'components/common/Capsule/Capsule';
+import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
+import BankingContext from './BankingContext';
 import BackLink from 'components/common/BackLink';
+import { H1, H3 } from 'assets/styles';
+import { styles, Spacer, infoIconRoot } from 'assets/styles';
+import finance from 'assets/images/finance.png';
+import piggyBank from 'assets/images/piggy-bank.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -53,8 +52,8 @@ const totalsP = css`
 `;
 
 export function IncomeVerificationSummaryPage (props) {
-    const context = React.useContext(BankingContext);
-    const [showResetFinancials, setShowResetFinancials] = React.useState(false);
+    const context = useContext(BankingContext);
+    const [showResetFinancials, setShowResetFinancials] = useState(false);
 
     const setScrollPosition = () => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
@@ -73,7 +72,7 @@ export function IncomeVerificationSummaryPage (props) {
         window.onhashchange = scrollToAnchor;
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         setScrollPosition();
     }, []);
 
@@ -152,13 +151,14 @@ export function IncomeVerificationSummaryPage (props) {
             />
         );
     }
+
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
             <SpacedH3>Add at least one income source or asset below.</SpacedH3>
             <Capsule
                 name="income"
-                prefix={<img alt="coin" src={finance}></img>}
+                prefix={<img alt="coin" src={finance}/>}
                 label="Income"
                 buttonLabel="Add an Income Source"
                 tip="TBD"
