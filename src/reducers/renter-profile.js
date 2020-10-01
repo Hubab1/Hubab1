@@ -107,8 +107,8 @@ selectors.selectOrderedRoutes = createSelector(
             enableAutomaticIncomeVerification && ROUTES.INCOME_AND_EMPLOYMENT,
             ROUTES.FEES_AND_DEPOSITS,
             role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
-            //ROUTES.SCREENING,
-            ROUTES.APP_APPROVED,
+            ROUTES.SCREENING,
+            ROUTES.APP_COMPLETE,
         ].filter((r) => !!r);
     }
 );
@@ -126,8 +126,8 @@ const pageCompleted = (events, applicant) => ({
     [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED),
     [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
-    // [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
-    [ROUTES.APP_APPROVED]: events.has(MILESTONE_APPLICANT_SUBMITTED),
+    [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
+    [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
 });
 
 selectors.canAccessRoute = (state, route) => {
@@ -164,9 +164,6 @@ selectors.selectInitialPage = createSelector(
     (state) => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
         if (orderedRoutes && events && applicant && profile) {
-            //tmp
-            // return ROUTES.SIGN_LEASE;
-
             const eventsSet = new Set(events.map((event) => parseInt(event.event)));
             const applicationEvents = profile.events
                 ? new Set(profile.events.map((event) => parseInt(event.event)))
