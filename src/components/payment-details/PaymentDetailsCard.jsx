@@ -71,7 +71,7 @@ PaymentDetailsCard.propTypes = {
     payables: PropTypes.array,
 };
 
-function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {
+export function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {
     const classes = useStyles();
 
     return (
