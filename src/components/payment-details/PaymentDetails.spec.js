@@ -46,13 +46,4 @@ describe('PaymentDetails', () => {
         expect(defaultProps.fetchPayments).toBeCalledTimes(1);
         expect(wrapper.find(PaidText).length).toEqual(1);
     });
-
-    it('does not render the "Paid" text if some due at application payments have not been paid', () => {
-        const payables = [{ paid: true }, { paid: false }, { paid: true }];
-
-        const wrapper = mount(<PaymentDetails {...{ ...defaultProps, payables }} />);
-
-        expect(defaultProps.fetchPayments).toBeCalledTimes(1);
-        expect(wrapper.find(PaidText).length).toEqual(0);
-    });
 });
