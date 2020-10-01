@@ -203,7 +203,7 @@ selectors.selectInitialPage = createSelector(
             }
 
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
-                return ROUTES.APP_APPROVED;
+                return ROUTES.APP_COMPLETE;
             }
 
             const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
