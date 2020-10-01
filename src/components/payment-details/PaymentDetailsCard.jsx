@@ -24,7 +24,7 @@ export const PaymentCard = styled(Card)`
     padding: 15px;
 `;
 
-export const PaymentDetailsCard = ({ profile, payables }) => {
+export const PaymentDetailsCard = ({ profile, payables = [] }) => {
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
     const allPaymentsPaid = !payables.find((payment) => !payment.paid);
 
@@ -64,6 +64,11 @@ export const PaymentDetailsCard = ({ profile, payables }) => {
             </PaymentItemsExpansionPanel>
         </PaymentCard>
     );
+};
+
+PaymentDetailsCard.propTypes = {
+    profile: PropTypes.object.isRequired,
+    payables: PropTypes.array,
 };
 
 function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {

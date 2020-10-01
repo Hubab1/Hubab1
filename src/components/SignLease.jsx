@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import Grid from '@material-ui/core/Grid';
-import { css } from 'emotion';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Box from '@material-ui/core/Box';
-
 import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
@@ -13,51 +8,13 @@ import { ROUTES, HELLOSIGN_TEST_MODE, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE } 
 import { H1, SpacedH3, blackLinkRoot, arrowIcon } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { useEffect } from 'react';
-import AppAdverseActions from 'components/AppAdverseActions';
-import clsx from 'clsx';
 import captureRoute from 'app/captureRoute';
 import { fetchPayments } from 'reducers/payments';
 import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCard';
 import { Link } from 'react-router-dom';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
-export const ApprovedImage = styled.img`
-    padding-top: 10px;
-    height: 200px;
-`;
-
-export const applicationUnit = css`
-    color: #454b57;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    padding-top: 10px;
-`;
-
-export const BulbImage = styled.img`
-    width: 46px;
-    height: 42px;
-`;
-
-export const securityDepositHelpText = css`
-    color: #454b57;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: left;
-`;
-
-export const gridContainer = css`
-    min-height: 100px;
-`;
-export const securityDepositTip = css`
-    margin-top: 28px;
-`;
-
-export const SignLease = ({ profile, configuration, history, applicantUpdated, applicant, payables }) => {
-    const [viewAdverseActions, setViewAdverseActions] = useState(false);
-
-    console.log('OK1');
-
+export const SignLease = ({ profile, configuration, history, applicantUpdated, payables }) => {
     useEffect(() => {
         fetchPayments();
 
@@ -84,15 +41,6 @@ export const SignLease = ({ profile, configuration, history, applicantUpdated, a
 
     if (!profile || !configuration) return null;
 
-    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
-    const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-    const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
-    const { name } = applicant.client.person;
-
-    const toggleViewAdverseActions = () => {
-        setViewAdverseActions(!viewAdverseActions);
-    };
-
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
         if (data.url) {
@@ -107,7 +55,7 @@ export const SignLease = ({ profile, configuration, history, applicantUpdated, a
 
     return (
         <>
-            <div className={clsx({ 'hide-element': viewAdverseActions })}>
+            <div>
                 <H1>{`Payment Details`}</H1>
                 <SpacedH3>{`Make sure everything looks good before signing the lease.`}</SpacedH3>
                 <PaymentDetailsCard profile={profile} payables={payables} />
@@ -145,4 +93,4 @@ const mapDispatchToProps = {
     fetchPayments,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(SignLease, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(SignLease, ROUTES.SIGN_LEASE));

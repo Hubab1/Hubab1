@@ -5,27 +5,16 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
-
 import { applicantUpdated } from 'reducers/applicant';
-import API from 'app/api';
-import hsclient from 'utils/hsclient';
-import {
-    ROUTES,
-    HELLOSIGN_TEST_MODE,
-    MILESTONE_LEASE_SENT,
-    APPLICATION_EVENTS,
-    DOCUMENT_TYPE_LEASE,
-} from 'app/constants';
+import { ROUTES, MILESTONE_LEASE_SENT } from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
-import { useEffect } from 'react';
 import AppAdverseActions from 'components/AppAdverseActions';
 import clsx from 'clsx';
 import captureRoute from 'app/captureRoute';
-import { Link } from 'react-router-dom';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;

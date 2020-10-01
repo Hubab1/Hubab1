@@ -6,17 +6,8 @@ import { ROUTES } from 'app/constants';
 import { H1, SpacedH3 } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import { fetchPayments } from 'reducers/payments';
 import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCard';
-
-const useStyles = makeStyles(() => ({
-    root: {
-        display: 'block',
-        padding: 0,
-    },
-}));
 
 export const PaymentDetails = ({ profile, configuration, payables, fetchPayments }) => {
     useEffect(() => {
