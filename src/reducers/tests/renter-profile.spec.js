@@ -1,4 +1,15 @@
-import { APPLICATION_EVENTS, APPLICATION_STATUS_APPROVED, APPLICATION_STATUS_COMPLETED, APPLICATION_STATUS_CONDITIONALLY_APPROVED, MILESTONE_APPLICANT_SUBMITTED, ROLE_PRIMARY_APPLICANT, ROLE_CO_APPLICANT, ROUTES, APPLICATION_STATUS_CANCELED } from 'app/constants';
+import {
+    ROUTES,
+    ROLE_PRIMARY_APPLICANT,
+    ROLE_CO_APPLICANT,
+    APPLICATION_EVENTS,
+    APPLICATION_STATUS_APPROVED,
+    APPLICATION_STATUS_COMPLETED,
+    APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+    APPLICATION_STATUS_CANCELED,
+    MILESTONE_APPLICANT_SUBMITTED,
+    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
+} from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 
 describe('selectNav', () => {
@@ -195,6 +206,21 @@ describe('selectInitialPage', () => {
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}]}
         });
         expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                unit_available: true,
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED}]}
+        });
+        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
