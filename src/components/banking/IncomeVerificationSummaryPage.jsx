@@ -86,7 +86,7 @@ export function IncomeOrAssetItemWarning({ source, isAsset }) {
         if (isAsset) {
             warning = `The documents for this asset source show a value of ${prettyCurrency(adjusted_amount)}.`;
         } else {
-            warning = `The documents for this income source show earnings of ${prettyCurrency(adjusted_amount)}/yr`;
+            warning = `The documents for this income source show earnings of ${prettyCurrency(adjusted_amount)}/year`;
         }
     } else {
         warning = `This ${
