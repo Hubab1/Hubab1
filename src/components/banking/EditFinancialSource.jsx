@@ -5,11 +5,7 @@ import styled from '@emotion/styled';
 import captureRoute from 'app/captureRoute';
 import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
 import API from 'app/api';
-import {
-    ROUTES,
-    FINANCIAL_STREAM_INCOME,
-    FINANCIAL_STREAM_ASSET,
-} from 'app/constants';
+import { ROUTES, FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
