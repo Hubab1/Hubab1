@@ -236,13 +236,11 @@ export function IncomeVerificationSummaryPage(props) {
         return (
             <p className={totalsP}>
                 {prettyCurrency(applicant_income_amount)} is the recommended household income.
-                {
-                    <SimplePopover
-                        text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}
-                    >
-                        <InfoIcon classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
-                    </SimplePopover>
-                }
+                <SimplePopover
+                    text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}
+                >
+                    <InfoIcon classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                </SimplePopover>
             </p>
         );
     }, []);
