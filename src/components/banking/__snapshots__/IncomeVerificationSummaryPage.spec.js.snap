@@ -58,234 +58,99 @@ exports[`matches snapshot with some financial sources data 1`] = `
           label="Income Source"
           labelQuantity={5}
         >
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 123,
-                  "income_or_asset_type": 105,
-                  "uploaded_documents": Array [
-                    Object {
-                      "filename": "w2-1.pdf",
-                      "id": 4,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
-                    },
-                  ],
-                }
-              }
-            />
-            <div>
-              Employment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              W2
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/123/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/123/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "uploaded_documents": Array [],
-                }
-              }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 125,
-                  "income_or_asset_type": 500,
-                  "uploaded_documents": Array [
-                    Object {
-                      "filename": "w2-1.pdf",
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
                       "id": 1,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
+                      "label": "W2",
                     },
-                    Object {
-                      "filename": "w2-2.pdf",
+                  },
+                ],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
                       "id": 2,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
+                      "label": "W3",
                     },
-                    Object {
-                      "filename": "w3.pdf",
-                      "id": 3,
-                      "type": Object {
-                        "id": 2,
-                        "label": "W3",
-                      },
-                    },
-                  ],
-                }
+                  },
+                ],
               }
-            />
-            <div>
-              Savings
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              W2, W3
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "adjusted_amount": 100020,
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
               }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "adjusted_amount": null,
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
               }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
+            }
+          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }
@@ -325,175 +190,99 @@ exports[`matches snapshot with some financial sources data 1`] = `
           label="Asset"
           labelQuantity={3}
         >
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "uploaded_documents": Array [],
-                }
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                ],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "adjusted_amount": 40020,
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "adjusted_amount": null,
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
+                      "id": 2,
+                      "label": "W3",
+                    },
+                  },
+                ],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }
@@ -592,234 +381,99 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           label="Income Source"
           labelQuantity={5}
         >
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 123,
-                  "income_or_asset_type": 105,
-                  "uploaded_documents": Array [
-                    Object {
-                      "filename": "w2-1.pdf",
-                      "id": 4,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
-                    },
-                  ],
-                }
-              }
-            />
-            <div>
-              Employment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              W2
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/123/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/123/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "uploaded_documents": Array [],
-                }
-              }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "estimated_amount": 100000,
-                  "id": 125,
-                  "income_or_asset_type": 500,
-                  "uploaded_documents": Array [
-                    Object {
-                      "filename": "w2-1.pdf",
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
                       "id": 1,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
+                      "label": "W2",
                     },
-                    Object {
-                      "filename": "w2-2.pdf",
+                  },
+                ],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
                       "id": 2,
-                      "type": Object {
-                        "id": 1,
-                        "label": "W2",
-                      },
+                      "label": "W3",
                     },
-                    Object {
-                      "filename": "w3.pdf",
-                      "id": 3,
-                      "type": Object {
-                        "id": 2,
-                        "label": "W3",
-                      },
-                    },
-                  ],
-                }
+                  },
+                ],
               }
-            />
-            <div>
-              Savings
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              W2, W3
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "adjusted_amount": 100020,
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
               }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={false}
-              source={
-                Object {
-                  "adjusted_amount": null,
-                  "estimated_amount": 100000,
-                  "id": 124,
-                  "income_or_asset_type": 135,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={false}
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
               }
-            />
-            <div />
-            <div
-              className="css-dufvih"
-            >
-              $100,000
-              /year
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of income: 
-              Linked bank account
-            </div>
-          </div>
+            }
+          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }
@@ -859,175 +513,99 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           label="Asset"
           labelQuantity={3}
         >
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "uploaded_documents": Array [],
-                }
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                ],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "adjusted_amount": 40020,
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
                   Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
-          <div>
-            <IncomeOrAssetItemWarning
-              isAsset={true}
-              source={
-                Object {
-                  "adjusted_amount": null,
-                  "estimated_amount": 40000,
-                  "id": 125,
-                  "income_or_asset_type": 510,
-                  "status": 40,
-                  "uploaded_documents": Array [],
-                }
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
+                      "id": 2,
+                      "label": "W3",
+                    },
+                  },
+                ],
               }
-            />
-            <div>
-              Investment
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              $40,000
-            </div>
-            <div
-              className="css-dufvih"
-            >
-              Proof of asset: 
-              None
-            </div>
-            <React.Fragment>
-              <ForwardRef(render)
-                height={10}
-              />
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/edit"
-              >
-                Edit
-              </ForwardRef>
-                    
-              <ForwardRef
-                style={
-                  Object {
-                    "fontSize": 14,
-                    "textDecoration": "underline",
-                  }
-                }
-                to="/income-employment/manual/financial-sources/125/remove"
-              >
-                Remove
-              </ForwardRef>
-            </React.Fragment>
-          </div>
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            isAsset={true}
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }

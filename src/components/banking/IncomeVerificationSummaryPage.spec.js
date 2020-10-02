@@ -12,47 +12,53 @@ jest.mock('react', () => ({
                     id: 123,
                     income_or_asset_type: 105,
                     estimated_amount: 100000,
-                    uploaded_documents: [{
-                        id: 4,
-                        filename: 'w2-1.pdf',
-                        type: {
-                            label: 'W2',
-                            id: 1,
-                        }
-                    }]
+                    uploaded_documents: [
+                        {
+                            id: 4,
+                            filename: 'w2-1.pdf',
+                            type: {
+                                label: 'W2',
+                                id: 1,
+                            },
+                        },
+                    ],
                 },
                 {
                     id: 124,
                     income_or_asset_type: 135,
                     estimated_amount: 100000,
-                    uploaded_documents: []
+                    uploaded_documents: [],
                 },
                 {
                     id: 125,
                     income_or_asset_type: 500,
                     estimated_amount: 100000,
-                    uploaded_documents: [{
-                        id: 1,
-                        filename: 'w2-1.pdf',
-                        type: {
-                            label: 'W2',
+                    uploaded_documents: [
+                        {
                             id: 1,
-                        }
-                    }, {
-                        id: 2,
-                        filename: 'w2-2.pdf',
-                        type: {
-                            label: 'W2',
-                            id: 1,
-                        }
-                    }, {
-                        id: 3,
-                        filename: 'w3.pdf',
-                        type: {
-                            label: 'W3',
+                            filename: 'w2-1.pdf',
+                            type: {
+                                label: 'W2',
+                                id: 1,
+                            },
+                        },
+                        {
                             id: 2,
-                        }
-                    }]
+                            filename: 'w2-2.pdf',
+                            type: {
+                                label: 'W2',
+                                id: 1,
+                            },
+                        },
+                        {
+                            id: 3,
+                            filename: 'w3.pdf',
+                            type: {
+                                label: 'W3',
+                                id: 2,
+                            },
+                        },
+                    ],
                 },
                 {
                     id: 124,
@@ -60,7 +66,7 @@ jest.mock('react', () => ({
                     estimated_amount: 100000,
                     adjusted_amount: 100020,
                     uploaded_documents: [],
-                    status: 40
+                    status: 40,
                 },
                 {
                     id: 124,
@@ -68,7 +74,7 @@ jest.mock('react', () => ({
                     estimated_amount: 100000,
                     adjusted_amount: null,
                     uploaded_documents: [],
-                    status: 40
+                    status: 40,
                 },
             ],
             asset_sources: [
@@ -76,7 +82,7 @@ jest.mock('react', () => ({
                     id: 125,
                     income_or_asset_type: 510,
                     estimated_amount: 40000,
-                    uploaded_documents: []
+                    uploaded_documents: [],
                 },
                 {
                     id: 125,
@@ -84,7 +90,7 @@ jest.mock('react', () => ({
                     estimated_amount: 40000,
                     adjusted_amount: 40020,
                     uploaded_documents: [],
-                    status: 40
+                    status: 40,
                 },
                 {
                     id: 125,
@@ -92,48 +98,44 @@ jest.mock('react', () => ({
                     estimated_amount: 40000,
                     adjusted_amount: null,
                     uploaded_documents: [],
-                    status: 40
-                }
+                    status: 40,
+                },
             ],
             income_total: '100000.00',
             asset_total: '40000.00',
         },
-    })
+    }),
 }));
 
 let defaultProps;
 beforeEach(() => {
     defaultProps = {
         history: {
-            push: jest.fn()
+            push: jest.fn(),
         },
         goBack: jest.fn(),
         applicant: {
-            role: ROLE_PRIMARY_APPLICANT
+            role: ROLE_PRIMARY_APPLICANT,
         },
         config: {
             guarantor_income_requirement_multiplier: 80,
-            applicant_income_requirements: 40
+            applicant_income_requirements: 40,
         },
         profile: {
             unit: {
-                price: 1000
-            }
-        }
+                price: 1000,
+            },
+        },
     };
 });
 
 it('matches snapshot with some financial sources data', () => {
-    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps}/>);
-    expect(
-        wrapper.getElement()
-    ).toMatchSnapshot();
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('matches snapshot with some financial sources data if guarantor', () => {
     defaultProps.applicant.role = ROLE_GUARANTOR;
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-    expect(
-        wrapper.getElement()
-    ).toMatchSnapshot();
+    expect(wrapper.getElement()).toMatchSnapshot();
 });

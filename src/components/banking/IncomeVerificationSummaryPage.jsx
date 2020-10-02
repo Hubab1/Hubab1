@@ -75,6 +75,7 @@ const incomeOrAssetItemWarning = css`
     }
 `;
 
+// TODO: test
 export function IncomeOrAssetItemWarning({ source, isAsset }) {
     const { adjusted_amount, status } = source;
     const isIncomplete = status === FINANCIAL_STREAM_STATUS_INCOMPLETE;
@@ -105,6 +106,69 @@ export function IncomeOrAssetItemWarning({ source, isAsset }) {
 IncomeOrAssetItemWarning.propTypes = {
     source: PropTypes.object.isRequired,
     isAsset: PropTypes.bool.isRequired,
+};
+
+// TODO: test
+export function IncomeOrAssetsItem({ source, isAsset }) {
+    const getSourceLabel = useCallback((source) => {
+        if (source.finicity_income_stream_id && source.other) {
+            return source.other;
+        }
+        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label;
+    }, []);
+
+    const getProofString = useCallback((source) => {
+        if (source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED) {
+            return 'Linked bank account';
+        }
+
+        // find all document type labels
+        const typesSet =
+            source.uploaded_documents?.reduce((accum, doc) => {
+                if (doc.type?.label) {
+                    accum.add(doc.type.label);
+                }
+                return accum;
+            }, new Set()) || new Set();
+
+        // join labels together with comma
+        const proofs = Array.from(typesSet).join(', ');
+        if (!proofs) return 'None';
+        return proofs;
+    }, []);
+
+    return (
+        <div>
+            <IncomeOrAssetItemWarning source={source} isAsset={isAsset} />
+            <div>{getSourceLabel(source)}</div>
+            <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
+            <div className={styles.colorManatee}>{`Proof of ${isAsset ? 'asset' : 'income'}: ${getProofString(
+                source
+            )}`}</div>
+            {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                <>
+                    <Spacer height={10} />
+                    <Link
+                        style={linkStyle}
+                        to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                            id: source.id,
+                        })}
+                    >
+                        Edit
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}>
+                        Remove
+                    </Link>
+                </>
+            )}
+        </div>
+    );
+}
+
+IncomeOrAssetsItem.propTypes = {
+    source: PropTypes.object.isRequired,
+    isAsset: PropTypes.bool,
 };
 
 export function IncomeVerificationSummaryPage(props) {
@@ -146,13 +210,6 @@ export function IncomeVerificationSummaryPage(props) {
 
     const hashValue = props.location?.hash?.substring?.(1) ?? '';
 
-    const getSourceLabel = useCallback((source) => {
-        if (source.finicity_income_stream_id && source.other) {
-            return source.other;
-        }
-        return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label;
-    }, []);
-
     const getIncomeRequirementText = useCallback((config, profile, applicant) => {
         if (!profile || !applicant || !config) return <div />;
 
@@ -188,26 +245,6 @@ export function IncomeVerificationSummaryPage(props) {
                 }
             </p>
         );
-    }, []);
-
-    const getProofString = useCallback((source) => {
-        if (source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED) {
-            return 'Linked bank account';
-        }
-
-        // find all document type labels
-        const typesSet =
-            source.uploaded_documents?.reduce((accum, doc) => {
-                if (doc.type?.label) {
-                    accum.add(doc.type.label);
-                }
-                return accum;
-            }, new Set()) || new Set();
-
-        // join labels together with comma
-        const proofs = Array.from(typesSet).join(', ');
-        if (!proofs) return 'None';
-        return proofs;
     }, []);
 
     const onContinue = useCallback(() => {
@@ -262,34 +299,7 @@ export function IncomeVerificationSummaryPage(props) {
                             defaultExpanded={hashValue === 'income'}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
-                                <div key={source.id}>
-                                    <IncomeOrAssetItemWarning source={source} isAsset={false} />
-                                    <div>{getSourceLabel(source)}</div>
-                                    <div className={styles.colorManatee}>
-                                        {prettyCurrency(source.estimated_amount)}/year
-                                    </div>
-                                    <div className={styles.colorManatee}>Proof of income: {getProofString(source)}</div>
-                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                        <>
-                                            <Spacer height={10} />
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                                    id: source.id,
-                                                })}
-                                            >
-                                                Edit
-                                            </Link>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
-                                            >
-                                                Remove
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
+                                <IncomeOrAssetsItem key={source.id} source={source} isAsset={false} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
@@ -319,33 +329,8 @@ export function IncomeVerificationSummaryPage(props) {
                             labelQuantity={context.bankingData?.asset_sources.length}
                             defaultExpanded={hashValue === 'asset'}
                         >
-                            {context.bankingData?.asset_sources?.map((source) => (
-                                <div key={source.id}>
-                                    <IncomeOrAssetItemWarning source={source} isAsset={true} />
-                                    <div>{getSourceLabel(source)}</div>
-                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
-                                    <div className={styles.colorManatee}>Proof of asset: {getProofString(source)}</div>
-                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                        <>
-                                            <Spacer height={10} />
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                                    id: source.id,
-                                                })}
-                                            >
-                                                Edit
-                                            </Link>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
-                                            >
-                                                Remove
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
+                            {context.bankingData?.income_sources?.map((source) => (
+                                <IncomeOrAssetsItem key={source.id} source={source} isAsset={true} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
