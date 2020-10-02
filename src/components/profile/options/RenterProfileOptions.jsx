@@ -14,6 +14,7 @@ import {
     RENTER_PROFILE_TYPE_PARKING,
     RENTER_PROFILE_TYPE_STORAGE,
     RENTER_PROFILE_TYPE_DEPENDENT,
+    RENTER_PROFILE_TYPE_OCCUPANT,
 } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import { H1, H3 } from 'assets/styles';
@@ -114,7 +115,10 @@ export class RentalProfileOptions extends React.Component {
         const filteredParking = this.filterOptions(RENTER_PROFILE_TYPE_PARKING);
         const filteredStorage = this.filterOptions(RENTER_PROFILE_TYPE_STORAGE);
         const options = this.configurableRentalOptions;
-        const people = this.props.profile.co_applicants.concat(this.props.profile.dependents);
+        const people = this.props.profile.co_applicants
+            .concat(this.props.profile.occupants)
+            .concat(this.props.profile.dependents);
+
         return (
             <Fragment>
                 <SkinnyH1>Let&apos;s Set Up Your Rental Profile</SkinnyH1>
@@ -142,6 +146,13 @@ export class RentalProfileOptions extends React.Component {
                                                 key={`co_applicant-${item.id}`}
                                                 item={item}
                                                 type={RENTER_PROFILE_TYPE_CO_APPLICANTS}
+                                            />
+                                        ))}
+                                        {this.props.profile.occupants.map((item) => (
+                                            <ExistingRoommate
+                                                key={`occupant-${item.id}`}
+                                                item={item}
+                                                type={RENTER_PROFILE_TYPE_OCCUPANT}
                                             />
                                         ))}
                                         {this.props.profile.dependents.map((item) => (

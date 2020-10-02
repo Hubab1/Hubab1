@@ -7,10 +7,7 @@ import mockPayments from 'reducers/mock-payments';
 import { FeesDepositsContainer } from './FeesDepositsContainer';
 import FeesDepositsOptions from './FeesDepositsOptions';
 
-
 let defaultProps;
-const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);
-everyone.unshift(mockApplicant);
 
 beforeEach(() => {
     defaultProps = {
@@ -20,8 +17,8 @@ beforeEach(() => {
     };
 });
 
-it('fees are set from profile selected_rental_options', function() {
-    const wrapper = shallow( <FeesDepositsContainer {...defaultProps} /> );
+it('fees are set from profile selected_rental_options', function () {
+    const wrapper = shallow(<FeesDepositsContainer {...defaultProps} />);
     const feesDepositsOptionsComponent = wrapper.find(FeesDepositsOptions);
     expect(feesDepositsOptionsComponent.exists()).toBe(true);
     expect(feesDepositsOptionsComponent.prop('baseAppFee')).toBe(125.5);

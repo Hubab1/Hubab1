@@ -15,7 +15,7 @@ exports[`matches snapshot 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Roommates"
-          labelQuantity={3}
+          labelQuantity={4}
         >
           <ExistingRoommate
             item={
@@ -48,6 +48,24 @@ exports[`matches snapshot 1`] = `
               }
             }
             type="co_applicants"
+          />
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "Made",
+                "id": 99,
+                "is_registered": true,
+                "last_milestone": Object {
+                  "created_at": "2020-07-23 15:22:49",
+                  "event": 210,
+                  "id": 10557,
+                },
+                "last_name": "Man",
+                "phone_number": "(212) 123-4567",
+                "status": "Completed",
+              }
+            }
+            type="occupant"
           />
           <ExistingRoommate
             item={
@@ -187,7 +205,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Roommates"
-          labelQuantity={3}
+          labelQuantity={4}
         >
           <ExistingRoommate
             item={
@@ -220,6 +238,24 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
               }
             }
             type="co_applicants"
+          />
+          <ExistingRoommate
+            item={
+              Object {
+                "first_name": "Made",
+                "id": 99,
+                "is_registered": true,
+                "last_milestone": Object {
+                  "created_at": "2020-07-23 15:22:49",
+                  "event": 210,
+                  "id": 10557,
+                },
+                "last_name": "Man",
+                "phone_number": "(212) 123-4567",
+                "status": "Completed",
+              }
+            }
+            type="occupant"
           />
           <ExistingRoommate
             item={
@@ -390,37 +426,72 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
 
 exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
 Array [
-  <ExistingRoommate
-    item={
-      Object {
-        "first_name": "kreebs",
-        "id": 71,
-        "is_registered": false,
-        "last_milestone": null,
-        "last_name": "mcgreebs",
-        "phone_number": "(383) 838-4849",
-        "status": "Not Started",
+  Array [
+    <ExistingRoommate
+      item={
+        Object {
+          "first_name": "kreebs",
+          "id": 71,
+          "is_registered": false,
+          "last_milestone": null,
+          "last_name": "mcgreebs",
+          "phone_number": "(383) 838-4849",
+          "status": "Not Started",
+        }
       }
-    }
-    type="co_applicants"
-  />,
-  <ExistingRoommate
-    item={
-      Object {
-        "first_name": "jerry",
-        "id": 73,
-        "is_registered": true,
-        "last_milestone": Object {
-          "created_at": "2020-07-23 15:22:49",
-          "event": 210,
-          "id": 10557,
-        },
-        "last_name": "maguire",
-        "phone_number": "(333) 888-4449",
-        "status": "Completed",
+      type="co_applicants"
+    />,
+    <ExistingRoommate
+      item={
+        Object {
+          "first_name": "jerry",
+          "id": 73,
+          "is_registered": true,
+          "last_milestone": Object {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 210,
+            "id": 10557,
+          },
+          "last_name": "maguire",
+          "phone_number": "(333) 888-4449",
+          "status": "Completed",
+        }
       }
-    }
-    type="co_applicants"
-  />,
+      type="co_applicants"
+    />,
+  ],
+  Array [
+    <ExistingRoommate
+      item={
+        Object {
+          "first_name": "Made",
+          "id": 99,
+          "is_registered": true,
+          "last_milestone": Object {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 210,
+            "id": 10557,
+          },
+          "last_name": "Man",
+          "phone_number": "(212) 123-4567",
+          "status": "Completed",
+        }
+      }
+      type="occupant"
+    />,
+  ],
+  Array [
+    <ExistingRoommate
+      item={
+        Object {
+          "first_name": "Bobby",
+          "id": 75,
+          "last_name": "Kennedy",
+          "phone_number": "(555) 822-4841",
+        }
+      }
+      type="dependent"
+    />,
+  ],
 ]
 `;
