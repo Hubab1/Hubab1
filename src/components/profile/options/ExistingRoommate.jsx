@@ -63,11 +63,9 @@ export default function ExistingRoommate({ item, type }) {
                     </Link>
                 )}
                 {isOccupant && (
-                    <>
-                        <Span className="color-manatee" fontSize={14}>
-                            Occupant
-                        </Span>
-                    </>
+                    <Span className="color-manatee" fontSize={14}>
+                        Occupant
+                    </Span>
                 )}
                 {isDependent && (
                     <>

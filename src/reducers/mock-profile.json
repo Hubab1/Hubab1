@@ -5,18 +5,20 @@
     "lease_settings": 2,
     "lease_start_date": null,
     "primary_applicant": {
-        "guarantors": [{
-            "phone_number": "(222) 111-0000",
-            "first_name": "elvish",
-            "last_name": "parsley",
-            "id": 74,
-            "is_registered": false,
-            "last_milestone": {
-                "created_at": "2020-07-23 15:22:49",
-                "event": 220,
-                "id": 10554
+        "guarantors": [
+            {
+                "phone_number": "(222) 111-0000",
+                "first_name": "elvish",
+                "last_name": "parsley",
+                "id": 74,
+                "is_registered": false,
+                "last_milestone": {
+                    "created_at": "2020-07-23 15:22:49",
+                    "event": 220,
+                    "id": 10554
+                }
             }
-        }],
+        ],
         "phone_number": "(111) 111-1111",
         "first_name": "frank",
         "last_name": "underwood",
@@ -38,7 +40,8 @@
         "email": "johnjenkins@nestio.com"
     },
     "rent": null,
-    "co_applicants": [{
+    "co_applicants": [
+        {
             "phone_number": "(383) 838-4849",
             "first_name": "kreebs",
             "last_name": "mcgreebs",
@@ -61,25 +64,29 @@
             }
         }
     ],
-    "occupants": [{
-        "phone_number": "(212) 123-4567",
-        "first_name": "Made",
-        "last_name": "Man",
-        "id": 99,
-        "is_registered": true,
-        "status": "Completed",
-        "last_milestone": {
-            "created_at": "2020-07-23 15:22:49",
-            "event": 210,
-            "id": 10557
+    "occupants": [
+        {
+            "phone_number": "(212) 123-4567",
+            "first_name": "Made",
+            "last_name": "Man",
+            "id": 99,
+            "is_registered": true,
+            "status": "Completed",
+            "last_milestone": {
+                "created_at": "2020-07-23 15:22:49",
+                "event": 210,
+                "id": 10557
+            }
         }
-    }],
-    "dependents": [{
-        "phone_number": "(555) 822-4841",
-        "first_name": "Bobby",
-        "last_name": "Kennedy",
-        "id": 75
-    }],
+    ],
+    "dependents": [
+        {
+            "phone_number": "(555) 822-4841",
+            "first_name": "Bobby",
+            "last_name": "Kennedy",
+            "id": 75
+        }
+    ],
     "id": 17,
     "unit": {
         "unit_number": "12a"
@@ -88,12 +95,12 @@
     "selected_rental_options": {
         "app-fee": [
             {
-                "quoted_fee_amount": 125.50
+                "quoted_fee_amount": 125.5
             }
         ],
         "holding-deposit": [
             {
-                "quoted_deposit_amount": 501.50
+                "quoted_deposit_amount": 501.5
             }
         ]
     }
