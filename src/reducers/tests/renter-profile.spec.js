@@ -24,7 +24,7 @@ describe('selectNav', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
             {
@@ -61,7 +61,7 @@ describe('selectNav', () => {
 describe('canAccessRoute', () => {
     const state = {
         configuration: {
-            enable_automatic_income_verification: true
+            enable_automatic_income_verification: true,
         },
         renterProfile: {
             co_applicants: null,
@@ -69,7 +69,7 @@ describe('canAccessRoute', () => {
             pets: null,
             lease_term: 6,
         },
-        applicant: {role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+        applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
     };
     it('privacy policy is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
@@ -104,7 +104,6 @@ describe('canAccessRoute', () => {
     });
 });
 
-
 describe('selectOrderedRoutes', () => {
     it('Shows correct pages for primary applicant', () => {
         const pages = selectors.selectOrderedRoutes({
@@ -117,7 +116,7 @@ describe('selectOrderedRoutes', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
             '/address',
@@ -126,7 +125,7 @@ describe('selectOrderedRoutes', () => {
             '/income-employment',
             '/fees-deposits',
             '/screening',
-            '/application-complete'
+            '/application-complete',
         ]);
     });
     it('Shows correct pages for secondary applicants', () => {
@@ -140,7 +139,7 @@ describe('selectOrderedRoutes', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_CO_APPLICANT, address_street: 'some street', events: []}
+            applicant: { role: ROLE_CO_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
             '/address',
@@ -148,7 +147,7 @@ describe('selectOrderedRoutes', () => {
             '/income-employment',
             '/fees-deposits',
             '/screening',
-            '/application-complete'
+            '/application-complete',
         ]);
     });
     it('doesnt show income-employment page if enable_automatic_income_verification=false', () => {
@@ -162,7 +161,7 @@ describe('selectOrderedRoutes', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
             '/address',
@@ -170,11 +169,10 @@ describe('selectOrderedRoutes', () => {
             '/rental-profile/options',
             '/fees-deposits',
             '/screening',
-            '/application-complete'
+            '/application-complete',
         ]);
     });
 });
-
 
 describe('selectInitialPage', () => {
     it('computes initial page based on profile data', () => {
@@ -189,7 +187,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: []}
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
         initialPage = selectors.selectInitialPage({
@@ -203,7 +201,11 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}]}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+            },
         });
         expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
 
@@ -218,7 +220,11 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED}]}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED }],
+            },
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
@@ -232,7 +238,11 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}]}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+            },
         });
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
 
@@ -241,11 +251,23 @@ describe('selectInitialPage', () => {
                 enable_automatic_income_verification: true,
             },
             renterProfile: {
-                co_applicants: [{name: 'bob'}],
-                pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
+                co_applicants: [{ name: 'bob' }],
+                pets: [
+                    { name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog' },
+                    { name: 'garfield', pet_type: 'Cat' },
+                ],
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED}]}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
 
@@ -255,10 +277,21 @@ describe('selectInitialPage', () => {
             },
             renterProfile: {
                 co_applicants: null,
-                pets: [{name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog'}, {name: 'garfield', pet_type: 'Cat'}],
+                pets: [
+                    { name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog' },
+                    { name: 'garfield', pet_type: 'Cat' },
+                ],
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED}]}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.FEES_AND_DEPOSITS);
 
@@ -272,7 +305,16 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED}], receipt: {id: 123}}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                ],
+                receipt: { id: 123 },
+            },
         });
         expect(initialPage).toEqual(ROUTES.SCREENING);
 
@@ -286,7 +328,17 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}, {event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED}, {event: MILESTONE_APPLICANT_SUBMITTED}], receipt: {id: 123}}
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: MILESTONE_APPLICANT_SUBMITTED },
+                ],
+                receipt: { id: 123 },
+            },
         });
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
 
@@ -301,7 +353,14 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_APPROVED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
 
@@ -316,7 +375,14 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
         initialPage = selectors.selectInitialPage({
@@ -330,7 +396,15 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
         initialPage = selectors.selectInitialPage({
@@ -344,7 +418,15 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_COMPLETED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_EXECUTED);
         initialPage = selectors.selectInitialPage({
@@ -358,7 +440,15 @@ describe('selectInitialPage', () => {
                 lease_term: 6,
                 status: APPLICATION_STATUS_CANCELED,
             },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [{event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE}, {event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED}, {event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED}]},
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
         });
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
     });

@@ -1,7 +1,7 @@
 export const HELLOSIGN_TEST_MODE = process.env.REACT_APP_HELLOSIGN_TEST_MODE === 'yes';
 
 export const community = {
-    name: '555 Waverly'
+    name: '555 Waverly',
 };
 
 export const ROUTES = {
@@ -48,7 +48,7 @@ export const ROUTES = {
     UNIT_UNAVAILABLE: '/unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
     REMOVE_PERSON: '/rental-profile/:type/:id/remove',
-    GUARANTOR_REQUESTED: '/guarantor_request'
+    GUARANTOR_REQUESTED: '/guarantor_request',
 };
 
 export const ROUTE_LABELS = {
@@ -127,7 +127,7 @@ export const APPLICATION_EVENTS = {
     MILESTONE_INCOME_COMPLETED,
     MILESTONE_HOLDING_DEPOSIT_SIGNED,
     MILESTONE_REQUEST_GUARANTOR,
-    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED
+    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
 };
 
 export const APPLICATION_STATUSES = {
@@ -141,7 +141,6 @@ export const APPLICATION_STATUSES = {
 // payments constants
 export const LINE_ITEM_TYPE_APPLICATION_FEE = 10;
 export const LINE_ITEM_TYPE_HOLDING_DEPOSIT = 20;
-
 
 // applicant status constants
 export const CO_APPLICANT_STATUS_NOT_STARTED = 'Not Started';
@@ -262,4 +261,4 @@ export const ASSET_TYPE_OTHER = 515;
 export const DOCUMENT_TYPE_LEASE = 5;
 export const DOCUMENT_TYPE_HOLDING_DEPOSIT = 10;
 
-export const DOCUMENT_TYPE_OPTIONS = { DOCUMENT_TYPE_LEASE, DOCUMENT_TYPE_HOLDING_DEPOSIT};
+export const DOCUMENT_TYPE_OPTIONS = { DOCUMENT_TYPE_LEASE, DOCUMENT_TYPE_HOLDING_DEPOSIT };
