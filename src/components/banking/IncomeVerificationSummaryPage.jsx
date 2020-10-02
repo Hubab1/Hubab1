@@ -75,8 +75,7 @@ const incomeOrAssetItemWarning = css`
     }
 `;
 
-// TODO: test
-export function IncomeOrAssetItemWarning({ source, isAsset }) {
+export const getIncompleteFinancialSourceWarning = (source, isAsset) => {
     const { adjusted_amount, status } = source;
     const isIncomplete = status === FINANCIAL_STREAM_STATUS_INCOMPLETE;
 
@@ -94,6 +93,14 @@ export function IncomeOrAssetItemWarning({ source, isAsset }) {
             isAsset ? 'asset' : 'income'
         } source has been marked as having incorrect or insufficient document.`;
     }
+
+    return warning;
+};
+
+// TODO: test
+export function IncomeOrAssetItemWarning({ source, isAsset }) {
+    const warning = getIncompleteFinancialSourceWarning(source, isAsset);
+    if (!warning) return null;
 
     return (
         <div className={incomeOrAssetItemWarning}>
