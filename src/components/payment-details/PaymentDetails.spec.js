@@ -19,7 +19,7 @@ describe('PaymentDetails', () => {
                         total: '620',
                         items: [],
                     },
-                    move_in_fees: {
+                    move_in_fees_v2: {
                         total: '0',
                         items: [],
                     },

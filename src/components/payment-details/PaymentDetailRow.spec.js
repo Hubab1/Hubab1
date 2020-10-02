@@ -111,4 +111,46 @@ describe('PaymentDetailRow', () => {
         wrapper.setProps({ quantity: 8, paymentTotal: '300' });
         expect(wrapper.getElement()).toMatchSnapshot();
     });
+
+    it('should render with prorated prices per day', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '220',
+            quantity: 1,
+            price: '220',
+            prorated: true,
+            perDay: '18,33',
+            days: 12,
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('should not render with prorated prices per day if quantity is 0', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '0',
+            quantity: 0,
+            price: '220',
+            prorated: true,
+            perDay: '18,33',
+            days: 12,
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('should not render with prorated prices per day if not prorated', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '123',
+            quantity: 1,
+            price: '220',
+            prorated: false,
+            perDay: '18,33',
+            days: 12,
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
 });
