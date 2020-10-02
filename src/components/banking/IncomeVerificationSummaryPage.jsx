@@ -15,6 +15,7 @@ import {
     INCOME_TYPE_FINICITY_AUTOMATED,
     ALL_INCOME_OR_ASSET_TYPES,
     FINANCIAL_STREAM_STATUS_INCOMPLETE,
+    FINANCIAL_STREAM_ASSET,
 } from 'app/constants';
 import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
@@ -116,7 +117,9 @@ IncomeOrAssetItemWarning.propTypes = {
 };
 
 // TODO: test
-export function IncomeOrAssetsItem({ source, isAsset }) {
+export function IncomeOrAssetsItem({ source }) {
+    const isAsset = source.stream_type === FINANCIAL_STREAM_ASSET;
+
     const getSourceLabel = useCallback((source) => {
         if (source.finicity_income_stream_id && source.other) {
             return source.other;
@@ -175,7 +178,6 @@ export function IncomeOrAssetsItem({ source, isAsset }) {
 
 IncomeOrAssetsItem.propTypes = {
     source: PropTypes.object.isRequired,
-    isAsset: PropTypes.bool,
 };
 
 export function IncomeVerificationSummaryPage(props) {
@@ -304,7 +306,7 @@ export function IncomeVerificationSummaryPage(props) {
                             defaultExpanded={hashValue === 'income'}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
-                                <IncomeOrAssetsItem key={source.id} source={source} isAsset={false} />
+                                <IncomeOrAssetsItem key={source.id} source={source} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
@@ -335,7 +337,7 @@ export function IncomeVerificationSummaryPage(props) {
                             defaultExpanded={hashValue === 'asset'}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
-                                <IncomeOrAssetsItem key={source.id} source={source} isAsset={true} />
+                                <IncomeOrAssetsItem key={source.id} source={source} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
