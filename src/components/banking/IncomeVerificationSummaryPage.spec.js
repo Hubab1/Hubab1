@@ -53,7 +53,23 @@ jest.mock('react', () => ({
                             id: 2,
                         }
                     }]
-                }
+                },
+                {
+                    id: 124,
+                    income_or_asset_type: 135,
+                    estimated_amount: 100000,
+                    adjusted_amount: 100020,
+                    uploaded_documents: [],
+                    status: 40
+                },
+                {
+                    id: 124,
+                    income_or_asset_type: 135,
+                    estimated_amount: 100000,
+                    adjusted_amount: null,
+                    uploaded_documents: [],
+                    status: 40
+                },
             ],
             asset_sources: [
                 {
@@ -61,14 +77,29 @@ jest.mock('react', () => ({
                     income_or_asset_type: 510,
                     estimated_amount: 40000,
                     uploaded_documents: []
+                },
+                {
+                    id: 125,
+                    income_or_asset_type: 510,
+                    estimated_amount: 40000,
+                    adjusted_amount: 40020,
+                    uploaded_documents: [],
+                    status: 40
+                },
+                {
+                    id: 125,
+                    income_or_asset_type: 510,
+                    estimated_amount: 40000,
+                    adjusted_amount: null,
+                    uploaded_documents: [],
+                    status: 40
                 }
             ],
             income_total: '100000.00',
             asset_total: '40000.00',
         },
-
     })
-  }));
+}));
 
 let defaultProps;
 beforeEach(() => {
@@ -89,7 +120,6 @@ beforeEach(() => {
                 price: 1000
             }
         }
-
     };
 });
 
