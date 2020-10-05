@@ -188,28 +188,9 @@ exports[`matches snapshot with some financial sources data 1`] = `
           <IncomeOrAssetsItem
             source={
               Object {
-                "estimated_amount": 100000,
-                "id": 123,
-                "income_or_asset_type": 105,
-                "uploaded_documents": Array [
-                  Object {
-                    "filename": "w2-1.pdf",
-                    "id": 4,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                ],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
                 "uploaded_documents": Array [],
               }
             }
@@ -217,45 +198,10 @@ exports[`matches snapshot with some financial sources data 1`] = `
           <IncomeOrAssetsItem
             source={
               Object {
-                "estimated_amount": 100000,
+                "adjusted_amount": 40020,
+                "estimated_amount": 40000,
                 "id": 125,
-                "income_or_asset_type": 500,
-                "uploaded_documents": Array [
-                  Object {
-                    "filename": "w2-1.pdf",
-                    "id": 1,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                  Object {
-                    "filename": "w2-2.pdf",
-                    "id": 2,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                  Object {
-                    "filename": "w3.pdf",
-                    "id": 3,
-                    "type": Object {
-                      "id": 2,
-                      "label": "W3",
-                    },
-                  },
-                ],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "income_or_asset_type": 510,
                 "status": 40,
                 "uploaded_documents": Array [],
               }
@@ -265,9 +211,9 @@ exports[`matches snapshot with some financial sources data 1`] = `
             source={
               Object {
                 "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
                 "status": 40,
                 "uploaded_documents": Array [],
               }
@@ -501,28 +447,9 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           <IncomeOrAssetsItem
             source={
               Object {
-                "estimated_amount": 100000,
-                "id": 123,
-                "income_or_asset_type": 105,
-                "uploaded_documents": Array [
-                  Object {
-                    "filename": "w2-1.pdf",
-                    "id": 4,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                ],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
                 "uploaded_documents": Array [],
               }
             }
@@ -530,45 +457,10 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           <IncomeOrAssetsItem
             source={
               Object {
-                "estimated_amount": 100000,
+                "adjusted_amount": 40020,
+                "estimated_amount": 40000,
                 "id": 125,
-                "income_or_asset_type": 500,
-                "uploaded_documents": Array [
-                  Object {
-                    "filename": "w2-1.pdf",
-                    "id": 1,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                  Object {
-                    "filename": "w2-2.pdf",
-                    "id": 2,
-                    "type": Object {
-                      "id": 1,
-                      "label": "W2",
-                    },
-                  },
-                  Object {
-                    "filename": "w3.pdf",
-                    "id": 3,
-                    "type": Object {
-                      "id": 2,
-                      "label": "W3",
-                    },
-                  },
-                ],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "income_or_asset_type": 510,
                 "status": 40,
                 "uploaded_documents": Array [],
               }
@@ -578,9 +470,9 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
             source={
               Object {
                 "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
                 "status": 40,
                 "uploaded_documents": Array [],
               }
