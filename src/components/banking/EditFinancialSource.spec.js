@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 
 import API from 'app/api';
 import { EditFinancialSource } from './EditFinancialSource';
+import { FINANCIAL_STREAM_STATUS_PENDING } from 'app/constants';
 
 let defaultProps;
 beforeEach(() => {
@@ -82,9 +83,15 @@ it('onSubmit submits correct form data', async () => {
             '1': { files: [{name: 'w2-1.pdf', id: 3, file: 'file'}], label: 'W2' },
             '2': { files: [{name: 'paystub1.pdf', id: 5}], label: '3 recent paystubs' },
         }
-    }, {setErrors: jest.fn(), setSubmitting: jest.fn()});
+    }, {
+        setErrors: jest.fn(),
+        setSubmitting: jest.fn()
+    });
+
     expect(API.updateFinancialSource.mock.calls[0][0]).toEqual('666');
     const formData = API.updateFinancialSource.mock.calls[0][1];
     expect(formData.getAll('uploaded_documents[]')).toEqual(['5']);
     expect(formData.getAll('1[]')).toEqual(['file']);
+    expect(formData.get('adjusted_amount')).toBe('0');
+    expect(formData.get('status')).toBe(String(FINANCIAL_STREAM_STATUS_PENDING));
 });

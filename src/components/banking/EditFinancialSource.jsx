@@ -5,7 +5,12 @@ import styled from '@emotion/styled';
 import captureRoute from 'app/captureRoute';
 import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
 import API from 'app/api';
-import { ROUTES, FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import {
+    ROUTES,
+    FINANCIAL_STREAM_INCOME,
+    FINANCIAL_STREAM_ASSET,
+    FINANCIAL_STREAM_STATUS_PENDING,
+} from 'app/constants';
 import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
@@ -55,9 +60,13 @@ export class EditFinancialSource extends Component {
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
+        formData.append('adjusted_amount', 0);
+        formData.append('status', FINANCIAL_STREAM_STATUS_PENDING);
+
         if (values.other != null) {
             formData.append('other', values.other);
         }
+
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
@@ -69,15 +78,17 @@ export class EditFinancialSource extends Component {
                 });
             }
         }
+
         try {
             await API.updateFinancialSource(this.props.match.params.id, formData);
+            // eslint-disable-next-line
+            this.context.refreshFinancialSources?.();
+            this.props.history.push(this.returnLink);
         } catch (e) {
-            return;
+            this.setState({ errorSubmitting: true });
+        } finally {
+            setSubmitting(false);
         }
-        // eslint-disable-next-line
-        this.context.refreshFinancialSources?.();
-        setSubmitting(false);
-        this.props.history.push(this.returnLink);
     };
 
     async fetchFinancialSource() {
