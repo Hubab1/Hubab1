@@ -83,7 +83,7 @@ export const getIncompleteFinancialSourceWarning = (source, isAsset) => {
     if (!isIncomplete) return null;
 
     let warning;
-    if (adjusted_amount) {
+    if (adjusted_amount && adjusted_amount > 0) {
         if (isAsset) {
             warning = `The documents for this asset source show a value of ${prettyCurrency(adjusted_amount)}.`;
         } else {
@@ -193,6 +193,7 @@ export function IncomeVerificationSummaryPage(props) {
         const incompleteFinancialSources = financialSources.filter(
             (f) => f.status === FINANCIAL_STREAM_STATUS_INCOMPLETE
         );
+
         return incompleteFinancialSources.length > 0;
     }, [context.bankingData]);
 
@@ -336,7 +337,7 @@ export function IncomeVerificationSummaryPage(props) {
                             labelQuantity={context.bankingData?.asset_sources.length}
                             defaultExpanded={hashValue === 'asset'}
                         >
-                            {context.bankingData?.income_sources?.map((source) => (
+                            {context.bankingData?.asset_sources?.map((source) => (
                                 <IncomeOrAssetsItem key={source.id} source={source} />
                             ))}
                         </ExistingItemsExpansionPanel>
