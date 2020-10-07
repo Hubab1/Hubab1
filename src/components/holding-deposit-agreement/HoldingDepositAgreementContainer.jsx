@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, HELLOSIGN_TEST_MODE, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
+import { ROUTES, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from './HoldingDepositAgreementView';
@@ -10,26 +10,40 @@ import HoldingDepositAgreementConfirmation from './HoldingDepositAgreementConfir
 import API from 'app/api';
 import { applicantUpdated } from 'reducers/applicant';
 
-export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configuration, profile, applicant, applicantUpdated}) => {
+export const HoldingDepositAgreementContainer = ({
+    _prev,
+    _nextRoute,
+    configuration,
+    profile,
+    applicant,
+    applicantUpdated,
+}) => {
     const [currentPage, setCurrentPage] = useState('sign');
 
     useEffect(() => {
-        const signedAgreement = !!profile.events.find(e => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED));
+        const signedAgreement = !!profile.events.find(
+            (e) => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+        );
         if (signedAgreement) {
             setCurrentPage('signed');
         }
     }, [profile]);
 
-    useEffect(()=>{
+    useEffect(() => {
         hsclient.on('sign', async () => {
             const newApplicant = await API.fetchApplicant();
-            const signedAgreement = newApplicant.events.find(e => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED));
+            const signedAgreement = newApplicant.events.find(
+                (e) => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+            );
             if (!signedAgreement) {
-                newApplicant.events.push({event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: false});
+                newApplicant.events.push({
+                    event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED,
+                    milestone: false,
+                });
             }
             applicantUpdated(newApplicant);
             // holding deposit may not be ready by the time of navigation to the lease signed page
-            setTimeout(()=> setCurrentPage('signed'), 2500);
+            setTimeout(() => setCurrentPage('signed'), 2500);
         });
         return () => {
             hsclient.off('sign');
@@ -38,18 +52,19 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
-
-        if (data.url) {
-            hsclient.open(data.url, {
-                testMode: HELLOSIGN_TEST_MODE,
-                skipDomainVerification: HELLOSIGN_TEST_MODE,
+        const url = data.url;
+        const testMode = data.test_mode !== false;
+        if (url) {
+            hsclient.open(url, {
+                testMode: testMode,
+                skipDomainVerification: testMode,
                 allowDecline: false,
                 allowCancel: false,
             });
         }
     };
 
-    if (!profile || !applicant)  return <div/>;
+    if (!profile || !applicant) return <div />;
 
     if (currentPage === 'signed') {
         return (
@@ -74,7 +89,7 @@ export const HoldingDepositAgreementContainer = ({_prev, _nextRoute, configurati
     }
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
     payables: state.payments,
@@ -83,7 +98,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     applicantUpdated,
-    fetchPayments
+    fetchPayments,
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(HoldingDepositAgreementContainer, ROUTES.HOLDING_DEPOSIT_AGREEMENT));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRelativeRoutes(HoldingDepositAgreementContainer, ROUTES.HOLDING_DEPOSIT_AGREEMENT));
