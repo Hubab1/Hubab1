@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Info from '@material-ui/icons/Info';
 
 import SimplePopover from 'components/common/SimplePopover';
-import PaidText from './PaidText';
+import PaidText from 'components/common/PaidText';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 import { prettyCurrency } from 'utils/misc';
 

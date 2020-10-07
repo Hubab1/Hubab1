@@ -15,6 +15,7 @@ beforeEach(() => {
             email: 'jdoe@nest.io',
         },
         children: [],
+        canAccessRoute: jest.fn(),
     };
 });
 
