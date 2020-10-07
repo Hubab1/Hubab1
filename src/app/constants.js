@@ -46,6 +46,7 @@ export const ROUTES = {
     UNIT_UNAVAILABLE: '/unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
     REMOVE_PERSON: '/rental-profile/:type/:id/remove',
+    PAYMENT_DETAILS: '/payment-details',
     GUARANTOR_REQUESTED: '/guarantor_request',
 };
 
@@ -58,6 +59,7 @@ export const ROUTE_LABELS = {
     [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: 'Holding Deposit Agreement',
     [ROUTES.SCREENING]: 'Screening',
     [ROUTES.APP_COMPLETE]: 'Application Complete',
+    [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
 
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';

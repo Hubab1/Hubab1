@@ -13,7 +13,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     expansionPanel={
       <React.Fragment>
         <div
-          className="css-1qtbm8m"
+          className="css-19cyq23"
         >
           <div
             className="css-mt9voc"
@@ -168,14 +168,14 @@ exports[`matches snapshot with some financial sources data 1`] = `
       />
     }
     route="/income-employment/manual/add-income"
-    tip="TBD"
+    tip="Money received on a regular basis, such as a paycheck from an employer or disability from the government."
   />
   <Capsule
     buttonLabel="Add an Asset"
     expansionPanel={
       <React.Fragment>
         <div
-          className="css-1qtbm8m"
+          className="css-19cyq23"
         >
           <div
             className="css-mt9voc"
@@ -251,7 +251,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
       />
     }
     route="/income-employment/manual/add-asset"
-    tip="TBD"
+    tip="Cash that is readily available, such as a checking or savings account, or something that can be easily converted to cash, such as money market funds."
   />
   <ActionButton
     color="primary"
@@ -291,7 +291,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
     expansionPanel={
       <React.Fragment>
         <div
-          className="css-1qtbm8m"
+          className="css-19cyq23"
         >
           <div
             className="css-mt9voc"
@@ -446,14 +446,14 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
       />
     }
     route="/income-employment/manual/add-income"
-    tip="TBD"
+    tip="Money received on a regular basis, such as a paycheck from an employer or disability from the government."
   />
   <Capsule
     buttonLabel="Add an Asset"
     expansionPanel={
       <React.Fragment>
         <div
-          className="css-1qtbm8m"
+          className="css-19cyq23"
         >
           <div
             className="css-mt9voc"
@@ -529,7 +529,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
       />
     }
     route="/income-employment/manual/add-asset"
-    tip="TBD"
+    tip="Cash that is readily available, such as a checking or savings account, or something that can be easily converted to cash, such as money market funds."
   />
   <ActionButton
     color="primary"
