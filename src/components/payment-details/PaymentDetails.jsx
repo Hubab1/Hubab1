@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,6 +16,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { PaymentDetailRows } from 'components/payment-details/PaymentDetailRow';
 import { styles } from './styles';
 import { format, parseISO } from 'date-fns';
+import { fetchPayments } from 'reducers/payments';
+import PaidText from 'components/common/PaidText';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -28,10 +30,18 @@ export const PaymentCard = styled(Card)`
     padding: 15px;
 `;
 
-export const PaymentDetails = ({ profile, configuration }) => {
-    if (!profile || !configuration || !profile.lease_start_date) return null;
+export const PaymentDetails = ({ profile, configuration, payables, fetchPayments }) => {
+    useEffect(() => {
+        fetchPayments();
+    }, [fetchPayments]);
+
+    if (!profile || !configuration || !profile.lease_start_date) {
+        return null;
+    }
 
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
+
+    const allPaymentsPaid = !payables.find((payment) => !payment.paid);
 
     return (
         <>
@@ -52,6 +62,7 @@ export const PaymentDetails = ({ profile, configuration }) => {
                     amount={profile.fees_breakdown.application_fees.total}
                     label={'due at application'}
                     defaultExpanded={false}
+                    isPaid={allPaymentsPaid}
                 >
                     <PaymentDetailRows
                         paymentObject={profile.fees_breakdown.application_fees}
@@ -78,18 +89,27 @@ export const PaymentDetails = ({ profile, configuration }) => {
 };
 
 PaymentDetails.propTypes = {
-    profile: PropTypes.object.isRequired,
+    fetchPayments: PropTypes.func.isRequired,
+    profile: PropTypes.object,
     configuration: PropTypes.object.isRequired,
+    payables: PropTypes.array.isRequired,
 };
 
-function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount }) {
+function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {
     const classes = useStyles();
 
     return (
         <div className={styles.itemsContainer}>
             <ExpansionPanel elevation={0} defaultExpanded={defaultExpanded}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <b>${amount}</b>&nbsp;{label}
+                    <div className={styles.itemsContainerLabel}>
+                        <b>${amount}</b>&nbsp;{label}
+                    </div>
+                    {isPaid && (
+                        <div className={styles.paidText}>
+                            <PaidText />
+                        </div>
+                    )}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails classes={{ root: classes.root }}>
                     {React.Children.map(children, (child) => (
@@ -106,11 +126,13 @@ PaymentItemsExpansionPanel.propTypes = {
     defaultExpanded: PropTypes.bool,
     label: PropTypes.string.isRequired,
     amount: PropTypes.string.isRequired,
+    isPaid: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
+    payables: state.payments || [],
 });
 
-export default connect(mapStateToProps)(captureRoute(PaymentDetails, ROUTES.PAYMENT_DETAILS));
+export default connect(mapStateToProps, { fetchPayments })(captureRoute(PaymentDetails, ROUTES.PAYMENT_DETAILS));
