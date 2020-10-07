@@ -8,6 +8,7 @@ import {
     ROLE_CO_APPLICANT,
     ROUTES,
     APPLICATION_STATUS_CANCELED,
+    EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
 import { selectors } from 'reducers/renter-profile';
 
@@ -101,6 +102,27 @@ describe('canAccessRoute', () => {
     it('renter profile page is not accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PROFILE_OPTIONS);
         expect(accessible).toBe(false);
+    });
+    it('payment details page is not accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_DETAILS);
+        expect(accessible).toBe(false);
+    });
+    it('payment details page is accessible', () => {
+        const accessible = selectors.canAccessRoute(
+            {
+                ...state,
+                applicant: {
+                    ...state.applicant,
+                    events: [
+                        {
+                            event: EVENT_LEASE_TERMS_COMPLETED,
+                        },
+                    ],
+                },
+            },
+            ROUTES.PAYMENT_DETAILS
+        );
+        expect(accessible).toBe(true);
     });
 });
 

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentDetailRow should not render with quantity 0 1`] = `null`;
+
+exports[`PaymentDetailRow should render as expected with quantity 1 1`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    Base Rent
+  </div>
+  <div>
+    $
+    2,200
+  </div>
+</div>
+`;
+
+exports[`PaymentDetailRow should render as expected with quantity 10 1`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    pets fees (10 x $220)
+  </div>
+  <div>
+    $
+    2,200
+  </div>
+</div>
+`;
+
+exports[`PaymentDetailRow should render included options 1`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    parking fees (2 incl.)
+  </div>
+  <div>
+    $
+    0
+  </div>
+</div>
+`;
+
+exports[`PaymentDetailRow should render included options 2`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    parking fees (5 incl.)
+  </div>
+  <div>
+    $
+    0
+  </div>
+</div>
+`;
+
+exports[`PaymentDetailRow should render included options 3`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    parking fees (5 incl., 3 x $100)
+  </div>
+  <div>
+    $
+    300
+  </div>
+</div>
+`;

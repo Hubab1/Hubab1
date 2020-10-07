@@ -6,7 +6,7 @@ import mockApplicant from 'reducers/applicant-mock';
 import mockPayments from 'reducers/mock-payments';
 import { FeesDepositsOptions } from './FeesDepositsOptions';
 import { ApplicationFees } from './ApplicationFees';
-import { PaidText } from './PaidText';
+import { PaidText } from 'components/common/PaidText';
 import { HoldingDeposit } from './HoldingDeposit';
 
 let defaultProps;
