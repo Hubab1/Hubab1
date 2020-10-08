@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'app/constants';
+import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
@@ -31,15 +31,25 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
         applicant && setReceipt(applicant.receipt);
     }, [applicant]);
 
+    if (!profile || !applicant || (!payments && !receipt)) return <div />;
+
+    const isPrimaryApplicant = applicant.role === ROLE_PRIMARY_APPLICANT;
+
     const handlePaymentOptionsContinue = (feesSelected, totalPayment) => {
         if (feesSelected === 'everyone') {
-            const allPayments = payments.map((payment) => Object.assign({}, payment, { paid: true }));
+            const allPayments = payments.map((payment) => {
+                if (parseInt(payment.type_ === LINE_ITEM_TYPE_HOLDING_DEPOSIT) && !isPrimaryApplicant) {
+                    return payment;
+                } else {
+                    return Object.assign({}, payment, { paid: true });
+                }
+            });
             setPayments(allPayments);
         } else {
             const myPayments = payments.map((payment) => {
                 if (parseInt(payment.applicant) === applicant.id) {
                     return Object.assign({}, payment, { paid: true });
-                } else if (parseInt(payment.type_ === LINE_ITEM_TYPE_HOLDING_DEPOSIT)) {
+                } else if (parseInt(payment.type_ === LINE_ITEM_TYPE_HOLDING_DEPOSIT) && isPrimaryApplicant) {
                     return Object.assign({}, payment, { paid: true });
                 } else {
                     return payment;
@@ -50,8 +60,6 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
         setTotalPayment(totalPayment);
         setCurrentPage('terms');
     };
-
-    if (!profile || !applicant || (!payments && !receipt)) return <div />;
 
     const baseAppFee = parseFloat(profile.selected_rental_options?.['app-fee']?.[0]?.quoted_fee_amount) || 0;
     const holdingDepositAmount =
@@ -67,7 +75,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 handleClickBack={_prev}
                 handleContinue={handlePaymentOptionsContinue}
                 applicant={applicant}
-                holdingDepositAmount={holdingDepositAmount}
+                holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
                 everyone={everyone}
                 payments={payables}
             />

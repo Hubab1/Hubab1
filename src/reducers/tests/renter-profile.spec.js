@@ -10,7 +10,8 @@ import {
     APPLICATION_STATUS_CANCELED,
     EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
-import { selectors } from 'reducers/renter-profile';
+import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
+import { whenMergePropsIsOmitted } from 'react-redux/lib/connect/mergeProps';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -200,6 +201,18 @@ describe('selectOrderedRoutes', () => {
 });
 
 describe('selectInitialPage', () => {
+    it('allows direct routes', () => {
+        DIRECT_ROUTES.forEach((route) => {
+            delete window.location;
+            window.location = { pathname: route };
+
+            const initialPage = selectors.selectInitialPage({});
+            expect(initialPage).toBe(route);
+        });
+
+        window.location = '';
+    });
+
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({
