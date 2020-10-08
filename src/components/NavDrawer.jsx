@@ -20,10 +20,13 @@ import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
+
 import { ROUTES } from 'app/constants';
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
+import { H3 } from 'assets/styles';
 import PropTypes from 'prop-types';
+import { selectors } from 'reducers/renter-profile';
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -69,6 +72,14 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 600,
         'text-transform': 'none',
     },
+    paymentsTitle: {
+        marginTop: '30px',
+    },
+    paymentSections: {
+        margin: '10px 0 10px 0',
+        padding: '0',
+        listStyleType: 'none',
+    },
 }));
 
 const links = css`
@@ -112,9 +123,12 @@ export function PersistentDrawerLeft(props) {
         props.logout();
         props.history.push(ROUTES.LOGIN);
     }
+
     if (!props.applicant) return null;
+
     const name = `${props.applicant.first_name} ${props.applicant.last_name}`;
     const email = props.applicant.email;
+
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
     return (
@@ -157,6 +171,23 @@ export function PersistentDrawerLeft(props) {
                         <Box>
                             <Link to={ROUTES.ACCOUNT}>Account Details</Link>
                         </Box>
+                        {props.canAccessRoute(ROUTES.PAYMENT_DETAILS) && props.profile?.fees_breakdown && (
+                            <Box>
+                                <H3 className={classes.paymentsTitle}>Payments</H3>
+                                <ul className={classes.paymentSections}>
+                                    <li>
+                                        <b>${props.profile.fees_breakdown.application_fees.total}</b> due at application
+                                    </li>
+                                    <li>
+                                        <b>${props.profile.fees_breakdown.move_in_fees.total}</b> due at move in
+                                    </li>
+                                    <li>
+                                        <b>${props.profile.fees_breakdown.monthly_fees.total}</b> monthly rent
+                                    </li>
+                                </ul>
+                                <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
+                            </Box>
+                        )}
                     </Box>
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose} />
@@ -183,14 +214,18 @@ export function PersistentDrawerLeft(props) {
 }
 
 PersistentDrawerLeft.propTypes = {
+    canAccessRoute: PropTypes.func,
     logout: PropTypes.func,
     history: PropTypes.object,
     applicant: PropTypes.object,
     children: PropTypes.array,
+    profile: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    profile: state.renterProfile,
+    canAccessRoute: (route) => selectors.canAccessRoute(state, route),
 });
 
 const mapDispatchToProps = {

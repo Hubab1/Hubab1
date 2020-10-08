@@ -9,8 +9,9 @@ import {
     APPLICATION_STATUS_CANCELED,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
+    EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
-import { selectors } from 'reducers/renter-profile';
+import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -102,6 +103,27 @@ describe('canAccessRoute', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PROFILE_OPTIONS);
         expect(accessible).toBe(false);
     });
+    it('payment details page is not accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_DETAILS);
+        expect(accessible).toBe(false);
+    });
+    it('payment details page is accessible', () => {
+        const accessible = selectors.canAccessRoute(
+            {
+                ...state,
+                applicant: {
+                    ...state.applicant,
+                    events: [
+                        {
+                            event: EVENT_LEASE_TERMS_COMPLETED,
+                        },
+                    ],
+                },
+            },
+            ROUTES.PAYMENT_DETAILS
+        );
+        expect(accessible).toBe(true);
+    });
 });
 
 describe('selectOrderedRoutes', () => {
@@ -175,6 +197,18 @@ describe('selectOrderedRoutes', () => {
 });
 
 describe('selectInitialPage', () => {
+    it('allows direct routes', () => {
+        DIRECT_ROUTES.forEach((route) => {
+            delete window.location;
+            window.location = { pathname: route };
+
+            const initialPage = selectors.selectInitialPage({});
+            expect(initialPage).toBe(route);
+        });
+
+        window.location = '';
+    });
+
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({

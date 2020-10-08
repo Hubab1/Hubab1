@@ -140,10 +140,16 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
     // These pages should always be accessible
+
     if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
+
+    if (route === ROUTES.PAYMENT_DETAILS) {
+        return eventsSet.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
+    }
+
     // check if page was completed
     if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
         return true;
@@ -152,12 +158,24 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
+export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS];
+
+const getDirectRoute = (route) => {
+    if (!route) return null;
+    return DIRECT_ROUTES.find((r) => route.includes(r));
+};
+
 selectors.selectInitialPage = createSelector(
     selectors.selectOrderedRoutes,
     (state) => state.applicant && state.applicant.events,
     (state) => state.applicant,
     (state) => state.renterProfile,
     (orderedRoutes, events, applicant, profile) => {
+        const directRoute = getDirectRoute(window.location.pathname);
+        if (directRoute) {
+            return directRoute;
+        }
+
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map((event) => parseInt(event.event)));
             const applicationEvents = profile.events
