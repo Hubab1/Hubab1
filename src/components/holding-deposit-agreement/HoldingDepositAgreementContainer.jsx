@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import {
     ROUTES,
-    HELLOSIGN_TEST_MODE,
     DOCUMENT_TYPE_HOLDING_DEPOSIT,
     APPLICATION_EVENTS,
     MILESTONE_APPLICANT_SUBMITTED,
