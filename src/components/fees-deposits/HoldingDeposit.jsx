@@ -3,7 +3,7 @@ import Info from '@material-ui/icons/Info';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
-import PaidText from './PaidText';
+import PaidText from 'components/common/PaidText';
 import SimplePopover from 'components/common/SimplePopover';
 
 const CardRowBorderlessPadded = styled(CardRowBorderless)`

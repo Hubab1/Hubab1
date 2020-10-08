@@ -33,12 +33,12 @@ const SpacedH3 = styled(H3)`
 `;
 const linkStyle = {
     textDecoration: 'underline',
-    fontSize: 14
+    fontSize: 14,
 };
 
 const totals = css`
     text-align: left;
-    border-top: 1px solid #EEEEEE;
+    border-top: 1px solid #eeeeee;
     padding-top: 15px;
 `;
 
@@ -52,7 +52,7 @@ const totalsP = css`
     font-size: 14px;
 `;
 
-export function IncomeVerificationSummaryPage (props) {
+export function IncomeVerificationSummaryPage(props) {
     const context = React.useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = React.useState(false);
 
@@ -87,7 +87,7 @@ export function IncomeVerificationSummaryPage (props) {
     };
 
     const getIncomeRequirementText = (config, profile, applicant) => {
-        if (!profile || !applicant || !config) return <div/>;
+        if (!profile || !applicant || !config) return <div />;
 
         const { guarantor_income_requirement_multiplier, applicant_income_requirements } = config;
 
@@ -98,22 +98,28 @@ export function IncomeVerificationSummaryPage (props) {
             return (
                 <p className={totalsP}>
                     {prettyCurrency(guarantor_income_amount)} is the required income for guarantors.
-                    {<SimplePopover text={`The required income for a guarantor is ${guarantor_income_requirement_multiplier}x the monthly rent`}>
-                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
-                    </SimplePopover>}
+                    {
+                        <SimplePopover
+                            text={`The required income for a guarantor is ${guarantor_income_requirement_multiplier}x the monthly rent`}
+                        >
+                            <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                        </SimplePopover>
+                    }
                 </p>
             );
-        }
-        else {
+        } else {
             return (
                 <p className={totalsP}>
                     {prettyCurrency(applicant_income_amount)} is the recommended household income.
-                    {<SimplePopover text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}>
-                        <Info classes={{root: infoIconRoot}} style={{color:'#828796',width:16}}/>
-                    </SimplePopover>}
+                    {
+                        <SimplePopover
+                            text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}
+                        >
+                            <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                        </SimplePopover>
+                    }
                 </p>
             );
-
         }
     };
 
@@ -123,12 +129,13 @@ export function IncomeVerificationSummaryPage (props) {
         }
 
         // find all document type labels
-        const typesSet = source.uploaded_documents?.reduce((accum, doc) => {
-            if (doc.type?.label) {
-                accum.add(doc.type.label);
-            }
-            return accum;
-        }, new Set()) || new Set();
+        const typesSet =
+            source.uploaded_documents?.reduce((accum, doc) => {
+                if (doc.type?.label) {
+                    accum.add(doc.type.label);
+                }
+                return accum;
+            }, new Set()) || new Set();
 
         // join labels together with comma
         const proofs = Array.from(typesSet).join(', ');
@@ -139,16 +146,17 @@ export function IncomeVerificationSummaryPage (props) {
     const onContinue = async () => {
         context._nextRoute();
     };
-    const hasNotAddedFinancialSources = !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
+    const hasNotAddedFinancialSources =
+        !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
 
     if (showResetFinancials) {
         return (
             <ResetApplicantFinancials
-                onSubmit={()=> {
+                onSubmit={() => {
                     context.clearFinancialSources();
                     props.history.push(ROUTES.INCOME_AND_EMPLOYMENT);
                 }}
-                onCancel={()=>setShowResetFinancials(false)}
+                onCancel={() => setShowResetFinancials(false)}
             />
         );
     }
@@ -161,49 +169,52 @@ export function IncomeVerificationSummaryPage (props) {
                 prefix={<img alt="coin" src={finance}></img>}
                 label="Income"
                 buttonLabel="Add an Income Source"
-                tip="TBD"
+                tip="Money received on a regular basis, such as a paycheck from an employer or disability from the government."
                 route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
                 expansionPanel={
                     <>
-                        {context.bankingData?.income_total &&
-                         <div className={totals}>
-                             <div className={totalsValue}>{prettyCurrency(parseInt(context.bankingData?.income_total))} Total Annual Income</div>
-                             {getIncomeRequirementText(props.config, props.profile, props.applicant)}
-                         </div>
-                        }
+                        {context.bankingData?.income_total && (
+                            <div className={totals}>
+                                <div className={totalsValue}>
+                                    {prettyCurrency(parseInt(context.bankingData?.income_total))} Total Annual Income
+                                </div>
+                                {getIncomeRequirementText(props.config, props.profile, props.applicant)}
+                            </div>
+                        )}
                         <ExistingItemsExpansionPanel
                             label="Income Source"
                             labelQuantity={context.bankingData?.income_sources.length}
                             defaultExpanded={hashValue === 'income'}
                         >
-                            {
-                                context.bankingData?.income_sources?.map((source) => (
-                                    <div key={source.id}>
-                                        <div>{getSourceLabel(source)}</div>
-                                        <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}/year</div>
-                                        <div className={styles.colorManatee}>Proof of income: {getProofString(source)}</div>
-                                        {
-                                            source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                                <>
-                                                    <Spacer height={10}/>
-                                                    <Link
-                                                        style={linkStyle}
-                                                        to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {id: source.id,})}
-                                                    >
-                                                        Edit
-                                                    </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <Link
-                                                        style={linkStyle}
-                                                        to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {id: source.id,})}
-                                                    >
-                                                        Remove
-                                                    </Link>
-                                                </>
-                                            )
-                                        }
+                            {context.bankingData?.income_sources?.map((source) => (
+                                <div key={source.id}>
+                                    <div>{getSourceLabel(source)}</div>
+                                    <div className={styles.colorManatee}>
+                                        {prettyCurrency(source.estimated_amount)}/year
                                     </div>
-                                ))
-                            }
+                                    <div className={styles.colorManatee}>Proof of income: {getProofString(source)}</div>
+                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                                        <>
+                                            <Spacer height={10} />
+                                            <Link
+                                                style={linkStyle}
+                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                                    id: source.id,
+                                                })}
+                                            >
+                                                Edit
+                                            </Link>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <Link
+                                                style={linkStyle}
+                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
+                                            >
+                                                Remove
+                                            </Link>
+                                        </>
+                                    )}
+                                </div>
+                            ))}
                         </ExistingItemsExpansionPanel>
                     </>
                 }
@@ -213,16 +224,20 @@ export function IncomeVerificationSummaryPage (props) {
                 prefix={<img alt="piggy bank" src={piggyBank} />}
                 label="Assets"
                 buttonLabel="Add an Asset"
-                tip="TBD"
+                tip="Cash that is readily available, such as a checking or savings account, or something that can be easily converted to cash, such as money market funds."
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={
                     <>
-                        {context.bankingData?.asset_total &&
-                         <div className={totals}>
-                             <div className={totalsValue}>{prettyCurrency(parseInt(context.bankingData?.asset_total))} Total Asset Balance</div>
-                             <p className={totalsP}>We’ll take this number into consideration in addition to or in place of income.</p>
-                         </div>
-                        }
+                        {context.bankingData?.asset_total && (
+                            <div className={totals}>
+                                <div className={totalsValue}>
+                                    {prettyCurrency(parseInt(context.bankingData?.asset_total))} Total Asset Balance
+                                </div>
+                                <p className={totalsP}>
+                                    We’ll take this number into consideration in addition to or in place of income.
+                                </p>
+                            </div>
+                        )}
                         <ExistingItemsExpansionPanel
                             label="Asset"
                             labelQuantity={context.bankingData?.asset_sources.length}
@@ -233,25 +248,26 @@ export function IncomeVerificationSummaryPage (props) {
                                     <div>{getSourceLabel(source)}</div>
                                     <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
                                     <div className={styles.colorManatee}>Proof of asset: {getProofString(source)}</div>
-                                    {
-                                        source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                            <>
-                                                <Spacer height={10}/>
-                                                <Link
-                                                    style={linkStyle}
-                                                    to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, { id: source.id,})}
-                                                >
-                                                    Edit
-                                                </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <Link
-                                                    style={linkStyle}
-                                                    to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id,})}
-                                                >
-                                                    Remove
-                                                </Link>
-                                            </>
-                                        )
-                                    }
+                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                                        <>
+                                            <Spacer height={10} />
+                                            <Link
+                                                style={linkStyle}
+                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                                                    id: source.id,
+                                                })}
+                                            >
+                                                Edit
+                                            </Link>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <Link
+                                                style={linkStyle}
+                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
+                                            >
+                                                Remove
+                                            </Link>
+                                        </>
+                                    )}
                                 </div>
                             ))}
                         </ExistingItemsExpansionPanel>
@@ -261,15 +277,17 @@ export function IncomeVerificationSummaryPage (props) {
             <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
-            {hasNotAddedFinancialSources ?
-                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT}/> :
+            {hasNotAddedFinancialSources ? (
+                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
+            ) : (
                 <Typography
-                    classes={{root: styles.cursor}}
-                    onClick={()=>setShowResetFinancials(true)} color="primary"
+                    classes={{ root: styles.cursor }}
+                    onClick={() => setShowResetFinancials(true)}
+                    color="primary"
                 >
                     Start Income Verification Over
                 </Typography>
-            }
+            )}
         </>
     );
 }
@@ -282,7 +300,7 @@ IncomeVerificationSummaryPage.propTypes = {
     history: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     config: state.configuration,
     profile: state.renterProfile,
     applicant: state.applicant,

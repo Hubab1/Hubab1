@@ -33,7 +33,7 @@ PaymentDetailRows.propTypes = {
 };
 
 export const PaymentDetailRow = ({ name, paymentTotal, quantity = 1, price, included = 0, className }) => {
-    if (quantity < 1) return null;
+    if (!quantity) return null;
 
     return (
         <div className={className}>
