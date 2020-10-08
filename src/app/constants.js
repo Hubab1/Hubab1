@@ -46,8 +46,8 @@ export const ROUTES = {
     UNIT_UNAVAILABLE: '/unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
     REMOVE_PERSON: '/rental-profile/:type/:id/remove',
-    PAYMENT_DETAILS: '/payment-details',
     GUARANTOR_REQUESTED: '/guarantor_request',
+    PAYMENT_DETAILS: '/payment-details',
 };
 
 export const ROUTE_LABELS = {
