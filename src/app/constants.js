@@ -38,7 +38,6 @@ export const ROUTES = {
     ACCOUNT: '/account',
     RESEND_INVITE: '/resend-invite',
     APP_APPROVED: '/application-approved',
-    SIGN_LEASE: '/sign-lease',
     LEASE_SIGNED: '/lease-signed',
     LEASE_EXECUTED: '/lease-executed',
     APP_DENIED: '/application-denied',

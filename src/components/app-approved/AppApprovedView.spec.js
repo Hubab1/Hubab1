@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AppApproved } from './AppApproved';
+import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
 
@@ -37,9 +37,6 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
                 normalized_street_address: streetAddress,
             },
         },
-        history: {
-            push: jest.fn(),
-        },
         applicant: {
             client: {
                 person: {
@@ -48,6 +45,7 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             },
         },
         applicantUpdated: jest.fn(),
+        setShowPaymentDetails: jest.fn(),
     };
 };
 
@@ -55,7 +53,7 @@ it('displays some legal words about the lease', () => {
     const props = buildProps('Fake Building', '123 Fake Street', null);
     API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test' });
     API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
 });
 
@@ -64,7 +62,7 @@ describe('application unit', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
         props.unit = null;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
@@ -72,7 +70,7 @@ describe('application unit', () => {
     it('displays building name without unit when no unit number', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
@@ -80,7 +78,7 @@ describe('application unit', () => {
     it('displays building name with unit when has unit number', () => {
         const props = buildProps('Fake Building', '123 Fake Street', '7F');
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F');
     });
@@ -88,7 +86,7 @@ describe('application unit', () => {
     it('displays normalized street address and unit number when no building name', () => {
         const props = buildProps(null, '123 Fake Street', '7F');
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F');
     });
@@ -99,7 +97,7 @@ describe('Lease not sent', () => {
         const props = buildProps();
         props.profile.events = [];
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
         expect(wrapper.text()).toContain('email with instructions on how to sign the lease');
         expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
@@ -111,7 +109,7 @@ describe('security deposit message', () => {
         props.profile.security_deposit = 123.45;
         props.profile.security_deposit_multiplier = 1.5;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('.security-deposit-container')).toHaveLength(1);
     });
@@ -121,7 +119,7 @@ describe('security deposit message', () => {
         props.profile.security_deposit = null;
         props.profile.security_deposit_multiplier = null;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('.security-deposit-container')).toHaveLength(0);
     });
@@ -131,13 +129,13 @@ it('matches snapshot whithout security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = null;
     props.profile.security_deposit_multiplier = null;
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('matches snapshot with security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = 123.45;
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });

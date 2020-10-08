@@ -1,11 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
-import { SignLease } from 'components/SignLease';
-import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCard';
-import { Link } from 'react-router-dom';
-import { ROUTES } from 'app/constants';
+import { SignLeaseView } from 'components/app-approved/SignLeaseView';
 
 var mockhsclient;
 jest.mock('utils/hsclient', () => {
@@ -53,31 +49,20 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
         applicantUpdated: jest.fn(),
         fetchPayments: jest.fn(),
         payables: [],
+        setShowPaymentDetails: jest.fn(),
     };
 };
-
-describe('renders the component', () => {
-    const props = buildProps('Fake Building', '123 Fake Street', null);
-    const wrapper = shallow(<SignLease {...props} />);
-
-    it('matches snapshot', () => {
-        expect(wrapper.getElement()).toMatchSnapshot();
-    });
-
-    it('renders the correct elements', () => {
-        expect(wrapper.find(PaymentDetailsCard)).toHaveLength(1);
-        expect(wrapper.find(ActionButton)).toHaveLength(1);
-        expect(wrapper.find(Link).prop('to')).toBe(ROUTES.APP_APPROVED);
-    });
-});
 
 describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
+
         API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test' });
         API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
-        const wrapper = shallow(<SignLease {...props} />);
-        wrapper.find(ActionButton).simulate('click');
+        const wrapper = shallow(<SignLeaseView {...props} />);
+
+        wrapper.find('.sign-lease').simulate('click');
+
         expect(API.embeddedSigningUrl).toHaveBeenCalled();
     });
 });

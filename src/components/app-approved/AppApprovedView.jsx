@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import Grid from '@material-ui/core/Grid';
-import { css } from 'emotion';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import { ROUTES, MILESTONE_LEASE_SENT } from 'app/constants';
+import clsx from 'clsx';
+import { Bold, H1, leftText, LinkButton, P, SpacedH3 } from 'assets/styles';
 import approvedSign from 'assets/images/approvedSign.svg';
-import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import Grid from '@material-ui/core/Grid';
 import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
+import Box from '@material-ui/core/Box';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import AppAdverseActions from 'components/AppAdverseActions';
-import clsx from 'clsx';
-import captureRoute from 'app/captureRoute';
+import React, { useState } from 'react';
+import { MILESTONE_LEASE_SENT } from 'app/constants';
+import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
+import { css } from 'emotion';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;
@@ -43,28 +41,22 @@ export const securityDepositHelpText = css`
 export const gridContainer = css`
     min-height: 100px;
 `;
+
 export const securityDepositTip = css`
     margin-top: 28px;
 `;
 
-export const AppApproved = ({ profile, configuration, history, applicant }) => {
+export const AppApprovedView = ({ profile, configuration, applicant, setShowPaymentDetails }) => {
+    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
+
     const [viewAdverseActions, setViewAdverseActions] = useState(false);
 
-    if (!profile || !configuration) return null;
-
-    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
     const { name } = applicant.client.person;
 
     const toggleViewAdverseActions = () => {
         setViewAdverseActions(!viewAdverseActions);
-    };
-
-    const redirectToSignLease = async () => {
-        history.push({
-            pathname: ROUTES.SIGN_LEASE,
-        });
     };
 
     const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT));
@@ -115,7 +107,11 @@ export const AppApproved = ({ profile, configuration, history, applicant }) => {
                                 does not provide legal advice, and we recommend that you consult your legal counsel
                                 before accepting these terms.
                             </P>
-                            <ActionButton onClick={redirectToSignLease} marginTop={30}>
+                            <ActionButton
+                                className="show-payments"
+                                onClick={() => setShowPaymentDetails(true)}
+                                marginTop={30}
+                            >
                                 Continue
                             </ActionButton>
                         </Box>
@@ -136,19 +132,9 @@ export const AppApproved = ({ profile, configuration, history, applicant }) => {
     );
 };
 
-AppApproved.propTypes = {
-    profile: PropTypes.object,
-    configuration: PropTypes.object,
-    updateApplicant: PropTypes.object,
-    applicant: PropTypes.object,
-    history: PropTypes.object,
-    applicantUpdated: PropTypes.func,
+AppApprovedView.propTypes = {
+    applicant: PropTypes.object.isRequired,
+    configuration: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
+    setShowPaymentDetails: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-    profile: state.renterProfile,
-    applicant: state.applicant,
-    configuration: state.configuration,
-});
-
-export default connect(mapStateToProps)(captureRoute(AppApproved, ROUTES.APP_APPROVED));

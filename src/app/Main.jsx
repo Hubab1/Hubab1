@@ -28,7 +28,7 @@ import Address from 'components/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
-import AppApproved from 'components/AppApproved';
+import AppApproved from 'components/app-approved/AppApprovedContainer';
 import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
@@ -40,7 +40,6 @@ import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
 import GuarantorRequested from 'components/GuarantorRequested';
-import SignLease from 'components/SignLease';
 
 export class Main extends Component {
     state = { error: null };
@@ -171,7 +170,6 @@ export class Main extends Component {
                                 <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />
                                 <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm} />
                                 <Route path={ROUTES.APP_APPROVED} component={AppApproved} />
-                                <Route path={ROUTES.SIGN_LEASE} component={SignLease} />
                                 <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned} />
                                 <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted} />
                                 <Route path={ROUTES.APP_DENIED} component={AppDenied} />

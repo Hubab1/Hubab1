@@ -1,20 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { applicantUpdated } from 'reducers/applicant';
-import API from 'app/api';
-import hsclient from 'utils/hsclient';
-import { ROUTES, HELLOSIGN_TEST_MODE, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE } from 'app/constants';
-import { H1, SpacedH3, blackLinkRoot, arrowIcon } from 'assets/styles';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { useEffect } from 'react';
-import captureRoute from 'app/captureRoute';
-import { fetchPayments } from 'reducers/payments';
+import { arrowIcon, blackLinkRoot, H1, SpacedH3 } from 'assets/styles';
 import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCard';
-import { Link } from 'react-router-dom';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
+import React, { useEffect } from 'react';
+import hsclient from 'utils/hsclient';
+import API from 'app/api';
+import { APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE, HELLOSIGN_TEST_MODE, ROUTES } from 'app/constants';
+import PropTypes from 'prop-types';
 
-export const SignLease = ({ profile, configuration, history, applicantUpdated, payables }) => {
+export const SignLeaseView = ({
+    payables,
+    profile,
+    setShowPaymentDetails,
+    fetchPayments,
+    history,
+    applicantUpdated,
+}) => {
     useEffect(() => {
         fetchPayments();
 
@@ -39,8 +40,6 @@ export const SignLease = ({ profile, configuration, history, applicantUpdated, p
         };
     }, [applicantUpdated, history]);
 
-    if (!profile || !configuration) return null;
-
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
         if (data.url) {
@@ -60,37 +59,22 @@ export const SignLease = ({ profile, configuration, history, applicantUpdated, p
                 <SpacedH3>{`Make sure everything looks good before signing the lease.`}</SpacedH3>
                 <PaymentDetailsCard profile={profile} payables={payables} />
             </div>
-            <ActionButton onClick={openEmbeddedSigning} marginTop={30}>
+            <ActionButton className="sign-lease" onClick={openEmbeddedSigning} marginTop={30}>
                 View & Sign Lease
             </ActionButton>
             <br />
-            <Link to={ROUTES.APP_APPROVED} className={blackLinkRoot}>
+            <a href="#" className={blackLinkRoot} onClick={() => setShowPaymentDetails(false)}>
                 <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
-            </Link>
+            </a>
         </>
     );
 };
 
-SignLease.propTypes = {
-    profile: PropTypes.object,
-    configuration: PropTypes.object,
-    updateApplicant: PropTypes.object,
-    applicant: PropTypes.object,
-    history: PropTypes.object,
-    applicantUpdated: PropTypes.func,
-    payables: PropTypes.array,
+SignLeaseView.propTypes = {
+    applicantUpdated: PropTypes.func.isRequired,
+    fetchPayments: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
+    payables: PropTypes.array.isRequired,
+    setShowPaymentDetails: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-    profile: state.renterProfile,
-    applicant: state.applicant,
-    configuration: state.configuration,
-    payables: state.payments || [],
-});
-
-const mapDispatchToProps = {
-    applicantUpdated,
-    fetchPayments,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(SignLease, ROUTES.SIGN_LEASE));

@@ -15,7 +15,7 @@ exports[`matches snapshot whithout security deposit 1`] = `
       src="approvedSign.svg"
     />
     <div
-      className="css-x0fehc"
+      className="css-lygmaw"
       id="application-unit"
     >
       Fake Building
@@ -35,6 +35,7 @@ exports[`matches snapshot whithout security deposit 1`] = `
           The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
+          className="show-payments"
           color="primary"
           marginTop={30}
           onClick={[Function]}
@@ -64,7 +65,7 @@ exports[`matches snapshot with security deposit 1`] = `
       src="approvedSign.svg"
     />
     <div
-      className="css-x0fehc"
+      className="css-lygmaw"
       id="application-unit"
     >
       Fake Building
@@ -103,17 +104,15 @@ exports[`matches snapshot with security deposit 1`] = `
           xs={9}
         >
           <span
-            className="css-1c1ccge"
+            className="css-bbr70h"
           >
-            A
-             
+            A 
             <ForwardRef(render)
               fontSize={14}
               fontWeight={600}
             >
               $123.45
-               security deposit
-               
+               security deposit 
             </ForwardRef(render)>
             is required for this application. 
           </span>
@@ -135,6 +134,7 @@ exports[`matches snapshot with security deposit 1`] = `
           The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
+          className="show-payments"
           color="primary"
           marginTop={30}
           onClick={[Function]}
