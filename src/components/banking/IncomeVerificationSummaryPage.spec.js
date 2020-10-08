@@ -189,3 +189,31 @@ it('matches snapshot with no financial sources data', () => {
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useContext: () => {
+        return {
+            bankingData: {
+                income_sources: [],
+                asset_sources: [
+                    {
+                        id: 125,
+                        income_or_asset_type: 510,
+                        estimated_amount: 40000,
+                        adjusted_amount: null,
+                        uploaded_documents: [],
+                        status: 40,
+                    },
+                ],
+                income_total: '100000.00',
+                asset_total: '40000.00',
+            },
+        }
+    },
+}));
+
+it('matches snapshot with only asset sources - with warning', () => {
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
