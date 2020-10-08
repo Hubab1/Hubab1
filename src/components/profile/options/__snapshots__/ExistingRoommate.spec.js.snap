@@ -98,7 +98,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
       </ForwardRef>
     </React.Fragment>
     <ForwardRef
-      className="css-3v3cqv css-1oxgg1n"
+      className="css-3v3cqv css-11kem00"
       to="/rental-profile/co_applicants/71/remove"
     >
       Remove

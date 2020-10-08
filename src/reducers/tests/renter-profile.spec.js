@@ -66,6 +66,7 @@ describe('canAccessRoute', () => {
         },
         renterProfile: {
             co_applicants: null,
+            occupants: null,
             guarantor: null,
             pets: null,
             lease_term: 6,
@@ -134,6 +135,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -157,6 +159,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -179,6 +182,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -217,6 +221,7 @@ describe('selectInitialPage', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -231,6 +236,7 @@ describe('selectInitialPage', () => {
             renterProfile: {
                 unit_available: false,
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -249,6 +255,7 @@ describe('selectInitialPage', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
