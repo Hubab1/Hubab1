@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot with some financial sources data - with warnings 1`] = `
+exports[`matches snapshot with no financial sources data 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Income and Asset Verification
@@ -8,14 +8,6 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -56,33 +48,8 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Income"
@@ -119,33 +86,8 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Assets"
@@ -162,7 +104,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
   />
   <ActionButton
     color="primary"
-    disabled={false}
+    disabled={true}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}
@@ -171,17 +113,128 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
   >
     Continue
   </ActionButton>
-  <ForwardRef(WithStyles)
-    classes={
-      Object {
-        "root": "css-rf9gj",
-      }
+  <BackLink
+    to="/income-employment"
+  />
+</React.Fragment>
+`;
+
+exports[`matches snapshot with some financial sources data - with warnings 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $40,000
+             is the recommended household income.
+            <SimplePopover
+              text="It’s recommended that the yearly combined income of all applicants be 40x the monthly rent."
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Income Source"
+          labelQuantity={0}
+        />
+      </React.Fragment>
     }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Asset"
+          labelQuantity={0}
+        />
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
     color="primary"
+    disabled={true}
+    marginBottom={20}
+    marginTop={68}
     onClick={[Function]}
+    successGreen={false}
+    variant="contained"
   >
-    Start Income Verification Over
-  </ForwardRef(WithStyles)>
+    Continue
+  </ActionButton>
+  <BackLink
+    to="/income-employment"
+  />
 </React.Fragment>
 `;
 
@@ -193,14 +246,6 @@ exports[`matches snapshot with some financial sources data 1`] = `
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -241,33 +286,8 @@ exports[`matches snapshot with some financial sources data 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Income"
@@ -304,33 +324,8 @@ exports[`matches snapshot with some financial sources data 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Assets"
@@ -347,7 +342,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
   />
   <ActionButton
     color="primary"
-    disabled={false}
+    disabled={true}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}
@@ -356,17 +351,9 @@ exports[`matches snapshot with some financial sources data 1`] = `
   >
     Continue
   </ActionButton>
-  <ForwardRef(WithStyles)
-    classes={
-      Object {
-        "root": "css-rf9gj",
-      }
-    }
-    color="primary"
-    onClick={[Function]}
-  >
-    Start Income Verification Over
-  </ForwardRef(WithStyles)>
+  <BackLink
+    to="/income-employment"
+  />
 </React.Fragment>
 `;
 
@@ -378,14 +365,6 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -426,33 +405,8 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Income"
@@ -489,33 +443,8 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Assets"
@@ -532,7 +461,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
   />
   <ActionButton
     color="primary"
-    disabled={false}
+    disabled={true}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}
@@ -541,17 +470,9 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
   >
     Continue
   </ActionButton>
-  <ForwardRef(WithStyles)
-    classes={
-      Object {
-        "root": "css-rf9gj",
-      }
-    }
-    color="primary"
-    onClick={[Function]}
-  >
-    Start Income Verification Over
-  </ForwardRef(WithStyles)>
+  <BackLink
+    to="/income-employment"
+  />
 </React.Fragment>
 `;
 
@@ -563,14 +484,6 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -611,33 +524,8 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Income"
@@ -674,33 +562,8 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={2}
-        >
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-        </ExistingItemsExpansionPanel>
+          labelQuantity={0}
+        />
       </React.Fragment>
     }
     label="Assets"
@@ -717,7 +580,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   />
   <ActionButton
     color="primary"
-    disabled={false}
+    disabled={true}
     marginBottom={20}
     marginTop={68}
     onClick={[Function]}
@@ -726,16 +589,8 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   >
     Continue
   </ActionButton>
-  <ForwardRef(WithStyles)
-    classes={
-      Object {
-        "root": "css-rf9gj",
-      }
-    }
-    color="primary"
-    onClick={[Function]}
-  >
-    Start Income Verification Over
-  </ForwardRef(WithStyles)>
+  <BackLink
+    to="/income-employment"
+  />
 </React.Fragment>
 `;

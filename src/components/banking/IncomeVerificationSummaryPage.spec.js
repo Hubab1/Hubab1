@@ -1,6 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { IncomeVerificationSummaryPage } from './IncomeVerificationSummaryPage';
+import {
+    IncomeVerificationSummaryPage,
+    IncomeOrAssetItemWarning,
+    IncomeOrAssetsItem
+} from './IncomeVerificationSummaryPage';
 import { ROLE_GUARANTOR, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 
 jest.mock('react', () => ({
@@ -108,7 +112,6 @@ it('matches snapshot with some financial sources data if guarantor', () => {
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
-
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useContext: () => {
@@ -164,6 +167,25 @@ it('matches snapshot with some financial sources data - with warnings', () => {
 
 it('matches snapshot with some financial sources data if guarantor - with warnings', () => {
     defaultProps.applicant.role = ROLE_GUARANTOR;
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useContext: () => {
+        return {
+            bankingData: {
+                income_sources: [],
+                asset_sources: [],
+                income_total: '100000.00',
+                asset_total: '40000.00',
+            },
+        }
+    },
+}));
+
+it('matches snapshot with no financial sources data', () => {
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
