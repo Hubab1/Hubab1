@@ -8,14 +8,6 @@ exports[`matches snapshot with some financial sources data 1`] = `
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -56,7 +48,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={5}
+          labelQuantity={3}
         >
           <IncomeOrAssetsItem
             source={
@@ -122,30 +114,6 @@ exports[`matches snapshot with some financial sources data 1`] = `
               }
             }
           />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }
@@ -183,7 +151,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={3}
+          labelQuantity={1}
         >
           <IncomeOrAssetsItem
             source={
@@ -191,30 +159,6 @@ exports[`matches snapshot with some financial sources data 1`] = `
                 "estimated_amount": 40000,
                 "id": 125,
                 "income_or_asset_type": 510,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
                 "uploaded_documents": Array [],
               }
             }
@@ -267,14 +211,6 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
   <ForwardRef(render)>
     Add at least one income source or asset below.
   </ForwardRef(render)>
-  <GenericFormDetail
-    messages={
-      Array [
-        "Oops! We found some issues with one or more of your income/assets sources.",
-      ]
-    }
-    type="error"
-  />
   <Capsule
     buttonLabel="Add an Income Source"
     expansionPanel={
@@ -315,7 +251,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Income Source"
-          labelQuantity={5}
+          labelQuantity={3}
         >
           <IncomeOrAssetsItem
             source={
@@ -381,30 +317,6 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
               }
             }
           />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 100020,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 100000,
-                "id": 124,
-                "income_or_asset_type": 135,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
         </ExistingItemsExpansionPanel>
       </React.Fragment>
     }
@@ -442,7 +354,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         <ExistingItemsExpansionPanel
           defaultExpanded={false}
           label="Asset"
-          labelQuantity={3}
+          labelQuantity={1}
         >
           <IncomeOrAssetsItem
             source={
@@ -450,30 +362,6 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
                 "estimated_amount": 40000,
                 "id": 125,
                 "income_or_asset_type": 510,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": 40020,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
-                "uploaded_documents": Array [],
-              }
-            }
-          />
-          <IncomeOrAssetsItem
-            source={
-              Object {
-                "adjusted_amount": null,
-                "estimated_amount": 40000,
-                "id": 125,
-                "income_or_asset_type": 510,
-                "status": 40,
                 "uploaded_documents": Array [],
               }
             }
