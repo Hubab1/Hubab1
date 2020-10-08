@@ -62,6 +62,7 @@ export const ROUTE_LABELS = {
     [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
 
+export const DOES_NOT_EXIST = 'DoesNotExist';
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
 

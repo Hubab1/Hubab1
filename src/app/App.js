@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
+
 import Main from 'app/Main';
 import BadRoute from 'components/common/BadRoute';
 import { basenameReceived } from 'reducers/site-config';
+import { DOES_NOT_EXIST } from './constants';
 
 export class App extends Component {
     componentDidMount() {
@@ -19,8 +21,16 @@ export class App extends Component {
         this.props.basenameReceived(siteConfig);
     }
 
+    badRoute() {
+        return (
+            !this.props.basename ||
+            this.props.basename === '/' ||
+            this.props.configuration.error_type === DOES_NOT_EXIST
+        );
+    }
+
     render() {
-        if (!this.props.basename || this.props.basename === '/') return <BadRoute />;
+        if (this.badRoute()) return <BadRoute />;
         return (
             <div className="App">
                 <BrowserRouter basename={this.props.basename}>
@@ -32,10 +42,11 @@ export class App extends Component {
 }
 
 App.propTypes = {
-    basenameReceived: PropTypes.func,
-    basename: PropTypes.string,
+    basenameReceived: PropTypes.func.isRequired,
+    basename: PropTypes.string.isRequired,
+    configuration: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({ basename: state.siteConfig.basename });
+const mapStateToProps = (state) => ({ basename: state.siteConfig.basename, configuration: state.configuration });
 const mapDispatchToProps = { basenameReceived };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
