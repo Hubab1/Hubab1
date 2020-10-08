@@ -189,7 +189,9 @@ export function IncomeVerificationSummaryPage(props) {
 
         const financialSources = [...context.bankingData.income_sources, ...context.bankingData.asset_sources];
 
-        const incompleteFinancialSources = financialSources.filter(({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE);
+        const incompleteFinancialSources = financialSources.filter(
+            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
+        );
 
         return incompleteFinancialSources.length > 0;
     }, [context.bankingData]);

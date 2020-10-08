@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import {
     IncomeVerificationSummaryPage,
     IncomeOrAssetItemWarning,
-    IncomeOrAssetsItem
+    IncomeOrAssetsItem,
 } from './IncomeVerificationSummaryPage';
 import {
     ROLE_GUARANTOR,
     ROLE_PRIMARY_APPLICANT,
     FINANCIAL_STREAM_STATUS_PENDING,
-    FINANCIAL_STREAM_STATUS_INCOMPLETE
+    FINANCIAL_STREAM_STATUS_INCOMPLETE,
 } from 'app/constants';
 
 jest.mock('react', () => ({
@@ -161,7 +161,7 @@ jest.mock('react', () => ({
                 income_total: '100000.00',
                 asset_total: '40000.00',
             },
-        }
+        };
     },
 }));
 
@@ -186,7 +186,7 @@ jest.mock('react', () => ({
                 income_total: '100000.00',
                 asset_total: '40000.00',
             },
-        }
+        };
     },
 }));
 
@@ -214,7 +214,7 @@ jest.mock('react', () => ({
                 income_total: '100000.00',
                 asset_total: '40000.00',
             },
-        }
+        };
     },
 }));
 
@@ -226,10 +226,7 @@ it('matches snapshot with only asset sources - with warning', () => {
 describe('IncomeOrAssetItemWarning', () => {
     it('wont render anything is the source is not incomplete', () => {
         const wrapper = shallow(
-            <IncomeOrAssetItemWarning
-                source={{ status: FINANCIAL_STREAM_STATUS_PENDING }}
-                isAsset
-            />
+            <IncomeOrAssetItemWarning source={{ status: FINANCIAL_STREAM_STATUS_PENDING }} isAsset />
         );
 
         expect(wrapper.type()).toEqual(null);
@@ -240,13 +237,13 @@ describe('IncomeOrAssetItemWarning', () => {
             <IncomeOrAssetItemWarning
                 source={{
                     status: FINANCIAL_STREAM_STATUS_INCOMPLETE,
-                    adjusted_amount: 1000
+                    adjusted_amount: 1000,
                 }}
                 isAsset
             />
         );
 
-        expect(wrapper.text()).toBe('The documents for this asset source show a value of $1,000.')
+        expect(wrapper.text()).toBe('The documents for this asset source show a value of $1,000.');
     });
 
     it('renders warning for incomplete asset source without an adjusted amount', () => {
@@ -254,7 +251,7 @@ describe('IncomeOrAssetItemWarning', () => {
             <IncomeOrAssetItemWarning
                 source={{
                     status: FINANCIAL_STREAM_STATUS_INCOMPLETE,
-                    adjusted_amount: 0
+                    adjusted_amount: 0,
                 }}
                 isAsset
             />
@@ -268,13 +265,13 @@ describe('IncomeOrAssetItemWarning', () => {
             <IncomeOrAssetItemWarning
                 source={{
                     status: FINANCIAL_STREAM_STATUS_INCOMPLETE,
-                    adjusted_amount: 1000
+                    adjusted_amount: 1000,
                 }}
                 isAsset={false}
             />
         );
 
-        expect(wrapper.text()).toBe('The documents for this income source show earnings of $1,000/year.')
+        expect(wrapper.text()).toBe('The documents for this income source show earnings of $1,000/year.');
     });
 
     it('renders warning for incomplete income source without an adjusted amount', () => {
@@ -282,12 +279,14 @@ describe('IncomeOrAssetItemWarning', () => {
             <IncomeOrAssetItemWarning
                 source={{
                     status: FINANCIAL_STREAM_STATUS_INCOMPLETE,
-                    adjusted_amount: 0
+                    adjusted_amount: 0,
                 }}
                 isAsset={false}
             />
         );
 
-        expect(wrapper.text()).toBe('This income source has been marked as having incorrect or insufficient documents.');
+        expect(wrapper.text()).toBe(
+            'This income source has been marked as having incorrect or insufficient documents.'
+        );
     });
 });
