@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ROUTES, DOCUMENT_TYPE_HOLDING_DEPOSIT, APPLICATION_EVENTS } from 'app/constants';
+import {
+    ROUTES,
+    DOCUMENT_TYPE_HOLDING_DEPOSIT,
+    APPLICATION_EVENTS,
+    MILESTONE_APPLICANT_SUBMITTED,
+    EVENT_SCREENING_COMPLETED,
+} from 'app/constants';
+
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from './HoldingDepositAgreementView';
@@ -38,7 +45,7 @@ export const HoldingDepositAgreementContainer = ({
             if (!signedAgreement) {
                 newApplicant.events.push({
                     event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED,
-                    milestone: false,
+                    milestone: true,
                 });
             }
             applicantUpdated(newApplicant);
@@ -64,6 +71,32 @@ export const HoldingDepositAgreementContainer = ({
         }
     };
 
+    const goNext = async () => {
+        const newApplicant = await API.fetchApplicant();
+
+        // HelloSign takes time to send a callback, this is to allow us to move forward
+        const signedAgreement = newApplicant.events.find(
+            (e) => parseInt(e.event) === APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED
+        );
+        if (!signedAgreement) {
+            newApplicant.events.push({ event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: true });
+        }
+
+        const finishedApplication = newApplicant.events.find(
+            (e) => parseInt(e.event) === MILESTONE_APPLICANT_SUBMITTED
+        );
+        if (finishedApplication) return _nextRoute();
+
+        // This is in case of a Holding deposit agreement reissue
+        const finishedScreening = newApplicant.events.find((e) => parseInt(e.event) === EVENT_SCREENING_COMPLETED);
+
+        if (finishedScreening) {
+            newApplicant.events.push({ event: MILESTONE_APPLICANT_SUBMITTED, milestone: true });
+        }
+
+        return _nextRoute();
+    };
+
     if (!profile || !applicant) return <div />;
 
     if (currentPage === 'signed') {
@@ -72,7 +105,7 @@ export const HoldingDepositAgreementContainer = ({
                 applicant={applicant}
                 profile={profile}
                 configuration={configuration}
-                handleContinue={_nextRoute}
+                handleContinue={goNext}
                 viewDocument={openEmbeddedSigning}
             />
         );
