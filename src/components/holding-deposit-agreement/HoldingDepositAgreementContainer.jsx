@@ -9,6 +9,7 @@ import {
     MILESTONE_APPLICANT_SUBMITTED,
     EVENT_SCREENING_COMPLETED,
 } from 'app/constants';
+
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import HoldingDepositAgreementView from './HoldingDepositAgreementView';
@@ -59,11 +60,12 @@ export const HoldingDepositAgreementContainer = ({
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
-
-        if (data.url) {
-            hsclient.open(data.url, {
-                testMode: HELLOSIGN_TEST_MODE,
-                skipDomainVerification: HELLOSIGN_TEST_MODE,
+        const url = data.url;
+        const testMode = data.test_mode !== false;
+        if (url) {
+            hsclient.open(url, {
+                testMode: testMode,
+                skipDomainVerification: testMode,
                 allowDecline: false,
                 allowCancel: false,
             });
