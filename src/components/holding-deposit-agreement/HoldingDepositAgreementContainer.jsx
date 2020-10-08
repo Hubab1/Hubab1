@@ -88,7 +88,7 @@ export const HoldingDepositAgreementContainer = ({
         );
         if (finishedApplication) return _nextRoute();
 
-        // This is in case of a Holding deposit agreement reissue.
+        // This is in case of a Holding deposit agreement reissue
         const finishedScreening = newApplicant.events.find((e) => parseInt(e.event) === EVENT_SCREENING_COMPLETED);
 
         if (finishedScreening) {
