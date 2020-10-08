@@ -93,6 +93,8 @@ export const HoldingDepositAgreementContainer = ({
         if (finishedScreening) {
             newApplicant.events.push({ event: MILESTONE_APPLICANT_SUBMITTED, milestone: true });
         }
+
+        return _nextRoute();
     };
 
     if (!profile || !applicant) return <div />;
