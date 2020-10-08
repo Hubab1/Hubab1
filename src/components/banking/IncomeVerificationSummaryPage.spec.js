@@ -108,50 +108,62 @@ it('matches snapshot with some financial sources data if guarantor', () => {
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
-//// Income
-// {
-//     id: 124,
-//         income_or_asset_type: 135,
-//     estimated_amount: 100000,
-//     adjusted_amount: 100020,
-//     uploaded_documents: [],
-//     status: 40,
-// },
-// {
-//     id: 124,
-//         income_or_asset_type: 135,
-//     estimated_amount: 100000,
-//     adjusted_amount: null,
-//     uploaded_documents: [],
-//     status: 40,
-// },
 
-// assets
-// {
-//     id: 125,
-//         income_or_asset_type: 510,
-//     estimated_amount: 40000,
-//     adjusted_amount: 40020,
-//     uploaded_documents: [],
-//     status: 40,
-// },
-// {
-//     id: 125,
-//         income_or_asset_type: 510,
-//     estimated_amount: 40000,
-//     adjusted_amount: null,
-//     uploaded_documents: [],
-//     status: 40,
-// },
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useContext: () => {
+        return {
+            bankingData: {
+                income_sources: [
+                    {
+                        id: 124,
+                        income_or_asset_type: 135,
+                        estimated_amount: 100000,
+                        adjusted_amount: 100020,
+                        uploaded_documents: [],
+                        status: 40,
+                    },
+                    {
+                        id: 124,
+                        income_or_asset_type: 135,
+                        estimated_amount: 100000,
+                        adjusted_amount: null,
+                        uploaded_documents: [],
+                        status: 40,
+                    },
+                ],
+                asset_sources: [
+                    {
+                        id: 125,
+                        income_or_asset_type: 510,
+                        estimated_amount: 40000,
+                        adjusted_amount: 40020,
+                        uploaded_documents: [],
+                        status: 40,
+                    },
+                    {
+                        id: 125,
+                        income_or_asset_type: 510,
+                        estimated_amount: 40000,
+                        adjusted_amount: null,
+                        uploaded_documents: [],
+                        status: 40,
+                    },
+                ],
+                income_total: '100000.00',
+                asset_total: '40000.00',
+            },
+        }
+    },
+}));
 
-//
-// it('matches snapshot with some financial sources data - with warnings', () => {
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
-//
-// it('matches snapshot with some financial sources data if guarantor - with warnings', () => {
-//     defaultProps.applicant.role = ROLE_GUARANTOR;
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
+it('matches snapshot with some financial sources data - with warnings', () => {
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with some financial sources data if guarantor - with warnings', () => {
+    defaultProps.applicant.role = ROLE_GUARANTOR;
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
