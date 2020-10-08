@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import { applicantUpdated } from 'reducers/applicant';
 import API from 'app/api';
 import hsclient from 'utils/hsclient';
-import { ROUTES, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE } from 'app/constants';
+import { ROUTES, MILESTONE_LEASE_SENT, APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE, ROLE_OCCUPANT } from 'app/constants';
 import approvedSign from 'assets/images/approvedSign.svg';
 import { P, H1, leftText, SpacedH3, Bold, LinkButton } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -102,15 +102,22 @@ export const AppApproved = ({ profile, configuration, history, applicantUpdated,
     };
 
     const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT));
+    const isOccupant = applicant.role === ROLE_OCCUPANT;
+
+    let subtitle;
+    if (isOccupant) {
+        subtitle = `We'll let you know when everything has been finalized.`;
+    } else if (leaseSent) {
+        subtitle = `All that's left to do is sign the lease.`;
+    } else {
+        subtitle = `We'll send an email with instructions on how to sign the lease shortly.`;
+    }
 
     return (
         <>
             <div className={clsx({ 'hide-element': viewAdverseActions })}>
                 <H1>{`You've Been Approved!`}</H1>
-                {leaseSent && <SpacedH3>{`All that's left to do is sign the lease.`}</SpacedH3>}
-                {!leaseSent && (
-                    <SpacedH3>{`We'll send an email with instructions on how to sign the lease shortly.`}</SpacedH3>
-                )}
+                <SpacedH3>{subtitle}</SpacedH3>
                 <ApprovedImage src={approvedSign} />
                 <div id="application-unit" className={applicationUnit}>
                     {buildingName}
@@ -140,7 +147,7 @@ export const AppApproved = ({ profile, configuration, history, applicantUpdated,
                             </Grid>
                         </Grid>
                     )}
-                    {leaseSent && (
+                    {!isOccupant && leaseSent && (
                         <Box margin="28px 0 0 0">
                             <P textAlign="left" fontSize={12} color="#000000">
                                 The lease linked below constitutes a legal agreement between you and Landlord. Nestio
