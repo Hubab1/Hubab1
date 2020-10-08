@@ -83,16 +83,16 @@ export const getIncompleteFinancialSourceWarning = (source, isAsset) => {
     if (!isIncomplete) return null;
 
     let warning;
-    if (adjusted_amount && adjusted_amount > 0) {
+    if (adjusted_amount) {
         if (isAsset) {
             warning = `The documents for this asset source show a value of ${prettyCurrency(adjusted_amount)}.`;
         } else {
-            warning = `The documents for this income source show earnings of ${prettyCurrency(adjusted_amount)}/year`;
+            warning = `The documents for this income source show earnings of ${prettyCurrency(adjusted_amount)}/year.`;
         }
     } else {
         warning = `This ${
             isAsset ? 'asset' : 'income'
-        } source has been marked as having incorrect or insufficient document.`;
+        } source has been marked as having incorrect or insufficient documents.`;
     }
 
     return warning;
@@ -148,7 +148,7 @@ export function IncomeOrAssetsItem({ source }) {
     }, []);
 
     return (
-        <div>
+        <>
             <IncomeOrAssetItemWarning source={source} isAsset={isAsset} />
             <div>{getSourceLabel(source)}</div>
             <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
@@ -172,7 +172,7 @@ export function IncomeOrAssetsItem({ source }) {
                     </Link>
                 </>
             )}
-        </div>
+        </>
     );
 }
 
@@ -183,16 +183,15 @@ IncomeOrAssetsItem.propTypes = {
 export function IncomeVerificationSummaryPage(props) {
     const context = useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = useState(false);
+
     const showIncompleteFinancialSourcesWarning = useMemo(() => {
-        if (!context.bankingData?.income_sources || !context.bankingData?.asset_sources) {
+        if (!context.bankingData?.income_sources && !context.bankingData?.asset_sources) {
             return false;
         }
 
         const financialSources = [...context.bankingData.income_sources, ...context.bankingData.asset_sources];
 
-        const incompleteFinancialSources = financialSources.filter(
-            (f) => f.status === FINANCIAL_STREAM_STATUS_INCOMPLETE
-        );
+        const incompleteFinancialSources = financialSources.filter(({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE);
 
         return incompleteFinancialSources.length > 0;
     }, [context.bankingData]);
