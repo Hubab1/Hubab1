@@ -98,7 +98,6 @@ export const getIncompleteFinancialSourceWarning = (source, isAsset) => {
     return warning;
 };
 
-// TODO: test
 export function IncomeOrAssetItemWarning({ source, isAsset }) {
     const warning = getIncompleteFinancialSourceWarning(source, isAsset);
     if (!warning) return null;
@@ -116,7 +115,6 @@ IncomeOrAssetItemWarning.propTypes = {
     isAsset: PropTypes.bool.isRequired,
 };
 
-// TODO: test
 export function IncomeOrAssetsItem({ source }) {
     const isAsset = source.stream_type === FINANCIAL_STREAM_ASSET;
 
