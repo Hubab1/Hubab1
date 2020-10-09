@@ -5,6 +5,7 @@ import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCar
 import React from 'react';
 import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import { SignLeaseView } from 'components/app-approved/SignLeaseView';
+import { LinkButton } from 'assets/styles';
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
@@ -52,7 +53,7 @@ describe('it displays the right section', () => {
 
     it('hides payment details section when clicking back', () => {
         expect(wrapper.find(SignLeaseView)).toHaveLength(1);
-        wrapper.dive().find('a').simulate('click');
+        wrapper.dive().find(LinkButton).simulate('click');
         expect(wrapper.find(PaymentDetailsCard)).toHaveLength(0);
         expect(wrapper.getElement()).toMatchSnapshot();
     });

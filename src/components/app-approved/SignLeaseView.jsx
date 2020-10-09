@@ -1,4 +1,4 @@
-import { arrowIcon, blackLinkRoot, H1, SpacedH3 } from 'assets/styles';
+import { arrowIcon, blackLinkRoot, H1, LinkButton, SpacedH3 } from 'assets/styles';
 import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCard';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
@@ -63,9 +63,9 @@ export const SignLeaseView = ({
                 View & Sign Lease
             </ActionButton>
             <br />
-            <a href="#" className={blackLinkRoot} onClick={() => setShowPaymentDetails(false)}>
+            <LinkButton className={blackLinkRoot} onClick={() => setShowPaymentDetails(false)}>
                 <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
-            </a>
+            </LinkButton>
         </>
     );
 };

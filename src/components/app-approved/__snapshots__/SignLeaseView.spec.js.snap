@@ -39,9 +39,8 @@ exports[`matches snapshot 1`] = `
     View & Sign Lease
   </ActionButton>
   <br />
-  <a
+  <ForwardRef(render)
     className="css-vq6rzm"
-    href="#"
     onClick={[Function]}
   >
     <UNDEFINED
@@ -52,6 +51,6 @@ exports[`matches snapshot 1`] = `
       }
     />
      Go Back
-  </a>
+  </ForwardRef(render)>
 </React.Fragment>
 `;
