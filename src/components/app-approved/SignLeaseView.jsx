@@ -5,7 +5,7 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import React, { useEffect } from 'react';
 import hsclient from 'utils/hsclient';
 import API from 'app/api';
-import { APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE, HELLOSIGN_TEST_MODE, ROUTES } from 'app/constants';
+import { APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE, ROUTES } from 'app/constants';
 import PropTypes from 'prop-types';
 
 export const SignLeaseView = ({
@@ -42,10 +42,12 @@ export const SignLeaseView = ({
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
-        if (data.url) {
-            hsclient.open(data.url, {
-                testMode: HELLOSIGN_TEST_MODE,
-                skipDomainVerification: HELLOSIGN_TEST_MODE,
+        const url = data.url;
+        const testMode = data.test_mode !== false;
+        if (url) {
+            hsclient.open(url, {
+                testMode: testMode,
+                skipDomainVerification: testMode,
                 allowCancel: false,
                 allowDecline: false,
             });

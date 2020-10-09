@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import API from 'app/api';
 import { SignLeaseView } from 'components/app-approved/SignLeaseView';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
 var mockhsclient;
 jest.mock('utils/hsclient', () => {
@@ -56,13 +57,10 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
 describe('hellosign modal', () => {
     it('fetches embedded signing url before opening', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
-
-        API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test' });
+        API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test', test_mode: true });
         API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
         const wrapper = shallow(<SignLeaseView {...props} />);
-
         wrapper.find('.sign-lease').simulate('click');
-
         expect(API.embeddedSigningUrl).toHaveBeenCalled();
     });
 });
