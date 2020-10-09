@@ -38,7 +38,7 @@ export const SignLeaseView = ({
         return () => {
             hsclient.off('sign');
         };
-    }, [applicantUpdated, history]);
+    }, [applicantUpdated, fetchPayments, history]);
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);

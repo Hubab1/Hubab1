@@ -47,11 +47,13 @@ describe('it displays the right section', () => {
         expect(wrapper.find(AppApprovedView)).toHaveLength(1);
         wrapper.dive().find(ActionButton).simulate('click');
         expect(wrapper.find(PaymentDetailsCard)).toBeTruthy();
+        expect(wrapper.getElement()).toMatchSnapshot();
     });
 
     it('hides payment details section when clicking back', () => {
         expect(wrapper.find(SignLeaseView)).toHaveLength(1);
         wrapper.dive().find('a').simulate('click');
         expect(wrapper.find(PaymentDetailsCard)).toHaveLength(0);
+        expect(wrapper.getElement()).toMatchSnapshot();
     });
 });

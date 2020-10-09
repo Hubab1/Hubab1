@@ -66,3 +66,9 @@ describe('hellosign modal', () => {
         expect(API.embeddedSigningUrl).toHaveBeenCalled();
     });
 });
+
+it('matches snapshot', () => {
+    const props = buildProps('Fake Building', '123 Fake Street', null);
+    const wrapper = shallow(<SignLeaseView {...props} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
