@@ -40,17 +40,6 @@ it('displays some legal words about the lease', () => {
     expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
 });
 
-describe('hellosign modal', () => {
-    it('fetches embedded signing url before opening', () => {
-        const props = buildProps('Fake Building', '123 Fake Street', null);
-        API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test', test_mode: true });
-        API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
-        const wrapper = shallow(<AppApproved {...props} />);
-        wrapper.find(ActionButton).simulate('click');
-        expect(API.embeddedSigningUrl).toHaveBeenCalled();
-    });
-});
-
 describe('application unit', () => {
     it('displays building name when no unit', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
