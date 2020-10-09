@@ -15,7 +15,7 @@ exports[`matches snapshot whithout security deposit 1`] = `
       src="approvedSign.svg"
     />
     <div
-      className="css-lygmaw"
+      className="css-x0fehc"
       id="application-unit"
     >
       Fake Building
@@ -65,7 +65,7 @@ exports[`matches snapshot with security deposit 1`] = `
       src="approvedSign.svg"
     />
     <div
-      className="css-lygmaw"
+      className="css-x0fehc"
       id="application-unit"
     >
       Fake Building
@@ -104,15 +104,17 @@ exports[`matches snapshot with security deposit 1`] = `
           xs={9}
         >
           <span
-            className="css-bbr70h"
+            className="css-1c1ccge"
           >
-            A 
+            A
+             
             <ForwardRef(render)
               fontSize={14}
               fontWeight={600}
             >
               $123.45
-               security deposit 
+               security deposit
+               
             </ForwardRef(render)>
             is required for this application. 
           </span>
