@@ -10,7 +10,8 @@ import {
     APPLICATION_STATUS_CANCELED,
     EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
-import { selectors } from 'reducers/renter-profile';
+import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
+import { whenMergePropsIsOmitted } from 'react-redux/lib/connect/mergeProps';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -65,6 +66,7 @@ describe('canAccessRoute', () => {
         },
         renterProfile: {
             co_applicants: null,
+            occupants: null,
             guarantor: null,
             pets: null,
             lease_term: 6,
@@ -133,6 +135,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -156,6 +159,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -178,6 +182,7 @@ describe('selectOrderedRoutes', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -196,6 +201,18 @@ describe('selectOrderedRoutes', () => {
 });
 
 describe('selectInitialPage', () => {
+    it('allows direct routes', () => {
+        DIRECT_ROUTES.forEach((route) => {
+            delete window.location;
+            window.location = { pathname: route };
+
+            const initialPage = selectors.selectInitialPage({});
+            expect(initialPage).toBe(route);
+        });
+
+        window.location = '';
+    });
+
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({
@@ -204,6 +221,7 @@ describe('selectInitialPage', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -218,6 +236,7 @@ describe('selectInitialPage', () => {
             renterProfile: {
                 unit_available: false,
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
@@ -236,6 +255,7 @@ describe('selectInitialPage', () => {
             },
             renterProfile: {
                 co_applicants: null,
+                occupants: null,
                 guarantor: null,
                 pets: null,
                 lease_term: 6,

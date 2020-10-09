@@ -10,7 +10,9 @@ import { PaidText } from 'components/common/PaidText';
 import { HoldingDeposit } from './HoldingDeposit';
 
 let defaultProps;
-const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);
+const everyone = mockProfile.primary_applicant.guarantors
+    .concat(mockProfile.co_applicants)
+    .concat(mockProfile.occupants);
 everyone.unshift(mockApplicant);
 
 beforeEach(() => {
