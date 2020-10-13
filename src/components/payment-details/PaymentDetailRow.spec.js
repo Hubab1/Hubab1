@@ -13,7 +13,6 @@ describe('PaymentDetailRows', () => {
                 price: '125',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 125,
             },
             {
                 amount: '1,300',
@@ -23,7 +22,6 @@ describe('PaymentDetailRows', () => {
                 price: '1,300',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 1300,
             },
             {
                 amount: '0',
@@ -33,10 +31,10 @@ describe('PaymentDetailRows', () => {
                 price: '55',
                 quantity: 1,
                 type: 'fee',
-                paymentTotal: 0,
             },
         ],
         paymentType: 'move in',
+        total: '3,000',
     };
 
     it('renders the correct number of rows', () => {
@@ -109,6 +107,51 @@ describe('PaymentDetailRow', () => {
 
         // included < quantity
         wrapper.setProps({ quantity: 8, paymentTotal: '300' });
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('should render with prorated prices per day', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '220',
+            quantity: 1,
+            price: '220',
+            prorated: true,
+            perDay: '18,33',
+            days: 12,
+            className: 'paymentRow',
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('should not render with prorated prices per day if quantity is 0', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '0',
+            quantity: 0,
+            price: '220',
+            prorated: true,
+            perDay: '18,33',
+            days: 12,
+            className: 'paymentRow',
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('should not render with prorated prices per day if not prorated', () => {
+        const props = {
+            name: 'parking fees',
+            paymentTotal: '123',
+            quantity: 1,
+            price: '220',
+            prorated: false,
+            perDay: '18,33',
+            days: 12,
+            className: 'paymentRow',
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });

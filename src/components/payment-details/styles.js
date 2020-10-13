@@ -63,6 +63,10 @@ export const paymentDetailRow = css`
     justify-content: space-between;
     padding-bottom: 9px;
     font-size: 14px;
+
+    div:first-child {
+        padding-right: 20px;
+    }
 `;
 
 export const paymentDetailTotal = css`
@@ -83,6 +87,10 @@ export const title = css`
     font-weight: bold;
 `;
 
+export const rentalOptionName = css`
+    padding-right: 20px;
+`;
+
 export const styles = {
     cardHeader,
     headerContainer,
@@ -93,4 +101,5 @@ export const styles = {
     paymentDetailRow,
     paymentDetailTotal,
     title,
+    rentalOptionName,
 };
