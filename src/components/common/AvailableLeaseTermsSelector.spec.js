@@ -47,7 +47,7 @@ describe('AvailableLeaseTermsSelector', () => {
         const wrapper = shallow(
             <AvailableLeaseTermsSelector
                 {...defaultProps}
-                leaseTerm={12}
+                leaseTerm={null}
                 unitId={100}
                 lease_start_date={new Date('2020-08-27')}
             />

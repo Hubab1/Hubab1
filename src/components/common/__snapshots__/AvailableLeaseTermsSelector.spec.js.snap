@@ -20,14 +20,14 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
         }
       }
       onChange={[MockFunction]}
-      value={12}
+      value={null}
     >
       <ForwardRef(WithStyles)>
         Loading...
       </ForwardRef(WithStyles)>
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)>
-      Ends August 26th, 2021
+      
     </ForwardRef(WithStyles)>
   </ForwardRef(WithStyles)>
 </div>
