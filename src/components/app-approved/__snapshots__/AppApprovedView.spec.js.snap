@@ -37,7 +37,7 @@ exports[`matches snapshot with security deposit 1`] = `
       You've Been Approved!
     </ForwardRef(render)>
     <ForwardRef(render)>
-      All that's left to do is sign the lease.
+      All that's left to do is review your payment details and sign the lease.
     </ForwardRef(render)>
     <ForwardRef(render)
       src="approvedSign.svg"
@@ -114,13 +114,14 @@ exports[`matches snapshot with security deposit 1`] = `
           The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
+          className="show-payments"
           color="primary"
           marginTop={30}
           onClick={[Function]}
           successGreen={false}
           variant="contained"
         >
-          Review & Sign Lease
+          Continue
         </ActionButton>
       </ForwardRef(StyledComponent)>
     </div>
@@ -137,7 +138,7 @@ exports[`matches snapshot without security deposit 1`] = `
       You've Been Approved!
     </ForwardRef(render)>
     <ForwardRef(render)>
-      All that's left to do is sign the lease.
+      All that's left to do is review your payment details and sign the lease.
     </ForwardRef(render)>
     <ForwardRef(render)
       src="approvedSign.svg"
@@ -163,13 +164,14 @@ exports[`matches snapshot without security deposit 1`] = `
           The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
+          className="show-payments"
           color="primary"
           marginTop={30}
           onClick={[Function]}
           successGreen={false}
           variant="contained"
         >
-          Review & Sign Lease
+          Continue
         </ActionButton>
       </ForwardRef(StyledComponent)>
     </div>
