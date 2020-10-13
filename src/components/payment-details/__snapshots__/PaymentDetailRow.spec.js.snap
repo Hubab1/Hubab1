@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentDetailRow should not render with prorated prices per day if not prorated 1`] = `
-<div>
+<div
+  className="paymentRow"
+>
   <div>
     parking fees
   </div>
@@ -87,7 +89,9 @@ exports[`PaymentDetailRow should render included options 3`] = `
 `;
 
 exports[`PaymentDetailRow should render with prorated prices per day 1`] = `
-<div>
+<div
+  className="paymentRow"
+>
   <div>
     parking fees: 12 days at $18,33/day
   </div>
