@@ -9,8 +9,6 @@ import FeesDepositsOptions from './FeesDepositsOptions';
 import { ROLE_CO_APPLICANT } from 'app/constants';
 
 let defaultProps;
-const everyone = mockProfile.primary_applicant.guarantors.concat(mockProfile.co_applicants);
-everyone.unshift(mockApplicant);
 
 beforeEach(() => {
     defaultProps = {

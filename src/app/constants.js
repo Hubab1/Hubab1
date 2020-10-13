@@ -62,6 +62,7 @@ export const ROUTE_LABELS = {
     [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
 
+export const DOES_NOT_EXIST = 'DoesNotExist';
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
 
@@ -170,8 +171,10 @@ export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
 };
 
 export const RENTER_PROFILE_TYPE_CO_APPLICANTS = 'co_applicants';
+export const RENTER_PROFILE_TYPE_OCCUPANT = 'occupant';
 export const RENTER_PROFILE_TYPE_DEPENDENT = 'dependent';
 export const RENTER_PROFILE_TYPE_GUARANTOR = 'guarantor';
+
 export const RENTER_PROFILE_TYPE_PETS = 'pets';
 export const RENTER_PROFILE_TYPE_PARKING = 'parking';
 export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
