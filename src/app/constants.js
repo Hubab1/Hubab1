@@ -1,5 +1,3 @@
-export const HELLOSIGN_TEST_MODE = process.env.REACT_APP_HELLOSIGN_TEST_MODE === 'yes';
-
 export const community = {
     name: '555 Waverly',
 };
@@ -48,8 +46,8 @@ export const ROUTES = {
     UNIT_UNAVAILABLE: '/unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
     REMOVE_PERSON: '/rental-profile/:type/:id/remove',
-    PAYMENT_DETAILS: '/payment-details',
     GUARANTOR_REQUESTED: '/guarantor_request',
+    PAYMENT_DETAILS: '/payment-details',
 };
 
 export const ROUTE_LABELS = {
@@ -64,6 +62,7 @@ export const ROUTE_LABELS = {
     [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
 
+export const DOES_NOT_EXIST = 'DoesNotExist';
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
 
@@ -71,6 +70,7 @@ export const REPORT_POLL_INTERVAL = 10000;
 
 export const STRIPE_PUBLISHABLE_KEY_DEMO = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
 export const STRIPE_PUBLISHABLE_KEY_LIVE = 'pk_live_96Wm4LI5GkUtEFjhJq6WmDQv00feQM9V8E';
+// TODO: Should this be set in .env instead so we can switch between dev and prod (when we have the new client_id)?
 export const HELLOSIGN_CLIENT_ID = '530b26fda96d75b4abef002d9876fb7c';
 
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
@@ -169,8 +169,10 @@ export const PET_RENTAL_OPTION_TYPE_TO_LABEL_MAP = {
 };
 
 export const RENTER_PROFILE_TYPE_CO_APPLICANTS = 'co_applicants';
+export const RENTER_PROFILE_TYPE_OCCUPANT = 'occupant';
 export const RENTER_PROFILE_TYPE_DEPENDENT = 'dependent';
 export const RENTER_PROFILE_TYPE_GUARANTOR = 'guarantor';
+
 export const RENTER_PROFILE_TYPE_PETS = 'pets';
 export const RENTER_PROFILE_TYPE_PARKING = 'parking';
 export const RENTER_PROFILE_TYPE_STORAGE = 'storage';

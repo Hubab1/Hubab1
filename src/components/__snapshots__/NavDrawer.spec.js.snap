@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
+<div>
+  <ForwardRef(WithStyles) />
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "colorPrimary": "makeStyles-liteThemeAppbar-5",
+      }
+    }
+    color="primary"
+    position="fixed"
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-toolbar-6"
+    >
+      <ForwardRef(WithStyles)
+        aria-label="Open drawer"
+        color="inherit"
+        edge="start"
+        onClick={[Function]}
+      >
+        <UNDEFINED />
+      </ForwardRef(WithStyles)>
+      <BannerLogo />
+      <div
+        className="makeStyles-padRight-2"
+      />
+    </ForwardRef(WithStyles)>
+    <ProgressBar
+      percent={33}
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+  >
+    <div
+      className="makeStyles-list-1"
+      role="presentation"
+    >
+      <ForwardRef(StyledComponent)
+        className="makeStyles-accountDetails-7"
+      >
+        <ForwardRef(StyledComponent)
+          display="flex"
+        >
+          <ForwardRef(StyledComponent)
+            className="makeStyles-initialsContainer-8"
+          >
+            J
+            D
+          </ForwardRef(StyledComponent)>
+          <ForwardRef(StyledComponent)
+            display="flex"
+            flexDirection="column"
+          >
+            <ForwardRef(WithStyles)
+              maxWidth={220}
+              width={220}
+            >
+              <ForwardRef(render)
+                fontSize={18}
+                width={100}
+              >
+                John Doe
+              </ForwardRef(render)>
+            </ForwardRef(WithStyles)>
+            <ForwardRef(WithStyles)
+              maxWidth={220}
+              width={220}
+            >
+              <ForwardRef(render)
+                fontWeight={400}
+                width={100}
+              >
+                jdoe@nest.io
+              </ForwardRef(render)>
+            </ForwardRef(WithStyles)>
+          </ForwardRef(StyledComponent)>
+        </ForwardRef(StyledComponent)>
+        <ForwardRef(StyledComponent)>
+          <ForwardRef
+            to="/account"
+          >
+            Account Details
+          </ForwardRef>
+        </ForwardRef(StyledComponent)>
+      </ForwardRef(StyledComponent)>
+      <ForwardRef(WithStyles) />
+      <UNDEFINED
+        onRouteClicked={[Function]}
+      />
+      <ForwardRef(WithStyles) />
+      <ForwardRef(StyledComponent)
+        alignItems="center"
+        display="flex"
+        justifyContent="space-between"
+        padding="0 15px"
+      >
+        <ForwardRef(WithStyles)
+          classes={
+            Object {
+              "root": "makeStyles-logout-9",
+            }
+          }
+          onClick={[Function]}
+        >
+          Logout
+        </ForwardRef(WithStyles)>
+        <div
+          className="css-1f9n4qq"
+        >
+          <ForwardRef
+            target="_blank"
+            to="/privacy-policy"
+          >
+            Privacy
+          </ForwardRef>
+          <ForwardRef
+            to="/terms"
+          >
+            Terms of Use
+          </ForwardRef>
+        </div>
+      </ForwardRef(StyledComponent)>
+    </div>
+  </ForwardRef(WithStyles)>
+  <main>
+    <div
+      className="makeStyles-drawerHeader-3"
+    />
+    <div
+      className="css-us5k2a"
+    />
+  </main>
+</div>
+`;

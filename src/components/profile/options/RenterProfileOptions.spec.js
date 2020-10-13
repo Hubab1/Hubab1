@@ -9,7 +9,6 @@ import mockProfile from 'reducers/mock-profile.json';
 import { RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import GenericFormDetail from 'components/common/GenericFormMessage';
 
-
 let defaultProps;
 
 beforeEach(() => {
@@ -23,23 +22,23 @@ beforeEach(() => {
     };
 });
 
-it('renders a Capsule component for each option in config.rental_options', function() {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+it('renders a Capsule component for each option in config.rental_options', function () {
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
     expect(wrapper.find(Capsule).length).toEqual(5);
 });
-it('renders GenericFormDetail if hasError=true', function() {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
-    wrapper.setState({hasError: true});
+it('renders GenericFormDetail if hasError=true', function () {
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
+    wrapper.setState({ hasError: true });
     expect(wrapper.find(GenericFormDetail).length).toEqual(1);
 });
 
 it('matches snapshot', () => {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('renders rental_option_config choices in correct order', () => {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} config={mockConfig}/> );
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} config={mockConfig} />);
 
     expect(wrapper.find(Capsule).first().props()['name']).toEqual('co_applicants');
     expect(wrapper.find(Capsule).at(1).props()['name']).toEqual('guarantor');
@@ -49,43 +48,45 @@ it('renders rental_option_config choices in correct order', () => {
 });
 
 it('renders ExistingItemsExpansionPanel with coapplicants as existing items', () => {
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
     const coApplicantsProps = wrapper.find(Capsule).first().props();
-    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps}/>);
+    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps} />);
     const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
-    expect(coApplicantsPanel.props()['children'].length).toEqual(2);
-    expect(coApplicantsPanel.props()['children'][0]).toMatchSnapshot();
+    expect(coApplicantsPanel.props()['children'].length).toEqual(3);
+    expect(coApplicantsPanel.props()['children']).toMatchSnapshot();
 
     const parkingProps = wrapper.find(Capsule).at(3).props();
-    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
+    const parkingWrapper = shallow(<Capsule {...parkingProps} />);
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(0);
 });
 
 it('renders ExistingItemsExpansionPanel for parking when there are selected_rental_options with quantity greater than 0', () => {
-    const selectedParking = {parking: [
-        {
-            leasing_context: {},
-            rental_option: {id: 102},
-            quoted_fee_amount:null,
-            quoted_monthly_amount:'55.00',
-            quoted_deposit_amount:null,
-            id: 19002,
-            quantity: 2,
-        },
-        {
-            leasing_context: {},
-            rental_option: {id: 63},
-            quoted_fee_amount:null,
-            quoted_monthly_amount:'75.00',
-            quoted_deposit_amount:null,
-            id: 19002,
-            quantity: 0,
-        }
-    ]};
-    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_rental_options: selectedParking});
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} /> );
+    const selectedParking = {
+        parking: [
+            {
+                leasing_context: {},
+                rental_option: { id: 102 },
+                quoted_fee_amount: null,
+                quoted_monthly_amount: '55.00',
+                quoted_deposit_amount: null,
+                id: 19002,
+                quantity: 2,
+            },
+            {
+                leasing_context: {},
+                rental_option: { id: 63 },
+                quoted_fee_amount: null,
+                quoted_monthly_amount: '75.00',
+                quoted_deposit_amount: null,
+                id: 19002,
+                quantity: 0,
+            },
+        ],
+    };
+    const selectedParkingProfile = Object.assign({}, mockProfile, { selected_rental_options: selectedParking });
+    const wrapper = shallow(<RentalProfileOptions {...defaultProps} profile={selectedParkingProfile} />);
     const parkingProps = wrapper.find(Capsule).at(3).props();
-    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
+    const parkingWrapper = shallow(<Capsule {...parkingProps} />);
 
     expect(parkingWrapper.find(ExistingItemsExpansionPanel).length).toEqual(1);
     expect(wrapper.getElement()).toMatchSnapshot();
@@ -96,37 +97,49 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
 });
 
 it('passes expansion panel defaultExpanded=True if anchor hash for rental option matches', () => {
-    const selectedParking = {parking: [{
-        leasing_context: {},
-        rental_option: {id: 102},
-        quoted_fee_amount:null,
-        quoted_monthly_amount:'55.00',
-        quoted_deposit_amount:null,
-        id: 19002,
-        quantity: 2,
-    }]};
-    const selectedParkingProfile = Object.assign({}, mockProfile, {selected_rental_options: selectedParking});
+    const selectedParking = {
+        parking: [
+            {
+                leasing_context: {},
+                rental_option: { id: 102 },
+                quoted_fee_amount: null,
+                quoted_monthly_amount: '55.00',
+                quoted_deposit_amount: null,
+                id: 19002,
+                quantity: 2,
+            },
+        ],
+    };
+    const selectedParkingProfile = Object.assign({}, mockProfile, { selected_rental_options: selectedParking });
 
-    const wrapper = shallow( <RentalProfileOptions {...defaultProps } profile={selectedParkingProfile} location={{hash: `#${RENTER_PROFILE_TYPE_PARKING}`}} /> );
+    const wrapper = shallow(
+        <RentalProfileOptions
+            {...defaultProps}
+            profile={selectedParkingProfile}
+            location={{ hash: `#${RENTER_PROFILE_TYPE_PARKING}` }}
+        />
+    );
 
     const coApplicantsProps = wrapper.find(Capsule).first().props();
-    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps}/>);
+    const coApplicantsWrapper = shallow(<Capsule {...coApplicantsProps} />);
     const coApplicantsPanel = coApplicantsWrapper.find(ExistingItemsExpansionPanel);
     expect(coApplicantsPanel.props()['defaultExpanded']).toEqual(false);
 
     const parkingProps = wrapper.find(Capsule).at(3).props();
-    const parkingWrapper = shallow(<Capsule {...parkingProps}/>);
+    const parkingWrapper = shallow(<Capsule {...parkingProps} />);
     const parkingPanel = parkingWrapper.find(ExistingItemsExpansionPanel);
     expect(parkingPanel.props()['defaultExpanded']).toEqual(true);
-
 });
 
 describe('onContinue', function () {
-    it('marks page complete on continue and calls next route', function() {
-        const wrapper = shallow( <RentalProfileOptions {...defaultProps} /> );
-        return wrapper.instance().onContinue().then(() => {
-            expect(defaultProps.pageComplete).toHaveBeenCalledWith('renter_profile');
-            expect(defaultProps._nextRoute).toHaveBeenCalled();
-        });
+    it('marks page complete on continue and calls next route', function () {
+        const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
+        return wrapper
+            .instance()
+            .onContinue()
+            .then(() => {
+                expect(defaultProps.pageComplete).toHaveBeenCalledWith('renter_profile');
+                expect(defaultProps._nextRoute).toHaveBeenCalled();
+            });
     });
 });

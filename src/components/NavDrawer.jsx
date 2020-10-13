@@ -125,7 +125,10 @@ export function PersistentDrawerLeft(props) {
     }
 
     if (!props.applicant) return null;
-    const { name, email } = props.applicant.client.person;
+
+    const name = `${props.applicant.first_name} ${props.applicant.last_name}`;
+    const email = props.applicant.email;
+
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
     return (
@@ -135,7 +138,7 @@ export function PersistentDrawerLeft(props) {
                 color="primary"
                 position="fixed"
                 classes={{
-                    colorPrimary: appThemeContext.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar,
+                    colorPrimary: appThemeContext?.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar,
                 }}
             >
                 <Toolbar className={classes.toolbar}>

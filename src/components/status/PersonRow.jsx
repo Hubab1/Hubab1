@@ -8,7 +8,8 @@ import { getRoommateStatus } from 'utils/misc';
 
 export const PersonRow = ({ person, label, role }) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
-    const showResendLink = isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant';
+    const showResendLink =
+        isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant' && label !== 'Occupant';
 
     const statusColor = APPLICANT_STATUS_COLOR_MAP[getRoommateStatus(person)];
 
