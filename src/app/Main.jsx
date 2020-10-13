@@ -28,7 +28,7 @@ import Address from 'components/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
-import AppApproved from 'components/AppApproved';
+import AppApproved from 'components/app-approved/AppApprovedContainer';
 import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
