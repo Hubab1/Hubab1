@@ -49,7 +49,7 @@ describe('AvailableLeaseTermsSelector', () => {
                 {...defaultProps}
                 leaseTerm={12}
                 unitId={100}
-                lease_start_date={new Date('2020-08-26')}
+                lease_start_date={new Date('2020-08-27')}
             />
         );
         expect(wrapper.getElement()).toMatchSnapshot();
