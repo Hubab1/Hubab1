@@ -372,10 +372,6 @@ API.deleteInvitee = (id) => {
 };
 
 API.fetchAvailableLeaseTerms = (data) => {
-    if (MOCKY)
-        return Promise.resolve({
-            lease_terms: [6, 12, 24],
-        });
     return fetch(chuck(`/available-lease-terms/`), {
         method: 'POST',
         headers: {
