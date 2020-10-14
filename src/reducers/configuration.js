@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 import API, { MOCKY } from 'app/api';
 import createTheme from 'assets/createTheme';
@@ -38,7 +39,8 @@ export const fetchConfiguration = (communityId, hash) => {
                     API.fetchPersonalizedInfo(communityId, hash),
                 ]);
                 configuration = data.reduce((config, item) => {
-                    return Object.assign(config, item);
+                    const itemWithoutEmptyObjects = _.omitBy(item, _.isEmpty);
+                    return Object.assign(config, itemWithoutEmptyObjects);
                 }, {});
             }
         } else {
