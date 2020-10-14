@@ -14,13 +14,12 @@ import captureRoute from 'app/captureRoute';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import GuarantorExplanation from './GuarantorExplanation';
 
-
 export const requestGuarantorHelpText = css`
-  color: #454B57;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: left;
-  margin-top: 24px;
+    color: #454b57;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: left;
+    margin-top: 24px;
 `;
 
 export const Img = styled.img`
@@ -29,10 +28,10 @@ export const Img = styled.img`
 `;
 
 export const explanationLink = css`
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  padding-top: 10px;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    padding-top: 10px;
 `;
 
 const Contact = styled.div`
@@ -55,13 +54,13 @@ export class GuarantorRequested extends React.Component {
 
     toggleViewRequestReason = () => {
         this.setState({
-            viewRequestReason: !this.state.viewRequestReason
+            viewRequestReason: !this.state.viewRequestReason,
         });
     };
 
     toggleViewGuarantorExplanation = () => {
         this.setState({
-            viewGuarantorExplanation: !this.state.viewGuarantorExplanation
+            viewGuarantorExplanation: !this.state.viewGuarantorExplanation,
         });
     };
 
@@ -69,18 +68,15 @@ export class GuarantorRequested extends React.Component {
         this.props.history.push(ROUTES.GUARANTOR);
     };
 
-    render () {
+    render() {
         const { profile, configuration, applicant, isPrimaryApplicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
 
         const { viewRequestReason, viewGuarantorExplanation } = this.state;
-        const {
-            unit,
-            last_status_change,
-        } = profile;
+        const { unit, last_status_change } = profile;
 
         const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-        const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
+        const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
         const denialDecisionDate = last_status_change.created_at;
         const { name } = applicant.person;
         const contactPhone = configuration.community.contact_phone;
@@ -89,20 +85,21 @@ export class GuarantorRequested extends React.Component {
 
         return (
             <>
-                <div className={clsx({'hide-element': viewRequestReason || viewGuarantorExplanation})}>
+                <div className={clsx({ 'hide-element': viewRequestReason || viewGuarantorExplanation })}>
                     <H1>Please Add a Guarantor</H1>
                     <SpacedH3>
                         {`We're requiring that you add a guarantor in order to move forward with your application.`}
                     </SpacedH3>
-                    <Img src={addGuarantor}/>
+                    <Img src={addGuarantor} />
                     <div id="application-unit" className={explanationLink}>
                         <LinkButton onClick={this.toggleViewGuarantorExplanation}>{`What's a guarantor?`}</LinkButton>
                     </div>
                     <DescriptionMessage>
-                        {isPrimaryApplicant? (
+                        {isPrimaryApplicant ? (
                             <>
                                 <span className={requestGuarantorHelpText}>
-                                    Unfortunately, we will not be able to approve your application without a guarantor.&nbsp;
+                                    Unfortunately, we will not be able to approve your application without a
+                                    guarantor.&nbsp;
                                 </span>
                                 <LinkButton onClick={this.toggleViewRequestReason}>Learn why</LinkButton>
                             </>
@@ -114,24 +111,27 @@ export class GuarantorRequested extends React.Component {
                     </DescriptionMessage>
                     <Contact>
                         Call us at&nbsp;
-                        <a href={`tel:${contactPhone}`}>
-                            {prettyFormatPhoneNumber(contactPhone)}
-                        </a> if you have any questions or if you are unable or unwilling to add a guarantor.
+                        <a href={`tel:${contactPhone}`}>{prettyFormatPhoneNumber(contactPhone)}</a> if you have any
+                        questions or if you are unable or unwilling to add a guarantor.
                     </Contact>
-                    {isPrimaryApplicant?
-                        (<ActionButton onClick={this.addGuarantor} marginTop={65}>Add a Guarantor</ActionButton>):
-                        (<ActionButton onClick={this.toggleViewRequestReason} marginTop={65}>Learn Why</ActionButton>)
-                    }
-
+                    {isPrimaryApplicant ? (
+                        <ActionButton onClick={this.addGuarantor} marginTop={65}>
+                            Add a Guarantor
+                        </ActionButton>
+                    ) : (
+                        <ActionButton onClick={this.toggleViewRequestReason} marginTop={65}>
+                            Learn Why
+                        </ActionButton>
+                    )}
                 </div>
-                {viewGuarantorExplanation &&
+                {viewGuarantorExplanation && (
                     <GuarantorExplanation
                         onAgree={this.toggleViewGuarantorExplanation}
                         contactPhone={contactPhone}
                         multiplier={guarantor_income_requirement_multiplier}
                     />
-                }
-                {viewRequestReason &&
+                )}
+                {viewRequestReason && (
                     <AppAdverseActions
                         date={denialDecisionDate}
                         buildingName={buildingName}
@@ -140,7 +140,7 @@ export class GuarantorRequested extends React.Component {
                         onAgree={this.toggleViewRequestReason}
                         guarantorRequested={true}
                     />
-                }
+                )}
             </>
         );
     }
@@ -154,8 +154,7 @@ GuarantorRequested.propTypes = {
     history: PropTypes.object,
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant,

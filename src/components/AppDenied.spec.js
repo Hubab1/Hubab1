@@ -2,34 +2,33 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { AppDenied } from './AppDenied';
 
-
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [{event: '270'}],
+            events: [{ event: '270' }],
             unit: {
                 unit_number: unitNumber,
             },
             last_status_change: {
-                created_at: '2020-05-06 04:06:23'
-            }
+                created_at: '2020-05-06 04:06:23',
+            },
         },
         applicant: {
             person: {
-                name: 'John Doe'
+                name: 'John Doe',
             },
         },
         configuration: {
             community: {
                 building_name: buildingName,
                 normalized_street_address: streetAddress,
-            }
+            },
         },
     };
 };
 
 it('matches snapshot', () => {
-    const wrapper = shallow(<AppDenied {...buildProps()}/>);
+    const wrapper = shallow(<AppDenied {...buildProps()} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
