@@ -23,46 +23,46 @@ beforeEach(() => {
             primary_color: '286165',
             secondary_color: 'FFFFFF',
             client: {
-                person: {
-                    email: 'callieapi@example.com',
-                    first_name: 'Callie',
-                    id: 280066,
-                    last_name: 'Api',
-                    phone_1: '1234543123',
-                }
+                id: 12222,
+            },
+            person: {
+                email: 'callieapi@example.com',
+                first_name: 'Callie',
+                id: 280066,
+                last_name: 'Api',
+                phone_1: '1234543123',
             },
             unit: {
                 id: 2747820,
-                unit_number: '4B'
-            }
+                unit_number: '4B',
+            },
         },
     };
 });
 
-it('renders Hello <client name> when client is included in configuration', function(){
-    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+it('renders Hello <person name> when person is included in configuration', function () {
+    const wrapper = shallow(<WelcomePage {...defaultProps} />);
 
     expect(wrapper.text().includes('Hello Callie,')).toBeTruthy();
 });
 
-it('renders Hi There, when client is not included in configuration', function(){
-    delete defaultProps.configuration.client;
-    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+it('renders Hi There, when person is not included in configuration', function () {
+    delete defaultProps.configuration.person;
+    const wrapper = shallow(<WelcomePage {...defaultProps} />);
 
     expect(wrapper.text().includes('Hi There,')).toBeTruthy();
 });
 
-it('renders Hi <invitee_name>, when invitee is included in configuration', function(){
-    delete defaultProps.configuration.client;
-    defaultProps.configuration.invitee = {first_name: 'Stinky'};
-    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+it('renders Hi <invitee_name>, when invitee is included in configuration', function () {
+    delete defaultProps.configuration.person;
+    defaultProps.configuration.invitee = { first_name: 'Stinky' };
+    const wrapper = shallow(<WelcomePage {...defaultProps} />);
 
     expect(wrapper.text().includes('Hello Stinky,')).toBeTruthy();
 });
 
-
 it('renders correct info when all client and unit info are passed', () => {
-    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+    const wrapper = shallow(<WelcomePage {...defaultProps} />);
 
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('Excelsior');
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('601 W 57TH ST');
@@ -73,11 +73,10 @@ it('renders correct info when all client and unit info are passed', () => {
 it('renders correct info when all client and unit info is omitted', () => {
     delete defaultProps.configuration.unit;
 
-    const wrapper = shallow(<WelcomePage {...defaultProps}/>);
+    const wrapper = shallow(<WelcomePage {...defaultProps} />);
 
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('Excelsior');
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('601 W 57TH ST');
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('New York, NY 10019');
     expect(wrapper.find(WelcomeTextContainer).text()).not.toContain('Unit 4B');
-
 });

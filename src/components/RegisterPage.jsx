@@ -24,8 +24,7 @@ export class RegisterPage extends React.Component {
     }
 
     get applicantInfo() {
-        const client = this.props.configuration.client;
-        const invitee = this.props.configuration.invitee;
+        const { person, invitee, client } = this.props.configuration;
         const baseInitialValues = {
             first_name: '',
             last_name: '',
@@ -35,23 +34,24 @@ export class RegisterPage extends React.Component {
             password: '',
         };
 
-        // TODO: what should we do with this, configuration does never seem to have a client
-        // TODO: but if it does, should we get these values from person.client instead?
-        if (client && client.person) {
-            const { first_name, last_name, email, phone_1 } = client.person;
-            let { date_of_birth } = client.person;
+        if (person) {
+            const { first_name, last_name, email, phone_1 } = person;
+            let { date_of_birth } = person;
             // dates are tricky... https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
             if (date_of_birth) {
                 date_of_birth = parseDateISOString(date_of_birth);
             }
-            return Object.assign({}, baseInitialValues, {
+            const personValues = Object.assign({}, baseInitialValues, {
                 first_name,
                 last_name,
                 email,
                 phone_number: phone_1,
-                id: client.id,
                 birthday: date_of_birth,
             });
+            if (client) {
+                personValues.id = client.id;
+            }
+            return personValues;
         } else if (invitee && invitee.first_name) {
             const { first_name, last_name, phone_number, email } = invitee;
             return Object.assign({}, baseInitialValues, { first_name, last_name, phone_number, email });
