@@ -9,11 +9,7 @@ it('Match initial snapshot', function() {
     const props = {
         applicant: {
             id: 123,
-            client: {
-                person: {
-                    first_name: 'Chakib'
-                }
-            }
+            first_name: 'Chakib',
         },
         buildingName: 'The blue building.'
     };
@@ -26,11 +22,7 @@ it('Display SSN field by default', function() {
     const props = {
         applicant: {
             id: 123,
-            client: {
-                person: {
-                    first_name: 'Chakib'
-                }
-            }
+            first_name: 'Chakib'
         },
         buildingName: 'The blue building.'
     };
@@ -43,11 +35,7 @@ it('shows generic error message', function() {
     const props = {
         applicant: {
             id: 123,
-            client: {
-                person: {
-                    first_name: 'Chakib'
-                }
-            }
+            first_name: 'Chakib'
         },
         buildingName: 'The blue building.'
     };

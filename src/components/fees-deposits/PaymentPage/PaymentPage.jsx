@@ -36,7 +36,6 @@ const linkStyle = css`
 `;
 
 export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack }) => {
-    console.log({ applicant })
     return (
         <Fragment>
             <H1>Almost There, {applicant.first_name}!</H1>

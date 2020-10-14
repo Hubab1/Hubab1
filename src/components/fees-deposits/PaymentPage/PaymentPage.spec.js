@@ -7,7 +7,7 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         totalPayment: 60.567,
-        applicant: { client: { person: { first_name: 'Bob' } } }
+        applicant: { first_name: 'Bob' }
     };
 });
 

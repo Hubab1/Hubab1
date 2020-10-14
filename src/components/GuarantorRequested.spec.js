@@ -9,10 +9,8 @@ const buildProps = (
     streetAddress = '123 Fake Street',
     unitNumber = '2B',
     applicant = {
-        client: {
-            person: {
-                name: 'John Doe'
-            },
+        person: {
+            name: 'John Doe'
         },
     },
 ) => {
@@ -57,10 +55,8 @@ it('Case Co-applicant', () => {
 
 it('Primary Applicant', () => {
     const primaryApplicant = {
-        client: {
-            person: {
-                name: 'John Doe'
-            },
+        person: {
+            name: 'John Doe'
         },
         role: ROLE_PRIMARY_APPLICANT,
     };
