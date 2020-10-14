@@ -106,7 +106,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 baseAppFee={baseAppFee}
                 applicant={applicant}
                 everyone={everyone}
-                email={applicant.client.person.email}
+                email={applicant.person.email}
                 paidByAnother={receipt.paid_by !== applicant.id}
             />
         );

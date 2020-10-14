@@ -53,7 +53,7 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
 
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
-    const { name } = applicant.client.person;
+    const { name } = applicant.person;
 
     const toggleViewAdverseActions = () => {
         setViewAdverseActions(!viewAdverseActions);

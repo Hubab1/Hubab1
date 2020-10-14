@@ -23,10 +23,8 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             },
         },
         applicant: {
-            client: {
-                person: {
-                    name: 'John Doe',
-                },
+            person: {
+                name: 'John Doe',
             },
         },
         setShowPaymentDetails: jest.fn(),
