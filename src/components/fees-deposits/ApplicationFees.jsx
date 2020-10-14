@@ -94,7 +94,7 @@ ApplicationFees.propTypes = {
 };
 
 export const EveryoneRow = ({ person, baseAppFee }) => {
-    const name = person.client ? person.client.person.name : `${person.first_name} ${person.last_name}`;
+    const name = `${person.first_name} ${person.last_name}`;
     return (
         <IndentedRow>
             <P color="#454B57">{name}</P>

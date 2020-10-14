@@ -36,9 +36,10 @@ const linkStyle = css`
 `;
 
 export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack }) => {
+    console.log({ applicant })
     return (
         <Fragment>
-            <H1>Almost There, {applicant.client.person.first_name}!</H1>
+            <H1>Almost There, {applicant.first_name}!</H1>
             <SpacedH3>
                 The application fee and holding deposit for this apartment is{' '}
                 {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for

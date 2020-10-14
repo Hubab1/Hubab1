@@ -47,7 +47,7 @@ export class AppDenied extends React.Component {
         const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
         const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
         const denialDecisionDate = last_status_change.created_at;
-        const { name } = applicant.client.person;
+        const { name } = applicant.person;
 
         return (
             <>
