@@ -15,7 +15,7 @@ exports[`Matches snapshot 1`] = `
       src="add-guarantor.png"
     />
     <div
-      className="css-1qcaui9"
+      className="css-qvtjcj"
       id="application-unit"
     >
       <ForwardRef(render)
@@ -26,7 +26,7 @@ exports[`Matches snapshot 1`] = `
     </div>
     <ForwardRef(render)>
       <span
-        className="css-hzs5zf"
+        className="css-1waf0lp"
       >
         Unfortunately, we will not be able to approve your application without a guarantor. If you’d like to add a guarantor, the primary applicant, John Doe, can do so on behalf of everyone by logging into their account.
       </span>
