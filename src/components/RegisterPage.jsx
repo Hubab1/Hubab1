@@ -35,6 +35,8 @@ export class RegisterPage extends React.Component {
             password: '',
         };
 
+        // TODO: what should we do with this, configuration does never seem to have a client
+        // TODO: but if it does, should we get these values from person.client instead?
         if (client && client.person) {
             const { first_name, last_name, email, phone_1 } = client.person;
             let { date_of_birth } = client.person;

@@ -17,6 +17,8 @@ import { AppTheme } from 'contexts/AppContextProvider';
 export class WelcomePage extends Component {
     static contextType = AppTheme;
 
+    // TODO: what should we do with this, configuration does never seem to have a client
+    // TODO: but if it does, should we get these values from person.client instead?
     getFirstName () {
         const { client, invitee } = this.props.configuration;
         if ( client && client.person ) {
@@ -27,7 +29,7 @@ export class WelcomePage extends Component {
             return null;
         }
     }
-    
+
     render() {
         const { background, logo, community, unit } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
