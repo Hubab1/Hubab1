@@ -47,7 +47,7 @@ export const securityDepositTip = css`
 `;
 
 export const AppApprovedView = ({ profile, configuration, applicant, setShowPaymentDetails }) => {
-    let { unit, last_status_change, security_deposit: securityDeposit } = profile;
+    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
 
     const [viewAdverseActions, setViewAdverseActions] = useState(false);
 
@@ -71,9 +71,9 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
         subtitle = `We'll send an email with instructions on how to sign the lease shortly.`;
     }
 
-    const hasInternationalApplicant = !![profile.primary_applicant || {}, ...(profile.co_applicants || [])].find(
-        (applicant) => applicant.international
-    );
+    const applicants = [profile.primary_applicant || {}, ...(profile.co_applicants || [])];
+
+    const hasInternationalApplicant = !!applicants.find((applicant) => applicant.international);
 
     return (
         <>
