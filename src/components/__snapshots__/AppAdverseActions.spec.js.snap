@@ -4,7 +4,7 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -57,7 +57,7 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#828796\\">
-                      <div color=\\"#828796\\" className=\\"css-zfs4d3\\">
+                      <div color=\\"#828796\\" className=\\"css-1ugflqs\\">
                         N/A
                       </div>
                     </Styled(div)>
@@ -90,7 +90,9 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -136,17 +138,20 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -190,7 +195,7 @@ exports[`Credit score color Display color green when good credit score 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -243,7 +248,7 @@ exports[`Credit score color Display color green when good credit score 1`] = `
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#60C28D\\">
-                      <div color=\\"#60C28D\\" className=\\"css-11jlc4\\">
+                      <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                         800
                       </div>
                     </Styled(div)>
@@ -276,7 +281,9 @@ exports[`Credit score color Display color green when good credit score 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -322,17 +329,20 @@ exports[`Credit score color Display color green when good credit score 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -376,7 +386,7 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -429,7 +439,7 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#828796\\">
-                      <div color=\\"#828796\\" className=\\"css-zfs4d3\\">
+                      <div color=\\"#828796\\" className=\\"css-1ugflqs\\">
                         800
                       </div>
                     </Styled(div)>
@@ -462,7 +472,9 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -508,17 +520,20 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -562,7 +577,7 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -615,7 +630,7 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#D0021B\\">
-                      <div color=\\"#D0021B\\" className=\\"css-s3mvao\\">
+                      <div color=\\"#D0021B\\" className=\\"css-161huin\\">
                         300
                       </div>
                     </Styled(div)>
@@ -648,7 +663,9 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -694,17 +711,20 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -748,7 +768,7 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -801,7 +821,7 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#FCC022\\">
-                      <div color=\\"#FCC022\\" className=\\"css-18mklsr\\">
+                      <div color=\\"#FCC022\\" className=\\"css-19loggr\\">
                         600
                       </div>
                     </Styled(div)>
@@ -834,7 +854,9 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -880,17 +902,20 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -934,7 +959,7 @@ exports[`Display N/A when only credit date is available 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -987,7 +1012,7 @@ exports[`Display N/A when only credit date is available 1`] = `
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#60C28D\\">
-                      <div color=\\"#60C28D\\" className=\\"css-11jlc4\\">
+                      <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                         671
                       </div>
                     </Styled(div)>
@@ -1020,7 +1045,9 @@ exports[`Display N/A when only credit date is available 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1066,17 +1093,20 @@ exports[`Display N/A when only credit date is available 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1120,7 +1150,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -1182,7 +1212,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
                 <Styled(div)>
                   <div className=\\"css-psvgb8\\">
                     <Styled(ul)>
-                      <ul className=\\"css-1yyda9\\">
+                      <ul className=\\"css-114wr7l\\">
                         <li>
                           Too few open revolving accounts
                         </li>
@@ -1211,7 +1241,9 @@ exports[`Display adverseFactorsList when Factors 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1257,17 +1289,20 @@ exports[`Display adverseFactorsList when Factors 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1311,7 +1346,7 @@ exports[`Display credit data when available 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -1364,7 +1399,7 @@ exports[`Display credit data when available 1`] = `
                 <Styled(div)>
                   <div className=\\"css-19pnj2g\\">
                     <Styled(div) color=\\"#60C28D\\">
-                      <div color=\\"#60C28D\\" className=\\"css-11jlc4\\">
+                      <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                         671
                       </div>
                     </Styled(div)>
@@ -1397,7 +1432,9 @@ exports[`Display credit data when available 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1443,17 +1480,20 @@ exports[`Display credit data when available 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1497,7 +1537,7 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -1551,7 +1591,9 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1597,17 +1639,20 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1651,7 +1696,7 @@ exports[`Matches Snapshot if it has an international applicant 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}} securityDeposit=\\"$2,200\\" hasInternationalApplicant={true}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -1713,7 +1758,9 @@ exports[`Matches Snapshot if it has an international applicant 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1759,17 +1806,20 @@ exports[`Matches Snapshot if it has an international applicant 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1813,7 +1863,7 @@ exports[`Matches Snapshot when requesting a guarantor 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}} guarantorRequested={true}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -1873,7 +1923,9 @@ exports[`Matches Snapshot when requesting a guarantor 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -1919,17 +1971,20 @@ exports[`Matches Snapshot when requesting a guarantor 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -1973,7 +2028,7 @@ exports[`Matches Snapshot with security deposit 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}} securityDeposit=\\"$2,200\\">
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -2035,7 +2090,9 @@ exports[`Matches Snapshot with security deposit 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -2081,17 +2138,20 @@ exports[`Matches Snapshot with security deposit 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>
@@ -2135,7 +2195,7 @@ exports[`Matches Snapshot without security deposit 1`] = `
 "<AppAdverseActions date=\\"5/6/2020\\" buildingName=\\"Monterey Pines Apartments\\" unitNumber=\\"Unit 14F\\" name=\\"John Doe\\" onAgree={[Function: mockConstructor]} configuration={{...}}>
   <div>
     <Styled(div)>
-      <div className=\\"css-1v80zmq\\">
+      <div className=\\"css-ssuyy8\\">
         <Styled(h1)>
           <h1 className=\\"css-r7wuwd\\">
             Reason for Our Decision
@@ -2189,7 +2249,9 @@ exports[`Matches Snapshot without security deposit 1`] = `
                 TransUnion Consumer Solutions
               </b>
             </Styled(b)>
-             provided us with information that in whole or in part influenced our decision. 
+             
+            provided us with information that in whole or in part influenced our decision.
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 The reporting agency played no part in our decision other than providing us with information about you.
@@ -2235,17 +2297,20 @@ exports[`Matches Snapshot without security deposit 1`] = `
         <br />
         <Styled(p)>
           <p className=\\"css-3m08t9\\">
-            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through 
+            You have the right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency that provided the report or through
+             
             <Styled(b) fontWeight={600}>
               <b fontWeight={600} className=\\"css-1kuou7v\\">
                 TransUnion Rental Screening Solutions
               </b>
             </Styled(b)>
-             consumer relations at 
+             consumer relations at
+             
             <a href=\\"tel:1-800-230-9376\\">
               1-800-230-9376
             </a>
-             or 
+             or
+             
             <a href=\\"mailto:consumer_relations@turss.com\\">
               consumer_relations@turss.com
             </a>

@@ -34,7 +34,6 @@ it('Matches Snapshot without security deposit', async () => {
     });
     expect(wrapper.debug()).toMatchSnapshot();
 });
-
 it('Matches Snapshot with security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
     const wrapper = mount(<AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} />);
