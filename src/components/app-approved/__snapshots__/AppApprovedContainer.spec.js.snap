@@ -4,10 +4,8 @@ exports[`it displays the right section hides payment details section when clicki
 <AppApprovedView
   applicant={
     Object {
-      "client": Object {
-        "person": Object {
-          "name": "John Doe",
-        },
+      "person": Object {
+        "name": "John Doe",
       },
     }
   }

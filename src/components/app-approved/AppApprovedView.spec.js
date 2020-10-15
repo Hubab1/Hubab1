@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { ROLE_OCCUPANT } from 'app/constants';
 import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
@@ -22,10 +23,8 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             },
         },
         applicant: {
-            client: {
-                person: {
-                    name: 'John Doe',
-                },
+            person: {
+                name: 'John Doe',
             },
         },
         setShowPaymentDetails: jest.fn(),
@@ -108,7 +107,28 @@ describe('security deposit message', () => {
     });
 });
 
-it('matches snapshot whithout security deposit', () => {
+describe('approved occupants', () => {
+    it('should show the approved message and no action button when lease not ready', () => {
+        const props = buildProps();
+        props.applicant.role = ROLE_OCCUPANT;
+        props.profile.events = [];
+
+        const wrapper = shallow(<AppApprovedView {...props} />);
+        expect(wrapper.text()).toContain(`We'll let you know when everything has been finalized.`);
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
+    });
+
+    it('should show the approved message and no action button when lease ready', () => {
+        const props = buildProps();
+        props.applicant.role = ROLE_OCCUPANT;
+
+        const wrapper = shallow(<AppApprovedView {...props} />);
+        expect(wrapper.text()).toContain(`We'll let you know when everything has been finalized.`);
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
+    });
+});
+
+it('matches snapshot without security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = null;
     props.profile.security_deposit_multiplier = null;
@@ -119,6 +139,15 @@ it('matches snapshot whithout security deposit', () => {
 it('matches snapshot with security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = 123.45;
+    const wrapper = shallow(<AppApprovedView {...props} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with occupant', () => {
+    const props = buildProps();
+    props.profile.security_deposit = null;
+    props.profile.security_deposit_multiplier = null;
+    props.applicant.role = ROLE_OCCUPANT;
     const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });

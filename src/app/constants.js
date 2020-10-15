@@ -76,6 +76,7 @@ export const HELLOSIGN_CLIENT_ID = '530b26fda96d75b4abef002d9876fb7c';
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
 export const ROLE_CO_APPLICANT = 'co_applicant';
 export const ROLE_GUARANTOR = 'guarantor';
+export const ROLE_OCCUPANT = 'occupant';
 
 export const SMS_OPT_IN_MARKETING_ENABLED = 5;
 

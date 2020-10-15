@@ -28,14 +28,11 @@
             "id": 10557
         },
         "id": 18,
-        "client": {
-            "person": {
-                "id": 351422,
-                "email": "johnjenkins@nestio.com",
-                "name": "frank underwood",
-                "phone_1": "(111) 111-1111"
-            },
-            "id": 341686
+        "person": {
+            "id": 351422,
+            "email": "johnjenkins@nestio.com",
+            "name": "frank underwood",
+            "phone_1": "(111) 111-1111"
         },
         "email": "johnjenkins@nestio.com"
     },

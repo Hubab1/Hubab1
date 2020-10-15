@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { GuarantorRequested } from './GuarantorRequested';
-import {ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES} from 'app/constants';
+import { ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 const buildProps = (
@@ -9,38 +9,36 @@ const buildProps = (
     streetAddress = '123 Fake Street',
     unitNumber = '2B',
     applicant = {
-        client: {
-            person: {
-                name: 'John Doe'
-            },
+        person: {
+            name: 'John Doe',
         },
-    },
+    }
 ) => {
     return {
         profile: {
-            events: [{event: MILESTONE_REQUEST_GUARANTOR}],
+            events: [{ event: MILESTONE_REQUEST_GUARANTOR }],
             unit: {
                 unit_number: unitNumber,
             },
             last_status_change: {
-                created_at: '2020-05-06 04:06:23'
+                created_at: '2020-05-06 04:06:23',
             },
             primary_applicant: {
                 first_name: 'John',
-                last_name: 'Doe'
-            }
+                last_name: 'Doe',
+            },
         },
         configuration: {
             community: {
                 building_name: buildingName,
                 normalized_street_address: streetAddress,
-            }
+            },
         },
         history: {
-            push: jest.fn()
+            push: jest.fn(),
         },
         applicant: applicant,
-        applicantUpdated: jest.fn()
+        applicantUpdated: jest.fn(),
     };
 };
 
@@ -57,10 +55,8 @@ it('Case Co-applicant', () => {
 
 it('Primary Applicant', () => {
     const primaryApplicant = {
-        client: {
-            person: {
-                name: 'John Doe'
-            },
+        person: {
+            name: 'John Doe',
         },
         role: ROLE_PRIMARY_APPLICANT,
     };
@@ -73,7 +69,9 @@ it('Primary Applicant', () => {
         initialPage: '/guarantor_request',
     };
 
-    const wrapper = shallow(<GuarantorRequested {...defaultProps} applicant={primaryApplicant} isPrimaryApplicant={true} />);
+    const wrapper = shallow(
+        <GuarantorRequested {...defaultProps} applicant={primaryApplicant} isPrimaryApplicant={true} />
+    );
     expect(wrapper.find(ActionButton)).toHaveLength(1);
     wrapper.find(ActionButton).at(0).simulate('click');
     expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.GUARANTOR);
