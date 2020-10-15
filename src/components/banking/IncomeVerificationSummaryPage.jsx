@@ -150,7 +150,9 @@ export function IncomeOrAssetsItem({ source }) {
             <IncomeOrAssetItemWarning source={source} isAsset={isAsset} />
             <div>{getSourceLabel(source)}</div>
             <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
-            <div className={styles.colorManatee}>{`Proof of ${isAsset ? 'asset' : 'income'}: ${getProofString(source)}`}</div>
+            <div className={styles.colorManatee}>
+                {`Proof of ${isAsset ? 'asset' : 'income'}: ${getProofString(source)}`}
+            </div>
             {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
                 <>
                     <Spacer height={10} />
