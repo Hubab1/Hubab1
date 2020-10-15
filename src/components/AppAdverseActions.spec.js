@@ -5,7 +5,6 @@ import { AppAdverseActions } from './AppAdverseActions';
 import API from 'app/api';
 import { act } from 'react-dom/test-utils';
 
-
 let defaultProps;
 
 beforeEach(() => {
@@ -28,7 +27,7 @@ beforeEach(() => {
 
 it('Matches Snapshot without security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -38,7 +37,19 @@ it('Matches Snapshot without security deposit', async () => {
 
 it('Matches Snapshot with security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    const wrapper = mount( <AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} /> );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} />);
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(wrapper.debug()).toMatchSnapshot();
+});
+
+it('Matches Snapshot if it has an international applicant', async () => {
+    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
+    const wrapper = mount(
+        <AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} hasInternationalApplicant={true} />
+    );
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -48,7 +59,7 @@ it('Matches Snapshot with security deposit', async () => {
 
 it('Matches Snapshot when requesting a guarantor', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    const wrapper = mount( <AppAdverseActions {...defaultProps} guarantorRequested={true} /> );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} guarantorRequested={true} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -58,7 +69,7 @@ it('Matches Snapshot when requesting a guarantor', async () => {
 
 it('Do not display adverseFactorsList when no factor and no credit data', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -73,10 +84,12 @@ it('Display adverseFactorsList when Factors', async () => {
         'Insufficient payment activity',
         'Not enough debt experience',
     ];
-    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-        adverse_factors :factors,
-    }));
-    const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    API.getAdverseActions = jest.fn().mockReturnValue(
+        Promise.resolve({
+            adverse_factors: factors,
+        })
+    );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -85,12 +98,14 @@ it('Display adverseFactorsList when Factors', async () => {
 });
 
 it('Display credit data when available', async () => {
-    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-        adverse_factors: [],
-        request_date :'2020-05-07T07:43:58.47',
-        credit_score: '671'
-    }));
-    const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    API.getAdverseActions = jest.fn().mockReturnValue(
+        Promise.resolve({
+            adverse_factors: [],
+            request_date: '2020-05-07T07:43:58.47',
+            credit_score: '671',
+        })
+    );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -99,12 +114,14 @@ it('Display credit data when available', async () => {
 });
 
 it('Display N/A when only credit date is available', async () => {
-    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-        adverse_factors: [],
-        request_date :'2020-05-07T07:43:58.47',
-        credit_score: '671'
-    }));
-    const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+    API.getAdverseActions = jest.fn().mockReturnValue(
+        Promise.resolve({
+            adverse_factors: [],
+            request_date: '2020-05-07T07:43:58.47',
+            credit_score: '671',
+        })
+    );
+    const wrapper = mount(<AppAdverseActions {...defaultProps} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -112,14 +129,16 @@ it('Display N/A when only credit date is available', async () => {
     expect(wrapper.debug()).toMatchSnapshot();
 });
 
-describe('Credit score color', function() {
+describe('Credit score color', function () {
     it('Display color gray when no credit score', async () => {
-        API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-            adverse_factors: [],
-            request_date :'2020-05-07T07:43:58.47',
-            credit_score: null
-        }));
-        const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+        API.getAdverseActions = jest.fn().mockReturnValue(
+            Promise.resolve({
+                adverse_factors: [],
+                request_date: '2020-05-07T07:43:58.47',
+                credit_score: null,
+            })
+        );
+        const wrapper = mount(<AppAdverseActions {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);
             wrapper.update();
@@ -128,12 +147,14 @@ describe('Credit score color', function() {
     });
 
     it('Display color red when bad credit score', async () => {
-        API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-            adverse_factors: [],
-            request_date :'2020-05-07T07:43:58.47',
-            credit_score: 300
-        }));
-        const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+        API.getAdverseActions = jest.fn().mockReturnValue(
+            Promise.resolve({
+                adverse_factors: [],
+                request_date: '2020-05-07T07:43:58.47',
+                credit_score: 300,
+            })
+        );
+        const wrapper = mount(<AppAdverseActions {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);
             wrapper.update();
@@ -142,12 +163,14 @@ describe('Credit score color', function() {
     });
 
     it('Display color yellow when average credit score', async () => {
-        API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-            adverse_factors: [],
-            request_date :'2020-05-07T07:43:58.47',
-            credit_score: 600
-        }));
-        const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+        API.getAdverseActions = jest.fn().mockReturnValue(
+            Promise.resolve({
+                adverse_factors: [],
+                request_date: '2020-05-07T07:43:58.47',
+                credit_score: 600,
+            })
+        );
+        const wrapper = mount(<AppAdverseActions {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);
             wrapper.update();
@@ -156,12 +179,14 @@ describe('Credit score color', function() {
     });
 
     it('Display color green when good credit score', async () => {
-        API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-            adverse_factors: [],
-            request_date :'2020-05-07T07:43:58.47',
-            credit_score: 800
-        }));
-        const wrapper = mount( <AppAdverseActions {...defaultProps}/> );
+        API.getAdverseActions = jest.fn().mockReturnValue(
+            Promise.resolve({
+                adverse_factors: [],
+                request_date: '2020-05-07T07:43:58.47',
+                credit_score: 800,
+            })
+        );
+        const wrapper = mount(<AppAdverseActions {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);
             wrapper.update();
@@ -173,12 +198,14 @@ describe('Credit score color', function() {
         const configuration = {
             credit_score_rating_config: [],
         };
-        API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({
-            adverse_factors: [],
-            request_date :'2020-05-07T07:43:58.47',
-            credit_score: 800
-        }));
-        const wrapper = mount( <AppAdverseActions {...defaultProps} configuration={configuration}/> );
+        API.getAdverseActions = jest.fn().mockReturnValue(
+            Promise.resolve({
+                adverse_factors: [],
+                request_date: '2020-05-07T07:43:58.47',
+                credit_score: 800,
+            })
+        );
+        const wrapper = mount(<AppAdverseActions {...defaultProps} configuration={configuration} />);
         await act(async () => {
             await Promise.resolve(wrapper);
             wrapper.update();

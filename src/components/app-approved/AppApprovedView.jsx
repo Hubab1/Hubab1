@@ -6,7 +6,7 @@ import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
 import Box from '@material-ui/core/Box';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import AppAdverseActions from 'components/AppAdverseActions';
+import { AppAdverseActions } from 'components/AppAdverseActions';
 import React, { useState } from 'react';
 import { MILESTONE_LEASE_SENT, ROLE_OCCUPANT } from 'app/constants';
 import PropTypes from 'prop-types';
@@ -47,7 +47,7 @@ export const securityDepositTip = css`
 `;
 
 export const AppApprovedView = ({ profile, configuration, applicant, setShowPaymentDetails }) => {
-    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
+    let { unit, last_status_change, security_deposit: securityDeposit } = profile;
 
     const [viewAdverseActions, setViewAdverseActions] = useState(false);
 
@@ -70,6 +70,10 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
     } else {
         subtitle = `We'll send an email with instructions on how to sign the lease shortly.`;
     }
+
+    const hasInternationalApplicant = !![profile.primary_applicant || {}, ...(profile.co_applicants || [])].find(
+        (applicant) => applicant.international
+    );
 
     return (
         <>
@@ -131,6 +135,8 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                     name={name}
                     securityDeposit={prettyCurrency(securityDeposit)}
                     onAgree={toggleViewAdverseActions}
+                    hasInternationalApplicant={hasInternationalApplicant}
+                    configuration={configuration}
                 />
             )}
         </>
