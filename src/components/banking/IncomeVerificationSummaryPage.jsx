@@ -182,19 +182,31 @@ export function IncomeVerificationSummaryPage(props) {
     const context = useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = useState(false);
 
-    const showIncompleteFinancialSourcesWarning = useMemo(() => {
-        if (!context.bankingData?.income_sources && !context.bankingData?.asset_sources) {
+    const hasIncompleteIncomeSources = useMemo(() => {
+        if (!context.bankingData?.income_sources) {
             return false;
         }
 
-        const financialSources = [...context.bankingData.income_sources, ...context.bankingData.asset_sources];
-
-        const incompleteFinancialSources = financialSources.filter(
+        const incompleteSources = context.bankingData.income_sources.filter(
             ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
         );
 
-        return incompleteFinancialSources.length > 0;
+        return incompleteSources.length > 0;
     }, [context.bankingData]);
+
+    const hasIncompleteAssetSources = useMemo(() => {
+        if (!context.bankingData?.asset_sources) {
+            return false;
+        }
+
+        const incompleteSources = context.bankingData.asset_sources.filter(
+            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
+        );
+
+        return incompleteSources.length > 0;
+    }, [context.bankingData]);
+
+    const showIncompleteFinancialSourcesWarning = hasIncompleteIncomeSources || hasIncompleteAssetSources;
 
     const setScrollPosition = useCallback(() => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
@@ -303,7 +315,7 @@ export function IncomeVerificationSummaryPage(props) {
                         <ExistingItemsExpansionPanel
                             label="Income Source"
                             labelQuantity={context.bankingData?.income_sources.length}
-                            defaultExpanded={hashValue === 'income'}
+                            defaultExpanded={hashValue === 'income' || hasIncompleteIncomeSources}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
                                 <IncomeOrAssetsItem key={source.id} source={source} />
@@ -334,7 +346,7 @@ export function IncomeVerificationSummaryPage(props) {
                         <ExistingItemsExpansionPanel
                             label="Asset"
                             labelQuantity={context.bankingData?.asset_sources.length}
-                            defaultExpanded={hashValue === 'asset'}
+                            defaultExpanded={hashValue === 'asset' || hasIncompleteAssetSources}
                         >
                             {context.bankingData?.asset_sources?.map((source) => (
                                 <IncomeOrAssetsItem key={source.id} source={source} />

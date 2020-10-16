@@ -92,7 +92,7 @@ exports[`matches snapshot with no financial sources data 1`] = `
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
@@ -240,7 +240,7 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
@@ -388,7 +388,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
@@ -536,7 +536,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
@@ -684,7 +684,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
@@ -832,7 +832,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           </p>
         </div>
         <ExistingItemsExpansionPanel
-          defaultExpanded={false}
+          defaultExpanded={true}
           label="Asset"
           labelQuantity={1}
         >
