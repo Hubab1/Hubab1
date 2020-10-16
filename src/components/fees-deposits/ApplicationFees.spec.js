@@ -26,15 +26,12 @@ beforeEach(() => {
                     },
                 ],
                 application: 16,
-                client: {
-                    person: {
-                        id: 346785,
-                        email: 'slkejhfkajshefjkhek@gm.com',
-                        name: 'Spanky McDanky',
-                        phone_1: '(555) 555-5555',
-                        first_name: 'Spanky',
-                    },
-                    id: 337136,
+                person: {
+                    id: 346785,
+                    email: 'slkejhfkajshefjkhek@gm.com',
+                    name: 'Spanky McDanky',
+                    phone_1: '(555) 555-5555',
+                    first_name: 'Spanky',
                 },
                 address_state: '',
                 address_street: '',
@@ -100,15 +97,12 @@ it('renders does not render radio select when everyone is only the logged in app
                 },
             ],
             application: 16,
-            client: {
-                person: {
-                    id: 346785,
-                    email: 'slkejhfkajshefjkhek@gm.com',
-                    name: 'Spanky McDanky',
-                    phone_1: '(555) 555-5555',
-                    first_name: 'Spanky',
-                },
-                id: 337136,
+            person: {
+                id: 346785,
+                email: 'slkejhfkajshefjkhek@gm.com',
+                name: 'Spanky McDanky',
+                phone_1: '(555) 555-5555',
+                first_name: 'Spanky',
             },
             address_state: '',
             address_street: '',
@@ -137,7 +131,6 @@ it('renders row with radio select, but no other Applicants when self is selected
 it('renders EveryoneRows with full names', () => {
     const wrapper = shallow(<ApplicationFees {...defaultProps} />);
 
-    expect(wrapper.find(EveryoneRow).first().props().person.client.person.name).toEqual('Spanky McDanky');
     expect(wrapper.find(EveryoneRow).at(1).props().person.first_name).toEqual('kreebs');
     expect(wrapper.find(EveryoneRow).at(2).props().person.first_name).toEqual('jerry');
     expect(wrapper.find(EveryoneRow).last().props().person.first_name).toEqual('elvish');

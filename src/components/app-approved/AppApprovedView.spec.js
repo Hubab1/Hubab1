@@ -1,25 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AppApproved } from './AppApproved';
+import { ROLE_OCCUPANT } from 'app/constants';
+import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
-
-var mockhsclient;
-jest.mock('utils/hsclient', () => {
-    class HSclient {
-        events = {};
-        open = () => {};
-        on = (name, cb) => {
-            this.events[name] = cb;
-        };
-        _trigger = (name) => {
-            this.events[name]();
-        };
-    }
-
-    mockhsclient = new HSclient();
-    return mockhsclient;
-});
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
@@ -38,37 +22,21 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
                 normalized_street_address: streetAddress,
             },
         },
-        history: {
-            push: jest.fn(),
-        },
         applicant: {
-            client: {
-                person: {
-                    name: 'John Doe',
-                },
+            person: {
+                name: 'John Doe',
             },
         },
-        applicantUpdated: jest.fn(),
+        setShowPaymentDetails: jest.fn(),
     };
 };
 
 it('displays some legal words about the lease', () => {
     const props = buildProps('Fake Building', '123 Fake Street', null);
-    API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test', test_mode: true });
+    API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test' });
     API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.text()).toContain('The lease linked below constitutes a legal agreement between you and Landlord');
-});
-
-describe('hellosign modal', () => {
-    it('fetches embedded signing url before opening', () => {
-        const props = buildProps('Fake Building', '123 Fake Street', null);
-        API.embeddedSigningUrl = jest.fn().mockReturnValue({ url: 'test', test_mode: true });
-        API.fetchApplicant = jest.fn().mockReturnValue({ events: [] });
-        const wrapper = shallow(<AppApproved {...props} />);
-        wrapper.find(ActionButton).simulate('click');
-        expect(API.embeddedSigningUrl).toHaveBeenCalled();
-    });
 });
 
 describe('application unit', () => {
@@ -76,7 +44,7 @@ describe('application unit', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
         props.unit = null;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
@@ -84,7 +52,7 @@ describe('application unit', () => {
     it('displays building name without unit when no unit number', () => {
         const props = buildProps('Fake Building', '123 Fake Street', null);
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building');
     });
@@ -92,7 +60,7 @@ describe('application unit', () => {
     it('displays building name with unit when has unit number', () => {
         const props = buildProps('Fake Building', '123 Fake Street', '7F');
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('Fake Building Unit 7F');
     });
@@ -100,7 +68,7 @@ describe('application unit', () => {
     it('displays normalized street address and unit number when no building name', () => {
         const props = buildProps(null, '123 Fake Street', '7F');
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('#application-unit').text()).toEqual('123 Fake Street Unit 7F');
     });
@@ -111,7 +79,7 @@ describe('Lease not sent', () => {
         const props = buildProps();
         props.profile.events = [];
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
         expect(wrapper.text()).toContain('email with instructions on how to sign the lease');
         expect(wrapper.find(ActionButton)).toHaveLength(0);
     });
@@ -123,7 +91,7 @@ describe('security deposit message', () => {
         props.profile.security_deposit = 123.45;
         props.profile.security_deposit_multiplier = 1.5;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('.security-deposit-container')).toHaveLength(1);
     });
@@ -133,23 +101,53 @@ describe('security deposit message', () => {
         props.profile.security_deposit = null;
         props.profile.security_deposit_multiplier = null;
 
-        const wrapper = shallow(<AppApproved {...props} />);
+        const wrapper = shallow(<AppApprovedView {...props} />);
 
         expect(wrapper.find('.security-deposit-container')).toHaveLength(0);
     });
 });
 
-it('matches snapshot whithout security deposit', () => {
+describe('approved occupants', () => {
+    it('should show the approved message and no action button when lease not ready', () => {
+        const props = buildProps();
+        props.applicant.role = ROLE_OCCUPANT;
+        props.profile.events = [];
+
+        const wrapper = shallow(<AppApprovedView {...props} />);
+        expect(wrapper.text()).toContain(`We'll let you know when everything has been finalized.`);
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
+    });
+
+    it('should show the approved message and no action button when lease ready', () => {
+        const props = buildProps();
+        props.applicant.role = ROLE_OCCUPANT;
+
+        const wrapper = shallow(<AppApprovedView {...props} />);
+        expect(wrapper.text()).toContain(`We'll let you know when everything has been finalized.`);
+        expect(wrapper.find(ActionButton)).toHaveLength(0);
+    });
+});
+
+it('matches snapshot without security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = null;
     props.profile.security_deposit_multiplier = null;
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('matches snapshot with security deposit', () => {
     const props = buildProps();
     props.profile.security_deposit = 123.45;
-    const wrapper = shallow(<AppApproved {...props} />);
+    const wrapper = shallow(<AppApprovedView {...props} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with occupant', () => {
+    const props = buildProps();
+    props.profile.security_deposit = null;
+    props.profile.security_deposit_multiplier = null;
+    props.applicant.role = ROLE_OCCUPANT;
+    const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });

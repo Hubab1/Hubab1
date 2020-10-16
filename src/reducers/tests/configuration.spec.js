@@ -49,6 +49,27 @@ describe('fetchConfiguration', () => {
         });
     });
 
+    it('should not include attributes with empty objects', () => {
+        const store = mockStore({ configuration: {} });
+        const configData = { community: 'coolsville', emptyObjet: {}, enable_automatic_income_verification: true };
+        const personalData = { person: { first_name: 'Fred', last_name: 'Sample' }, emptyObjet: {} };
+        const combinedData = {
+            community: 'coolsville',
+            person: { first_name: 'Fred', last_name: 'Sample' },
+            enable_automatic_income_verification: true,
+        };
+
+        API.fetchConfiguration = jest.fn().mockReturnValue(Promise.resolve(configData));
+        API.fetchPersonalizedInfo = jest.fn().mockReturnValue(Promise.resolve(personalData));
+
+        const communityId = '1';
+        const hash = { client: 123 };
+
+        return store.dispatch(fetchConfiguration(communityId, hash)).then(() => {
+            expect(store.getActions()).toEqual([configurationReceived(combinedData)]);
+        });
+    });
+
     it('should dispatch configurationDoesNotExist if fetchConfiguration returns an error_type DoesNotExist', () => {
         const store = mockStore({ configuration: null });
         const configData = { error_type: DOES_NOT_EXIST };

@@ -6,12 +6,15 @@ export function PaymentDetailRows({ paymentObject, paymentType }) {
     const rows = paymentObject.items.map((item) => (
         <PaymentDetailRow
             key={`${item.name}-${paymentType}`}
+            className={styles.paymentDetailRow}
             name={item.name}
             paymentTotal={item.amount}
             quantity={item.quantity}
             price={item.price}
             included={item.included}
-            className={styles.paymentDetailRow}
+            perDay={item.per_day}
+            prorated={item.prorated}
+            days={item.days}
         />
     ));
 
@@ -32,12 +35,22 @@ PaymentDetailRows.propTypes = {
     paymentType: PropTypes.string.isRequired,
 };
 
-export const PaymentDetailRow = ({ name, paymentTotal, quantity = 1, price, included = 0, className }) => {
+export const PaymentDetailRow = ({
+    name,
+    paymentTotal,
+    quantity = 1,
+    price,
+    included = 0,
+    className,
+    prorated,
+    days,
+    perDay,
+}) => {
     if (!quantity) return null;
 
     return (
         <div className={className}>
-            <div>{getRentalOptionFeeDisplayName(name, price, quantity, included)}</div>
+            <div>{getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay)}</div>
             <div>${paymentTotal}</div>
         </div>
     );
@@ -50,10 +63,13 @@ PaymentDetailRow.propTypes = {
     quantity: PropTypes.number,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     included: PropTypes.number,
+    prorated: PropTypes.bool,
+    days: PropTypes.number,
+    perDay: PropTypes.string,
 };
 
 // This should match the logic in chuck
-export function getRentalOptionFeeDisplayName(name, price, quantity = 1, included = 0) {
+export function getRentalOptionFeeDisplayName(name, price, quantity = 1, included = 0, prorated, days, perDay) {
     if (quantity < 1) return null;
 
     const feesBreakdown = [];
@@ -63,11 +79,15 @@ export function getRentalOptionFeeDisplayName(name, price, quantity = 1, include
     }
 
     const num_charged = quantity > included ? quantity - included : 0;
-    if (num_charged > 0 && quantity > 1) {
+    if (num_charged > 0 && quantity > 1 && !prorated) {
         feesBreakdown.push(`${num_charged} x $${price}`);
     }
 
     let displayName = `${name}`;
+
+    if (prorated && num_charged > 0 && quantity > 0) {
+        displayName += `: ${days} days at $${perDay}/day`;
+    }
 
     if (feesBreakdown.length > 0) {
         displayName += ` (${feesBreakdown.join(', ')})`;

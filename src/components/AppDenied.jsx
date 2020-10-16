@@ -18,11 +18,11 @@ export const Img = styled.img`
 `;
 
 export const applicationUnit = css`
-  color: #454B57;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  padding-top: 10px;
+    color: #454b57;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    padding-top: 10px;
 `;
 
 export class AppDenied extends React.Component {
@@ -31,37 +31,36 @@ export class AppDenied extends React.Component {
     };
 
     toggleViewDenialDecision = () => {
-        this.setState({viewDenialReason: !this.state.viewDenialReason});
+        this.setState({ viewDenialReason: !this.state.viewDenialReason });
     };
 
-    render () {
+    render() {
         const { profile, configuration, applicant } = this.props;
         if (!profile || !configuration || !applicant) return null;
 
         const { viewDenialReason } = this.state;
-        const {
-            unit,
-            last_status_change,
-        } = profile;
+        const { unit, last_status_change } = profile;
 
         const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-        const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
+        const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
         const denialDecisionDate = last_status_change.created_at;
-        const { name } = applicant.client.person;
+        const { name } = applicant.person;
 
         return (
             <>
-                <div className={clsx({'hide-element': viewDenialReason})}>
+                <div className={clsx({ 'hide-element': viewDenialReason })}>
                     <H1>Application Denied</H1>
                     <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
-                    <Img src={cry}/>
-                    <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
-                    <ActionButton
-                        marginTop={150}
-                        onClick={this.toggleViewDenialDecision}
-                    >Learn Why</ActionButton>
+                    <Img src={cry} />
+                    <div id="application-unit" className={applicationUnit}>
+                        {buildingName}
+                        {unitNumber}
+                    </div>
+                    <ActionButton marginTop={150} onClick={this.toggleViewDenialDecision}>
+                        Learn Why
+                    </ActionButton>
                 </div>
-                {viewDenialReason &&
+                {viewDenialReason && (
                     <AppAdverseActions
                         date={denialDecisionDate}
                         buildingName={buildingName}
@@ -69,7 +68,7 @@ export class AppDenied extends React.Component {
                         name={name}
                         onAgree={this.toggleViewDenialDecision}
                     />
-                }
+                )}
             </>
         );
     }
@@ -81,8 +80,7 @@ AppDenied.propTypes = {
     applicant: PropTypes.object,
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
     applicant: state.applicant,
