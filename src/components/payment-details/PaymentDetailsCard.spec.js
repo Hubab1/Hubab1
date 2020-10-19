@@ -32,9 +32,32 @@ describe('PaymentDetails', () => {
         };
     });
 
-    it('matches snapshot', () => {
+    it('matches snapshot without savings', () => {
         const wrapper = shallow(<PaymentDetailsCard {...defaultProps} />);
         expect(wrapper.getElement()).toMatchSnapshot();
         expect(wrapper.find(PaymentItemsExpansionPanel)).toHaveLength(3);
+    });
+
+    it('matches snapshot with savings', () => {
+        const props = defaultProps;
+        props.profile.fees_breakdown.savings = {
+            items: [
+                {
+                    name: 'Rental fee waiver',
+                    amount: '2,500',
+                    price: '250',
+                    months: '10',
+                },
+                {
+                    name: 'Security deposit waiver',
+                    amount: '250',
+                    price: '250',
+                },
+            ],
+            total: '2,500',
+        };
+        const wrapper = shallow(<PaymentDetailsCard {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+        expect(wrapper.find(PaymentItemsExpansionPanel)).toHaveLength(4);
     });
 });

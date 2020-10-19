@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentDetailSavingsRow should render as expected with price per month 1`] = `
+<div>
+  <div>
+    Rental fee waiver
+    : 10 months at $250/month
+  </div>
+  <div>
+    $
+    2,500
+  </div>
+</div>
+`;
+
+exports[`PaymentDetailSavingsRow should render as expected without price per month 1`] = `
+<div>
+  <div>
+    Security deposit waiver
+  </div>
+  <div>
+    $
+    2,200
+  </div>
+</div>
+`;

@@ -80,3 +80,192 @@ exports[`PaymentDetails matches snapshot 1`] = `
   </PaymentItemsExpansionPanel>
 </ForwardRef(render)>
 `;
+
+exports[`PaymentDetails matches snapshot with savings 1`] = `
+<ForwardRef(render)>
+  <div
+    className="css-1umq6o3"
+  >
+    <div
+      className="css-vutzwz"
+    >
+      <img
+        alt="coin"
+        src="lightbulb.png"
+      />
+    </div>
+    <div
+      className="css-1s5wtrg"
+    >
+      <div
+        className="css-eizsos"
+      >
+        Payment breakdown
+      </div>
+      <div>
+        Move in date: 
+        12/15/2020
+      </div>
+      <div>
+        Lease term: 
+        12
+         months
+      </div>
+    </div>
+  </div>
+  <PaymentItemsExpansionPanel
+    amount="620"
+    defaultExpanded={false}
+    isPaid={true}
+    label="due at application"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "620",
+        }
+      }
+      paymentType="application"
+    />
+  </PaymentItemsExpansionPanel>
+  <PaymentItemsExpansionPanel
+    amount="0"
+    defaultExpanded={false}
+    label="due at move in"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "0",
+        }
+      }
+      paymentType="move_in"
+    />
+  </PaymentItemsExpansionPanel>
+  <PaymentItemsExpansionPanel
+    amount="1234"
+    defaultExpanded={false}
+    label="monthly rent"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "1234",
+        }
+      }
+      paymentType="monthly_fees"
+    />
+  </PaymentItemsExpansionPanel>
+  <PaymentItemsExpansionPanel
+    amount="2,500"
+    defaultExpanded={false}
+    label="savings"
+  >
+    <PaymentDetailSavingsRows
+      paymentObject={
+        Object {
+          "items": Array [
+            Object {
+              "amount": "2,500",
+              "months": "10",
+              "name": "Rental fee waiver",
+              "price": "250",
+            },
+            Object {
+              "amount": "250",
+              "name": "Security deposit waiver",
+              "price": "250",
+            },
+          ],
+          "total": "2,500",
+        }
+      }
+      paymentType="savings"
+    />
+  </PaymentItemsExpansionPanel>
+</ForwardRef(render)>
+`;
+
+exports[`PaymentDetails matches snapshot without savings 1`] = `
+<ForwardRef(render)>
+  <div
+    className="css-1umq6o3"
+  >
+    <div
+      className="css-vutzwz"
+    >
+      <img
+        alt="coin"
+        src="lightbulb.png"
+      />
+    </div>
+    <div
+      className="css-1s5wtrg"
+    >
+      <div
+        className="css-eizsos"
+      >
+        Payment breakdown
+      </div>
+      <div>
+        Move in date: 
+        12/15/2020
+      </div>
+      <div>
+        Lease term: 
+        12
+         months
+      </div>
+    </div>
+  </div>
+  <PaymentItemsExpansionPanel
+    amount="620"
+    defaultExpanded={false}
+    isPaid={true}
+    label="due at application"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "620",
+        }
+      }
+      paymentType="application"
+    />
+  </PaymentItemsExpansionPanel>
+  <PaymentItemsExpansionPanel
+    amount="0"
+    defaultExpanded={false}
+    label="due at move in"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "0",
+        }
+      }
+      paymentType="move_in"
+    />
+  </PaymentItemsExpansionPanel>
+  <PaymentItemsExpansionPanel
+    amount="1234"
+    defaultExpanded={false}
+    label="monthly rent"
+  >
+    <PaymentDetailRows
+      paymentObject={
+        Object {
+          "items": Array [],
+          "total": "1234",
+        }
+      }
+      paymentType="monthly_fees"
+    />
+  </PaymentItemsExpansionPanel>
+</ForwardRef(render)>
+`;
