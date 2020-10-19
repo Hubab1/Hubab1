@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import { BackLink } from 'components/common/BackLink';
-import { H1, H3, Spacer } from 'assets/styles';
-import finance from 'assets/images/finance.png';
 import captureRoute from 'app/captureRoute';
-import { ROUTES, FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
 import API from 'app/api';
+import {
+    ROUTES,
+    FINANCIAL_STREAM_INCOME,
+    FINANCIAL_STREAM_ASSET,
+    FINANCIAL_STREAM_STATUS_PENDING,
+} from 'app/constants';
+import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
-import PropTypes from 'prop-types';
+import { H1, H3, Spacer } from 'assets/styles';
+import finance from 'assets/images/finance.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -21,8 +27,18 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-export class EditFinancialSource extends React.Component {
+export class EditFinancialSource extends Component {
     state = { errorSubmitting: false, financialSource: null };
+
+    async componentDidMount() {
+        this.fetchFinancialSource();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.fetchFinancialSource();
+        }
+    }
 
     get initialValues() {
         const financialSource = this.state.financialSource;
@@ -44,9 +60,13 @@ export class EditFinancialSource extends React.Component {
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
+        formData.append('adjusted_amount', 0);
+        formData.append('status', FINANCIAL_STREAM_STATUS_PENDING);
+
         if (values.other != null) {
             formData.append('other', values.other);
         }
+
         if (values.uploadedDocuments) {
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
@@ -58,19 +78,19 @@ export class EditFinancialSource extends React.Component {
                 });
             }
         }
+
         try {
             await API.updateFinancialSource(this.props.match.params.id, formData);
+            // eslint-disable-next-line
+            this.context.refreshFinancialSources?.();
+            this.props.history.push(this.returnLink);
         } catch (e) {
-            return;
+            this.setState({ errorSubmitting: true });
+        } finally {
+            setSubmitting(false);
         }
-        // eslint-disable-next-line
-        this.context.refreshFinancialSources?.();
-        setSubmitting(false);
-        this.props.history.push(this.returnLink);
     };
-    async componentDidMount() {
-        this.fetchFinancialSource();
-    }
+
     async fetchFinancialSource() {
         let data;
         try {
@@ -79,11 +99,6 @@ export class EditFinancialSource extends React.Component {
             return;
         }
         this.setState({ financialSource: data });
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.fetchFinancialSource();
-        }
     }
 
     get isAsset() {
@@ -98,10 +113,13 @@ export class EditFinancialSource extends React.Component {
         const financialSource = this.state.financialSource;
         if (!financialSource) return null;
         const isAsset = financialSource.stream_type === FINANCIAL_STREAM_ASSET;
+        const warning = getIncompleteFinancialSourceWarning(financialSource, isAsset);
+
         return (
             <>
                 <SkinnyH1>Add an {isAsset ? 'Asset' : 'Income Source'}</SkinnyH1>
                 <SpacedH3>Fill in the details below to add your {isAsset ? 'asset' : 'income source'}.</SpacedH3>
+                {warning && <GenericFormMessage type="error" messages={[warning]} />}
                 {this.state.errorSubmitting && (
                     <GenericFormMessage
                         type="error"

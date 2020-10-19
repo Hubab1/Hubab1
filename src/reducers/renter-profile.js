@@ -9,9 +9,10 @@ import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
     APPLICATION_EVENTS,
+    APPLICATION_STATUSES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
-    APPLICATION_STATUSES,
+    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -208,6 +209,10 @@ selectors.selectInitialPage = createSelector(
 
             if (profile.unit_available === false) {
                 return ROUTES.UNIT_UNAVAILABLE;
+            }
+
+            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED)) {
+                return ROUTES.INCOME_AND_EMPLOYMENT;
             }
 
             if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
