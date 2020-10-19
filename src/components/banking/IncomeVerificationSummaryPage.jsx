@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
+import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
+import ErrorIcon from '@material-ui/icons/Error';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import Capsule from 'components/common/Capsule/Capsule';
-import { H1, H3 } from 'assets/styles';
-import finance from 'assets/images/finance.png';
-import piggyBank from 'assets/images/piggy-bank.png';
-import { ROUTES, ROLE_GUARANTOR, INCOME_TYPE_FINICITY_AUTOMATED } from 'app/constants';
-import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
-import { styles, Spacer, infoIconRoot } from 'assets/styles';
-import BankingContext from './BankingContext';
-import { ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
+import {
+    ROUTES,
+    ROLE_GUARANTOR,
+    INCOME_TYPE_FINICITY_AUTOMATED,
+    ALL_INCOME_OR_ASSET_TYPES,
+    FINANCIAL_STREAM_STATUS_INCOMPLETE,
+    FINANCIAL_STREAM_ASSET,
+} from 'app/constants';
 import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
-import Info from '@material-ui/icons/Info';
-import { Link } from 'react-router-dom';
 import ResetApplicantFinancials from './ResetApplicantFinancials';
-import { Typography } from '@material-ui/core';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import Capsule from 'components/common/Capsule/Capsule';
+import ExistingItemsExpansionPanel from 'components/profile/options/ExistingItemsExpansionPanel';
+import BankingContext from './BankingContext';
 import BackLink from 'components/common/BackLink';
+import GenericFormMessage from 'components/common/GenericFormMessage';
+import { H1, H3 } from 'assets/styles';
+import { styles, Spacer, infoIconRoot } from 'assets/styles';
+import finance from 'assets/images/finance.png';
+import piggyBank from 'assets/images/piggy-bank.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -52,78 +60,72 @@ const totalsP = css`
     font-size: 14px;
 `;
 
-export function IncomeVerificationSummaryPage(props) {
-    const context = React.useContext(BankingContext);
-    const [showResetFinancials, setShowResetFinancials] = React.useState(false);
+const incomeOrAssetItemWarning = css`
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
 
-    const setScrollPosition = () => {
-        // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
-        window.location.hash = window.decodeURIComponent(window.location.hash);
-        const scrollToAnchor = () => {
-            const hashParts = window.location.hash.split('#');
-            if (hashParts.length > 1) {
-                const hash = hashParts[1];
-                const hashElement = document.querySelector(`#${hash}`);
-                if (!!hashElement) {
-                    hashElement.scrollIntoView();
-                }
-            }
-        };
-        scrollToAnchor();
-        window.onhashchange = scrollToAnchor;
-    };
+    svg {
+        color: #fb6d68;
+        margin-right: 10px;
+    }
 
-    React.useEffect(() => {
-        setScrollPosition();
-    }, []);
+    span {
+        font-size: 12px;
+        color: #fb6d68;
+    }
+`;
 
-    const hashValue = props.location?.hash?.substring?.(1) ?? '';
+export const getIncompleteFinancialSourceWarning = (source, isAsset) => {
+    const { adjusted_amount, status } = source;
+    const isIncomplete = status === FINANCIAL_STREAM_STATUS_INCOMPLETE;
 
-    const getSourceLabel = (source) => {
+    if (!isIncomplete) return null;
+
+    let warning;
+    if (adjusted_amount) {
+        if (isAsset) {
+            warning = `The documents for this asset source show a value of ${prettyCurrency(adjusted_amount)}.`;
+        } else {
+            warning = `The documents for this income source show earnings of ${prettyCurrency(adjusted_amount)}/year.`;
+        }
+    } else {
+        warning = `This ${
+            isAsset ? 'asset' : 'income'
+        } source has been marked as having incorrect or insufficient documents.`;
+    }
+
+    return warning;
+};
+
+export function IncomeOrAssetItemWarning({ source, isAsset }) {
+    const warning = getIncompleteFinancialSourceWarning(source, isAsset);
+    if (!warning) return null;
+
+    return (
+        <div className={incomeOrAssetItemWarning}>
+            <ErrorIcon />
+            <span>{warning}</span>
+        </div>
+    );
+}
+
+IncomeOrAssetItemWarning.propTypes = {
+    source: PropTypes.object.isRequired,
+    isAsset: PropTypes.bool.isRequired,
+};
+
+export function IncomeOrAssetsItem({ source }) {
+    const isAsset = source.stream_type === FINANCIAL_STREAM_ASSET;
+
+    const getSourceLabel = useCallback((source) => {
         if (source.finicity_income_stream_id && source.other) {
             return source.other;
         }
         return ALL_INCOME_OR_ASSET_TYPES[source.income_or_asset_type]?.label;
-    };
+    }, []);
 
-    const getIncomeRequirementText = (config, profile, applicant) => {
-        if (!profile || !applicant || !config) return <div />;
-
-        const { guarantor_income_requirement_multiplier, applicant_income_requirements } = config;
-
-        const guarantor_income_amount = guarantor_income_requirement_multiplier * profile.unit.price;
-        const applicant_income_amount = applicant_income_requirements * profile.unit.price;
-
-        if (applicant.role === ROLE_GUARANTOR) {
-            return (
-                <p className={totalsP}>
-                    {prettyCurrency(guarantor_income_amount)} is the required income for guarantors.
-                    {
-                        <SimplePopover
-                            text={`The required income for a guarantor is ${guarantor_income_requirement_multiplier}x the monthly rent`}
-                        >
-                            <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
-                        </SimplePopover>
-                    }
-                </p>
-            );
-        } else {
-            return (
-                <p className={totalsP}>
-                    {prettyCurrency(applicant_income_amount)} is the recommended household income.
-                    {
-                        <SimplePopover
-                            text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}
-                        >
-                            <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
-                        </SimplePopover>
-                    }
-                </p>
-            );
-        }
-    };
-
-    function getProofString(source) {
+    const getProofString = useCallback((source) => {
         if (source.income_or_asset_type === INCOME_TYPE_FINICITY_AUTOMATED) {
             return 'Linked bank account';
         }
@@ -141,11 +143,133 @@ export function IncomeVerificationSummaryPage(props) {
         const proofs = Array.from(typesSet).join(', ');
         if (!proofs) return 'None';
         return proofs;
-    }
+    }, []);
 
-    const onContinue = async () => {
+    return (
+        <div>
+            <IncomeOrAssetItemWarning source={source} isAsset={isAsset} />
+            <div>{getSourceLabel(source)}</div>
+            <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
+            <div className={styles.colorManatee}>
+                {`Proof of ${isAsset ? 'asset' : 'income'}: ${getProofString(source)}`}
+            </div>
+            {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
+                <>
+                    <Spacer height={10} />
+                    <Link
+                        style={linkStyle}
+                        to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                            id: source.id,
+                        })}
+                    >
+                        Edit
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}>
+                        Remove
+                    </Link>
+                </>
+            )}
+        </div>
+    );
+}
+
+IncomeOrAssetsItem.propTypes = {
+    source: PropTypes.object.isRequired,
+};
+
+export function IncomeVerificationSummaryPage(props) {
+    const context = useContext(BankingContext);
+    const [showResetFinancials, setShowResetFinancials] = useState(false);
+
+    const hasIncompleteIncomeSources = useMemo(() => {
+        if (!context.bankingData?.income_sources) {
+            return false;
+        }
+
+        const incompleteSources = context.bankingData.income_sources.filter(
+            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
+        );
+
+        return incompleteSources.length > 0;
+    }, [context.bankingData]);
+
+    const hasIncompleteAssetSources = useMemo(() => {
+        if (!context.bankingData?.asset_sources) {
+            return false;
+        }
+
+        const incompleteSources = context.bankingData.asset_sources.filter(
+            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
+        );
+
+        return incompleteSources.length > 0;
+    }, [context.bankingData]);
+
+    const showIncompleteFinancialSourcesWarning = hasIncompleteIncomeSources || hasIncompleteAssetSources;
+
+    const setScrollPosition = useCallback(() => {
+        // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
+        window.location.hash = window.decodeURIComponent(window.location.hash);
+        const scrollToAnchor = () => {
+            const hashParts = window.location.hash.split('#');
+            if (hashParts.length > 1) {
+                const hash = hashParts[1];
+                const hashElement = document.querySelector(`#${hash}`);
+                if (!!hashElement) {
+                    hashElement.scrollIntoView();
+                }
+            }
+        };
+        scrollToAnchor();
+        window.onhashchange = scrollToAnchor;
+    }, []);
+
+    useEffect(() => {
+        setScrollPosition();
+    }, [setScrollPosition]);
+
+    const hashValue = props.location?.hash?.substring?.(1) ?? '';
+
+    const getIncomeRequirementText = useCallback((config, profile, applicant) => {
+        if (!profile || !applicant || !config) return <div />;
+
+        const { guarantor_income_requirement_multiplier, applicant_income_requirements } = config;
+
+        const guarantor_income_amount = guarantor_income_requirement_multiplier * profile.unit.price;
+        const applicant_income_amount = applicant_income_requirements * profile.unit.price;
+
+        if (applicant.role === ROLE_GUARANTOR) {
+            return (
+                <p className={totalsP}>
+                    {prettyCurrency(guarantor_income_amount)} is the required income for guarantors.
+                    {
+                        <SimplePopover
+                            text={`The required income for a guarantor is ${guarantor_income_requirement_multiplier}x the monthly rent`}
+                        >
+                            <InfoIcon classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                        </SimplePopover>
+                    }
+                </p>
+            );
+        }
+
+        return (
+            <p className={totalsP}>
+                {prettyCurrency(applicant_income_amount)} is the recommended household income.
+                <SimplePopover
+                    text={`It’s recommended that the yearly combined income of all applicants be ${applicant_income_requirements}x the monthly rent.`}
+                >
+                    <InfoIcon classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                </SimplePopover>
+            </p>
+        );
+    }, []);
+
+    const onContinue = useCallback(() => {
         context._nextRoute();
-    };
+    }, [context]);
+
     const hasNotAddedFinancialSources =
         !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
 
@@ -160,16 +284,23 @@ export function IncomeVerificationSummaryPage(props) {
             />
         );
     }
+
     return (
         <>
             <SkinnyH1>Income and Asset Verification</SkinnyH1>
             <SpacedH3>Add at least one income source or asset below.</SpacedH3>
+            {showIncompleteFinancialSourcesWarning && (
+                <GenericFormMessage
+                    type="error"
+                    messages={['Oops! We found some issues with one or more of your income/assets sources.']}
+                />
+            )}
             <Capsule
                 name="income"
-                prefix={<img alt="coin" src={finance}></img>}
+                prefix={<img alt="coin" src={finance} />}
                 label="Income"
                 buttonLabel="Add an Income Source"
-                tip="Money received on a regular basis, such as a paycheck from an employer or disability from the government."
+                tip="TBD"
                 route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
                 expansionPanel={
                     <>
@@ -184,36 +315,10 @@ export function IncomeVerificationSummaryPage(props) {
                         <ExistingItemsExpansionPanel
                             label="Income Source"
                             labelQuantity={context.bankingData?.income_sources.length}
-                            defaultExpanded={hashValue === 'income'}
+                            defaultExpanded={hashValue === 'income' || hasIncompleteIncomeSources}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
-                                <div key={source.id}>
-                                    <div>{getSourceLabel(source)}</div>
-                                    <div className={styles.colorManatee}>
-                                        {prettyCurrency(source.estimated_amount)}/year
-                                    </div>
-                                    <div className={styles.colorManatee}>Proof of income: {getProofString(source)}</div>
-                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                        <>
-                                            <Spacer height={10} />
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                                    id: source.id,
-                                                })}
-                                            >
-                                                Edit
-                                            </Link>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
-                                            >
-                                                Remove
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
+                                <IncomeOrAssetsItem key={source.id} source={source} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
@@ -224,7 +329,7 @@ export function IncomeVerificationSummaryPage(props) {
                 prefix={<img alt="piggy bank" src={piggyBank} />}
                 label="Assets"
                 buttonLabel="Add an Asset"
-                tip="Cash that is readily available, such as a checking or savings account, or something that can be easily converted to cash, such as money market funds."
+                tip="TBD"
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={
                     <>
@@ -241,34 +346,10 @@ export function IncomeVerificationSummaryPage(props) {
                         <ExistingItemsExpansionPanel
                             label="Asset"
                             labelQuantity={context.bankingData?.asset_sources.length}
-                            defaultExpanded={hashValue === 'asset'}
+                            defaultExpanded={hashValue === 'asset' || hasIncompleteAssetSources}
                         >
                             {context.bankingData?.asset_sources?.map((source) => (
-                                <div key={source.id}>
-                                    <div>{getSourceLabel(source)}</div>
-                                    <div className={styles.colorManatee}>{prettyCurrency(source.estimated_amount)}</div>
-                                    <div className={styles.colorManatee}>Proof of asset: {getProofString(source)}</div>
-                                    {source.income_or_asset_type !== INCOME_TYPE_FINICITY_AUTOMATED && (
-                                        <>
-                                            <Spacer height={10} />
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
-                                                    id: source.id,
-                                                })}
-                                            >
-                                                Edit
-                                            </Link>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <Link
-                                                style={linkStyle}
-                                                to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}
-                                            >
-                                                Remove
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
+                                <IncomeOrAssetsItem key={source.id} source={source} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
