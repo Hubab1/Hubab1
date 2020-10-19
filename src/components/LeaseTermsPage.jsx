@@ -3,16 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import { css } from 'emotion';
 import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { format, isValid, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
@@ -21,9 +16,10 @@ import rent from 'assets/images/rent.png';
 import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
+import AvailableLeaseTermsSelector from 'components/common/AvailableLeaseTermsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
-import { offsetDate, parseDateISOString, serializeDate } from 'utils/misc';
+import { parseDateISOString, serializeDate } from 'utils/misc';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 
 const ImageContainer = styled.div`
@@ -58,9 +54,8 @@ function getMinLeaseStartDate(unit) {
     }
 }
 
-export const leaseTermsValidationSchema = Yup.object().test(
-    'is-unit-available-for-date', 'An error has occurred',
-    function(values) {
+export const leaseTermsValidationSchema = Yup.object()
+    .test('is-unit-available-for-date', 'An error has occurred', function (values) {
         const { createError } = this;
         const { unit, lease_start_date } = values;
 
@@ -74,20 +69,20 @@ export const leaseTermsValidationSchema = Yup.object().test(
             const unitNumber = unit ? unit.unit_number : '';
             return createError({
                 path: 'lease_start_date',
-                message: `Oops! Unit ${ unitNumber } isn’t available until ${ format(min_available, 'M/d/yy') }`,
+                message: `Oops! Unit ${unitNumber} isn’t available until ${format(min_available, 'M/d/yy')}`,
             });
         }
 
         return true;
-    }
-).shape({
-    lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
-    unit: Yup.object().nullable().required('Select a Unit'),
-    lease_term: Yup.number().nullable().required('Select a Lease Term'),
-});
+    })
+    .shape({
+        lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
+        unit: Yup.object().nullable().required('Select a Unit'),
+        lease_term: Yup.number().nullable().required('Select a Lease Term'),
+    });
 
 export class LeaseTermsPage extends React.Component {
-    state = {confirmSent: false, errors: null};
+    state = { confirmSent: false, errors: null };
 
     onSubmit = async (values, { setSubmitting, setErrors }) => {
         const stateUpdate = Object.assign({}, values);
@@ -106,13 +101,13 @@ export class LeaseTermsPage extends React.Component {
                 this.props._nextRoute();
             }
         } catch {
-            this.setState({hasError: true});
+            this.setState({ hasError: true });
         } finally {
             setSubmitting(false);
         }
     };
 
-    initialValues () {
+    initialValues() {
         const application = this.props.application;
         let lease_start_date = application.lease_start_date;
         if (lease_start_date) {
@@ -121,24 +116,11 @@ export class LeaseTermsPage extends React.Component {
         return {
             lease_start_date,
             lease_term: application.lease_term || '',
-            unit: application.unit
+            unit: application.unit,
         };
     }
 
-    getLeaseEndDateText = (lease_start_date, lease_term) => {
-        // TODO: Need to validate that the entered start date is correct
-        if (!lease_start_date || !lease_term) {
-            return '';
-        }
-
-        if (!isValid(lease_start_date)) {
-            return '';
-        }
-
-        return `Ends ${offsetDate(lease_start_date, lease_term)}`;
-    };
-
-    render () {
+    render() {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
         return (
@@ -149,11 +131,13 @@ export class LeaseTermsPage extends React.Component {
                 {this.state.hasError && (
                     <GenericFormMessage
                         type="error"
-                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${prettyFormatPhoneNumber(this.props.config.community.contact_phone)} if this still isn’t working in a bit.`}
+                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${prettyFormatPhoneNumber(
+                            this.props.config.community.contact_phone
+                        )} if this still isn’t working in a bit.`}
                     />
                 )}
                 <ImageContainer>
-                    <img src={rent} alt="for rent sign"/>
+                    <img src={rent} alt="for rent sign" />
                 </ImageContainer>
                 <Formik
                     onSubmit={this.onSubmit}
@@ -168,7 +152,7 @@ export class LeaseTermsPage extends React.Component {
                         submitCount,
                         isSubmitting,
                         setFieldValue,
-                        errors
+                        errors,
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
@@ -185,7 +169,11 @@ export class LeaseTermsPage extends React.Component {
                                             fullWidth
                                             disabled={!isPrimaryApplicant}
                                             onBlur={handleBlur}
-                                            onChange={e => setFieldValue('lease_start_date', e)}
+                                            onChange={(e) => {
+                                                setFieldValue('lease_start_date', e);
+                                                setFieldValue('unit', null);
+                                                setFieldValue('lease_term', null);
+                                            }}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
@@ -196,7 +184,10 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
-                                            update={val => setFieldValue('unit', val)}
+                                            update={(val) => {
+                                                setFieldValue('unit', val);
+                                                setFieldValue('lease_term', null);
+                                            }}
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
                                             errors={errors}
@@ -205,31 +196,17 @@ export class LeaseTermsPage extends React.Component {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <FormControl fullWidth>
-                                            <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
-                                            <Select
-                                                fullWidth
-                                                value={values.lease_term}
-                                                onChange={handleChange}
-                                                disabled={!isPrimaryApplicant}
-                                                inputProps={{
-                                                    name: 'lease_term',
-                                                    id: 'lease-term',
-                                                }}
-                                            >
-                                                {this.props.config.lease_term_options.map(choice => (
-                                                    <MenuItem key={choice} value={choice}>{choice} Months</MenuItem>
-                                                ))}
-                                            </Select>
-                                            <FormHelperText>
-                                                {this.getLeaseEndDateText(values.lease_start_date, values.lease_term)}
-                                            </FormHelperText>
-                                        </FormControl>
+                                        <AvailableLeaseTermsSelector
+                                            unitId={values.unit?.id}
+                                            lease_term={values.lease_term}
+                                            handleChange={handleChange}
+                                            isPrimaryApplicant={isPrimaryApplicant}
+                                            lease_start_date={values.lease_start_date}
+                                        />
                                     </Grid>
                                 </Grid>
                             </div>
-                            {
-                                values.unit &&
+                            {values.unit &&
                                 values.lease_start_date &&
                                 values.lease_term &&
                                 !errors.lease_start_date && (
@@ -240,13 +217,14 @@ export class LeaseTermsPage extends React.Component {
                                         category={'lease_terms'}
                                         moveInDate={values.lease_start_date}
                                         leaseTerm={values.lease_term}
-                                        onError={()=>this.setState({hasError: true})}
-                                        onSuccess={()=>this.setState({hasError: false})}
+                                        onError={() => this.setState({ hasError: true })}
+                                        onSuccess={() => this.setState({ hasError: false })}
                                     />
-                                )
-                            }
+                                )}
                             <ActionButton
-                                disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting}
+                                disabled={
+                                    !values.lease_start_date || !values.unit || !values.lease_term || isSubmitting
+                                }
                                 marginTop={31}
                                 marginBottom={20}
                             >
@@ -269,12 +247,14 @@ LeaseTermsPage.propTypes = {
     _nextRoute: PropTypes.func,
 };
 
-export default connect((state) => ({
-    isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
-    application: state.renterProfile,
-    config: state.configuration,
-}),
-{
-    updateRenterProfile,
-    pageComplete,
-})(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+export default connect(
+    (state) => ({
+        isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
+        application: state.renterProfile,
+        config: state.configuration,
+    }),
+    {
+        updateRenterProfile,
+        pageComplete,
+    }
+)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));

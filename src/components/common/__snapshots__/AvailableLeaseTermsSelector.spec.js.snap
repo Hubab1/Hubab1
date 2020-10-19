@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
+<div>
+  <ForwardRef(WithStyles)
+    fullWidth={true}
+  >
+    <ForwardRef(WithStyles)
+      htmlFor="lease-term"
+    >
+      Lease Term
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      disabled={false}
+      fullWidth={true}
+      inputProps={
+        Object {
+          "id": "lease-term",
+          "name": "lease_term",
+        }
+      }
+      onChange={[MockFunction]}
+      value={null}
+    >
+      <ForwardRef(WithStyles)>
+        Loading...
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)>
+      
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
