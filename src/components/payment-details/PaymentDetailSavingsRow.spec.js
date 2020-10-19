@@ -51,4 +51,13 @@ describe('PaymentDetailSavingsRow', () => {
         const wrapper = shallow(<PaymentDetailSavingsRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
+
+    it('should render rentable item concession correctly', () => {
+        const props = {
+            name: 'Rentable Item Concession',
+            paymentTotal: '500',
+        };
+        const wrapper = shallow(<PaymentDetailSavingsRow {...props} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
 });

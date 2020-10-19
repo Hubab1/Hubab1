@@ -1,6 +1,7 @@
 import { styles } from 'components/payment-details/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getPaymentItemName } from 'utils/misc';
 
 export function PaymentDetailSavingsRows({ paymentObject, paymentType }) {
     const rows = paymentObject.items.map((item) => (
@@ -30,14 +31,10 @@ PaymentDetailSavingsRows.propTypes = {
 };
 
 export const PaymentDetailSavingsRow = ({ paymentTotal, name, months, pricePerMonth, className }) => {
-    if (name.toLowerCase() === 'rentable item concession') {
-        name = 'Parking, Storage, Other Monthly Charge Concession';
-    }
-
     return (
         <div className={className}>
             <div>
-                {name}
+                {getPaymentItemName(name)}
                 {months && `: ${months} months at $${pricePerMonth}/month`}
             </div>
             <div>${paymentTotal}</div>

@@ -24,3 +24,15 @@ exports[`PaymentDetailSavingsRow should render as expected without price per mon
   </div>
 </div>
 `;
+
+exports[`PaymentDetailSavingsRow should render rentable item concession correctly 1`] = `
+<div>
+  <div>
+    Parking, Storage, Other Monthly Charge Concession
+  </div>
+  <div>
+    $
+    500
+  </div>
+</div>
+`;

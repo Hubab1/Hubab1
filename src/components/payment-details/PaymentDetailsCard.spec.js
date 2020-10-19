@@ -22,7 +22,7 @@ describe('PaymentDetails', () => {
                         total: '0',
                         items: [],
                     },
-                    monthly_fees: {
+                    monthly_fees_v2: {
                         total: '1234',
                         items: [],
                     },
