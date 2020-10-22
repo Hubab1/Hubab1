@@ -3,16 +3,18 @@
 exports[`calls handleClickBack when Go Back is clicked 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Application Fees and Holding Deposit
+    Payment and Holding Deposit Terms
   </ForwardRef(render)>
   <ForwardRef(render)>
     <ForwardRef(render)>
       <ForwardRef(render)>
-        Applicants will deposit with owner’s agent a holding deposit in the amount of 
+        Applicants will deposit with owner’s agent a holding deposit in the amount of
+         
         $500
          (“Holding Deposit”) for the residential unit 
         Monterey Pines Apartments
-         Unit 
+         
+        Unit 
         24
          (“Unit”), subject to the following conditions:
       </ForwardRef(render)>
@@ -26,13 +28,15 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
         <b>
           2)
         </b>
-         Applicants shall have 
+         Applicants shall have
+         
         <b>
           <u>
             24 hours
           </u>
         </b>
-         following the date of this application to withdraw the application and receive full refund of said Holding Deposit. If applicants cancel rental after 24 hours and was otherwise approved, the holding deposit is forfeited.
+         
+        following the date of this application to withdraw the application and receive full refund of said Holding Deposit. If applicants cancel rental after 24 hours and was otherwise approved, the holding deposit is forfeited.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
@@ -44,13 +48,15 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
         <b>
           4)
         </b>
-         Applicants agree to take financial responsibility of the premises on 
+         Applicants agree to take financial responsibility of the premises on
+         
         <b>
           <u>
             October 29, 2020
           </u>
         </b>
-         and pay the balance of rent and security deposits due on that date.
+         
+        and pay the balance of rent and security deposits due on that date.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
