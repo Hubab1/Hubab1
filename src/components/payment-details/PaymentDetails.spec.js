@@ -64,7 +64,7 @@ describe('PaymentDetails', () => {
         expect(wrapper.text()).toContain('View Payment and Holding Deposit Terms');
     });
 
-    it('Does not display terms link when payment no done', () => {
+    it('Does not display terms link when payment is incomplete/pending', () => {
         const applicant = {
             receipt: null,
         };
