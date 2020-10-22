@@ -12,7 +12,7 @@ import {
     APPLICATION_STATUSES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
-    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -211,7 +211,7 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
-            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED)) {
+            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_INCOMPLETE)) {
                 return ROUTES.INCOME_AND_EMPLOYMENT;
             }
 
