@@ -117,25 +117,3 @@ format: `localhost:3000/{your-lease-settings-id}/v={your-optional-personalized-h
 without hash: `localhost:3000/1`
 
 with hash: `localhost:3000/1/?v=za7jDFkEML`
-
-
-### E2E Testing
-
-We are using [Cypress](https://docs.cypress.io/api/api/table-of-contents.html) for E2E testing, this is very much in the early stages so there is still a lot TODO. The example files have also been intentionally included to provide a better experience when onboarding and can be removed later.
-
-- Adding it to CI
-- Plan for managing test objects that are created/used
-- Adding more better helpers (such as login)
-- Mocking requests to 3rd parties (using polly.js)
-
-this is just to name a few
-
-Run Cypress GUI
-
-    $ npm run cypress:open
-
-Run Cypress CLI 
-
-    $ npm run cy:run
-    
-- it will use the systems node version

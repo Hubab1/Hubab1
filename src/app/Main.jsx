@@ -16,7 +16,7 @@ import LeaseTermsPage from 'components/LeaseTermsPage';
 import BankingContainer from 'components/banking/BankingContainer';
 import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
-import UnauthenticatedPaymentTerms from 'components/fees-deposits/UnauthenticatedPaymentTerms';
+import PaymentTerms from 'components/fees-deposits/PaymentTerms';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
@@ -151,7 +151,6 @@ export class Main extends Component {
                         <Route path={ROUTES.LOGIN} component={LoginPage} />
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
-                        <Route path={ROUTES.PAYMENT_TERMS} component={UnauthenticatedPaymentTerms} />
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
@@ -180,6 +179,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
                                 <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
                                 <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />
+                                <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTerms} />
                             </NavDrawer>
                         )}
                     </Switch>

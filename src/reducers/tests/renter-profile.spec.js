@@ -8,7 +8,7 @@ import {
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
     APPLICATION_STATUS_CANCELED,
     MILESTONE_APPLICANT_SUBMITTED,
-    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
     EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
 import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
@@ -77,9 +77,9 @@ describe('canAccessRoute', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
         expect(accessible).toBe(true);
     });
-    it('privacy policy is accessible', () => {
+    it('payment terms is not accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_TERMS);
-        expect(accessible).toBe(true);
+        expect(accessible).toBe(false);
     });
     it('account page is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.ACCOUNT);
@@ -263,7 +263,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED }],
+                events: [{ event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_INCOMPLETE }],
             },
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);

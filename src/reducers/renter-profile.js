@@ -12,7 +12,7 @@ import {
     APPLICATION_STATUSES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
-    MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -141,7 +141,7 @@ selectors.canAccessRoute = (state, route) => {
     */
     // These pages should always be accessible
 
-    if ([ROUTES.ACCOUNT, ROUTES.PAYMENT_TERMS, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+    if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
@@ -211,7 +211,7 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
-            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_MORE_DOCUMENTS_REQUESTED)) {
+            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_INCOMPLETE)) {
                 return ROUTES.INCOME_AND_EMPLOYMENT;
             }
 

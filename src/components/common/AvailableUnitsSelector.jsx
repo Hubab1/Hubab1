@@ -66,16 +66,9 @@ function getSuggestions(allSuggestions, value, { showEmpty = false } = {}) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     if (inputLength === 0 && showEmpty) {
-        let count = 0;
-        return allSuggestions.filter((suggestion) => {
-            const keep = count < 5 && suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue;
-
-            if (keep) {
-                count += 1;
-            }
-
-            return keep;
-        });
+        return allSuggestions.filter(
+            (suggestion) => suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue
+        );
     }
     return fuzzaldrin.filter(allSuggestions, value, { key: 'unit_number' });
 }
