@@ -25,13 +25,15 @@ export const PaymentDetails = ({ profile, configuration, payables, fetchPayments
     const communityName = profile.community?.display_name;
     const leaseStartDate = profile.lease_start_date;
     const hasReceipt = applicant && applicant.receipt;
+    const holdingDepositAmount =
+        parseFloat(profile.selected_rental_options?.['holding-deposit']?.[0]?.quoted_deposit_amount) || 0;
 
     if (currentPage === 'terms') {
         return (
             <>
                 <PaymentTerms
                     handleClickBack={() => setCurrentPage('summary')}
-                    holdingDepositAmount={500}
+                    holdingDepositAmount={holdingDepositAmount}
                     unitNumber={unitNumber}
                     communityName={communityName}
                     leaseStartDate={leaseStartDate}
