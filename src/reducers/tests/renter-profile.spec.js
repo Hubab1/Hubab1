@@ -77,9 +77,9 @@ describe('canAccessRoute', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
         expect(accessible).toBe(true);
     });
-    it('privacy policy is accessible', () => {
+    it('payment terms is not accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_TERMS);
-        expect(accessible).toBe(true);
+        expect(accessible).toBe(false);
     });
     it('account page is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.ACCOUNT);

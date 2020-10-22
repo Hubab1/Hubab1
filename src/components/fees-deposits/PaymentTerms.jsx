@@ -6,6 +6,8 @@ import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
+import { prettyCurrency } from 'utils/misc';
+import moment from 'moment';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
@@ -16,60 +18,69 @@ const BodyP = styled(P)`
     margin: 0 0 12px 0;
 `;
 
-export const PaymentTerms = ({ handleClickBack, goToPayment }) => {
+export const PaymentTerms = ({
+    handleClickBack,
+    goToPayment,
+    holdingDepositAmount = 0,
+    unitNumber,
+    communityName,
+    leaseStartDate,
+}) => {
+    const moveInDate = moment(leaseStartDate).format('LL');
+    const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
+
     return (
         <Fragment>
-            <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
+            <SpacedH1>Payment and Holding Deposit Terms</SpacedH1>
             <Card>
                 <ScrollableTermsCardSection>
-                    {/*
-                    removing these for now, since the mocks removed them
-                <div className={bulletBox}>
-                    <BulletP>
-                        <GreenCheckIcon/>
-                        {' '}
-                        Applied to the security deposit
-                    </BulletP>
-                    <BulletP>
-                        <GreenCheckIcon/>{' '}
-                        Refundable if cancelled within 24 hours
-                    </BulletP>
-                    <BulletP>
-                        <GreenCheckIcon/>
-                        {' '}
-                        Refundable if denied
-                    </BulletP>
-                </div>*/}
                     <BodyP>
-                        Applicant has deposited, with owner’s agent a holding deposit as specified below to secure the
-                        rental of the below described residential unit, subject to the following conditions:
+                        Applicants will deposit with owner’s agent a holding deposit in the amount of{' '}
+                        {holdingDepositDisplayedAmount} (“Holding Deposit”) for the residential unit {communityName}{' '}
+                        Unit {unitNumber} (“Unit”), subject to the following conditions:
                     </BodyP>
                     <BodyP>
-                        1) If accepted, the holding deposit shall be applied to the security deposit due at move-in.
+                        <b>1)</b> If accepted, the Holding Deposit shall be applied to the security deposit due at
+                        move-in
                     </BodyP>
                     <BodyP>
-                        2) Applicant shall have 24hours following the date of this application to withdraw the
-                        application and receive fullrefund of said holding deposit. (If applicant cancels rental after
-                        24 hours and was otherwise approved, theholding deposit is forfeited.)
+                        <b>2)</b> Applicants shall have{' '}
+                        <b>
+                            <u>24 hours</u>
+                        </b>{' '}
+                        following the date of this application to withdraw the application and receive full refund of
+                        said Holding Deposit. If applicants cancel rental after 24 hours and was otherwise approved, the
+                        holding deposit is forfeited.
                     </BodyP>
                     <BodyP>
-                        3) Holding deposit shall be fully refunded (not application fee) in case of denial of
+                        <b>3)</b> Holding Deposit shall be fully refunded (not application fee) in case of denial of
                         application.
                     </BodyP>
                     <BodyP>
-                        4) Applicant agrees to take financial responsibility of the premises onMay1,2018and pay the
-                        balance of rentdue and security deposits in full, on that date.
+                        <b>4)</b> Applicants agree to take financial responsibility of the premises on{' '}
+                        <b>
+                            <u>{moveInDate}</u>
+                        </b>{' '}
+                        and pay the balance of rent and security deposits due on that date.
                     </BodyP>
                     <BodyP>
-                        5) Applicant agrees to provide proof of$100,000.00liability insurance by lease commencement
-                        date. Thepreferred provider is: erenterplan.com (888) 205-8118.6)A non-refundable application
-                        processing fee is required to prepare the rental agreement documents and toverify applicant’s
-                        credit history, rental reference and employment.7)If said premises are not vacated by present
-                        resident on proposed move-out date and the present resident isstill in possession, the holding
-                        deposit will be returned in full to applicant. The holding deposit does notguarantee
-                        occupancy.8)Credit approval is based on: (1) one year positive rental history; (2) good credit
-                        (note: late mortgagepayments, foreclosure, or bankruptcy may result in denial); (3) one year
-                        current employment history
+                        <b>5)</b> Applicants agree to provide proof of liability insurance and proof of Utilities start
+                        services, as required by the lease if applicable, by lease commencement date.
+                    </BodyP>
+                    <BodyP>
+                        <b>6)</b> If the Unit is not vacated by present resident on proposed move-out date and the
+                        present resident is still in possession, the Holding Deposit will be returned in full to
+                        applicants. The holding deposit does not guarantee occupancy.
+                    </BodyP>
+                    <BodyP>
+                        <b>7)</b> The Primary Applicant shall be responsible for depositing with owner’s Agent the
+                        Holding Deposit. The Holding Deposit is applicable to all Applicants jointly. Any refund due
+                        will be made payable the Primary Applicant and it shall be the responsibility of all Applicants
+                        to work out between themselves the manner of dividing the Holding Deposit, if any.
+                    </BodyP>
+                    <BodyP>
+                        <b>8)</b> By clicking “Agree and Continue”, Applicants agree to the above terms and conditions
+                        for the Holding Deposit.
                     </BodyP>
                 </ScrollableTermsCardSection>
             </Card>
@@ -88,8 +99,12 @@ export const PaymentTerms = ({ handleClickBack, goToPayment }) => {
 };
 
 PaymentTerms.propTypes = {
-    handleClickBack: PropTypes.func,
-    goToPayment: PropTypes.func,
+    handleClickBack: PropTypes.func.isRequired,
+    goToPayment: PropTypes.func.isRequired,
+    holdingDepositAmount: PropTypes.number.isRequired,
+    unitNumber: PropTypes.string.isRequired,
+    communityName: PropTypes.string.isRequired,
+    leaseStartDate: PropTypes.string.isRequired,
 };
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

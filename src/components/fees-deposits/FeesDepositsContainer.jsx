@@ -34,6 +34,9 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
     if (!profile || !applicant || (!payments && !receipt)) return <div />;
 
     const isPrimaryApplicant = applicant.role === ROLE_PRIMARY_APPLICANT;
+    const unitNumber = profile.unit?.unit_number;
+    const communityName = profile.community?.display_name;
+    const leaseStartDate = profile.lease_start_date;
 
     const handlePaymentOptionsContinue = (feesSelected, totalPayment) => {
         if (feesSelected === 'everyone') {
@@ -85,6 +88,10 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
             <PaymentTerms
                 handleClickBack={() => setCurrentPage('options')}
                 goToPayment={() => setCurrentPage('payment')}
+                holdingDepositAmount={holdingDepositAmount}
+                unitNumber={unitNumber}
+                communityName={communityName}
+                leaseStartDate={leaseStartDate}
             />
         );
     } else if (currentPage === 'payment') {
