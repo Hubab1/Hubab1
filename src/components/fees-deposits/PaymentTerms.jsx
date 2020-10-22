@@ -25,6 +25,7 @@ export const PaymentTerms = ({
     unitNumber,
     communityName,
     leaseStartDate,
+    canProceedToPayment,
 }) => {
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
@@ -78,17 +79,21 @@ export const PaymentTerms = ({
                         will be made payable the Primary Applicant and it shall be the responsibility of all Applicants
                         to work out between themselves the manner of dividing the Holding Deposit, if any.
                     </BodyP>
-                    <BodyP>
-                        <b>8)</b> By clicking “Agree and Continue”, Applicants agree to the above terms and conditions
-                        for the Holding Deposit.
-                    </BodyP>
+                    {canProceedToPayment && (
+                        <BodyP>
+                            <b>8)</b> By clicking “Agree and Continue”, Applicants agree to the above terms and
+                            conditions for the Holding Deposit.
+                        </BodyP>
+                    )}
                 </ScrollableTermsCardSection>
             </Card>
             {!!handleClickBack && (
                 <Fragment>
-                    <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
-                        Agree and Continue
-                    </ActionButton>
+                    {canProceedToPayment && (
+                        <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
+                            Agree and Continue
+                        </ActionButton>
+                    )}
                     <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
                         <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
                     </LinkButton>
@@ -100,11 +105,12 @@ export const PaymentTerms = ({
 
 PaymentTerms.propTypes = {
     handleClickBack: PropTypes.func.isRequired,
-    goToPayment: PropTypes.func.isRequired,
+    goToPayment: PropTypes.func,
     holdingDepositAmount: PropTypes.number.isRequired,
     unitNumber: PropTypes.string.isRequired,
     communityName: PropTypes.string.isRequired,
     leaseStartDate: PropTypes.string.isRequired,
+    canProceedToPayment: PropTypes.bool.isRequired,
 };
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

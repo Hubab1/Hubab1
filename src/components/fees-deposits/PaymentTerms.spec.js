@@ -12,6 +12,7 @@ beforeEach(() => {
         holdingDepositAmount: 500,
         leaseStartDate: '2020-10-30',
         unitNumber: '24',
+        canProceedToPayment: true,
     };
 });
 
