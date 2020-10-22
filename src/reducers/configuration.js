@@ -27,6 +27,13 @@ const { actions, reducer } = configuration;
 export const { configurationReceived, configurationDoesNotExist } = actions;
 export default reducer;
 
+// Removes object properties that have empty object values
+const removeEmptyObjects = (obj) => {
+    return _.omitBy(obj, (v) => {
+        return _.isEmpty(v) && _.isObject(v);
+    });
+};
+
 export const fetchConfiguration = (communityId, hash) => {
     return async (dispatch) => {
         let configuration = {};
@@ -39,7 +46,8 @@ export const fetchConfiguration = (communityId, hash) => {
                     API.fetchPersonalizedInfo(communityId, hash),
                 ]);
                 configuration = data.reduce((config, item) => {
-                    const itemWithoutEmptyObjects = _.omitBy(item, _.isEmpty);
+                    // Needed because we sometimes receive empty client, person, or invitee objects
+                    const itemWithoutEmptyObjects = removeEmptyObjects(item);
                     return Object.assign(config, itemWithoutEmptyObjects);
                 }, {});
             }
