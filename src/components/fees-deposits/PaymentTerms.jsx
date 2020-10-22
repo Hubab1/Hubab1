@@ -7,6 +7,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
 import { prettyCurrency } from 'utils/misc';
+import moment from 'moment';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
@@ -25,8 +26,7 @@ export const PaymentTerms = ({
     communityName,
     leaseStartDate,
 }) => {
-    let moveInDate = new Date(leaseStartDate);
-    moveInDate = moveInDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
 
     return (
