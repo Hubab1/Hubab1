@@ -19,7 +19,7 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import { AppTheme } from 'contexts/AppContextProvider';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
-import NavStepper, { getStepperIndex } from './NavStepper';
+import NavStepper from './NavStepper';
 
 import { ROUTES } from 'app/constants';
 import styled from '@emotion/styled';
