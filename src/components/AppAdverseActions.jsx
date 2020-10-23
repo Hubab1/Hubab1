@@ -68,7 +68,7 @@ const IndentedRow = styled(CardRow)`
 `;
 
 export function AppAdverseActions(props) {
-    const { configuration } = props;
+    const { configuration, profile } = props;
     const [adverseFactors, setAdverseFactors] = useState([]);
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
@@ -178,9 +178,20 @@ export function AppAdverseActions(props) {
                             </P>
                         </>
                     )}
-                    {!props.securityDeposit && !props.guarantorRequested && (
-                        <P>Unfortunately, we are unable to approve your rental application.</P>
+
+                    {props.profile?.applicant_matches_dnr_list && (
+                        <P>
+                            Unfortunately, {configuration.community.company.name} is unable to approve your rental
+                            application because of one or more applicant&apos;s prior rental history with{' '}
+                            {configuration.community.company.name}.
+                        </P>
                     )}
+
+                    {!props.securityDeposit &&
+                        !props.guarantorRequested &&
+                        !props.profile?.applicant_matches_dnr_list && (
+                            <P>Unfortunately, we are unable to approve your rental application.</P>
+                        )}
 
                     <br />
                     {adverseFactors && adverseFactors.length > 0 && (
@@ -273,10 +284,12 @@ AppAdverseActions.propTypes = {
     configuration: PropTypes.object,
     guarantorRequested: PropTypes.bool,
     hasInternationalApplicant: PropTypes.bool,
+    profile: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     configuration: state.configuration,
+    profile: state.renterProfile,
 });
 
 export default connect(mapStateToProps)(AppAdverseActions);
