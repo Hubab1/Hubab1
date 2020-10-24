@@ -94,6 +94,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 unitNumber={unitNumber}
                 communityName={communityName}
                 leaseStartDate={leaseStartDate}
+                canProceedToPayment={true}
             />
         );
     } else if (currentPage === 'payment') {
