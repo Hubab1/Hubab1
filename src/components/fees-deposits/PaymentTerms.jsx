@@ -65,13 +65,14 @@ export const PaymentTerms = ({
                         and pay the balance of rent and security deposits due on that date.
                     </BodyP>
                     <BodyP>
-                        <b>5)</b> Applicants agree to provide proof of liability insurance and proof of Utilities start
-                        services, as required by the lease if applicable, by lease commencement date.
+                        <b>5)</b> Applicants agree to provide proof of liability insurance and proof that Applicants
+                        assumed obligations for utilities, as required by the Lease if applicable, by lease commencement
+                        date.
                     </BodyP>
                     <BodyP>
                         <b>6)</b> If the Unit is not vacated by present resident on proposed move-out date and the
                         present resident is still in possession, the Holding Deposit will be returned in full to
-                        applicants. The holding deposit does not guarantee occupancy.
+                        Applicants. The Holding Deposit does not guarantee occupancy.
                     </BodyP>
                     <BodyP>
                         <b>7)</b> The Primary Applicant shall be responsible for depositing with owner’s Agent the
@@ -81,8 +82,9 @@ export const PaymentTerms = ({
                     </BodyP>
                     {canProceedToPayment && (
                         <BodyP>
-                            <b>8)</b> By clicking “Agree and Continue”, Applicants agree to the above terms and
-                            conditions for the Holding Deposit.
+                            <b>8)</b> By clicking “Agree and Continue”, you confirm that you have read the above Terms
+                            and Conditions for the Holding deposit, that you understand them, and that you agree to be
+                            bound by them.
                         </BodyP>
                     )}
                 </ScrollableTermsCardSection>
