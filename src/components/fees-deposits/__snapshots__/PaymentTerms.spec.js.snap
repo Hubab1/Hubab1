@@ -62,13 +62,13 @@ exports[`Terms matches snapshot when canProceedToPayment is False 1`] = `
         <b>
           5)
         </b>
-         Applicants agree to provide proof of liability insurance and proof of Utilities start services, as required by the lease if applicable, by lease commencement date.
+         Applicants agree to provide proof of liability insurance and proof that Applicants assumed obligations for utilities, as required by the Lease if applicable, by lease commencement date.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
           6)
         </b>
-         If the Unit is not vacated by present resident on proposed move-out date and the present resident is still in possession, the Holding Deposit will be returned in full to applicants. The holding deposit does not guarantee occupancy.
+         If the Unit is not vacated by present resident on proposed move-out date and the present resident is still in possession, the Holding Deposit will be returned in full to Applicants. The Holding Deposit does not guarantee occupancy.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
@@ -158,13 +158,13 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
         <b>
           5)
         </b>
-         Applicants agree to provide proof of liability insurance and proof of Utilities start services, as required by the lease if applicable, by lease commencement date.
+         Applicants agree to provide proof of liability insurance and proof that Applicants assumed obligations for utilities, as required by the Lease if applicable, by lease commencement date.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
           6)
         </b>
-         If the Unit is not vacated by present resident on proposed move-out date and the present resident is still in possession, the Holding Deposit will be returned in full to applicants. The holding deposit does not guarantee occupancy.
+         If the Unit is not vacated by present resident on proposed move-out date and the present resident is still in possession, the Holding Deposit will be returned in full to Applicants. The Holding Deposit does not guarantee occupancy.
       </ForwardRef(render)>
       <ForwardRef(render)>
         <b>
@@ -176,7 +176,7 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
         <b>
           8)
         </b>
-         By clicking “Agree and Continue”, Applicants agree to the above terms and conditions for the Holding Deposit.
+         By clicking “Agree and Continue”, you confirm that you have read the above Terms and Conditions for the Holding deposit, that you understand them, and that you agree to be bound by them.
       </ForwardRef(render)>
     </ForwardRef(render)>
   </ForwardRef(render)>
