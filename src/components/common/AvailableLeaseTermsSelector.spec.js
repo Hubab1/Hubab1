@@ -20,7 +20,7 @@ describe('AvailableLeaseTermsSelector', () => {
                 {...defaultProps}
                 leaseTerm={null}
                 unitId={null}
-                lease_start_date={new Date('2020-08-26')}
+                leaseStartDate={new Date('2020-08-26')}
             />
         );
         expect(API.fetchAvailableLeaseTerms).not.toHaveBeenCalled();
@@ -33,7 +33,7 @@ describe('AvailableLeaseTermsSelector', () => {
                 {...defaultProps}
                 leaseTerm={null}
                 unitId={100}
-                lease_start_date={new Date('2020-08-26')}
+                leaseStartDate={new Date('2020-08-26')}
             />
         );
         expect(API.fetchAvailableLeaseTerms).toHaveBeenCalledWith({
@@ -49,7 +49,7 @@ describe('AvailableLeaseTermsSelector', () => {
                 {...defaultProps}
                 leaseTerm={null}
                 unitId={100}
-                lease_start_date={new Date('2020-08-27')}
+                leaseStartDate={new Date('2020-08-27')}
             />
         );
         expect(wrapper.getElement()).toMatchSnapshot();
