@@ -81,6 +81,8 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
                 everyone={everyone}
                 payments={payables}
+                unitNumber={unitNumber}
+                communityName={communityName}
             />
         );
     } else if (currentPage === 'terms') {
