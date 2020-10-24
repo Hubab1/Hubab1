@@ -32,7 +32,7 @@ beforeEach(() => {
 it('renders ApplicationFees', function () {
     const wrapper = shallow(<FeesDepositsOptions {...defaultProps} />);
     expect(wrapper.find(ApplicationFees)).toBeTruthy();
-    expect(wrapper.text().includes('Monterey Pines Apartments 24')).toBeTruthy();
+    expect(wrapper.text().includes('Monterey Pines Apartments Unit 24')).toBeTruthy();
 });
 
 it('renders Holding Deposit when there is a holding deposit with correct total fees and paid holding deposit in payments', () => {

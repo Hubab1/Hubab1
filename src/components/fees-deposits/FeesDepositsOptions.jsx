@@ -71,7 +71,7 @@ export const FeesDepositsOptions = ({
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
             <SpacedImg src={paymentWallet} alt={'wallet'} />
-            <div className={applicationUnit}>{`${communityName} ${unitNumber}`}</div>
+            <div className={applicationUnit}>{`${communityName} Unit ${unitNumber}`}</div>
             <Card>
                 <CardSection>
                     <CardRow>
