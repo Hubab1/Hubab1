@@ -91,14 +91,20 @@ export const PaymentTerms = ({
             </Card>
             {!!handleClickBack && (
                 <Fragment>
-                    {canProceedToPayment && (
-                        <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
-                            Agree and Continue
+                    {canProceedToPayment ? (
+                        <>
+                            <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
+                                Agree and Continue
+                            </ActionButton>
+                            <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
+                                <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
+                            </LinkButton>
+                        </>
+                    ) : (
+                        <ActionButton onClick={handleClickBack} marginTop={25} marginBottom={20}>
+                            Go Back
                         </ActionButton>
                     )}
-                    <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
-                        <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
-                    </LinkButton>
                 </Fragment>
             )}
         </Fragment>

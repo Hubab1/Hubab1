@@ -51,7 +51,7 @@ export const PaymentDetails = ({ profile, configuration, payables, fetchPayments
                     <div className={termsDiv}>
                         <P fontSize={14}>
                             <span role="button" onClick={() => setCurrentPage('terms')} className={viewPaymentTerms}>
-                                View Payment and Holding Deposit Terms
+                                Payment and Holding Deposit Terms
                             </span>
                         </P>
                     </div>

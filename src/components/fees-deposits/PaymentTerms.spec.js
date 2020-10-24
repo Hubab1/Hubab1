@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import { PaymentTerms } from './PaymentTerms';
 
@@ -36,8 +36,10 @@ it('calls goToPayment when Go Back is clicked', () => {
 });
 
 it('Hide Agree and Continue button when canProceedToPayment is False', () => {
-    const wrapper = shallow(<PaymentTerms {...defaultProps} canProceedToPayment={false} />);
-    expect(wrapper.find('ActionButton').length).toEqual(0);
+    const wrapper = mount(<PaymentTerms {...defaultProps} canProceedToPayment={false} />);
+    expect(wrapper.find('ActionButton').length).toEqual(1);
+    expect(wrapper.text()).toContain('Go Back');
+    expect(wrapper.text()).not.toContain('Agree and Continue');
 });
 
 it('Terms matches snapshot when canProceedToPayment is False', () => {

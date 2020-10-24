@@ -113,5 +113,6 @@ export const viewPaymentTerms = css`
 
 export const termsDiv = css`
     margin-bottom: 20px;
-    margin-top: 30px;
+    margin-top: 44px;
+    font-size: 14px;
 `;

@@ -61,7 +61,7 @@ describe('PaymentDetails', () => {
             receipt: { id: 123 },
         };
         const wrapper = shallow(<PaymentDetails {...defaultProps} applicant={applicant} />);
-        expect(wrapper.text()).toContain('View Payment and Holding Deposit Terms');
+        expect(wrapper.text()).toContain('Payment and Holding Deposit Terms');
     });
 
     it('Does not display terms link when payment is incomplete/pending', () => {
@@ -69,6 +69,6 @@ describe('PaymentDetails', () => {
             receipt: null,
         };
         const wrapper = shallow(<PaymentDetails {...defaultProps} applicant={applicant} />);
-        expect(wrapper.text()).not.toContain('View Payment and Holding Deposit Terms');
+        expect(wrapper.text()).not.toContain('Payment and Holding Deposit Terms');
     });
 });
