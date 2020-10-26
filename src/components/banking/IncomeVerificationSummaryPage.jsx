@@ -272,6 +272,8 @@ export function IncomeVerificationSummaryPage(props) {
 
     const hasNotAddedFinancialSources =
         !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
+    const reportedNoIncomeAssets = context.bankingData?.reported_no_income_assets;
+    const canContinue = !hasNotAddedFinancialSources || reportedNoIncomeAssets;
 
     if (showResetFinancials) {
         return (
@@ -287,8 +289,14 @@ export function IncomeVerificationSummaryPage(props) {
 
     return (
         <>
-            <SkinnyH1>Income and Asset Verification</SkinnyH1>
-            <SpacedH3>Add at least one income source or asset below.</SpacedH3>
+            <SkinnyH1>
+                {reportedNoIncomeAssets ? `Confirm Income and Assets` : `Income and Asset Verification`}
+            </SkinnyH1>
+            <SpacedH3>
+                {reportedNoIncomeAssets
+                    ? `Easy, right? Now just review the info below.`
+                    : `Add at least one income source or asset below.`}
+            </SpacedH3>
             {showIncompleteFinancialSourcesWarning && (
                 <GenericFormMessage
                     type="error"
@@ -355,7 +363,7 @@ export function IncomeVerificationSummaryPage(props) {
                     </>
                 }
             />
-            <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
+            <ActionButton disabled={!canContinue} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
             {hasNotAddedFinancialSources ? (

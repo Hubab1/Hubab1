@@ -73,6 +73,11 @@ const VerifyIncome = (props) => {
                     Verify Manually
                 </ActionButton>
             </Link>
+            <Link to={ROUTES.INCOME_VERIFICATION_SUMMARY} className={styles.linkNoStyle}>
+                <ActionButton variant="outlined" marginBottom={20}>
+                    I Don&apos;t Have Income or Assets
+                </ActionButton>
+            </Link>
         </Fragment>
     );
 };
