@@ -7,13 +7,15 @@ import API, { MOCKY } from 'app/api';
 class Auth {
     register = (data, leaseSettingsId, clientId) => {
         return API.register(data, leaseSettingsId, clientId).then((res)=>{
-            if (res.errors) return Promise.reject({errors: res.errors});
+            if (res.errors) {
+                return Promise.reject({errors: res.errors});
+            }
             return Promise.resolve({token: res.token});
         }).catch((e) => {
-            let errorMsg = 'There was a problem creating your account.';
-            const errorType = get(e, 'errors.error._schema[0]');
-            if (errorType === 'ApplicantExists') errorMsg = 'An application with these details already exists.';
-            return Promise.reject({errors: {error: errorMsg}});
+            const error = get(e, 'errors.error._schema[0]');
+            const errorMsg = error || 'There was a problem creating your account.';
+
+            return Promise.reject({ errors: { error: errorMsg }});
         });
     };
 
