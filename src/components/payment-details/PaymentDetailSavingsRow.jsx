@@ -31,11 +31,13 @@ PaymentDetailSavingsRows.propTypes = {
 };
 
 export const PaymentDetailSavingsRow = ({ paymentTotal, name, months, pricePerMonth, className }) => {
+    const monthsPlural = months > 1 ? 's' : '';
+
     return (
         <div className={className}>
             <div>
                 {getPaymentItemName(name)}
-                {months && `: ${months} months at $${pricePerMonth}/month`}
+                {months && `: ${months} month${monthsPlural} at $${pricePerMonth}/month`}
             </div>
             <div>${paymentTotal}</div>
         </div>

@@ -86,8 +86,10 @@ export function getRentalOptionFeeDisplayName(name, price, quantity = 1, include
 
     let displayName = `${getPaymentItemName(name)}`;
 
+    const daysPlural = days > 1 ? 's' : '';
+
     if (prorated && num_charged > 0 && quantity > 0) {
-        displayName += `: ${days} days at $${perDay}/day`;
+        displayName += `: ${days} day${daysPlural} at $${perDay}/day`;
     }
 
     if (feesBreakdown.length > 0) {
