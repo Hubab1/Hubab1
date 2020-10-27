@@ -21,7 +21,7 @@ import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
 
-import { ROUTES } from 'app/constants';
+import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
 import { H3 } from 'assets/styles';
@@ -136,6 +136,8 @@ export function PersistentDrawerLeft(props) {
         const currentRoute = props.currentRoute;
 
         if (!(currentRoute && routes)) return 0;
+
+        if (props.profile?.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) return 100;
 
         for (let i = 0; i < routes.length; i++) {
             const route = routes[i];
