@@ -1909,8 +1909,7 @@ exports[`Matches Snapshot when applicant matches do not rent list 1`] = `
             Test Company
              is unable to approve your rental application for 
             Test Community
-             because of one or more applicant&#39;s prior rental history with
-             
+             because of one or more applicant&#39;s prior rental history with 
             Test Company
             .
           </p>
