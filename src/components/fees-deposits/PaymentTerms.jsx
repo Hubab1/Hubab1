@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import PropTypes from 'prop-types';
-import { ROUTES } from 'app/constants';
+import { ROUTES, TOS_TYPE_PAYMENTS } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
@@ -29,6 +29,21 @@ export const PaymentTerms = ({
 }) => {
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
+
+    const handleContinueClick = () => {
+        const data = {
+            type: TOS_TYPE_PAYMENTS,
+            context: {
+                time: Date.now(),
+                move_in_date: moveInDate,
+                holding_deposit: holdingDepositDisplayedAmount,
+                community_name: communityName,
+                unit_number: unitNumber,
+            },
+        };
+
+        goToPayment(data);
+    };
 
     return (
         <Fragment>
@@ -93,7 +108,7 @@ export const PaymentTerms = ({
                 <Fragment>
                     {canProceedToPayment ? (
                         <>
-                            <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
+                            <ActionButton onClick={handleContinueClick} marginTop={25} marginBottom={20}>
                                 Agree and Continue
                             </ActionButton>
                             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
