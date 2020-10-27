@@ -126,6 +126,9 @@ export function AppAdverseActions(props) {
 
     const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
 
+    const displayGenericMessage =
+        !props.securityDeposit && !props.guarantorRequested && !profile?.applicant_matches_dnr_list;
+
     return (
         <div>
             <Header>
@@ -182,14 +185,12 @@ export function AppAdverseActions(props) {
                     {profile?.applicant_matches_dnr_list && (
                         <P>
                             Unfortunately, {configuration.community.company.name} is unable to approve your rental
-                            application because of one or more applicant&apos;s prior rental history with{' '}
-                            {configuration.community.company.name}.
+                            application for {configuration.community.building_name} because of one or more
+                            applicant&apos;s prior rental history with {configuration.community.company.name}.
                         </P>
                     )}
 
-                    {!props.securityDeposit && !props.guarantorRequested && !profile?.applicant_matches_dnr_list && (
-                        <P>Unfortunately, we are unable to approve your rental application.</P>
-                    )}
+                    {displayGenericMessage && <P>Unfortunately, we are unable to approve your rental application.</P>}
 
                     <br />
                     {adverseFactors && adverseFactors.length > 0 && (

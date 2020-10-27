@@ -1907,7 +1907,9 @@ exports[`Matches Snapshot when applicant matches do not rent list 1`] = `
           <p className=\\"css-3m08t9\\">
             Unfortunately, 
             Test Company
-             is unable to approve your rental application because of one or more applicant&#39;s prior rental history with
+             is unable to approve your rental application for 
+            Test Community
+             because of one or more applicant&#39;s prior rental history with
              
             Test Company
             .

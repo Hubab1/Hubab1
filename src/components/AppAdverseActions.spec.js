@@ -16,6 +16,7 @@ beforeEach(() => {
         onAgree: jest.fn(),
         configuration: {
             community: {
+                building_name: 'Test Community',
                 company: {
                     name: 'Test Company',
                     id: 1,
