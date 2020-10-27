@@ -16,6 +16,9 @@ import { prettyCurrency } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
+export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Try again in a bit.";
+export const CARD_DECLINE_ERROR_MESSAGE =
+    "oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
 
 export class PaymentForm extends React.Component {
     state = {
@@ -37,7 +40,6 @@ export class PaymentForm extends React.Component {
             return this.props.onSuccess(mockReceipt);
         }
         this.setState({ submitting: true });
-        const genericErrorMessage = "Oops, we're having trouble processing your payment. Try again in a bit.";
         return this.props.stripe
             .createToken({ type: 'card', name: 'client card' })
             .then((res) => {
@@ -50,7 +52,15 @@ export class PaymentForm extends React.Component {
                     API.stripePayment(data)
                         .then((res) => {
                             if (res.errors) {
-                                this.setState({ errors: [genericErrorMessage], submitting: false });
+                                let errorMessage = GENERIC_ERROR_MESSAGE;
+                                // Stripe error types: https://stripe.com/docs/api/errors
+                                if (res.errors?.error?.type === 'card_error') {
+                                    // List of decline codes: https://stripe.com/docs/declines/codes
+                                    errorMessage = CARD_DECLINE_ERROR_MESSAGE;
+                                    // TODO: This is for troubleshooting only. Remove when better custom error messages.
+                                    console.error(res.errors?.error?.message);
+                                }
+                                this.setState({ errors: [errorMessage], submitting: false });
                             } else {
                                 this.setState({ submitting: false });
                                 this.props.fetchApplicant();
@@ -59,14 +69,14 @@ export class PaymentForm extends React.Component {
                             }
                         })
                         .catch(() => {
-                            this.setState({ errors: [genericErrorMessage], submitting: false });
+                            this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                         });
                 } else {
-                    this.setState({ errors: [genericErrorMessage], submitting: false });
+                    this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                 }
             })
             .catch(() => {
-                this.setState({ errors: [genericErrorMessage], submitting: false });
+                this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
             });
     };
 
