@@ -183,7 +183,7 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
         color="primary"
         marginBottom={20}
         marginTop={25}
-        onClick={[MockFunction]}
+        onClick={[Function]}
         successGreen={false}
         variant="contained"
       >

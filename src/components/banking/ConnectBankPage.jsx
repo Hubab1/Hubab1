@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_PAYMENTS } from 'app/constants';
+import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import API from 'app/api';
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
@@ -109,7 +109,7 @@ export class ConnectBankPage extends React.Component {
                         route: function (event) {
                             if (event.data && event.data.screen === 'Search') {
                                 const body = {
-                                    type: TOS_TYPE_PAYMENTS,
+                                    type: TOS_TYPE_FINICITY,
                                     context: {
                                         time: Date.now(),
                                     },
