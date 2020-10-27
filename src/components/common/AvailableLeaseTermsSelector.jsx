@@ -26,16 +26,16 @@ function getMenuItems(isReady, leaseTerms, unitId) {
     ));
 }
 
-function getLeaseEndDateText(lease_start_date, lease_term) {
-    if (!lease_start_date || !lease_term) {
+function getLeaseEndDateText(leaseStartDate, leaseTerm) {
+    if (!leaseStartDate || !leaseTerm) {
         return '';
     }
 
-    if (!isValid(lease_start_date)) {
+    if (!isValid(leaseStartDate)) {
         return '';
     }
 
-    return `Ends ${offsetDate(lease_start_date, lease_term)}`;
+    return `Ends ${offsetDate(leaseStartDate, leaseTerm)}`;
 }
 
 export default function AvailableLeaseTermsSelector(props) {
@@ -43,10 +43,10 @@ export default function AvailableLeaseTermsSelector(props) {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        if (props.unitId) {
+        if (props.unitId && leaseTerms.length === 0) {
             const data = {
                 unit_id: props.unitId,
-                move_in_date: props.lease_start_date?.toISOString().split('T')[0],
+                move_in_date: props.leaseStartDate?.toISOString().split('T')[0],
             };
 
             API.fetchAvailableLeaseTerms(data).then((res) => {
@@ -54,7 +54,7 @@ export default function AvailableLeaseTermsSelector(props) {
                 setIsReady(true);
             });
         }
-    }, [props]);
+    }, [props, leaseTerms]);
 
     return (
         <div>
@@ -62,7 +62,7 @@ export default function AvailableLeaseTermsSelector(props) {
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
                     fullWidth
-                    value={props.leaseTerm}
+                    value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
                     disabled={!props.isPrimaryApplicant}
                     inputProps={{
@@ -72,7 +72,7 @@ export default function AvailableLeaseTermsSelector(props) {
                 >
                     {getMenuItems(isReady, leaseTerms, props.unitId)}
                 </Select>
-                <FormHelperText>{getLeaseEndDateText(props.lease_start_date, props.leaseTerm)}</FormHelperText>
+                <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
             </FormControl>
         </div>
     );
@@ -80,8 +80,8 @@ export default function AvailableLeaseTermsSelector(props) {
 
 AvailableLeaseTermsSelector.propTypes = {
     unitId: PropTypes.number,
-    leaseTerm: PropTypes.number,
+    leaseTerm: PropTypes.any,
     handleChange: PropTypes.func.isRequired,
     isPrimaryApplicant: PropTypes.bool.isRequired,
-    lease_start_date: PropTypes.any,
+    leaseStartDate: PropTypes.any,
 };

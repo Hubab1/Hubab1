@@ -78,7 +78,7 @@ export const leaseTermsValidationSchema = Yup.object()
     .shape({
         lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
         unit: Yup.object().nullable().required('Select a Unit'),
-        lease_term: Yup.number().nullable().required('Select a Lease Term'),
+        lease_term: Yup.mixed().nullable().required('Select a Lease Term'),
     });
 
 export class LeaseTermsPage extends React.Component {
@@ -198,10 +198,10 @@ export class LeaseTermsPage extends React.Component {
                                     <Grid item xs={12}>
                                         <AvailableLeaseTermsSelector
                                             unitId={values.unit?.id}
-                                            lease_term={values.lease_term}
+                                            leaseTerm={values.lease_term}
                                             handleChange={handleChange}
                                             isPrimaryApplicant={isPrimaryApplicant}
-                                            lease_start_date={values.lease_start_date}
+                                            leaseStartDate={values.lease_start_date}
                                         />
                                     </Grid>
                                 </Grid>
