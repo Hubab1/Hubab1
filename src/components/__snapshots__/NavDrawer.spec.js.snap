@@ -29,7 +29,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       />
     </ForwardRef(WithStyles)>
     <ProgressBar
-      percent={33}
+      percent={0}
     />
   </ForwardRef(WithStyles)>
   <ForwardRef(WithStyles)
