@@ -385,3 +385,779 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
   </ForwardRef(WithStyles)>
 </React.Fragment>
 `;
+
+exports[`matches snapshot with some financial sources data - with warnings 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <GenericFormDetail
+    messages={
+      Array [
+        "Oops! We found some issues with one or more of your income/assets sources.",
+      ]
+    }
+    type="error"
+  />
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $40,000
+             is the recommended household income.
+            <SimplePopover
+              text="It’s recommended that the yearly combined income of all applicants be 40x the monthly rent."
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={true}
+          label="Income Source"
+          labelQuantity={2}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={true}
+          label="Asset"
+          labelQuantity={2}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": 40020,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={68}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;
+
+exports[`matches snapshot with some financial sources data 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $40,000
+             is the recommended household income.
+            <SimplePopover
+              text="It’s recommended that the yearly combined income of all applicants be 40x the monthly rent."
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Income Source"
+          labelQuantity={3}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                ],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
+                      "id": 2,
+                      "label": "W3",
+                    },
+                  },
+                ],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Asset"
+          labelQuantity={1}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={68}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;
+
+exports[`matches snapshot with some financial sources data if guarantor - with warnings 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <GenericFormDetail
+    messages={
+      Array [
+        "Oops! We found some issues with one or more of your income/assets sources.",
+      ]
+    }
+    type="error"
+  />
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $80,000
+             is the required income for guarantors.
+            <SimplePopover
+              text="The required income for a guarantor is 80x the monthly rent"
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={true}
+          label="Income Source"
+          labelQuantity={2}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": 100020,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={true}
+          label="Asset"
+          labelQuantity={2}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": 40020,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "adjusted_amount": null,
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "status": 40,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={68}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;
+
+exports[`matches snapshot with some financial sources data if guarantor 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Income and Asset Verification
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Add at least one income source or asset below.
+  </ForwardRef(render)>
+  <Capsule
+    buttonLabel="Add an Income Source"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $100,000
+             Total Annual Income
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            $80,000
+             is the required income for guarantors.
+            <SimplePopover
+              text="The required income for a guarantor is 80x the monthly rent"
+            >
+              <UNDEFINED
+                classes={
+                  Object {
+                    "root": "css-bmph1p",
+                  }
+                }
+                style={
+                  Object {
+                    "color": "#828796",
+                    "width": 16,
+                  }
+                }
+              />
+            </SimplePopover>
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Income Source"
+          labelQuantity={3}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 123,
+                "income_or_asset_type": 105,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 4,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                ],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 124,
+                "income_or_asset_type": 135,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 100000,
+                "id": 125,
+                "income_or_asset_type": 500,
+                "uploaded_documents": Array [
+                  Object {
+                    "filename": "w2-1.pdf",
+                    "id": 1,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w2-2.pdf",
+                    "id": 2,
+                    "type": Object {
+                      "id": 1,
+                      "label": "W2",
+                    },
+                  },
+                  Object {
+                    "filename": "w3.pdf",
+                    "id": 3,
+                    "type": Object {
+                      "id": 2,
+                      "label": "W3",
+                    },
+                  },
+                ],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Income"
+    limitReached={false}
+    name="income"
+    prefix={
+      <img
+        alt="coin"
+        src="finance.png"
+      />
+    }
+    route="/income-employment/manual/add-income"
+    tip="TBD"
+  />
+  <Capsule
+    buttonLabel="Add an Asset"
+    expansionPanel={
+      <React.Fragment>
+        <div
+          className="css-19cyq23"
+        >
+          <div
+            className="css-mt9voc"
+          >
+            $40,000
+             Total Asset Balance
+          </div>
+          <p
+            className="css-1pqho16"
+          >
+            We’ll take this number into consideration in addition to or in place of income.
+          </p>
+        </div>
+        <ExistingItemsExpansionPanel
+          defaultExpanded={false}
+          label="Asset"
+          labelQuantity={1}
+        >
+          <IncomeOrAssetsItem
+            source={
+              Object {
+                "estimated_amount": 40000,
+                "id": 125,
+                "income_or_asset_type": 510,
+                "uploaded_documents": Array [],
+              }
+            }
+          />
+        </ExistingItemsExpansionPanel>
+      </React.Fragment>
+    }
+    label="Assets"
+    limitReached={false}
+    name="asset"
+    prefix={
+      <img
+        alt="piggy bank"
+        src="piggy-bank.png"
+      />
+    }
+    route="/income-employment/manual/add-asset"
+    tip="TBD"
+  />
+  <ActionButton
+    color="primary"
+    disabled={false}
+    marginBottom={20}
+    marginTop={68}
+    onClick={[Function]}
+    successGreen={false}
+    variant="contained"
+  >
+    Continue
+  </ActionButton>
+  <ForwardRef(WithStyles)
+    classes={
+      Object {
+        "root": "css-rf9gj",
+      }
+    }
+    color="primary"
+    onClick={[Function]}
+  >
+    Start Income Verification Over
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;

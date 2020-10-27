@@ -266,7 +266,6 @@ export function IncomeVerificationSummaryPage(props) {
         !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
     const reportedNoIncomeAssets = context.bankingData?.reported_no_income_assets;
     const canContinue = !hasNotAddedFinancialSources || reportedNoIncomeAssets;
-    global.console.log(context);
 
     if (showResetFinancials) {
         return (

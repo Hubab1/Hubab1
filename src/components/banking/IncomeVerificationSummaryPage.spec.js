@@ -44,41 +44,140 @@ function mockBankingData(incomeSources, assetSources, incomeTotal, assetTotal, r
     }));
 }
 
-// it('matches snapshot with some financial sources data', () => {
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
-//
-// it('matches snapshot with some financial sources data if guarantor', () => {
-//     defaultProps.applicant.role = ROLE_GUARANTOR;
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
-//
-// it('matches snapshot with some financial sources data - with warnings', () => {
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
-//
-// it('matches snapshot with some financial sources data if guarantor - with warnings', () => {
-//     defaultProps.applicant.role = ROLE_GUARANTOR;
-//     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-//     expect(wrapper.getElement()).toMatchSnapshot();
-// });
-//
+const incomeSourcesValid = [
+    {
+        id: 123,
+        income_or_asset_type: 105,
+        estimated_amount: 100000,
+        uploaded_documents: [
+            {
+                id: 4,
+                filename: 'w2-1.pdf',
+                type: {
+                    label: 'W2',
+                    id: 1,
+                },
+            },
+        ],
+    },
+    {
+        id: 124,
+        income_or_asset_type: 135,
+        estimated_amount: 100000,
+        uploaded_documents: [],
+    },
+    {
+        id: 125,
+        income_or_asset_type: 500,
+        estimated_amount: 100000,
+        uploaded_documents: [
+            {
+                id: 1,
+                filename: 'w2-1.pdf',
+                type: {
+                    label: 'W2',
+                    id: 1,
+                },
+            },
+            {
+                id: 2,
+                filename: 'w2-2.pdf',
+                type: {
+                    label: 'W2',
+                    id: 1,
+                },
+            },
+            {
+                id: 3,
+                filename: 'w3.pdf',
+                type: {
+                    label: 'W3',
+                    id: 2,
+                },
+            },
+        ],
+    },
+];
+const assetSourcesValid = [
+    {
+        id: 125,
+        income_or_asset_type: 510,
+        estimated_amount: 40000,
+        uploaded_documents: [],
+    },
+];
+const incomeSourcesWithWarnings = [
+    {
+        id: 124,
+        income_or_asset_type: 135,
+        estimated_amount: 100000,
+        adjusted_amount: 100020,
+        uploaded_documents: [],
+        status: 40,
+    },
+    {
+        id: 124,
+        income_or_asset_type: 135,
+        estimated_amount: 100000,
+        adjusted_amount: null,
+        uploaded_documents: [],
+        status: 40,
+    },
+];
+const assetSourcesWithWarnings = [
+    {
+        id: 125,
+        income_or_asset_type: 510,
+        estimated_amount: 40000,
+        adjusted_amount: 40020,
+        uploaded_documents: [],
+        status: 40,
+    },
+    {
+        id: 125,
+        income_or_asset_type: 510,
+        estimated_amount: 40000,
+        adjusted_amount: null,
+        uploaded_documents: [],
+        status: 40,
+    },
+];
+
+it('matches snapshot with some financial sources data', () => {
+    mockBankingData(incomeSourcesValid, assetSourcesValid, '100000.00', '40000.00', false);
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with some financial sources data if guarantor', () => {
+    mockBankingData(incomeSourcesValid, assetSourcesValid, '100000.00', '40000.00', false);
+    defaultProps.applicant.role = ROLE_GUARANTOR;
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with some financial sources data - with warnings', () => {
+    mockBankingData(incomeSourcesWithWarnings, assetSourcesWithWarnings, '100000.00', '40000.00', false);
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('matches snapshot with some financial sources data if guarantor - with warnings', () => {
+    mockBankingData(incomeSourcesWithWarnings, assetSourcesWithWarnings, '100000.00', '40000.00', false);
+    defaultProps.applicant.role = ROLE_GUARANTOR;
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
 it('matches snapshot with no financial sources data', () => {
     mockBankingData([], [], '0.00', '0.00', false);
-
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('matches snapshot when no financial sources data, but reported no income/assets', () => {
     mockBankingData([], [], '0.00', '0.00', true);
-
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -101,7 +200,6 @@ it('matches snapshot with only asset sources - with warning', () => {
     );
 
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
-
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
