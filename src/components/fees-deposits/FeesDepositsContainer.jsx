@@ -8,6 +8,7 @@ import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
+import API from 'app/api';
 
 export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, applicant, fetchPayments }) => {
     const [currentPage, setCurrentPage] = useState('options');
@@ -64,6 +65,12 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
         setCurrentPage('terms');
     };
 
+    const handleTermsAccepted = (data) => {
+        API.acceptTerms(data).then(() => {
+            setCurrentPage('payment');
+        });
+    };
+
     const baseAppFee = parseFloat(profile.selected_rental_options?.['app-fee']?.[0]?.quoted_fee_amount) || 0;
     const holdingDepositAmount =
         parseFloat(profile.selected_rental_options?.['holding-deposit']?.[0]?.quoted_deposit_amount) || 0;
@@ -89,7 +96,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
         return (
             <PaymentTerms
                 handleClickBack={() => setCurrentPage('options')}
-                goToPayment={() => setCurrentPage('payment')}
+                goToPayment={(data) => handleTermsAccepted(data)}
                 holdingDepositAmount={holdingDepositAmount}
                 unitNumber={unitNumber}
                 communityName={communityName}

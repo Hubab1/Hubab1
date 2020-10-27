@@ -91,6 +91,11 @@ exports[`Matches snapshot showing other field 1`] = `
         error={false}
         fullWidth={true}
         helperText={false}
+        inputProps={
+          Object {
+            "autoComplete": "off",
+          }
+        }
         label="Estimated annual income"
         minimumValue="0"
         name="estimated_amount"
