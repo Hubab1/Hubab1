@@ -16,20 +16,22 @@ import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, A
 import { Formik } from 'formik';
 import UploadDocuments from './UploadDocuments';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-export function AddFinancialSourceForm (props) {
+export function AddFinancialSourceForm(props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
     const financialTypeLabel = isAsset ? 'asset' : 'income';
-    const selectChoices = isAsset ?
-        ASSET_TYPES : INCOME_TYPES;
+    const selectChoices = isAsset ? ASSET_TYPES : INCOME_TYPES;
 
-    function getInitialValues () {
-        return Object.assign({
-            income_or_asset_type: '',
-            estimated_amount: '',
-            uploadedDocuments: {},
-        }, props.initialValues);
+    function getInitialValues() {
+        return Object.assign(
+            {
+                income_or_asset_type: '',
+                estimated_amount: '',
+                uploadedDocuments: {},
+            },
+            props.initialValues
+        );
     }
     function onChangeSelect(e, handleChange, setFieldValue) {
         handleChange(e);
@@ -40,14 +42,16 @@ export function AddFinancialSourceForm (props) {
 
     const uploadedAllDocuments = (uploadedDocuments, type) => {
         const config = props.config.financial_documents_validations;
-        const requirement = config.find(doc => doc.income_or_asset_type === type);
+        const requirement = config.find((doc) => doc.income_or_asset_type === type);
 
         if (!requirement) return true;
 
         const requireAll = requirement?.require_all ?? true;
 
         const metMinimumRequired = (doc) => {
-            const countUploaded = uploadedDocuments[String(doc.id)]? uploadedDocuments[String(doc.id)].files.length : 0;
+            const countUploaded = uploadedDocuments[String(doc.id)]
+                ? uploadedDocuments[String(doc.id)].files.length
+                : 0;
             return countUploaded >= doc.min_required;
         };
 
@@ -57,126 +61,110 @@ export function AddFinancialSourceForm (props) {
 
     return (
         <Formik
-            validationSchema={
-                Yup.object({
-                    income_or_asset_type: Yup.number().required('Required'),
-                    estimated_amount: Yup.string().required('Required'),
-                    other: Yup.string().when('income_or_asset_type', {
-                        is: (value) => [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(value),
-                        then: Yup.string().nullable().required('Required'),
-                        otherwise: Yup.string().nullable().notRequired()
-                    }),
-                })
-            }
+            validationSchema={Yup.object({
+                income_or_asset_type: Yup.number().required('Required'),
+                estimated_amount: Yup.string().required('Required'),
+                other: Yup.string().when('income_or_asset_type', {
+                    is: (value) => [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(value),
+                    then: Yup.string().nullable().required('Required'),
+                    otherwise: Yup.string().nullable().notRequired(),
+                }),
+            })}
             onSubmit={props.onSubmit}
             initialValues={getInitialValues()}
         >
-            {
-                ({
-                    values,
-                    handleChange,
-                    handleSubmit,
-                    errors,
-                    submitCount,
-                    isSubmitting,
-                    setFieldValue
-                }) => (
-                    <form onSubmit={handleSubmit}>
-                        <div className="align-left">
-                            <FormControl fullWidth>
-                                <InputLabel htmlFor="income-or-asset-type">{capitalize(financialTypeLabel)} type</InputLabel>
-                                <Select
-                                    disabled={props.isEditing}
-                                    error={!!errors.income_or_asset_type}
-                                    value={values.income_or_asset_type}
+            {({ values, handleChange, handleSubmit, errors, submitCount, isSubmitting, setFieldValue }) => (
+                <form onSubmit={handleSubmit}>
+                    <div className="align-left">
+                        <FormControl fullWidth>
+                            <InputLabel htmlFor="income-or-asset-type">
+                                {capitalize(financialTypeLabel)} type
+                            </InputLabel>
+                            <Select
+                                disabled={props.isEditing}
+                                error={!!errors.income_or_asset_type}
+                                value={values.income_or_asset_type}
+                                fullWidth
+                                onChange={(e) => onChangeSelect(e, handleChange, setFieldValue)}
+                                inputProps={{
+                                    name: 'income_or_asset_type',
+                                    id: 'income-or-asset-type',
+                                }}
+                            >
+                                {selectChoices.map((incomeType) => (
+                                    <MenuItem key={incomeType.value} value={incomeType.value}>
+                                        {incomeType.label}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        {[INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(values.income_or_asset_type) && (
+                            <>
+                                <Spacer height={24} />
+                                <FormTextInput
+                                    label="Description"
+                                    name="other"
+                                    inputProps={{ maxLength: 255 }}
+                                    value={values.other}
+                                    handleChange={handleChange}
+                                    error={errors.other}
+                                    submitted={submitCount > 0}
+                                />
+                            </>
+                        )}
+                        <Spacer height={24} />
+                        {values.income_or_asset_type && (
+                            <>
+                                <CurrencyTextField
+                                    error={submitCount > 0 && !!errors.estimated_amount}
+                                    helperText={submitCount > 0 && errors.estimated_amount}
                                     fullWidth
-                                    onChange={(e)=>onChangeSelect(e, handleChange, setFieldValue)}
-                                    inputProps={{
-                                        name: 'income_or_asset_type',
-                                        id: 'income-or-asset-type',
+                                    textAlign="left"
+                                    label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
+                                    minimumValue="0"
+                                    name="estimated_amount"
+                                    currencySymbol="$"
+                                    onChange={(event, value) => setFieldValue('estimated_amount', value)}
+                                    outputFormat="string"
+                                    value={values.estimated_amount}
+                                    inputProps={{ autoComplete: 'off' }}
+                                />
+                                <UploadDocuments
+                                    removeFile={(docId, fileId) => {
+                                        values.uploadedDocuments[docId].files = values.uploadedDocuments[
+                                            docId
+                                        ].files.filter((f) => f.id !== fileId);
+                                        if (values.uploadedDocuments[docId].files.length === 0) {
+                                            delete values.uploadedDocuments[docId];
+                                        }
+                                        setFieldValue('uploadedDocuments', values.uploadedDocuments);
                                     }}
-                                >
-                                    {selectChoices.map(incomeType => (
-                                        <MenuItem key={incomeType.value} value={incomeType.value}>{incomeType.label}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            {
-                                [INCOME_TYPE_OTHER, ASSET_TYPE_OTHER].includes(values.income_or_asset_type) &&
-                                <>
-                                    <Spacer height={24}/>
-                                    <FormTextInput
-                                        label="Description"
-                                        name="other"
-                                        inputProps={{maxLength: 255}}
-                                        value={values.other}
-                                        handleChange={handleChange}
-                                        error={errors.other}
-                                        submitted={submitCount > 0}
-                                    />
-                                </>
-                            }
-                            <Spacer height={24}/>
-                            {
-                                values.income_or_asset_type && (
-                                    <>
-                                        <CurrencyTextField
-                                            error={submitCount > 0 && !!errors.estimated_amount}
-                                            helperText={submitCount > 0 && errors.estimated_amount}
-                                            fullWidth
-                                            textAlign="left"
-                                            label={isAsset ? 'Estimated asset balance' : 'Estimated annual income'}
-                                            minimumValue="0"
-                                            name="estimated_amount"
-                                            currencySymbol="$"
-                                            onChange={(event, value)=>{
-                                                // fixes odd issue with blank value on autofill
-                                                const textValue = event.target.value;
-                                                if (textValue && !value) {
-                                                    setFieldValue('estimated_amount', textValue);
-                                                } else {
-                                                    setFieldValue('estimated_amount', value);
-                                                }
-                                            }}
-                                            outputFormat="string"
-                                            value={values.estimated_amount}
-                                        />
-                                        <UploadDocuments
-                                            removeFile={(docId, fileId) => {
-                                                values.uploadedDocuments[docId].files = values.uploadedDocuments[docId].files.filter(f => f.id !== fileId);
-                                                if (values.uploadedDocuments[docId].files.length === 0) {
-                                                    delete values.uploadedDocuments[docId];
-                                                }
-                                                setFieldValue('uploadedDocuments', values.uploadedDocuments);
-                                            }}
-                                            removeAll={docId => {
-                                                const uploadedDocuments = omit(values.uploadedDocuments, [docId]);
-                                                setFieldValue('uploadedDocuments', uploadedDocuments);
-                                            }}
-                                            incomeOrAssetType={values.income_or_asset_type}
-                                            streamType={props.financialType}
-                                            uploadedDocuments={values.uploadedDocuments}
-                                            loadDocument={e => setFieldValue('uploadedDocuments', e)}
-                                            setError={(err) => props.setError(err)}
-                                        />
-                                    </>
-                                )
-                            }
-                        </div>
-                        <ActionButton
-                            disabled={
-                                (!props.isEditing &&!allValuesSet(values, {exclude: ['other']}))
-                                || isSubmitting
-                                || !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
-                            }
-                            marginTop={68}
-                            marginBottom={20}
-                        >
-                            {props.isEditing ? 'Save Changes' : isAsset ? 'Add Asset' : 'Add Income Source'}
-                        </ActionButton>
-                    </form>
-                )
-            }
+                                    removeAll={(docId) => {
+                                        const uploadedDocuments = omit(values.uploadedDocuments, [docId]);
+                                        setFieldValue('uploadedDocuments', uploadedDocuments);
+                                    }}
+                                    incomeOrAssetType={values.income_or_asset_type}
+                                    streamType={props.financialType}
+                                    uploadedDocuments={values.uploadedDocuments}
+                                    loadDocument={(e) => setFieldValue('uploadedDocuments', e)}
+                                    setError={(err) => props.setError(err)}
+                                />
+                            </>
+                        )}
+                    </div>
+                    <ActionButton
+                        disabled={
+                            (!props.isEditing && !allValuesSet(values, { exclude: ['other'] })) ||
+                            isSubmitting ||
+                            !uploadedAllDocuments(values.uploadedDocuments, values.income_or_asset_type)
+                        }
+                        marginTop={68}
+                        marginBottom={20}
+                    >
+                        {props.isEditing ? 'Save Changes' : isAsset ? 'Add Asset' : 'Add Income Source'}
+                    </ActionButton>
+                </form>
+            )}
         </Formik>
     );
 }
@@ -190,7 +178,7 @@ AddFinancialSourceForm.propTypes = {
     isEditing: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     config: state.configuration,
 });
 

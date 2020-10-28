@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
+import { TOS_TYPE_PAYMENTS } from 'app/constants';
 import { PaymentTerms } from './PaymentTerms';
 
 let defaultProps;
@@ -29,10 +29,20 @@ it('calls handleClickBack when Go Back is clicked', () => {
 });
 
 it('calls goToPayment when Go Back is clicked', () => {
-    const wrapper = shallow(<PaymentTerms {...defaultProps} />);
+    global.Date.now = jest.fn(() => 1603799364680);
 
+    const wrapper = shallow(<PaymentTerms {...defaultProps} />);
     wrapper.find('ActionButton').simulate('click');
-    expect(defaultProps.goToPayment).toHaveBeenCalled();
+    expect(defaultProps.goToPayment).toHaveBeenCalledWith({
+        type: TOS_TYPE_PAYMENTS,
+        context: {
+            community_name: 'Monterey Pines Apartments',
+            holding_deposit: '$500',
+            move_in_date: 'October 30, 2020',
+            time: 1603799364680,
+            unit_number: '24',
+        },
+    });
 });
 
 it('Hide Agree and Continue button when canProceedToPayment is False', () => {

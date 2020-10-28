@@ -35,6 +35,11 @@ const gridContainer = css`
     padding: 20px 0 20px 0;
 `;
 
+const leasingPricingDisclaimer = css`
+    margin-top: 37px;
+    font-size: 12px;
+`;
+
 function serializeValues(values) {
     const serialized = Object.assign({}, values);
     serialized.unit_id = serialized.unit.id;
@@ -206,10 +211,8 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                 </Grid>
                             </div>
-                            {values.unit &&
-                                values.lease_start_date &&
-                                values.lease_term &&
-                                !errors.lease_start_date && (
+                            {values.unit && values.lease_start_date && values.lease_term && !errors.lease_start_date && (
+                                <>
                                     <PriceBreakdown
                                         selectedOptions={{}}
                                         application={this.props.application}
@@ -220,7 +223,11 @@ export class LeaseTermsPage extends React.Component {
                                         onError={() => this.setState({ hasError: true })}
                                         onSuccess={() => this.setState({ hasError: false })}
                                     />
-                                )}
+                                    <div className={leasingPricingDisclaimer}>
+                                        {this.props.config.leasing_pricing_disclaimer}
+                                    </div>
+                                </>
+                            )}
                             <ActionButton
                                 disabled={
                                     !values.lease_start_date || !values.unit || !values.lease_term || isSubmitting
