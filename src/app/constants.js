@@ -183,6 +183,7 @@ export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 // Accepted Terms Of Service Constants
 export const TOS_TYPE_PAYMENTS = 'TOS_TYPE_PAYMENTS';
 export const TOS_TYPE_NESTIO = 'TOS_TYPE_NESTIO';
+export const TOS_TYPE_FINICITY = 'TOS_TYPE_FINICITY';
 
 export const INCOME_TYPE_FINICITY_AUTOMATED = 135;
 

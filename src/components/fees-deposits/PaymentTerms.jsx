@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import PropTypes from 'prop-types';
-import { ROUTES } from 'app/constants';
+import { ROUTES, TOS_TYPE_PAYMENTS } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Card, P, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
@@ -25,9 +25,25 @@ export const PaymentTerms = ({
     unitNumber,
     communityName,
     leaseStartDate,
+    canProceedToPayment,
 }) => {
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
+
+    const handleContinueClick = () => {
+        const data = {
+            type: TOS_TYPE_PAYMENTS,
+            context: {
+                time: Date.now(),
+                move_in_date: moveInDate,
+                holding_deposit: holdingDepositDisplayedAmount,
+                community_name: communityName,
+                unit_number: unitNumber,
+            },
+        };
+
+        goToPayment(data);
+    };
 
     return (
         <Fragment>
@@ -64,13 +80,14 @@ export const PaymentTerms = ({
                         and pay the balance of rent and security deposits due on that date.
                     </BodyP>
                     <BodyP>
-                        <b>5)</b> Applicants agree to provide proof of liability insurance and proof of Utilities start
-                        services, as required by the lease if applicable, by lease commencement date.
+                        <b>5)</b> Applicants agree to provide proof of liability insurance and proof that Applicants
+                        assumed obligations for utilities, as required by the Lease if applicable, by lease commencement
+                        date.
                     </BodyP>
                     <BodyP>
                         <b>6)</b> If the Unit is not vacated by present resident on proposed move-out date and the
                         present resident is still in possession, the Holding Deposit will be returned in full to
-                        applicants. The holding deposit does not guarantee occupancy.
+                        Applicants. The Holding Deposit does not guarantee occupancy.
                     </BodyP>
                     <BodyP>
                         <b>7)</b> The Primary Applicant shall be responsible for depositing with owner’s Agent the
@@ -78,20 +95,31 @@ export const PaymentTerms = ({
                         will be made payable the Primary Applicant and it shall be the responsibility of all Applicants
                         to work out between themselves the manner of dividing the Holding Deposit, if any.
                     </BodyP>
-                    <BodyP>
-                        <b>8)</b> By clicking “Agree and Continue”, Applicants agree to the above terms and conditions
-                        for the Holding Deposit.
-                    </BodyP>
+                    {canProceedToPayment && (
+                        <BodyP>
+                            <b>8)</b> By clicking “Agree and Continue”, you confirm that you have read the above Terms
+                            and Conditions for the Holding deposit, that you understand them, and that you agree to be
+                            bound by them.
+                        </BodyP>
+                    )}
                 </ScrollableTermsCardSection>
             </Card>
             {!!handleClickBack && (
                 <Fragment>
-                    <ActionButton onClick={goToPayment} marginTop={25} marginBottom={20}>
-                        Agree and Continue
-                    </ActionButton>
-                    <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
-                        <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
-                    </LinkButton>
+                    {canProceedToPayment ? (
+                        <>
+                            <ActionButton onClick={handleContinueClick} marginTop={25} marginBottom={20}>
+                                Agree and Continue
+                            </ActionButton>
+                            <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
+                                <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
+                            </LinkButton>
+                        </>
+                    ) : (
+                        <ActionButton onClick={handleClickBack} marginTop={25} marginBottom={20}>
+                            Go Back
+                        </ActionButton>
+                    )}
                 </Fragment>
             )}
         </Fragment>
@@ -100,11 +128,12 @@ export const PaymentTerms = ({
 
 PaymentTerms.propTypes = {
     handleClickBack: PropTypes.func.isRequired,
-    goToPayment: PropTypes.func.isRequired,
+    goToPayment: PropTypes.func,
     holdingDepositAmount: PropTypes.number.isRequired,
     unitNumber: PropTypes.string.isRequired,
     communityName: PropTypes.string.isRequired,
     leaseStartDate: PropTypes.string.isRequired,
+    canProceedToPayment: PropTypes.bool.isRequired,
 };
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

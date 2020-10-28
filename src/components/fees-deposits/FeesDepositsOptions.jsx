@@ -9,6 +9,7 @@ import { BackLink } from 'components/common/BackLink';
 import { prettyCurrency } from 'utils/misc';
 import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
+import { css } from 'emotion';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 0 10%;
@@ -16,6 +17,14 @@ const SpacedH1 = styled(H1)`
 
 const SpacedImg = styled.img`
     margin: 15px 0;
+`;
+
+export const applicationUnit = css`
+    color: #454b57;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    padding-bottom: 68px;
 `;
 
 export const FeesDepositsOptions = ({
@@ -26,6 +35,8 @@ export const FeesDepositsOptions = ({
     everyone,
     applicant,
     payments,
+    unitNumber,
+    communityName,
 }) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
     if (!payments) return <div />;
@@ -60,6 +71,7 @@ export const FeesDepositsOptions = ({
         <Fragment>
             <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
             <SpacedImg src={paymentWallet} alt={'wallet'} />
+            <div className={applicationUnit}>{`${communityName} Unit ${unitNumber}`}</div>
             <Card>
                 <CardSection>
                     <CardRow>
@@ -110,6 +122,8 @@ FeesDepositsOptions.propTypes = {
     everyone: PropTypes.array,
     applicant: PropTypes.object,
     payments: PropTypes.array,
+    unitNumber: PropTypes.string.isRequired,
+    communityName: PropTypes.string.isRequired,
 };
 
 export default FeesDepositsOptions;

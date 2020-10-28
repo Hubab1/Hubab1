@@ -82,13 +82,18 @@ export const offsetDate = memoize(
     (a, b) => `${a}-${b}`
 );
 
-export const rentalOptionsInitialValues = (rawSelectedRentalOptions) => {
+export const rentalOptionsInitialValues = (rawSelectedRentalOptions, availableOptions) => {
     const initialValues = {};
     if (!!rawSelectedRentalOptions) {
         rawSelectedRentalOptions.forEach((option) => {
             initialValues[option.rental_option.id] = option.quantity;
         });
     }
+    availableOptions.forEach((option) => {
+        if (!initialValues.hasOwnProperty(option.id)) {
+            initialValues[option.id] = 0;
+        }
+    });
     return initialValues;
 };
 

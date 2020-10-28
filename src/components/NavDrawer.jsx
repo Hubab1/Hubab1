@@ -21,7 +21,7 @@ import BannerLogo from 'components/common/Page/BannerLogo';
 import { drawerContent } from 'components/common/Page/styles';
 import NavStepper from './NavStepper';
 
-import { ROUTES } from 'app/constants';
+import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/styles';
 import { H3 } from 'assets/styles';
@@ -131,6 +131,23 @@ export function PersistentDrawerLeft(props) {
 
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
+    const getProgressBarPercentage = () => {
+        const routes = props.navRoutes;
+        const currentRoute = props.currentRoute;
+
+        if (!(currentRoute && routes)) return 0;
+
+        if (props.profile?.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) return 100;
+
+        for (let i = 0; i < routes.length; i++) {
+            const route = routes[i];
+            if (route.value === currentRoute) return Math.floor((i * 100) / routes.length);
+        }
+        return 0;
+    };
+
+    const progressBarPercentage = getProgressBarPercentage();
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -148,7 +165,7 @@ export function PersistentDrawerLeft(props) {
                     <BannerLogo />
                     <div className={classes.padRight} />
                 </Toolbar>
-                <ProgressBar percent={33} />
+                <ProgressBar percent={progressBarPercentage} />
             </AppBar>
             <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
                 <div className={classes.list} role="presentation">
@@ -220,12 +237,16 @@ PersistentDrawerLeft.propTypes = {
     applicant: PropTypes.object,
     children: PropTypes.array,
     profile: PropTypes.object,
+    navRoutes: PropTypes.array,
+    currentRoute: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
     canAccessRoute: (route) => selectors.canAccessRoute(state, route),
+    navRoutes: selectors.selectNav(state),
+    currentRoute: state.siteConfig.currentRoute,
 });
 
 const mapDispatchToProps = {
