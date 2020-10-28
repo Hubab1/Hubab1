@@ -20,7 +20,7 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
         }
       }
       onChange={[MockFunction]}
-      value={null}
+      value=""
     >
       <ForwardRef(WithStyles)>
         Loading...
