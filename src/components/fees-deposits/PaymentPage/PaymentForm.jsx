@@ -18,7 +18,7 @@ import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Try again in a bit.";
 export const CARD_DECLINE_ERROR_MESSAGE =
-    "oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
+    "Oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
 
 export class PaymentForm extends React.Component {
     state = {
