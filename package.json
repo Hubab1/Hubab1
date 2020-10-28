@@ -46,7 +46,7 @@
         "mocky": "REACT_APP_MOCKY=\"1\" react-scripts start",
         "build": "react-scripts build",
         "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)",
-        "test": "react-scripts test",
+        "test": "TZ=America/New_York react-scripts test",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.jsx src/**/*.js",
         "lint:fix": "eslint src/**/*.jsx src/**/*.js --fix",

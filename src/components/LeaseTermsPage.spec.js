@@ -8,7 +8,6 @@ import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import PriceBreakdown from './profile/options/PriceBreakdown';
 import GenericFormDetail from './common/GenericFormMessage';
 
-
 let defaultProps, updateRenterProfile;
 beforeEach(() => {
     updateRenterProfile = jest.fn();
@@ -17,70 +16,93 @@ beforeEach(() => {
         config: {
             lease_term_options: [],
             community: {
-                contact_phone: '555-555-5555'
-            }
+                contact_phone: '555-555-5555',
+            },
+            leasing_pricing_disclaimer: 'test disclaimer',
         },
         isPrimaryApplicant: true,
         updateRenterProfile: updateRenterProfile,
         _nextRoute: jest.fn(),
         applicant: {
-            role: ROLE_PRIMARY_APPLICANT
+            role: ROLE_PRIMARY_APPLICANT,
         },
-        pageComplete: jest.fn().mockResolvedValue({})
+        pageComplete: jest.fn().mockResolvedValue({}),
     };
 });
 
 describe('onSubmit', () => {
-    it ('calls updateRenterProfile with valid parameters', function () {
+    it('calls updateRenterProfile with valid parameters', function () {
         updateRenterProfile.mockResolvedValue({});
-        const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
-        return wrapper.instance().onSubmit({lease_start_date: new Date('2019-8-15'), unit: {id: 123}, lease_term: 12},
-            {setSubmitting: jest.fn(), setErrors: jest.fn()}
-        ).then(() => {
-            expect(defaultProps.updateRenterProfile).toHaveBeenCalledWith(
-                {'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit_id': 123},
-                {'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit': {id: 123}}
-            );
-        });
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        return wrapper
+            .instance()
+            .onSubmit(
+                { lease_start_date: new Date('2019-8-15'), unit: { id: 123 }, lease_term: 12 },
+                { setSubmitting: jest.fn(), setErrors: jest.fn() }
+            )
+            .then(() => {
+                expect(defaultProps.updateRenterProfile).toHaveBeenCalledWith(
+                    { lease_start_date: '2019-8-15', lease_term: 12, unit_id: 123 },
+                    { lease_start_date: '2019-8-15', lease_term: 12, unit: { id: 123 } }
+                );
+            });
     });
-    it ('does NOT call updateRenterProfile if isPrimaryApplicant == false', function () {
+    it('does NOT call updateRenterProfile if isPrimaryApplicant == false', function () {
         updateRenterProfile.mockResolvedValue({});
-        const wrapper = shallow(<LeaseTermsPage {...defaultProps} isPrimaryApplicant={false}/>);
-        return wrapper.instance().onSubmit({lease_start_date: new Date('2019-8-15'), unit: {id: 123}, lease_term: 12},
-            {setSubmitting: jest.fn(), setErrors: jest.fn()}
-        ).then(() => {
-            expect(defaultProps.updateRenterProfile).not.toHaveBeenCalled();
-            expect(defaultProps.pageComplete).toHaveBeenCalled();
-        });
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} isPrimaryApplicant={false} />);
+        return wrapper
+            .instance()
+            .onSubmit(
+                { lease_start_date: new Date('2019-8-15'), unit: { id: 123 }, lease_term: 12 },
+                { setSubmitting: jest.fn(), setErrors: jest.fn() }
+            )
+            .then(() => {
+                expect(defaultProps.updateRenterProfile).not.toHaveBeenCalled();
+                expect(defaultProps.pageComplete).toHaveBeenCalled();
+            });
     });
-    it ('calls pageComplete with lease_terms and nextRoute', function () {
+    it('calls pageComplete with lease_terms and nextRoute', function () {
         updateRenterProfile.mockResolvedValue({});
-        const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
-        return wrapper.instance().onSubmit({unit: {id: 123}},
-            {setSubmitting: jest.fn(), setErrors: jest.fn()}
-        ).then(() => {
-            expect(defaultProps.pageComplete).toHaveBeenCalledWith('lease_terms');
-            expect(defaultProps._nextRoute).toHaveBeenCalled();
-        });
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        return wrapper
+            .instance()
+            .onSubmit({ unit: { id: 123 } }, { setSubmitting: jest.fn(), setErrors: jest.fn() })
+            .then(() => {
+                expect(defaultProps.pageComplete).toHaveBeenCalledWith('lease_terms');
+                expect(defaultProps._nextRoute).toHaveBeenCalled();
+            });
     });
-    it ('doesnt call pageComplete if if updateRenterProfile returns errors', function () {
-        updateRenterProfile.mockResolvedValue({errors: 'you messed up'});
-        const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
-        return wrapper.instance().onSubmit({unit: {id: 123}},
-            {setSubmitting: jest.fn(), setErrors: jest.fn()}
-        ).then(() => {
-            expect(defaultProps.pageComplete).not.toHaveBeenCalled();
-            expect(defaultProps._nextRoute).not.toHaveBeenCalled();
-        });
+    it('doesnt call pageComplete if if updateRenterProfile returns errors', function () {
+        updateRenterProfile.mockResolvedValue({ errors: 'you messed up' });
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        return wrapper
+            .instance()
+            .onSubmit({ unit: { id: 123 } }, { setSubmitting: jest.fn(), setErrors: jest.fn() })
+            .then(() => {
+                expect(defaultProps.pageComplete).not.toHaveBeenCalled();
+                expect(defaultProps._nextRoute).not.toHaveBeenCalled();
+            });
     });
 });
 
-it ('renders PriceBreakdown if unit and lease-start_date and lease_term are set', function () {
+it('renders PriceBreakdown if unit and lease-start_date and lease_term are set', function () {
     const application = {
-        'lease_start_date': '2019-8-15', 'lease_term': 12, 'unit': 123
+        lease_start_date: '2019-8-15',
+        lease_term: 12,
+        unit: 123,
     };
-    const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application}/>);
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
     expect(wrapper.find(Formik).dive().find(PriceBreakdown).length).toBe(1);
+});
+
+it('renders leasing pricing disclaimer if unit and lease-start_date and lease_term are set', function () {
+    const application = {
+        lease_start_date: '2019-8-15',
+        lease_term: 12,
+        unit: 123,
+    };
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
+    expect(wrapper.find(Formik).dive().getElement()).toMatchSnapshot();
 });
 
 describe('validationSchema', () => {
@@ -121,13 +143,13 @@ describe('validationSchema', () => {
         expect(result).toBe(data);
     }
 
-    it ('should be valid when a valid date is entered', async() => {
+    it('should be valid when a valid date is entered', async () => {
         const data = getValidData();
 
         await verifyValid(data);
     });
 
-    it ('should be invalid when no date is entered', async () => {
+    it('should be invalid when no date is entered', async () => {
         const errorSelectDate = 'Select a Move In Date';
 
         const data = getValidData();
@@ -139,7 +161,7 @@ describe('validationSchema', () => {
         await verifyErrorMessage(data, 'lease_start_date', errorSelectDate);
     });
 
-    it ('should be invalid when invalid dates are entered', async () => {
+    it('should be invalid when invalid dates are entered', async () => {
         const errorInvalidFormat = 'Invalid Date Format';
 
         const data = getValidData();
@@ -158,7 +180,10 @@ describe('validationSchema', () => {
             unit_number: '15',
         };
 
-        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(referenceDate, 'M/d/yy')}`;
+        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(
+            referenceDate,
+            'M/d/yy'
+        )}`;
 
         data.lease_start_date = subDays(referenceDate, 2);
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
@@ -176,7 +201,10 @@ describe('validationSchema', () => {
         const dateAvailable = addDays(referenceDate, 7);
         data.unit.date_available = format(dateAvailable, 'yyyy-MM-dd');
 
-        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(dateAvailable, 'M/d/yy')}`;
+        const errorMessage = `Oops! Unit ${data.unit.unit_number} isn’t available until ${format(
+            dateAvailable,
+            'M/d/yy'
+        )}`;
 
         data.lease_start_date = subDays(dateAvailable, 1);
         await verifyErrorMessage(data, 'lease_start_date', errorMessage);
@@ -189,9 +217,11 @@ describe('validationSchema', () => {
     });
 });
 
-it ('displays error when hasError=true', function () {
-    const wrapper = shallow(<LeaseTermsPage {...defaultProps}/>);
-    wrapper.setState({hasError: true});
+it('displays error when hasError=true', function () {
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+    wrapper.setState({ hasError: true });
     expect(wrapper.find(GenericFormDetail).length).toBe(1);
-    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain("Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit.");
+    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
+        "Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit."
+    );
 });
