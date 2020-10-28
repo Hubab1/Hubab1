@@ -91,6 +91,10 @@ export class EditFinancialSource extends Component {
         }
     };
 
+    onError = () => {
+        this.setState({ errorSubmitting: true });
+    };
+
     async fetchFinancialSource() {
         let data;
         try {
@@ -133,6 +137,7 @@ export class EditFinancialSource extends Component {
                     initialValues={this.initialValues}
                     financialType={isAsset ? FINANCIAL_STREAM_ASSET : FINANCIAL_STREAM_INCOME}
                     onSubmit={this.onSubmit}
+                    setError={this.onError}
                 />
                 <BackLink to={this.returnLink} />
             </>

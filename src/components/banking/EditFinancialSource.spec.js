@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import API from 'app/api';
 import { EditFinancialSource } from './EditFinancialSource';
 import { FINANCIAL_STREAM_STATUS_PENDING } from 'app/constants';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 let defaultProps;
 beforeEach(() => {
@@ -103,4 +104,26 @@ it('onSubmit submits correct form data', async () => {
     expect(formData.getAll('1[]')).toEqual(['file']);
     expect(formData.get('adjusted_amount')).toBe('0');
     expect(formData.get('status')).toBe(String(FINANCIAL_STREAM_STATUS_PENDING));
+});
+
+it('Case onError called', async () => {
+    API.getFinancialSource = jest.fn().mockReturnValue({
+        uploaded_documents: [
+            {
+                id: 4,
+                type: {
+                    id: 1,
+                    label: 'W2',
+                },
+                filename: 'w2-2.pdf',
+            },
+        ],
+    });
+    API.updateFinancialSource = jest.fn();
+    const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
+    wrapper.instance().onError();
+    expect(wrapper.find(GenericFormMessage).length).toBe(1);
+    expect(wrapper.find(GenericFormMessage).prop('messages')).toContain(
+        'Oops! We had some trouble uploading your files. Please try again in a little bit.'
+    );
 });
