@@ -10,28 +10,59 @@ beforeEach(() => {
     };
 });
 
+describe('openFinicityIframe', () => {
+    it('sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
+        const wrapper = shallow(<ConnectBankPage />);
 
-it('this.openFinicityIframe sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
-    const wrapper = shallow(<ConnectBankPage/>);
+        API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({ success: true, reasonCode: 'OK' }));
 
-    API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({success: true, reasonCode: 'OK'}));
+        expect(wrapper.state().loadingFinicityIframe).toEqual(false);
+        expect(wrapper.state().showFinicityIframe).toEqual(false);
 
-    expect(wrapper.state().loadingFinicityIframe).toEqual(false);
-    expect(wrapper.state().showFinicityIframe).toEqual(false);
+        wrapper.instance().openFinicityIframe();
 
-    wrapper.instance().openFinicityIframe();
-        
-    expect(API.createFinicityUrl).toHaveBeenCalled();
-    expect(wrapper.state().loadingFinicityIframe).toEqual(true);
+        expect(API.createFinicityUrl).toHaveBeenCalled();
+        expect(wrapper.state().loadingFinicityIframe).toEqual(true);
+    });
 });
 
-it('this.handleFetchReports calls API.fetchFinicityReports and setState on success', () => {
-    const wrapper = shallow(<ConnectBankPage/>);
+describe('handleFetchReports', () => {
+    it('calls API.fetchFinicityReports and setState on success', () => {
+        const wrapper = shallow(<ConnectBankPage />);
 
-    const data = {json: ()=>{'yeehaw';}};
+        const data = {
+            json: () => {
+                'yeehaw';
+            },
+        };
 
-    API.fetchFinicityReports = jest.fn().mockReturnValue(Promise.resolve(data));
+        API.fetchFinicityReports = jest.fn().mockReturnValue(Promise.resolve(data));
 
-    wrapper.instance().handleFetchReports();
-    expect(API.fetchFinicityReports).toHaveBeenCalled();
+        wrapper.instance().handleFetchReports();
+        expect(API.fetchFinicityReports).toHaveBeenCalled();
+    });
+});
+
+describe('reportNoIncomeAssets', () => {
+    it('should submit a financial source for no income/assets then refresh sources and redirect', () => {
+        const targetRoute = '/test/route';
+        const mockHistory = { push: jest.fn() };
+        const mockContext = { refreshFinancialSources: jest.fn() };
+
+        API.submitFinancialSource = jest.fn().mockResolvedValue({});
+
+        const wrapper = shallow(<ConnectBankPage history={mockHistory} />);
+        const instance = wrapper.instance();
+
+        instance.context = mockContext;
+
+        return wrapper
+            .instance()
+            .reportNoIncomeAssets({ preventDefault: () => {} }, targetRoute)
+            .then(() => {
+                expect(API.submitFinancialSource).toHaveBeenCalled();
+                expect(mockContext.refreshFinancialSources).toHaveBeenCalledWith();
+                expect(mockHistory.push).toHaveBeenCalledWith(targetRoute);
+            });
+    });
 });

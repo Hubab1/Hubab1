@@ -4,6 +4,7 @@ import { css } from 'emotion';
 
 import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import API from 'app/api';
+import { fetchApplicant } from 'reducers/applicant';
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
 import PropTypes from 'prop-types';
@@ -16,12 +17,15 @@ const finicityContainer = css`
 `;
 
 export class ConnectBankPage extends React.Component {
-    state = {
-        showFinicityIframe: false,
-        errors: null,
-        loadingFinicityIframe: false,
-        loadingReport: false,
-    };
+    constructor() {
+        super();
+        this.state = {
+            showFinicityIframe: false,
+            errors: null,
+            loadingFinicityIframe: false,
+            loadingReport: false,
+        };
+    }
 
     componentWillUnmount() {
         clearInterval(window.fetchReportsInterval);
@@ -135,6 +139,19 @@ export class ConnectBankPage extends React.Component {
         });
     };
 
+    reportNoIncomeAssets = async (e, targetPath) => {
+        e.preventDefault();
+
+        // Handle reporting no income/assets
+        const formData = new FormData();
+        formData.append('report_no_income_assets', 'True');
+        await API.submitFinancialSource(formData);
+
+        // Refresh data then redirect
+        await this.context.refreshFinancialSources();
+        this.props.history.push(targetPath);
+    };
+
     render() {
         if (!this.props.applicant) {
             return <div />;
@@ -149,6 +166,7 @@ export class ConnectBankPage extends React.Component {
             <VerifyIncome
                 loadingFinicityIframe={!!this.state.loadingFinicityIframe}
                 openFinicityIframe={this.openFinicityIframe}
+                reportNoIncomeAssets={this.reportNoIncomeAssets}
                 errors={this.state.errors}
             />
         );
@@ -158,6 +176,7 @@ export class ConnectBankPage extends React.Component {
 ConnectBankPage.propTypes = {
     applicant: PropTypes.object,
     refreshFinancialSources: PropTypes.func,
+    fetchApplicant: PropTypes.func,
     history: PropTypes.object,
 };
 
@@ -165,6 +184,10 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
+const mapDispatchToProps = {
+    fetchApplicant,
+};
+
 ConnectBankPage.contextType = BankingContext;
 
-export default connect(mapStateToProps)(ConnectBankPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectBankPage);

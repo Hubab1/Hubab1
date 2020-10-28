@@ -26,7 +26,7 @@ function BankingContainer(props) {
     React.useEffect(() => {
         (async () => {
             const data = await refreshFinancialSources();
-            if (data?.income_sources?.length || data?.asset_sources?.length) {
+            if (data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets) {
                 props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
             }
         })();
