@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { styles } from './styles';
+import { getPaymentItemName } from 'utils/misc';
 
 export function PaymentDetailRows({ paymentObject, paymentType }) {
     const rows = paymentObject.items.map((item) => (
@@ -83,10 +84,12 @@ export function getRentalOptionFeeDisplayName(name, price, quantity = 1, include
         feesBreakdown.push(`${num_charged} x $${price}`);
     }
 
-    let displayName = `${name}`;
+    let displayName = `${getPaymentItemName(name)}`;
+
+    const daysPlural = days > 1 ? 's' : '';
 
     if (prorated && num_charged > 0 && quantity > 0) {
-        displayName += `: ${days} days at $${perDay}/day`;
+        displayName += `: ${days} day${daysPlural} at $${perDay}/day`;
     }
 
     if (feesBreakdown.length > 0) {

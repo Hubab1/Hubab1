@@ -31,7 +31,7 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
             "items": Array [],
             "total": "620",
           },
-          "monthly_fees": Object {
+          "monthly_fees_v2": Object {
             "items": Array [],
             "total": "1234",
           },

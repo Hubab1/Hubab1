@@ -109,3 +109,7 @@ export const getRoommateStatus = (item) => {
             return CO_APPLICANT_STATUS_IN_PROGRESS;
     }
 };
+
+export const getPaymentItemName = (name) => {
+    return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
+};
