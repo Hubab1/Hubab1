@@ -56,8 +56,11 @@ export const Storage = (props) => {
             <ImageContainer>
                 <img src={storageImage} alt="storage" />
             </ImageContainer>
-            <Formik onSubmit={onSubmit} initialValues={rentalOptionsInitialValues(initialStorageOptions)}>
-                {({ values, handleSubmit, setFieldValue }) => (
+            <Formik
+                onSubmit={onSubmit}
+                initialValues={rentalOptionsInitialValues(initialStorageOptions, storageOptions)}
+            >
+                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
                     <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                         {errorSubmitting && (
                             <GenericFormMessage
@@ -85,7 +88,7 @@ export const Storage = (props) => {
                                 categoryHelperText={'storage spaces'}
                             />
                         )}
-                        <ActionButton>Add Storage</ActionButton>
+                        <ActionButton disabled={!dirty || isSubmitting}>Add Storage</ActionButton>
                     </form>
                 )}
             </Formik>

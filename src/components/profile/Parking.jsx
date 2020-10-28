@@ -55,8 +55,11 @@ export const Parking = (props) => {
             <ImageContainer>
                 <img src={parkingImage} alt="car parking" />
             </ImageContainer>
-            <Formik onSubmit={onSubmit} initialValues={rentalOptionsInitialValues(initialParkingOptions)}>
-                {({ values, handleSubmit, setFieldValue }) => (
+            <Formik
+                onSubmit={onSubmit}
+                initialValues={rentalOptionsInitialValues(initialParkingOptions, parkingOptions)}
+            >
+                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
                     <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                         {errorSubmitting && (
                             <GenericFormMessage
@@ -84,7 +87,7 @@ export const Parking = (props) => {
                                 categoryHelperText={'parking spaces'}
                             />
                         )}
-                        <ActionButton>Add Parking</ActionButton>
+                        <ActionButton disabled={!dirty || isSubmitting}>Add Parking</ActionButton>
                     </form>
                 )}
             </Formik>

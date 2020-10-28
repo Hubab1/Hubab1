@@ -88,6 +88,20 @@ exports[`PaymentDetailRow should render included options 3`] = `
 </div>
 `;
 
+exports[`PaymentDetailRow should render rentable item concession correctly 1`] = `
+<div
+  className="paymentRow"
+>
+  <div>
+    October Parking, Storage, Other Monthly Charge Concession: 12 days at $18,33/day
+  </div>
+  <div>
+    $
+    123
+  </div>
+</div>
+`;
+
 exports[`PaymentDetailRow should render with prorated prices per day 1`] = `
 <div
   className="paymentRow"

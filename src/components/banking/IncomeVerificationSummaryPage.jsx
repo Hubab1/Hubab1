@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
 import PropTypes from 'prop-types';
@@ -179,7 +179,7 @@ IncomeOrAssetsItem.propTypes = {
 };
 
 export function IncomeVerificationSummaryPage(props) {
-    const context = useContext(BankingContext);
+    const context = React.useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = useState(false);
 
     const hasIncompleteIncomeSources = useMemo(() => {
@@ -187,11 +187,7 @@ export function IncomeVerificationSummaryPage(props) {
             return false;
         }
 
-        const incompleteSources = context.bankingData.income_sources.filter(
-            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
-        );
-
-        return incompleteSources.length > 0;
+        return context.bankingData.income_sources.some(({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE);
     }, [context.bankingData]);
 
     const hasIncompleteAssetSources = useMemo(() => {
@@ -199,11 +195,7 @@ export function IncomeVerificationSummaryPage(props) {
             return false;
         }
 
-        const incompleteSources = context.bankingData.asset_sources.filter(
-            ({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE
-        );
-
-        return incompleteSources.length > 0;
+        return context.bankingData.asset_sources.some(({ status }) => status === FINANCIAL_STREAM_STATUS_INCOMPLETE);
     }, [context.bankingData]);
 
     const showIncompleteFinancialSourcesWarning = hasIncompleteIncomeSources || hasIncompleteAssetSources;
@@ -272,6 +264,8 @@ export function IncomeVerificationSummaryPage(props) {
 
     const hasNotAddedFinancialSources =
         !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
+    const reportedNoIncomeAssets = context.bankingData?.reported_no_income_assets;
+    const canContinue = !hasNotAddedFinancialSources || reportedNoIncomeAssets;
 
     if (showResetFinancials) {
         return (
@@ -287,8 +281,14 @@ export function IncomeVerificationSummaryPage(props) {
 
     return (
         <>
-            <SkinnyH1>Income and Asset Verification</SkinnyH1>
-            <SpacedH3>Add at least one income source or asset below.</SpacedH3>
+            <SkinnyH1>
+                {reportedNoIncomeAssets ? `Confirm Income and Assets` : `Income and Asset Verification`}
+            </SkinnyH1>
+            <SpacedH3>
+                {reportedNoIncomeAssets
+                    ? `Easy, right? Now just review the info below.`
+                    : `Add at least one income source or asset below.`}
+            </SpacedH3>
             {showIncompleteFinancialSourcesWarning && (
                 <GenericFormMessage
                     type="error"
@@ -355,7 +355,7 @@ export function IncomeVerificationSummaryPage(props) {
                     </>
                 }
             />
-            <ActionButton disabled={hasNotAddedFinancialSources} marginTop={68} marginBottom={20} onClick={onContinue}>
+            <ActionButton disabled={!canContinue} marginTop={68} marginBottom={20} onClick={onContinue}>
                 Continue
             </ActionButton>
             {hasNotAddedFinancialSources ? (

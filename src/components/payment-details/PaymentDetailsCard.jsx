@@ -2,6 +2,7 @@ import { styles } from 'components/payment-details/styles';
 import styled from '@emotion/styled';
 import lightbulb from 'assets/images/lightbulb.png';
 import { PaymentDetailRows } from 'components/payment-details/PaymentDetailRow';
+import { PaymentDetailSavingsRows } from 'components/payment-details/PaymentDetailSavingsRow';
 import React from 'react';
 import { format, parseISO } from 'date-fns';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -56,12 +57,21 @@ export const PaymentDetailsCard = ({ profile, payables = [] }) => {
                 <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees_v2} paymentType="move_in" />
             </PaymentItemsExpansionPanel>
             <PaymentItemsExpansionPanel
-                amount={profile.fees_breakdown.monthly_fees.total}
+                amount={profile.fees_breakdown.monthly_fees_v2.total}
                 label={'monthly rent'}
                 defaultExpanded={false}
             >
-                <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees} paymentType="monthly_fees" />
+                <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees_v2} paymentType="monthly_fees" />
             </PaymentItemsExpansionPanel>
+            {profile.fees_breakdown.savings?.items.length > 0 && (
+                <PaymentItemsExpansionPanel
+                    amount={profile.fees_breakdown.savings.total}
+                    label={'savings'}
+                    defaultExpanded={false}
+                >
+                    <PaymentDetailSavingsRows paymentObject={profile.fees_breakdown.savings} paymentType="savings" />
+                </PaymentItemsExpansionPanel>
+            )}
         </PaymentCard>
     );
 };

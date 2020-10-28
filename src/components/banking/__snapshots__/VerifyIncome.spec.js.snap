@@ -86,5 +86,19 @@ exports[`matches snapshot 1`] = `
       Verify Manually
     </ActionButton>
   </ForwardRef>
+  <ForwardRef
+    className="css-1qj8w5r"
+    onClick={[Function]}
+    to="/income-employment/summary"
+  >
+    <ActionButton
+      color="primary"
+      marginBottom={20}
+      successGreen={false}
+      variant="outlined"
+    >
+      I Don't Have Income or Assets
+    </ActionButton>
+  </ForwardRef>
 </React.Fragment>
 `;

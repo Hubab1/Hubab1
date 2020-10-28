@@ -23,7 +23,7 @@ describe('PaymentDetails', () => {
                         total: '0',
                         items: [],
                     },
-                    monthly_fees: {
+                    monthly_fees_v2: {
                         total: '1234',
                         items: [],
                     },
@@ -54,5 +54,21 @@ describe('PaymentDetails', () => {
 
         expect(defaultProps.fetchPayments).toBeCalledTimes(1);
         expect(wrapper.find(PaidText).length).toEqual(0);
+    });
+
+    it('displays terms link when passed payment', () => {
+        const applicant = {
+            receipt: { id: 123 },
+        };
+        const wrapper = shallow(<PaymentDetails {...defaultProps} applicant={applicant} />);
+        expect(wrapper.text()).toContain('Payment and Holding Deposit Terms');
+    });
+
+    it('Does not display terms link when payment is incomplete/pending', () => {
+        const applicant = {
+            receipt: null,
+        };
+        const wrapper = shallow(<PaymentDetails {...defaultProps} applicant={applicant} />);
+        expect(wrapper.text()).not.toContain('Payment and Holding Deposit Terms');
     });
 });
