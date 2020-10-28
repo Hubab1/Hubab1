@@ -65,7 +65,7 @@ export const paymentDetailRow = css`
     font-size: 14px;
 
     div:first-child {
-        padding-right: 20px;
+        padding-right: 50px;
     }
 `;
 
