@@ -209,7 +209,7 @@ exports[`renders leasing pricing disclaimer if unit and lease-start_date and lea
             label="Move In Date"
             maxDate={2100-01-01T00:00:00.000Z}
             maxDateMessage="Date should not be after maximal date"
-            minDate={1603857600000}
+            minDate={1603944000000}
             minDateMessage="Date should not be before minimal date"
             onBlur={[Function]}
             onChange={[Function]}

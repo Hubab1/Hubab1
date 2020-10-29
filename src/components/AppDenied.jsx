@@ -56,7 +56,7 @@ export class AppDenied extends React.Component {
                         {buildingName}
                         {unitNumber}
                     </div>
-                    <ActionButton marginTop={150} onClick={this.toggleViewDenialDecision}>
+                    <ActionButton marginTop={50} onClick={this.toggleViewDenialDecision}>
                         Learn Why
                     </ActionButton>
                 </div>
