@@ -62,7 +62,11 @@ export class Main extends Component {
             )
                 return;
             if (!configuration.client || !configuration.invitee) {
-                history.replace(ROUTES.WELCOME);
+                if (configuration.unit?.is_unavailable) {
+                    history.replace(ROUTES.UNIT_UNAVAILABLE);
+                } else {
+                    history.replace(ROUTES.WELCOME);
+                }
             } else if (hasRegistered) {
                 history.replace(ROUTES.LOGIN);
             } else {
@@ -151,6 +155,7 @@ export class Main extends Component {
                         <Route path={ROUTES.LOGIN} component={LoginPage} />
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
+                        {!isLoggedIn && <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />}
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
