@@ -218,6 +218,7 @@ describe('Credit score color', function () {
 
     it('Display color grey when no credit score rating', async () => {
         const configuration = {
+            ...defaultProps.configuration,
             credit_score_rating_config: [],
         };
         API.getAdverseActions = jest.fn().mockReturnValue(
