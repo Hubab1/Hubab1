@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<UnitUnavailable> signed in matches snapshot 1`] = `
+exports[`UnitUnavailable signed in matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Someone Beat You To It!
@@ -23,7 +23,8 @@ exports[`<UnitUnavailable> signed in matches snapshot 1`] = `
     <ForwardRef(render)
       bold={true}
     >
-      Call us at 
+      Call us at
+       
       <a
         href="tel:123456"
       >
@@ -35,7 +36,7 @@ exports[`<UnitUnavailable> signed in matches snapshot 1`] = `
 </React.Fragment>
 `;
 
-exports[`<UnitUnavailable> signed out matches snapshot 1`] = `
+exports[`UnitUnavailable signed out matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
     Someone Beat You To It!
@@ -58,7 +59,8 @@ exports[`<UnitUnavailable> signed out matches snapshot 1`] = `
     <ForwardRef(render)
       bold={true}
     >
-      Call us at 
+      Call us at
+       
       <a
         href="tel:123456"
       >
