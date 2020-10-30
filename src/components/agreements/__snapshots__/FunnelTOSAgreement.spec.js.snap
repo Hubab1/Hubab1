@@ -27,7 +27,8 @@ exports[`signed in matches snapshot 1`] = `
           <b>
             us
           </b>
-          ”) and our website at 
+          ”) and our website at
+           
           <a
             href="https://www.nestio.com/"
             rel="noopener noreferrer"
@@ -48,7 +49,8 @@ exports[`signed in matches snapshot 1`] = `
           <b>
             TERMS
           </b>
-          ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. 
+          ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE.
+           
           <small>
             REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
           </small>
@@ -79,13 +81,15 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   PRIVACY
                 </b>
-                 — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the 
+                 — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the
+                 
                 <a
                   href="#privacy-practices"
                 >
                   Online Leasing Platform Privacy Statement
                 </a>
-                 and 
+                 and
+                 
                 <ForwardRef
                   target="_blank"
                   to="/privacy-policy"
@@ -227,19 +231,20 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Third Party Services and Linked Websites
                 </b>
-                . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms 
+                . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers. By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms
+                 
                 <a
                   href="#finicity-terms"
                 >
                   available here
                 </a>
-                .  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
+                . Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
               </li>
               <li>
                 <b>
                   Third-Party Payment Processing
                 </b>
-                . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
+                . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties). If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
                 <a
                   href="https://stripe.com/privacy"
                   rel="noopener noreferrer"
@@ -247,7 +252,7 @@ exports[`signed in matches snapshot 1`] = `
                 >
                   available here
                 </a>
-                ).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
+                ). We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
               </li>
               <li>
                 <b>
@@ -263,7 +268,7 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   Third Party Disputes
                 </b>
-                .  NESTIO IS NOT AFFILIATED WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE, AND ANY DISPUTE YOU MAY HAVE WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE OR OTHER THIRD PARTY ARISING FROM OR RELATING TO OUR SERVICE IS DIRECTLY BETWEEN YOU AND SUCH THIRD PARTY. YOU IRREVOCABLY RELEASE NESTIO (AND NESTIO’S OFFICERS, DIRECTORS, AGENTS, SUBSIDIARIES, JOINT VENTURES, AND EMPLOYEES) FROM ANY AND ALL CLAIMS, DEMANDS AND DAMAGES (ACTUAL AND CONSEQUENTIAL) OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH SUCH DISPUTES.
+                . NESTIO IS NOT AFFILIATED WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE, AND ANY DISPUTE YOU MAY HAVE WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE OR OTHER THIRD PARTY ARISING FROM OR RELATING TO OUR SERVICE IS DIRECTLY BETWEEN YOU AND SUCH THIRD PARTY. YOU IRREVOCABLY RELEASE NESTIO (AND NESTIO’S OFFICERS, DIRECTORS, AGENTS, SUBSIDIARIES, JOINT VENTURES, AND EMPLOYEES) FROM ANY AND ALL CLAIMS, DEMANDS AND DAMAGES (ACTUAL AND CONSEQUENTIAL) OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH SUCH DISPUTES.
               </li>
             </ol>
           </li>
@@ -291,7 +296,8 @@ exports[`signed in matches snapshot 1`] = `
                 perform any fraudulent activity including impersonating any person or entity, claiming a false affiliation, accessing any other Service account without permission, or falsifying your age or date of birth;
               </li>
               <li>
-                sell or otherwise transfer the access granted under these Terms or any Materials (as defined in Section 8) or any right or ability to view, access, or use any Materials; or 
+                sell or otherwise transfer the access granted under these Terms or any Materials (as defined in Section 8) or any right or ability to view, access, or use any Materials; or
+                 
               </li>
               <li>
                 attempt to do any of the acts described in this Section 10 or assist or permit any person in engaging in any of the acts described in this Section 10.
@@ -328,7 +334,8 @@ exports[`signed in matches snapshot 1`] = `
                         For Applicants
                       </b>
                     </u>
-                    . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at 
+                    . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at
+                     
                     <a
                       href="mailto:support@nestio.com"
                     >
@@ -474,7 +481,7 @@ exports[`signed in matches snapshot 1`] = `
             <b>
               General Terms
             </b>
-            . These Terms of Service, together with the Online Leasing Platform  Privacy Statement (if you are a user of the Online Leasing Platform) and the Privacy Policy and any other agreements expressly incorporated by reference into these Terms, are the entire and exclusive understanding and agreement between you and Nestio regarding your use of the Service. You may not assign or transfer these Terms or your rights under these Terms, in whole or in part, by operation of law or otherwise, without our prior written consent. We may assign these Terms at any time without notice or consent. The failure to require performance of any provision will not affect our right to require performance at any other time after that, nor will a waiver by us of any breach or default of these Terms, or any provision of these Terms, be a waiver of any subsequent breach or default or a waiver of the provision itself. Use of section headers in these Terms is for convenience only and will not have any impact on the interpretation of any provision. Throughout these Terms the use of the word “including” means “including but not limited to”. If any part of these Terms is held to be invalid or unenforceable, the unenforceable part will be given effect to the greatest extent possible, and the remaining parts will remain in full force and effect.
+            . These Terms of Service, together with the Online Leasing Platform Privacy Statement (if you are a user of the Online Leasing Platform) and the Privacy Policy and any other agreements expressly incorporated by reference into these Terms, are the entire and exclusive understanding and agreement between you and Nestio regarding your use of the Service. You may not assign or transfer these Terms or your rights under these Terms, in whole or in part, by operation of law or otherwise, without our prior written consent. We may assign these Terms at any time without notice or consent. The failure to require performance of any provision will not affect our right to require performance at any other time after that, nor will a waiver by us of any breach or default of these Terms, or any provision of these Terms, be a waiver of any subsequent breach or default or a waiver of the provision itself. Use of section headers in these Terms is for convenience only and will not have any impact on the interpretation of any provision. Throughout these Terms the use of the word “including” means “including but not limited to”. If any part of these Terms is held to be invalid or unenforceable, the unenforceable part will be given effect to the greatest extent possible, and the remaining parts will remain in full force and effect.
             <ol>
               <li>
                 <b>
@@ -494,13 +501,13 @@ exports[`signed in matches snapshot 1`] = `
                   type="a"
                 >
                   <li>
-                    Nestio shall collect, use, share and otherwise process personal information only for purposes of performing the Services, as set out in the Terms and Nestio’s relevant privacy statements and policies.  Nestio may create and derive from processing personal information related to the Service anonymized and/or aggregated data that does not identify any Leasing Professional or Applicant, and use, publicize or share with third parties such data for Nestio’s legitimate business purposes.
+                    Nestio shall collect, use, share and otherwise process personal information only for purposes of performing the Services, as set out in the Terms and Nestio’s relevant privacy statements and policies. Nestio may create and derive from processing personal information related to the Service anonymized and/or aggregated data that does not identify any Leasing Professional or Applicant, and use, publicize or share with third parties such data for Nestio’s legitimate business purposes.
                   </li>
                   <li>
                     Nestio will provide reasonable assistance to the Leasing Professional to assist the Leasing Professional in responding to individuals’ requests to exercise their privacy rights under applicable law (e.g., rights of access, deletion, etc.).
                   </li>
                   <li>
-                    Nestio will delete personal information of inactive Applicants and Leasing Professionals after no less than 24 months of inactivity or within 3 months of the end of the termination of these Terms, at Nestio’s sole discretion.  Nestio shall delete personal information by erasing the personal information from Nestio’s production systems and data warehouse(s); however, historic backups may still contain personal information.  Nestio may retain personal information for up to 24 months after the end of the termination of these Terms, or as otherwise required by applicable law.
+                    Nestio will delete personal information of inactive Applicants and Leasing Professionals after no less than 24 months of inactivity or within 3 months of the end of the termination of these Terms, at Nestio’s sole discretion. Nestio shall delete personal information by erasing the personal information from Nestio’s production systems and data warehouse(s); however, historic backups may still contain personal information. Nestio may retain personal information for up to 24 months after the end of the termination of these Terms, or as otherwise required by applicable law.
                   </li>
                 </ol>
               </li>
@@ -508,30 +515,32 @@ exports[`signed in matches snapshot 1`] = `
                 <b>
                   ESIGN Act Consent to Use Electronic Records
                 </b>
-                .  By using the Service, you consent and agree to receiving electronically, via the Service, all disclosures that the Fair Credit Reporting Act (“FCRA”) requires us to provide in writing.  Please email support@nestio.com for a paper copy of the information that the FCRA requires us to provide to you in writing.  Your consent covers all disclosures that the FCRA requires Nestio to make in writing.  You agree that any notices, agreements, disclosures or other communications that we send to you electronically will satisfy any legal communication requirements, including that those communications be in writing.  Your consent remains in effect until you give us notice that you are withdrawing it.  You have the right to withdraw your consent at any time.  Please be aware, however, that withdrawal of consent may result in the termination of your Service account.  To withdraw your consent to receive disclosures electronically, email support@nestio.com with the subject line “WITHDRAWAL OF CONSENT TO ELECTRONIC COMMUNICATIONS.”  Please read our Online Leasing Platform Privacy Statement (if applicable) and Privacy Policy to learn more about our electronic communications practices.
+                . By using the Service, you consent and agree to receiving electronically, via the Service, all disclosures that the Fair Credit Reporting Act (“FCRA”) requires us to provide in writing. Please email support@nestio.com for a paper copy of the information that the FCRA requires us to provide to you in writing. Your consent covers all disclosures that the FCRA requires Nestio to make in writing. You agree that any notices, agreements, disclosures or other communications that we send to you electronically will satisfy any legal communication requirements, including that those communications be in writing. Your consent remains in effect until you give us notice that you are withdrawing it. You have the right to withdraw your consent at any time. Please be aware, however, that withdrawal of consent may result in the termination of your Service account. To withdraw your consent to receive disclosures electronically, email support@nestio.com with the subject line “WITHDRAWAL OF CONSENT TO ELECTRONIC COMMUNICATIONS.” Please read our Online Leasing Platform Privacy Statement (if applicable) and Privacy Policy to learn more about our electronic communications practices.
               </li>
               <li>
                 <b>
                   SMS Communications
                 </b>
-                . If you are an Applicant and provide your phone number, Nestio, at Leasing Professional’s direction, may send you notifications by SMS, such as to alert you of a problem with your account.  You may opt out of SMS communications at any time by replying “STOP” to the originating number. After you send the SMS message “STOP” to us, we may send you an SMS to confirm that you have been unsubscribed. If you want to join again, just sign up as you did the first time and we will start sending SMS messages again.
+                . If you are an Applicant and provide your phone number, Nestio, at Leasing Professional’s direction, may send you notifications by SMS, such as to alert you of a problem with your account. You may opt out of SMS communications at any time by replying “STOP” to the originating number. After you send the SMS message “STOP” to us, we may send you an SMS to confirm that you have been unsubscribed. If you want to join again, just sign up as you did the first time and we will start sending SMS messages again.
               </li>
               <li>
                 <b>
                   Contact Information
                 </b>
-                . The Service is offered by Nestio, Inc., located at 150 West 22nd Street, Floor 8, New York, NY 10011 Attn: Legal. You may contact us by sending correspondence to that address or by emailing us at 
+                . The Service is offered by Nestio, Inc., located at 150 West 22nd Street, Floor 8, New York, NY 10011 Attn: Legal. You may contact us by sending correspondence to that address or by emailing us at
+                 
                 <a
                   href="mailto:support@nestio.com"
                 >
                   support@nestio.com
                 </a>
-                . You can access a copy of these Terms by clicking here: 
+                . You can access a copy of these Terms by clicking here:
+                 
                 <ForwardRef
                   target="_blank"
                   to="/terms"
                 >
-                  http://localhost/10/terms
+                  http://localhost/undefined/terms
                 </ForwardRef>
                 .
               </li>
@@ -558,10 +567,10 @@ exports[`signed in matches snapshot 1`] = `
           </a>
         </div>
         <p>
-          1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA.   You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information.  It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information.  We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
+          1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA. You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information. It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information. We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
         </p>
         <p>
-          Notwithstanding any provision of Finicity’s Privacy Policy to the contrary, compiled, anonymized data concerning your financial transactions, or other available data that is collected through your use of the Finicity Services, may be used by Finicity’s third party vendors to conduct certain analytical research, performance tracking and benchmarking.  Finicity’s third party vendors may publish summary or aggregate results relating to metrics comprised of research data, from time to time, and distribute, sell or license such compiled, anonymized data for any purpose, including but not limited to, helping to improve products and services and assisting in troubleshooting and technical support or any other purpose permitted by applicable law. To the extent such information is shared or disclosed, it will not contain any of your personally identifiable information.
+          Notwithstanding any provision of Finicity’s Privacy Policy to the contrary, compiled, anonymized data concerning your financial transactions, or other available data that is collected through your use of the Finicity Services, may be used by Finicity’s third party vendors to conduct certain analytical research, performance tracking and benchmarking. Finicity’s third party vendors may publish summary or aggregate results relating to metrics comprised of research data, from time to time, and distribute, sell or license such compiled, anonymized data for any purpose, including but not limited to, helping to improve products and services and assisting in troubleshooting and technical support or any other purpose permitted by applicable law. To the extent such information is shared or disclosed, it will not contain any of your personally identifiable information.
         </p>
         <p>
           2. PROVIDER SERVICES.
@@ -570,13 +579,13 @@ exports[`signed in matches snapshot 1`] = `
           2.1 General. In connection with your use of the Finicity Services and as part of the functionality of the Finicity Services, you may have access to certain online services or information that may be made available by Nestio(s) (“Nestio Services”), including online banking, online payment, online investment account download, online bill pay, online trading, and other account information available from Nestio(s). The Finicity Services are designed to allow you to access Nestio Services (if and to the extent provided by Nestio(s)) to set up banking and other information, schedule the Finicity Services to access your account(s), download transactions into the Finicity Services and otherwise aggregate information from your account(s) with Nestio(s). You acknowledge and agree that we have no control over the provision of Nestio Services or provision of access to the Nestio Services by Nestio(s), do not guarantee that you will be able to use the Finicity Services with the Nestio Services, and will have no liability whatsoever for any actions or inactions on the part of the provider(s) resulting in your inability to use the Finicity Services to access your accounts, obtain data, download transactions, or otherwise use or access the Nestio Services.
         </p>
         <p>
-          2.2 Collection of Nestio Account Information. You acknowledge that in accessing your data and information through the Finicity Services, Nestio account access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, and the actual data in your account(s) with such provider(s) such as bank and other account balances, credit card charges, debits and deposits (collectively, “Nestio Account Data”), may be collected and stored in the Finicity Services. You authorize Finicity and Finicity’s third party vendors, in conjunction with the operation and hosting of the Finicity Services, to use certain Nestio Account Data to (a) collect your Nestio Account Data, (b) reformat and manipulate such Nestio Account Data, (c) create and provide hypertext links to Nestio(s), (d) access the providers’ websites using your Nestio Account Data, (e) update and maintain your account information, (f) address errors or service interruptions, (g) enhance the type of data and services we can provide to you in the future, and (h) take such other actions as are reasonably necessary to perform the actions described in (a) through (g) above. You hereby represent that you are the legal owner of your Nestio Account Data and that you have the authority to appoint, and hereby expressly do appoint, Finicity or Finicity’s third party vendors as your agent with a limited power of attorney, and appoint Finicity or Finicity’s third party vendors as your attorney-in-fact and agent, to access third party sites and/or retrieve and use your Nestio Account Data through whatever lawful means with the full power and authority to do and perform each thing necessary in connection with such activities, as you could do in person, including, without limitation, accepting any new and/or updated terms and conditions from Nestio on your behalf, in providing Finicity Services to you. You also expressly authorize Nestio to share and disclose your Nestio Account Data to Finicity on your behalf to facilitate your use of your Nestio Account Data for products and services agreed to by you. You further acknowledge that we do not, nor does Finicity’s third party vendor review your Nestio Account Data and agree that we are not responsible for its completeness or accuracy. Any transactions or informational activities performed at any provider’s website are not made through the Finicity Services and we assume no responsibility for such transactions or activities. You are solely responsible for any charges associated with Nestio(s).  The permissions, uses and access rights granted to Finicity’s third party vendors hereunder shall continue until such parties are notified by Finicity or you that the Finicity Services have been terminated.
+          2.2 Collection of Nestio Account Information. You acknowledge that in accessing your data and information through the Finicity Services, Nestio account access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, and the actual data in your account(s) with such provider(s) such as bank and other account balances, credit card charges, debits and deposits (collectively, “Nestio Account Data”), may be collected and stored in the Finicity Services. You authorize Finicity and Finicity’s third party vendors, in conjunction with the operation and hosting of the Finicity Services, to use certain Nestio Account Data to (a) collect your Nestio Account Data, (b) reformat and manipulate such Nestio Account Data, (c) create and provide hypertext links to Nestio(s), (d) access the providers’ websites using your Nestio Account Data, (e) update and maintain your account information, (f) address errors or service interruptions, (g) enhance the type of data and services we can provide to you in the future, and (h) take such other actions as are reasonably necessary to perform the actions described in (a) through (g) above. You hereby represent that you are the legal owner of your Nestio Account Data and that you have the authority to appoint, and hereby expressly do appoint, Finicity or Finicity’s third party vendors as your agent with a limited power of attorney, and appoint Finicity or Finicity’s third party vendors as your attorney-in-fact and agent, to access third party sites and/or retrieve and use your Nestio Account Data through whatever lawful means with the full power and authority to do and perform each thing necessary in connection with such activities, as you could do in person, including, without limitation, accepting any new and/or updated terms and conditions from Nestio on your behalf, in providing Finicity Services to you. You also expressly authorize Nestio to share and disclose your Nestio Account Data to Finicity on your behalf to facilitate your use of your Nestio Account Data for products and services agreed to by you. You further acknowledge that we do not, nor does Finicity’s third party vendor review your Nestio Account Data and agree that we are not responsible for its completeness or accuracy. Any transactions or informational activities performed at any provider’s website are not made through the Finicity Services and we assume no responsibility for such transactions or activities. You are solely responsible for any charges associated with Nestio(s). The permissions, uses and access rights granted to Finicity’s third party vendors hereunder shall continue until such parties are notified by Finicity or you that the Finicity Services have been terminated.
         </p>
         <p>
           2.3 Information from Nestio’s Websites. You acknowledge and agree that (a) some providers may not allow the Finicity Services to access the Nestio Services, (b) providers may make changes to their websites, with or without notice to us, that may prevent or delay aggregation of information from such websites, and (c) the Finicity Services may “refresh” the Nestio Account Data by collecting the Nestio Account Data nightly, so your most recent transactions may not be reflected in any account balances or other account information presented to you in the Finicity Services. If you see a discrepancy in the Nestio Account Data, and in any case before making any transactions or decisions based on such account information presented in the Finicity Services, you should check the last refresh date for the account and confirm Nestio Account Data is correct by following the link back to the applicable provider or otherwise confirm that Nestio Account Data is up to date and accurate.
         </p>
         <p>
-          3. SOFTWARE USE, STORAGE AND ACCESS.   We shall have the right, in Finicity’s sole discretion and with reasonable notice, to establish or change limits concerning use of the Finicity Services, temporarily or permanently, including but not limited to (a) the amount of storage space you have on the Finicity Services at any time, and (b) the number of times (and the maximum duration for which) you may access the Finicity Services in a given period of time. We reserve the right to make any such changes effective immediately to maintain the security of the system or Licensee Access Information or to comply with any laws or regulations, and to provide you with electronic or written notice within thirty (30) days after such change. You may reject changes by discontinuing use of the Finicity Services to which such changes relate. Your continued use of the Finicity Services will constitute your acceptance of and agreement with such changes.  Maintenance upon the Finicity Services may be performed from time-to-time resulting in interrupted service, delays or errors in the Finicity Services. Attempts to provide prior notice of scheduled maintenance will be made, but provider cannot guarantee that such notice will be provided.
+          3. SOFTWARE USE, STORAGE AND ACCESS. We shall have the right, in Finicity’s sole discretion and with reasonable notice, to establish or change limits concerning use of the Finicity Services, temporarily or permanently, including but not limited to (a) the amount of storage space you have on the Finicity Services at any time, and (b) the number of times (and the maximum duration for which) you may access the Finicity Services in a given period of time. We reserve the right to make any such changes effective immediately to maintain the security of the system or Licensee Access Information or to comply with any laws or regulations, and to provide you with electronic or written notice within thirty (30) days after such change. You may reject changes by discontinuing use of the Finicity Services to which such changes relate. Your continued use of the Finicity Services will constitute your acceptance of and agreement with such changes. Maintenance upon the Finicity Services may be performed from time-to-time resulting in interrupted service, delays or errors in the Finicity Services. Attempts to provide prior notice of scheduled maintenance will be made, but provider cannot guarantee that such notice will be provided.
         </p>
         <p>
           4. EXPORT RESTRICTIONS. You acknowledge that the Finicity Services and any software underlying such Finicity Services are subject to the U.S. Export Administration Regulations (15 CFR, Chapter VII) and that you will comply with these regulations. You will not export or re-export the software or Finicity Services, directly or indirectly, to: (a) any countries that are subject to U.S. export restrictions; (b) any end user who has been prohibited from participating in U.S. export transactions by any federal agency of the U.S. government; or (c) any end user who you know or have reason to know will utilize them in the design, development or production of nuclear, chemical or biological weapons. You further acknowledge that this product may include technical data subject to export and re-export restrictions imposed by U.S. law.
@@ -585,10 +594,10 @@ exports[`signed in matches snapshot 1`] = `
           5. DISCLAIMER. YOU ACKNOWLEDGE AND AGREE THAT THE FINICITY SERVICES AND ANY THIRD PARTY SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” THE THIRD PARTY VENDOR AND ITS LICENSORS MAKE NO WARRANTY, EXPRESS, IMPLIED, OR STATUTORY, AND DISCLAIM ANY AND ALL WARRANTIES WITH RESPECT TO THE SERVICES OR ANY THIRD PARTY SERVICES; IN WHOLE OR IN PART, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, TITLE, OR NON-INFRINGEMENT. YOU UNDERSTAND AND EXPRESSLY AGREE THAT ANY USE OF THE SERVICES OR THIRD PARTY SERVICES WILL BE AT YOUR SOLE RISK. VENDOR AND ITS (a) LICENSORS AND (b) THIRD PARTY VENDORS DO NOT WARRANT THE COMPREHENSIVENESS, COMPLETENESS, CORRECTNESS, LEGALITY, OR ACCURACY OF THE SERVICES OR THIRD PARTY SERVICES, IN WHOLE OR IN PART, OR THAT THE SERVICES WILL BE SECURE, UNINTERRUPTED OR ERROR FREE. YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM YOUR USE OF THE SERVICES OR THIRD PARTY SERVICES.
         </p>
         <p>
-          6.  COMPLIANCE WITH FAIR CREDIT REPORTING ACT
+          6. COMPLIANCE WITH FAIR CREDIT REPORTING ACT
         </p>
         <p>
-          6.1  You acknowledge that applications that use consumer data to generate scores or other reports or that otherwise will be utilized by application users in connection with making a decision as to whether to enter into the following types of transactions or on what terms the transaction will be offered (“Financial Apps”) may be subject to the provisions of the Federal Fair Credit Reporting Act (“FCRA”) and equivalent state laws:
+          6.1 You acknowledge that applications that use consumer data to generate scores or other reports or that otherwise will be utilized by application users in connection with making a decision as to whether to enter into the following types of transactions or on what terms the transaction will be offered (“Financial Apps”) may be subject to the provisions of the Federal Fair Credit Reporting Act (“FCRA”) and equivalent state laws:
         </p>
         <ul>
           <li>
@@ -614,13 +623,13 @@ exports[`signed in matches snapshot 1`] = `
           </li>
         </ul>
         <p>
-          6.2 You acknowledge and agree that, in connection with Finicity Corporation’s (“Finicity”) products and services as a third party vendor of ours, data will be transmitted or made available in a mechanical manner by Finicity, and that to the extent Finicity is involved, Finicity will not alter the substance of the data unless authorized by you.  You hereby authorize Finicity to access Nestio to obtain Nestio Account Data and other Nestio Services on your behalf and at your authorization.  Finicity is providing the service of data delivery only as requested by you, the ultimate end-user, as requested and authorized by you, the owner of such information.  You acknowledge that Finicity is not a reseller of data (other than in the manner described in paragraph 1 with respect to anonymized data) but simply provides the service of transferring data as requested and you from one party to the party directed and authorized by you to receive the data.
+          6.2 You acknowledge and agree that, in connection with Finicity Corporation’s (“Finicity”) products and services as a third party vendor of ours, data will be transmitted or made available in a mechanical manner by Finicity, and that to the extent Finicity is involved, Finicity will not alter the substance of the data unless authorized by you. You hereby authorize Finicity to access Nestio to obtain Nestio Account Data and other Nestio Services on your behalf and at your authorization. Finicity is providing the service of data delivery only as requested by you, the ultimate end-user, as requested and authorized by you, the owner of such information. You acknowledge that Finicity is not a reseller of data (other than in the manner described in paragraph 1 with respect to anonymized data) but simply provides the service of transferring data as requested and you from one party to the party directed and authorized by you to receive the data.
         </p>
         <p>
-          7. THIRD PARTY BENEFICIARY; INDEMNIFICATION. You agree that Finicity is a third party beneficiary of the above provisions, with all rights to enforce such provisions as if Finicity were a party to this Agreement.  You agree to protect Finicity and its affiliates from any and all third party claims, liability, damages, expenses and costs caused by or arising from your use of the Finicity Services, your violation of these terms or your infringement, or infringement by any other user of your account, of any intellectual property or other right of anyone.
+          7. THIRD PARTY BENEFICIARY; INDEMNIFICATION. You agree that Finicity is a third party beneficiary of the above provisions, with all rights to enforce such provisions as if Finicity were a party to this Agreement. You agree to protect Finicity and its affiliates from any and all third party claims, liability, damages, expenses and costs caused by or arising from your use of the Finicity Services, your violation of these terms or your infringement, or infringement by any other user of your account, of any intellectual property or other right of anyone.
         </p>
         <p>
-          8.  LIMITATION OF LIABILITY.  YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS AFFILIATES, ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY HARMS, WHICH LAWYERS AND COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, RESULTING FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES PURCHASED OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH OR FROM THE SERVICE; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA; (v) STATEMENTS OR CONDUCT OF ANYONE ON THE SERVICE; (vi) THE USE, INABILITY TO USE, UNAUTHORIZED USE, PERFORMANCE OR NON-PERFORMANCE OF ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE PROVIDER HAS BEEN ADVISED PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER MATTER RELATING TO THE SERVICE.
+          8. LIMITATION OF LIABILITY. YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS AFFILIATES, ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY HARMS, WHICH LAWYERS AND COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, RESULTING FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES PURCHASED OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH OR FROM THE SERVICE; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA; (v) STATEMENTS OR CONDUCT OF ANYONE ON THE SERVICE; (vi) THE USE, INABILITY TO USE, UNAUTHORIZED USE, PERFORMANCE OR NON-PERFORMANCE OF ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE PROVIDER HAS BEEN ADVISED PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER MATTER RELATING TO THE SERVICE.
         </p>
       </div>
     </ForwardRef(render)>
@@ -656,7 +665,8 @@ exports[`signed out matches snapshot 1`] = `
             <b>
               us
             </b>
-            ”) and our website at 
+            ”) and our website at
+             
             <a
               href="https://www.nestio.com/"
               rel="noopener noreferrer"
@@ -677,7 +687,8 @@ exports[`signed out matches snapshot 1`] = `
             <b>
               TERMS
             </b>
-            ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. 
+            ”). IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE.
+             
             <small>
               REFERENCES TO “YOU” IN THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
             </small>
@@ -708,13 +719,15 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     PRIVACY
                   </b>
-                   — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the 
+                   — Nestio will collect, use, share and otherwise process personal information as set out in the applicable privacy statements and policies, including without limitation the
+                   
                   <a
                     href="#privacy-practices"
                   >
                     Online Leasing Platform Privacy Statement
                   </a>
-                   and 
+                   and
+                   
                   <ForwardRef
                     target="_blank"
                     to="/privacy-policy"
@@ -856,19 +869,20 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Third Party Services and Linked Websites
                   </b>
-                  . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers.  By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms 
+                  . Nestio may provide tools through the Service that enable you to export information, including Applicant Documents, to third party services, such as credit reporting agencies and financial service providers. By using any of these tools, you agree that we may transfer that information to the applicable third-party service. By using one such tool, Finicity, you agree to the additional terms
+                   
                   <a
                     href="#finicity-terms"
                   >
                     available here
                   </a>
-                  .  Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
+                  . Third party services are not under our control, and we are not responsible for any third party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. You access this content at your own risk.
                 </li>
                 <li>
                   <b>
                     Third-Party Payment Processing
                   </b>
-                  . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties).  If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
+                  . We currently use the third-party payment processor Stripe to process online credit or debit card payments (including payments for our customers or third parties). If you wish to make a payment through the Service, your personal information may be collected by Stripe, and will be subject to Stripe’s privacy policy (
                   <a
                     href="https://stripe.com/privacy"
                     rel="noopener noreferrer"
@@ -876,7 +890,7 @@ exports[`signed out matches snapshot 1`] = `
                   >
                     available here
                   </a>
-                  ).  We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
+                  ). We have no control over, and are not responsible for, third-party collection, use and sharing of your personal information.
                 </li>
                 <li>
                   <b>
@@ -892,7 +906,7 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     Third Party Disputes
                   </b>
-                  .  NESTIO IS NOT AFFILIATED WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE, AND ANY DISPUTE YOU MAY HAVE WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE OR OTHER THIRD PARTY ARISING FROM OR RELATING TO OUR SERVICE IS DIRECTLY BETWEEN YOU AND SUCH THIRD PARTY. YOU IRREVOCABLY RELEASE NESTIO (AND NESTIO’S OFFICERS, DIRECTORS, AGENTS, SUBSIDIARIES, JOINT VENTURES, AND EMPLOYEES) FROM ANY AND ALL CLAIMS, DEMANDS AND DAMAGES (ACTUAL AND CONSEQUENTIAL) OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH SUCH DISPUTES.
+                  . NESTIO IS NOT AFFILIATED WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE, AND ANY DISPUTE YOU MAY HAVE WITH ANY CARRIER, FINANCIAL INSTITUTION, CREDIT UNION, BANK, OR THIRD PARTY SERVICE OR OTHER THIRD PARTY ARISING FROM OR RELATING TO OUR SERVICE IS DIRECTLY BETWEEN YOU AND SUCH THIRD PARTY. YOU IRREVOCABLY RELEASE NESTIO (AND NESTIO’S OFFICERS, DIRECTORS, AGENTS, SUBSIDIARIES, JOINT VENTURES, AND EMPLOYEES) FROM ANY AND ALL CLAIMS, DEMANDS AND DAMAGES (ACTUAL AND CONSEQUENTIAL) OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH SUCH DISPUTES.
                 </li>
               </ol>
             </li>
@@ -920,7 +934,8 @@ exports[`signed out matches snapshot 1`] = `
                   perform any fraudulent activity including impersonating any person or entity, claiming a false affiliation, accessing any other Service account without permission, or falsifying your age or date of birth;
                 </li>
                 <li>
-                  sell or otherwise transfer the access granted under these Terms or any Materials (as defined in Section 8) or any right or ability to view, access, or use any Materials; or 
+                  sell or otherwise transfer the access granted under these Terms or any Materials (as defined in Section 8) or any right or ability to view, access, or use any Materials; or
+                   
                 </li>
                 <li>
                   attempt to do any of the acts described in this Section 10 or assist or permit any person in engaging in any of the acts described in this Section 10.
@@ -957,7 +972,8 @@ exports[`signed out matches snapshot 1`] = `
                           For Applicants
                         </b>
                       </u>
-                      . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at 
+                      . If you violate any provision of these Terms, your account and these Terms automatically terminate. In addition, Nestio may, at its sole discretion, terminate these Terms, your account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. You may terminate your account and your agreement to these Terms at any time by contacting customer service at
+                       
                       <a
                         href="mailto:support@nestio.com"
                       >
@@ -1103,7 +1119,7 @@ exports[`signed out matches snapshot 1`] = `
               <b>
                 General Terms
               </b>
-              . These Terms of Service, together with the Online Leasing Platform  Privacy Statement (if you are a user of the Online Leasing Platform) and the Privacy Policy and any other agreements expressly incorporated by reference into these Terms, are the entire and exclusive understanding and agreement between you and Nestio regarding your use of the Service. You may not assign or transfer these Terms or your rights under these Terms, in whole or in part, by operation of law or otherwise, without our prior written consent. We may assign these Terms at any time without notice or consent. The failure to require performance of any provision will not affect our right to require performance at any other time after that, nor will a waiver by us of any breach or default of these Terms, or any provision of these Terms, be a waiver of any subsequent breach or default or a waiver of the provision itself. Use of section headers in these Terms is for convenience only and will not have any impact on the interpretation of any provision. Throughout these Terms the use of the word “including” means “including but not limited to”. If any part of these Terms is held to be invalid or unenforceable, the unenforceable part will be given effect to the greatest extent possible, and the remaining parts will remain in full force and effect.
+              . These Terms of Service, together with the Online Leasing Platform Privacy Statement (if you are a user of the Online Leasing Platform) and the Privacy Policy and any other agreements expressly incorporated by reference into these Terms, are the entire and exclusive understanding and agreement between you and Nestio regarding your use of the Service. You may not assign or transfer these Terms or your rights under these Terms, in whole or in part, by operation of law or otherwise, without our prior written consent. We may assign these Terms at any time without notice or consent. The failure to require performance of any provision will not affect our right to require performance at any other time after that, nor will a waiver by us of any breach or default of these Terms, or any provision of these Terms, be a waiver of any subsequent breach or default or a waiver of the provision itself. Use of section headers in these Terms is for convenience only and will not have any impact on the interpretation of any provision. Throughout these Terms the use of the word “including” means “including but not limited to”. If any part of these Terms is held to be invalid or unenforceable, the unenforceable part will be given effect to the greatest extent possible, and the remaining parts will remain in full force and effect.
               <ol>
                 <li>
                   <b>
@@ -1123,13 +1139,13 @@ exports[`signed out matches snapshot 1`] = `
                     type="a"
                   >
                     <li>
-                      Nestio shall collect, use, share and otherwise process personal information only for purposes of performing the Services, as set out in the Terms and Nestio’s relevant privacy statements and policies.  Nestio may create and derive from processing personal information related to the Service anonymized and/or aggregated data that does not identify any Leasing Professional or Applicant, and use, publicize or share with third parties such data for Nestio’s legitimate business purposes.
+                      Nestio shall collect, use, share and otherwise process personal information only for purposes of performing the Services, as set out in the Terms and Nestio’s relevant privacy statements and policies. Nestio may create and derive from processing personal information related to the Service anonymized and/or aggregated data that does not identify any Leasing Professional or Applicant, and use, publicize or share with third parties such data for Nestio’s legitimate business purposes.
                     </li>
                     <li>
                       Nestio will provide reasonable assistance to the Leasing Professional to assist the Leasing Professional in responding to individuals’ requests to exercise their privacy rights under applicable law (e.g., rights of access, deletion, etc.).
                     </li>
                     <li>
-                      Nestio will delete personal information of inactive Applicants and Leasing Professionals after no less than 24 months of inactivity or within 3 months of the end of the termination of these Terms, at Nestio’s sole discretion.  Nestio shall delete personal information by erasing the personal information from Nestio’s production systems and data warehouse(s); however, historic backups may still contain personal information.  Nestio may retain personal information for up to 24 months after the end of the termination of these Terms, or as otherwise required by applicable law.
+                      Nestio will delete personal information of inactive Applicants and Leasing Professionals after no less than 24 months of inactivity or within 3 months of the end of the termination of these Terms, at Nestio’s sole discretion. Nestio shall delete personal information by erasing the personal information from Nestio’s production systems and data warehouse(s); however, historic backups may still contain personal information. Nestio may retain personal information for up to 24 months after the end of the termination of these Terms, or as otherwise required by applicable law.
                     </li>
                   </ol>
                 </li>
@@ -1137,30 +1153,32 @@ exports[`signed out matches snapshot 1`] = `
                   <b>
                     ESIGN Act Consent to Use Electronic Records
                   </b>
-                  .  By using the Service, you consent and agree to receiving electronically, via the Service, all disclosures that the Fair Credit Reporting Act (“FCRA”) requires us to provide in writing.  Please email support@nestio.com for a paper copy of the information that the FCRA requires us to provide to you in writing.  Your consent covers all disclosures that the FCRA requires Nestio to make in writing.  You agree that any notices, agreements, disclosures or other communications that we send to you electronically will satisfy any legal communication requirements, including that those communications be in writing.  Your consent remains in effect until you give us notice that you are withdrawing it.  You have the right to withdraw your consent at any time.  Please be aware, however, that withdrawal of consent may result in the termination of your Service account.  To withdraw your consent to receive disclosures electronically, email support@nestio.com with the subject line “WITHDRAWAL OF CONSENT TO ELECTRONIC COMMUNICATIONS.”  Please read our Online Leasing Platform Privacy Statement (if applicable) and Privacy Policy to learn more about our electronic communications practices.
+                  . By using the Service, you consent and agree to receiving electronically, via the Service, all disclosures that the Fair Credit Reporting Act (“FCRA”) requires us to provide in writing. Please email support@nestio.com for a paper copy of the information that the FCRA requires us to provide to you in writing. Your consent covers all disclosures that the FCRA requires Nestio to make in writing. You agree that any notices, agreements, disclosures or other communications that we send to you electronically will satisfy any legal communication requirements, including that those communications be in writing. Your consent remains in effect until you give us notice that you are withdrawing it. You have the right to withdraw your consent at any time. Please be aware, however, that withdrawal of consent may result in the termination of your Service account. To withdraw your consent to receive disclosures electronically, email support@nestio.com with the subject line “WITHDRAWAL OF CONSENT TO ELECTRONIC COMMUNICATIONS.” Please read our Online Leasing Platform Privacy Statement (if applicable) and Privacy Policy to learn more about our electronic communications practices.
                 </li>
                 <li>
                   <b>
                     SMS Communications
                   </b>
-                  . If you are an Applicant and provide your phone number, Nestio, at Leasing Professional’s direction, may send you notifications by SMS, such as to alert you of a problem with your account.  You may opt out of SMS communications at any time by replying “STOP” to the originating number. After you send the SMS message “STOP” to us, we may send you an SMS to confirm that you have been unsubscribed. If you want to join again, just sign up as you did the first time and we will start sending SMS messages again.
+                  . If you are an Applicant and provide your phone number, Nestio, at Leasing Professional’s direction, may send you notifications by SMS, such as to alert you of a problem with your account. You may opt out of SMS communications at any time by replying “STOP” to the originating number. After you send the SMS message “STOP” to us, we may send you an SMS to confirm that you have been unsubscribed. If you want to join again, just sign up as you did the first time and we will start sending SMS messages again.
                 </li>
                 <li>
                   <b>
                     Contact Information
                   </b>
-                  . The Service is offered by Nestio, Inc., located at 150 West 22nd Street, Floor 8, New York, NY 10011 Attn: Legal. You may contact us by sending correspondence to that address or by emailing us at 
+                  . The Service is offered by Nestio, Inc., located at 150 West 22nd Street, Floor 8, New York, NY 10011 Attn: Legal. You may contact us by sending correspondence to that address or by emailing us at
+                   
                   <a
                     href="mailto:support@nestio.com"
                   >
                     support@nestio.com
                   </a>
-                  . You can access a copy of these Terms by clicking here: 
+                  . You can access a copy of these Terms by clicking here:
+                   
                   <ForwardRef
                     target="_blank"
                     to="/terms"
                   >
-                    http://localhost/10/terms
+                    http://localhost/undefined/terms
                   </ForwardRef>
                   .
                 </li>
@@ -1187,10 +1205,10 @@ exports[`signed out matches snapshot 1`] = `
             </a>
           </div>
           <p>
-            1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA.   You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information.  It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information.  We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
+            1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA. You are solely responsible for (a) maintaining the confidentiality and security of your access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, used by you, or anyone you authorize on your behalf, to access the Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b) preventing unauthorized access to or use of the information, files or data that you store or use in or with the Finicity Services (collectively, “Account Data”). You will be responsible for all electronic communications, including account registration and other account holder information, email and financial, accounting and other data (“Communications”) entered using the Licensee Access Information. It is assumed that any Communications received through use of the Licensee Access Information were sent or authorized by you. You agree to immediately notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee Access Information. We reserve the right to deny you access to the Finicity Services (or any part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity and Finicity’s third party vendors permission to use, Licensee Access Information to the extent we deem necessary to enable Finicity to provide the Finicity Services to you, including updating and maintaining Account Data, addressing errors or service interruptions, and to enhance the types of data and services we may provide to you in the future.
           </p>
           <p>
-            Notwithstanding any provision of Finicity’s Privacy Policy to the contrary, compiled, anonymized data concerning your financial transactions, or other available data that is collected through your use of the Finicity Services, may be used by Finicity’s third party vendors to conduct certain analytical research, performance tracking and benchmarking.  Finicity’s third party vendors may publish summary or aggregate results relating to metrics comprised of research data, from time to time, and distribute, sell or license such compiled, anonymized data for any purpose, including but not limited to, helping to improve products and services and assisting in troubleshooting and technical support or any other purpose permitted by applicable law. To the extent such information is shared or disclosed, it will not contain any of your personally identifiable information.
+            Notwithstanding any provision of Finicity’s Privacy Policy to the contrary, compiled, anonymized data concerning your financial transactions, or other available data that is collected through your use of the Finicity Services, may be used by Finicity’s third party vendors to conduct certain analytical research, performance tracking and benchmarking. Finicity’s third party vendors may publish summary or aggregate results relating to metrics comprised of research data, from time to time, and distribute, sell or license such compiled, anonymized data for any purpose, including but not limited to, helping to improve products and services and assisting in troubleshooting and technical support or any other purpose permitted by applicable law. To the extent such information is shared or disclosed, it will not contain any of your personally identifiable information.
           </p>
           <p>
             2. PROVIDER SERVICES.
@@ -1199,13 +1217,13 @@ exports[`signed out matches snapshot 1`] = `
             2.1 General. In connection with your use of the Finicity Services and as part of the functionality of the Finicity Services, you may have access to certain online services or information that may be made available by Nestio(s) (“Nestio Services”), including online banking, online payment, online investment account download, online bill pay, online trading, and other account information available from Nestio(s). The Finicity Services are designed to allow you to access Nestio Services (if and to the extent provided by Nestio(s)) to set up banking and other information, schedule the Finicity Services to access your account(s), download transactions into the Finicity Services and otherwise aggregate information from your account(s) with Nestio(s). You acknowledge and agree that we have no control over the provision of Nestio Services or provision of access to the Nestio Services by Nestio(s), do not guarantee that you will be able to use the Finicity Services with the Nestio Services, and will have no liability whatsoever for any actions or inactions on the part of the provider(s) resulting in your inability to use the Finicity Services to access your accounts, obtain data, download transactions, or otherwise use or access the Nestio Services.
           </p>
           <p>
-            2.2 Collection of Nestio Account Information. You acknowledge that in accessing your data and information through the Finicity Services, Nestio account access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, and the actual data in your account(s) with such provider(s) such as bank and other account balances, credit card charges, debits and deposits (collectively, “Nestio Account Data”), may be collected and stored in the Finicity Services. You authorize Finicity and Finicity’s third party vendors, in conjunction with the operation and hosting of the Finicity Services, to use certain Nestio Account Data to (a) collect your Nestio Account Data, (b) reformat and manipulate such Nestio Account Data, (c) create and provide hypertext links to Nestio(s), (d) access the providers’ websites using your Nestio Account Data, (e) update and maintain your account information, (f) address errors or service interruptions, (g) enhance the type of data and services we can provide to you in the future, and (h) take such other actions as are reasonably necessary to perform the actions described in (a) through (g) above. You hereby represent that you are the legal owner of your Nestio Account Data and that you have the authority to appoint, and hereby expressly do appoint, Finicity or Finicity’s third party vendors as your agent with a limited power of attorney, and appoint Finicity or Finicity’s third party vendors as your attorney-in-fact and agent, to access third party sites and/or retrieve and use your Nestio Account Data through whatever lawful means with the full power and authority to do and perform each thing necessary in connection with such activities, as you could do in person, including, without limitation, accepting any new and/or updated terms and conditions from Nestio on your behalf, in providing Finicity Services to you. You also expressly authorize Nestio to share and disclose your Nestio Account Data to Finicity on your behalf to facilitate your use of your Nestio Account Data for products and services agreed to by you. You further acknowledge that we do not, nor does Finicity’s third party vendor review your Nestio Account Data and agree that we are not responsible for its completeness or accuracy. Any transactions or informational activities performed at any provider’s website are not made through the Finicity Services and we assume no responsibility for such transactions or activities. You are solely responsible for any charges associated with Nestio(s).  The permissions, uses and access rights granted to Finicity’s third party vendors hereunder shall continue until such parties are notified by Finicity or you that the Finicity Services have been terminated.
+            2.2 Collection of Nestio Account Information. You acknowledge that in accessing your data and information through the Finicity Services, Nestio account access number(s), password(s), security question(s) and answer(s), account number(s), login information, and any other security or access information, and the actual data in your account(s) with such provider(s) such as bank and other account balances, credit card charges, debits and deposits (collectively, “Nestio Account Data”), may be collected and stored in the Finicity Services. You authorize Finicity and Finicity’s third party vendors, in conjunction with the operation and hosting of the Finicity Services, to use certain Nestio Account Data to (a) collect your Nestio Account Data, (b) reformat and manipulate such Nestio Account Data, (c) create and provide hypertext links to Nestio(s), (d) access the providers’ websites using your Nestio Account Data, (e) update and maintain your account information, (f) address errors or service interruptions, (g) enhance the type of data and services we can provide to you in the future, and (h) take such other actions as are reasonably necessary to perform the actions described in (a) through (g) above. You hereby represent that you are the legal owner of your Nestio Account Data and that you have the authority to appoint, and hereby expressly do appoint, Finicity or Finicity’s third party vendors as your agent with a limited power of attorney, and appoint Finicity or Finicity’s third party vendors as your attorney-in-fact and agent, to access third party sites and/or retrieve and use your Nestio Account Data through whatever lawful means with the full power and authority to do and perform each thing necessary in connection with such activities, as you could do in person, including, without limitation, accepting any new and/or updated terms and conditions from Nestio on your behalf, in providing Finicity Services to you. You also expressly authorize Nestio to share and disclose your Nestio Account Data to Finicity on your behalf to facilitate your use of your Nestio Account Data for products and services agreed to by you. You further acknowledge that we do not, nor does Finicity’s third party vendor review your Nestio Account Data and agree that we are not responsible for its completeness or accuracy. Any transactions or informational activities performed at any provider’s website are not made through the Finicity Services and we assume no responsibility for such transactions or activities. You are solely responsible for any charges associated with Nestio(s). The permissions, uses and access rights granted to Finicity’s third party vendors hereunder shall continue until such parties are notified by Finicity or you that the Finicity Services have been terminated.
           </p>
           <p>
             2.3 Information from Nestio’s Websites. You acknowledge and agree that (a) some providers may not allow the Finicity Services to access the Nestio Services, (b) providers may make changes to their websites, with or without notice to us, that may prevent or delay aggregation of information from such websites, and (c) the Finicity Services may “refresh” the Nestio Account Data by collecting the Nestio Account Data nightly, so your most recent transactions may not be reflected in any account balances or other account information presented to you in the Finicity Services. If you see a discrepancy in the Nestio Account Data, and in any case before making any transactions or decisions based on such account information presented in the Finicity Services, you should check the last refresh date for the account and confirm Nestio Account Data is correct by following the link back to the applicable provider or otherwise confirm that Nestio Account Data is up to date and accurate.
           </p>
           <p>
-            3. SOFTWARE USE, STORAGE AND ACCESS.   We shall have the right, in Finicity’s sole discretion and with reasonable notice, to establish or change limits concerning use of the Finicity Services, temporarily or permanently, including but not limited to (a) the amount of storage space you have on the Finicity Services at any time, and (b) the number of times (and the maximum duration for which) you may access the Finicity Services in a given period of time. We reserve the right to make any such changes effective immediately to maintain the security of the system or Licensee Access Information or to comply with any laws or regulations, and to provide you with electronic or written notice within thirty (30) days after such change. You may reject changes by discontinuing use of the Finicity Services to which such changes relate. Your continued use of the Finicity Services will constitute your acceptance of and agreement with such changes.  Maintenance upon the Finicity Services may be performed from time-to-time resulting in interrupted service, delays or errors in the Finicity Services. Attempts to provide prior notice of scheduled maintenance will be made, but provider cannot guarantee that such notice will be provided.
+            3. SOFTWARE USE, STORAGE AND ACCESS. We shall have the right, in Finicity’s sole discretion and with reasonable notice, to establish or change limits concerning use of the Finicity Services, temporarily or permanently, including but not limited to (a) the amount of storage space you have on the Finicity Services at any time, and (b) the number of times (and the maximum duration for which) you may access the Finicity Services in a given period of time. We reserve the right to make any such changes effective immediately to maintain the security of the system or Licensee Access Information or to comply with any laws or regulations, and to provide you with electronic or written notice within thirty (30) days after such change. You may reject changes by discontinuing use of the Finicity Services to which such changes relate. Your continued use of the Finicity Services will constitute your acceptance of and agreement with such changes. Maintenance upon the Finicity Services may be performed from time-to-time resulting in interrupted service, delays or errors in the Finicity Services. Attempts to provide prior notice of scheduled maintenance will be made, but provider cannot guarantee that such notice will be provided.
           </p>
           <p>
             4. EXPORT RESTRICTIONS. You acknowledge that the Finicity Services and any software underlying such Finicity Services are subject to the U.S. Export Administration Regulations (15 CFR, Chapter VII) and that you will comply with these regulations. You will not export or re-export the software or Finicity Services, directly or indirectly, to: (a) any countries that are subject to U.S. export restrictions; (b) any end user who has been prohibited from participating in U.S. export transactions by any federal agency of the U.S. government; or (c) any end user who you know or have reason to know will utilize them in the design, development or production of nuclear, chemical or biological weapons. You further acknowledge that this product may include technical data subject to export and re-export restrictions imposed by U.S. law.
@@ -1214,10 +1232,10 @@ exports[`signed out matches snapshot 1`] = `
             5. DISCLAIMER. YOU ACKNOWLEDGE AND AGREE THAT THE FINICITY SERVICES AND ANY THIRD PARTY SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” THE THIRD PARTY VENDOR AND ITS LICENSORS MAKE NO WARRANTY, EXPRESS, IMPLIED, OR STATUTORY, AND DISCLAIM ANY AND ALL WARRANTIES WITH RESPECT TO THE SERVICES OR ANY THIRD PARTY SERVICES; IN WHOLE OR IN PART, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, TITLE, OR NON-INFRINGEMENT. YOU UNDERSTAND AND EXPRESSLY AGREE THAT ANY USE OF THE SERVICES OR THIRD PARTY SERVICES WILL BE AT YOUR SOLE RISK. VENDOR AND ITS (a) LICENSORS AND (b) THIRD PARTY VENDORS DO NOT WARRANT THE COMPREHENSIVENESS, COMPLETENESS, CORRECTNESS, LEGALITY, OR ACCURACY OF THE SERVICES OR THIRD PARTY SERVICES, IN WHOLE OR IN PART, OR THAT THE SERVICES WILL BE SECURE, UNINTERRUPTED OR ERROR FREE. YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM YOUR USE OF THE SERVICES OR THIRD PARTY SERVICES.
           </p>
           <p>
-            6.  COMPLIANCE WITH FAIR CREDIT REPORTING ACT
+            6. COMPLIANCE WITH FAIR CREDIT REPORTING ACT
           </p>
           <p>
-            6.1  You acknowledge that applications that use consumer data to generate scores or other reports or that otherwise will be utilized by application users in connection with making a decision as to whether to enter into the following types of transactions or on what terms the transaction will be offered (“Financial Apps”) may be subject to the provisions of the Federal Fair Credit Reporting Act (“FCRA”) and equivalent state laws:
+            6.1 You acknowledge that applications that use consumer data to generate scores or other reports or that otherwise will be utilized by application users in connection with making a decision as to whether to enter into the following types of transactions or on what terms the transaction will be offered (“Financial Apps”) may be subject to the provisions of the Federal Fair Credit Reporting Act (“FCRA”) and equivalent state laws:
           </p>
           <ul>
             <li>
@@ -1243,13 +1261,13 @@ exports[`signed out matches snapshot 1`] = `
             </li>
           </ul>
           <p>
-            6.2 You acknowledge and agree that, in connection with Finicity Corporation’s (“Finicity”) products and services as a third party vendor of ours, data will be transmitted or made available in a mechanical manner by Finicity, and that to the extent Finicity is involved, Finicity will not alter the substance of the data unless authorized by you.  You hereby authorize Finicity to access Nestio to obtain Nestio Account Data and other Nestio Services on your behalf and at your authorization.  Finicity is providing the service of data delivery only as requested by you, the ultimate end-user, as requested and authorized by you, the owner of such information.  You acknowledge that Finicity is not a reseller of data (other than in the manner described in paragraph 1 with respect to anonymized data) but simply provides the service of transferring data as requested and you from one party to the party directed and authorized by you to receive the data.
+            6.2 You acknowledge and agree that, in connection with Finicity Corporation’s (“Finicity”) products and services as a third party vendor of ours, data will be transmitted or made available in a mechanical manner by Finicity, and that to the extent Finicity is involved, Finicity will not alter the substance of the data unless authorized by you. You hereby authorize Finicity to access Nestio to obtain Nestio Account Data and other Nestio Services on your behalf and at your authorization. Finicity is providing the service of data delivery only as requested by you, the ultimate end-user, as requested and authorized by you, the owner of such information. You acknowledge that Finicity is not a reseller of data (other than in the manner described in paragraph 1 with respect to anonymized data) but simply provides the service of transferring data as requested and you from one party to the party directed and authorized by you to receive the data.
           </p>
           <p>
-            7. THIRD PARTY BENEFICIARY; INDEMNIFICATION. You agree that Finicity is a third party beneficiary of the above provisions, with all rights to enforce such provisions as if Finicity were a party to this Agreement.  You agree to protect Finicity and its affiliates from any and all third party claims, liability, damages, expenses and costs caused by or arising from your use of the Finicity Services, your violation of these terms or your infringement, or infringement by any other user of your account, of any intellectual property or other right of anyone.
+            7. THIRD PARTY BENEFICIARY; INDEMNIFICATION. You agree that Finicity is a third party beneficiary of the above provisions, with all rights to enforce such provisions as if Finicity were a party to this Agreement. You agree to protect Finicity and its affiliates from any and all third party claims, liability, damages, expenses and costs caused by or arising from your use of the Finicity Services, your violation of these terms or your infringement, or infringement by any other user of your account, of any intellectual property or other right of anyone.
           </p>
           <p>
-            8.  LIMITATION OF LIABILITY.  YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS AFFILIATES, ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY HARMS, WHICH LAWYERS AND COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, RESULTING FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES PURCHASED OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH OR FROM THE SERVICE; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA; (v) STATEMENTS OR CONDUCT OF ANYONE ON THE SERVICE; (vi) THE USE, INABILITY TO USE, UNAUTHORIZED USE, PERFORMANCE OR NON-PERFORMANCE OF ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE PROVIDER HAS BEEN ADVISED PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER MATTER RELATING TO THE SERVICE.
+            8. LIMITATION OF LIABILITY. YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS AFFILIATES, ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY HARMS, WHICH LAWYERS AND COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, RESULTING FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES PURCHASED OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH OR FROM THE SERVICE; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA; (v) STATEMENTS OR CONDUCT OF ANYONE ON THE SERVICE; (vi) THE USE, INABILITY TO USE, UNAUTHORIZED USE, PERFORMANCE OR NON-PERFORMANCE OF ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE PROVIDER HAS BEEN ADVISED PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER MATTER RELATING TO THE SERVICE.
           </p>
         </div>
       </ForwardRef(render)>
@@ -1257,7 +1275,7 @@ exports[`signed out matches snapshot 1`] = `
   </React.Fragment>
   <ActionButton
     color="primary"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     successGreen={false}
     variant="contained"
   >
