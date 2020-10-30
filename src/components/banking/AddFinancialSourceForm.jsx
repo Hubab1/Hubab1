@@ -61,14 +61,14 @@ export function AddFinancialSourceForm(props) {
 
     const getSubmitButtonText = (isSubmitting) => {
         if (props.isEditing) {
-            return isSubmitting ? 'Saving Changes' : 'Save Changes';
+            return isSubmitting ? 'Saving Changes...' : 'Save Changes';
         }
 
         if (isAsset) {
-            return isSubmitting ? 'Adding Asset' : 'Add Asset';
+            return isSubmitting ? 'Adding Asset...' : 'Add Asset';
         }
 
-        return isSubmitting ? 'Adding Income Source' : 'Add Income Source';
+        return isSubmitting ? 'Adding Income Source...' : 'Add Income Source';
     };
 
     return (
