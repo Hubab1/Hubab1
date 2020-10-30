@@ -559,9 +559,9 @@ export function FunnelTOSAgreement(props) {
                                     </li>
                                     {/* eslint-disable-next-line */}
                                     <li>
-                                        <a name="privacy-practices">
+                                        <p>
                                             <b>Privacy Practices.</b>
-                                        </a>
+                                        </p>
                                         <ol type="a">
                                             <li>
                                                 Nestio shall collect, use, share and otherwise process personal
