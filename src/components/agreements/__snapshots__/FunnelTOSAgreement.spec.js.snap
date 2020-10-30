@@ -531,7 +531,7 @@ exports[`signed in matches snapshot 1`] = `
                   target="_blank"
                   to="/terms"
                 >
-                  http://localhost/10/terms
+                  http://localhost/undefined/terms
                 </ForwardRef>
                 .
               </li>
@@ -1160,7 +1160,7 @@ exports[`signed out matches snapshot 1`] = `
                     target="_blank"
                     to="/terms"
                   >
-                    http://localhost/10/terms
+                    http://localhost/undefined/terms
                   </ForwardRef>
                   .
                 </li>
@@ -1257,7 +1257,7 @@ exports[`signed out matches snapshot 1`] = `
   </React.Fragment>
   <ActionButton
     color="primary"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     successGreen={false}
     variant="contained"
   >

@@ -32,7 +32,7 @@ import AppApproved from 'components/app-approved/AppApprovedContainer';
 import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
-import TermsPage from 'components/TermsPage';
+import PlatformAgreementsContainer from 'components/agreements/PlatformAgreementsContainer';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
@@ -152,7 +152,7 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
-                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
+                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={PlatformAgreementsContainer} />}
                         {isLoggedIn && (
                             <NavDrawer>
                                 <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
@@ -173,7 +173,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted} />
                                 <Route path={ROUTES.APP_DENIED} component={AppDenied} />
                                 <Route path={ROUTES.APP_CANCELLED} component={AppCancelled} />
-                                <Route path={ROUTES.TERMS} component={TermsPage} />
+                                <Route path={ROUTES.TERMS} component={PlatformAgreementsContainer} />
                                 <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
