@@ -3,7 +3,7 @@
 exports[`signed in matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Nestio Terms of Service
+    Consent to Electronic Signature and Terms of Service
   </ForwardRef(render)>
   <br />
   <ForwardRef(render)>
@@ -11,9 +11,19 @@ exports[`signed in matches snapshot 1`] = `
       <div
         className="tos-container"
       >
-        <em>
-          Last Updated: March 19, 2020
-        </em>
+        <p>
+          <b>
+            Consent to Electronic Signature
+          </b>
+        </p>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+        </p>
+        <p>
+          <b>
+            Terms of Service
+          </b>
+        </p>
         <p>
           Welcome, and thank you for your interest in Nestio, Inc. (“
           <b>
@@ -538,7 +548,7 @@ exports[`signed in matches snapshot 1`] = `
                   target="_blank"
                   to="/terms"
                 >
-                  http://localhost/undefined/terms
+                  http://localhost/10/terms
                 </ForwardRef>
                 .
               </li>
@@ -639,7 +649,7 @@ exports[`signed out matches snapshot 1`] = `
 <UnauthenticatedPage>
   <React.Fragment>
     <ForwardRef(render)>
-      Nestio Terms of Service
+      Consent to Electronic Signature and Terms of Service
     </ForwardRef(render)>
     <br />
     <ForwardRef(render)>
@@ -647,9 +657,19 @@ exports[`signed out matches snapshot 1`] = `
         <div
           className="tos-container"
         >
-          <em>
-            Last Updated: March 19, 2020
-          </em>
+          <p>
+            <b>
+              Consent to Electronic Signature
+            </b>
+          </p>
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+          </p>
+          <p>
+            <b>
+              Terms of Service
+            </b>
+          </p>
           <p>
             Welcome, and thank you for your interest in Nestio, Inc. (“
             <b>
@@ -1174,7 +1194,7 @@ exports[`signed out matches snapshot 1`] = `
                     target="_blank"
                     to="/terms"
                   >
-                    http://localhost/undefined/terms
+                    http://localhost/10/terms
                   </ForwardRef>
                   .
                 </li>
@@ -1269,9 +1289,24 @@ exports[`signed out matches snapshot 1`] = `
       </ForwardRef(render)>
     </ForwardRef(render)>
   </React.Fragment>
+  <ForwardRef(render)>
+    <_default
+      checked={false}
+      label="I agree to Consent to Electronic Signature"
+      onChange={[Function]}
+      value={false}
+    />
+    <_default
+      checked={false}
+      label="I agree to the Terms of Service"
+      onChange={[Function]}
+      value={false}
+    />
+  </ForwardRef(render)>
   <ActionButton
     color="primary"
-    onClick={[MockFunction]}
+    disabled={true}
+    onClick={[Function]}
     successGreen={false}
     variant="contained"
   >

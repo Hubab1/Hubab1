@@ -17,11 +17,8 @@ export class RegisterPage extends React.Component {
 
     constructor(props) {
         super(props);
-        const viewedFunnelTerms = localStorage.getItem(`accepted-platform-terms-${props.leaseSettingsId}`);
-        const viewedElectronicSignatureTerms = localStorage.getItem(
-            `accepted-electronic-signature-terms-${props.leaseSettingsId}`
-        );
-        if (!(viewedFunnelTerms && viewedElectronicSignatureTerms)) {
+        const viewedTerms = localStorage.getItem(`accepted-platform-terms-${props.leaseSettingsId}`);
+        if (!viewedTerms) {
             props.history.push(ROUTES.TERMS);
         }
     }
