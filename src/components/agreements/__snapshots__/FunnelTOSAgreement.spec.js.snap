@@ -490,13 +490,11 @@ exports[`signed in matches snapshot 1`] = `
                 . These Terms are governed by the laws of the State of New York without regard to conflict of law principles. You and Nestio submit to the personal and exclusive jurisdiction of the state courts and federal courts located within the Southern District of New York for resolution of any lawsuit or court proceeding permitted under these Terms.
               </li>
               <li>
-                <a
-                  name="privacy-practices"
-                >
+                <p>
                   <b>
                     Privacy Practices.
                   </b>
-                </a>
+                </p>
                 <ol
                   type="a"
                 >
@@ -1128,13 +1126,11 @@ exports[`signed out matches snapshot 1`] = `
                   . These Terms are governed by the laws of the State of New York without regard to conflict of law principles. You and Nestio submit to the personal and exclusive jurisdiction of the state courts and federal courts located within the Southern District of New York for resolution of any lawsuit or court proceeding permitted under these Terms.
                 </li>
                 <li>
-                  <a
-                    name="privacy-practices"
-                  >
+                  <p>
                     <b>
                       Privacy Practices.
                     </b>
-                  </a>
+                  </p>
                   <ol
                     type="a"
                   >
