@@ -863,7 +863,7 @@ export function TermsPage(props) {
                                             of your choosing when inspecting your files. That person must furnish
                                             reasonable identification. The agency may require you to provide the agency
                                             with a written statement granting permission to the agency to discuss your
-                                            file in such person's presence. The agency also is not required by law to
+                                            file in such person’s presence. The agency also is not required by law to
                                             make available to you the sources of information in your files, although
                                             such information would be obtainable through discovery procedures in any
                                             court action brought under the Investigative Consumer Reporting Agencies
