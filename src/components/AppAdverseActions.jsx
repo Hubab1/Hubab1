@@ -187,8 +187,8 @@ export function AppAdverseActions(props) {
                     {profile?.applicant_matches_dnr_list && (
                         <P>
                             Unfortunately, {companyName} is unable to approve your rental application for{' '}
-                            {configuration.community.building_name} because of one or more applicant&apos;s prior
-                            criminal or rental housing related civil record history.
+                            {configuration.community.building_name} because of one or more applicant&apos;s prior rental
+                            history with {companyName}.
                         </P>
                     )}
 
