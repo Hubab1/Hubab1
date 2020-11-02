@@ -59,6 +59,18 @@ export function AddFinancialSourceForm(props) {
         return requirement.proof_documents.some(metMinimumRequired);
     };
 
+    const getSubmitButtonText = (isSubmitting) => {
+        if (props.isEditing) {
+            return isSubmitting ? 'Saving Changes...' : 'Save Changes';
+        }
+
+        if (isAsset) {
+            return isSubmitting ? 'Adding Asset...' : 'Add Asset';
+        }
+
+        return isSubmitting ? 'Adding Income Source...' : 'Add Income Source';
+    };
+
     return (
         <Formik
             validationSchema={Yup.object({
@@ -161,7 +173,7 @@ export function AddFinancialSourceForm(props) {
                         marginTop={68}
                         marginBottom={20}
                     >
-                        {props.isEditing ? 'Save Changes' : isAsset ? 'Add Asset' : 'Add Income Source'}
+                        {getSubmitButtonText(isSubmitting)}
                     </ActionButton>
                 </form>
             )}
