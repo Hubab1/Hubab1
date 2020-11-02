@@ -23,7 +23,7 @@ exports[`matches snapshot 1`] = `
     </div>
     <ActionButton
       color="primary"
-      marginTop={150}
+      marginTop={50}
       onClick={[Function]}
       successGreen={false}
       variant="contained"

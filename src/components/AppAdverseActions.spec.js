@@ -15,6 +15,13 @@ beforeEach(() => {
         name: 'John Doe',
         onAgree: jest.fn(),
         configuration: {
+            community: {
+                building_name: 'Test Community',
+                company: {
+                    name: 'Test Company',
+                    id: 1,
+                },
+            },
             credit_score_rating_config: [
                 [0, 'Poor'],
                 [550, 'Good'],
@@ -49,6 +56,22 @@ it('Matches Snapshot if it has an international applicant', async () => {
     const wrapper = mount(
         <AppAdverseActions {...defaultProps} securityDeposit={'$2,200'} hasInternationalApplicant={true} />
     );
+    await act(async () => {
+        await Promise.resolve(wrapper);
+        wrapper.update();
+    });
+    expect(wrapper.debug()).toMatchSnapshot();
+});
+
+it('Matches Snapshot when applicant matches do not rent list', async () => {
+    API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
+    const props = {
+        ...defaultProps,
+        profile: {
+            applicant_matches_dnr_list: true,
+        },
+    };
+    const wrapper = mount(<AppAdverseActions {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
@@ -195,6 +218,7 @@ describe('Credit score color', function () {
 
     it('Display color grey when no credit score rating', async () => {
         const configuration = {
+            ...defaultProps.configuration,
             credit_score_rating_config: [],
         };
         API.getAdverseActions = jest.fn().mockReturnValue(
