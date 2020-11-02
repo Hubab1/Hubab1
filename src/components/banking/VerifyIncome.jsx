@@ -36,7 +36,7 @@ const bodyRow = css`
     margin-bottom: 20px;
 `;
 
-const VerifyIncome = (props) => {
+const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, reportNoIncomeAssets }) => {
     return (
         <Fragment>
             <H1>Verify Your Income</H1>
@@ -64,13 +64,22 @@ const VerifyIncome = (props) => {
                     </P>
                 </div>
             </div>
-            {!!props.errors && <GenericFormMessage type="error" messages={props.errors} />}
-            <ActionButton disabled={props.loadingFinicityIframe} onClick={props.openFinicityIframe} marginBottom={20}>
+            {!!errors && <GenericFormMessage type="error" messages={errors} />}
+            <ActionButton disabled={loadingFinicityIframe} onClick={openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>
             <Link to={ROUTES.INCOME_VERIFICATION_SUMMARY} className={styles.linkNoStyle}>
                 <ActionButton variant="outlined" marginBottom={20}>
                     Verify Manually
+                </ActionButton>
+            </Link>
+            <Link
+                to={ROUTES.INCOME_VERIFICATION_SUMMARY}
+                className={styles.linkNoStyle}
+                onClick={(e) => reportNoIncomeAssets(e, ROUTES.INCOME_VERIFICATION_SUMMARY)}
+            >
+                <ActionButton variant="outlined" marginBottom={20}>
+                    I Don&apos;t Have Income or Assets
                 </ActionButton>
             </Link>
         </Fragment>
@@ -81,6 +90,7 @@ VerifyIncome.propTypes = {
     errors: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     loadingFinicityIframe: PropTypes.bool,
     openFinicityIframe: PropTypes.func,
+    reportNoIncomeAssets: PropTypes.func,
 };
 
 export default VerifyIncome;
