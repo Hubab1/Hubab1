@@ -762,229 +762,610 @@ export function TermsPage(props) {
                                         </p>
                                         <p>
                                             For details on what personal information we collect and for what purposes,
-                                            and your privacy rights and how to exercise them, visit
-                                            https://www.essexapartmenthomes.com/privacy-policy or contact us at (833)
-                                            591-5938.
+                                            and your privacy rights and how to exercise them, visit{' '}
+                                            <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://www.essexapartmenthomes.com/privacy-policy"
+                                            >
+                                                https://www.essexapartmenthomes.com/privacy-policy
+                                            </a>{' '}
+                                            or contact us at (833) 591-5938.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>Fair Credit Reporting Act</b>
+                                        <p>I hereby warrant that all statements set forth above are true.</p>
+                                        <p>
+                                            I authorize Landlord and its agents to verify the information above and to
+                                            obtain a rental report that may include credit reports, investigative
+                                            consumer reports, unlawful detainer (eviction) reports, bad check searches,
+                                            criminal background searches, social security number verification, fraud
+                                            warnings, previous tenant history and employment history. I authorize
+                                            Landlord and its agents to request and disclose information to previous or
+                                            subsequent (actual and prospective) landlords and property management
+                                            companies. I agree to provide additional information upon request.
+                                        </p>
+                                        <p>
+                                            While Landlord may obtain criminal history checks on potential residents,
+                                            Landlord has no duty to do so, and does not warrant or guarantee the
+                                            personal safety of any resident, occupant, guest or other person in the
+                                            Landlord Community.
+                                        </p>
+                                        <p>
+                                            I understand that a link to a copy of the rental report will be provided to
+                                            me upon my request. I understand that I may need to provide some
+                                            identification to authenticate my request and gain access to the report. I
+                                            consent to the delivery of all notices or disclosures required by law in
+                                            connection with my application via email or any other any medium chosen by
+                                            Landlord or its agents, I understand that all notices shall be deemed
+                                            received upon being sent.
+                                        </p>
+                                        <p>
+                                            I certify that I have read and fully understand my rights under the FCRA
+                                            available at{' '}
+                                            <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf"
+                                            >
+                                                https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf
+                                            </a>
+                                            .
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>California Investigative Consumer Reporting Agencies Act</b>
+                                        <p>
+                                            <b>
+                                                Summary of Rights Under the California Investigative Consumer Reporting
+                                                Agencies Act
+                                            </b>
+                                        </p>
+                                        <p>
+                                            <b>California Civil Code § 1786.22</b>
+                                        </p>
+                                        <p>
+                                            You have a right under California law to inspect files maintained on you by
+                                            an investigative consumer reporting agency pursuant to any of the following
+                                            procedures, during normal business hours and on reasonable notice:
+                                        </p>
+                                        <ol>
+                                            <li>
+                                                You may personally inspect the files if you provide proper
+                                                identification (e.g., valid driver’s license, social security account
+                                                number, military identification card, credit cards), and may receive a
+                                                copy of the file for the actual cost of duplication services provided.
+                                            </li>
+                                            <li>
+                                                You may make a written request, by certified mail and with proper
+                                                identification, as described above, for copies to be sent to a specified
+                                                addressee.
+                                            </li>
+                                            <li>
+                                                You may make a written request, with proper identification as described
+                                                above, for telephone disclosure of a summary of information contained in
+                                                your files, if any toll charge is prepaid by or charged directly to you.
+                                            </li>
+                                        </ol>
+                                        <p>
+                                            If you are unable to provide “proper identification“ through the types of
+                                            cards or numbers listed above, the agency may require additional information
+                                            concerning your employment and personal or family history in order to verify
+                                            your identity.
+                                        </p>
+                                        <p>
+                                            The agency must provide trained personnel to explain to you any information
+                                            that the agency is required to furnish to you from your file. The agency
+                                            also must provide you with a written explanation of any coded information
+                                            contained in your files at the time your file is provided to you for
+                                            inspection. You are permitted by law to be accompanied by one other person
+                                            of your choosing when inspecting your files. That person must furnish
+                                            reasonable identification. The agency may require you to provide the agency
+                                            with a written statement granting permission to the agency to discuss your
+                                            file in such person's presence. The agency also is not required by law to
+                                            make available to you the sources of information in your files, although
+                                            such information would be obtainable through discovery procedures in any
+                                            court action brought under the Investigative Consumer Reporting Agencies
+                                            Act.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>RENTAL QUALIFICATIONS</b>
+                                        <p>
+                                            All applicants must be of legal age. All parties 18 years of age or older
+                                            are required to complete an application and pay any and all applicable fees.
+                                            Applications are to be completed in full; applications containing untrue,
+                                            incorrect, or misleading information will be denied. The application fee is
+                                            non-refundable unless otherwise provided by state or local law.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>IDENTITY VERIFICATION</b>
+                                        <p>
+                                            ALL applicants are REQUIRED to show at least one of any of the following
+                                            forms of identification:
+                                            <br />- Government issued identification such as military identification,
+                                            driver’s license or passport
+                                            <br />- Age of majority card
+                                            <br />- Birth certificate
+                                            <br />- Social security card
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>RENTAL SCORE</b>
+                                        <p>
+                                            Applications are submitted to a third-party rental applicant screening
+                                            company. Applications are evaluated based on a rental scoring system. Rental
+                                            scoring is based on data such as payment history, quantity and type of
+                                            accounts, outstanding debt, and age of accounts. Every applicant is treated
+                                            objectively because each application is scored statistically in exactly the
+                                            same manner.
+                                        </p>
+                                        <p>
+                                            Washington State properties do not accept Comprehensive Reusable Tenant
+                                            Screening Reports.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>GUARANTORS</b>
+                                        <p>
+                                            Guarantors may be considered if there is a denial of the application based
+                                            on negative credit history or lack of credit or verifiable income.
+                                            Guarantors will not be considered, and the application will be automatically
+                                            denied in the case of unpaid judgments, unpaid landlord collections or
+                                            failure to pass a criminal screening.
+                                        </p>
+                                        <p>
+                                            Proof of legal, verifiable U.S. assets and/or U.S. income in an amount equal
+                                            to 3.9 – 5.0 times the monthly rent per household will be required based on
+                                            pre-established requirements at the property and in-state residency* is
+                                            required in at least one form of the items listed below. Proof of income
+                                            includes, but is not limited to, the following:
+                                        </p>
+                                        <p>
+                                            - Proof of current employment (e.g., three most current paystubs within the
+                                            last 45 or 90 days, depending on the payment cycle);
+                                            <br />- Prior year tax return;
+                                            <br />- Proof of receipt of government income (e.g., social security,
+                                            disability, welfare, unemployment, etc.);
+                                            <br />- Proof of receipt of retirement and/or investment income;
+                                            <br />- Proof of US based assets;
+                                            <br />- Student loan income*, child and/or spousal support; or,
+                                            <br />- Or any other legal, verifiable income.
+                                        </p>
+                                        <p>
+                                            Applications for guarantors and co-signers are also scored, but are
+                                            typically held to a more stringent, pre-established screening standard
+                                            because guarantors and co-signers are technically responsible for the
+                                            payments for this residence, as well as their own place of residence.
+                                        </p>
+                                        <p>
+                                            *If Guarantor is not an in-state resident, but is a resident of the U.S.,
+                                            the security deposit shall be increased by one month’s rent. Note there is
+                                            an exception in the city of Seattle, Washington requiring that the total
+                                            security deposit not exceed one month’s rent.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>INCOME VERIFICATION</b>
+                                        <p>
+                                            Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the
+                                            monthly rent per household will be required based on pre-established
+                                            requirements at the property, along with any necessary supporting documents.
+                                        </p>
+                                        <p>
+                                            Proof of income includes, but is not limited to, the following:
+                                            <br />- Proof of current employment (e.g., three most current paystubs
+                                            within the last 45 or 90 days, depending on the payment cycle);
+                                            <br />- Prior year tax return;
+                                            <br />- Proof of receipt of government income (e.g., social security,
+                                            disability, welfare, unemployment, etc.);
+                                            <br />- Proof of receipt of retirement and/or investment income;
+                                            <br />- Proof of US based assets;
+                                            <br />- Student loan income*, child and/or spousal support; or,
+                                            <br />- Any other legal, verifiable income.
+                                            <br />
+                                            In no current income, proof of liquid assets (which includes bank statements
+                                            with deposits) at 2.0 – 3.0 the net rent for the entire lease term is
+                                            required.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>RESIDENCE VERIFICATION</b>
+                                        <p>
+                                            Management reserves the right to verify the applicant’s residence history.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>POSITIVE RENTAL HISTORY</b>
+                                        <p>
+                                            Applicants who have been a party to an eviction proceeding may not be
+                                            approved for residency, depending upon the pre-established criteria set by
+                                            Management, to the extent permitted by law.
+                                            <br />
+                                            The following will be considered for all individual applicants and will
+                                            result in denial of the application:
+                                            <br />- Unpaid judgment to prior landlord; or,
+                                            <br />- Unpaid landlord collections.
+                                        </p>
+                                        <p>
+                                            Additionally, the below may result in denial of the application depending on
+                                            the facts and information regarding the following:
+                                            <br />- Negative landlord reference from previous landlord indicating damage
+                                            done to the prior residence;
+                                            <br />- Late payments or returned checks;
+                                            <br />- Balance owed to previous landlord; or,
+                                            <br />- Lease violations.
+                                        </p>
+                                        <p>
+                                            Eviction history occurring during or within six months after the end of the
+                                            civil emergency proclaimed by Seattle Mayor Durkan on March 3, 2020 shall
+                                            not be used to take an adverse action against applicants for communities
+                                            located in Seattle, Washington. The Seattle Office for Civil Rights is the
+                                            department that will enforce any violations of this rule.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>CRIMINAL CHARGES/CONVICTIONS</b>
+                                        <p>
+                                            Applicants charged or convicted for certain felony and misdemeanor offenses
+                                            may not be approved for residency, depending upon jurisdictional rules and
+                                            the pre-established criteria set by Management.
+                                            <br />
+                                            Tenancy eligibility determinations as a result of criminal screening will be
+                                            evaluated on a case-by-case basis, and will be based on the following
+                                            factors and information: 1) the facts of the crime you were convicted of; 2)
+                                            the actual crime you were convicted of; 3) how much time has passed since
+                                            the conviction.
+                                            <br />
+                                            Note that convictions (felonies within the last 7 years, misdemeanors within
+                                            the last 3 years) will be evaluated in regard to the factors set forth
+                                            above.
+                                            <br />
+                                            Management reserves the right to charge additional fees should additional
+                                            criminal screening be necessary, which shall be paid in full by the
+                                            applicant prior to the additional screening.
+                                        </p>
+                                        <p>
+                                            Criminal screening criteria does not apply to communities located in
+                                            Seattle, Washington. Landlords in the City of Seattle are prohibited from
+                                            requiring disclosure, asking about, rejecting an applicant, or taking an
+                                            adverse action based on any arrest record, conviction record, or criminal
+                                            history, except for sex offender registry information as described in
+                                            subsections 14.09.025.A.3, 14.09.025.A.4, and 14.09.025.A.5, and subject to
+                                            the exclusions and legal requirements in Section 14.09.115. All applicants
+                                            will be screened for registry information. Management considers the entire
+                                            application and considers prior convictions reportable under the Fair Credit
+                                            Reporting Act and rules of Washington, limited to those appearing on a
+                                            local, state, or national registry only.
+                                        </p>
+                                        <p>
+                                            Consideration will be given to the following factors relating to the
+                                            conviction(s) that requires registry on a local, state, or national sex
+                                            offender registry:
+                                            <br />- The nature and severity of the conviction;
+                                            <br />- The number and types of convictions;
+                                            <br />- The time that has elapsed since the date of conviction;
+                                            <br />- Age of the individual at the time of convictions;
+                                            <br />- Evidence of good tenant history before and/or after the conviction
+                                            occurred; and
+                                            <br />- Any supplemental information related to the individual’s
+                                            rehabilitation, good conduct, and additional facts or explanations provided
+                                            by the individual.
                                         </p>
                                     </li>
                                 </ol>
                             </li>
+
                             <li>
-                                <b></b>
+                                <b>Third-Party Services Terms.</b>
+                                <ol>
+                                    <li>
+                                        <b>LICENSEE ACCESS INFORMATION AND ACCOUNT DATA</b>. You are solely responsible
+                                        for (a) maintaining the confidentiality and security of your access number(s),
+                                        password(s), security question(s) and answer(s), account number(s), login
+                                        information, and any other security or access information, used by you, or
+                                        anyone you authorize on your behalf, to access the Finicity Services and Funnel
+                                        accounts (collectively, “Licensee Access Information”), and (b) preventing
+                                        unauthorized access to or use of the information, files or data that you store
+                                        or use in or with the Finicity Services (collectively, “Account Data”). You will
+                                        be responsible for all electronic communications, including account registration
+                                        and other account holder information, email and financial, accounting and other
+                                        data (“Communications”) entered using the Licensee Access Information. It is
+                                        assumed that any Communications received through use of the Licensee Access
+                                        Information were sent or authorized by you. You agree to immediately notify
+                                        Finicity if you become aware of any loss, theft or unauthorized use of any
+                                        Licensee Access Information. We reserve the right to deny you access to the
+                                        Finicity Services (or any part thereof) if we reasonably believe that any loss,
+                                        theft or unauthorized use of Licensee Access Information has occurred. You must
+                                        inform Finicity of, and hereby grant to Finicity and Finicity’s third party
+                                        vendors permission to use, Licensee Access Information to the extent we deem
+                                        necessary to enable Finicity to provide the Finicity Services to you, including
+                                        updating and maintaining Account Data, addressing errors or service
+                                        interruptions, and to enhance the types of data and services we may provide to
+                                        you in the future. Notwithstanding any provision of Finicity’s Privacy Policy to
+                                        the contrary, compiled, anonymized data concerning your financial transactions,
+                                        or other available data that is collected through your use of the Finicity
+                                        Services, may be used by Finicity’s third party vendors to conduct certain
+                                        analytical research, performance tracking and benchmarking. Finicity’s third
+                                        party vendors may publish summary or aggregate results relating to metrics
+                                        comprised of research data, from time to time, and distribute, sell or license
+                                        such compiled, anonymized data for any purpose, including but not limited to,
+                                        helping to improve products and services and assisting in troubleshooting and
+                                        technical support or any other purpose permitted by applicable law. To the
+                                        extent such information is shared or disclosed, it will not contain any of your
+                                        personally identifiable information.
+                                    </li>
+                                    <li>
+                                        <b>PROVIDER SERVICES.</b>
+                                        <ol>
+                                            <li>
+                                                General. In connection with your use of the Finicity Services and as
+                                                part of the functionality of the Finicity Services, you may have access
+                                                to certain online services or information that may be made available by
+                                                Funnel(s) (“Funnel Services”), including online banking, online payment,
+                                                online investment account download, online bill pay, online trading, and
+                                                other account information available from Funnel(s). The Finicity
+                                                Services are designed to allow you to access Funnel Services (if and to
+                                                the extent provided by Funnel(s)) to set up banking and other
+                                                information, schedule the Finicity Services to access your account(s),
+                                                download transactions into the Finicity Services and otherwise aggregate
+                                                information from your account(s) with Funnel(s). You acknowledge and
+                                                agree that Finicity have no control over the provision of Funnel
+                                                Services or provision of access to the Funnel Services by Funnel(s), do
+                                                not guarantee that you will be able to use the Finicity Services with
+                                                the Funnel Services, and will have no liability whatsoever for any
+                                                actions or inactions on the part of the provider(s) resulting in your
+                                                inability to use the Finicity Services to access your accounts, obtain
+                                                data, download transactions, or otherwise use or access the Funnel
+                                                Services.
+                                            </li>
+                                            <li>
+                                                Collection of Funnel Account Information. You acknowledge that in
+                                                accessing your data and information through the Finicity Services,
+                                                Funnel account access number(s), password(s), security question(s) and
+                                                answer(s), account number(s), login information, and any other security
+                                                or access information, and the actual data in your account(s) with such
+                                                provider(s) such as bank and other account balances, credit card
+                                                charges, debits and deposits (collectively, “Funnel Account Data”), may
+                                                be collected and stored in the Finicity Services. You authorize Finicity
+                                                and Finicity’s third party vendors, in conjunction with the operation
+                                                and hosting of the Finicity Services, to use certain Funnel Account Data
+                                                to (a) collect your Funnel Account Data, (b) reformat and manipulate
+                                                such Funnel Account Data, (c) create and provide hypertext links to
+                                                Funnel(s), (d) access the providers’ websites using your Funnel Account
+                                                Data, (e) update and maintain your account information, (f) address
+                                                errors or service interruptions, (g) enhance the type of data and
+                                                services we can provide to you in the future, and (h) take such other
+                                                actions as are reasonably necessary to perform the actions described in
+                                                (a) through (g) above. You hereby represent that you are the legal owner
+                                                of your Funnel Account Data and that you have the authority to appoint,
+                                                and hereby expressly do appoint, Finicity or Finicity’s third party
+                                                vendors as your agent with a limited power of attorney, and appoint
+                                                Finicity or Finicity’s third party vendors as your attorney-in-fact and
+                                                agent, to access third party sites and/or retrieve and use your Funnel
+                                                Account Data through whatever lawful means with the full power and
+                                                authority to do and perform each thing necessary in connection with such
+                                                activities, as you could do in person, including, without limitation,
+                                                accepting any new and/or updated terms and conditions from Funnel on
+                                                your behalf, in providing Finicity Services to you. You also expressly
+                                                authorize Funnel to share and disclose your Funnel Account Data to
+                                                Finicity on your behalf to facilitate your use of your Funnel Account
+                                                Data for products and services agreed to by you. You further acknowledge
+                                                that we do not, nor does Finicity’s third party vendor review your
+                                                Funnel Account Data and agree that we are not responsible for its
+                                                completeness or accuracy. Any transactions or informational activities
+                                                performed at any provider’s website are not made through the Finicity
+                                                Services and we assume no responsibility for such transactions or
+                                                activities. You are solely responsible for any charges associated with
+                                                Funnel(s). The permissions, uses and access rights granted to Finicity’s
+                                                third party vendors hereunder shall continue until such parties are
+                                                notified by Finicity or you that the Finicity Services have been
+                                                terminated.
+                                            </li>
+                                            <li>
+                                                Information from Funnel’s Websites. You acknowledge and agree that (a)
+                                                some providers may not allow the Finicity Services to access the Funnel
+                                                Services, (b) providers may make changes to their websites, with or
+                                                without notice to us, that may prevent or delay aggregation of
+                                                information from such websites, and (c) the Finicity Services may
+                                                “refresh” the Funnel Account Data by collecting the Funnel Account Data
+                                                nightly, so your most recent transactions may not be reflected in any
+                                                account balances or other account information presented to you in the
+                                                Finicity Services. If you see a discrepancy in the Funnel Account Data,
+                                                and in any case before making any transactions or decisions based on
+                                                such account information presented in the Finicity Services, you should
+                                                check the last refresh date for the account and confirm Funnel Account
+                                                Data is correct by following the link back to the applicable provider or
+                                                otherwise confirm that Funnel Account Data is up to date and accurate.
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        <b>SOFTWARE USE, STORAGE AND ACCESS</b>. We shall have the right, in Finicity’s
+                                        sole discretion and with reasonable notice, to establish or change limits
+                                        concerning use of the Finicity Services, temporarily or permanently, including
+                                        but not limited to (a) the amount of storage space you have on the Finicity
+                                        Services at any time, and (b) the number of times (and the maximum duration for
+                                        which) you may access the Finicity Services in a given period of time. We
+                                        reserve the right to make any such changes effective immediately to maintain the
+                                        security of the system or Licensee Access Information or to comply with any laws
+                                        or regulations, and to provide you with electronic or written notice within
+                                        thirty (30) days after such change. You may reject changes by discontinuing use
+                                        of the Finicity Services to which such changes relate. Your continued use of the
+                                        Finicity Services will constitute your acceptance of and agreement with such
+                                        changes. Maintenance upon the Finicity Services may be performed from
+                                        time-to-time resulting in interrupted service, delays or errors in the Finicity
+                                        Services. Attempts to provide prior notice of scheduled maintenance will be
+                                        made, but provider cannot guarantee that such notice will be provided.
+                                    </li>
+                                    <li>
+                                        <b>EXPORT RESTRICTIONS</b>. You acknowledge that the Finicity Services and any
+                                        software underlying such Finicity Services are subject to the U.S. Export
+                                        Administration Regulations (15 CFR, Chapter VII) and that you will comply with
+                                        these regulations. You will not export or re-export the software or Finicity
+                                        Services, directly or indirectly, to: (a) any countries that are subject to U.S.
+                                        export restrictions; (b) any end user who has been prohibited from participating
+                                        in U.S. export transactions by any federal agency of the U.S. government; or (c)
+                                        any end user who you know or have reason to know will utilize them in the
+                                        design, development or production of nuclear, chemical or biological weapons.
+                                        You further acknowledge that this product may include technical data subject to
+                                        export and re-export restrictions imposed by U.S. law.
+                                    </li>
+                                    <li>
+                                        <b>DISCLAIMER</b>. YOU ACKNOWLEDGE AND AGREE THAT THE FINICITY SERVICES AND ANY
+                                        THIRD PARTY SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” THE THIRD PARTY
+                                        VENDOR AND ITS LICENSORS MAKE NO WARRANTY, EXPRESS, IMPLIED, OR STATUTORY, AND
+                                        DISCLAIM ANY AND ALL WARRANTIES WITH RESPECT TO THE SERVICES OR ANY THIRD PARTY
+                                        SERVICES; IN WHOLE OR IN PART, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTY
+                                        OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, TITLE, OR
+                                        NON-INFRINGEMENT. YOU UNDERSTAND AND EXPRESSLY AGREE THAT ANY USE OF THE
+                                        SERVICES OR THIRD PARTY SERVICES WILL BE AT YOUR SOLE RISK. VENDOR AND ITS (a)
+                                        LICENSORS AND (b) THIRD PARTY VENDORS DO NOT WARRANT THE COMPREHENSIVENESS,
+                                        COMPLETENESS, CORRECTNESS, LEGALITY, OR ACCURACY OF THE SERVICES OR THIRD PARTY
+                                        SERVICES, IN WHOLE OR IN PART, OR THAT THE SERVICES WILL BE SECURE,
+                                        UNINTERRUPTED OR ERROR FREE. YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR
+                                        COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM YOUR USE OF
+                                        THE SERVICES OR THIRD PARTY SERVICES.
+                                    </li>
+                                    <li>
+                                        <b>COMPLIANCE WITH FAIR CREDIT REPORTING ACT</b>
+                                        <ol>
+                                            <li>
+                                                You acknowledge that applications that use consumer data to generate
+                                                scores or other reports or that otherwise will be utilized by
+                                                application users in connection with making a decision as to whether to
+                                                enter into the following type of transactions or on what terms the
+                                                transaction will be offered (“Financial Apps”) may be subject to the
+                                                provisions of the Federal Fair Credit Reporting Act (“FCRA”) and
+                                                equivalent state laws:
+                                                <br />
+                                                Rent an apartment to a prospective tenant.
+                                            </li>
+                                            <li>
+                                                You acknowledge and agree that, in connection with Finicity
+                                                Corporation’s (“Finicity”) products and services as a third party vendor
+                                                of ours, data will be transmitted or made available in a mechanical
+                                                manner by Finicity, and that to the extent Finicity is involved,
+                                                Finicity will not alter the substance of the data unless authorized by
+                                                you. You hereby authorize Finicity to access Funnel to obtain Funnel
+                                                Account Data and other Funnel Services on your behalf and at your
+                                                authorization. Finicity is providing the service of data delivery only
+                                                as requested by you, the ultimate end-user, as requested and authorized
+                                                by you, the owner of such information. You acknowledge that Finicity is
+                                                not a reseller of data (other than in the manner described in paragraph
+                                                1 with respect to anonymized data) but simply provides the service of
+                                                transferring data as requested and you from one party to the party
+                                                directed and authorized by you to receive the data.
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        <b>THIRD PARTY BENEFICIARY; INDEMNIFICATION</b>. You agree that Finicity is a
+                                        third-party beneficiary of the above provisions, with all rights to enforce such
+                                        provisions as if Finicity were a party to this Agreement. You agree to protect
+                                        Finicity and its affiliates from any and all third party claims, liability,
+                                        damages, expenses and costs caused by or arising from your use of the Finicity
+                                        Services, your violation of these terms or your infringement, or infringement by
+                                        any other user of your account, of any intellectual property or other right of
+                                        anyone.
+                                    </li>
+                                    <li>
+                                        <b>LIMITATION OF LIABILITY</b>. YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS
+                                        AFFILIATES, ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY
+                                        HARMS, WHICH LAWYERS AND COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL,
+                                        SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO,
+                                        DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES,
+                                        EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, RESULTING
+                                        FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING
+                                        SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES
+                                        PURCHASED OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH
+                                        OR FROM THE SERVICE; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR
+                                        TRANSMISSIONS OR DATA; (v) STATEMENTS OR CONDUCT OF ANYONE ON THE SERVICE; (vi)
+                                        THE USE, INABILITY TO USE, UNAUTHORIZED USE, PERFORMANCE OR NON-PERFORMANCE OF
+                                        ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE PROVIDER HAS BEEN ADVISED
+                                        PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER MATTER
+                                        RELATING TO THE SERVICE.
+                                    </li>
+                                    <li>
+                                        <b>TransUnion Terms </b>
+                                        <p>
+                                            Applicants. By submitting an application through the platform Applicant (a)
+                                            authorizes and directs Funnel’s third party supplier, TransUnion, to obtain
+                                            such consumer reports about such Applicant, including information concerning
+                                            such Applicant’s credit, criminal and eviction history (“Consumer Report”),
+                                            if available, and (b) agree to permit TransUnion to share such Applicant’s
+                                            Consumer Report through the platform with Client for the Client properties
+                                            Applicant selects. Applicant understands that TransUnion will obtain this
+                                            information and may take steps to verify the information they obtain about
+                                            Applicant. Applicant may request a copy of your TransUnion report or dispute
+                                            reported information by contacting TransUnion at{' '}
+                                            <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="www.transunion.com/credit-disputes/dispute-your-credit"
+                                            >
+                                                www.transunion.com/credit-disputes/dispute-your-credit
+                                            </a>
+                                            .
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>Payment Processing Service Terms.</b>
+                                        <p>
+                                            Funnel, in conjunction with a third-party processor, offers a web-based
+                                            portal to facilitate payment of rental amounts, and other sums due, between
+                                            Applicants and Clients (the “Payment Portal”). Applicants may initiate
+                                            one-time and recurring payments through the Payment Portal. Clients may also
+                                            send email notices to Applicants through the platform related to lease
+                                            obligations, rental amounts, renewals, etc., unless an Applicant has “opted
+                                            out” of the receipt of such type of email. Applicants may opt out of
+                                            receiving such emails by contacting consumer@funnelleasing.com. When
+                                            scheduling a payment, Applicant may be asked to supply certain relevant
+                                            information, such as Applicant’s debit or credit card number and its
+                                            expiration date, checking account information, and/or billing address. By
+                                            submitting such information, Applicant: (i) REPRESENTS AND WARRANTS THAT
+                                            APPLICANT HAS THE RIGHT TO USE ANY PAYMENT METHOD THAT APPLICANT SUBMITS
+                                            THROUGH THE PAYMENT PORTAL; and (ii) grants to Funnel the right to provide
+                                            such information to third parties for purposes of facilitating Applicant’s
+                                            scheduled transactions. Verification of information may be required prior to
+                                            the acknowledgment or completion of any payment transaction. Applicant
+                                            agrees to Applicant’s personal and financial information being transferred,
+                                            stored, and processed by our third-party payment processors.
+                                        </p>
+                                        <p>
+                                            Third-Party Processor. By agreeing to use the Payment Portal, by sending or
+                                            accepting payments through the Payment Portal, you understand and agree that
+                                            Funnel will create an account on your behalf with the payment processor to
+                                            facilitate the transmission and receipt of payments, which are consummated
+                                            outside of Funnel. You also agree to be bound by the terms and conditions of
+                                            the third-party processor, which may be updated from time to time, at:
+                                            https://stripe.com/connect-account/legal. Any authorization you provide to
+                                            initiate repeating automatic payments using the Payment Portal will remain
+                                            in effect until canceled.
+                                        </p>
+                                        <p>
+                                            Fees for Payments. Payments made from a demand deposit account, such as a
+                                            checking account, through the ACH network are free of charge to Applicants.
+                                            Applicants who choose to pay using a credit card may be charged a processing
+                                            fee.{' '}
+                                        </p>
+                                        <p>
+                                            Chargebacks. Funnel does not hold any money you transfer through the Payment
+                                            Portal and is not responsible for unsuccessful transmission, sourcing, or
+                                            use of any funds. If Applicant’s or Client’s bank or card issuer initiates a
+                                            reversal, chargeback, or payment dispute of a payment made through the
+                                            Payment Portal, you authorize Funnel and our third-party payment processors
+                                            to reverse or otherwise claim the funds from your account. Funnel may also
+                                            initiate a reversal, or take other actions we determine to be appropriate,
+                                            if, in Funnel’s reasonable opinion, fraud or abuse of the Payment Portal has
+                                            occurred.
+                                        </p>
+                                    </li>
+                                </ol>
                             </li>
                         </ol>
-                        <div className="center">
-                            {/* eslint-disable-next-line */}
-                            <a name="finicity-terms">
-                                <u>
-                                    <b>Finicity Terms – Linked from Section 9.2</b>
-                                </u>
-                            </a>
-                        </div>
-
-                        <p>
-                            1. LICENSEE ACCESS INFORMATION AND ACCOUNT DATA. You are solely responsible for (a)
-                            maintaining the confidentiality and security of your access number(s), password(s), security
-                            question(s) and answer(s), account number(s), login information, and any other security or
-                            access information, used by you, or anyone you authorize on your behalf, to access the
-                            Finicity Services and Nestio accounts (collectively, “Licensee Access Information”), and (b)
-                            preventing unauthorized access to or use of the information, files or data that you store or
-                            use in or with the Finicity Services (collectively, “Account Data”). You will be responsible
-                            for all electronic communications, including account registration and other account holder
-                            information, email and financial, accounting and other data (“Communications”) entered using
-                            the Licensee Access Information. It is assumed that any Communications received through use
-                            of the Licensee Access Information were sent or authorized by you. You agree to immediately
-                            notify Finicity if you become aware of any loss, theft or unauthorized use of any Licensee
-                            Access Information. We reserve the right to deny you access to the Finicity Services (or any
-                            part thereof) if we reasonably believe that any loss, theft or unauthorized use of Licensee
-                            Access Information has occurred. You must inform Finicity of, and hereby grant to Finicity
-                            and Finicity’s third party vendors permission to use, Licensee Access Information to the
-                            extent we deem necessary to enable Finicity to provide the Finicity Services to you,
-                            including updating and maintaining Account Data, addressing errors or service interruptions,
-                            and to enhance the types of data and services we may provide to you in the future.
-                        </p>
-                        <p>
-                            Notwithstanding any provision of Finicity’s Privacy Policy to the contrary, compiled,
-                            anonymized data concerning your financial transactions, or other available data that is
-                            collected through your use of the Finicity Services, may be used by Finicity’s third party
-                            vendors to conduct certain analytical research, performance tracking and benchmarking.
-                            Finicity’s third party vendors may publish summary or aggregate results relating to metrics
-                            comprised of research data, from time to time, and distribute, sell or license such
-                            compiled, anonymized data for any purpose, including but not limited to, helping to improve
-                            products and services and assisting in troubleshooting and technical support or any other
-                            purpose permitted by applicable law. To the extent such information is shared or disclosed,
-                            it will not contain any of your personally identifiable information.
-                        </p>
-                        <p>2. PROVIDER SERVICES.</p>
-                        <p>
-                            2.1 General. In connection with your use of the Finicity Services and as part of the
-                            functionality of the Finicity Services, you may have access to certain online services or
-                            information that may be made available by Nestio(s) (“Nestio Services”), including online
-                            banking, online payment, online investment account download, online bill pay, online
-                            trading, and other account information available from Nestio(s). The Finicity Services are
-                            designed to allow you to access Nestio Services (if and to the extent provided by Nestio(s))
-                            to set up banking and other information, schedule the Finicity Services to access your
-                            account(s), download transactions into the Finicity Services and otherwise aggregate
-                            information from your account(s) with Nestio(s). You acknowledge and agree that we have no
-                            control over the provision of Nestio Services or provision of access to the Nestio Services
-                            by Nestio(s), do not guarantee that you will be able to use the Finicity Services with the
-                            Nestio Services, and will have no liability whatsoever for any actions or inactions on the
-                            part of the provider(s) resulting in your inability to use the Finicity Services to access
-                            your accounts, obtain data, download transactions, or otherwise use or access the Nestio
-                            Services.
-                        </p>
-                        <p>
-                            2.2 Collection of Nestio Account Information. You acknowledge that in accessing your data
-                            and information through the Finicity Services, Nestio account access number(s), password(s),
-                            security question(s) and answer(s), account number(s), login information, and any other
-                            security or access information, and the actual data in your account(s) with such provider(s)
-                            such as bank and other account balances, credit card charges, debits and deposits
-                            (collectively, “Nestio Account Data”), may be collected and stored in the Finicity Services.
-                            You authorize Finicity and Finicity’s third party vendors, in conjunction with the operation
-                            and hosting of the Finicity Services, to use certain Nestio Account Data to (a) collect your
-                            Nestio Account Data, (b) reformat and manipulate such Nestio Account Data, (c) create and
-                            provide hypertext links to Nestio(s), (d) access the providers’ websites using your Nestio
-                            Account Data, (e) update and maintain your account information, (f) address errors or
-                            service interruptions, (g) enhance the type of data and services we can provide to you in
-                            the future, and (h) take such other actions as are reasonably necessary to perform the
-                            actions described in (a) through (g) above. You hereby represent that you are the legal
-                            owner of your Nestio Account Data and that you have the authority to appoint, and hereby
-                            expressly do appoint, Finicity or Finicity’s third party vendors as your agent with a
-                            limited power of attorney, and appoint Finicity or Finicity’s third party vendors as your
-                            attorney-in-fact and agent, to access third party sites and/or retrieve and use your Nestio
-                            Account Data through whatever lawful means with the full power and authority to do and
-                            perform each thing necessary in connection with such activities, as you could do in person,
-                            including, without limitation, accepting any new and/or updated terms and conditions from
-                            Nestio on your behalf, in providing Finicity Services to you. You also expressly authorize
-                            Nestio to share and disclose your Nestio Account Data to Finicity on your behalf to
-                            facilitate your use of your Nestio Account Data for products and services agreed to by you.
-                            You further acknowledge that we do not, nor does Finicity’s third party vendor review your
-                            Nestio Account Data and agree that we are not responsible for its completeness or accuracy.
-                            Any transactions or informational activities performed at any provider’s website are not
-                            made through the Finicity Services and we assume no responsibility for such transactions or
-                            activities. You are solely responsible for any charges associated with Nestio(s). The
-                            permissions, uses and access rights granted to Finicity’s third party vendors hereunder
-                            shall continue until such parties are notified by Finicity or you that the Finicity Services
-                            have been terminated.
-                        </p>
-
-                        <p>
-                            2.3 Information from Nestio’s Websites. You acknowledge and agree that (a) some providers
-                            may not allow the Finicity Services to access the Nestio Services, (b) providers may make
-                            changes to their websites, with or without notice to us, that may prevent or delay
-                            aggregation of information from such websites, and (c) the Finicity Services may “refresh”
-                            the Nestio Account Data by collecting the Nestio Account Data nightly, so your most recent
-                            transactions may not be reflected in any account balances or other account information
-                            presented to you in the Finicity Services. If you see a discrepancy in the Nestio Account
-                            Data, and in any case before making any transactions or decisions based on such account
-                            information presented in the Finicity Services, you should check the last refresh date for
-                            the account and confirm Nestio Account Data is correct by following the link back to the
-                            applicable provider or otherwise confirm that Nestio Account Data is up to date and
-                            accurate.
-                        </p>
-                        <p>
-                            3. SOFTWARE USE, STORAGE AND ACCESS. We shall have the right, in Finicity’s sole discretion
-                            and with reasonable notice, to establish or change limits concerning use of the Finicity
-                            Services, temporarily or permanently, including but not limited to (a) the amount of storage
-                            space you have on the Finicity Services at any time, and (b) the number of times (and the
-                            maximum duration for which) you may access the Finicity Services in a given period of time.
-                            We reserve the right to make any such changes effective immediately to maintain the security
-                            of the system or Licensee Access Information or to comply with any laws or regulations, and
-                            to provide you with electronic or written notice within thirty (30) days after such change.
-                            You may reject changes by discontinuing use of the Finicity Services to which such changes
-                            relate. Your continued use of the Finicity Services will constitute your acceptance of and
-                            agreement with such changes. Maintenance upon the Finicity Services may be performed from
-                            time-to-time resulting in interrupted service, delays or errors in the Finicity Services.
-                            Attempts to provide prior notice of scheduled maintenance will be made, but provider cannot
-                            guarantee that such notice will be provided.
-                        </p>
-                        <p>
-                            4. EXPORT RESTRICTIONS. You acknowledge that the Finicity Services and any software
-                            underlying such Finicity Services are subject to the U.S. Export Administration Regulations
-                            (15 CFR, Chapter VII) and that you will comply with these regulations. You will not export
-                            or re-export the software or Finicity Services, directly or indirectly, to: (a) any
-                            countries that are subject to U.S. export restrictions; (b) any end user who has been
-                            prohibited from participating in U.S. export transactions by any federal agency of the U.S.
-                            government; or (c) any end user who you know or have reason to know will utilize them in the
-                            design, development or production of nuclear, chemical or biological weapons. You further
-                            acknowledge that this product may include technical data subject to export and re-export
-                            restrictions imposed by U.S. law.
-                        </p>
-                        <p>
-                            5. DISCLAIMER. YOU ACKNOWLEDGE AND AGREE THAT THE FINICITY SERVICES AND ANY THIRD PARTY
-                            SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” THE THIRD PARTY VENDOR AND ITS LICENSORS
-                            MAKE NO WARRANTY, EXPRESS, IMPLIED, OR STATUTORY, AND DISCLAIM ANY AND ALL WARRANTIES WITH
-                            RESPECT TO THE SERVICES OR ANY THIRD PARTY SERVICES; IN WHOLE OR IN PART, INCLUDING WITHOUT
-                            LIMITATION ANY IMPLIED WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, TITLE,
-                            OR NON-INFRINGEMENT. YOU UNDERSTAND AND EXPRESSLY AGREE THAT ANY USE OF THE SERVICES OR
-                            THIRD PARTY SERVICES WILL BE AT YOUR SOLE RISK. VENDOR AND ITS (a) LICENSORS AND (b) THIRD
-                            PARTY VENDORS DO NOT WARRANT THE COMPREHENSIVENESS, COMPLETENESS, CORRECTNESS, LEGALITY, OR
-                            ACCURACY OF THE SERVICES OR THIRD PARTY SERVICES, IN WHOLE OR IN PART, OR THAT THE SERVICES
-                            WILL BE SECURE, UNINTERRUPTED OR ERROR FREE. YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO
-                            YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM YOUR USE OF THE
-                            SERVICES OR THIRD PARTY SERVICES.
-                        </p>
-                        <p>6. COMPLIANCE WITH FAIR CREDIT REPORTING ACT</p>
-                        <p>
-                            6.1 You acknowledge that applications that use consumer data to generate scores or other
-                            reports or that otherwise will be utilized by application users in connection with making a
-                            decision as to whether to enter into the following types of transactions or on what terms
-                            the transaction will be offered (“Financial Apps”) may be subject to the provisions of the
-                            Federal Fair Credit Reporting Act (“FCRA”) and equivalent state laws:
-                        </p>
-                        <ul>
-                            <li>Extend credit to an applicant.</li>
-                            <li>Issue an insurance policy to an applicant.</li>
-                            <li>Employ a job applicant.</li>
-                            <li>Rent an apartment to a prospective tenant.</li>
-                            <li>
-                                Sell a product to, provide a service to or otherwise enter into a transaction initiated
-                                by a prospective customer.
-                            </li>
-                            <li>Accept a check or credit card as payment for a sale.</li>
-                            <li>
-                                Other activities set forth in Section 604 of the FCRA (15 U.S.C. §1681b) and in
-                                interpretations of Section 604 by the Federal Trade Commission and the Bureau of
-                                Consumer Financial Protection.
-                            </li>
-                        </ul>
-                        <p>
-                            6.2 You acknowledge and agree that, in connection with Finicity Corporation’s (“Finicity”)
-                            products and services as a third party vendor of ours, data will be transmitted or made
-                            available in a mechanical manner by Finicity, and that to the extent Finicity is involved,
-                            Finicity will not alter the substance of the data unless authorized by you. You hereby
-                            authorize Finicity to access Nestio to obtain Nestio Account Data and other Nestio Services
-                            on your behalf and at your authorization. Finicity is providing the service of data delivery
-                            only as requested by you, the ultimate end-user, as requested and authorized by you, the
-                            owner of such information. You acknowledge that Finicity is not a reseller of data (other
-                            than in the manner described in paragraph 1 with respect to anonymized data) but simply
-                            provides the service of transferring data as requested and you from one party to the party
-                            directed and authorized by you to receive the data.
-                        </p>
-                        <p>
-                            7. THIRD PARTY BENEFICIARY; INDEMNIFICATION. You agree that Finicity is a third party
-                            beneficiary of the above provisions, with all rights to enforce such provisions as if
-                            Finicity were a party to this Agreement. You agree to protect Finicity and its affiliates
-                            from any and all third party claims, liability, damages, expenses and costs caused by or
-                            arising from your use of the Finicity Services, your violation of these terms or your
-                            infringement, or infringement by any other user of your account, of any intellectual
-                            property or other right of anyone.
-                        </p>
-                        <p>
-                            8. LIMITATION OF LIABILITY. YOU AGREE THAT NEITHER FINICITY NOR ANY OF ITS AFFILIATES,
-                            ACCOUNT PROVIDERS OR ANY OF THEIR AFFILIATES WILL BE LIABLE FOR ANY HARMS, WHICH LAWYERS AND
-                            COURTS OFTEN CALL DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES,
-                            INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER
-                            INTANGIBLE LOSSES, EVEN IF FINICITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES,
-                            RESULTING FROM: (i) THE USE OR THE INABILITY TO USE THE SERVICE; (ii) THE COST OF GETTING
-                            SUBSTITUTE GOODS AND SERVICES, (iii) ANY PRODUCTS, DATA, INFORMATION OR SERVICES PURCHASED
-                            OR OBTAINED OR MESSAGES RECEIVED OR TRANSACTIONS ENTERED INTO, THROUGH OR FROM THE SERVICE;
-                            (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA; (v) STATEMENTS OR
-                            CONDUCT OF ANYONE ON THE SERVICE; (vi) THE USE, INABILITY TO USE, UNAUTHORIZED USE,
-                            PERFORMANCE OR NON-PERFORMANCE OF ANY THIRD PARTY ACCOUNT PROVIDER SITE, EVEN IF THE
-                            PROVIDER HAS BEEN ADVISED PREVIOUSLY OF THE POSSIBILITY OF SUCH DAMAGES; OR (vii) ANY OTHER
-                            MATTER RELATING TO THE SERVICE.
-                        </p>
                     </div>
                 </ScrollableTermsCardSection>
             </Card>
