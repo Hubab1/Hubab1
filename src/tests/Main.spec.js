@@ -206,6 +206,6 @@ describe('mountNavigation', () => {
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/unit-unavailable');
+        expect(historyStub).toHaveBeenCalledWith('/unauth-unit-unavailable');
     });
 });
