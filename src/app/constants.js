@@ -44,7 +44,7 @@ export const ROUTES = {
     LEASE_VOIDED: '/lease-voided',
     PRIVACY_POLICY: '/privacy-policy',
     UNIT_UNAVAILABLE: '/unit-unavailable',
-    UNAUTHENTICATED_UNIT_UNAVAILABLE: '/unit-unavailable',
+    UNAUTHENTICATED_UNIT_UNAVAILABLE: '/unauth-unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
     REMOVE_PERSON: '/rental-profile/:type/:id/remove',
     GUARANTOR_REQUESTED: '/guarantor_request',
