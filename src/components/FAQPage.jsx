@@ -1,15 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { connect } from 'react-redux';
-import captureRoute from 'app/captureRoute';
-import { ROUTES } from 'app/constants';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import API from 'app/api';
-
 import { ScrollableTermsCardSection, Card, H1 } from 'assets/styles';
-import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
-import { sessionIsValidForCommunityId } from 'utils/misc';
 
 const Section = styled.div`
   font-size: 14px;
@@ -25,11 +16,6 @@ const Section = styled.div`
   }
 `
 
-const LIST_TYPES = {
-    NUMBER: '1',
-    ALPHABETICALLY_LOWER_CASE: 'a',
-    ROMAN_NUMBERS_LOWER_CASE: 'i'
-}
 export function FAQPage() {
     return (
         <>
@@ -37,13 +23,13 @@ export function FAQPage() {
             <br/>
             <Card>
                 <ScrollableTermsCardSection>
-                    <ol type={LIST_TYPES.NUMBER}>
+                    <ol type="1">
                         <li>
                             Web site
-                            <ol type={LIST_TYPES.ALPHABETICALLY_LOWER_CASE}>
+                            <ol type="a">
                                 <li>
                                     Funnel contact information, processes
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>Who fulfills these inquiries?</li>
                                         <li>What does client want?</li>
                                         <li>What agreement language, if any, do we need?</li>
@@ -53,14 +39,14 @@ export function FAQPage() {
                                 </li>
                                 <li>
                                     Consumer FAQs
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>Covers tenant screening</li>
                                         <li>Covers other lease questions - lease completion, payment disputes, offline fulfillment</li>
                                     </ol>
                                 </li>
                                 <li>
                                     User FAQs
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>Where do I get this report? How do I adjust the score? Can I re-use a report from 2 weeks ago? What do I do when Applicant wants to appeal decision? Where do I find an old report?</li>
                                         <li>Registered users access only</li>
                                     </ol>
@@ -72,20 +58,20 @@ export function FAQPage() {
 
                         <li>
                             Internal Process - Tenant Screening
-                            <ol type={LIST_TYPES.ALPHABETICALLY_LOWER_CASE}>
+                            <ol type="a">
                                 <li>
                                     Request disclosure of Funnel transaction
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>Verify prior transaction vs. consumer ID</li>
                                         <li>Send report to verified email/address</li>
                                     </ol>
                                 </li>
                                 <li>
                                     Reseller CR dispute
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>
                                             Process for TU, Finicity
-                                            <ol type={LIST_TYPES.NUMBER}>
+                                            <ol type="1">
                                                 <li>When it’s clearly about the credit report, score</li>
                                             </ol>
                                         </li>
@@ -93,20 +79,20 @@ export function FAQPage() {
                                 </li>
                                 <li>
                                     App Questions, Disputes about Client’s tenant screening decision
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>
                                             Define Client Process
-                                            <ol type={LIST_TYPES.NUMBER}>
+                                            <ol type="1">
                                                 <li>
                                                     Questions from App
-                                                    <ol type={LIST_TYPES.ALPHABETICALLY_LOWER_CASE}>
+                                                    <ol type="a">
                                                         <li>Why was I declined? How close was I? Could I get in elsewhere? Was it bec. of my subsidy?</li>
                                                         <li>What does this trade line, crim history mean (on the CR)?</li>
                                                     </ol>
                                                 </li>
                                                 <li>
                                                     Request for reconsideration after credit/criminal adverse action
-                                                    <ol type={LIST_TYPES.ALPHABETICALLY_LOWER_CASE}>
+                                                    <ol type="a">
                                                         <li>WhyApp presents guarantor, mitigating evidence for Client review</li>
                                                     </ol>
                                                 </li>
@@ -116,7 +102,7 @@ export function FAQPage() {
                                 </li>
                                 <li>
                                     Reporting
-                                    <ol type={LIST_TYPES.ROMAN_NUMBERS_LOWER_CASE}>
+                                    <ol type="i">
                                         <li>Dispute tracker - all of the above</li>
                                         <li>Periodic trends review</li>
                                     </ol>
@@ -170,7 +156,7 @@ export function FAQPage() {
 
                         <h2>How do I obtain a copy of the consumer report generated for my rental application through Funnel?</h2>
                         <p>You may obtain a copy of the report generated from our CRA vendor for your rental application through Funnel in one of these ways:</p>
-                        <ol type={LIST_TYPES.NUMBER}>
+                        <ol type="1">
                             <li>Call our toll-free number <a href="tel:833-979-3074">(833) 979-3074</a> OR</li>
                             <li>Complete Online form (<a href="https://forms.gle/aSk9vRXCecfFYckb9" target="_blank">https://forms.gle/aSk9vRXCecfFYckb9</a>)</li>
                         </ol>
