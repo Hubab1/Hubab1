@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const links = css`
+const footer = css`
     > a:not(:last-child) {
         margin-right: 20px;
     }
@@ -209,16 +209,15 @@ export function PersistentDrawerLeft(props) {
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose} />
                     <Divider />
-                    <Box display="flex" justifyContent="space-between" alignItems="center" padding="0 15px">
+                    <Box display="flex" justifyContent="space-between" alignItems="center" padding="0 15px" className={footer}>
                         <Button onClick={logout} classes={{ root: classes.logout }}>
                             Logout
                         </Button>
-                        <div className={links}>
-                            <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
-                                Privacy
-                            </Link>
-                            <Link to={ROUTES.TERMS}>Terms of Use</Link>
-                        </div>
+                        <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
+                            Privacy
+                        </Link>
+                        <Link to={ROUTES.TERMS}>Terms of Use</Link>
+                        <Link to={ROUTES.FAQ}>FAQs</Link>
                     </Box>
                 </div>
             </Drawer>

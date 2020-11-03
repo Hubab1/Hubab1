@@ -89,6 +89,10 @@ describe('canAccessRoute', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.TERMS);
         expect(accessible).toBe(true);
     });
+    it('FAQ is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.FAQ);
+        expect(accessible).toBe(true);
+    });
     // completed page accessible
     it('address page is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.ADDRESS);
