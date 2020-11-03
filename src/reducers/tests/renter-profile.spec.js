@@ -205,18 +205,6 @@ describe('selectOrderedRoutes', () => {
 });
 
 describe('selectInitialPage', () => {
-    it('allows direct routes', () => {
-        DIRECT_ROUTES.forEach((route) => {
-            delete window.location;
-            window.location = { pathname: route };
-
-            const initialPage = selectors.selectInitialPage({});
-            expect(initialPage).toBe(route);
-        });
-
-        window.location = '';
-    });
-
     it('computes initial page based on profile data', () => {
         let initialPage;
         initialPage = selectors.selectInitialPage({
@@ -233,6 +221,7 @@ describe('selectInitialPage', () => {
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
+
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
