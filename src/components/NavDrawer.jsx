@@ -216,8 +216,12 @@ export function PersistentDrawerLeft(props) {
                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                             Privacy
                         </Link>
-                        <Link to={ROUTES.TERMS}>Terms of Use</Link>
-                        <Link to={ROUTES.FAQ}>FAQs</Link>
+                        <Link target="_blank" to={ROUTES.TERMS}>
+                            Terms of Use
+                        </Link>
+                        <Link target="_blank" to={ROUTES.FAQ}>
+                            FAQs
+                        </Link>
                     </Box>
                 </div>
             </Drawer>

@@ -118,11 +118,13 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
           Privacy
         </ForwardRef>
         <ForwardRef
+          target="_blank"
           to="/terms"
         >
           Terms of Use
         </ForwardRef>
         <ForwardRef
+          target="_blank"
           to="/faq"
         >
           FAQs
