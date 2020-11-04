@@ -158,7 +158,7 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
-export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS];
+export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ];
 
 const getDirectRoute = (route) => {
     if (!route) return null;
