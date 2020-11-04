@@ -106,6 +106,7 @@ export function FAQ() {
                             <a
                                 href="https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures"
                                 target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures
                             </a>
@@ -116,7 +117,7 @@ export function FAQ() {
                         <p style={{ textAlign: 'center' }}>
                             <i>
                                 Para información en español, visite{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>{' '}
                                 o escribe a la Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC
@@ -137,7 +138,7 @@ export function FAQ() {
                             <br />
                             <b>
                                 For more information, including information about additional rights, go to{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>{' '}
                                 or write to: Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC
@@ -175,7 +176,7 @@ export function FAQ() {
                                 In addition, all consumers are entitled to one free disclosure every 12 months upon
                                 request from each nationwide credit bureau and from nationwide specialty consumer
                                 reporting agencies. See{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>{' '}
                                 for additional information.
@@ -195,7 +196,7 @@ export function FAQ() {
                                 If you identify information in your file that is incomplete or inaccurate, and report it
                                 to the consumer reporting agency, the agency must investigate unless your dispute is
                                 frivolous. See{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="www.consumerfinance.gov/learnmore">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>{' '}
                                 for an explanation of dispute procedures.
@@ -228,7 +229,7 @@ export function FAQ() {
                                 employer, or a potential employer, without your written consent given to the employer.
                                 Written consent generally is not required in the trucking industry. For more
                                 information, go to{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -289,7 +290,7 @@ export function FAQ() {
                                 <b>Identity theft victims and active duty military personnel have additional rights.</b>
                                 <br />
                                 For more information, visit{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -519,7 +520,11 @@ export function FAQ() {
                         <p style={{ textAlign: 'center' }}>
                             <i>
                                 Para información en español,{' '}
-                                <a href="visite www.consumerfinance.gov/learnmore" target="_blank">
+                                <a
+                                    href="visite www.consumerfinance.gov/learnmore"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     visite www.consumerfinance.gov/learnmore
                                 </a>{' '}
                                 o escribe a la Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC
@@ -536,7 +541,7 @@ export function FAQ() {
                             without authority, to commit fraud. For example, someone may have committed identity theft
                             by using your personal information to open a credit card account or get a loan in your name.
                             For more information, visit{' '}
-                            <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                            <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                 www.consumerfinance.gov/learnmore
                             </a>{' '}
                             or write to: Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC 20552.
@@ -565,19 +570,19 @@ export function FAQ() {
                                 <ul>
                                     <li>
                                         Equifax: 1-800-525-6285;{' '}
-                                        <a href="www.equifax.com" target="_blank">
+                                        <a href="www.equifax.com" target="_blank" rel="noopener noreferrer">
                                             www.equifax.com
                                         </a>
                                     </li>
                                     <li>
                                         Experian: 1-888-397-3742;{' '}
-                                        <a href="www.experian.com" target="_blank">
+                                        <a href="www.experian.com" target="_blank" rel="noopener noreferrer">
                                             www.experian.com
                                         </a>
                                     </li>
                                     <li>
                                         TransUnion: 1-800-680-7289;{' '}
-                                        <a href="www.transunion.com" target="_blank">
+                                        <a href="www.transunion.com" target="_blank" rel="noopener noreferrer">
                                             www.transunion.com
                                         </a>
                                     </li>
@@ -592,7 +597,7 @@ export function FAQ() {
                                 state, or local law enforcement agency, and additional information a consumer reporting
                                 agency may require you to submit. For more detailed information about the{' '}
                                 <u>identity theft report</u>, visit{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -611,7 +616,7 @@ export function FAQ() {
                                 information in your file at any consumer reporting agency, if you believe it has
                                 inaccurate information due to fraud, such as identity theft. You also have the ability
                                 to obtain additional free file disclosures under other provisions of the FCRA. See{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -627,7 +632,7 @@ export function FAQ() {
                                 identity, a police report, and an affidavit before giving you the documents. It may also
                                 specify an address for you to send your request. Under certain circumstances a business
                                 can refuse to provide you with these documents. See{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -703,7 +708,7 @@ export function FAQ() {
                                 <Tab />
                                 <Tab />
                                 To learn more about identity theft and how to deal with its consequences, visit
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 , or write to the Consumer Financial Protection Bureau. You may have additional rights
@@ -716,7 +721,7 @@ export function FAQ() {
                                 In addition to the new rights and procedures to help consumers deal with the effects of
                                 identity theft, the FCRA has many other important consumer protections. They are
                                 described in more detail at{' '}
-                                <a href="www.consumerfinance.gov/learnmore" target="_blank">
+                                <a href="www.consumerfinance.gov/learnmore" target="_blank" rel="noopener noreferrer">
                                     www.consumerfinance.gov/learnmore
                                 </a>
                                 .
@@ -795,7 +800,7 @@ export function FAQ() {
                             </li>
                             <li>
                                 Complete Online form (
-                                <a href="https://forms.gle/aSk9vRXCecfFYckb9" target="_blank">
+                                <a href="https://forms.gle/aSk9vRXCecfFYckb9" target="_blank" rel="noopener noreferrer">
                                     https://forms.gle/aSk9vRXCecfFYckb9
                                 </a>
                                 )
@@ -811,7 +816,7 @@ export function FAQ() {
                             You may dispute information on your consumer report by contacting the consumer reporting
                             agency directly. Their details are below: Alternatively, you may log a dispute directly with
                             us by calling our toll-free number: [833-979-3074] or by sending email/completing form at{' '}
-                            <a href="www.funnel.com/consumer" target="_blank">
+                            <a href="www.funnel.com/consumer" target="_blank" rel="noopener noreferrer">
                                 www.funnel.com/consumer
                             </a>
                         </p>
@@ -842,6 +847,7 @@ export function FAQ() {
                             <a
                                 href="https://www.transunion.com/client-support/rental-screening-disputes"
                                 target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 https://www.transunion.com/client-support/rental-screening-disputes
                             </a>
@@ -859,7 +865,7 @@ export function FAQ() {
                             <br />
                             <a href="tel:+1-855-263-3072">+1 (855) 263-3072</a>
                             <br />
-                            <a href="https://consumer.finicityreports.com" target="_blank">
+                            <a href="https://consumer.finicityreports.com" target="_blank" rel="noopener noreferrer">
                                 https://consumer.finicityreports.com
                             </a>
                         </p>
@@ -874,7 +880,7 @@ export function FAQ() {
                             housing, employment or had any other adverse action as a result of information obtained from
                             a CRA. For additional information on the FCRA, visit the Federal Trade Commission's Web site
                             at:{' '}
-                            <a href="www.ftc.gov" target="_blank">
+                            <a href="www.ftc.gov" target="_blank" rel="noopener noreferrer">
                                 www.ftc.gov
                             </a>
                             .
@@ -886,7 +892,7 @@ export function FAQ() {
                             for information on how to place a fraud alert or file block on your consumer credit file.
                             Additional information on identity fraud may be found on the Federal Trade Commission's
                             Identity Theft Data Clearinghouse Web site at{' '}
-                            <a href="www.consumer.gov/idtheft" target="_blank">
+                            <a href="www.consumer.gov/idtheft" target="_blank" rel="noopener noreferrer">
                                 www.consumer.gov/idtheft
                             </a>
                             .
@@ -908,7 +914,7 @@ export function FAQ() {
                             <br />
                             <a href="tel:800-525-6285">(800) 525-6285</a>
                             <br />
-                            <a href="www.equifax.com" target="_blank">
+                            <a href="www.equifax.com" target="_blank" rel="noopener noreferrer">
                                 www.equifax.com
                             </a>
                         </p>
@@ -921,7 +927,7 @@ export function FAQ() {
                             <br />
                             <a href="tel:888-397-3742">(888) 397-3742</a>
                             <br />
-                            <a href="www.experian.com" target="_blank">
+                            <a href="www.experian.com" target="_blank" rel="noopener noreferrer">
                                 www.experian.com
                             </a>
                         </p>
