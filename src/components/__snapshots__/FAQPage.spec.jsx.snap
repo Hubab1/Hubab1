@@ -841,9 +841,9 @@ exports[`FAQPage matches snapshot 1`] = `
           Murray, UT 84123
           <br />
           <a
-            href="tel:1-855-263-3072"
+            href="tel:+1-855-263-3072"
           >
-            1 (855) 263-3072
+            +1 (855) 263-3072
           </a>
           <br />
           <a

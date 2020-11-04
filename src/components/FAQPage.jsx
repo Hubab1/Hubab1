@@ -732,7 +732,7 @@ export function FAQPage() {
                             <br/>
                             Murray, UT 84123
                             <br/>
-                            <a href="tel:1-855-263-3072">1 (855) 263-3072</a>
+                            <a href="tel:+1-855-263-3072">+1 (855) 263-3072</a>
                             <br/>
                             <a href="https://consumer.finicityreports.com" target="_blank">https://consumer.finicityreports.com</a>
                         </p>
