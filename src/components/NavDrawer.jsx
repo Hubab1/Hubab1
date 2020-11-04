@@ -209,7 +209,13 @@ export function PersistentDrawerLeft(props) {
                     <Divider />
                     <NavStepper onRouteClicked={handleDrawerClose} />
                     <Divider />
-                    <Box display="flex" justifyContent="space-between" alignItems="center" padding="0 15px" className={footer}>
+                    <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        padding="0 15px"
+                        className={footer}
+                    >
                         <Button onClick={logout} classes={{ root: classes.logout }}>
                             Logout
                         </Button>
