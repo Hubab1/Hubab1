@@ -57,103 +57,13 @@ const Tab = () => {
     )
 }
 
-export function FAQPage() {
+export function FAQ () {
     return (
         <>
             <H1>Frequently Asked Questions</H1>
             <br/>
             <Card>
                 <ScrollableTermsCardSection>
-                    {/*<ol type="1">*/}
-                    {/*    <li>*/}
-                    {/*        Web site*/}
-                    {/*        <ol type="a">*/}
-                    {/*            <li>*/}
-                    {/*                Funnel contact information, processes*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>Who fulfills these inquiries?</li>*/}
-                    {/*                    <li>What does client want?</li>*/}
-                    {/*                    <li>What agreement language, if any, do we need?</li>*/}
-                    {/*                    <li>What scripts do we need for consumer response?</li>*/}
-                    {/*                    <li>What forms do we need for consumer queries?</li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*            <li>*/}
-                    {/*                Consumer FAQs*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>Covers tenant screening</li>*/}
-                    {/*                    <li>Covers other lease questions - lease completion, payment disputes, offline fulfillment</li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*            <li>*/}
-                    {/*                User FAQs*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>Where do I get this report? How do I adjust the score? Can I re-use a report from 2 weeks ago? What do I do when Applicant wants to appeal decision? Where do I find an old report?</li>*/}
-                    {/*                    <li>Registered users access only</li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*        </ol>*/}
-                    {/*    </li>*/}
-
-                    {/*    <br />*/}
-
-                    {/*    <li>*/}
-                    {/*        Internal Process - Tenant Screening*/}
-                    {/*        <ol type="a">*/}
-                    {/*            <li>*/}
-                    {/*                Request disclosure of Funnel transaction*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>Verify prior transaction vs. consumer ID</li>*/}
-                    {/*                    <li>Send report to verified email/address</li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*            <li>*/}
-                    {/*                Reseller CR dispute*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>*/}
-                    {/*                        Process for TU, Finicity*/}
-                    {/*                        <ol type="1">*/}
-                    {/*                            <li>When it’s clearly about the credit report, score</li>*/}
-                    {/*                        </ol>*/}
-                    {/*                    </li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*            <li>*/}
-                    {/*                App Questions, Disputes about Client’s tenant screening decision*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>*/}
-                    {/*                        Define Client Process*/}
-                    {/*                        <ol type="1">*/}
-                    {/*                            <li>*/}
-                    {/*                                Questions from App*/}
-                    {/*                                <ol type="a">*/}
-                    {/*                                    <li>Why was I declined? How close was I? Could I get in elsewhere? Was it bec. of my subsidy?</li>*/}
-                    {/*                                    <li>What does this trade line, crim history mean (on the CR)?</li>*/}
-                    {/*                                </ol>*/}
-                    {/*                            </li>*/}
-                    {/*                            <li>*/}
-                    {/*                                Request for reconsideration after credit/criminal adverse action*/}
-                    {/*                                <ol type="a">*/}
-                    {/*                                    <li>WhyApp presents guarantor, mitigating evidence for Client review</li>*/}
-                    {/*                                </ol>*/}
-                    {/*                            </li>*/}
-                    {/*                        </ol>*/}
-                    {/*                    </li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*            <li>*/}
-                    {/*                Reporting*/}
-                    {/*                <ol type="i">*/}
-                    {/*                    <li>Dispute tracker - all of the above</li>*/}
-                    {/*                    <li>Periodic trends review</li>*/}
-                    {/*                </ol>*/}
-                    {/*            </li>*/}
-                    {/*        </ol>*/}
-                    {/*    </li>*/}
-                    {/*</ol>*/}
-
-                    {/*<br />*/}
-
                     <Section>
                         <h1>Funnel - Consumer Assistance - Frequently Asked Questions</h1>
 
@@ -334,194 +244,194 @@ export function FAQPage() {
 
                         <Table>
                             <thead>
-                                <tr>
-                                    <th>TYPE OF BUSINESS:</th>
-                                    <th>CONTACT:</th>
-                                </tr>
+                            <tr>
+                                <th>TYPE OF BUSINESS:</th>
+                                <th>CONTACT:</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <p>1.a. Banks, savings associations, and credit unions with total assets of over $10 billion and their affiliates</p>
-                                        <p>b. Such affiliates that are not banks, savings associations, or credit unions also should list, in addition to the CFPB:</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            a. Consumer Financial Protection Bureau
-                                            <br/>
-                                            1700 G Street, N.W.
-                                            <br/>
-                                            Washington, DC 20552
-                                            <br/>
-                                        </p>
+                            <tr>
+                                <td>
+                                    <p>1.a. Banks, savings associations, and credit unions with total assets of over $10 billion and their affiliates</p>
+                                    <p>b. Such affiliates that are not banks, savings associations, or credit unions also should list, in addition to the CFPB:</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        a. Consumer Financial Protection Bureau
+                                        <br/>
+                                        1700 G Street, N.W.
+                                        <br/>
+                                        Washington, DC 20552
+                                        <br/>
+                                    </p>
 
-                                        <p>
-                                            b. Federal Trade Commission
-                                            <br/>
-                                            Consumer Response Center
-                                            <br/>
-                                            600 Pennsylvania Avenue, N.W.
-                                            <br/>
-                                            Washington, DC 20580
-                                            <br/>
-                                            (877) 382-4357
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>2. To the extent not included in item 1 above:</p>
-                                        <p>a. National banks, federal savings associations, and federal branches and federal agencies of foreign banks</p>
-                                        <p>
-                                            b. State member banks, branches and agencies of foreign banks (other than federal branches, federal agencies, and Insured State Branches of Foreign Banks),
-                                            commercial lending companies owned or controlled by foreign banks, and organizations operating under section 25 or 25A of the Federal Reserve Act.
-                                        </p>
-                                        <p>c. Nonmember Insured Banks, Insured State Branches of Foreign Banks, and insured state savings associations</p>
-                                        <p>d. Federal Credit Unions</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            a. Office of the Comptroller of the Currency
-                                            <br/>
-                                            Customer Assistance Group
-                                            <br/>
-                                            1301 McKinney Street, Suite 3450
-                                            <br/>
-                                            Houston, TX 77010-9050
-                                        </p>
-                                        <p>
-                                            b. Federal Reserve Consumer Help Center
-                                            <br/>
-                                            P.O. Box 1200
-                                            <br/>
-                                            Minneapolis, MN 55480
-                                        </p>
-                                        <p>
-                                            c. FDIC Consumer Response Center
-                                            <br/>
-                                            1100 Walnut Street, Box #11
-                                            <br/>
-                                            Kansas City, MO 64106
-                                        </p>
-                                        <p>
-                                            d. National Credit Union Administration
-                                            <br/>
-                                            Office of Consumer Financial Protection (OCFP)
-                                            <br/>
-                                            Division of Consumer Compliance Policy and Outreach
-                                            <br/>
-                                            1775 Duke Street
-                                            <br/>
-                                            Alexandria, VA 22314
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>3. Air carriers</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Asst. General Counsel for Aviation Enforcement & Proceedings
-                                            <br/>
-                                            Aviation Consumer Protection Division
-                                            <br/>
-                                            Department of Transportation
-                                            <br/>
-                                            1200 New Jersey Avenue, S.E.
-                                            <br/>
-                                            Washington, DC 20590
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>4. Creditors Subject to the Surface Transportation Board</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Office of Proceedings, Surface Transportation Board
-                                            <br/>
-                                            Department of Transportation
-                                            <br/>
-                                            395 E Street, S.W.
-                                            <br/>
-                                            Washington, DC 20423
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>5. Creditors Subject to the Packers and Stockyards Act, 1921</p>
-                                    </td>
-                                    <td>
-                                        <p>Nearest Packers and Stockyards Administration area supervisor</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>6. Small Business Investment Companies</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Associate Deputy Administrator for Capital Access
-                                            <br/>
-                                            United States Small Business Administration
-                                            <br/>
-                                            409 Third Street, S.W., Suite 8200
-                                            <br/>
-                                            Washington, DC 20416
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>7. Brokers and Dealers</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Securities and Exchange Commission
-                                            <br/>
-                                            100 F Street, N.E.
-                                            <br/>
-                                            Washington, DC 20549
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>
-                                            8. Federal Land Banks, Federal Land Bank Associations, Federal Intermediate Credit Banks, and Production Credit Associations
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Farm Credit Administration
-                                            <br/>
-                                            1501 Farm Credit Drive
-                                            <br/>
-                                            McLean, VA 22102-5090
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>9. Retailers, Finance Companies, and All Other Creditors Not Listed Above</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            Federal Trade Commission
-                                            <br/>
-                                            Consumer Response Center
-                                            <br/>
-                                            600 Pennsylvania Avenue, N.W.
-                                            <br/>
-                                            Washington, DC 20580
-                                            <br/>
-                                            (877) 382-4357
-                                        </p>
-                                    </td>
-                                </tr>
+                                    <p>
+                                        b. Federal Trade Commission
+                                        <br/>
+                                        Consumer Response Center
+                                        <br/>
+                                        600 Pennsylvania Avenue, N.W.
+                                        <br/>
+                                        Washington, DC 20580
+                                        <br/>
+                                        (877) 382-4357
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>2. To the extent not included in item 1 above:</p>
+                                    <p>a. National banks, federal savings associations, and federal branches and federal agencies of foreign banks</p>
+                                    <p>
+                                        b. State member banks, branches and agencies of foreign banks (other than federal branches, federal agencies, and Insured State Branches of Foreign Banks),
+                                        commercial lending companies owned or controlled by foreign banks, and organizations operating under section 25 or 25A of the Federal Reserve Act.
+                                    </p>
+                                    <p>c. Nonmember Insured Banks, Insured State Branches of Foreign Banks, and insured state savings associations</p>
+                                    <p>d. Federal Credit Unions</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        a. Office of the Comptroller of the Currency
+                                        <br/>
+                                        Customer Assistance Group
+                                        <br/>
+                                        1301 McKinney Street, Suite 3450
+                                        <br/>
+                                        Houston, TX 77010-9050
+                                    </p>
+                                    <p>
+                                        b. Federal Reserve Consumer Help Center
+                                        <br/>
+                                        P.O. Box 1200
+                                        <br/>
+                                        Minneapolis, MN 55480
+                                    </p>
+                                    <p>
+                                        c. FDIC Consumer Response Center
+                                        <br/>
+                                        1100 Walnut Street, Box #11
+                                        <br/>
+                                        Kansas City, MO 64106
+                                    </p>
+                                    <p>
+                                        d. National Credit Union Administration
+                                        <br/>
+                                        Office of Consumer Financial Protection (OCFP)
+                                        <br/>
+                                        Division of Consumer Compliance Policy and Outreach
+                                        <br/>
+                                        1775 Duke Street
+                                        <br/>
+                                        Alexandria, VA 22314
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>3. Air carriers</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Asst. General Counsel for Aviation Enforcement & Proceedings
+                                        <br/>
+                                        Aviation Consumer Protection Division
+                                        <br/>
+                                        Department of Transportation
+                                        <br/>
+                                        1200 New Jersey Avenue, S.E.
+                                        <br/>
+                                        Washington, DC 20590
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>4. Creditors Subject to the Surface Transportation Board</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Office of Proceedings, Surface Transportation Board
+                                        <br/>
+                                        Department of Transportation
+                                        <br/>
+                                        395 E Street, S.W.
+                                        <br/>
+                                        Washington, DC 20423
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>5. Creditors Subject to the Packers and Stockyards Act, 1921</p>
+                                </td>
+                                <td>
+                                    <p>Nearest Packers and Stockyards Administration area supervisor</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>6. Small Business Investment Companies</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Associate Deputy Administrator for Capital Access
+                                        <br/>
+                                        United States Small Business Administration
+                                        <br/>
+                                        409 Third Street, S.W., Suite 8200
+                                        <br/>
+                                        Washington, DC 20416
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>7. Brokers and Dealers</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Securities and Exchange Commission
+                                        <br/>
+                                        100 F Street, N.E.
+                                        <br/>
+                                        Washington, DC 20549
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        8. Federal Land Banks, Federal Land Bank Associations, Federal Intermediate Credit Banks, and Production Credit Associations
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Farm Credit Administration
+                                        <br/>
+                                        1501 Farm Credit Drive
+                                        <br/>
+                                        McLean, VA 22102-5090
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>9. Retailers, Finance Companies, and All Other Creditors Not Listed Above</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        Federal Trade Commission
+                                        <br/>
+                                        Consumer Response Center
+                                        <br/>
+                                        600 Pennsylvania Avenue, N.W.
+                                        <br/>
+                                        Washington, DC 20580
+                                        <br/>
+                                        (877) 382-4357
+                                    </p>
+                                </td>
+                            </tr>
                             </tbody>
                         </Table>
                     </Section>
@@ -825,4 +735,4 @@ export function FAQPage() {
     )
 }
 
-export default FAQPage
+export default FAQ;

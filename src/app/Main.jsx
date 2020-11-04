@@ -33,7 +33,7 @@ import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
 import TermsPage from 'components/TermsPage';
-import FAQPage from 'components/FAQPage';
+import FAQPage from 'components/FAQ/FAQPage';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
@@ -59,7 +59,8 @@ export class Main extends Component {
                 pathname.includes('signup') ||
                 pathname.includes('password') ||
                 pathname.includes('terms') ||
-                pathname.includes('privacy-policy')
+                pathname.includes('privacy-policy') ||
+                pathname.includes('faq')
             )
                 return;
             if (!configuration.client || !configuration.invitee) {

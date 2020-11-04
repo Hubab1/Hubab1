@@ -4,7 +4,7 @@ import { FAQPage } from './FAQPage';
 
 describe('FAQPage', () => {
     it('matches snapshot', () => {
-        const wrapper = shallow(<FAQPage />);
+        const wrapper = shallow(<FAQPage isSignedIn={true} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });
