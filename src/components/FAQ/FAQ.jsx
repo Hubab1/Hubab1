@@ -54,7 +54,7 @@ const Tab = () => {
     return <span>&nbsp;&nbsp;&nbsp;</span>;
 };
 
-export function FAQ ({ community }) {
+export function FAQ({ community }) {
     return (
         <>
             <H1>Frequently Asked Questions</H1>
@@ -71,8 +71,8 @@ export function FAQ ({ community }) {
                         <p>
                             Funnel provides data to property management clients for them to determine whether you
                             qualify to lease with their company. Unfortunately, we are unable to provide the application
-                            status. You will need to speak with {`${community.building_name}`} to determine if they’ve received your
-                            application and when they expect to provide a decision.
+                            status. You will need to speak with {`${community.building_name}`} to determine if they’ve
+                            received your application and when they expect to provide a decision.
                         </p>
 
                         <h2>Will you be able to tell me why my application was denied?</h2>
@@ -990,6 +990,6 @@ export function FAQ ({ community }) {
 
 FAQ.propTypes = {
     community: PropTypes.object.isRequired,
-}
+};
 
 export default FAQ;

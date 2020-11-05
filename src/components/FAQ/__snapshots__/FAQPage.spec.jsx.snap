@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FAQPage matches snapshot 1`] = `<FAQ />`;
+exports[`FAQPage matches snapshot 1`] = `
+<FAQ
+  community={
+    Object {
+      "building_name": "Community Name",
+    }
+  }
+/>
+`;

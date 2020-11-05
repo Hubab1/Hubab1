@@ -18,15 +18,13 @@ export function FAQPage({ config, isSignedIn }) {
         );
     }
 
-    return (
-        <FAQ community={config.community}/>
-    );
+    return <FAQ community={config.community} />;
 }
 
 FAQPage.propTypes = {
     config: PropTypes.object.isRequired,
     isSignedIn: PropTypes.bool.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
     config: state.configuration,
