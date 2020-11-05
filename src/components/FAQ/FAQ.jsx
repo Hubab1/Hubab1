@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { ScrollableTermsCardSection, Card, H1 } from 'assets/styles';
+import {community} from "../../app/constants";
 
 const Section = styled.div`
     font-size: 14px;
@@ -53,7 +55,7 @@ const Tab = () => {
     return <span>&nbsp;&nbsp;&nbsp;</span>;
 };
 
-export function FAQ() {
+export function FAQ ({ community }) {
     return (
         <>
             <H1>Frequently Asked Questions</H1>
@@ -70,7 +72,7 @@ export function FAQ() {
                         <p>
                             Funnel provides data to property management clients for them to determine whether you
                             qualify to lease with their company. Unfortunately, we are unable to provide the application
-                            status. You will need to speak with [the property] to determine if they’ve received your
+                            status. You will need to speak with {`${community.building_name}`} to determine if they’ve received your
                             application and when they expect to provide a decision.
                         </p>
 
@@ -985,6 +987,10 @@ export function FAQ() {
             </Card>
         </>
     );
+}
+
+FAQ.propTypes = {
+    community: PropTypes.object.isRequired,
 }
 
 export default FAQ;
