@@ -37,7 +37,7 @@ export class UnauthenticatedPage extends React.Component {
 }
 
 UnauthenticatedPage.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]),
 };
 
 export default UnauthenticatedPage;
