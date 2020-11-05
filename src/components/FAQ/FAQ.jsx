@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { ScrollableTermsCardSection, Card, H1 } from 'assets/styles';
-import {community} from "../../app/constants";
 
 const Section = styled.div`
     font-size: 14px;
