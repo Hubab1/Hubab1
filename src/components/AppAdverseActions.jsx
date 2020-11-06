@@ -68,7 +68,7 @@ const IndentedRow = styled(CardRow)`
 `;
 
 export function AppAdverseActions(props) {
-    const { configuration } = props;
+    const { configuration, profile } = props;
     const [adverseFactors, setAdverseFactors] = useState([]);
     const [requestDate, setRequestDate] = useState(null);
     const [creditScore, setCreditScore] = useState('N/A');
@@ -126,6 +126,11 @@ export function AppAdverseActions(props) {
 
     const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
 
+    const displayGenericMessage =
+        !props.securityDeposit && !props.guarantorRequested && !profile?.applicant_matches_dnr_list;
+
+    const companyName = configuration.community.company.name;
+
     return (
         <div>
             <Header>
@@ -149,19 +154,19 @@ export function AppAdverseActions(props) {
                         <>
                             {props.hasInternationalApplicant ? (
                                 <P>
-                                    Unfortunately, we are unable to approve your rental application under our standard
-                                    terms and conditions because there is an international applicant.
+                                    Unfortunately, {companyName} is unable to approve your rental application under our
+                                    standard terms and conditions because there is an international applicant.
                                 </P>
                             ) : (
                                 <P>
-                                    Unfortunately, we are unable to approve your rental application under our standard
-                                    terms and conditions.
+                                    Unfortunately, {companyName} is unable to approve your rental application under our
+                                    standard terms and conditions because there is a guarantor that lives out-of-state.
                                 </P>
                             )}
                             <br />
                             <P>
                                 We can, however, approve your rental application if you agree to pay a security deposit
-                                in the amount of {props.securityDeposit}, due at move in.
+                                in the amount of {props.securityDeposit} prior to move-in.
                             </P>
                         </>
                     )}
@@ -169,8 +174,8 @@ export function AppAdverseActions(props) {
                     {props.guarantorRequested && (
                         <>
                             <P>
-                                Unfortunately, we are unable to approve your rental application under our standard terms
-                                and conditions because you do not meet the required household income.
+                                Unfortunately, {companyName} is unable to approve your rental application under our
+                                standard terms and conditions because you do not meet the required household income.
                             </P>
                             <br />
                             <P>
@@ -178,8 +183,17 @@ export function AppAdverseActions(props) {
                             </P>
                         </>
                     )}
-                    {!props.securityDeposit && !props.guarantorRequested && (
-                        <P>Unfortunately, we are unable to approve your rental application.</P>
+
+                    {profile?.applicant_matches_dnr_list && (
+                        <P>
+                            Unfortunately, {companyName} is unable to approve your rental application for{' '}
+                            {configuration.community.building_name} because of one or more applicant&apos;s prior rental
+                            history with {companyName}.
+                        </P>
+                    )}
+
+                    {displayGenericMessage && (
+                        <P>Unfortunately, {companyName} is unable to approve your rental application.</P>
                     )}
 
                     <br />
@@ -215,17 +229,24 @@ export function AppAdverseActions(props) {
                         </Card>
                     )}
                     <P>
+                        This adverse action notice is in accordance with the requirements of the FCRA 15 U.S.C. Sec.
+                        1681m (a) and clearly defines your rights as a consumer under the federal Fair Credit Reporting
+                        Act. This notice is further in accord with California Investigative Consumer Reporting Agencies
+                        Act (Calif. Civil Code 1786.10 et seq.)(“ICRAA”).
+                    </P>
+                    <br />
+                    <P>
                         In evaluating your application, <Bold fontWeight={600}>TransUnion Consumer Solutions</Bold>{' '}
-                        provided us with information that in whole or in part influenced our decision.{' '}
+                        provided information that in whole or in part influenced {companyName}&apos;s decision.{' '}
                         <Bold fontWeight={600}>
-                            The reporting agency played no part in our decision other than providing us with information
-                            about you.
+                            The reporting agency played no part in our decision other than providing {companyName} with
+                            information about you.
                         </Bold>
                     </P>
                     <br />
                     <P>
-                        Under the Fair Credit Reporting Act, you have the right to know the information provided to us,
-                        which can be obtained by contacting:
+                        Under the Fair Credit Reporting Act and ICRAA, you have the right to know the information
+                        provided to us, which can be obtained by contacting:
                     </P>
                     <br />
                     <P>
@@ -247,14 +268,49 @@ export function AppAdverseActions(props) {
                     <br />
                     <P>
                         You have the right to a free copy of your report from the reporting agency, if you request it no
-                        later than 60 days after you receive this notice. In addition, if you find that any information
-                        contained in the report you receive is inaccurate or incomplete, you have the right to dispute
-                        the matter with the reporting agency that provided the report or through{' '}
-                        <Bold fontWeight={600}>TransUnion Rental Screening Solutions</Bold> consumer relations at{' '}
-                        <a href="tel:1-800-230-9376">1-800-230-9376</a> or{' '}
-                        <a href="mailto:consumer_relations@turss.com">consumer_relations@turss.com</a>.
+                        later than 60 days after you receive this notice.
                     </P>
                     <br />
+                    <P>
+                        In addition, if you find that any information contained in the TransUnion report you receive is
+                        inaccurate or incomplete, you have the right to dispute the matter with Funnel or through the
+                        reporting agency:
+                    </P>
+                    <br />
+                    <P>
+                        TransUnion Rental Screening Solutions
+                        <br />
+                        Attn: Consumer Dispute Team
+                        <br />
+                        Box 800
+                        <br />
+                        Woodlyn, PA 19094
+                        <br />
+                        <a href="tel:1-800-230-9376">1-800-230-9376</a>
+                        <br />
+                        <a href="mailto:TURSSDispute@transunion.com">TURSSDispute@transunion.com</a>
+                        <br />
+                        <a
+                            href="https://www.transunion.com/client-support/rental-screening-disputes"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            https://www.transunion.com/client-support/rental-screening-disputes
+                        </a>
+                    </P>
+                    <br />
+                    <P>
+                        Funnel Leasing
+                        <br />
+                        Attn: Consumer Inquiries <br />
+                        150 W. 22nd St. - 8th Fl.
+                        <br />
+                        New York, NY 10011
+                        <br />
+                        (833) 979-3074
+                        <br />
+                        <a href="mailto:consumer@funnelleasing.com">consumer@funnelleasing.com</a>
+                    </P>
                 </Decision>
             )}
             <ActionButton disabled={!isReady} marginTop={39} onClick={props.onAgree}>
@@ -273,10 +329,12 @@ AppAdverseActions.propTypes = {
     configuration: PropTypes.object,
     guarantorRequested: PropTypes.bool,
     hasInternationalApplicant: PropTypes.bool,
+    profile: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     configuration: state.configuration,
+    profile: state.renterProfile,
 });
 
 export default connect(mapStateToProps)(AppAdverseActions);

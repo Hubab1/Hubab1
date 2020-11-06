@@ -171,7 +171,10 @@ export function VerticalLinearStepper(props) {
                                 root: viewProgress,
                             }}
                             disabled={false}
-                            onClick={() => props.history.push(props.initialPage)}
+                            onClick={() => {
+                                props.history.push(props.initialPage);
+                                props.handleDrawerClose();
+                            }}
                         >
                             View Progress
                         </Button>
@@ -191,6 +194,7 @@ VerticalLinearStepper.propTypes = {
     config: PropTypes.object,
     applicantStillFinishingApplication: PropTypes.bool,
     guarantorRequested: PropTypes.bool,
+    handleDrawerClose: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
