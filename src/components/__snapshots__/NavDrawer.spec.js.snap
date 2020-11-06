@@ -91,7 +91,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       </ForwardRef(StyledComponent)>
       <ForwardRef(WithStyles) />
       <UNDEFINED
-        onRouteClicked={[Function]}
+        handleDrawerClose={[Function]}
       />
       <ForwardRef(WithStyles) />
       <ForwardRef(StyledComponent)

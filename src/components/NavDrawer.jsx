@@ -207,7 +207,7 @@ export function PersistentDrawerLeft(props) {
                         )}
                     </Box>
                     <Divider />
-                    <NavStepper onRouteClicked={handleDrawerClose} />
+                    <NavStepper handleDrawerClose={handleDrawerClose} />
                     <Divider />
                     <Box
                         display="flex"
