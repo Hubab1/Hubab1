@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { FAQPage } from './FAQPage';
+import { FAQ } from './FAQ';
 
 describe('FAQPage', () => {
     it('matches snapshot', () => {
         const wrapper = shallow(
-            <FAQPage isSignedIn={true} config={{ community: { building_name: 'Community Name' } }} />
+            <FAQ community={{ building_name: 'Community Name' }} />
         );
         expect(wrapper.getElement()).toMatchSnapshot();
     });

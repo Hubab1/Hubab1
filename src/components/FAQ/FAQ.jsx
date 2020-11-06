@@ -57,13 +57,11 @@ const Tab = () => {
 export function FAQ({ community }) {
     return (
         <>
-            <H1>Frequently Asked Questions</H1>
+            <H1>Funnel - Consumer Assistance - Frequently Asked Questions</H1>
             <br />
             <Card>
                 <ScrollableTermsCardSection>
                     <Section>
-                        <h1>Funnel - Consumer Assistance - Frequently Asked Questions</h1>
-
                         <h2>
                             How do I find out if my apartment application has been received or when I can expect a
                             decision?
