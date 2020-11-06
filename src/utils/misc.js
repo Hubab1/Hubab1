@@ -2,7 +2,6 @@ import memoize from 'lodash/memoize';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import addDays from 'date-fns/addDays';
-import subDays from 'date-fns/subDays';
 import auth from 'utils/auth';
 import {
     MILESTONE_APPLICANT_SUBMITTED,
@@ -79,10 +78,8 @@ export function parseDateISOString(s) {
 export const offsetDate = memoize(
     (fromDate, offsetMonths, offsetDays) => {
         let newDate = addMonths(fromDate, offsetMonths);
-
         if (offsetDays) {
-            const offsetDaysIsPositive = Math.sign(offsetDays) === 1;
-            newDate = offsetDaysIsPositive ? addDays(newDate, offsetDays) : subDays(newDate, offsetDays);
+            newDate = addDays(newDate, offsetDays)
         }
 
         return format(newDate, 'MMMM do, yyyy');
