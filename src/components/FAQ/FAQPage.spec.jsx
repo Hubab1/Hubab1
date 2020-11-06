@@ -4,9 +4,7 @@ import { FAQ } from './FAQ';
 
 describe('FAQPage', () => {
     it('matches snapshot', () => {
-        const wrapper = shallow(
-            <FAQ community={{ building_name: 'Community Name' }} />
-        );
+        const wrapper = shallow(<FAQ community={{ building_name: 'Community Name' }} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });
