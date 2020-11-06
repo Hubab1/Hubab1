@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitUnavailable signed in matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Someone Beat You To It!
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Sorry, unit 
+    123
+     is no longer available.
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="tooslow.png"
+  />
+  <div
+    className="align-left"
+  >
+    <ForwardRef(render)>
+      Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)
+      bold={true}
+    >
+      Call us at
+       
+      <a
+        href="tel:123456"
+      >
+        123456
+      </a>
+       so we can discuss other options.
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;
+
+exports[`UnitUnavailable signed out matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Someone Beat You To It!
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Sorry, unit 
+    123
+     is no longer available.
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="tooslow.png"
+  />
+  <div
+    className="align-left"
+  >
+    <ForwardRef(render)>
+      Looks like someone else swiped this unit off the market. Don't worry though, we can help you find a similar one!
+    </ForwardRef(render)>
+    <br />
+    <ForwardRef(render)
+      bold={true}
+    >
+      Call us at
+       
+      <a
+        href="tel:123456"
+      >
+        123456
+      </a>
+       so we can discuss other options.
+    </ForwardRef(render)>
+  </div>
+</React.Fragment>
+`;

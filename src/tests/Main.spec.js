@@ -6,7 +6,6 @@ import CriticalError from 'components/common/CriticalError';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
 
-
 beforeEach(() => {
     configurationObject = {
         name: 'Cortland',
@@ -17,7 +16,8 @@ beforeEach(() => {
         terms_of_service: 'https://some-link.com/something.pdf',
         privacy_policy: 'https://some-link.com/something.pdf',
         logo: 'https://cdn.freebiesupply.com/logos/large/2x/cheetos-logo-png-transparent.png',
-        background_image: 'https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811',
+        background_image:
+            'https://vignette.wikia.nocookie.net/stupididy/images/1/19/Chester_Cheetah.jpg/revision/latest?cb=20161013224811',
         primary_color: '000000',
         secondary_color: 'FFA500',
         client: {
@@ -47,42 +47,43 @@ beforeEach(() => {
         },
         location: {
             search: '',
-            pathname: ''
-        }
+            pathname: '',
+        },
     };
     jest.useFakeTimers();
 });
 
 it('renders <CriticalError/> if hasError=true', () => {
-    const wrapper = shallow( <Main {...defaultProps } theme={{}}/>);
+    const wrapper = shallow(<Main {...defaultProps} theme={{}} />);
     expect(wrapper.find(CriticalError).exists()).toBe(false);
-    wrapper.setState({hasError: true});
+    wrapper.setState({ hasError: true });
     expect(wrapper.find(CriticalError).exists()).toBe(true);
 });
 
 describe('componentDidMount', () => {
-    it('calls fetchConfiguration', function() {
-        shallow( <Main {...defaultProps }/>);
+    it('calls fetchConfiguration', function () {
+        shallow(<Main {...defaultProps} />);
         expect(defaultProps.fetchConfiguration).toHaveBeenCalledTimes(1);
     });
 });
 
 describe('this.logout', () => {
     describe('isLoggedIn=true', () => {
-        it('handles logging out', function() {
+        it('handles logging out', function () {
             localStorage.setItem('access_token', 'accesstoken');
-            const wrapper = shallow( <Main {...defaultProps } isLoggedIn={true} theme={{}}/> );
+            const wrapper = shallow(<Main {...defaultProps} isLoggedIn={true} theme={{}} />);
             wrapper.instance().logout();
             expect(localStorage.getItem('access_token')).not.toBeTruthy();
             expect(defaultProps.logout).toHaveBeenCalled();
-            expect(defaultProps.history.push).toHaveBeenCalledWith(
-                {pathname: '/login', state: {errors: 'Oops, your session has timed-out. Please log back in to continue.'}}
-            );
+            expect(defaultProps.history.push).toHaveBeenCalledWith({
+                pathname: '/login',
+                state: { errors: 'Oops, your session has timed-out. Please log back in to continue.' },
+            });
         });
     });
     describe('isLoggedIn=false', () => {
-        it('doesnt do anything if called', function() {
-            const wrapper = shallow( <Main {...defaultProps } isLoggedIn={false} theme={{}}/> );
+        it('doesnt do anything if called', function () {
+            const wrapper = shallow(<Main {...defaultProps} isLoggedIn={false} theme={{}} />);
             wrapper.instance().logout();
             expect(defaultProps.logout).not.toHaveBeenCalled();
             expect(defaultProps.history.push).not.toHaveBeenCalled();
@@ -91,41 +92,46 @@ describe('this.logout', () => {
 });
 
 describe('mountNavigation', () => {
-    it('calls fetchRenterProfile if authenticated', function() {
-        const wrapper = shallow( <Main {...defaultProps }/>);
+    it('calls fetchRenterProfile if authenticated', function () {
+        const wrapper = shallow(<Main {...defaultProps} />);
 
         const isAuthenticated = true;
-        const configuration = {}; wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
+        const configuration = {};
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
     });
 
-    it('routes to login page if not authenticated, but there is an associated client application', function() {
+    it('routes to login page if not authenticated, but there is an associated client application', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
 
         const isAuthenticated = false;
         const configuration = { client: { applicant_id: 123 }, invitee: {} };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration); expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/login');
     });
 
-    it('routes to login page if not authenticated, but there is an associated registered invitee', function() {
+    it('routes to login page if not authenticated, but there is an associated registered invitee', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
 
         const isAuthenticated = false;
         const configuration = { client: {}, invitee: { is_registered: true } };
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
-        expect(historyStub).toHaveBeenCalledTimes(1); expect(historyStub).toHaveBeenCalledWith('/login');
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/login');
     });
 
-    it('routes to welcome page if not authenticated, and there is a client associated', function() {
+    it('routes to welcome page if not authenticated, and there is a client associated', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
         const configuration = { client: {} };
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
@@ -134,23 +140,24 @@ describe('mountNavigation', () => {
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
-    it('routes to welcome page if not authenticated, and there is an invitee associated', function() {
+    it('routes to welcome page if not authenticated, and there is an invitee associated', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
-        const configuration = { invitee: {} }; wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        const configuration = { invitee: {} };
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
-    it('routes to welcome page if not authenticated, and there is no client associated', function() {
+    it('routes to welcome page if not authenticated, and there is no client associated', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
@@ -159,12 +166,12 @@ describe('mountNavigation', () => {
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
-    it('does not reroute if unauthenticated and path is payment-terms', function() {
-        const location = {pathname: '/payment-terms', search: '', hash: '', state: undefined};
+    it('does not reroute if unauthenticated and path is payment-terms', function () {
+        const location = { pathname: '/payment-terms', search: '', hash: '', state: undefined };
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} location={location} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} location={location} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
@@ -172,12 +179,12 @@ describe('mountNavigation', () => {
         expect(historyStub).toHaveBeenCalledTimes(0);
     });
 
-    it('does not reroute if path is privacy-policy', function() {
-        const location = {pathname: '/privacy-policy', search: '', hash: '', state: undefined};
+    it('does not reroute if path is privacy-policy', function () {
+        const location = { pathname: '/privacy-policy', search: '', hash: '', state: undefined };
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
-        const wrapper = shallow( <Main {...defaultProps} location={location} history={history}/>);
+        const wrapper = shallow(<Main {...defaultProps} location={location} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
@@ -185,4 +192,20 @@ describe('mountNavigation', () => {
         expect(historyStub).toHaveBeenCalledTimes(0);
     });
 
+    it('routes to unit unavailable page if not authenticated, and unit is not available', function () {
+        const historyStub = jest.fn();
+        const history = { push: historyStub, replace: historyStub };
+
+        const wrapper = shallow(<Main {...defaultProps} history={history} />);
+        const isAuthenticated = false;
+        const configuration = {
+            unit: {
+                is_unavailable: true,
+            },
+        };
+        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+
+        expect(historyStub).toHaveBeenCalledTimes(1);
+        expect(historyStub).toHaveBeenCalledWith('/unauth-unit-unavailable');
+    });
 });
