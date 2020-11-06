@@ -211,14 +211,22 @@ export function PersistentDrawerLeft(props) {
                     <Divider />
                     <Box
                         display="flex"
-                        justifyContent="space-between"
+                        justifyContent="flex-start"
                         alignItems="center"
-                        padding="0 15px"
-                        className={footer}
+                        padding="5px"
                     >
                         <Button onClick={logout} classes={{ root: classes.logout }}>
                             Logout
                         </Button>
+                    </Box>
+
+                    <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        padding="0 15px 15px"
+                        className={footer}
+                    >
                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                             Privacy
                         </Link>

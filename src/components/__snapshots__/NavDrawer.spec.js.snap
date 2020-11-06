@@ -96,10 +96,9 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       <ForwardRef(WithStyles) />
       <ForwardRef(StyledComponent)
         alignItems="center"
-        className="css-1f9n4qq"
         display="flex"
-        justifyContent="space-between"
-        padding="0 15px"
+        justifyContent="flex-start"
+        padding="5px"
       >
         <ForwardRef(WithStyles)
           classes={
@@ -111,6 +110,14 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         >
           Logout
         </ForwardRef(WithStyles)>
+      </ForwardRef(StyledComponent)>
+      <ForwardRef(StyledComponent)
+        alignItems="center"
+        className="css-1f9n4qq"
+        display="flex"
+        justifyContent="space-between"
+        padding="0 15px 15px"
+      >
         <ForwardRef
           target="_blank"
           to="/privacy-policy"
