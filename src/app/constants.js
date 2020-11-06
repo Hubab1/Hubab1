@@ -43,6 +43,7 @@ export const ROUTES = {
     APP_CANCELLED: '/application-cancelled',
     LEASE_VOIDED: '/lease-voided',
     PRIVACY_POLICY: '/privacy-policy',
+    FAQ: '/faq',
     UNIT_UNAVAILABLE: '/unit-unavailable',
     UNAUTHENTICATED_UNIT_UNAVAILABLE: '/unauth-unit-unavailable',
     EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',

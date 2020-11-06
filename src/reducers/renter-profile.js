@@ -141,7 +141,7 @@ selectors.canAccessRoute = (state, route) => {
     */
     // These pages should always be accessible
 
-    if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY].includes(route)) {
+    if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
@@ -158,7 +158,7 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
-export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS];
+export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ];
 
 const getDirectRoute = (route) => {
     if (!route) return null;
