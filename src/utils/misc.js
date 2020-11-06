@@ -79,7 +79,7 @@ export const offsetDate = memoize(
     (fromDate, offsetMonths, offsetDays) => {
         let newDate = addMonths(fromDate, offsetMonths);
         if (offsetDays) {
-            newDate = addDays(newDate, offsetDays)
+            newDate = addDays(newDate, offsetDays);
         }
 
         return format(newDate, 'MMMM do, yyyy');
