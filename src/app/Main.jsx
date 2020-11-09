@@ -4,6 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { sessionIsValidForCommunityId } from 'utils/misc';
+import auth from 'utils/auth';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { fetchConfiguration } from 'reducers/configuration';
+import { fetchApplicant } from 'reducers/applicant';
+import { actions as mainActions } from 'reducers/store';
+import { ROUTES } from 'app/constants';
+import { selectors as configSelectors } from 'reducers/configuration';
 import AppContextProvider from 'contexts/AppContextProvider';
 import ResendLinkForm from 'components/common/ResendLinkForm';
 import WelcomePage from 'components/welcome/WelcomePage';
@@ -17,13 +24,6 @@ import BankingContainer from 'components/banking/BankingContainer';
 import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
-import auth from 'utils/auth';
-import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import { fetchConfiguration } from 'reducers/configuration';
-import { fetchApplicant } from 'reducers/applicant';
-import { actions as mainActions } from 'reducers/store';
-import { ROUTES } from 'app/constants';
-import { selectors as configSelectors } from 'reducers/configuration';
 import Address from 'components/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
@@ -33,6 +33,7 @@ import AppDenied from 'components/AppDenied';
 import LeaseSigned from 'components/LeaseSigned';
 import LeaseExecuted from 'components/LeaseExecuted';
 import TermsPage from 'components/TermsPage';
+import FAQPage from 'components/FAQ/FAQPage';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
@@ -58,7 +59,8 @@ export class Main extends Component {
                 pathname.includes('signup') ||
                 pathname.includes('password') ||
                 pathname.includes('terms') ||
-                pathname.includes('privacy-policy')
+                pathname.includes('privacy-policy') ||
+                pathname.includes('faq')
             )
                 return;
             if (!configuration.client || !configuration.invitee) {
@@ -159,6 +161,7 @@ export class Main extends Component {
                             <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
                         )}
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
+                        {!isLoggedIn && <Route path={ROUTES.FAQ} component={FAQPage} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
                             <NavDrawer>
@@ -181,6 +184,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.APP_DENIED} component={AppDenied} />
                                 <Route path={ROUTES.APP_CANCELLED} component={AppCancelled} />
                                 <Route path={ROUTES.TERMS} component={TermsPage} />
+                                <Route path={ROUTES.FAQ} component={FAQPage} />
                                 <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
