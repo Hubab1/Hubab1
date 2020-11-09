@@ -38,8 +38,8 @@ const WrappedApp = (props) => {
         <BrowserRouter>
             <AppAdverseActions {...props} />
         </BrowserRouter>
-    )
-}
+    );
+};
 
 it('Matches Snapshot without security deposit', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
@@ -62,9 +62,7 @@ it('Matches Snapshot with security deposit', async () => {
 
 it('Matches Snapshot if it has an international applicant', async () => {
     API.getAdverseActions = jest.fn().mockReturnValue(Promise.resolve({}));
-    const wrapper = mount(
-        <WrappedApp {...defaultProps} securityDeposit={'$2,200'} hasInternationalApplicant={true} />
-    );
+    const wrapper = mount(<WrappedApp {...defaultProps} securityDeposit={'$2,200'} hasInternationalApplicant={true} />);
     await act(async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
