@@ -112,9 +112,24 @@ export default function AvailableUnitsSelector(props) {
 
     useEffect(() => {
         API.fetchAvailableUnits().then((units) => {
-            if (units.length) setUnits(units);
+            if (units.length) {
+                // The available units returned by our request might not contain the application's unit if this unit has been marked as below-market-rate.
+                // This may happen when an applicant was invited with a personalized link for a unit that is actually below-market-rate.
+                // In that case, we manually add it to the list of available units.
+                const availableUnits = [...units];
+                const applicationUnitIsInListOfUnits =
+                    props.application?.unit &&
+                    availableUnits.findIndex((u) => u.id === props.application.unit.id) === -1;
+
+                if (props.application?.unit_available && applicationUnitIsInListOfUnits) {
+                    availableUnits.push(props.application.unit);
+                }
+
+                setUnits(availableUnits);
+            }
             setIsReady(true);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChange = (val) => {
@@ -195,10 +210,11 @@ export default function AvailableUnitsSelector(props) {
 }
 
 AvailableUnitsSelector.propTypes = {
-    update: PropTypes.func,
+    application: PropTypes.object.isRequired,
+    initialValue: PropTypes.any,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
     error: PropTypes.bool,
     helperText: PropTypes.bool,
-    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
     disabled: PropTypes.bool,
-    initialValue: PropTypes.any,
+    update: PropTypes.func.isRequired,
 };
