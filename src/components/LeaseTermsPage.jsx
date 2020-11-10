@@ -254,14 +254,20 @@ LeaseTermsPage.propTypes = {
     _nextRoute: PropTypes.func,
 };
 
+const mapStateToProps = (state) => ({
+    isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
+    application: state.renterProfile,
+    config: state.configuration,
+});
+
+const mapDispatchToProps = {
+    updateRenterProfile,
+    pageComplete,
+};
+
 export default connect(
-    (state) => ({
-        isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
-        application: state.renterProfile,
-        config: state.configuration,
-    }),
-    {
-        updateRenterProfile,
-        pageComplete,
-    }
-)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS)
+);
