@@ -151,13 +151,13 @@ export class LeaseTermsPage extends React.Component {
                 >
                     {({
                         values,
+                        errors,
                         handleChange,
                         handleBlur,
                         handleSubmit,
                         submitCount,
                         isSubmitting,
                         setFieldValue,
-                        errors,
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
@@ -174,8 +174,8 @@ export class LeaseTermsPage extends React.Component {
                                             fullWidth
                                             disabled={!isPrimaryApplicant}
                                             onBlur={handleBlur}
-                                            onChange={(e) => {
-                                                setFieldValue('lease_start_date', e);
+                                            onChange={(value) => {
+                                                setFieldValue('lease_start_date', value);
                                                 setFieldValue('unit', null);
                                                 setFieldValue('lease_term', null);
                                             }}
@@ -189,15 +189,15 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
-                                            update={(val) => {
-                                                setFieldValue('unit', val);
+                                            update={(value) => {
+                                                setFieldValue('unit', value);
                                                 setFieldValue('lease_term', null);
                                             }}
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
                                             errors={errors}
                                             disabled={!isPrimaryApplicant}
-                                            initialValue={values.unit}
+                                            inputValue={values.unit}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
