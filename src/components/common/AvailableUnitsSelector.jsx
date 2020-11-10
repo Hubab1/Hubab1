@@ -9,7 +9,7 @@ import Downshift from 'downshift';
 import fuzzaldrin from 'fuzzaldrin-plus';
 
 import API from 'app/api';
-import usePrevious from 'hooks/usePrevious'
+import usePrevious from 'hooks/usePrevious';
 
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
 function renderInput(inputProps) {
@@ -114,7 +114,7 @@ export default function AvailableUnitsSelector(props) {
 
     const bindClearSelection = useCallback((clear) => {
         clearSelection.current = clear;
-    }, [])
+    }, []);
 
     // Use effect to clear selection if the input value got 'reset' from outside
     useEffect(() => {
@@ -122,11 +122,8 @@ export default function AvailableUnitsSelector(props) {
             clearSelection.current && clearSelection.current();
         }
 
-        // eslint-disable-line react-hooks/exhaustive-deps
-    }, [
-        props.inputValue,
-        bindClearSelection
-    ])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.inputValue, bindClearSelection]);
 
     useEffect(() => {
         API.fetchAvailableUnits().then((units) => {

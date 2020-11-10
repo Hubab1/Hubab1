@@ -265,9 +265,4 @@ const mapDispatchToProps = {
     pageComplete,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(
-    withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
