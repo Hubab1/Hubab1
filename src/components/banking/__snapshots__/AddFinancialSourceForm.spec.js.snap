@@ -27,43 +27,7 @@ exports[`Matches snapshot showing other field 1`] = `
         }
         onChange={[Function]}
         value={140}
-      >
-        <ForwardRef(WithStyles)
-          value={105}
-        >
-          Employment
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={110}
-        >
-          Self Employment
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={115}
-        >
-          Student
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={120}
-        >
-          Government
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={125}
-        >
-          Retirement
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={130}
-        >
-          Child/Spousal Support
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          value={140}
-        >
-          Other
-        </ForwardRef(WithStyles)>
-      </ForwardRef(WithStyles)>
+      />
     </ForwardRef(WithStyles)>
     <React.Fragment>
       <ForwardRef(render)
