@@ -233,8 +233,8 @@ exports[`renders leasing pricing disclaimer if unit and lease-start_date and lea
             error={false}
             errors={Object {}}
             helperText={false}
-            initialValue={123}
             update={[Function]}
+            value={123}
           />
         </ForwardRef(WithStyles)>
         <ForwardRef(WithStyles)

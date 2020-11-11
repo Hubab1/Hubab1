@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,9 +9,9 @@ import Downshift from 'downshift';
 import fuzzaldrin from 'fuzzaldrin-plus';
 
 import API from 'app/api';
+import usePrevious from 'hooks/usePrevious';
 
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
-
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
     return (
@@ -107,8 +107,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AvailableUnitsSelector(props) {
+    const clearSelection = useRef(undefined);
+    const previousValue = usePrevious(props.value);
     const [units, setUnits] = useState([]);
     const [isReady, setIsReady] = useState(false);
+
+    const bindClearSelection = useCallback((clear) => {
+        clearSelection.current = clear;
+    }, []);
+
+    // Use effect to clear selection if the value got 'reset' from outside
+    useEffect(() => {
+        if (previousValue && !props.value) {
+            clearSelection.current && clearSelection.current();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.value, bindClearSelection]);
 
     useEffect(() => {
         API.fetchAvailableUnits().then((units) => {
@@ -117,18 +132,14 @@ export default function AvailableUnitsSelector(props) {
         });
     }, []);
 
-    const handleChange = (val) => {
-        props.update(val);
-    };
-
     const classes = useStyles();
     return (
         <div>
             <Downshift
                 id="downshift-options"
                 itemToString={(item) => (item ? item.unit_number : '')}
-                onChange={handleChange}
-                initialSelectedItem={props.initialValue}
+                onChange={props.update}
+                initialSelectedItem={props.value}
             >
                 {({
                     clearSelection,
@@ -142,6 +153,8 @@ export default function AvailableUnitsSelector(props) {
                     openMenu,
                     selectedItem,
                 }) => {
+                    bindClearSelection(clearSelection);
+
                     const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
                         onChange: (event) => {
                             if (event.target.value === '') {
@@ -165,6 +178,7 @@ export default function AvailableUnitsSelector(props) {
                     } else if (suggestions.length === 0) {
                         suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
                     }
+
                     return (
                         <div className={classes.container}>
                             {renderInput({
@@ -200,5 +214,5 @@ AvailableUnitsSelector.propTypes = {
     helperText: PropTypes.bool,
     errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
     disabled: PropTypes.bool,
-    initialValue: PropTypes.any,
+    value: PropTypes.any,
 };
