@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
+import { filter, find } from 'lodash';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import capitalize from 'lodash/capitalize';
 import omit from 'lodash/omit';
@@ -12,7 +13,7 @@ import PropTypes from 'prop-types';
 import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { Spacer } from 'assets/styles';
-import { ASSET_TYPES, INCOME_TYPES, FINANCIAL_STREAM_ASSET, INCOME_TYPE_OTHER, ASSET_TYPE_OTHER } from 'app/constants';
+import { FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES, INCOME_TYPE_OTHER, ASSET_TYPE_OTHER } from 'app/constants';
 import { Formik } from 'formik';
 import UploadDocuments from './UploadDocuments';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
@@ -21,7 +22,8 @@ import { connect } from 'react-redux';
 export function AddFinancialSourceForm(props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
     const financialTypeLabel = isAsset ? 'asset' : 'income';
-    const selectChoices = isAsset ? ASSET_TYPES : INCOME_TYPES;
+
+    const selectChoices = filter(props.financial_documents_validations, { stream_type: props.financialType });
 
     function getInitialValues() {
         return Object.assign(
@@ -103,9 +105,9 @@ export function AddFinancialSourceForm(props) {
                                     id: 'income-or-asset-type',
                                 }}
                             >
-                                {selectChoices.map((incomeType) => (
-                                    <MenuItem key={incomeType.value} value={incomeType.value}>
-                                        {incomeType.label}
+                                {selectChoices.map((choice) => (
+                                    <MenuItem key={choice.income_or_asset_type} value={choice.income_or_asset_type}>
+                                        {find(ALL_INCOME_OR_ASSET_TYPES, { value: choice.income_or_asset_type }).label}
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -192,6 +194,7 @@ AddFinancialSourceForm.propTypes = {
 
 const mapStateToProps = (state) => ({
     config: state.configuration,
+    financial_documents_validations: state.configuration.financial_documents_validations,
 });
 
 export default connect(mapStateToProps)(AddFinancialSourceForm);
