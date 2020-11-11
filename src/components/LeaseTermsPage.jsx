@@ -197,7 +197,7 @@ export class LeaseTermsPage extends React.Component {
                                             helperText={submitCount >= 1 && errors.unit}
                                             errors={errors}
                                             disabled={!isPrimaryApplicant}
-                                            inputValue={values.unit}
+                                            value={values.unit}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

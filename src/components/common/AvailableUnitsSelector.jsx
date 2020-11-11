@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AvailableUnitsSelector(props) {
     const clearSelection = useRef(undefined);
-    const previousValue = usePrevious(props.inputValue);
+    const previousValue = usePrevious(props.value);
     const [units, setUnits] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
@@ -118,12 +118,12 @@ export default function AvailableUnitsSelector(props) {
 
     // Use effect to clear selection if the input value got 'reset' from outside
     useEffect(() => {
-        if (previousValue && !props.inputValue) {
+        if (previousValue && !props.value) {
             clearSelection.current && clearSelection.current();
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.inputValue, bindClearSelection]);
+    }, [props.value, bindClearSelection]);
 
     useEffect(() => {
         API.fetchAvailableUnits().then((units) => {
@@ -139,7 +139,7 @@ export default function AvailableUnitsSelector(props) {
                 id="downshift-options"
                 itemToString={(item) => (item ? item.unit_number : '')}
                 onChange={props.update}
-                inputValue={props.value}
+                initialSelectedItem={props.value}
             >
                 {({
                     clearSelection,
