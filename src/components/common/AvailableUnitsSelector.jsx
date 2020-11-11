@@ -116,7 +116,7 @@ export default function AvailableUnitsSelector(props) {
         clearSelection.current = clear;
     }, []);
 
-    // Use effect to clear selection if the input value got 'reset' from outside
+    // Use effect to clear selection if the value got 'reset' from outside
     useEffect(() => {
         if (previousValue && !props.value) {
             clearSelection.current && clearSelection.current();
