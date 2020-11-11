@@ -316,7 +316,10 @@ export function AppAdverseActions(props) {
                     <br />
                     <P>
                         For more information on your rights under the Fair Credit Reporting Act, please visit our{' '}
-                        <Link to={ROUTES.FAQ}>Consumer Rights and FAQ</Link>.
+                        <Link to={ROUTES.FAQ} target="_blank">
+                            Consumer Rights and FAQ
+                        </Link>
+                        .
                     </P>
                 </Decision>
             )}

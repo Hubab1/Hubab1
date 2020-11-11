@@ -209,9 +209,9 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -463,9 +463,9 @@ exports[`Credit score color Display color green when good credit score 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -717,9 +717,9 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -971,9 +971,9 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -1225,9 +1225,9 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -1479,9 +1479,9 @@ exports[`Display N/A when only credit date is available 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -1738,9 +1738,9 @@ exports[`Display adverseFactorsList when Factors 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -1992,9 +1992,9 @@ exports[`Display credit data when available 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -2214,9 +2214,9 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -2444,9 +2444,9 @@ exports[`Matches Snapshot if it has an international applicant 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -2671,9 +2671,9 @@ exports[`Matches Snapshot when applicant matches do not rent list 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -2899,9 +2899,9 @@ exports[`Matches Snapshot when requesting a guarantor 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -3129,9 +3129,9 @@ exports[`Matches Snapshot with security deposit 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
@@ -3351,9 +3351,9 @@ exports[`Matches Snapshot without security deposit 1`] = `
                 <p className=\\"css-3m08t9\\">
                   For more information on your rights under the Fair Credit Reporting Act, please visit our
                    
-                  <Link to=\\"/faq\\">
-                    <LinkAnchor href=\\"/faq\\" navigate={[Function: navigate]}>
-                      <a href=\\"/faq\\" onClick={[Function: onClick]}>
+                  <Link to=\\"/faq\\" target=\\"_blank\\">
+                    <LinkAnchor target=\\"_blank\\" href=\\"/faq\\" navigate={[Function: navigate]}>
+                      <a target=\\"_blank\\" href=\\"/faq\\" onClick={[Function: onClick]}>
                         Consumer Rights and FAQ
                       </a>
                     </LinkAnchor>
