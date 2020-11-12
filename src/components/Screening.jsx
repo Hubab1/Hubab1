@@ -81,6 +81,7 @@ export class Screening extends React.Component {
         const initialValues = {
             have_ssn: true,
             ssn: '',
+            confirm_ssn: '',
             disclaimer: false,
         };
         return (
@@ -106,6 +107,12 @@ export class Screening extends React.Component {
                                 then: Yup.string().required('Social Security Number is required'),
                             })
                             .matches(/^\d{3}-\d{2}-\d{4}$/, 'Must be a valid Social Security Number eg: 555-55-5555'),
+                        confirm_ssn: Yup.string().when('have_ssn', {
+                            is: true,
+                            then: Yup.string()
+                                .required('Confirm Social Security Number is required')
+                                .oneOf([Yup.ref('ssn')], 'SSN does not match'),
+                        }),
                         disclaimer: Yup.string().required('You must click the checkbox to agree to the terms'),
                     })}
                 >
@@ -151,18 +158,37 @@ export class Screening extends React.Component {
                                         <FormControlLabel value={false} control={<Radio />} label="No" />
                                     </RadioGroup>
                                 </div>
-                                {values.have_ssn && (
-                                    <SocialSecurityInput
-                                        name="ssn"
-                                        setFieldValue={(val) => setFieldValue('ssn', val)}
-                                        handleBlur={handleBlur}
-                                        handleChange={handleChange}
-                                        value={values.ssn}
-                                        error={errors.ssn}
-                                        submitted={submitCount > 0}
-                                        helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
-                                    />
-                                )}
+                                <Grid container spacing={3}>
+                                    {values.have_ssn && (
+                                        <Grid item xs={12}>
+                                            <SocialSecurityInput
+                                                name="ssn"
+                                                setFieldValue={(val) => setFieldValue('ssn', val)}
+                                                handleBlur={handleBlur}
+                                                handleChange={handleChange}
+                                                value={values.ssn}
+                                                error={errors.ssn}
+                                                submitted={submitCount > 0}
+                                                helperText={submitCount > 0 ? errors.ssn && 'Invalid' : null}
+                                            />
+                                        </Grid>
+                                    )}
+                                    {values.have_ssn && (
+                                        <Grid item xs={12}>
+                                            <SocialSecurityInput
+                                                name="confirm_ssn"
+                                                label="Confirm Social Security Number"
+                                                setFieldValue={(val) => setFieldValue('confirm_ssn', val)}
+                                                handleBlur={handleBlur}
+                                                handleChange={handleChange}
+                                                value={values.confirm_ssn}
+                                                error={errors.confirm_ssn}
+                                                submitted={submitCount > 0}
+                                                helperText={submitCount > 0 ? errors.confirm_ssn : null}
+                                            />
+                                        </Grid>
+                                    )}
+                                </Grid>
                                 <Checkbox
                                     name="disclaimer"
                                     onChange={handleChange}
@@ -175,7 +201,7 @@ export class Screening extends React.Component {
                                 />
                                 <ActionButton
                                     disabled={
-                                        (!values.ssn && values.requestSocialSecurityNumber) ||
+                                        (!values.ssn && !values.confirm_ssn && values.requestSocialSecurityNumber) ||
                                         !values.disclaimer ||
                                         isSubmitting
                                     }
