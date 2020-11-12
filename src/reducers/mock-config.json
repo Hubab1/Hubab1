@@ -69,6 +69,32 @@
                 "payment_time": 10,
                 "type": 10
             }
+        ],
+        "wine-cooler": [
+            {
+                "deposit_amount": null,
+                "fee_amount": null,
+                "id": 102,
+                "limit": 6,
+                "mandatory": true,
+                "monthly_amount": "75.00",
+                "name": "Wine Cooler - 1 sqft",
+                "payment_time": 10,
+                "type": 10,
+                "included": 1
+            },
+            {
+                "deposit_amount": null,
+                "fee_amount": null,
+                "id": 63,
+                "limit": 6,
+                "mandatory": true,
+                "monthly_amount": "25.00",
+                "name": "Wine Cooler - 2 sqft",
+                "payment_time": 10,
+                "type": 10,
+                "included": 0
+            }
         ]
     },
     "logo": "https://assets.nestiostatic.com/onlineleasing_logos/2e3bcd81cee6beee8b5c7c55ceb2c337.png",
