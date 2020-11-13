@@ -35,7 +35,8 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
         return '';
     }
 
-    return `Ends ${offsetDate(leaseStartDate, leaseTerm)}`;
+    const offsetDay = -1;
+    return `Ends ${offsetDate(leaseStartDate, leaseTerm, offsetDay)}`;
 }
 
 export default function AvailableLeaseTermsSelector(props) {

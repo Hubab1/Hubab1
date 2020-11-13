@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
+import API from 'app/api';
+import { Link } from 'react-router-dom';
+import { ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { H1, P, Card, CardSection, CardRow, Bold } from 'assets/styles';
-import API from 'app/api';
-import { connect } from 'react-redux';
 
 export const Subtitle = styled.small`
     color: #818797;
@@ -310,6 +312,14 @@ export function AppAdverseActions(props) {
                         (833) 979-3074
                         <br />
                         <a href="mailto:consumer@funnelleasing.com">consumer@funnelleasing.com</a>
+                    </P>
+                    <br />
+                    <P>
+                        For more information on your rights under the Fair Credit Reporting Act, please visit our{' '}
+                        <Link to={ROUTES.FAQ} target="_blank">
+                            Consumer Rights and FAQ
+                        </Link>
+                        .
                     </P>
                 </Decision>
             )}

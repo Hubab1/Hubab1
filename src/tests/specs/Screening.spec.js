@@ -18,7 +18,7 @@ it('Match initial snapshot', function () {
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
-it('Display SSN field by default', function () {
+it('Display SSN and Confirm SSN fields by default', function () {
     const props = {
         applicant: {
             id: 123,
@@ -28,7 +28,7 @@ it('Display SSN field by default', function () {
     };
 
     const wrapper = shallow(<Screening {...props} />);
-    expect(wrapper.find('Formik').dive().find(SocialSecurityInput).length).toEqual(1);
+    expect(wrapper.find('Formik').dive().find(SocialSecurityInput).length).toEqual(2);
 });
 
 it('shows generic error message', function () {

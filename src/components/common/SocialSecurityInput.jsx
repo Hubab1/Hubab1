@@ -6,6 +6,10 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 
+SocialSecurityInput.defaultProps = {
+    label: 'Social Security Number',
+};
+
 // SSN mask adapted from this: https://codepen.io/anon/pen/zVeJpz
 function replaceAt(str, index, character) {
     return str.substr(0, index) + character + str.substr(index + character.length);
@@ -94,7 +98,7 @@ export default function SocialSecurityInput(props) {
             name={props.name}
             placeholder="555-55-5555"
             fullWidth
-            label="Social Security Number"
+            label={props.label}
             helperText={props.helperText}
             value={displayVal}
             InputProps={{
@@ -112,6 +116,7 @@ export default function SocialSecurityInput(props) {
 
 SocialSecurityInput.propTypes = {
     name: PropTypes.string,
+    label: PropTypes.string,
     setFieldValue: PropTypes.func,
     handleBlur: PropTypes.func,
     handleChange: PropTypes.func,

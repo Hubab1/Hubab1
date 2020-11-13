@@ -152,13 +152,13 @@ export class LeaseTermsPage extends React.Component {
                 >
                     {({
                         values,
+                        errors,
                         handleChange,
                         handleBlur,
                         handleSubmit,
                         submitCount,
                         isSubmitting,
                         setFieldValue,
-                        errors,
                     }) => (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
@@ -175,8 +175,8 @@ export class LeaseTermsPage extends React.Component {
                                             fullWidth
                                             disabled={!isPrimaryApplicant}
                                             onBlur={handleBlur}
-                                            onChange={(e) => {
-                                                setFieldValue('lease_start_date', e);
+                                            onChange={(value) => {
+                                                setFieldValue('lease_start_date', value);
                                                 setFieldValue('unit', null);
                                                 setFieldValue('lease_term', null);
                                             }}
@@ -191,15 +191,15 @@ export class LeaseTermsPage extends React.Component {
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
                                             application={this.props.application}
-                                            update={(val) => {
-                                                setFieldValue('unit', val);
+                                            update={(value) => {
+                                                setFieldValue('unit', value);
                                                 setFieldValue('lease_term', null);
                                             }}
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
                                             errors={errors}
                                             disabled={!isPrimaryApplicant}
-                                            initialValue={values.unit}
+                                            value={values.unit}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -256,14 +256,15 @@ LeaseTermsPage.propTypes = {
     _nextRoute: PropTypes.func,
 };
 
-export default connect(
-    (state) => ({
-        isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
-        application: state.renterProfile,
-        config: state.configuration,
-    }),
-    {
-        updateRenterProfile,
-        pageComplete,
-    }
-)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
+const mapStateToProps = (state) => ({
+    isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
+    application: state.renterProfile,
+    config: state.configuration,
+});
+
+const mapDispatchToProps = {
+    updateRenterProfile,
+    pageComplete,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));

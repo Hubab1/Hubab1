@@ -20,6 +20,7 @@ exports[`Match initial snapshot 1`] = `
     enableReinitialize={true}
     initialValues={
       Object {
+        "confirm_ssn": "",
         "disclaimer": false,
         "have_ssn": true,
         "ssn": "",
@@ -44,6 +45,7 @@ exports[`Match initial snapshot 1`] = `
         "_nodes": Array [
           "disclaimer",
           "have_ssn",
+          "confirm_ssn",
           "ssn",
         ],
         "_options": Object {
@@ -57,6 +59,47 @@ exports[`Match initial snapshot 1`] = `
           "refs": Map {},
         },
         "fields": Object {
+          "confirm_ssn": StringSchema {
+            "_blacklist": RefSet {
+              "list": Set {},
+              "refs": Map {},
+            },
+            "_conditions": Array [
+              Condition {
+                "fn": [Function],
+                "refs": Array [
+                  Reference {
+                    "getter": [Function],
+                    "isContext": false,
+                    "isSibling": true,
+                    "isValue": false,
+                    "key": "have_ssn",
+                    "map": undefined,
+                    "path": "have_ssn",
+                  },
+                ],
+              },
+            ],
+            "_deps": Array [
+              "have_ssn",
+            ],
+            "_exclusive": Object {},
+            "_mutate": undefined,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": RefSet {
+              "list": Set {},
+              "refs": Map {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
           "disclaimer": StringSchema {
             "_blacklist": RefSet {
               "list": Set {},
