@@ -53,4 +53,31 @@ it('renders $0 if there is no value for monthly_amount', () => {
     const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption}/>);
 
     expect(wrapper.text()).toEqual('Garage Parking2 x $0/mo');
+});
+
+it('renders cost without decimals', () => {
+    const rentalOption = {
+        included: 0,
+        monthly_amount: '25.00',
+        name: 'Garage Parking',
+        id: 123
+    };
+
+    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption}/>);
+
+    expect(wrapper.text()).toEqual('Garage Parking2 x $25/mo');
+});
+
+it('renders cost with decimals', () => {
+    const rentalOption = {
+        included: 0,
+        monthly_amount: '25.50',
+        name: 'Garage Parking',
+        id: 123
+    };
+
+    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption}/>);
+
+    expect(wrapper.text()).toEqual('Garage Parking2 x $25.50/mo');
 })
+
