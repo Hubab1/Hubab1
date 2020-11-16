@@ -128,6 +128,7 @@ export class LeaseTermsPage extends React.Component {
     render() {
         if (!this.props.application) return null;
         const { isPrimaryApplicant } = this.props;
+
         return (
             <Fragment>
                 <H1>Lease Terms</H1>
@@ -189,6 +190,7 @@ export class LeaseTermsPage extends React.Component {
                                     </Grid>
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
+                                            application={this.props.application}
                                             update={(value) => {
                                                 setFieldValue('unit', value);
                                                 setFieldValue('lease_term', null);
