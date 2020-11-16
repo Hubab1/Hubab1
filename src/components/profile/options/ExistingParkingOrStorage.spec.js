@@ -41,3 +41,16 @@ it('only renders included text if included amount is greater than quantity', () 
 
     expect(wrapper.text()).toEqual('Garage Parking2 Included');
 });
+
+it('renders $0 if there is no value for monthly_amount', () => {
+    const rentalOption = {
+        id: 123,
+        included: 0,
+        monthly_amount: null,
+        name: 'Garage Parking',
+    };
+
+    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption}/>);
+
+    expect(wrapper.text()).toEqual('Garage Parking2 x $0/mo');
+})
