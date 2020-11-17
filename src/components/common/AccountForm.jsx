@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { css } from 'emotion';
@@ -21,37 +23,52 @@ const linkContainer = css`
     margin-top: 10px;
 `;
 
-// TODO: Avoid anon func
-/* eslint-disable react/prop-types */
-export default ({ initialValues, onSubmit, status, withPassword, submitText, resetPassword, showConsentInput }) => {
-    const MAX_DATE = (() => {
-        const d = new Date();
-        d.setFullYear(d.getFullYear() - 18);
-        return d;
-    })();
+const MAX_DATE = (() => {
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 18);
+    return d;
+})();
 
+const MIN_BIRTHDAY_YEAR = 1901;
+
+const validationSchema = (withPassword) =>
+    Yup.object().shape({
+        first_name: Yup.string()
+            .required('First Name is required')
+            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid name'),
+        last_name: Yup.string()
+            .required('Last Name is required')
+            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid name'),
+        phone_number: Yup.string()
+            .required('Phone Number is required')
+            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+        email: Yup.string().email().required('Email is required'),
+        birthday: Yup.date()
+            .typeError('Enter a valid date')
+            .max(MAX_DATE, 'Must be 18 or older')
+            .test('test-birthday-min-date', 'You are too old', (value) => {
+                const date = moment(value, 'MM/dd/yyyy');
+                return date.year() >= MIN_BIRTHDAY_YEAR;
+            })
+            .required('required'),
+        ...(withPassword && {
+            password: Yup.string()
+                .required('Password must be at least 8 characters')
+                .min(8, 'Password must be at least 8 characters'),
+        }),
+    });
+
+export function AccountForm({
+    initialValues,
+    status,
+    withPassword,
+    showConsentInput,
+    submitText,
+    onSubmit,
+    resetPassword,
+}) {
     return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={Yup.object().shape({
-                first_name: Yup.string().required('First Name is required'),
-                last_name: Yup.string().required('Last Name is required'),
-                phone_number: Yup.string()
-                    .required('Phone Number is required')
-                    .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-                email: Yup.string().email().required('Email is required'),
-                birthday: Yup.date()
-                    .typeError('Enter a valid date')
-                    .max(MAX_DATE, 'Must be 18 or older')
-                    .required('required'),
-                ...(withPassword && {
-                    password: Yup.string()
-                        .required('Password must be at least 8 characters')
-                        .min(8, 'Password must be at least 8 characters'),
-                }),
-            })}
-            onSubmit={onSubmit}
-        >
+        <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
             {({
                 values,
                 errors,
@@ -120,11 +137,7 @@ export default ({ initialValues, onSubmit, status, withPassword, submitText, res
                                     label="Birthday"
                                     maxDate={MAX_DATE}
                                     error={submitCount > 0 && !!errors.birthday}
-                                    helperText={
-                                        submitCount === 0
-                                            ? 'Must be 18 or older'
-                                            : errors.birthday ?? 'Must be 18 or older'
-                                    } // preemptive helper text
+                                    helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday} // preemptive helper text
                                     value={values.birthday || null}
                                     fullWidth
                                     onBlur={handleBlur}
@@ -186,4 +199,16 @@ export default ({ initialValues, onSubmit, status, withPassword, submitText, res
             )}
         </Formik>
     );
+}
+
+AccountForm.propTypes = {
+    initialValues: PropTypes.object.isRequired,
+    submitText: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    withPassword: PropTypes.bool,
+    showConsentInput: PropTypes.bool,
+    resetPassword: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 };
+
+export default AccountForm;
