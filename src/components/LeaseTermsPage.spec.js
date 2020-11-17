@@ -102,7 +102,7 @@ it('renders leasing pricing disclaimer if unit and lease-start_date and lease_te
         unit: 123,
     };
     const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
-    expect(wrapper.find(Formik).dive().getElement()).toMatchSnapshot();
+    expect(wrapper.find(Formik).dive().text()).toContain(defaultProps.config.leasing_pricing_disclaimer);
 });
 
 describe('validationSchema', () => {
