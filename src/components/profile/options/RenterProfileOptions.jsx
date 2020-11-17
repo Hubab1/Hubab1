@@ -15,6 +15,7 @@ import {
     RENTER_PROFILE_TYPE_STORAGE,
     RENTER_PROFILE_TYPE_DEPENDENT,
     RENTER_PROFILE_TYPE_OCCUPANT,
+    RENTER_PROFILE_TYPE_WINE_COOLER,
 } from 'app/constants';
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
 import { H1, H3 } from 'assets/styles';
@@ -24,9 +25,10 @@ import coapplicants from 'assets/images/coapplicants.png';
 import cat from 'assets/images/cat.svg';
 import addparking from 'assets/images/addparking.svg';
 import addstorage from 'assets/images/addstorage.svg';
+import addwinecooler from 'assets/images/wine.png';
 
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
-import ExistingParkingOrStorage from './ExistingParkingOrStorage';
+import ExistingGenericRentalOption from './ExistingGenericRentalOption';
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
 import Capsule from 'components/common/Capsule/Capsule';
@@ -114,6 +116,7 @@ export class RentalProfileOptions extends React.Component {
         const hashValue = !!this.props.location.hash ? this.props.location.hash.substring(1) : '';
         const filteredParking = this.filterOptions(RENTER_PROFILE_TYPE_PARKING);
         const filteredStorage = this.filterOptions(RENTER_PROFILE_TYPE_STORAGE);
+        const filteredWineCooler = this.filterOptions(RENTER_PROFILE_TYPE_WINE_COOLER);
         const options = this.configurableRentalOptions;
         const people = this.props.profile.co_applicants
             .concat(this.props.profile.occupants)
@@ -237,7 +240,7 @@ export class RentalProfileOptions extends React.Component {
                                         defaultExpanded={hashValue === RENTER_PROFILE_TYPE_PARKING}
                                     >
                                         {filteredParking.map((item) => (
-                                            <ExistingParkingOrStorage
+                                            <ExistingGenericRentalOption
                                                 key={item.id}
                                                 quantity={item.quantity}
                                                 rentalOption={this.props.config.rental_options.parking.find(
@@ -270,10 +273,43 @@ export class RentalProfileOptions extends React.Component {
                                         defaultExpanded={hashValue === RENTER_PROFILE_TYPE_STORAGE}
                                     >
                                         {filteredStorage.map((item) => (
-                                            <ExistingParkingOrStorage
+                                            <ExistingGenericRentalOption
                                                 key={item.id}
                                                 quantity={item.quantity}
                                                 rentalOption={this.props.config.rental_options.storage.find(
+                                                    (option) => option.id === item.rental_option.id
+                                                )}
+                                            />
+                                        ))}
+                                    </ExistingItemsExpansionPanel>
+                                )
+                            }
+                        />
+                    )}
+                    {options.has(RENTER_PROFILE_TYPE_WINE_COOLER) && (
+                        <Capsule
+                            prefix={<img src={addwinecooler} alt="wine_cooler" />}
+                            name={RENTER_PROFILE_TYPE_WINE_COOLER}
+                            label="I'll need a cooler to store wine"
+                            buttonLabel={filteredWineCooler.length > 0 ? 'Manage Wine Coolers' : 'Add Wine Cooler'}
+                            route={ROUTES.WINE_COOLER}
+                            expansionPanel={
+                                filteredWineCooler.length > 0 && (
+                                    <ExistingItemsExpansionPanel
+                                        label="Wine Cooler"
+                                        labelQuantity={this.props.profile.selected_rental_options['wine-cooler'].reduce(
+                                            (totalSelected, selectedOption) => {
+                                                return (totalSelected += selectedOption.quantity);
+                                            },
+                                            0
+                                        )}
+                                        defaultExpanded={hashValue === RENTER_PROFILE_TYPE_WINE_COOLER}
+                                    >
+                                        {filteredWineCooler.map((item) => (
+                                            <ExistingGenericRentalOption
+                                                key={item.id}
+                                                quantity={item.quantity}
+                                                rentalOption={this.props.config.rental_options['wine-cooler'].find(
                                                     (option) => option.id === item.rental_option.id
                                                 )}
                                             />
