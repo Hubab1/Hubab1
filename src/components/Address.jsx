@@ -14,7 +14,6 @@ import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import sticky from 'assets/images/sticky.png';
 import { allValuesSet } from 'utils/formik';
-import { testZipcodeBelongsToState } from 'utils/configureYup';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
