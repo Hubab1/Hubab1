@@ -46,7 +46,7 @@ const validationSchema = (withPassword) =>
         birthday: Yup.date()
             .typeError('Enter a valid date')
             .max(MAX_DATE, 'Must be 18 or older')
-            .test('test-birthday-min-date', 'You are too old', (value) => {
+            .test('test-birthday-min-date', 'Invalid birthdate', (value) => {
                 const date = moment(value, 'MM/dd/yyyy');
                 return date.year() >= MIN_BIRTHDAY_YEAR;
             })
@@ -135,6 +135,7 @@ export function AccountForm({
                                     format="MM/dd/yyyy"
                                     placeholder="mm/dd/yyyy"
                                     label="Birthday"
+                                    minDate={new Date(1901, 1, 1)}
                                     maxDate={MAX_DATE}
                                     error={submitCount > 0 && !!errors.birthday}
                                     helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday} // preemptive helper text
