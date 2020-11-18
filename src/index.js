@@ -5,7 +5,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import TagManager from 'react-gtm-module';
 
+// Sentry
 import 'app/configureSentry';
+
+// Yup
+import 'utils/configureYup';
+
 import store from 'reducers/store';
 import App from 'app/App';
 
