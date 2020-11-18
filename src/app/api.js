@@ -2,9 +2,15 @@ import auth from 'utils/auth';
 import fetch from 'app/fetch';
 export const MOCKY = !!process.env.REACT_APP_MOCKY;
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
+const VGS_VAULT_ID = process.env.REACT_APP_VGS_VAULT_ID;
+const VGS_ENVIRONMENT = process.env.REACT_APP_VGS_ENVIRONMENT;
 
 export function chuck(path) {
     return `${CHUCK_BASE_URL}/api/onlineleasing${path}`;
+}
+
+export function vgs(path) {
+    return `https://${VGS_VAULT_ID}.${VGS_ENVIRONMENT}.verygoodproxy.com/api/onlineleasing${path}`;
 }
 
 const getWithHeaders = (url) =>
@@ -226,14 +232,16 @@ API.updateInvitee = (data, inviteeId) => {
     }).then((res) => res.json());
 };
 
-API.postPassthrough = (data) =>
-    fetch(chuck('/passthrough/'), {
+API.postPassthrough = (data, vgsEnabled) => {
+    const url = vgsEnabled ? vgs('/passthrough/') : chuck('/passthrough/');
+    return fetch(url, {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
     }).then((res) => res.json());
+};
 
 API.fetchPaymentOptions = () => {
     return fetch(chuck('/payment-options/'), {

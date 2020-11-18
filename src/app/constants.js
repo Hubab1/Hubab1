@@ -18,6 +18,7 @@ export const ROUTES = {
     PARKING: '/rental-profile/parking',
     PETS: '/rental-profile/pets',
     STORAGE: '/rental-profile/storage',
+    WINE_COOLER: '/rental-profile/wine-cooler',
     CO_APPLICANTS: '/rental-profile/invite-roommates',
     INCOME_AND_EMPLOYMENT: '/income-employment',
     BANKING: '/income-employment',
@@ -180,6 +181,7 @@ export const RENTER_PROFILE_TYPE_GUARANTOR = 'guarantor';
 
 export const RENTER_PROFILE_TYPE_PETS = 'pets';
 export const RENTER_PROFILE_TYPE_PARKING = 'parking';
+export const RENTER_PROFILE_TYPE_WINE_COOLER = 'wine-cooler';
 export const RENTER_PROFILE_TYPE_STORAGE = 'storage';
 
 // Accepted Terms Of Service Constants

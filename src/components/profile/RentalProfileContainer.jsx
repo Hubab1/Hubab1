@@ -10,6 +10,7 @@ import Storage from 'components/profile/Storage';
 import Parking from 'components/profile/Parking';
 import EditDependent from 'components/profile/EditDependent';
 import RemovePerson from 'components/profile/RemovePerson';
+import WineCooler from 'components/profile/WineCooler';
 
 class RentalProfileContainer extends Component {
     render() {
@@ -21,11 +22,12 @@ class RentalProfileContainer extends Component {
                 <Route path={ROUTES.PETS} component={PetsPage} />
                 <Route path={ROUTES.STORAGE} component={Storage} />
                 <Route path={ROUTES.PARKING} component={Parking} />
+                <Route path={ROUTES.WINE_COOLER} component={WineCooler} />
                 <Route path={ROUTES.EDIT_DEPENDANT} component={EditDependent} />
                 <Route path={ROUTES.REMOVE_PERSON} component={RemovePerson} />
             </Switch>
         );
     }
-};
+}
 
 export default RentalProfileContainer;

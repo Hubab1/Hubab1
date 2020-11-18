@@ -45,7 +45,11 @@
                 "included": 0
             }
         ],
-        "pets": {"pet_policy_details": "We love all pets, and most of them are welcome at ... are not permitted due to water damage concerns.", "limit": 2, "types_allowed": ["Dog", "Cat", "Other"]},
+        "pets": {
+            "pet_policy_details": "We love all pets, and most of them are welcome at ... are not permitted due to water damage concerns.",
+            "limit": 2,
+            "types_allowed": ["Dog", "Cat", "Other"]
+        },
         "storage": [
             {
                 "deposit_amount": null,
@@ -69,71 +73,97 @@
                 "payment_time": 10,
                 "type": 10
             }
+        ],
+        "wine-cooler": [
+            {
+                "deposit_amount": null,
+                "fee_amount": null,
+                "id": 102,
+                "limit": 6,
+                "mandatory": true,
+                "monthly_amount": "75.00",
+                "name": "Wine Cooler - 1 sqft",
+                "payment_time": 10,
+                "type": 10,
+                "included": 1
+            },
+            {
+                "deposit_amount": null,
+                "fee_amount": null,
+                "id": 63,
+                "limit": 6,
+                "mandatory": true,
+                "monthly_amount": "25.00",
+                "name": "Wine Cooler - 2 sqft",
+                "payment_time": 10,
+                "type": 10,
+                "included": 0
+            }
         ]
     },
     "logo": "https://assets.nestiostatic.com/onlineleasing_logos/2e3bcd81cee6beee8b5c7c55ceb2c337.png",
     "primary_color": "1a9b6e",
     "id": 2,
-    "holding_deposit_value": 1000.00,
+    "holding_deposit_value": 1000.0,
     "financial_documents_validations": [
         {
-            "stream_type":5,
-            "proof_documents":[
+            "stream_type": 5,
+            "proof_documents": [
                 {
-                    "min_required":1,
-                    "id":1,
-                    "description":"W2 tax form",
-                    "max_required":1,
-                    "label":"W2"
+                    "min_required": 1,
+                    "id": 1,
+                    "description": "W2 tax form",
+                    "max_required": 1,
+                    "label": "W2"
                 }
             ],
-            "lease_settings":2,
-            "require_all":false,
-            "income_or_asset_type":105
+            "lease_settings": 2,
+            "require_all": false,
+            "income_or_asset_type": 105
         },
         {
-            "stream_type":5,
-            "proof_documents":[
+            "stream_type": 5,
+            "proof_documents": [
                 {
-                    "min_required":1,
-                    "id":2,
-                    "description":"1099 IRS Tax Form",
-                    "max_required":1,
-                    "label":"1099 Form"
+                    "min_required": 1,
+                    "id": 2,
+                    "description": "1099 IRS Tax Form",
+                    "max_required": 1,
+                    "label": "1099 Form"
                 },
                 {
-                    "min_required":3,
-                    "id":3,
-                    "description":"3 latest pay-stubs",
-                    "max_required":3,
-                    "label":"3 Paystubs"
+                    "min_required": 3,
+                    "id": 3,
+                    "description": "3 latest pay-stubs",
+                    "max_required": 3,
+                    "label": "3 Paystubs"
                 }
             ],
-            "lease_settings":2,
-            "require_all":false,
-            "income_or_asset_type":110
+            "lease_settings": 2,
+            "require_all": false,
+            "income_or_asset_type": 110
         },
         {
-            "stream_type":5,
-            "proof_documents":[
+            "stream_type": 5,
+            "proof_documents": [
                 {
-                    "min_required":1,
-                    "id":1,
-                    "description":"W2 tax form",
-                    "max_required":1,
-                    "label":"W2"
+                    "min_required": 1,
+                    "id": 1,
+                    "description": "W2 tax form",
+                    "max_required": 1,
+                    "label": "W2"
                 },
                 {
-                    "min_required":1,
-                    "id":2,
-                    "description":"1099 IRS Tax Form",
-                    "max_required":1,
-                    "label":"1099 Form"
+                    "min_required": 1,
+                    "id": 2,
+                    "description": "1099 IRS Tax Form",
+                    "max_required": 1,
+                    "label": "1099 Form"
                 }
             ],
-            "lease_settings":2,
-            "require_all":true,
-            "income_or_asset_type":115
+            "lease_settings": 2,
+            "require_all": true,
+            "income_or_asset_type": 115
         }
     ]
 }

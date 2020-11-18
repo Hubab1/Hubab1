@@ -53,7 +53,8 @@ export class Screening extends React.Component {
         if (!values.have_ssn) {
             body.ssn = '000-00-0000';
         }
-        API.postPassthrough(body)
+        body.vgs = this.props.vgsEnabled;
+        API.postPassthrough(body, this.props.vgsEnabled)
             .then((res) => {
                 if (res.errors) {
                     setErrors(res.errors);
@@ -222,10 +223,12 @@ export class Screening extends React.Component {
 Screening.propTypes = {
     _nextRoute: PropTypes.func,
     applicant: PropTypes.object,
+    vgsEnabled: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    vgsEnabled: state.configuration.enable_vgs_encryption,
     buildingName:
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,
 });
