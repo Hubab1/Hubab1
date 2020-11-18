@@ -14,7 +14,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import sticky from 'assets/images/sticky.png';
 import { allValuesSet } from 'utils/formik';
-import { STATE_ZIP_CODES } from 'constants/zipcodes';
+import { testZipcodeBelongsToState } from 'utils/configureYup';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -34,31 +34,7 @@ const validationSchema = Yup.object().shape({
         .required('required')
         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
     address_state: Yup.string().required('required'),
-    address_postal_code: Yup.string()
-        .test('test-postal-code-exists', 'Unknown zip', function (postalCode) {
-            const postalCodeRange = STATE_ZIP_CODES.find((s) => {
-                return postalCode >= s.zipCodeMin && postalCode <= s.zipCodeMax;
-            });
-
-            return !!postalCodeRange;
-        })
-        .test('test-postal-code-belongs-to-state', 'Zip does not belong to state', function (postalCode) {
-            const { address_state } = this.parent;
-
-            const postalCodeRange = STATE_ZIP_CODES.find((s) => {
-                return postalCode >= s.zipCodeMin && postalCode <= s.zipCodeMax;
-            });
-
-            if (!postalCodeRange || !address_state) {
-                return false;
-            }
-
-            return (
-                address_state.toLowerCase() === postalCodeRange.state.toLowerCase() ||
-                address_state.toLowerCase() === postalCodeRange.stateAbbrv.toLowerCase()
-            );
-        })
-        .required('required'),
+    address_postal_code: Yup.number().zipcodeBelongsToState(),
 });
 
 export class Address extends React.Component {
