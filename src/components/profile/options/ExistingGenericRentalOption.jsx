@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { P } from 'assets/styles';
 import { prettyCurrency } from 'utils/misc';
 
-export default function ExistingParkingOrStorage({ quantity, rentalOption }) {
+export default function ExistingGenericRentalOption({ quantity, rentalOption }) {
     const { included, monthly_amount, name } = rentalOption;
 
     let detailsArray = [];
@@ -17,7 +17,7 @@ export default function ExistingParkingOrStorage({ quantity, rentalOption }) {
     }
 
     if (additionalPaymentQuantity > 0) {
-        const priceLabel = monthly_amount ? prettyCurrency(parseFloat(monthly_amount)) : prettyCurrency(0);
+        const priceLabel = prettyCurrency(parseFloat(monthly_amount || 0));
         const additionalPaymentDetails = `${additionalPaymentQuantity} x ${priceLabel}/mo`;
         detailsArray.push(additionalPaymentDetails);
     }
@@ -35,7 +35,7 @@ export default function ExistingParkingOrStorage({ quantity, rentalOption }) {
     );
 }
 
-ExistingParkingOrStorage.propTypes = {
+ExistingGenericRentalOption.propTypes = {
     quantity: PropTypes.number,
     rentalOption: PropTypes.shape({
         included: PropTypes.number,

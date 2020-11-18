@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
-import { H1, SpacedH3 } from 'assets/styles';
-import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
+import PropTypes from 'prop-types';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
+import wineCoolerImage from 'assets/images/fridge.png';
+import { H1, SpacedH3 } from 'assets/styles';
+import { ROUTES, RENTER_PROFILE_TYPE_WINE_COOLER } from 'app/constants';
+import { updateRenterProfile } from 'reducers/renter-profile';
+import { rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import parkingImage from 'assets/images/parking.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
     }
 `;
 
-export const Parking = (props) => {
+export const WineCooler = (props) => {
     const [errorSubmitting, setErrorSubmitting] = useState(false);
     if (!props.config || !props.application) return null;
 
@@ -41,37 +41,37 @@ export const Parking = (props) => {
                 setErrors(res.errors);
                 setErrorSubmitting(true);
             } else {
-                props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`);
+                props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`);
             }
             setSubmitting(false);
         });
     };
-    const initialParkingOptions = props.application.selected_rental_options.parking;
-    const parkingOptions = props.config.rental_options.parking || [];
+    const initialWineCoolerOptions = props.application.selected_rental_options['wine-cooler'];
+    const wineCoolerOptions = props.config.rental_options['wine-cooler'] || [];
     return (
         <>
-            <H1>Parking</H1>
-            <SpacedH3>This is a request for parking. All parking is based on availability.</SpacedH3>
+            <H1>Wine Cooler Request</H1>
+            <SpacedH3>Wine coolers are based on availability, but we’ll do our best to get you one.</SpacedH3>
             <ImageContainer>
-                <img src={parkingImage} alt="car parking" />
+                <img src={wineCoolerImage} alt="wine cooler" />
             </ImageContainer>
             <Formik
                 onSubmit={onSubmit}
-                initialValues={rentalOptionsInitialValues(initialParkingOptions, parkingOptions)}
+                initialValues={rentalOptionsInitialValues(initialWineCoolerOptions, wineCoolerOptions)}
             >
                 {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
                     <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                         {errorSubmitting && (
                             <GenericFormMessage
                                 type="error"
-                                messages={['We couldn’t save your parking options. Please try again.']}
+                                messages={['We couldn’t save your wine cooler options. Please try again.']}
                             />
                         )}
-                        {parkingOptions.map((option) => (
+                        {wineCoolerOptions.map((option) => (
                             <ItemAdder
                                 key={option.id}
                                 title={option.name}
-                                subtitle={`$${option.monthly_amount || '0.00'}/mo per parking space${
+                                subtitle={`$${option.monthly_amount}/mo per wine cooler${
                                     option.included ? ` (${option.included} incl.)` : ''
                                 }`}
                                 value={values[option.id]}
@@ -83,22 +83,24 @@ export const Parking = (props) => {
                             <PriceBreakdown
                                 selectedOptions={values}
                                 application={props.application}
-                                category={'Parking'}
-                                categoryHelperText={'parking spaces'}
+                                category={'Wine Cooler'}
+                                categoryHelperText={'wine coolers'}
                             />
                         )}
-                        <ActionButton disabled={!dirty || isSubmitting}>Add Parking</ActionButton>
+                        <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
+                            Add Wine Cooler
+                        </ActionButton>
                     </form>
                 )}
             </Formik>
             <Box padding="20px">
-                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`} />
+                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`} />
             </Box>
         </>
     );
 };
 
-Parking.propTypes = {
+WineCooler.propTypes = {
     config: PropTypes.object,
     application: PropTypes.object,
     updateRenterProfile: PropTypes.func,
@@ -110,4 +112,4 @@ const mapStateToProps = (state) => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(Parking);
+export default connect(mapStateToProps, { updateRenterProfile })(WineCooler);

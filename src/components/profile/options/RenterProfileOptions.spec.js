@@ -24,7 +24,7 @@ beforeEach(() => {
 
 it('renders a Capsule component for each option in config.rental_options', function () {
     const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
-    expect(wrapper.find(Capsule).length).toEqual(5);
+    expect(wrapper.find(Capsule).length).toEqual(6);
 });
 it('renders GenericFormDetail if hasError=true', function () {
     const wrapper = shallow(<RentalProfileOptions {...defaultProps} />);
@@ -44,7 +44,8 @@ it('renders rental_option_config choices in correct order', () => {
     expect(wrapper.find(Capsule).at(1).props()['name']).toEqual('guarantor');
     expect(wrapper.find(Capsule).at(2).props()['name']).toEqual('pets');
     expect(wrapper.find(Capsule).at(3).props()['name']).toEqual('parking');
-    expect(wrapper.find(Capsule).last().props()['name']).toEqual('storage');
+    expect(wrapper.find(Capsule).at(4).props()['name']).toEqual('storage');
+    expect(wrapper.find(Capsule).at(5).props()['name']).toEqual('wine-cooler');
 });
 
 it('renders ExistingItemsExpansionPanel with coapplicants as existing items', () => {

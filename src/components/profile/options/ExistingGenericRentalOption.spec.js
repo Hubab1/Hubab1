@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ExistingParkingOrStorage from 'components/profile/options/ExistingParkingOrStorage';
+import ExistingGenericRentalOption from 'components/profile/options/ExistingGenericRentalOption';
 
 it('shows included and additional if included is less than quantity requested', () => {
     const rentalOption = {
@@ -11,7 +11,7 @@ it('shows included and additional if included is less than quantity requested', 
         id: 123,
     };
 
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking1 Included, 1 x $25/mo');
 });
@@ -23,7 +23,8 @@ it('only renders additionalPaymentDetails text if no included', () => {
         name: 'Garage Parking',
         id: 123,
     };
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking2 x $25/mo');
 });
@@ -36,7 +37,7 @@ it('only renders included text if included amount is greater than quantity', () 
         id: 123,
     };
 
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking2 Included');
 });
@@ -49,7 +50,7 @@ it('renders $0 if there is no value for monthly_amount', () => {
         name: 'Garage Parking',
     };
 
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking2 x $0/mo');
 });
@@ -62,7 +63,7 @@ it('renders cost without decimals', () => {
         id: 123,
     };
 
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking2 x $25/mo');
 });
@@ -75,7 +76,7 @@ it('renders cost with decimals', () => {
         id: 123,
     };
 
-    const wrapper = shallow(<ExistingParkingOrStorage quantity={2} rentalOption={rentalOption} />);
+    const wrapper = shallow(<ExistingGenericRentalOption quantity={2} rentalOption={rentalOption} />);
 
     expect(wrapper.text()).toEqual('Garage Parking2 x $25.50/mo');
 });

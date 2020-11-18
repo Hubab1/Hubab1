@@ -172,6 +172,20 @@ exports[`matches snapshot 1`] = `
       }
       route="/rental-profile/storage"
     />
+    <Capsule
+      buttonLabel="Add Wine Cooler"
+      expansionPanel={false}
+      label="I'll need a cooler to store wine"
+      limitReached={false}
+      name="wine-cooler"
+      prefix={
+        <img
+          alt="wine_cooler"
+          src="wine.png"
+        />
+      }
+      route="/rental-profile/wine-cooler"
+    />
   </div>
   <ActionButton
     color="primary"
@@ -342,7 +356,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           label="Parking Space"
           labelQuantity={2}
         >
-          <ExistingParkingOrStorage
+          <ExistingGenericRentalOption
             quantity={2}
             rentalOption={
               Object {
@@ -386,6 +400,20 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
       }
       route="/rental-profile/storage"
     />
+    <Capsule
+      buttonLabel="Add Wine Cooler"
+      expansionPanel={false}
+      label="I'll need a cooler to store wine"
+      limitReached={false}
+      name="wine-cooler"
+      prefix={
+        <img
+          alt="wine_cooler"
+          src="wine.png"
+        />
+      }
+      route="/rental-profile/wine-cooler"
+    />
   </div>
   <ActionButton
     color="primary"
@@ -405,7 +433,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
 `;
 
 exports[`renders ExistingItemsExpansionPanel for parking when there are selected_rental_options with quantity greater than 0 2`] = `
-<ExistingParkingOrStorage
+<ExistingGenericRentalOption
   quantity={2}
   rentalOption={
     Object {
