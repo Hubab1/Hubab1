@@ -8,9 +8,7 @@ Yup.setLocale({});
 Yup.addMethod(Yup.number, 'zipcodeBelongsToState', function () {
     return this.test('test-zipcode-belongs-to-state', 'Unknown zipcode', function (zipcode) {
         const stateKey = Object.keys(this.parent).find((key) => {
-            if (key.includes('state')) {
-                return true;
-            }
+            return key.includes('state');
         });
 
         const state = this.parent[stateKey];
