@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
+import { updateRenterProfile } from 'reducers/renter-profile';
+import { rentalOptionsInitialValues } from 'utils/misc';
+import { H1, SpacedH3 } from 'assets/styles';
+import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
-import parkingImage from 'assets/images/parking.png';
-import { H1, SpacedH3 } from 'assets/styles';
-import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
-import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import parkingImage from 'assets/images/parking.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -71,7 +71,7 @@ export const Parking = (props) => {
                             <ItemAdder
                                 key={option.id}
                                 title={option.name}
-                                subtitle={`$${option.monthly_amount}/mo per parking space${
+                                subtitle={`$${option.monthly_amount || '0.00'}/mo per parking space${
                                     option.included ? ` (${option.included} incl.)` : ''
                                 }`}
                                 value={values[option.id]}
