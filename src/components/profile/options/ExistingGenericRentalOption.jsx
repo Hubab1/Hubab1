@@ -17,11 +17,11 @@ export default function ExistingGenericRentalOption({ quantity, rentalOption }) 
     }
 
     if (additionalPaymentQuantity > 0) {
-        const priceShouldShowDecimal = monthly_amount.substring(monthly_amount.length - 2) !== '00';
-        const priceLabel = priceShouldShowDecimal ? `$${monthly_amount}` : prettyCurrency(parseFloat(monthly_amount));
+        const priceLabel = prettyCurrency(parseFloat(monthly_amount || 0));
         const additionalPaymentDetails = `${additionalPaymentQuantity} x ${priceLabel}/mo`;
         detailsArray.push(additionalPaymentDetails);
     }
+
     const details = detailsArray.join(', ');
 
     return (
