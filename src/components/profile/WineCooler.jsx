@@ -11,7 +11,7 @@ import wineCoolerImage from 'assets/images/fridge.png';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_WINE_COOLER } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
+import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -46,6 +46,19 @@ export const WineCooler = (props) => {
             setSubmitting(false);
         });
     };
+
+    const getSubtitles = (option) => {
+        const subtitles = getRentalOptionSubtitleItemAdder(option, 'wine cooler');
+        return subtitles.split('\n').map((item, key) => {
+            return (
+                <span key={key}>
+                    {item}
+                    <br />
+                </span>
+            );
+        });
+    };
+
     const initialWineCoolerOptions = props.application.selected_rental_options['wine-cooler'];
     const wineCoolerOptions = props.config.rental_options['wine-cooler'] || [];
     return (
@@ -71,9 +84,7 @@ export const WineCooler = (props) => {
                             <ItemAdder
                                 key={option.id}
                                 title={option.name}
-                                subtitle={`$${option.monthly_amount}/mo per wine cooler${
-                                    option.included ? ` (${option.included} incl.)` : ''
-                                }`}
+                                subtitle={getSubtitles(option)}
                                 value={values[option.id]}
                                 limit={option.limit}
                                 onChange={(e) => setFieldValue(option.id, e)}

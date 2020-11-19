@@ -8,6 +8,7 @@ import {
     CO_APPLICANT_STATUS_NOT_STARTED,
     CO_APPLICANT_STATUS_COMPLETED,
     CO_APPLICANT_STATUS_IN_PROGRESS,
+    PAYMENT_TIME_MONTHLY,
 } from 'app/constants';
 
 export function sessionIsValidForCommunityId(communityId) {
@@ -117,4 +118,37 @@ export const getRoommateStatus = (item) => {
 
 export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
+};
+
+export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
+    let subtitle = `$${rentalOption.monthly_amount || '0.00'}/mo per ${subtitleSuffix}${
+        rentalOption.included ? ` (${rentalOption.included} incl.)` : ''
+    }`;
+
+    const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;
+    if (!pricing_group_tiers) return subtitle;
+
+    const tiers_suffix = {};
+    const tiers_titles = {};
+
+    pricing_group_tiers.map(({ tiers, payment_time }) => {
+        if (!(tiers && payment_time === PAYMENT_TIME_MONTHLY)) return;
+        tiers.map(({ tier_num, min_value }) => {
+            tiers_suffix[tier_num.toString()] = `after ${min_value} paid`;
+        });
+    });
+
+    rentalOption.fees.map(({ pricing_tier, amount, payment_time }) => {
+        if (!(pricing_tier && payment_time === PAYMENT_TIME_MONTHLY)) return;
+        const suffix = tiers_suffix[pricing_tier.toString()];
+        if (suffix) {
+            const tierTitle = `$${amount || '0.00'}/mo per ${subtitleSuffix} ${suffix}`;
+            tiers_titles[pricing_tier.toString()] = tierTitle;
+        }
+    });
+
+    // necessary to get the correct order
+    Object.keys(tiers_titles).map((title) => (subtitle += `\n${tiers_titles[title]}`));
+
+    return subtitle;
 };
