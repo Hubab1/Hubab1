@@ -66,6 +66,7 @@ export function AccountForm({
     submitText,
     onSubmit,
     resetPassword,
+    configuration,
 }) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
@@ -174,8 +175,11 @@ export function AccountForm({
                                 error={errors.sms_opt_in}
                                 label={
                                     <>
-                                        Opt in to SMS communication regarding this application. Your information will
-                                        not be shared with anyone.{' '}
+                                        By clicking this checkbox, you consent to receiving calls and texts on behalf of{' '}
+                                        {configuration.community.company.name}
+                                        via automatic dialing or other technology about apartment listings that may fit
+                                        your needs. Your consent is not required to enter into a rental transaction or
+                                        make any purchase. Reply STOP to cancel anytime.{' '}
                                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                                             Privacy Policy
                                         </Link>
@@ -210,6 +214,7 @@ AccountForm.propTypes = {
     showConsentInput: PropTypes.bool,
     resetPassword: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    configuration: PropTypes.object.isRequired,
 };
 
 export default AccountForm;

@@ -70,3 +70,20 @@ it('sets baseInitialValues to invitee when when invitee is included in the confi
         email: person.email,
     });
 });
+
+it('displays sms opt in consent if not invitee', () => {
+    const wrapper = shallow(<RegisterPage {...defaultProps} />);
+    expect(wrapper.find('AccountForm').prop('showConsentInput')).toEqual(true);
+});
+
+it('does not display sms opt in consent if invitee', () => {
+    const props = {
+        ...defaultProps,
+        configuration: {
+            ...defaultProps.configuration,
+            invitee: defaultProps.configuration.person,
+        },
+    };
+    const wrapper = shallow(<RegisterPage {...props} />);
+    expect(wrapper.find('AccountForm').prop('showConsentInput')).toEqual(false);
+});

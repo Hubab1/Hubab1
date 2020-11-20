@@ -116,7 +116,8 @@ export class RegisterPage extends React.Component {
                     initialValues={this.applicantInfo}
                     messages={this.state.errors}
                     onSubmit={this.onSubmit}
-                    showConsentInput={!optedIn}
+                    showConsentInput={!optedIn && !this.props.configuration.invitee}
+                    configuration={this.props.configuration}
                 />
                 <P className="already-have-account">
                     Already have an account?{' '}
