@@ -122,20 +122,33 @@ export const getPaymentItemName = (name) => {
 
 /* eslint-disable */
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
-    let subtitle = `$${rentalOption.monthly_amount || '0.00'}/mo per ${subtitleSuffix}${
-        rentalOption.included ? ` (${rentalOption.included} incl.)` : ''
-    }`;
-
     const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;
-    if (!pricing_group_tiers) return subtitle;
+    if (!pricing_group_tiers) {
+        return `$${rentalOption.monthly_amount || '0.00'}/mo per ${subtitleSuffix}${
+            rentalOption.included ? ` (${rentalOption.included} incl.)` : ''
+        }`;
+    }
 
     const tiers_suffix = {};
     const tiers_titles = {};
 
+    let subtitle = '';
+    if (rentalOption.included) {
+        subtitle += `${rentalOption.included} included`;
+    }
+
     pricing_group_tiers.map(({ tiers, payment_time }) => {
         if (!(tiers && payment_time === PAYMENT_TIME_MONTHLY)) return;
-        tiers.map(({ tier_num, min_value }) => {
-            tiers_suffix[tier_num.toString()] = `after ${min_value} paid`;
+        tiers.map(({ tier_num, min_value, max_value }) => {
+            let suffix = `for paid ${subtitleSuffix}`;
+            if (!max_value) {
+                suffix += `s ${min_value}+`;
+            } else if (max_value - 1 !== min_value) {
+                suffix += `s ${min_value}-${max_value - 1}`;
+            } else {
+                suffix += ` ${min_value}`;
+            }
+            tiers_suffix[tier_num.toString()] = suffix;
         });
     });
 
@@ -143,8 +156,7 @@ export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) =
         if (!(pricing_tier && payment_time === PAYMENT_TIME_MONTHLY)) return;
         const suffix = tiers_suffix[pricing_tier.toString()];
         if (suffix) {
-            const tierTitle = `$${amount || '0.00'}/mo per ${subtitleSuffix} ${suffix}`;
-            tiers_titles[pricing_tier.toString()] = tierTitle;
+            tiers_titles[pricing_tier.toString()] = `$${amount || '0.00'}/mo ${suffix}`;
         }
     });
 

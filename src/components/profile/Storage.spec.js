@@ -46,7 +46,7 @@ it('Displays multiple lines when pricing group set', () => {
                 refundable: false,
             },
             {
-                amount: '55.00',
+                amount: '40.00',
                 id: 282,
                 name: 'Nice Storage',
                 payment_time: PAYMENT_TIME_MONTHLY,
@@ -54,11 +54,19 @@ it('Displays multiple lines when pricing group set', () => {
                 refundable: false,
             },
             {
-                amount: '50.00',
+                amount: '30.00',
                 id: 3391,
                 name: 'Nice Storage',
                 payment_time: PAYMENT_TIME_MONTHLY,
                 pricing_tier: 2,
+                refundable: false,
+            },
+            {
+                amount: '20.00',
+                id: 3394,
+                name: 'Nice Storage',
+                payment_time: PAYMENT_TIME_MONTHLY,
+                pricing_tier: 3,
                 refundable: false,
             },
         ],
@@ -70,8 +78,8 @@ it('Displays multiple lines when pricing group set', () => {
                 {
                     payment_time: PAYMENT_TIME_MONTHLY,
                     tiers: [
-                        { max_value: 3, min_value: 1, tier_num: 1 },
-                        { max_value: 5, min_value: 3, tier_num: 2 },
+                        { max_value: 2, min_value: 1, tier_num: 1 },
+                        { max_value: 5, min_value: 2, tier_num: 2 },
                         { max_value: null, min_value: 5, tier_num: 3 },
                     ],
                 },
@@ -92,7 +100,8 @@ it('Displays multiple lines when pricing group set', () => {
     wrapper = wrapper.find(Formik).dive();
     expect(wrapper.find(ItemAdder).length).toEqual(1);
     expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('Nice Storage');
-    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$105.00/mo per storage space (1 incl.)');
-    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$55.00/mo per storage space after 1 paid');
-    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$50.00/mo per storage space after 3 paid');
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('1 included');
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$40.00/mo for paid storage space 1');
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$30.00/mo for paid storage spaces 2-4');
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('$20.00/mo for paid storage spaces 5+');
 });
