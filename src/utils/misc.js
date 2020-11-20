@@ -120,6 +120,7 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
+/* eslint-disable */
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
     let subtitle = `$${rentalOption.monthly_amount || '0.00'}/mo per ${subtitleSuffix}${
         rentalOption.included ? ` (${rentalOption.included} incl.)` : ''
@@ -152,3 +153,4 @@ export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) =
 
     return subtitle;
 };
+/* eslint-enable */

@@ -7,8 +7,10 @@ import { css } from 'emotion';
 const title = css`
     font-size: 20px;
 `;
+
+// TODO: change size to 16px
 const subtitle = css`
-    font-size: 16px;
+    font-size: 14px;
     color: #444b58;
 `;
 export default function ItemAdder(props) {
