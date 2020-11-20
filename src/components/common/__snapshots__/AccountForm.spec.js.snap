@@ -1,366 +1,151 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<Context.Provider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {},
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": ObjectSchema {
-        "_blacklist": RefSet {
-          "list": Set {},
-          "refs": Map {},
-        },
-        "_conditions": Array [],
-        "_defaultDefault": [Function],
-        "_deps": Array [],
-        "_excludedEdges": Array [],
-        "_exclusive": Object {},
-        "_mutate": undefined,
-        "_nodes": Array [
-          "birthday",
-          "email",
-          "phone_number",
-          "last_name",
-          "first_name",
-        ],
-        "_options": Object {
-          "abortEarly": true,
-          "recursive": true,
-        },
-        "_type": "object",
-        "_typeError": [Function],
-        "_whitelist": RefSet {
-          "list": Set {},
-          "refs": Map {},
-        },
-        "fields": Object {
-          "birthday": DateSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "max": true,
-              "required": true,
-              "test-birthday-min-date": false,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "date",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-              [Function],
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "email": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-              "undefined": false,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "first_name": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-              "undefined": false,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "last_name": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-              "undefined": false,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-          "phone_number": StringSchema {
-            "_blacklist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {
-              "required": true,
-              "undefined": false,
-            },
-            "_mutate": undefined,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": RefSet {
-              "list": Set {},
-              "refs": Map {},
-            },
-            "tests": Array [
-              [Function],
-              [Function],
-            ],
-            "transforms": Array [
-              [Function],
-            ],
-          },
-        },
-        "tests": Array [],
-        "transforms": Array [
-          [Function],
-        ],
-      },
-      "values": Object {},
-    }
-  }
+<form
+  autoComplete="off"
+  onSubmit={[Function]}
 >
-  <form
-    autoComplete="off"
-    onSubmit={[Function]}
+  <div
+    className="css-3etvz3"
   >
-    <div
-      className="css-3etvz3"
+    <ForwardRef(WithStyles)
+      container={true}
+      spacing={1}
     >
       <ForwardRef(WithStyles)
-        container={true}
-        spacing={1}
+        item={true}
+        xs={12}
       >
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={12}
-        >
-          <FormTextInput
-            handleBlur={[Function]}
-            handleChange={[Function]}
-            inputProps={Object {}}
-            label="First Name"
-            name="first_name"
-            submitted={false}
-            type="text"
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={12}
-        >
-          <FormTextInput
-            handleBlur={[Function]}
-            handleChange={[Function]}
-            inputProps={Object {}}
-            label="Last Name"
-            name="last_name"
-            submitted={false}
-            type="text"
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={12}
-        >
-          <FormTextInput
-            handleBlur={[Function]}
-            handleChange={[Function]}
-            inputProps={Object {}}
-            label="Email"
-            name="email"
-            submitted={false}
-            type="text"
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={6}
-        >
-          <PhoneNumberInput
-            error={false}
-            handleChange={[Function]}
-            helperText={null}
-            label="Phone Number"
-            name="phone_number"
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={6}
-        >
-          <WrappedKeyboardPicker
-            KeyboardButtonProps={
-              Object {
-                "aria-label": "change date",
-              }
-            }
-            allowKeyboardControl={true}
-            clearable={true}
-            disableFuture={true}
-            error={false}
-            format="MM/dd/yyyy"
-            fullWidth={true}
-            helperText="Must be 18 or older"
-            id="birthday-picker"
-            invalidDateMessage="Invalid Date Format"
-            label="Birthday"
-            maxDate={2002-11-20T10:24:15.893Z}
-            maxDateMessage="Date should not be after maximal date"
-            minDate={1901-02-01T05:00:00.000Z}
-            minDateMessage="Date should not be before minimal date"
-            onBlur={[Function]}
-            onChange={[Function]}
-            openTo="date"
-            placeholder="mm/dd/yyyy"
-            value={null}
-            views={
-              Array [
-                "year",
-                "date",
-              ]
-            }
-          />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          item={true}
-          xs={12}
+        <FormTextInput
+          handleBlur={[Function]}
+          handleChange={[Function]}
+          inputProps={Object {}}
+          label="First Name"
+          name="first_name"
+          submitted={false}
+          type="text"
         />
       </ForwardRef(WithStyles)>
-      <_default
-        label={
-          <React.Fragment>
-            By clicking this checkbox, you consent to receiving calls and texts on behalf of 
-            Orchard Co
-            via automatic dialing or other technology about apartment listings that may fit your needs. Your consent is not required to enter into a rental transaction or make any purchase. Reply STOP to cancel anytime.
-             
-            <ForwardRef
-              target="_blank"
-              to="/privacy-policy"
-            >
-              Privacy Policy
-            </ForwardRef>
-          </React.Fragment>
-        }
-        name="sms_opt_in"
-        onChange={[Function]}
+      <ForwardRef(WithStyles)
+        item={true}
+        xs={12}
+      >
+        <FormTextInput
+          handleBlur={[Function]}
+          handleChange={[Function]}
+          inputProps={Object {}}
+          label="Last Name"
+          name="last_name"
+          submitted={false}
+          type="text"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        item={true}
+        xs={12}
+      >
+        <FormTextInput
+          handleBlur={[Function]}
+          handleChange={[Function]}
+          inputProps={Object {}}
+          label="Email"
+          name="email"
+          submitted={false}
+          type="text"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        item={true}
+        xs={6}
+      >
+        <PhoneNumberInput
+          error={false}
+          handleChange={[Function]}
+          helperText={null}
+          label="Phone Number"
+          name="phone_number"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        item={true}
+        xs={6}
+      >
+        <WrappedKeyboardPicker
+          KeyboardButtonProps={
+            Object {
+              "aria-label": "change date",
+            }
+          }
+          allowKeyboardControl={true}
+          clearable={true}
+          disableFuture={true}
+          error={false}
+          format="MM/dd/yyyy"
+          fullWidth={true}
+          helperText="Must be 18 or older"
+          id="birthday-picker"
+          invalidDateMessage="Invalid Date Format"
+          label="Birthday"
+          maxDate={1906-08-13T05:00:00.000Z}
+          maxDateMessage="Date should not be after maximal date"
+          minDate={1901-02-01T05:00:00.000Z}
+          minDateMessage="Date should not be before minimal date"
+          onBlur={[Function]}
+          onChange={[Function]}
+          openTo="date"
+          placeholder="mm/dd/yyyy"
+          value={null}
+          views={
+            Array [
+              "year",
+              "date",
+            ]
+          }
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        item={true}
+        xs={12}
       />
-      <ActionButton
-        color="primary"
-        disabled={false}
-        marginBottom={20}
-        marginTop={20}
-        successGreen={false}
-        variant="contained"
-      />
+    </ForwardRef(WithStyles)>
+    <_default
+      label={
+        <React.Fragment>
+          By clicking this checkbox, you consent to receiving calls and texts on behalf of
+           
+          Orchard Co
+          via automatic dialing or other technology about apartment listings that may fit your needs. Your consent is not required to enter into a rental transaction or make any purchase. Reply STOP to cancel anytime.
+           
+          <ForwardRef
+            target="_blank"
+            to="/privacy-policy"
+          >
+            Privacy Policy
+          </ForwardRef>
+        </React.Fragment>
+      }
+      name="sms_opt_in"
+      onChange={[Function]}
+    />
+    <div
+      className="css-14h7q6e"
+    >
+      <ForwardRef(render)
+        onClick={[MockFunction]}
+      >
+        Change Password
+      </ForwardRef(render)>
     </div>
-  </form>
-</Context.Provider>
+    <ActionButton
+      color="primary"
+      disabled={false}
+      marginBottom={20}
+      marginTop={20}
+      successGreen={false}
+      variant="contained"
+    >
+      Submit
+    </ActionButton>
+  </div>
+</form>
 `;
