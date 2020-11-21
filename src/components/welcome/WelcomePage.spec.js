@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { WelcomePage } from './WelcomePage';
-import { WelcomeTextContainer } from './styles';
+import { CallToActionButton, WelcomeTextContainer } from './styles';
 
 let defaultProps;
 beforeEach(() => {
@@ -79,4 +79,28 @@ it('renders correct info when all client and unit info is omitted', () => {
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('601 W 57TH ST');
     expect(wrapper.find(WelcomeTextContainer).text()).toContain('New York, NY 10019');
     expect(wrapper.find(WelcomeTextContainer).text()).not.toContain('Unit 4B');
+});
+
+describe('configuration is set to darkmode', () => {
+    beforeEach(() => {
+        defaultProps.configuration.dark_mode = true;
+    });
+
+    it('renders the call to action button with the default white background', () => {
+        const wrapper = shallow(<WelcomePage {...defaultProps} />);
+        let buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
+        expect(buttonStyle.background).toBe(undefined);
+    });
+});
+
+describe('configuration is set to lightmode', () => {
+    beforeEach(() => {
+        defaultProps.configuration.dark_mode = false;
+    });
+
+    it('renders the call to action button with the configured primary color', () => {
+        const wrapper = shallow(<WelcomePage {...defaultProps} />);
+        let buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
+        expect(buttonStyle.background).toBe(`#${defaultProps.configuration.primary_color}`);
+    });
 });
