@@ -8,6 +8,7 @@ import {
     CO_APPLICANT_STATUS_NOT_STARTED,
     CO_APPLICANT_STATUS_COMPLETED,
     CO_APPLICANT_STATUS_IN_PROGRESS,
+    PAYMENT_TIME_MONTHLY,
 } from 'app/constants';
 
 export function sessionIsValidForCommunityId(communityId) {
@@ -119,6 +120,7 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
+
 export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
     const formData = new FormData();
     formData.append('income_or_asset_type', values.income_or_asset_type);
@@ -149,3 +151,50 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
     }
     return formData;
 };
+
+/* eslint-disable */
+export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
+    const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;
+    if (!pricing_group_tiers) {
+        return `$${rentalOption.monthly_amount || '0.00'}/mo per ${subtitleSuffix}${
+            rentalOption.included ? ` (${rentalOption.included} incl.)` : ''
+        }`;
+    }
+
+    const tiers_suffix = {};
+    const tiers_titles = {};
+
+    let subtitle = '';
+    if (rentalOption.included) {
+        subtitle += `${rentalOption.included} included`;
+    }
+
+    pricing_group_tiers.map(({ tiers, payment_time }) => {
+        if (!(tiers && payment_time === PAYMENT_TIME_MONTHLY)) return;
+        tiers.map(({ tier_num, min_value, max_value }) => {
+            let suffix = `for paid ${subtitleSuffix}`;
+            if (!max_value) {
+                suffix += `s ${min_value}+`;
+            } else if (max_value - 1 !== min_value) {
+                suffix += `s ${min_value}-${max_value - 1}`;
+            } else {
+                suffix += ` ${min_value}`;
+            }
+            tiers_suffix[tier_num.toString()] = suffix;
+        });
+    });
+
+    rentalOption.fees.map(({ pricing_tier, amount, payment_time }) => {
+        if (!(pricing_tier && payment_time === PAYMENT_TIME_MONTHLY)) return;
+        const suffix = tiers_suffix[pricing_tier.toString()];
+        if (suffix) {
+            tiers_titles[pricing_tier.toString()] = `$${amount || '0.00'}/mo ${suffix}`;
+        }
+    });
+
+    // necessary to get the correct order
+    Object.keys(tiers_titles).map((title) => (subtitle += `\n${tiers_titles[title]}`));
+
+    return subtitle;
+};
+/* eslint-enable */

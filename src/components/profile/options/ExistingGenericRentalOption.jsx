@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { P } from 'assets/styles';
-import { prettyCurrency } from 'utils/misc';
+// import { prettyCurrency } from 'utils/misc';
 
 export default function ExistingGenericRentalOption({ quantity, rentalOption }) {
+    const { name } = rentalOption;
+    // Temporarily commented to solve issue with pricing group
+    /*
     const { included, monthly_amount, name } = rentalOption;
 
     let detailsArray = [];
@@ -17,19 +20,20 @@ export default function ExistingGenericRentalOption({ quantity, rentalOption }) 
     }
 
     if (additionalPaymentQuantity > 0) {
-        const priceShouldShowDecimal = monthly_amount.substring(monthly_amount.length - 2) !== '00';
-        const priceLabel = priceShouldShowDecimal ? `$${monthly_amount}` : prettyCurrency(parseFloat(monthly_amount));
+        const priceLabel = prettyCurrency(parseFloat(monthly_amount || 0));
         const additionalPaymentDetails = `${additionalPaymentQuantity} x ${priceLabel}/mo`;
         detailsArray.push(additionalPaymentDetails);
     }
+
     const details = detailsArray.join(', ');
+    */
 
     return (
         <div>
             {name}
             <br />
             <P color="#828796" fontSize={14}>
-                {details}
+                {quantity} Added
             </P>
         </div>
     );
