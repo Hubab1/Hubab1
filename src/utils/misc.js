@@ -120,7 +120,6 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
-
 export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
     const formData = new FormData();
     formData.append('income_or_asset_type', values.income_or_asset_type);
