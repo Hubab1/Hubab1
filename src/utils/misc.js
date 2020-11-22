@@ -120,6 +120,37 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
+export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
+    const formData = new FormData();
+    formData.append('income_or_asset_type', values.income_or_asset_type);
+    formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
+    formData.append('stream_type', streamType);
+    formData.append('other', values.other);
+
+    if (values.uploadedDocuments) {
+        if (vgsEnabled) {
+            let cur = 1;
+            const filesMapping = {};
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v) => {
+                    const variableName = `file${cur}`;
+                    formData.append(variableName, v.file);
+                    filesMapping[variableName] = key;
+                    cur++;
+                });
+            }
+            formData.append('files_mapping', JSON.stringify(filesMapping));
+        } else {
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v) => {
+                    formData.append(`${key}[]`, v.file);
+                });
+            }
+        }
+    }
+    return formData;
+};
+
 /* eslint-disable */
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
     const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;

@@ -277,8 +277,9 @@ API.getAdverseActions = () => {
     });
 };
 
-API.submitFinancialSource = (data) => {
-    return fetch(chuck('/financial-sources/'), {
+API.submitFinancialSource = (data, vgsEnabled) => {
+    const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
+    return fetch(url, {
         method: 'POST',
         headers: {
             AUTHORIZATION: `Token ${auth.getToken()}`,

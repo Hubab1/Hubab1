@@ -9,6 +9,8 @@ import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 import PropTypes from 'prop-types';
+import { getFinancialSourceRequestBody } from 'utils/misc';
+import { connect } from 'react-redux';
 
 const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
 
@@ -32,21 +34,11 @@ export function AddAssetSource(props) {
         setSubmitting(true);
         setErrors([]);
 
-        const formData = new FormData();
-        formData.append('income_or_asset_type', values.income_or_asset_type);
-        formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
-        formData.append('stream_type', FINANCIAL_STREAM_ASSET);
-        formData.append('other', values.other);
-        if (values.uploadedDocuments) {
-            for (const key of Object.keys(values.uploadedDocuments)) {
-                values.uploadedDocuments[key].files.forEach((v) => {
-                    formData.append(`${key}[]`, v.file);
-                });
-            }
-        }
+        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_ASSET, props.vgsEnabled);
+
         let response;
         try {
-            response = await API.submitFinancialSource(formData);
+            response = await API.submitFinancialSource(formData, props.vgsEnabled);
         } catch {
             setErrors([ERROR_UPLOAD]);
             return setSubmitting(false);
@@ -87,6 +79,11 @@ export function AddAssetSource(props) {
 AddAssetSource.propTypes = {
     history: PropTypes.object,
     initialValues: PropTypes.object,
+    vgsEnabled: PropTypes.bool,
 };
 
-export default AddAssetSource;
+const mapStateToProps = (state) => ({
+    vgsEnabled: state.configuration.enable_vgs_encryption,
+});
+
+export default connect(mapStateToProps)(AddAssetSource);
