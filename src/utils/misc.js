@@ -120,6 +120,7 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
+/* eslint-disable */
 export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
     const formData = new FormData();
     formData.append('income_or_asset_type', values.income_or_asset_type);
@@ -151,7 +152,6 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
     return formData;
 };
 
-/* eslint-disable */
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
     const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;
     if (!pricing_group_tiers) {
