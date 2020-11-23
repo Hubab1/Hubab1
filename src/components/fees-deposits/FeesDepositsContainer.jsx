@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
@@ -10,19 +11,27 @@ import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
 import API from 'app/api';
 
-export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, applicant, fetchPayments }) => {
+export const FeesDepositsContainer = ({
+    _prev,
+    _nextRoute,
+    payables,
+    profile,
+    applicant,
+    fetchPayments,
+    isOutstanding,
+}) => {
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
     const [totalPayment, setTotalPayment] = useState(null);
     const [receipt, setReceipt] = useState(applicant && applicant.receipt);
 
     useEffect(() => {
-        if (receipt) {
+        if (receipt && receipt.paid && !isOutstanding) {
             setCurrentPage('receipt');
         } else {
             fetchPayments();
         }
-    }, [receipt, fetchPayments]);
+    }, [receipt, fetchPayments, isOutstanding]);
 
     useEffect(() => {
         setPayments(payables);
@@ -32,7 +41,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
         applicant && setReceipt(applicant.receipt);
     }, [applicant]);
 
-    if (!profile || !applicant || (!payments && !receipt)) return <div />;
+    if (!profile || !applicant || (!payments && !receipt && !isOutstanding)) return <div />;
 
     const isPrimaryApplicant = applicant.role === ROLE_PRIMARY_APPLICANT;
     const unitNumber = profile.unit?.unit_number;
@@ -90,6 +99,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 payments={payables}
                 unitNumber={unitNumber}
                 communityName={communityName}
+                isOutstanding={isOutstanding}
             />
         );
     } else if (currentPage === 'terms') {
@@ -112,6 +122,7 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
                 handleClickBack={() => setCurrentPage('terms')}
                 payments={payments}
                 totalPayment={totalPayment}
+                isOutstanding={isOutstanding}
             />
         );
     } else if (currentPage === 'receipt') {
@@ -130,12 +141,29 @@ export const FeesDepositsContainer = ({ _prev, _nextRoute, payables, profile, ap
     }
 };
 
+FeesDepositsContainer.propTypes = {
+    isOutstanding: PropTypes.bool,
+    applicant: PropTypes.object,
+    payables: PropTypes.array,
+};
+
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
     payables: state.payments,
 });
 
-export default connect(mapStateToProps, { fetchPayments })(
+const mapStateToPropsOutstandingBalance = (state) => ({
+    applicant: state.applicant,
+    profile: state.renterProfile,
+    payables: state.payments,
+    isOutstanding: true,
+});
+
+export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments })(
     withRelativeRoutes(FeesDepositsContainer, ROUTES.FEES_AND_DEPOSITS)
+);
+
+export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments })(
+    withRelativeRoutes(FeesDepositsContainer, ROUTES.OUTSTANDING_BALANCE)
 );
