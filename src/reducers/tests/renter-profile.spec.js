@@ -8,10 +8,13 @@ import {
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
     APPLICATION_STATUS_CANCELED,
     MILESTONE_APPLICANT_SUBMITTED,
-    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
     EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
-import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
+import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
+import { filterRentalOptionsByUnit } from 'reducers/configuration';
+import API from '../../app/api';
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -489,5 +492,30 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+    });
+});
+
+describe('fetch renter profile', () => {
+    const middlewares = [thunk];
+    const mockStore = configureStore(middlewares);
+
+    it('dispatches the correct actions', () => {
+        const store = mockStore({ renterProfile: {} });
+        const profile = {
+            id: 123,
+        };
+
+        API.fetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                profile,
+            })
+        );
+
+        return store.dispatch(fetchRenterProfile()).then(() => {
+            expect(store.getActions()).toEqual([
+                renterProfileReceived({ profile }),
+                filterRentalOptionsByUnit({ profile }),
+            ]);
+        });
     });
 });

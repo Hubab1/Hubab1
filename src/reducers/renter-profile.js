@@ -16,6 +16,8 @@ import {
 } from 'app/constants';
 import mock from './mock-profile';
 
+import { filterRentalOptionsByUnit } from 'reducers/configuration';
+
 const renterProfile = createSlice({
     name: 'renterProfile',
     initialState: null,
@@ -54,7 +56,10 @@ export const fetchRenterProfile = () => {
         } else {
             profile = await API.fetchRenterProfile();
         }
+
         dispatch(renterProfileReceived(profile));
+        dispatch(filterRentalOptionsByUnit(profile));
+
         return profile;
     };
 };

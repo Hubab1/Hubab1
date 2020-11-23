@@ -19,11 +19,27 @@ const configuration = createSlice({
             state = action.payload;
             return state;
         },
+        filterRentalOptionsByUnit(state, action) {
+            const unit = action.payload.unit;
+            if (unit) {
+                const rentalOptions = {};
+                for (const rental_key in state.rental_options) {
+                    const options = state.rental_options[rental_key].filter((option) => {
+                        return !option.layouts.length || option.layouts.includes(unit.layout);
+                    });
+                    if (options.length) {
+                        rentalOptions[rental_key] = options;
+                    }
+                }
+                state.rental_options = rentalOptions;
+            }
+            return state;
+        },
     },
 });
 
 const { actions, reducer } = configuration;
-export const { configurationReceived, configurationDoesNotExist } = actions;
+export const { configurationReceived, configurationDoesNotExist, filterRentalOptionsByUnit } = actions;
 export default reducer;
 
 // Removes object properties that have empty object values
