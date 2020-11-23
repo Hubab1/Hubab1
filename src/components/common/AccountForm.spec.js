@@ -21,18 +21,12 @@ beforeEach(() => {
         onSubmit: jest.fn(),
         resetPassword: jest.fn(),
         initialValues: {},
-        maxDate: new Date(1, 1, 2020),
     };
 });
 
 it('shows checkbox when showConsentInput=true', function () {
     const wrapper = shallow(<AccountForm {...defaultProps} />);
     expect(wrapper.find(Formik).dive().find(Checkbox).length).toBe(1);
-});
-
-it('matches snapshot', function () {
-    const wrapper = shallow(<AccountForm {...defaultProps} />);
-    expect(wrapper.find(Formik).dive().find('form').getElement()).toMatchSnapshot();
 });
 
 it('doesnt show consent input when showConsentInput=false', function () {

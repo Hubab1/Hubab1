@@ -67,7 +67,6 @@ export function AccountForm({
     onSubmit,
     resetPassword,
     configuration,
-    maxDate,
 }) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
@@ -138,7 +137,7 @@ export function AccountForm({
                                     placeholder="mm/dd/yyyy"
                                     label="Birthday"
                                     minDate={new Date(1901, 1, 1)}
-                                    maxDate={maxDate || MAX_DATE}
+                                    maxDate={MAX_DATE}
                                     error={submitCount > 0 && !!errors.birthday}
                                     helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday} // preemptive helper text
                                     value={values.birthday || null}
