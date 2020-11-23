@@ -345,7 +345,8 @@ exports[`signed in matches snapshot 1`] = `
               Funnel TOS
             </b>
             <ol>
-              Your use of this platform is subject to 
+              Your use of this platform is subject to
+               
               <ForwardRef
                 to="/funnel-terms"
               >
@@ -707,7 +708,8 @@ exports[`signed out matches snapshot 1`] = `
                 Funnel TOS
               </b>
               <ol>
-                Your use of this platform is subject to 
+                Your use of this platform is subject to
+                 
                 <ForwardRef
                   to="/funnel-terms"
                 >
