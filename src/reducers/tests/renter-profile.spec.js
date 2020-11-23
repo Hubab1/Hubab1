@@ -77,6 +77,10 @@ describe('canAccessRoute', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
         expect(accessible).toBe(true);
     });
+    it('FUNNEL_TERMS is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.FUNNEL_TERMS);
+        expect(accessible).toBe(true);
+    });
     it('payment terms is not accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_TERMS);
         expect(accessible).toBe(false);

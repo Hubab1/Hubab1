@@ -37,6 +37,7 @@ import FAQPage from 'components/FAQ/FAQPage';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
+import FunnelTerms from 'components/FunnelTerms';
 import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
@@ -161,6 +162,7 @@ export class Main extends Component {
                             <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
                         )}
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
+                        {!isLoggedIn && <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />}
                         {!isLoggedIn && <Route path={ROUTES.FAQ} component={FAQPage} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
@@ -187,6 +189,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.FAQ} component={FAQPage} />
                                 <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                                <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
                                 <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
                                 <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />

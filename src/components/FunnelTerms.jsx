@@ -5,7 +5,7 @@ import { ROUTES } from 'app/constants';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import API from 'app/api';
-
+import PropTypes from 'prop-types';
 import { ScrollableTermsCardSection, Card } from 'assets/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { sessionIsValidForCommunityId } from 'utils/misc';
@@ -20,21 +20,21 @@ export const TERMS_HEADER = styled.h1`
     text-align: center;
 `;
 
-export function PrivacyPolicy(props) {
+export function FunnelTerms(props) {
     const [html, setHtml] = useState(null);
     useEffect(() => {
-        API.fetchPrivacyPolicy()
+        API.fetchFunnelTerms(props.leaseSettingsId)
             .then((res) => {
                 return res.text();
             })
             .then((res) => {
                 setHtml(res);
             });
-    }, []);
+    }, [props.leaseSettingsId]);
     if (!html) return null;
     const base = (
         <>
-            <TERMS_HEADER>Privacy Policy</TERMS_HEADER>
+            <TERMS_HEADER>Funnel Leasing Inc. Terms of Service</TERMS_HEADER>
             <br />
             <Card>
                 <ScrollableTermsCardSection>
@@ -54,8 +54,14 @@ export function PrivacyPolicy(props) {
     }
 }
 
+FunnelTerms.propTypes = {
+    isSignedIn: PropTypes.bool,
+    leaseSettingsId: PropTypes.string,
+};
+
 const mapStateToProps = (state) => ({
     isSignedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
+    leaseSettingsId: state.siteConfig.basename,
 });
 
-export default connect(mapStateToProps)(captureRoute(PrivacyPolicy, ROUTES.PRIVACY_POLICY));
+export default connect(mapStateToProps)(captureRoute(FunnelTerms, ROUTES.FUNNEL_TERMS));
