@@ -113,8 +113,8 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                         <Box margin="28px 0 0 0">
                             <P textAlign="left" fontSize={12} color="#000000">
                                 The lease linked below constitutes a legal agreement between you and Landlord. Funnel
-                                Leasing, Inc. does not provide legal advice, and we recommend that you consult your
-                                legal counsel before accepting these terms.
+                                Leasing does not provide legal advice, and we recommend that you consult your legal
+                                counsel before accepting these terms.
                             </P>
                             <ActionButton
                                 className="show-payments"

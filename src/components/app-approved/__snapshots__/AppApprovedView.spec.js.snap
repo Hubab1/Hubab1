@@ -111,7 +111,7 @@ exports[`matches snapshot with security deposit 1`] = `
           fontSize={12}
           textAlign="left"
         >
-          The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
+          The lease linked below constitutes a legal agreement between you and Landlord. Funnel Leasing does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
           className="show-payments"
@@ -161,7 +161,7 @@ exports[`matches snapshot without security deposit 1`] = `
           fontSize={12}
           textAlign="left"
         >
-          The lease linked below constitutes a legal agreement between you and Landlord. Nestio does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
+          The lease linked below constitutes a legal agreement between you and Landlord. Funnel Leasing does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
         </ForwardRef(render)>
         <ActionButton
           className="show-payments"

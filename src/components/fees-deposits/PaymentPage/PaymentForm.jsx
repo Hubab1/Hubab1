@@ -109,8 +109,7 @@ export class PaymentForm extends React.Component {
                     </Grid>
                 </Grid>
                 <P textAlign="left" fontSize={12} margin="37px 0 0 0" color="#000000">
-                    Stripe and its affiliates will be processing this transaction for Funnel Leasing, Inc. Please see
-                    their
+                    Stripe and its affiliates will be processing this transaction for Funnel Leasing. Please see their
                     <Link to={ROUTES.TERMS} target="_blank">
                         terms of service
                     </Link>{' '}

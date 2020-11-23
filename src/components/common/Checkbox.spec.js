@@ -11,7 +11,7 @@ beforeEach(() => {
         checked: false,
         onChange: () => {},
         error: false,
-        label: 'I authorize Funnel Leasing, Inc. to obtain, on behalf of Landlord',
+        label: 'I authorize Funnel Leasing to obtain, on behalf of Landlord',
     };
 });
 
