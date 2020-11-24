@@ -7,12 +7,14 @@ import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
 import fuzzaldrin from 'fuzzaldrin-plus';
+import moment from 'moment';
+import { filter } from 'lodash';
 
 import API from 'app/api';
 import usePrevious from 'hooks/usePrevious';
 
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
-function renderInput(inputProps) {
+export function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
     return (
         <TextField
@@ -107,9 +109,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AvailableUnitsSelector(props) {
+    const { leaseStartDate } = props;
     const clearSelection = useRef(undefined);
     const previousValue = usePrevious(props.value);
     const [units, setUnits] = useState([]);
+    const [availableUnitsByDate, setAvailableUnitsByDate] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
     const bindClearSelection = useCallback((clear) => {
@@ -147,6 +151,18 @@ export default function AvailableUnitsSelector(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        const availableAtLeaseDate = (unit) => {
+            if (leaseStartDate === null) {
+                return true;
+            }
+            return moment(leaseStartDate).isAfter(unit.date_available);
+        };
+
+        const availableUnits = filter(units, availableAtLeaseDate);
+        setAvailableUnitsByDate(availableUnits);
+    }, [units, leaseStartDate]);
+
     const classes = useStyles();
     return (
         <div>
@@ -178,15 +194,16 @@ export default function AvailableUnitsSelector(props) {
                         },
                         onFocus: openMenu,
                     });
-                    let suggestions = getSuggestions(units, inputValue, { showEmpty: true }).map((suggestion, index) =>
-                        renderSuggestion({
-                            suggestion,
-                            inputValue,
-                            index,
-                            itemProps: getItemProps({ item: suggestion }),
-                            highlightedIndex,
-                            selectedItem,
-                        })
+                    let suggestions = getSuggestions(availableUnitsByDate, inputValue, { showEmpty: true }).map(
+                        (suggestion, index) =>
+                            renderSuggestion({
+                                suggestion,
+                                inputValue,
+                                index,
+                                itemProps: getItemProps({ item: suggestion }),
+                                highlightedIndex,
+                                selectedItem,
+                            })
                     );
                     if (!isReady) {
                         suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
@@ -230,4 +247,5 @@ AvailableUnitsSelector.propTypes = {
     helperText: PropTypes.bool,
     disabled: PropTypes.bool,
     update: PropTypes.func.isRequired,
+    leaseStartDate: PropTypes.instanceOf(Date),
 };
