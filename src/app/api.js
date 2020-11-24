@@ -35,6 +35,10 @@ API.fetchPrivacyPolicy = () => {
     return fetch(chuck('/privacy-policy'));
 };
 
+API.fetchFunnelTerms = (leaseSettingsId) => {
+    return fetch(chuck(`/funnel_terms/${leaseSettingsId}`));
+};
+
 API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
