@@ -177,8 +177,6 @@ export class LeaseTermsPage extends React.Component {
                                             onBlur={handleBlur}
                                             onChange={(value) => {
                                                 setFieldValue('lease_start_date', value);
-                                                setFieldValue('unit', null);
-                                                setFieldValue('lease_term', null);
                                             }}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
