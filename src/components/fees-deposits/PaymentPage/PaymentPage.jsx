@@ -35,15 +35,22 @@ const linkStyle = css`
     font-weight: 300;
 `;
 
-export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack }) => {
+export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack, isOutstanding }) => {
     return (
         <Fragment>
             <H1>Almost There, {applicant.first_name}!</H1>
-            <SpacedH3>
-                The application fee and holding deposit for this apartment is{' '}
-                {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for
-                screening.
-            </SpacedH3>
+            {!isOutstanding && (
+                <SpacedH3>
+                    The application fee and holding deposit for this apartment is{' '}
+                    {totalPayment ? prettyCurrency(totalPayment) : '$0'}. After payment, we’ll collect your SSN for
+                    screening.
+                </SpacedH3>
+            )}
+            {isOutstanding && (
+                <SpacedH3>
+                    The outstanding balance for this apartment is {totalPayment ? prettyCurrency(totalPayment) : '$0'}.
+                </SpacedH3>
+            )}
             <img src={creditCardImage} alt="credit card"></img>
             <div className={bodyRow}>
                 <img src={padlockImage} alt="padlock" width="18" height="28" />

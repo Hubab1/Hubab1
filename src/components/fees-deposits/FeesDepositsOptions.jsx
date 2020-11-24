@@ -37,6 +37,7 @@ export const FeesDepositsOptions = ({
     payments,
     unitNumber,
     communityName,
+    isOutstanding,
 }) => {
     const [applicationFeesSelected, setApplicationFees] = React.useState('self');
     if (!payments) return <div />;
@@ -69,7 +70,13 @@ export const FeesDepositsOptions = ({
 
     return (
         <Fragment>
-            <SpacedH1>Application Fees and Holding Deposit</SpacedH1>
+            <SpacedH1>{isOutstanding ? 'Outstanding Balance' : 'Application Fees and Holding Deposit'}</SpacedH1>
+            {isOutstanding ? (
+                <P>
+                    It looks like you have some outstanding fees/deposits. Let's settle up so you can move forward with
+                    your application.
+                </P>
+            ) : null}
             <SpacedImg src={paymentWallet} alt={'wallet'} />
             <div className={applicationUnit}>{`${communityName} Unit ${unitNumber}`}</div>
             <Card>
@@ -109,7 +116,7 @@ export const FeesDepositsOptions = ({
             >
                 Continue
             </ActionButton>
-            <BackLink to={handleClickBack} />
+            {!isOutstanding ? <BackLink to={handleClickBack} /> : undefined}
         </Fragment>
     );
 };
@@ -124,6 +131,7 @@ FeesDepositsOptions.propTypes = {
     payments: PropTypes.array,
     unitNumber: PropTypes.string.isRequired,
     communityName: PropTypes.string.isRequired,
+    isOutstanding: PropTypes.bool,
 };
 
 export default FeesDepositsOptions;

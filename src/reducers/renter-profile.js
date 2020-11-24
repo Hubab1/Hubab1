@@ -16,6 +16,8 @@ import {
 } from 'app/constants';
 import mock from './mock-profile';
 
+import { filterRentalOptionsByUnit } from 'reducers/configuration';
+
 const renterProfile = createSlice({
     name: 'renterProfile',
     initialState: null,
@@ -54,7 +56,10 @@ export const fetchRenterProfile = () => {
         } else {
             profile = await API.fetchRenterProfile();
         }
+
         dispatch(renterProfileReceived(profile));
+        dispatch(filterRentalOptionsByUnit(profile));
+
         return profile;
     };
 };
@@ -141,7 +146,7 @@ selectors.canAccessRoute = (state, route) => {
     */
     // These pages should always be accessible
 
-    if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ].includes(route)) {
+    if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ, ROUTES.FUNNEL_TERMS].includes(route)) {
         return true;
     }
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
@@ -217,6 +222,10 @@ selectors.selectInitialPage = createSelector(
 
             if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
                 return ROUTES.GUARANTOR_REQUESTED;
+            }
+
+            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED) && applicant.outstanding_balances.length > 0) {
+                return ROUTES.OUTSTANDING_BALANCE;
             }
 
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {

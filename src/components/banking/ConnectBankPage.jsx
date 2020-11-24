@@ -145,7 +145,7 @@ export class ConnectBankPage extends React.Component {
         // Handle reporting no income/assets
         const formData = new FormData();
         formData.append('report_no_income_assets', 'True');
-        await API.submitFinancialSource(formData);
+        await API.submitFinancialSource(formData, false); // No files to encrypt
 
         // Refresh data then redirect
         await this.context.refreshFinancialSources();

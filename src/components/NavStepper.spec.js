@@ -152,6 +152,28 @@ describe('Unit unavailable state', function () {
     });
 });
 
+describe('Outstanding balance state', function () {
+    it('renders outstanding balance message', function () {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891',
+                },
+            },
+            initialPage: ROUTES.OUTSTANDING_BALANCE,
+        };
+
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const outstandingBalance = wrapper.find('.outstandingBalance');
+        const viewProgressButton = wrapper.find('#viewProgressButton');
+        expect(outstandingBalance.text()).toContain(
+            "You'll be able to move forward with your application once all outstanding balances have been paid."
+        );
+        expect(viewProgressButton.exists()).toEqual(true);
+    });
+});
+
 describe('Guarantor requested state', function () {
     it('renders request guarantor message', function () {
         const defaultProps = {

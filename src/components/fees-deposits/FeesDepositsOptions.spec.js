@@ -8,6 +8,7 @@ import { FeesDepositsOptions } from './FeesDepositsOptions';
 import { ApplicationFees } from './ApplicationFees';
 import { PaidText } from 'components/common/PaidText';
 import { HoldingDeposit } from './HoldingDeposit';
+import { BackLink } from 'components/common/BackLink';
 
 let defaultProps;
 const everyone = mockProfile.primary_applicant.guarantors
@@ -150,4 +151,34 @@ it('renders expected header text', () => {
 
     expect(wrapper.text().includes('Application Fees and Holding Deposit')).toBeTruthy();
     expect(wrapper.text().includes('Fees and Deposits')).toBeTruthy();
+});
+
+it('renders the back button', () => {
+    defaultProps.isOutstanding = false;
+    const wrapper = shallow(<FeesDepositsOptions {...defaultProps} receipt={null} />);
+
+    expect(wrapper.find(BackLink).length === 1).toBeTruthy();
+});
+
+describe('oustanding balance state', () => {
+    it('renders outstanding balance header and text', () => {
+        defaultProps.isOutstanding = true;
+        const wrapper = shallow(<FeesDepositsOptions {...defaultProps} receipt={null} />);
+
+        expect(wrapper.text().includes('Outstanding Balance')).toBeTruthy();
+        expect(
+            wrapper
+                .text()
+                .includes(
+                    "It looks like you have some outstanding fees/deposits. Let's settle up so you can move forward with your application."
+                )
+        ).toBeTruthy();
+    });
+
+    it('does not render the back button', () => {
+        defaultProps.isOutstanding = true;
+        const wrapper = shallow(<FeesDepositsOptions {...defaultProps} receipt={null} />);
+
+        expect(wrapper.find(BackLink).length === 0).toBeTruthy();
+    });
 });
