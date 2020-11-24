@@ -197,6 +197,7 @@ export class LeaseTermsPage extends React.Component {
                                             }}
                                             error={submitCount >= 1 && !!errors.unit}
                                             helperText={submitCount >= 1 && errors.unit}
+                                            leaseStartDate={values.lease_start_date}
                                             errors={errors}
                                             disabled={!isPrimaryApplicant}
                                             value={values.unit}
