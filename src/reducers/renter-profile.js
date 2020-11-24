@@ -224,6 +224,10 @@ selectors.selectInitialPage = createSelector(
                 return ROUTES.GUARANTOR_REQUESTED;
             }
 
+            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED) && applicant.outstanding_balances.length > 0) {
+                return ROUTES.OUTSTANDING_BALANCE;
+            }
+
             if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
                 return ROUTES.APP_COMPLETE;
             }

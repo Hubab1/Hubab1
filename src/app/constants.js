@@ -33,6 +33,7 @@ export const ROUTES = {
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms',
+    OUTSTANDING_BALANCE: '/outstanding-balance',
     PAYMENT_TERMS: '/payment-terms',
     ACCOUNT: '/account',
     RESEND_INVITE: '/resend-invite',
@@ -65,6 +66,18 @@ export const ROUTE_LABELS = {
     [ROUTES.APP_COMPLETE]: 'Application Complete',
     [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
 };
+
+export const ROUTES_TOP_LEVEL = [
+    ROUTES.ADDRESS,
+    ROUTES.LEASE_TERMS,
+    ROUTES.PROFILE_OPTIONS,
+    ROUTES.INCOME_AND_EMPLOYMENT,
+    ROUTES.FEES_AND_DEPOSITS,
+    ROUTES.SCREENING,
+    ROUTES.APP_COMPLETE,
+    ROUTES.HOLDING_DEPOSIT_AGREEMENT,
+    ROUTES.OUTSTANDING_BALANCE,
+];
 
 export const DOES_NOT_EXIST = 'DoesNotExist';
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';

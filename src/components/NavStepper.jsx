@@ -14,6 +14,7 @@ import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import Button from '@material-ui/core/Button';
+import { ROUTES } from 'app/constants';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -23,7 +24,8 @@ const useStyles = makeStyles(() => ({
 
 const iconRoot = css`
     align-items: flex-start !important;
-    .appCompletedMsg {
+    .appCompletedMsg,
+    .outstandingBalance {
         color: #828796;
     }
 `;
@@ -64,6 +66,8 @@ export function VerticalLinearStepper(props) {
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
     const unitUnavailable = props.renterProfile?.unit_available === false;
+    const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
+
     function onClickRoute(e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep || MOCKY) {
@@ -152,7 +156,7 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
-                {!props.applicantStillFinishingApplication && !props.guarantorRequested && (
+                {!props.applicantStillFinishingApplication && !props.guarantorRequested && !outstandingBalance && (
                     <Step active>
                         <StepLabel completed classes={{ root: iconRoot }}>
                             <span className="appCompletedMsg">
@@ -173,6 +177,40 @@ export function VerticalLinearStepper(props) {
                             disabled={false}
                             onClick={() => {
                                 props.history.push(props.initialPage);
+                                props.handleDrawerClose();
+                            }}
+                        >
+                            View Progress
+                        </Button>
+                    </Step>
+                )}
+                {outstandingBalance && (
+                    <Step active>
+                        <StepLabel
+                            labelContainer
+                            classes={{ root: iconRoot }}
+                            StepIconComponent={() => <ErrorIcon color="primary" />}
+                        >
+                            <span className="outstandingBalance">
+                                {
+                                    "You'll be able to move forward with your application once all outstanding balances have been paid. Please call us at "
+                                }
+                                <a href={`tel:${props.config.community.contact_phone}`}>
+                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                </a>{' '}
+                                if you have any questions.
+                            </span>
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress,
+                            }}
+                            disabled={false}
+                            onClick={() => {
+                                props.history.push(ROUTES.OUTSTANDING_BALANCE);
                                 props.handleDrawerClose();
                             }}
                         >
