@@ -1,20 +1,21 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
-import PropTypes from 'prop-types';
-import coin from 'assets/images/coin.png';
-import { H1, SpacedH3 } from 'assets/styles';
-
 import styled from '@emotion/styled';
 
-import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import API from 'app/api';
-import { InviteForm } from 'components/common/InviteForm';
-import BackLink from 'components/common/BackLink';
 import { selectors } from 'reducers/renter-profile';
+import { H1, SpacedH3 } from 'assets/styles';
+import { InviteForm } from 'components/common/InviteForm';
+import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import BackLink from 'components/common/BackLink';
+import coin from 'assets/images/coin.png';
+
+const ERROR_INVITE = 'There was an error sending your guarantor an invite. Please Try again.';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -36,18 +37,16 @@ export class GuarantorPage extends React.Component {
                     const errors = get(res, 'errors.guarantors[0]');
                     if (errors) {
                         setErrors(errors);
-                    } else {
-                        this.setState({
-                            errors: ['There was an error sending your guarantor an invite. Please Try again.'],
-                        });
                     }
+
+                    this.setState({ errors: [res.errors.Error || ERROR_INVITE] });
                 } else {
                     this.props.fetchRenterProfile();
                     this.setState({ confirmSent: true });
                 }
             })
             .catch((res) => {
-                this.setState({ errors: [res.errors] });
+                this.setState({ errors: [res.errors || ERROR_INVITE] });
                 setSubmitting(false);
             });
     };
