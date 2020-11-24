@@ -2,11 +2,12 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
 import API from 'app/api';
-import {
+import reducer, {
     fetchConfiguration,
     configurationReceived,
     selectors,
     configurationDoesNotExist,
+    filterRentalOptionsByUnit,
 } from 'reducers/configuration';
 import { DOES_NOT_EXIST } from 'app/constants';
 
@@ -82,6 +83,34 @@ describe('fetchConfiguration', () => {
             expect(API.fetchConfiguration).toHaveBeenCalled();
 
             expect(store.getActions()).toEqual([configurationDoesNotExist(configData)]);
+        });
+    });
+});
+
+describe('filter rental options by unit', () => {
+    it("removes rental options that don't match the unit", async () => {
+        const state = {
+            rental_options: {
+                parking: [{ layouts: [10, 20] }, { layouts: [40, 30] }],
+                pets: [{ layouts: [] }, { layouts: [10] }],
+                storage: [{ layouts: [10] }],
+            },
+        };
+
+        const result = reducer(state, {
+            type: filterRentalOptionsByUnit.type,
+            payload: {
+                unit: {
+                    layout: 20,
+                },
+            },
+        });
+
+        expect(result).toMatchObject({
+            rental_options: {
+                parking: [{ layouts: [10, 20] }],
+                pets: [{ layouts: [] }],
+            },
         });
     });
 });

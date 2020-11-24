@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
+import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -48,6 +48,19 @@ export const Parking = (props) => {
     };
     const initialParkingOptions = props.application.selected_rental_options.parking;
     const parkingOptions = props.config.rental_options.parking || [];
+
+    const getSubtitles = (option) => {
+        const subtitles = getRentalOptionSubtitleItemAdder(option, 'parking space');
+        return subtitles.split('\n').map((item, key) => {
+            return (
+                <span key={key}>
+                    {item}
+                    <br />
+                </span>
+            );
+        });
+    };
+
     return (
         <>
             <H1>Parking</H1>
@@ -71,9 +84,7 @@ export const Parking = (props) => {
                             <ItemAdder
                                 key={option.id}
                                 title={option.name}
-                                subtitle={`$${option.monthly_amount || '0.00'}/mo per parking space${
-                                    option.included ? ` (${option.included} incl.)` : ''
-                                }`}
+                                subtitle={getSubtitles(option)}
                                 value={values[option.id]}
                                 limit={option.limit}
                                 onChange={(e) => setFieldValue(option.id, e)}
@@ -87,7 +98,9 @@ export const Parking = (props) => {
                                 categoryHelperText={'parking spaces'}
                             />
                         )}
-                        <ActionButton disabled={!dirty || isSubmitting}>Add Parking</ActionButton>
+                        <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
+                            Add Parking
+                        </ActionButton>
                     </form>
                 )}
             </Formik>

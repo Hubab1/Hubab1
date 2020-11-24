@@ -9,14 +9,12 @@ beforeEach(() => {
     defaultProps = {
         name: 'checky',
         checked: false,
-        onChange: ()=>{},
+        onChange: () => {},
         error: false,
-        label: 'I authorize Nestio to obtain, on behalf of Landlord'
+        label: 'I authorize Funnel Leasing to obtain, on behalf of Landlord',
     };
 });
 
-it('Matches snapshot', function() {
-    expect(
-        renderer.create(<Checkbox {...defaultProps}/>)
-    ).toMatchSnapshot();
+it('Matches snapshot', function () {
+    expect(renderer.create(<Checkbox {...defaultProps} />)).toMatchSnapshot();
 });

@@ -13,7 +13,7 @@ import {
     WelcomeTextContainer,
     WelcomeFooterContainer,
     HomeImageContainer,
-    WhiteButton,
+    CallToActionButton,
     LogoContainer,
 } from './styles';
 import { ROUTES } from 'app/constants';
@@ -34,12 +34,14 @@ export class WelcomePage extends Component {
     }
 
     render() {
-        const { background, logo, community, unit } = this.props.configuration;
+        const { background, logo, community, unit, primary_color, dark_mode } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
 
         const firstName = this.getFirstName();
         const cityStateZip = `${city}, ${state} ${postal_code}`;
         const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
+        const callToActionButtonStyle = dark_mode ? {} : { background: `#${primary_color}` };
+
         return (
             <Fragment>
                 <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background} />
@@ -65,8 +67,10 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link to={{ pathname: ROUTES.SIGNUP }} style={{ textDecoration: 'none' }}>
-                            <div>
-                                <WhiteButton fullWidth>Start Application</WhiteButton>
+                            <div className="cta-container">
+                                <CallToActionButton fullWidth style={callToActionButtonStyle}>
+                                    Start Application
+                                </CallToActionButton>
                             </div>
                         </Link>
                         <img src={funnelImage} width="150" style={{ marginTop: '20px' }} alt="funnel logo" />

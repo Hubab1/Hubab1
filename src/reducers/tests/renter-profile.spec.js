@@ -8,10 +8,13 @@ import {
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
     APPLICATION_STATUS_CANCELED,
     MILESTONE_APPLICANT_SUBMITTED,
-    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
     EVENT_LEASE_TERMS_COMPLETED,
 } from 'app/constants';
-import { selectors, DIRECT_ROUTES } from 'reducers/renter-profile';
+import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
+import { filterRentalOptionsByUnit } from 'reducers/configuration';
+import API from '../../app/api';
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -75,6 +78,10 @@ describe('canAccessRoute', () => {
     };
     it('privacy policy is accessible', () => {
         const accessible = selectors.canAccessRoute(state, ROUTES.PRIVACY_POLICY);
+        expect(accessible).toBe(true);
+    });
+    it('FUNNEL_TERMS is accessible', () => {
+        const accessible = selectors.canAccessRoute(state, ROUTES.FUNNEL_TERMS);
         expect(accessible).toBe(true);
     });
     it('payment terms is not accessible', () => {
@@ -371,10 +378,39 @@ describe('selectInitialPage', () => {
                     { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
                     { event: MILESTONE_APPLICANT_SUBMITTED },
                 ],
+                outstanding_balances: [],
                 receipt: { id: 123 },
             },
         });
         expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: MILESTONE_APPLICANT_SUBMITTED },
+                ],
+                outstanding_balances: [
+                    { receipt: 123, paid: false },
+                    { receipt: 1234, paid: false },
+                ],
+                receipt: { id: 123 },
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.OUTSTANDING_BALANCE);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -485,5 +521,30 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+    });
+});
+
+describe('fetch renter profile', () => {
+    const middlewares = [thunk];
+    const mockStore = configureStore(middlewares);
+
+    it('dispatches the correct actions', () => {
+        const store = mockStore({ renterProfile: {} });
+        const profile = {
+            id: 123,
+        };
+
+        API.fetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                profile,
+            })
+        );
+
+        return store.dispatch(fetchRenterProfile()).then(() => {
+            expect(store.getActions()).toEqual([
+                renterProfileReceived({ profile }),
+                filterRentalOptionsByUnit({ profile }),
+            ]);
+        });
     });
 });

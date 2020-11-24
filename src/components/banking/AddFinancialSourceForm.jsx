@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import * as Yup from 'yup';
-import { filter, find } from 'lodash';
+import { filter, find, sortBy, flow } from 'lodash/fp';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import capitalize from 'lodash/capitalize';
 import omit from 'lodash/omit';
@@ -23,7 +23,9 @@ export function AddFinancialSourceForm(props) {
     const isAsset = props.financialType === FINANCIAL_STREAM_ASSET;
     const financialTypeLabel = isAsset ? 'asset' : 'income';
 
-    const selectChoices = filter(props.financial_documents_validations, { stream_type: props.financialType });
+    const filterByType = filter({ stream_type: props.financialType });
+    const sortByType = sortBy(['income_or_asset_type']);
+    const selectChoices = flow(filterByType, sortByType)(props.financial_documents_validations);
 
     function getInitialValues() {
         return Object.assign(
@@ -107,7 +109,7 @@ export function AddFinancialSourceForm(props) {
                             >
                                 {selectChoices.map((choice) => (
                                     <MenuItem key={choice.income_or_asset_type} value={choice.income_or_asset_type}>
-                                        {find(ALL_INCOME_OR_ASSET_TYPES, { value: choice.income_or_asset_type }).label}
+                                        {find({ value: choice.income_or_asset_type })(ALL_INCOME_OR_ASSET_TYPES).label}
                                     </MenuItem>
                                 ))}
                             </Select>

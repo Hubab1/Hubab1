@@ -35,6 +35,10 @@ API.fetchPrivacyPolicy = () => {
     return fetch(chuck('/privacy-policy'));
 };
 
+API.fetchFunnelTerms = (leaseSettingsId) => {
+    return fetch(chuck(`/funnel_terms/${leaseSettingsId}`));
+};
+
 API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
@@ -277,8 +281,9 @@ API.getAdverseActions = () => {
     });
 };
 
-API.submitFinancialSource = (data) => {
-    return fetch(chuck('/financial-sources/'), {
+API.submitFinancialSource = (data, vgsEnabled) => {
+    const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
+    return fetch(url, {
         method: 'POST',
         headers: {
             AUTHORIZATION: `Token ${auth.getToken()}`,

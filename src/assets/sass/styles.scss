@@ -30,7 +30,6 @@ img {
     z-index: 9999;
 }
 
-
 .tos-container {
     .pad-left {
         padding-left: 18px;
@@ -48,7 +47,7 @@ img {
         margin-bottom: 0.6em;
     }
     ol > li:before {
-        content: counters(item, ".") ". ";
+        content: counters(item, '.') '. ';
         display: table-cell;
         padding-right: 0.6em;
     }
@@ -56,12 +55,12 @@ img {
         margin: 0;
     }
     li ol > li:before {
-        content: counters(item, ".") " ";
+        content: counters(item, '.') ' ';
     }
-    ol[type="a"] > li {
+    ol[type='a'] > li {
         display: list-item;
     }
-    ol[type="a"] > li:before {
+    ol[type='a'] > li:before {
         content: none;
     }
 }
@@ -76,4 +75,10 @@ img {
 
 .color-manatee {
     color: #828796;
+}
+
+.cta-container {
+    button:hover {
+        background-color: #ccc !important;
+    }
 }

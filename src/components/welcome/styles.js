@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/styles';
 
-
-export const BackgroundImage = styled.div( props => ({
+export const BackgroundImage = styled.div((props) => ({
     position: 'absolute',
     top: 0,
     left: 0,
@@ -12,19 +11,19 @@ export const BackgroundImage = styled.div( props => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     zIndex: -5,
-    opacity:  props.opacity,
+    opacity: props.opacity,
     backgroundImage: `url(${props.url})`,
 }));
 
-export const BackgroundImageTint = styled.div( props => ({
+export const BackgroundImageTint = styled.div((props) => ({
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
     zIndex: -4,
-    opacity: .6,
-    background: props.background
+    opacity: 0.6,
+    background: props.background,
 }));
 
 export const LogoContainer = styled.div`
@@ -45,14 +44,13 @@ export const WelcomeFlexContainer = styled.div`
 
 export const WelcomeTextContainer = styled.div`
     label: welcome__content;
-    background-color: rgba(0,0,0,0.33);
+    background-color: rgba(0, 0, 0, 0.6);
     text-align: center;
     margin: auto;
     padding-bottom: 50px;
     width: 82%;
     max-width: 500px;
     position: relative;
-
 `;
 
 export const WelcomeFooterContainer = styled.div`
@@ -72,16 +70,16 @@ export const HomeImageContainer = styled.div`
     background: inherit;
     text-align: center;
     padding: 10px 10px 0 10px;
-    margin: 0 auto;`;
+    margin: 0 auto;
+`;
 
-
-export const WhiteButton = withStyles({
+export const CallToActionButton = withStyles({
     root: {
         background: '#FFF',
         borderRadius: 21.5,
         color: 'black',
         '&:hover': {
-            background: '#CCC'
+            background: '#CCC',
         },
         height: '43px',
     },
@@ -90,4 +88,3 @@ export const WhiteButton = withStyles({
         fontFamily: 'proxima-nova, sans-serif',
     },
 })(Button);
-

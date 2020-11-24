@@ -21,7 +21,7 @@ import AccountPage from 'components/account/AccountPage';
 import RegisterPage from 'components/RegisterPage';
 import LeaseTermsPage from 'components/LeaseTermsPage';
 import BankingContainer from 'components/banking/BankingContainer';
-import FeesDepositsContainer from 'components/fees-deposits/FeesDepositsContainer';
+import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
 import Address from 'components/Address';
@@ -37,6 +37,7 @@ import FAQPage from 'components/FAQ/FAQPage';
 import AppCancelled from 'components/AppCancelled';
 import LeaseVoided from 'components/LeaseVoided';
 import PrivacyPolicy from 'components/PrivacyPolicy';
+import FunnelTerms from 'components/FunnelTerms';
 import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
@@ -161,6 +162,7 @@ export class Main extends Component {
                             <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
                         )}
                         {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
+                        {!isLoggedIn && <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />}
                         {!isLoggedIn && <Route path={ROUTES.FAQ} component={FAQPage} />}
                         {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
@@ -170,7 +172,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                                 <Route path={ROUTES.ADDRESS} component={Address} />
                                 <Route path={ROUTES.BANKING} component={BankingContainer} />
-                                <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesDepositsContainer} />
+                                <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDeposits} />
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
                                     component={HoldingDepositAgreementContainer}
@@ -187,10 +189,12 @@ export class Main extends Component {
                                 <Route path={ROUTES.FAQ} component={FAQPage} />
                                 <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
                                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                                <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />
                                 <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
                                 <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
                                 <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />
                                 <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTerms} />
+                                <Route path={ROUTES.OUTSTANDING_BALANCE} component={OutstandingBalance} />
                             </NavDrawer>
                         )}
                     </Switch>
@@ -215,10 +219,12 @@ Main.propTypes = {
     logout: PropTypes.func,
     history: PropTypes.object,
     location: PropTypes.object,
+    applicant: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    applicant: state.applicant,
     isLoggedIn: sessionIsValidForCommunityId(state.siteConfig.basename),
     configuration: state.configuration,
     communityId: state.siteConfig.basename,

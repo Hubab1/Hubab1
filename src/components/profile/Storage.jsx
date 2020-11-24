@@ -11,7 +11,7 @@ import storageImage from 'assets/images/storage.png';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
+import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -46,6 +46,18 @@ export const Storage = (props) => {
         });
     };
 
+    const getSubtitles = (option) => {
+        const subtitles = getRentalOptionSubtitleItemAdder(option, 'storage space');
+        return subtitles.split('\n').map((item, key) => {
+            return (
+                <span key={key}>
+                    {item}
+                    <br />
+                </span>
+            );
+        });
+    };
+
     const initialStorageOptions = props.application.selected_rental_options.storage;
 
     const storageOptions = props.config.rental_options.storage || [];
@@ -72,9 +84,7 @@ export const Storage = (props) => {
                             <ItemAdder
                                 key={option.id}
                                 title={option.name}
-                                subtitle={`$${option.monthly_amount}/mo per storage space${
-                                    option.included ? ` (${option.included} incl.)` : ''
-                                }`}
+                                subtitle={getSubtitles(option)}
                                 value={values[option.id]}
                                 limit={option.limit}
                                 onChange={(e) => setFieldValue(option.id, e)}
@@ -88,7 +98,9 @@ export const Storage = (props) => {
                                 categoryHelperText={'storage spaces'}
                             />
                         )}
-                        <ActionButton disabled={!dirty || isSubmitting}>Add Storage</ActionButton>
+                        <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
+                            Add Storage
+                        </ActionButton>
                     </form>
                 )}
             </Formik>
