@@ -176,10 +176,10 @@ export function AccountForm({
                                 label={
                                     <>
                                         By clicking this checkbox, you consent to receiving calls and texts on behalf of{' '}
-                                        {configuration.community.company.name}
-                                        via automatic dialing or other technology about apartment listings that may fit
-                                        your needs. Your consent is not required to enter into a rental transaction or
-                                        make any purchase. Reply STOP to cancel anytime.{' '}
+                                        {configuration.community.company.name} via automatic dialing or other technology
+                                        about apartment listings that may fit your needs. Your consent is not required
+                                        to enter into a rental transaction or make any purchase. Reply STOP to cancel
+                                        anytime.{' '}
                                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                                             Privacy Policy
                                         </Link>
