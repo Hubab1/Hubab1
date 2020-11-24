@@ -45,6 +45,7 @@ export const ROUTES = {
     APP_CANCELLED: '/application-cancelled',
     LEASE_VOIDED: '/lease-voided',
     PRIVACY_POLICY: '/privacy-policy',
+    FUNNEL_TERMS: '/funnel-terms',
     FAQ: '/faq',
     UNIT_UNAVAILABLE: '/unit-unavailable',
     UNAUTHENTICATED_UNIT_UNAVAILABLE: '/unauth-unit-unavailable',
