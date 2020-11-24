@@ -11,6 +11,17 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         showConsentInput: true,
+        configuration: {
+            community: {
+                company: {
+                    name: 'Orchard Co',
+                },
+            },
+        },
+        submitText: 'Submit',
+        onSubmit: jest.fn(),
+        resetPassword: jest.fn(),
+        initialValues: {},
     };
 });
 
