@@ -9,18 +9,18 @@ import styled from '@emotion/styled';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { format, parseISO } from 'date-fns';
 
-import GenericFormMessage from 'components/common/GenericFormMessage';
 import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import rent from 'assets/images/rent.png';
+import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
+import { parseDateISOString, serializeDate } from 'utils/misc';
+import { prettyFormatPhoneNumber } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import AvailableLeaseTermsSelector from 'components/common/AvailableLeaseTermsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
-import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
-import { parseDateISOString, serializeDate } from 'utils/misc';
-import { prettyFormatPhoneNumber } from 'utils/misc';
+import rent from 'assets/images/rent.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -57,6 +57,13 @@ function getMinLeaseStartDate(unit) {
     } else {
         return dateAvailable;
     }
+}
+
+function getMaxLeaseStartDate() {
+    const now = new Date();
+    now.setDate(now.getDate() + 60);
+    now.setHours(0, 0, 0, 0);
+    return now;
 }
 
 export const leaseTermsValidationSchema = Yup.object()
@@ -184,6 +191,7 @@ export class LeaseTermsPage extends React.Component {
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
                                             minDate={getMinLeaseStartDate(values.unit)}
+                                            maxDate={getMaxLeaseStartDate()}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
