@@ -1,19 +1,23 @@
 import React, { useState, useContext } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { BackLink } from 'components/common/BackLink';
-import { H1, H3, Spacer } from 'assets/styles';
-import piggyBank from 'assets/images/piggy-bank.png';
-import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
+
 import API from 'app/api';
+import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { getFinancialSourceRequestBody } from 'utils/misc';
+
+import { H1, H3, Spacer } from 'assets/styles';
+import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
-import PropTypes from 'prop-types';
-import { getFinancialSourceRequestBody } from 'utils/misc';
-import { connect } from 'react-redux';
+import piggyBank from 'assets/images/piggy-bank.png';
 
-const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
-
+const ERROR_UPLOAD =
+    'Oops, we had some trouble uploading your files. ' +
+    'Be sure to use documents with unique filenames and refrain from renaming them during the upload process. ' +
+    'If you continue to have issues, please contact an agent or try again later.';
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -30,7 +34,8 @@ export const Img = styled.img`
 export function AddAssetSource(props) {
     const context = useContext(BankingContext);
     const [errors, setErrors] = useState([]);
-    const onSubmit = async (values, { setErrors, setSubmitting }) => {
+
+    const onSubmit = async (values, { setSubmitting }) => {
         setSubmitting(true);
         setErrors([]);
 
@@ -43,15 +48,13 @@ export function AddAssetSource(props) {
             setErrors([ERROR_UPLOAD]);
             return setSubmitting(false);
         }
+
         if (response.status !== 200) {
-            const errors = await response.json();
-            if (errors) {
-                setErrors(errors);
-            }
-            setSubmitting(false);
             setErrors([ERROR_UPLOAD]);
+            setSubmitting(false);
             return;
         }
+
         context.refreshFinancialSources();
         props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
         setSubmitting(false);
