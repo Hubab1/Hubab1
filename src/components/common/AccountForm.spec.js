@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import Checkbox from 'components/common/Checkbox';
 import AccountForm from 'components/common/AccountForm';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import { validationSchema } from 'components/common/AccountForm';
 
 let defaultProps;
 beforeEach(() => {
@@ -49,7 +50,6 @@ it('ActionButton is disabled when certain fields are missing', function () {
             }}
         />
     );
-    // console.log(wrapper.find(Formik).dive().debug())
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(true);
 });
 
@@ -68,6 +68,124 @@ it('ActionButton is not disabled when sms opt in is unchecked', function () {
             }}
         />
     );
-    // console.log(wrapper.find(Formik).dive().debug())
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(false);
+});
+
+describe('validationSchema', () => {
+    it('valid schema', () => {
+        expect(
+            validationSchema(false).isValidSync({
+                first_name: 'bobby',
+                last_name: 'bobby',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(true);
+    });
+
+    it('long first name', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'bobgewvrihveiorthboierthbeorhtbotrhbioerhborthbge',
+                last_name: 'bob',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('long last name', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'bob',
+                last_name: 'bobgewvrihveiorthboierthbeorhtbotrhbioerhborthbge',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('invalid last name', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'bob',
+                last_name: 'invalid123',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('invalid first name', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'bob1111111!',
+                last_name: 'bob',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('invalid phone number', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'Bob',
+                last_name: 'bob',
+                phone_number: '45342345',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '1992/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('invalid birthday', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'Bob',
+                last_name: 'bob',
+                phone_number: '(312) 434-3423',
+                email: 'slasjkefoi@gmail.com',
+                birthday: '3099/02/02',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('invalid email', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'Bob',
+                last_name: 'bob',
+                phone_number: '(312) 434-3423',
+                email: 'wrong email',
+                birthday: '1994/01/01',
+                password: '123456789',
+            })
+        ).toBe(false);
+    });
+
+    it('short password', () => {
+        expect(
+            validationSchema(true).isValidSync({
+                first_name: 'Bob',
+                last_name: 'bob',
+                phone_number: '(312) 434-3423',
+                email: 'hello@nest.io',
+                birthday: '1994/01/01',
+                password: '1234',
+            })
+        ).toBe(false);
+    });
 });

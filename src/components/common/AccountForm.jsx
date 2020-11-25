@@ -8,13 +8,12 @@ import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { css } from 'emotion';
 import Checkbox from 'components/common/Checkbox';
-
 import { formContent, LinkButton } from 'assets/styles';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { allValuesSet } from 'utils/formik';
+import { allValuesSet, nameValidationRegex, phoneNumberValidationRegex } from 'utils/formik';
 import { ROUTES } from 'app/constants';
 
 const linkContainer = css`
@@ -31,17 +30,19 @@ const MAX_DATE = (() => {
 
 const MIN_BIRTHDAY_YEAR = 1901;
 
-const validationSchema = (withPassword) =>
+export const validationSchema = (withPassword) =>
     Yup.object().shape({
         first_name: Yup.string()
+            .max(15, 'Exceeds 15 characters')
             .required('First Name is required')
-            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid name'),
+            .matches(nameValidationRegex, 'Invalid name'),
         last_name: Yup.string()
+            .max(25, 'Exceeds 25 characters')
             .required('Last Name is required')
-            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid name'),
+            .matches(nameValidationRegex, 'Invalid name'),
         phone_number: Yup.string()
             .required('Phone Number is required')
-            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+            .matches(phoneNumberValidationRegex, 'Must be a valid US phone number'),
         email: Yup.string().email().required('Email is required'),
         birthday: Yup.date()
             .typeError('Enter a valid date')
