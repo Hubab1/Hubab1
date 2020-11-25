@@ -12,6 +12,7 @@ import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import { nameValidationRegex, phoneNumberValidationRegex } from 'utils/formik';
 
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -24,6 +25,51 @@ const MIN_DATE = (() => {
     d.setFullYear(d.getFullYear() - 18);
     return d;
 })();
+
+export const coApplicantsGuarantorsValidationSchema = Yup.object().shape(
+    {
+        first_name: Yup.string()
+            .required('First Name is required')
+            .matches(nameValidationRegex, 'Invalid first name')
+            .max(15, 'Exceeds 15 characters'),
+        last_name: Yup.string()
+            .required('Last Name is required')
+            .matches(nameValidationRegex, 'Invalid last name')
+            .max(25, 'Exceeds 25 characters'),
+        phone_number: Yup.string()
+            .nullable()
+            .when('email', {
+                is: (val) => !val,
+                then: Yup.string()
+                    .required('Phone Number is required')
+                    .matches(phoneNumberValidationRegex, 'Must be a valid US phone number'),
+                otherwise: Yup.string(),
+            }),
+        email: Yup.string()
+            .nullable()
+            .when('phone_number', {
+                is: (val) => !val,
+                then: Yup.string().required('Email is required').email('Email must be a valid email'),
+                otherwise: Yup.string(),
+            }),
+    },
+    ['phone_number', 'email']
+);
+
+export const dependentValidationSchema = Yup.object().shape({
+    first_name: Yup.string()
+        .required('First Name is required')
+        .matches(nameValidationRegex, 'Invalid first name')
+        .max(15, 'Exceeds 15 characters'),
+    last_name: Yup.string()
+        .required('Last Name is required')
+        .matches(nameValidationRegex, 'Invalid last name')
+        .max(25, 'Exceeds 25 characters'),
+    birthday: Yup.date()
+        .typeError('Enter a valid date')
+        .min(MIN_DATE, 'Looks like this person is over 18.')
+        .required('required'),
+});
 
 export const InviteForm = ({
     handleOnSubmit,
@@ -38,30 +84,6 @@ export const InviteForm = ({
     const [isDependent, setIsDependent] = useState(initialIsDependent);
     // the only case where this should be set to false is when when we resend and the initial invite was sent with email
     const [sendToPhone, toggleSendToPhone] = useState(!initialValues.email);
-
-    const validationSchema = Yup.object().shape(
-        {
-            first_name: Yup.string().required('First Name is required'),
-            last_name: Yup.string().required('Last Name is required'),
-            phone_number: Yup.string()
-                .nullable()
-                .when('email', {
-                    is: (val) => !val,
-                    then: Yup.string()
-                        .required('Phone Number is required')
-                        .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-                    otherwise: Yup.string(),
-                }),
-            email: Yup.string()
-                .nullable()
-                .when('phone_number', {
-                    is: (val) => !val,
-                    then: Yup.string().required('Email is required').email('Email must be a valid email'),
-                    otherwise: Yup.string(),
-                }),
-        },
-        ['phone_number', 'email']
-    );
 
     const handleToggleClick = (setFieldValue) => {
         toggleSendToPhone(!sendToPhone);
@@ -99,14 +121,7 @@ export const InviteForm = ({
             )}
             {isDependent === true && (
                 <Formik
-                    validationSchema={Yup.object().shape({
-                        first_name: Yup.string().required('First Name is required'),
-                        last_name: Yup.string().required('Last Name is required'),
-                        birthday: Yup.date()
-                            .typeError('Enter a valid date')
-                            .min(MIN_DATE, 'Looks like this person is over 18.')
-                            .required('required'),
-                    })}
+                    validationSchema={dependentValidationSchema}
                     initialValues={initialValues}
                     onSubmit={onSubmitDependent}
                 >
@@ -180,7 +195,11 @@ export const InviteForm = ({
                 </Formik>
             )}
             {isDependent === false && (
-                <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleOnSubmit}>
+                <Formik
+                    validationSchema={coApplicantsGuarantorsValidationSchema}
+                    initialValues={initialValues}
+                    onSubmit={handleOnSubmit}
+                >
                     {({
                         values,
                         errors,

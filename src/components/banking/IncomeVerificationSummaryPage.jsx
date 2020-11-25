@@ -223,6 +223,43 @@ export function IncomeVerificationSummaryPage(props) {
 
     const hashValue = props.location?.hash?.substring?.(1) ?? '';
 
+    const getIncomeTipText = () => {
+        return (
+            <>
+                Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household
+                will be required based on pre-established requirements at the property, along with any necessary
+                supporting documents.
+                <br />
+                Proof of income includes, but is not limited to, the following:
+                <ul>
+                    <li>
+                        Proof of current employment (e.g., three most current paystubs within the last 45 or 90 days,
+                        depending on the payment cycle);
+                    </li>
+                    <li>Prior year tax return;</li>
+                    <li>
+                        Proof of receipt of government income (e.g., social security, disability, welfare, unemployment,
+                        etc.);
+                    </li>
+                    <li>Proof of receipt of retirement and/or investment income;</li>
+                    <li>Proof of US based assets;</li>
+                    <li>Student loan income;</li>
+                    <li>Child/spousal support</li>
+                    <li>Any other legal, verifiable income.</li>
+                </ul>
+            </>
+        );
+    };
+
+    const getAssetTip = () => {
+        return (
+            <>
+                If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0
+                the net rent for the entire lease term is required.
+            </>
+        );
+    };
+
     const getIncomeRequirementText = useCallback((config, profile, applicant) => {
         if (!profile || !applicant || !config) return <div />;
 
@@ -300,7 +337,7 @@ export function IncomeVerificationSummaryPage(props) {
                 prefix={<img alt="coin" src={finance} />}
                 label="Income"
                 buttonLabel="Add an Income Source"
-                tip="TBD"
+                tip={getIncomeTipText()}
                 route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
                 expansionPanel={
                     <>
@@ -329,7 +366,7 @@ export function IncomeVerificationSummaryPage(props) {
                 prefix={<img alt="piggy bank" src={piggyBank} />}
                 label="Assets"
                 buttonLabel="Add an Asset"
-                tip="TBD"
+                tip={getAssetTip()}
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={
                     <>
