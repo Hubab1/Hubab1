@@ -168,7 +168,7 @@ export const getFinancialSourceRequestBody = (values, vgsEnabled) => {
  */
 export const postSourcesFailedBecauseOfFiles = (formValues, errors) => {
     const errorIsRequired = (key) => {
-        return errors?.[key][0].includes('required');
+        return errors?.[key]?.[0].includes('required');
     };
 
     const estimatedAmountIsMissing = errorIsRequired('estimated_amount');
