@@ -370,7 +370,7 @@ export class UploadDocuments extends React.Component {
                                                 id={String(selectedDocument.id)}
                                                 type="file"
                                                 name={String(selectedDocument.id)}
-                                                accept="image/*,.pdf,.doc,.docx"
+                                                accept="image/*,.pdf"
                                                 style={{ display: 'none' }}
                                                 onChange={(e) => this.onFileChange(e, selectedDocument)}
                                                 max={this.getRemainingFilesCount(selectedDocument)?.max}
