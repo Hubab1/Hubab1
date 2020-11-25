@@ -254,7 +254,7 @@ export function IncomeVerificationSummaryPage(props) {
     const getAssetTip = () => {
         return (
             <>
-                In no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0
+                If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0
                 the net rent for the entire lease term is required.
             </>
         );
