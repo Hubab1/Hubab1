@@ -47,7 +47,7 @@ export const SignLeaseView = ({
         if (url) {
             hsclient.open(url, {
                 testMode: testMode,
-                skipDomainVerification: true, // TODO: update domain in HS and then change this back
+                skipDomainVerification: testMode,
                 allowCancel: false,
                 allowDecline: false,
             });
