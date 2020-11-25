@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import API from 'app/api';
-import { EditFinancialSource } from './EditFinancialSource';
+import { EditFinancialSource, ERROR_UPLOAD } from './EditFinancialSource';
 import { FINANCIAL_STREAM_STATUS_PENDING } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -121,9 +121,7 @@ it('Case onError called', async () => {
     });
     API.updateFinancialSource = jest.fn();
     const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
-    wrapper.instance().onError();
+    wrapper.instance().setErrorslotf(['Some error']);
     expect(wrapper.find(GenericFormMessage).length).toBe(1);
-    expect(wrapper.find(GenericFormMessage).prop('messages')).toContain(
-        'Oops! We had some trouble uploading your files. Please try again in a little bit.'
-    );
+    expect(wrapper.find(GenericFormMessage).prop('messages')).toContain('Some error');
 });

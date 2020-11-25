@@ -21,7 +21,6 @@ exports[`matches snapshot 1`] = `
       Object {
         "estimated_amount": "1111",
         "income_or_asset_type": 10,
-        "stream_type": 5,
       }
     }
     onSubmit={[Function]}

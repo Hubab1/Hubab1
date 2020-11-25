@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 import API from 'app/api';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'app/constants';
-import { getFinancialSourceRequestBody, postSourcesFailedBecauseOfFiles } from 'utils/misc';
+import { getFinancialSourceRequestBody } from 'utils/misc';
 
 import { H1, H3, Spacer } from 'assets/styles';
 import { BackLink } from 'components/common/BackLink';
@@ -15,9 +15,11 @@ import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 import finance from 'assets/images/finance.png';
 
-const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
-const ERROR_UPLOAD_FILES =
-    "Sorry we can't seem to find your file. Please use documents with unique filenames and refrain from renaming them during the upload process";
+const ERROR_UPLOAD =
+    'Oops, we had some trouble uploading your files. ' +
+    'Be sure to use documents with unique filenames and refrain from renaming them during the upload process. ' +
+    'If you continue to have issues, please contact an agent or try again later.'
+;
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -32,11 +34,11 @@ export function AddIncomeSource(props) {
     const [errors, setErrors] = useState([]);
     const context = useContext(BankingContext);
 
-    const onSubmit = async (values, { setErrors: setFormErrors, setSubmitting }) => {
+    const onSubmit = async (values, { setSubmitting }) => {
         setSubmitting(true);
         setErrors([]);
 
-        const formData = getFinancialSourceRequestBody(values, props.vgsEnabled);
+        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, props.vgsEnabled);
 
         let response;
         try {
@@ -47,18 +49,7 @@ export function AddIncomeSource(props) {
         }
 
         if (response.status !== 200) {
-            const errors = await response.json();
-
-            if (postSourcesFailedBecauseOfFiles(values, errors)) {
-                setErrors([ERROR_UPLOAD_FILES]);
-            } else {
-                if (errors) {
-                    setFormErrors(errors);
-                }
-
-                setErrors([ERROR_UPLOAD]);
-            }
-
+            setErrors([ERROR_UPLOAD]);
             setSubmitting(false);
             return;
         }
@@ -77,10 +68,7 @@ export function AddIncomeSource(props) {
             <img alt="coin" src={finance} />
             <Spacer height={30} />
             <AddFinancialSourceForm
-                initialValues={{
-                    ...props.initialValues,
-                    stream_type: FINANCIAL_STREAM_INCOME,
-                }}
+                initialValues={props.initialValues}
                 financialType={FINANCIAL_STREAM_INCOME}
                 onSubmit={onSubmit}
                 setError={(err) => setErrors(err)}

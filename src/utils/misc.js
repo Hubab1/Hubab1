@@ -121,11 +121,11 @@ export const getPaymentItemName = (name) => {
 };
 
 /* eslint-disable */
-export const getFinancialSourceRequestBody = (values, vgsEnabled) => {
+export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
     const formData = new FormData();
     formData.append('income_or_asset_type', values.income_or_asset_type);
     formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
-    formData.append('stream_type', values.stream_type);
+    formData.append('stream_type', streamType);
     formData.append('other', values.other);
 
     if (values.uploadedDocuments) {
@@ -150,43 +150,6 @@ export const getFinancialSourceRequestBody = (values, vgsEnabled) => {
         }
     }
     return formData;
-};
-
-/**
- * Hack way to detect if posting sources failed because of files
- *
- * When this is the case, we get a response back from our backend that tells us
- * that the following fields are required:
- *  - estimated_amount
- *  - income_or_asset_type
- *  - stream_type
- *
- *  We will compare these with the actual form values that got sent to verify
- *  if they had values anyway.
- *
- *  If thats the case, it meanse that the requested failed because of the files
- */
-export const postSourcesFailedBecauseOfFiles = (formValues, errors) => {
-    const errorIsRequired = (key) => {
-        return errors?.[key]?.[0].includes('required');
-    };
-
-    const estimatedAmountIsMissing = errorIsRequired('estimated_amount');
-    const incomeOrAssetTypeIsMissing = errorIsRequired('income_or_asset_type');
-    const streamTypeIsMissing = errorIsRequired('stream_type');
-
-    const hasEstimatedAmountAnyway = !!formValues.estimated_amount;
-    const hasIncomeOrAssetTypeAnyway = !!formValues.income_or_asset_type;
-    const hasStreamTypeAnyway = !!formValues.stream_type;
-
-    return !!(
-        estimatedAmountIsMissing &&
-        hasEstimatedAmountAnyway &&
-        incomeOrAssetTypeIsMissing &&
-        hasIncomeOrAssetTypeAnyway &&
-        streamTypeIsMissing &&
-        hasStreamTypeAnyway
-    );
 };
 
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
