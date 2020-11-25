@@ -64,7 +64,7 @@ export const HoldingDepositAgreementContainer = ({
         if (url) {
             hsclient.open(url, {
                 testMode: testMode,
-                skipDomainVerification: testMode,
+                skipDomainVerification: true, // TODO: update domain in HS and then change this back
                 allowDecline: false,
                 allowCancel: false,
             });
