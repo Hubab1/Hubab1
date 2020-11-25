@@ -17,13 +17,13 @@ exports[`signed in matches snapshot 1`] = `
         <p>
           Welcome, and thank you for your interest in Funnel Leasing, Inc. (“
           <b>
-            Funnel
+            Funnel,
           </b>
-          ,” “
+          ” “
           <b>
-            we
+            we,
           </b>
-          ,” or “
+          ” or “
           <b>
             us
           </b>
@@ -66,7 +66,7 @@ exports[`signed in matches snapshot 1`] = `
         </p>
         <p>
           <b>
-            ACKNOWLEDGMENT. By signing this Acknowledgement and Consent for Electronic Signatures, Disclosures and Notices, you acknowledge that you have read, understood and agree to the above provisions, and request and authorize us to use your electronic signature as well as provide you with records for the account(s) indicated above in an electronic form.
+            ACKNOWLEDGMENT. By clicking agree for this Acknowledgement and Consent for Electronic Signatures, Disclosures and Notices, you acknowledge that you have read, understood and agree to the above provisions, and request and authorize us to use your electronic signature as well as provide you with records for the account(s) indicated above in an electronic form.
           </b>
         </p>
         <p>
@@ -132,11 +132,11 @@ exports[`signed in matches snapshot 1`] = `
                   I certify that I have read and fully understand my rights under the FCRA available at
                    
                   <a
-                    href="https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf"
+                    href="https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf
+                    https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/
                   </a>
                   .
                 </p>
@@ -380,13 +380,13 @@ exports[`signed out matches snapshot 1`] = `
           <p>
             Welcome, and thank you for your interest in Funnel Leasing, Inc. (“
             <b>
-              Funnel
+              Funnel,
             </b>
-            ,” “
+            ” “
             <b>
-              we
+              we,
             </b>
-            ,” or “
+            ” or “
             <b>
               us
             </b>
@@ -429,7 +429,7 @@ exports[`signed out matches snapshot 1`] = `
           </p>
           <p>
             <b>
-              ACKNOWLEDGMENT. By signing this Acknowledgement and Consent for Electronic Signatures, Disclosures and Notices, you acknowledge that you have read, understood and agree to the above provisions, and request and authorize us to use your electronic signature as well as provide you with records for the account(s) indicated above in an electronic form.
+              ACKNOWLEDGMENT. By clicking agree for this Acknowledgement and Consent for Electronic Signatures, Disclosures and Notices, you acknowledge that you have read, understood and agree to the above provisions, and request and authorize us to use your electronic signature as well as provide you with records for the account(s) indicated above in an electronic form.
             </b>
           </p>
           <p>
@@ -495,11 +495,11 @@ exports[`signed out matches snapshot 1`] = `
                     I certify that I have read and fully understand my rights under the FCRA available at
                      
                     <a
-                      href="https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf"
+                      href="https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf
+                      https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/
                     </a>
                     .
                   </p>

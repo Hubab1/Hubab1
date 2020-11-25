@@ -50,8 +50,8 @@ export function TermsPage(props) {
                     <div className="tos-container">
                         <em>Last Updated: November 30, 2020</em>
                         <p>
-                            Welcome, and thank you for your interest in Funnel Leasing, Inc. (“<b>Funnel</b>,” “
-                            <b>we</b>,” or “<b>us</b>”) and our website at https://funnelleasing.com and other services
+                            Welcome, and thank you for your interest in Funnel Leasing, Inc. (“<b>Funnel,</b>” “
+                            <b>we,</b>” or “<b>us</b>”) and our website at https://funnelleasing.com and other services
                             provided by us (collectively, the “Service”). These Terms of Service are a legally binding
                             contract between you and Funnel regarding your use of the Service for the purpose of
                             conducting a rental application and leasing transaction for Client.
@@ -117,10 +117,11 @@ export function TermsPage(props) {
                         </p>
                         <p>
                             <b>
-                                ACKNOWLEDGMENT. By signing this Acknowledgement and Consent for Electronic Signatures,
-                                Disclosures and Notices, you acknowledge that you have read, understood and agree to the
-                                above provisions, and request and authorize us to use your electronic signature as well
-                                as provide you with records for the account(s) indicated above in an electronic form.
+                                ACKNOWLEDGMENT. By clicking agree for this Acknowledgement and Consent for Electronic
+                                Signatures, Disclosures and Notices, you acknowledge that you have read, understood and
+                                agree to the above provisions, and request and authorize us to use your electronic
+                                signature as well as provide you with records for the account(s) indicated above in an
+                                electronic form.
                             </b>
                         </p>
                         <p>
@@ -133,6 +134,7 @@ export function TermsPage(props) {
                             THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. REFERENCES TO “YOU” IN
                             THIS AGREEMENT REFER TO ALL INDIVIDUALS AND LEGAL ENTITIES WHO ACCESS OR USE THE SERVICE.
                         </p>
+
                         <ol>
                             <li>
                                 <b>Essex Terms and Conditions.</b>
@@ -189,9 +191,9 @@ export function TermsPage(props) {
                                             <a
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                href="https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf"
+                                                href="https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/"
                                             >
-                                                https://www.on-site.com/resources/consent/fcraDisclosuresConsent.pdf
+                                                https://www.consumerfinance.gov/policy-compliance/guidance/other-applicable-requirements/fair-credit-reporting-act/model-forms-and-disclosures/
                                             </a>
                                             .
                                         </p>
