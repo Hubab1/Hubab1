@@ -66,7 +66,7 @@ export const HoldingDepositAgreementContainer = ({
                 testMode: testMode,
                 skipDomainVerification: testMode,
                 allowDecline: false,
-                allowCancel: false,
+                allowCancel: true,
             });
         }
     };

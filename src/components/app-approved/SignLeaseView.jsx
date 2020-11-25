@@ -48,8 +48,8 @@ export const SignLeaseView = ({
             hsclient.open(url, {
                 testMode: testMode,
                 skipDomainVerification: testMode,
-                allowCancel: false,
                 allowDecline: false,
+                allowCancel: true,
             });
         }
     };
