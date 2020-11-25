@@ -121,7 +121,7 @@ it('Case onError called', async () => {
     });
     API.updateFinancialSource = jest.fn();
     const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
-    wrapper.instance().setErrorslotf(['Some error']);
+    wrapper.instance().setErrors(['Some error']);
     expect(wrapper.find(GenericFormMessage).length).toBe(1);
     expect(wrapper.find(GenericFormMessage).prop('messages')).toContain('Some error');
 });
