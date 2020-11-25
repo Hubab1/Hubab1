@@ -231,17 +231,22 @@ export function IncomeVerificationSummaryPage(props) {
                 supporting documents.
                 <br />
                 Proof of income includes, but is not limited to, the following:
-                <br />
-                <br />• Proof of current employment (e.g., three most current paystubs within the last 45 or 90 days,
-                depending on the payment cycle);
-                <br />• Prior year tax return;
-                <br />• Proof of receipt of government income (e.g., social security, disability, welfare, unemployment,
-                etc.);
-                <br />• Proof of receipt of retirement and/or investment income;
-                <br />• Proof of US based assets;
-                <br />• Student loan income;
-                <br />• Child/spousal support
-                <br />• Any other legal, verifiable income.
+                <ul>
+                    <li>
+                        Proof of current employment (e.g., three most current paystubs within the last 45 or 90 days,
+                        depending on the payment cycle);
+                    </li>
+                    <li>Prior year tax return;</li>
+                    <li>
+                        Proof of receipt of government income (e.g., social security, disability, welfare, unemployment,
+                        etc.);
+                    </li>
+                    <li>Proof of receipt of retirement and/or investment income;</li>
+                    <li>Proof of US based assets;</li>
+                    <li>Student loan income;</li>
+                    <li>Child/spousal support</li>
+                    <li>Any other legal, verifiable income.</li>
+                </ul>
             </>
         );
     };
