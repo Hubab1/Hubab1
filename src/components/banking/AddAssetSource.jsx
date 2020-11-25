@@ -17,9 +17,7 @@ import piggyBank from 'assets/images/piggy-bank.png';
 const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +
     'Be sure to use documents with unique filenames and refrain from renaming them during the upload process. ' +
-    'If you continue to have issues, please contact an agent or try again later.'
-;
-
+    'If you continue to have issues, please contact an agent or try again later.';
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
