@@ -1,18 +1,22 @@
 import React, { useState, useContext } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { BackLink } from 'components/common/BackLink';
-import { H1, H3, Spacer } from 'assets/styles';
-import piggyBank from 'assets/images/piggy-bank.png';
-import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
+
 import API from 'app/api';
+import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
+import { getFinancialSourceRequestBody, postSourcesFailedBecauseOfFiles } from 'utils/misc';
+
+import { H1, H3, Spacer } from 'assets/styles';
+import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
-import PropTypes from 'prop-types';
-import { getFinancialSourceRequestBody } from 'utils/misc';
-import { connect } from 'react-redux';
+import piggyBank from 'assets/images/piggy-bank.png';
 
 const ERROR_UPLOAD = 'Oops! We had some trouble uploading your files. Please try again in a little bit.';
+const ERROR_UPLOAD_FILES =
+    "Sorry we can't seem to find your file. Please use documents with unique filenames and refrain from renaming them during the upload process";
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -30,11 +34,12 @@ export const Img = styled.img`
 export function AddAssetSource(props) {
     const context = useContext(BankingContext);
     const [errors, setErrors] = useState([]);
-    const onSubmit = async (values, { setErrors, setSubmitting }) => {
+
+    const onSubmit = async (values, { setErrors: setFormErrors, setSubmitting }) => {
         setSubmitting(true);
         setErrors([]);
 
-        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_ASSET, props.vgsEnabled);
+        const formData = getFinancialSourceRequestBody(values, props.vgsEnabled);
 
         let response;
         try {
@@ -43,15 +48,22 @@ export function AddAssetSource(props) {
             setErrors([ERROR_UPLOAD]);
             return setSubmitting(false);
         }
+
         if (response.status !== 200) {
-            const errors = await response.json();
-            if (errors) {
-                setErrors(errors);
+            if (postSourcesFailedBecauseOfFiles(values, errors)) {
+                setErrors([ERROR_UPLOAD_FILES]);
+            } else {
+                if (errors) {
+                    setFormErrors(errors);
+                }
+
+                setErrors([ERROR_UPLOAD]);
             }
+
             setSubmitting(false);
-            setErrors([ERROR_UPLOAD]);
             return;
         }
+
         context.refreshFinancialSources();
         props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
         setSubmitting(false);
@@ -66,7 +78,10 @@ export function AddAssetSource(props) {
             <Img alt="piggy bank" src={piggyBank} />
             <Spacer height={30} />
             <AddFinancialSourceForm
-                initialValues={props.initialValues}
+                initialValues={{
+                    ...props.initialValues,
+                    stream_type: FINANCIAL_STREAM_ASSET,
+                }}
                 financialType={FINANCIAL_STREAM_ASSET}
                 onSubmit={onSubmit}
                 setError={(err) => setErrors(err)}
