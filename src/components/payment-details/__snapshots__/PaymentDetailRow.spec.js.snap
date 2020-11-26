@@ -96,6 +96,7 @@ exports[`PaymentDetailRow should render rentable item concession correctly 1`] =
     October Parking, Storage, Other Monthly Charge Concession: 12 days at $18,33/day
   </div>
   <div>
+    -
     $
     123
   </div>
