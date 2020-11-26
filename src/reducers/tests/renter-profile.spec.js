@@ -9,6 +9,7 @@ import {
     APPLICATION_STATUS_CANCELED,
     MILESTONE_APPLICANT_SUBMITTED,
     EVENT_LEASE_TERMS_COMPLETED,
+    MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
@@ -263,7 +264,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.MILESTONE_FINANCIAL_STREAM_INCOMPLETE }],
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED }],
             },
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
