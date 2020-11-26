@@ -16,6 +16,7 @@ export function PaymentDetailRows({ paymentObject, paymentType }) {
             perDay={item.per_day}
             prorated={item.prorated}
             days={item.days}
+            exempted={item.exempted}
         />
     ));
 
@@ -46,12 +47,13 @@ export const PaymentDetailRow = ({
     prorated,
     days,
     perDay,
+    exempted,
 }) => {
     if (!quantity) return null;
 
     return (
         <div className={className}>
-            <div>{getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay)}</div>
+            <div>{getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay, exempted)}</div>
             <div>${paymentTotal}</div>
         </div>
     );
@@ -67,10 +69,20 @@ PaymentDetailRow.propTypes = {
     prorated: PropTypes.bool,
     days: PropTypes.number,
     perDay: PropTypes.string,
+    exempted: PropTypes.number,
 };
 
 // This should match the logic in chuck
-export function getRentalOptionFeeDisplayName(name, price, quantity = 1, included = 0, prorated, days, perDay) {
+export function getRentalOptionFeeDisplayName(
+    name,
+    price,
+    quantity = 1,
+    included = 0,
+    prorated,
+    days,
+    perDay,
+    exempted = 0
+) {
     if (quantity < 1) return null;
 
     const feesBreakdown = [];
@@ -79,13 +91,17 @@ export function getRentalOptionFeeDisplayName(name, price, quantity = 1, include
         feesBreakdown.push(`${num_included} incl.`);
     }
 
-    const num_charged = quantity > included ? quantity - included : 0;
-    if (num_charged > 0 && quantity > 1 && !prorated) {
+    if (exempted) {
+        feesBreakdown.push(`${exempted} service animal${exempted > 1 ? 's' : ''}`);
+    }
+
+    const uncharged_quantity = included + exempted;
+    const num_charged = quantity > uncharged_quantity ? quantity - uncharged_quantity : 0;
+    if ((num_charged > 0 || exempted > 0) && quantity > 1 && !prorated) {
         feesBreakdown.push(`${num_charged} x $${price}`);
     }
 
     let displayName = `${getPaymentItemName(name)}`;
-
     const daysPlural = days > 1 ? 's' : '';
 
     if (prorated && num_charged > 0 && quantity > 0) {

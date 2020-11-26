@@ -169,4 +169,27 @@ describe('PaymentDetailRow', () => {
         const wrapper = shallow(<PaymentDetailRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
+
+    it('should render service animal options', () => {
+        const props = {
+            name: 'Dogs',
+            paymentTotal: '0',
+            quantity: 5,
+            price: '100',
+            included: 1,
+            exempted: 5
+        };
+        const wrapper = shallow(<PaymentDetailRow {...props} />);
+
+        // included > quantity + exempted
+        expect(wrapper.getElement()).toMatchSnapshot();
+
+        // included = quantity + exempted
+        wrapper.setProps({quantity: 6});
+        expect(wrapper.getElement()).toMatchSnapshot();
+
+        // included < quantity + exempted
+        wrapper.setProps({quantity: 10, paymentTotal: '300'});
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
 });
