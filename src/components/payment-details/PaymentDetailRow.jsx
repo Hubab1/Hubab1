@@ -53,7 +53,9 @@ export const PaymentDetailRow = ({
 
     return (
         <div className={className}>
-            <div>{getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay, exempted)}</div>
+            <div>
+                {getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay, exempted)}
+            </div>
             <div>${paymentTotal}</div>
         </div>
     );

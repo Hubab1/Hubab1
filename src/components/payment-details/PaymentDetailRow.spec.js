@@ -177,7 +177,7 @@ describe('PaymentDetailRow', () => {
             quantity: 5,
             price: '100',
             included: 1,
-            exempted: 5
+            exempted: 5,
         };
         const wrapper = shallow(<PaymentDetailRow {...props} />);
 
@@ -185,11 +185,11 @@ describe('PaymentDetailRow', () => {
         expect(wrapper.getElement()).toMatchSnapshot();
 
         // included = quantity + exempted
-        wrapper.setProps({quantity: 6});
+        wrapper.setProps({ quantity: 6 });
         expect(wrapper.getElement()).toMatchSnapshot();
 
         // included < quantity + exempted
-        wrapper.setProps({quantity: 10, paymentTotal: '300'});
+        wrapper.setProps({ quantity: 10, paymentTotal: '300' });
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });
