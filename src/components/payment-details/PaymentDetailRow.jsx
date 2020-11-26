@@ -94,7 +94,7 @@ export function getRentalOptionFeeDisplayName(
     }
 
     if (exempted) {
-        feesBreakdown.push(`${exempted} service animal${exempted > 1 ? 's' : ''}`);
+        feesBreakdown.push(`${exempted} service animal${exempted > 1 ? 's' : ''} incl.`);
     }
 
     const uncharged_quantity = included + exempted;

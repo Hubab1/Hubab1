@@ -105,7 +105,7 @@ exports[`PaymentDetailRow should render rentable item concession correctly 1`] =
 exports[`PaymentDetailRow should render service animal options 1`] = `
 <div>
   <div>
-    Dogs (1 incl., 5 service animals, 0 x $100)
+    Dogs (1 incl., 5 service animals incl., 0 x $100)
   </div>
   <div>
     $
@@ -117,7 +117,7 @@ exports[`PaymentDetailRow should render service animal options 1`] = `
 exports[`PaymentDetailRow should render service animal options 2`] = `
 <div>
   <div>
-    Dogs (1 incl., 5 service animals, 0 x $100)
+    Dogs (1 incl., 5 service animals incl., 0 x $100)
   </div>
   <div>
     $
@@ -129,7 +129,7 @@ exports[`PaymentDetailRow should render service animal options 2`] = `
 exports[`PaymentDetailRow should render service animal options 3`] = `
 <div>
   <div>
-    Dogs (1 incl., 5 service animals, 4 x $100)
+    Dogs (1 incl., 5 service animals incl., 4 x $100)
   </div>
   <div>
     $
