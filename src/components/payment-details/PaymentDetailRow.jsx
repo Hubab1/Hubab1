@@ -3,6 +3,8 @@ import React from 'react';
 import { styles } from './styles';
 import { getPaymentItemName } from 'utils/misc';
 
+export const TYPE_CONCESSION = 'concession';
+
 export function PaymentDetailRows({ paymentObject, paymentType }) {
     const rows = paymentObject.items.map((item) => (
         <PaymentDetailRow
@@ -17,6 +19,7 @@ export function PaymentDetailRows({ paymentObject, paymentType }) {
             prorated={item.prorated}
             days={item.days}
             exempted={item.exempted}
+            type={item.type}
         />
     ));
 
@@ -48,6 +51,7 @@ export const PaymentDetailRow = ({
     days,
     perDay,
     exempted,
+    type,
 }) => {
     if (!quantity) return null;
 
@@ -56,7 +60,9 @@ export const PaymentDetailRow = ({
             <div>
                 {getRentalOptionFeeDisplayName(name, price, quantity, included, prorated, days, perDay, exempted)}
             </div>
-            <div>${paymentTotal}</div>
+            <div>
+                {type === TYPE_CONCESSION && `-`}${paymentTotal}
+            </div>
         </div>
     );
 };

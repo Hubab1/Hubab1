@@ -165,6 +165,7 @@ describe('PaymentDetailRow', () => {
             perDay: '18,33',
             days: 12,
             className: 'paymentRow',
+            type: 'concession',
         };
         const wrapper = shallow(<PaymentDetailRow {...props} />);
         expect(wrapper.getElement()).toMatchSnapshot();
