@@ -134,7 +134,8 @@ export class LeaseTermsPage extends React.Component {
 
     render() {
         if (!this.props.application) return null;
-        const { isPrimaryApplicant } = this.props;
+        const { isPrimaryApplicant, hasOutstandingBalance } = this.props;
+        const contactPhone = prettyFormatPhoneNumber(this.props.config.community.contact_phone);
 
         return (
             <Fragment>
@@ -144,9 +145,13 @@ export class LeaseTermsPage extends React.Component {
                 {this.state.hasError && (
                     <GenericFormMessage
                         type="error"
-                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${prettyFormatPhoneNumber(
-                            this.props.config.community.contact_phone
-                        )} if this still isn’t working in a bit.`}
+                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
+                    />
+                )}
+                {!hasOutstandingBalance && (
+                    <GenericFormMessage
+                        type="error"
+                        messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
                     />
                 )}
                 <ImageContainer>
@@ -180,7 +185,7 @@ export class LeaseTermsPage extends React.Component {
                                             label="Move In Date"
                                             value={values.lease_start_date || null}
                                             fullWidth
-                                            disabled={!isPrimaryApplicant}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
                                             onBlur={handleBlur}
                                             onChange={(value) => {
                                                 setFieldValue('lease_start_date', value);
@@ -205,7 +210,7 @@ export class LeaseTermsPage extends React.Component {
                                             helperText={submitCount >= 1 && errors.unit}
                                             leaseStartDate={values.lease_start_date}
                                             errors={errors}
-                                            disabled={!isPrimaryApplicant}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
                                             value={values.unit}
                                         />
                                     </Grid>
@@ -214,7 +219,7 @@ export class LeaseTermsPage extends React.Component {
                                             unitId={values.unit?.id}
                                             leaseTerm={values.lease_term}
                                             handleChange={handleChange}
-                                            isPrimaryApplicant={isPrimaryApplicant}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
                                             leaseStartDate={values.lease_start_date}
                                         />
                                     </Grid>
@@ -256,6 +261,7 @@ export class LeaseTermsPage extends React.Component {
 
 LeaseTermsPage.propTypes = {
     isPrimaryApplicant: PropTypes.bool,
+    hasOutstandingBalance: PropTypes.bool,
     application: PropTypes.object,
     config: PropTypes.object,
     pageComplete: PropTypes.func,
@@ -265,6 +271,7 @@ LeaseTermsPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
+    hasOutstandingBalance: state.applicant?.outstanding_balances?.length > 0,
     application: state.renterProfile,
     config: state.configuration,
 });
