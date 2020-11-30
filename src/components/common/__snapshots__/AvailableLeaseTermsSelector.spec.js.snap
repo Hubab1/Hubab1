@@ -11,7 +11,6 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
       Lease Term
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
-      disabled={false}
       fullWidth={true}
       inputProps={
         Object {

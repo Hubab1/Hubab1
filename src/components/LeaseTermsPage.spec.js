@@ -2,11 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { addDays, subDays, format } from 'date-fns';
 import { Formik } from 'formik';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import { LeaseTermsPage, leaseTermsValidationSchema } from './LeaseTermsPage';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import PriceBreakdown from './profile/options/PriceBreakdown';
 import GenericFormDetail from './common/GenericFormMessage';
+import AvailableUnitsSelector from './common/AvailableUnitsSelector';
+import AvailableLeaseTermsSelector from 'components/common/AvailableLeaseTermsSelector';
 
 let defaultProps, updateRenterProfile;
 beforeEach(() => {
@@ -21,6 +24,7 @@ beforeEach(() => {
             leasing_pricing_disclaimer: 'test disclaimer',
         },
         isPrimaryApplicant: true,
+        hasOutstandingBalance: true,
         updateRenterProfile: updateRenterProfile,
         _nextRoute: jest.fn(),
         applicant: {
@@ -224,4 +228,38 @@ it('displays error when hasError=true', function () {
     expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
         "Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit."
     );
+});
+
+it('displays error when !hasOutstandingBalance', function () {
+    defaultProps.hasOutstandingBalance = false;
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+    expect(wrapper.find(GenericFormDetail).length).toBe(1);
+    expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
+        "Please call us at 555‑555‑5555 if you'd like to make any changes to your lease details."
+    );
+});
+
+it('disables form fields when !hasOutstandingBalance', function () {
+    defaultProps.hasOutstandingBalance = false;
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+    const formik = wrapper.find(Formik).dive();
+
+    const keyboardDatePicker = formik.find(KeyboardDatePicker);
+    expect(keyboardDatePicker.props().disabled).toBe(true);
+    const availableUnitsSelector = formik.find(AvailableUnitsSelector);
+    expect(availableUnitsSelector.props().disabled).toBe(true);
+    const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
+    expect(availableLeaseTermsSelector.props().disabled).toBe(true);
+});
+
+it('does not disable form fields when has hasOutstandingBalance and primaryApplicant', function () {
+    const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+    const formik = wrapper.find(Formik).dive();
+
+    const keyboardDatePicker = formik.find(KeyboardDatePicker);
+    expect(keyboardDatePicker.props().disabled).toBe(false);
+    const availableUnitsSelector = formik.find(AvailableUnitsSelector);
+    expect(availableUnitsSelector.props().disabled).toBe(false);
+    const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
+    expect(availableLeaseTermsSelector.props().disabled).toBe(false);
 });
