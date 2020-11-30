@@ -86,7 +86,7 @@ AddAssetSource.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    vgsEnabled: state.configuration.enable_vgs_encryption,
+    vgsEnabled: !state.configuration.use_demo_config,
 });
 
 export default connect(mapStateToProps)(AddAssetSource);
