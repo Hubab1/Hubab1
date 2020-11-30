@@ -83,7 +83,7 @@ AddIncomeSource.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    vgsEnabled: !state.configuration.use_demo_config,
+    vgsEnabled: state.configuration.enable_vgs_encryption,
 });
 
 export default connect(mapStateToProps)(AddIncomeSource);
