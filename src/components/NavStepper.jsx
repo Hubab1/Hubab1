@@ -64,7 +64,7 @@ export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
     const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
-    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.initialPage);
+    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.defaultInitialPage);
     const unitUnavailable = props.renterProfile?.unit_available === false;
     const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
 
@@ -227,6 +227,7 @@ VerticalLinearStepper.propTypes = {
     navRoutes: PropTypes.array,
     currentRoute: PropTypes.string,
     initialPage: PropTypes.string,
+    defaultInitialPage: PropTypes.string,
     renterProfile: PropTypes.object,
     history: PropTypes.object,
     config: PropTypes.object,
@@ -243,6 +244,7 @@ const mapStateToProps = (state) => ({
     navRoutes: selectors.selectNav(state),
     currentRoute: state.siteConfig.currentRoute,
     initialPage: selectors.selectInitialPage(state),
+    defaultInitialPage: selectors.selectDefaultInitialPage(state),
     applicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
     guarantorRequested: selectors.selectGuarantorRequested(state),
     renterProfile: state.renterProfile,

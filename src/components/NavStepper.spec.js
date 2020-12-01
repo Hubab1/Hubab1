@@ -77,6 +77,7 @@ describe('Application submitted state', function () {
                     contact_phone: '123-456-7891',
                 },
             },
+            handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg = wrapper.find('.appCompletedMsg');
@@ -120,6 +121,7 @@ describe('Unit unavailable state', function () {
                     contact_phone: '123-456-7891',
                 },
             },
+            handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg = wrapper.find('.unitUnavailableMsg');
@@ -145,6 +147,7 @@ describe('Unit unavailable state', function () {
                 push: jest.fn(),
             },
             initialPage: ROUTES.UNIT_UNAVAILABLE,
+            handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
@@ -162,6 +165,7 @@ describe('Outstanding balance state', function () {
                 },
             },
             initialPage: ROUTES.OUTSTANDING_BALANCE,
+            handleDrawerClose: jest.fn(),
         };
 
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
@@ -185,6 +189,7 @@ describe('Guarantor requested state', function () {
             },
             initialPage: '/guarantor_request',
             guarantorRequested: true,
+            handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const appCompletedMsg = wrapper.find('.appCompletedMsg');
@@ -207,6 +212,7 @@ describe('Guarantor requested state', function () {
             },
             initialPage: '/guarantor_request',
             guarantorRequested: true,
+            handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
