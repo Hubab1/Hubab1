@@ -65,7 +65,7 @@ export default function AvailableLeaseTermsSelector(props) {
                     fullWidth
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
-                    disabled={!props.isPrimaryApplicant}
+                    disabled={props.disabled}
                     inputProps={{
                         name: 'lease_term',
                         id: 'lease-term',
@@ -83,6 +83,6 @@ AvailableLeaseTermsSelector.propTypes = {
     unitId: PropTypes.number,
     leaseTerm: PropTypes.any,
     handleChange: PropTypes.func.isRequired,
-    isPrimaryApplicant: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
     leaseStartDate: PropTypes.any,
 };

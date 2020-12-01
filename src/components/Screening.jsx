@@ -228,7 +228,7 @@ Screening.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
-    vgsEnabled: state.configuration.enable_vgs_encryption,
+    vgsEnabled: !state.configuration.use_demo_config,
     buildingName:
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,
 });
