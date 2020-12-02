@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import pluralize from 'pluralize';
@@ -55,7 +55,8 @@ function PriceBreakdown(props) {
     const [hasError, setHasError] = useState(false);
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
-    useEffect(() => {
+    // TODO: use callback
+    const fetchQuote = useCallback(async () => {
         const body = {
             application: props.application.id,
             rental_options: props.selectedOptions,
@@ -63,22 +64,22 @@ function PriceBreakdown(props) {
             lease_term: props.leaseTerm,
             move_in_date: serializeDate(props.moveInDate),
         };
-        API.getCurrentFlatQuote(body)
-            .then((result) => {
-                if (result.errors) {
-                    props.onError && props.onError(result.errors);
-                    setHasError(true);
-                    return;
-                }
-                props.onSuccess && props.onSuccess(result);
-                setHasError(false);
-                setPriceBreakdown(result);
-                setIsLoading(false);
-            })
-            .catch(() => {
-                props.onError && props.onError();
+        try {
+            const result = await API.getCurrentFlatQuote(body)
+            if (result.errors) {
+                props.onError && props.onError(result.errors);
                 setHasError(true);
-            });
+                return;
+            }
+            props.onSuccess && props.onSuccess(result);
+            setHasError(false);
+            setPriceBreakdown(result);
+            setIsLoading(false);
+        } catch {
+            props.onError && props.onError();
+            setHasError(true);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         props.application.id,
@@ -86,6 +87,18 @@ function PriceBreakdown(props) {
         props.unitId,
         props.leaseTerm,
         props.moveInDate,
+        // props.lastChange, // <- hack to trigger effect when this prop changes
+    ]);
+
+    // Bind fetch quote so it can be triggered from outside this component
+    props.bindFetchQuote && props.bindFetchQuote(fetchQuote);
+
+    useEffect(() => {
+        (async () => {
+            fetchQuote();
+        })();
+    }, [
+        fetchQuote
     ]);
 
     const getCurrentCategoryInfo = () => {
@@ -181,7 +194,9 @@ PriceBreakdown.propTypes = {
     moveInDate: PropTypes.any,
     onError: PropTypes.func,
     onSuccess: PropTypes.func,
+    bindFetchQuote: PropTypes.func,
     name: PropTypes.string,
+    // lastChange: PropTypes.number,
 };
 
 export default PriceBreakdown;
