@@ -7,9 +7,17 @@ import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 import groupBy from 'lodash/groupBy';
 
+import {
+    ROUTES,
+    RENTAL_OPTIONS_PETS_DOGS,
+    RENTAL_OPTIONS_PETS_CATS,
+    RENTAL_OPTIONS_PETS_OTHER,
+    RENTER_PROFILE_TYPE_PETS,
+} from 'app/constants';
 import { H1, P, SpacedH3 } from 'assets/styles';
 import { viewPetPolicy as viewPetPolicyClassName, petsImageMargin, policyDiv } from './styles';
 import { updateRenterProfile } from 'reducers/renter-profile';
+import { rentalOptionsInitialValues } from 'utils/misc';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
@@ -17,9 +25,7 @@ import PetRestrictions from 'components/profile/pets/PetRestrictions';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
-import {
-    ROUTES, RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER, RENTER_PROFILE_TYPE_PETS,
-} from 'app/constants';
+import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 
 export const petsSchema = (config) => Yup.object().shape({
     petOptions: Yup.array().of(
@@ -49,10 +55,12 @@ export const petsSchema = (config) => Yup.object().shape({
     )
 });
 
-const FIRST_PET = { key:'first-pet', service_animal: 'false' };
-const PET_PLACEHOLDER = { key:'pet-placeholder', service_animal: 'false' };
+const FIRST_PET = { key: 'first-pet', service_animal: 'false' };
+const PET_PLACEHOLDER = { key: 'pet-placeholder', service_animal: 'false' };
 
 export class PetsPage extends React.Component {
+    _fetchQuote = undefined;
+
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
@@ -61,29 +69,62 @@ export class PetsPage extends React.Component {
 
     emptyPetFilter = (petOption) => {
         const keys = Object.keys(petOption);
-        return !(
-            keys.length === 2 && petOption[keys[0]] === PET_PLACEHOLDER.key
-            && petOption[keys[1]] === PET_PLACEHOLDER.service_animal
-        );
+
+        if (
+            keys.length === 2 &&
+            (petOption[keys[0]] === FIRST_PET.key || petOption[keys[0]] === PET_PLACEHOLDER.key) &&
+            (petOption[keys[1]] === FIRST_PET.service_animal || petOption[keys[0]] === PET_PLACEHOLDER.service_animal)
+        ) {
+            return true
+        }
+
+        return false
     };
 
     serializePetsForPost = (petOptions) => {
         const petRentalOptions = this.props.configuration.rental_options.pets;
 
         const groupedPets = groupBy(petOptions, 'pet_type');
-        const selectedRentalOptionsArray = Object.entries(groupedPets).reduce((selectedRentalOptions, petType) => {
-            const selectedPetType = petType[0];
-            const petsObject = petType[1];
-            const rentalOptionId = petRentalOptions.find(option => option.leasing_category === selectedPetType).id;
-            const formattedSelectedOption = { rental_option: {id: parseInt(rentalOptionId)}, quantity: petsObject.length, leasing_context: {pets: petsObject}};
-            return [...selectedRentalOptions, formattedSelectedOption];
+        const selectedRentalOptionsArray = Object
+            .entries(groupedPets)
+            .reduce((selectedRentalOptions, petType) => {
+                const selectedPetType = petType[0];
+                const petsObject = petType[1];
+                const rentalOptionId = petRentalOptions.find(option => option.leasing_category === selectedPetType)?.id;
+
+                if (rentalOptionId) {
+                    const amountOfAnimals = petsObject.length;
+                    const amountOfServiceAnimals = petsObject.filter(p => p.service_animal === true || p.service_animal === "true").length;
+
+                    const formattedSelectedOption = {
+                        rental_option: {
+                            id: parseInt(rentalOptionId)
+                        },
+                        quantity: amountOfAnimals,
+                        exempted: amountOfServiceAnimals,
+                        leasing_context: {
+                            pets: petsObject
+                        }
+                    };
+                    return [...selectedRentalOptions, formattedSelectedOption];
+                }
+
+                return selectedRentalOptions
         }, []);
 
         // need to add a selected rental option with zero if none are selected to handle removal
         petRentalOptions.forEach(rentalOption => {
             const rentalOptionId = parseInt(rentalOption.id);
             if (!selectedRentalOptionsArray.find(option => option.rental_option.id === rentalOptionId)) {
-                selectedRentalOptionsArray.push({ rental_option: {id: rentalOptionId}, quantity: 0, leasing_context: {pets: []}});
+                selectedRentalOptionsArray.push({
+                    rental_option: {
+                        id: rentalOptionId
+                    },
+                    quantity: 0,
+                    leasing_context: {
+                        pets: []
+                    }
+                });
             }
         });
 
@@ -91,20 +132,20 @@ export class PetsPage extends React.Component {
     };
 
     toggleViewPetPolicy = () => {
-        this.setState({viewPetPolicy: !this.state.viewPetPolicy});
+        this.setState({ viewPetPolicy: !this.state.viewPetPolicy });
     };
 
     toggleViewPetRestrictions = () => {
-        this.setState({viewPetRestrictions: !this.state.viewPetRestrictions});
+        this.setState({ viewPetRestrictions: !this.state.viewPetRestrictions });
     };
 
     onSubmit = (values, { setSubmitting }) => {
         const pets = this.serializePetsForPost(values.petOptions.filter(this.emptyPetFilter));
-        this.props.updateRenterProfile({selected_rental_options: pets}).then(() => {
+        this.props.updateRenterProfile({ selected_rental_options: pets }).then(() => {
             setSubmitting(false);
             this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
         }).catch((res) => {
-            this.setState({errors: res.errors});
+            this.setState({ errors: res.errors });
             setSubmitting(false);
         });
     };
@@ -116,6 +157,26 @@ export class PetsPage extends React.Component {
             arrayHelpers.push(PET_PLACEHOLDER);
         }
     };
+
+    handleBindFetchQuote = (fetchQuote) => {
+        this._fetchQuote = fetchQuote;
+    };
+
+    getPriceBreakdownSelectedOptions = (values) => {
+        const selectedRentalOptionsArray = this.serializePetsForPost(values.petOptions);
+        const selectedRentalOptions = rentalOptionsInitialValues(
+            selectedRentalOptionsArray,
+            this.props.configuration.rental_options['pets'] || []
+        )
+
+        return selectedRentalOptions;
+
+        // TODO: cleanup
+        return {
+            selectedOptions: selectedRentalOptions,
+            lastChange: new Date().getTime(),
+        }
+    }
 
     render () {
         if (!this.props.profile || !this.props.configuration) return null;
@@ -130,6 +191,7 @@ export class PetsPage extends React.Component {
         }
 
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [FIRST_PET];
+
         return (
             <Fragment>
                 <div className={clsx({'hide-element': (viewPetPolicy || viewPetRestrictions)})}>
@@ -158,7 +220,9 @@ export class PetsPage extends React.Component {
                             dirty,
                         }) => {
                             const disableSubmit = !dirty || isSubmitting;
+                            const firstPetIsEmpty = this.emptyPetFilter(values.petOptions[0])
                             const submitLabel = values.petOptions.length === 1 && values.petOptions[0].key === 'first-pet' ? 'Add Pet' : 'Save Changes';
+                            const showPaymentBreakdown = values.petOptions.length > 0 && !firstPetIsEmpty;
 
                             return (
                                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
@@ -192,8 +256,21 @@ export class PetsPage extends React.Component {
                                                 }
                                                 <AddAnotherButton
                                                     thing="Pet"
-                                                    onClick={() => arrayHelpers.push({key: uuidv4()})}
+                                                    onClick={() => arrayHelpers.push({ key: uuidv4() })}
                                                 />
+
+                                                <br />
+                                                <br />
+
+                                                {showPaymentBreakdown && (
+                                                    <PriceBreakdown
+                                                        category={'Pets'}
+                                                        categoryHelperText={'pets'}
+                                                        application={this.props.application}
+                                                        bindFetchQuote={this.handleBindFetchQuote}
+                                                        selectedOptions={this.getPriceBreakdownSelectedOptions(values)}
+                                                    />
+                                                )}
                                             </div>
                                         )}
                                     />
@@ -210,14 +287,14 @@ export class PetsPage extends React.Component {
                     </Formik>
                     <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`}/>
                 </div>
-                { viewPetPolicy &&
+                {viewPetPolicy &&
                     <PetPolicy
                         date="April 2019"
                         policy={community.pets_notes}
                         onAgree={this.toggleViewPetPolicy}
                     />
                 }
-                { viewPetRestrictions &&
+                {viewPetRestrictions &&
                     <PetRestrictions
                         breedPolicy={community.pets_restrictions}
                         contactPhone={community.contact_phone}
@@ -231,6 +308,7 @@ export class PetsPage extends React.Component {
 
 PetsPage.propTypes = {
     profile: PropTypes.object,
+    application: PropTypes.object,
     configuration: PropTypes.object,
     updateRenterProfile: PropTypes.func,
     history: PropTypes.object,
@@ -238,7 +316,8 @@ PetsPage.propTypes = {
 
 const mapStateToProps = state => ({
     profile: state.renterProfile,
-    configuration: state.configuration
+    configuration: state.configuration,
+    application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, {updateRenterProfile})(PetsPage);
+export default connect(mapStateToProps, { updateRenterProfile })(PetsPage);
