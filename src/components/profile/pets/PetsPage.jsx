@@ -65,8 +65,6 @@ const FIRST_PET = { key: 'first-pet', service_animal: 'false' };
 const PET_PLACEHOLDER = { key: 'pet-placeholder', service_animal: 'false' };
 
 export class PetsPage extends React.Component {
-    _fetchQuote = undefined;
-
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
@@ -179,10 +177,6 @@ export class PetsPage extends React.Component {
         }
     };
 
-    handleBindFetchQuote = (fetchQuote) => {
-        this._fetchQuote = fetchQuote;
-    };
-
     getPriceBreakdownSelectedOptions = (values) => {
         const selectedRentalOptionsArray = this.serializePetsForPost(values.petOptions);
         return rentalOptionsInitialValues(
@@ -280,7 +274,6 @@ export class PetsPage extends React.Component {
                                                         category={'Pets'}
                                                         categoryHelperText={'pets'}
                                                         application={this.props.application}
-                                                        bindFetchQuote={this.handleBindFetchQuote}
                                                         selectedOptions={this.getPriceBreakdownSelectedOptions(values)}
                                                     />
                                                 )}
