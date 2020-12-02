@@ -13,7 +13,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'app/constants';
-import { P, LinkButton } from 'assets/styles';
+import { P, LinkButton, infoIconRoot } from 'assets/styles';
+import Info from '@material-ui/icons/Info';
+import SimplePopover from '../common/SimplePopover';
 
 const root = css`
     border-radius: 21.5px !important;
@@ -23,6 +25,16 @@ const root = css`
 const label = css`
     text-transform: none;
     font-size: 16px;
+`;
+
+const singleProofLabel = css`
+    margin: 15px 6px 48px 0;
+`;
+
+const multiProofContainer = css`
+    .MuiFormControlLabel-root {
+        margin-right: 6px;
+    }
 `;
 
 const UploadButtonContainer = styled.div`
@@ -302,7 +314,12 @@ export class UploadDocuments extends React.Component {
                 {this.getTitle()}
                 {requireAll || documentRequired.proof_documents.length === 1 ? (
                     <>
-                        <P margin="15px 0 48px 0">{this.getProofsLabel()}</P>
+                        <div>
+                            <span className={singleProofLabel}>{this.getProofsLabel()}</span>
+                            <SimplePopover text={documentRequired.proof_documents[0].description}>
+                                <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                            </SimplePopover>
+                        </div>
                         {this.displayUploadedDocuments()}
                         <UploadButtonContainer marginTop={48} marginBottom={51}>
                             {documentRequired.proof_documents.map((doc) => (
@@ -340,16 +357,25 @@ export class UploadDocuments extends React.Component {
                                 name="documents"
                                 value={selectedDocumentIndex}
                                 onChange={this.handleChange}
+                                className={multiProofContainer}
                             >
                                 {documentRequired.proof_documents.map((doc, index) => (
-                                    <FormControlLabel
-                                        key={doc.id}
-                                        id={`radioButton${doc.id}`}
-                                        value={index}
-                                        control={<Radio />}
-                                        label={this.startCase(doc.label)}
-                                        disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
-                                    />
+                                    <div>
+                                        <FormControlLabel
+                                            key={doc.id}
+                                            id={`radioButton${doc.id}`}
+                                            value={index}
+                                            control={<Radio />}
+                                            label={this.startCase(doc.label)}
+                                            disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
+                                        />
+                                        <SimplePopover text={doc.description}>
+                                            <Info
+                                                classes={{ root: infoIconRoot }}
+                                                style={{ color: '#828796', width: 16 }}
+                                            />
+                                        </SimplePopover>
+                                    </div>
                                 ))}
                             </RadioGroup>
                         </FormControl>
