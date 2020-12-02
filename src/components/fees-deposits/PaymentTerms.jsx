@@ -57,7 +57,7 @@ export const PaymentTerms = ({
                     </BodyP>
                     <BodyP>
                         <b>1)</b> If accepted, the Holding Deposit shall be applied to the security deposit due at
-                        move-in
+                        move-in.
                     </BodyP>
                     <BodyP>
                         <b>2)</b> Applicants shall have{' '}
