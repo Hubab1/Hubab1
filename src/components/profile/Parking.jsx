@@ -32,7 +32,7 @@ export const Parking = (props) => {
         setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
         Object.entries(values).forEach((option) => {
-            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1] });
+            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1].quantity });
         });
         const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
 
@@ -72,7 +72,7 @@ export const Parking = (props) => {
                 onSubmit={onSubmit}
                 initialValues={rentalOptionsInitialValues(initialParkingOptions, parkingOptions)}
             >
-                {({ values, handleSubmit, setValues, dirty, isSubmitting }) => (
+                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
                     <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                         {errorSubmitting && (
                             <GenericFormMessage
@@ -88,9 +88,7 @@ export const Parking = (props) => {
                                 value={values[option.id].quantity}
                                 limit={option.limit}
                                 onChange={(e) => {
-                                    const newValues = { ...values };
-                                    newValues[option.id].quantity = e;
-                                    setValues(newValues);
+                                    setFieldValue(`[${option.id}].quantity`, e);
                                 }}
                             />
                         ))}
