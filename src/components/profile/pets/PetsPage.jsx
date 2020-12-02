@@ -1,23 +1,23 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import clsx from  'clsx';
-import { Formik, FieldArray } from 'formik';
+import {connect} from 'react-redux';
+import clsx from 'clsx';
+import {FieldArray, Formik} from 'formik';
 import * as Yup from 'yup';
 import uuidv4 from 'uuid/v4';
 import groupBy from 'lodash/groupBy';
 
 import {
-    ROUTES,
-    RENTAL_OPTIONS_PETS_DOGS,
     RENTAL_OPTIONS_PETS_CATS,
+    RENTAL_OPTIONS_PETS_DOGS,
     RENTAL_OPTIONS_PETS_OTHER,
     RENTER_PROFILE_TYPE_PETS,
+    ROUTES,
 } from 'app/constants';
-import { H1, P, SpacedH3 } from 'assets/styles';
-import { viewPetPolicy as viewPetPolicyClassName, petsImageMargin, policyDiv } from './styles';
-import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues } from 'utils/misc';
+import {H1, P, SpacedH3} from 'assets/styles';
+import {petsImageMargin, policyDiv, viewPetPolicy as viewPetPolicyClassName} from './styles';
+import {updateRenterProfile} from 'reducers/renter-profile';
+import {rentalOptionsInitialValues} from 'utils/misc';
 import PetItem from './PetItem';
 import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
@@ -70,16 +70,27 @@ export class PetsPage extends React.Component {
     emptyPetFilter = (petOption) => {
         const keys = Object.keys(petOption);
 
+        return !(
+            keys.length === 2 &&
+            petOption[keys[0]] === PET_PLACEHOLDER.key &&
+            petOption[keys[1]] === PET_PLACEHOLDER.service_animal
+        );
+    };
+
+    isFirstPetEmpty = (pets) => {
+        const [firstPet] = pets;
+        const keys = Object.keys(firstPet);
+
         if (
             keys.length === 2 &&
-            (petOption[keys[0]] === FIRST_PET.key || petOption[keys[0]] === PET_PLACEHOLDER.key) &&
-            (petOption[keys[1]] === FIRST_PET.service_animal || petOption[keys[0]] === PET_PLACEHOLDER.service_animal)
+            (firstPet[keys[0]] === FIRST_PET.key || firstPet[keys[0]] === PET_PLACEHOLDER.key) &&
+            (firstPet[keys[1]] === FIRST_PET.service_animal || firstPet[keys[1]] === PET_PLACEHOLDER.service_animal)
         ) {
-            return true
+            return true;
         }
 
-        return false
-    };
+        return false;
+    }
 
     serializePetsForPost = (petOptions) => {
         const petRentalOptions = this.props.configuration.rental_options.pets;
@@ -141,6 +152,7 @@ export class PetsPage extends React.Component {
 
     onSubmit = (values, { setSubmitting }) => {
         const pets = this.serializePetsForPost(values.petOptions.filter(this.emptyPetFilter));
+
         this.props.updateRenterProfile({ selected_rental_options: pets }).then(() => {
             setSubmitting(false);
             this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
@@ -164,18 +176,10 @@ export class PetsPage extends React.Component {
 
     getPriceBreakdownSelectedOptions = (values) => {
         const selectedRentalOptionsArray = this.serializePetsForPost(values.petOptions);
-        const selectedRentalOptions = rentalOptionsInitialValues(
+        return rentalOptionsInitialValues(
             selectedRentalOptionsArray,
             this.props.configuration.rental_options['pets'] || []
-        )
-
-        return selectedRentalOptions;
-
-        // TODO: cleanup
-        return {
-            selectedOptions: selectedRentalOptions,
-            lastChange: new Date().getTime(),
-        }
+        );
     }
 
     render () {
@@ -220,9 +224,9 @@ export class PetsPage extends React.Component {
                             dirty,
                         }) => {
                             const disableSubmit = !dirty || isSubmitting;
-                            const firstPetIsEmpty = this.emptyPetFilter(values.petOptions[0])
+                            const isFirstPetEmpty = this.isFirstPetEmpty(values.petOptions);
                             const submitLabel = values.petOptions.length === 1 && values.petOptions[0].key === 'first-pet' ? 'Add Pet' : 'Save Changes';
-                            const showPaymentBreakdown = values.petOptions.length > 0 && !firstPetIsEmpty;
+                            const showPaymentBreakdown = values.petOptions.length > 0 && !isFirstPetEmpty;
 
                             return (
                                 <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
@@ -258,10 +262,8 @@ export class PetsPage extends React.Component {
                                                     thing="Pet"
                                                     onClick={() => arrayHelpers.push({ key: uuidv4() })}
                                                 />
-
                                                 <br />
                                                 <br />
-
                                                 {showPaymentBreakdown && (
                                                     <PriceBreakdown
                                                         category={'Pets'}
