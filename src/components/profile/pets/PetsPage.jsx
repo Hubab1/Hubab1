@@ -108,7 +108,7 @@ export class PetsPage extends React.Component {
             if (rentalOptionId) {
                 const amountOfAnimals = petsObject.length;
                 const amountOfServiceAnimals = petsObject.filter(
-                    (p) => p.service_animal === true || p.service_animal === 'true'
+                    ({ service_animal }) => service_animal === true || service_animal === 'true'
                 ).length;
 
                 const formattedSelectedOption = {

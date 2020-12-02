@@ -80,13 +80,7 @@ function PriceBreakdown(props) {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        props.application.id,
-        stringifiedSelectedOptions,
-        props.unitId,
-        props.leaseTerm,
-        props.moveInDate,
-    ]);
+    }, [props.application.id, stringifiedSelectedOptions, props.unitId, props.leaseTerm, props.moveInDate]);
 
     // Bind fetch quote so it can be triggered from outside this component
     props.bindFetchQuote && props.bindFetchQuote(fetchQuote);
