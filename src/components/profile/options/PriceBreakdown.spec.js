@@ -7,7 +7,13 @@ import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 const buildProps = () => {
     return {
         application: { id: 123, },
-        selectedOptions: {a: 1, b: 2},
+        selectedOptions: {
+            1: {
+                quantity: 1
+            },
+            2: {
+                quantity: 2
+            }},
         unitId: 12,
         category: 'storage',
         categoryHelperText: 'storage space',

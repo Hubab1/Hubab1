@@ -72,7 +72,7 @@ export const Storage = (props) => {
                 onSubmit={onSubmit}
                 initialValues={rentalOptionsInitialValues(initialStorageOptions, storageOptions)}
             >
-                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
+                {({ values, handleSubmit, setValues, dirty, isSubmitting }) => (
                     <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                         {errorSubmitting && (
                             <GenericFormMessage
@@ -85,12 +85,16 @@ export const Storage = (props) => {
                                 key={option.id}
                                 title={option.name}
                                 subtitle={getSubtitles(option)}
-                                value={values[option.id]}
+                                value={values[option.id].quantity}
                                 limit={option.limit}
-                                onChange={(e) => setFieldValue(option.id, e)}
+                                onChange={(e) => {
+                                    const newValues = { ...values };
+                                    newValues[option.id].quantity = e;
+                                    setValues(newValues);
+                                }}
                             />
                         ))}
-                        {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
+                        {Object.values(values).reduce((a, b) => a + b.quantity, 0) > 0 && (
                             <PriceBreakdown
                                 selectedOptions={values}
                                 application={props.application}

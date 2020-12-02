@@ -92,12 +92,18 @@ export const rentalOptionsInitialValues = (rawSelectedRentalOptions, availableOp
     const initialValues = {};
     if (!!rawSelectedRentalOptions) {
         rawSelectedRentalOptions.forEach((option) => {
-            initialValues[option.rental_option.id] = option.quantity;
+            initialValues[option.rental_option.id] = {
+                quantity: option.quantity,
+                exempted: option.exempted || 0,
+            }
         });
     }
     availableOptions.forEach((option) => {
         if (!initialValues.hasOwnProperty(option.id)) {
-            initialValues[option.id] = 0;
+            initialValues[option.id] = {
+                quantity: 0,
+                exempted: 0,
+            }
         }
     });
     return initialValues;

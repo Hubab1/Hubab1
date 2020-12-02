@@ -53,7 +53,6 @@ function PriceBreakdown(props) {
     const [priceBreakdown, setPriceBreakdown] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
     useEffect(() => {
@@ -81,14 +80,18 @@ function PriceBreakdown(props) {
                 setHasError(true);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.application.id, stringifiedSelectedOptions, props.unitId, props.leaseTerm, props.moveInDate]);
+    }, [
+        props.application.id,
+        stringifiedSelectedOptions,
+        props.unitId,
+        props.leaseTerm,
+        props.moveInDate,
+    ]);
 
     const getCurrentCategoryInfo = () => {
         // Count the number of rental options selected
-        const categoryCount = Object.values(props.selectedOptions).reduce((a, b) => a + b, 0);
-
+        const categoryCount = Object.values(props.selectedOptions).reduce((a, b) => a + b.quantity, 0);
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
-
         let categoryInfo = 'Your monthly rent may update as you add rental options in the next steps.';
 
         if (categoryMonthlyPrice != null) {
