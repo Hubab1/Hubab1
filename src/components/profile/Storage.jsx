@@ -32,7 +32,10 @@ export const Storage = (props) => {
         setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
         Object.entries(values).forEach((option) => {
-            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1].quantity });
+            selectedRentalOptionsArray.push({
+                rental_option: { id: parseInt(option[0]) },
+                quantity: option[1].quantity,
+            });
         });
         const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
         return props.updateRenterProfile(selectedRentalOptions).then((res) => {
