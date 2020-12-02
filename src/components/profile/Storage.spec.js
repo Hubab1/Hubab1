@@ -10,23 +10,14 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { PAYMENT_TIME_MONTHLY } from 'app/constants';
 
 let defaultProps;
+let rentalOption;
 
 beforeEach(() => {
     defaultProps = {
         config: mockConfig,
         application: mockApplication,
     };
-});
-
-it('renders a ItemAdder component for each option in config.rental_options.storage', function () {
-    let wrapper = shallow(<Storage {...defaultProps} />);
-    wrapper = wrapper.find(Formik).dive();
-    expect(wrapper.find(ItemAdder).length).toEqual(2);
-    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
-});
-
-it('Displays multiple lines when pricing group set', () => {
-    const rentalOption = {
+    rentalOption = {
         id: 270,
         included: 1,
         leasing_category: 'storage',
@@ -90,7 +81,42 @@ it('Displays multiple lines when pricing group set', () => {
             ],
         },
     };
+});
 
+it('renders a ItemAdder component for each option in config.rental_options.storage', function () {
+    let wrapper = shallow(<Storage {...defaultProps} />);
+    wrapper = wrapper.find(Formik).dive();
+    expect(wrapper.find(ItemAdder).length).toEqual(2);
+    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+});
+
+describe('submit button label', () => {
+    it('says Add Storage when initalStorageOptions total quantity is 0', () => {
+        const wrapper = shallow(<Storage {...defaultProps} />);
+        const formik = wrapper.find(Formik).dive();
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Add Storage');
+    });
+
+    it('says Save Changes when initialStorageOptions total quantity is > 0', () => {
+        defaultProps.application.selected_rental_options = {
+            storage: [{ quantity: 1, rental_option: { id: 270 } }],
+        };
+
+        const config = { ...defaultProps.config };
+        config.rental_options = {
+            storage: [rentalOption],
+        };
+
+        const wrapper = shallow(<Storage {...defaultProps} confit={config} />);
+        const formik = wrapper.find(Formik).dive();
+
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Save Changes');
+    });
+});
+
+it('Displays multiple lines when pricing group set', () => {
     const config = { ...defaultProps.config };
     config.rental_options = {
         storage: [rentalOption],

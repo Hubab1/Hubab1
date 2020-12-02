@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import { BackLink } from 'components/common/BackLink';
 import ItemAdder from 'components/common/ItemAdder';
@@ -11,7 +12,7 @@ import wineCoolerImage from 'assets/images/fridge.png';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_WINE_COOLER } from 'app/constants';
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues } from 'utils/misc';
+import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues, rentalOptionCTALabel } from 'utils/misc';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
@@ -61,6 +62,8 @@ export const WineCooler = (props) => {
 
     const initialWineCoolerOptions = props.application.selected_rental_options['wine-cooler'];
     const wineCoolerOptions = props.config.rental_options['wine-cooler'] || [];
+    const submitLabel = rentalOptionCTALabel(initialWineCoolerOptions, 'Add Wine Cooler');
+
     return (
         <>
             <H1>Wine Cooler Request</H1>
@@ -99,7 +102,7 @@ export const WineCooler = (props) => {
                             />
                         )}
                         <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
-                            Add Wine Cooler
+                            {submitLabel}
                         </ActionButton>
                     </form>
                 )}

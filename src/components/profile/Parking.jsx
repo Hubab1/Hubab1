@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
+
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder } from 'utils/misc';
+import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder, rentalOptionCTALabel } from 'utils/misc';
 import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
@@ -72,37 +73,40 @@ export const Parking = (props) => {
                 onSubmit={onSubmit}
                 initialValues={rentalOptionsInitialValues(initialParkingOptions, parkingOptions)}
             >
-                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => (
-                    <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                        {errorSubmitting && (
-                            <GenericFormMessage
-                                type="error"
-                                messages={['We couldn’t save your parking options. Please try again.']}
-                            />
-                        )}
-                        {parkingOptions.map((option) => (
-                            <ItemAdder
-                                key={option.id}
-                                title={option.name}
-                                subtitle={getSubtitles(option)}
-                                value={values[option.id]}
-                                limit={option.limit}
-                                onChange={(e) => setFieldValue(option.id, e)}
-                            />
-                        ))}
-                        {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
-                            <PriceBreakdown
-                                selectedOptions={values}
-                                application={props.application}
-                                category={'Parking'}
-                                categoryHelperText={'parking spaces'}
-                            />
-                        )}
-                        <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
-                            Add Parking
-                        </ActionButton>
-                    </form>
-                )}
+                {({ values, handleSubmit, setFieldValue, dirty, isSubmitting }) => {
+                    const submitLabel = rentalOptionCTALabel(initialParkingOptions, 'Add Parking');
+                    return (
+                        <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
+                            {errorSubmitting && (
+                                <GenericFormMessage
+                                    type="error"
+                                    messages={['We couldn’t save your parking options. Please try again.']}
+                                />
+                            )}
+                            {parkingOptions.map((option) => (
+                                <ItemAdder
+                                    key={option.id}
+                                    title={option.name}
+                                    subtitle={getSubtitles(option)}
+                                    value={values[option.id]}
+                                    limit={option.limit}
+                                    onChange={(e) => setFieldValue(option.id, e)}
+                                />
+                            ))}
+                            {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
+                                <PriceBreakdown
+                                    selectedOptions={values}
+                                    application={props.application}
+                                    category={'Parking'}
+                                    categoryHelperText={'parking spaces'}
+                                />
+                            )}
+                            <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
+                                {submitLabel}
+                            </ActionButton>
+                        </form>
+                    );
+                }}
             </Formik>
             <Box padding="20px">
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`} />

@@ -10,6 +10,7 @@ import {
     CO_APPLICANT_STATUS_IN_PROGRESS,
     PAYMENT_TIME_MONTHLY,
 } from 'app/constants';
+import { sumBy } from 'lodash';
 
 export function sessionIsValidForCommunityId(communityId) {
     return auth.accessScope() === communityId;
@@ -114,6 +115,14 @@ export const getRoommateStatus = (item) => {
         default:
             return CO_APPLICANT_STATUS_IN_PROGRESS;
     }
+};
+
+export const rentalOptionCTALabel = (selectedOptions, addLabel) => {
+    const quantity = sumBy(selectedOptions, (selectedOption) => selectedOption.quantity);
+    if (quantity === 0) {
+        return addLabel;
+    }
+    return 'Save Changes';
 };
 
 export const getPaymentItemName = (name) => {
