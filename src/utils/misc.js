@@ -95,7 +95,7 @@ export const rentalOptionsInitialValues = (rawSelectedRentalOptions, availableOp
             initialValues[option.rental_option.id] = {
                 quantity: option.quantity,
                 exempted: option.exempted || 0,
-            }
+            };
         });
     }
     availableOptions.forEach((option) => {
@@ -103,7 +103,7 @@ export const rentalOptionsInitialValues = (rawSelectedRentalOptions, availableOp
             initialValues[option.id] = {
                 quantity: 0,
                 exempted: 0,
-            }
+            };
         }
     });
     return initialValues;

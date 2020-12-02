@@ -55,7 +55,6 @@ function PriceBreakdown(props) {
     const [hasError, setHasError] = useState(false);
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
-    // TODO: use callback
     const fetchQuote = useCallback(async () => {
         const body = {
             application: props.application.id,
@@ -65,7 +64,7 @@ function PriceBreakdown(props) {
             move_in_date: serializeDate(props.moveInDate),
         };
         try {
-            const result = await API.getCurrentFlatQuote(body)
+            const result = await API.getCurrentFlatQuote(body);
             if (result.errors) {
                 props.onError && props.onError(result.errors);
                 setHasError(true);
@@ -87,7 +86,6 @@ function PriceBreakdown(props) {
         props.unitId,
         props.leaseTerm,
         props.moveInDate,
-        // props.lastChange, // <- hack to trigger effect when this prop changes
     ]);
 
     // Bind fetch quote so it can be triggered from outside this component
@@ -97,9 +95,7 @@ function PriceBreakdown(props) {
         (async () => {
             fetchQuote();
         })();
-    }, [
-        fetchQuote
-    ]);
+    }, [fetchQuote]);
 
     const getCurrentCategoryInfo = () => {
         // Count the number of rental options selected
@@ -196,7 +192,6 @@ PriceBreakdown.propTypes = {
     onSuccess: PropTypes.func,
     bindFetchQuote: PropTypes.func,
     name: PropTypes.string,
-    // lastChange: PropTypes.number,
 };
 
 export default PriceBreakdown;
