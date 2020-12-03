@@ -316,9 +316,11 @@ export class UploadDocuments extends React.Component {
                     <>
                         <div>
                             <span className={singleProofLabel}>{this.getProofsLabel()}</span>
-                            <SimplePopover text={documentRequired.proof_documents[0].description}>
-                                <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
-                            </SimplePopover>
+                            {documentRequired.proof_documents[0].description && (
+                                <SimplePopover text={documentRequired.proof_documents[0].description}>
+                                    <Info classes={{ root: infoIconRoot }} style={{ color: '#828796', width: 16 }} />
+                                </SimplePopover>
+                            )}
                         </div>
                         {this.displayUploadedDocuments()}
                         <UploadButtonContainer marginTop={48} marginBottom={51}>
@@ -369,12 +371,14 @@ export class UploadDocuments extends React.Component {
                                             label={this.startCase(doc.label)}
                                             disabled={selectedDocumentIndex !== index && !this.displayUploadButton(doc)}
                                         />
-                                        <SimplePopover text={doc.description}>
-                                            <Info
-                                                classes={{ root: infoIconRoot }}
-                                                style={{ color: '#828796', width: 16 }}
-                                            />
-                                        </SimplePopover>
+                                        {doc.description && (
+                                            <SimplePopover text={doc.description}>
+                                                <Info
+                                                    classes={{ root: infoIconRoot }}
+                                                    style={{ color: '#828796', width: 16 }}
+                                                />
+                                            </SimplePopover>
+                                        )}
                                     </div>
                                 ))}
                             </RadioGroup>
