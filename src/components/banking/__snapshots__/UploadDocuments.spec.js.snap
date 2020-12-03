@@ -10,7 +10,7 @@ exports[`Case documents uploaded 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -152,7 +152,7 @@ exports[`Case documents uploaded 1 large document 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -294,7 +294,7 @@ exports[`Case documents uploaded 2`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -436,7 +436,7 @@ exports[`Case documents uploaded 2 large document 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -578,7 +578,7 @@ exports[`Case multiple required document (require all) 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2 + 1099 Form
       </span>
@@ -680,7 +680,7 @@ exports[`Case no uploaded documents 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -752,7 +752,7 @@ exports[`Case only one required document 1`] = `
   <React.Fragment>
     <div>
       <span
-        className="css-80tcqb"
+        className="css-la2m3t"
       >
         W2
       </span>
@@ -827,7 +827,7 @@ exports[`Case require one of multiple document 1`] = `
     >
       <ForwardRef(RadioGroup)
         aria-label="documents"
-        className="css-pkgtde"
+        className="css-weqa2y"
         name="documents"
         onChange={[Function]}
         value={null}
