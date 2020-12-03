@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import Main from 'app/Main';
 import BadRoute from 'components/common/BadRoute';
+import ScrollToTop from 'components/common/ScrollToTop';
 import { basenameReceived } from 'reducers/site-config';
 import { DOES_NOT_EXIST } from './constants';
 
@@ -34,6 +35,7 @@ export class App extends Component {
         return (
             <div className="App">
                 <BrowserRouter basename={this.props.basename}>
+                    <ScrollToTop />
                     <Main />
                 </BrowserRouter>
             </div>
