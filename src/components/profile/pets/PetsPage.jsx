@@ -136,6 +136,7 @@ export class PetsPage extends React.Component {
                         id: rentalOptionId,
                     },
                     quantity: 0,
+                    exempted: 0,
                     leasing_context: {
                         pets: [],
                     },
