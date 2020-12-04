@@ -241,6 +241,7 @@ API.postPassthrough = (data, vgsEnabled) => {
     return fetch(url, {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
