@@ -12,13 +12,13 @@ exports[`VerticalLinearStepper matches snapshot 1`] = `
       active={true}
       classes={
         Object {
-          "root": "css-1wi6ago css-1sqracp",
+          "root": "css-1wi6ago",
         }
       }
       onClick={[Function]}
     >
       <ForwardRef(WithStyles)
-        completed={true}
+        completed={false}
         icon=" "
       >
         lease settings
@@ -28,23 +28,23 @@ exports[`VerticalLinearStepper matches snapshot 1`] = `
       active={false}
       classes={
         Object {
-          "root": "css-1sqracp",
+          "root": "",
         }
       }
       onClick={[Function]}
     >
       <ForwardRef(WithStyles)
-        completed={true}
+        completed={false}
         icon=" "
       >
         profile
       </ForwardRef(WithStyles)>
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
-      active={true}
+      active={false}
       classes={
         Object {
-          "root": "css-1sqracp",
+          "root": "",
         }
       }
       onClick={[Function]}
