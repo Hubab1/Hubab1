@@ -9,25 +9,14 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { PAYMENT_TIME_MONTHLY } from 'app/constants';
 
 let defaultProps;
+let rentalOption;
 
 beforeEach(() => {
     defaultProps = {
         config: mockConfig,
         application: mockApplication,
     };
-});
-
-it('renders a ItemAdder component for each option in config.rental_options.parking', function () {
-    let wrapper = shallow(<Parking {...defaultProps} />);
-    wrapper = wrapper.find(Formik).dive();
-    expect(wrapper.find(ItemAdder).length).toEqual(2);
-    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('(1 incl.)');
-    expect(wrapper.find(ItemAdder).at(1).dive().text()).not.toContain('incl.');
-    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
-});
-
-it('Displays multiple lines when pricing group set', () => {
-    const rentalOption = {
+    rentalOption = {
         id: 270,
         included: 1,
         leasing_category: 'parking',
@@ -91,7 +80,44 @@ it('Displays multiple lines when pricing group set', () => {
             ],
         },
     };
+});
 
+it('renders a ItemAdder component for each option in config.rental_options.parking', function () {
+    let wrapper = shallow(<Parking {...defaultProps} />);
+    wrapper = wrapper.find(Formik).dive();
+    expect(wrapper.find(ItemAdder).length).toEqual(2);
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('(1 incl.)');
+    expect(wrapper.find(ItemAdder).at(1).dive().text()).not.toContain('incl.');
+    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+});
+
+describe('submit button label', () => {
+    it('says Add Storage when initalStorageOptions total quantity is 0', () => {
+        const wrapper = shallow(<Parking {...defaultProps} />);
+        const formik = wrapper.find(Formik).dive();
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Add Parking');
+    });
+
+    it('says Save Changes when initialStorageOptions total quantity is > 0', () => {
+        defaultProps.application.selected_rental_options = {
+            parking: [{ quantity: 1, rental_option: { id: 270 } }],
+        };
+
+        const config = { ...defaultProps.config };
+        config.rental_options = {
+            parking: [rentalOption],
+        };
+
+        const wrapper = shallow(<Parking {...defaultProps} confit={config} />);
+        const formik = wrapper.find(Formik).dive();
+
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Save Changes');
+    });
+});
+
+it('Displays multiple lines when pricing group set', () => {
     const config = { ...defaultProps.config };
     config.rental_options = {
         parking: [rentalOption],

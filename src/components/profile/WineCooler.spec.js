@@ -10,25 +10,15 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import { PAYMENT_TIME_MONTHLY } from 'app/constants';
 
 let defaultProps;
+let rentalOption;
 
 beforeEach(() => {
     defaultProps = {
         config: mockConfig,
         application: mockApplication,
     };
-});
 
-it('renders a ItemAdder component for each wine cooler option', function () {
-    let wrapper = shallow(<WineCooler {...defaultProps} />);
-    wrapper = wrapper.find(Formik).dive();
-    expect(wrapper.find(ItemAdder).length).toEqual(2);
-    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('(1 incl.)');
-    expect(wrapper.find(ItemAdder).at(1).dive().text()).not.toContain('incl.');
-    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
-});
-
-it('Displays multiple lines when pricing group set', () => {
-    const rentalOption = {
+    rentalOption = {
         id: 270,
         included: 1,
         leasing_category: 'wine-cooler',
@@ -92,7 +82,44 @@ it('Displays multiple lines when pricing group set', () => {
             ],
         },
     };
+});
 
+it('renders a ItemAdder component for each wine cooler option', function () {
+    let wrapper = shallow(<WineCooler {...defaultProps} />);
+    wrapper = wrapper.find(Formik).dive();
+    expect(wrapper.find(ItemAdder).length).toEqual(2);
+    expect(wrapper.find(ItemAdder).at(0).dive().text()).toContain('(1 incl.)');
+    expect(wrapper.find(ItemAdder).at(1).dive().text()).not.toContain('incl.');
+    expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+});
+
+describe('submit button label', () => {
+    it('says Add Wine Cooler when initalWineCoolerOptions total quantity is 0', () => {
+        const wrapper = shallow(<WineCooler {...defaultProps} />);
+        const formik = wrapper.find(Formik).dive();
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Add Wine Cooler');
+    });
+
+    it('says Save Changes when initialWineCoolerOptions total quantity is > 0', () => {
+        defaultProps.application.selected_rental_options = {
+            'wine-cooler': [{ quantity: 1, rental_option: { id: 270 } }],
+        };
+
+        const config = { ...defaultProps.config };
+        config.rental_options = {
+            'wine-cooler': [rentalOption],
+        };
+
+        const wrapper = shallow(<WineCooler {...defaultProps} confit={config} />);
+        const formik = wrapper.find(Formik).dive();
+
+        expect(formik.find(ActionButton).length).toBe(1);
+        expect(formik.find(ActionButton).childAt(0).text()).toBe('Save Changes');
+    });
+});
+
+it('Displays multiple lines when pricing group set', () => {
     const config = { ...defaultProps.config };
     config.rental_options = {
         'wine-cooler': [rentalOption],
