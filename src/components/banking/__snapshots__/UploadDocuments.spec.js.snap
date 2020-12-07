@@ -8,11 +8,30 @@ exports[`Case documents uploaded 1`] = `
     Proof of asset:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render)>
       <div
         className="uploaded-document"
@@ -131,11 +150,30 @@ exports[`Case documents uploaded 1 large document 1`] = `
     Proof of asset:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render)>
       <div
         className="uploaded-document"
@@ -254,11 +292,30 @@ exports[`Case documents uploaded 2`] = `
     Proof of asset:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render)>
       <div
         className="uploaded-document"
@@ -377,11 +434,30 @@ exports[`Case documents uploaded 2 large document 1`] = `
     Proof of asset:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render)>
       <div
         className="uploaded-document"
@@ -500,11 +576,30 @@ exports[`Case multiple required document (require all) 1`] = `
     Proof of income:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2 + 1099 Form
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2 + 1099 Form
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render) />
     <ForwardRef(render)
       marginBottom={51}
@@ -583,11 +678,30 @@ exports[`Case no uploaded documents 1`] = `
     Proof of asset:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render) />
     <ForwardRef(render)
       marginBottom={51}
@@ -636,11 +750,30 @@ exports[`Case only one required document 1`] = `
     Proof of income:
   </ForwardRef(render)>
   <React.Fragment>
-    <ForwardRef(render)
-      margin="15px 0 48px 0"
-    >
-      W2
-    </ForwardRef(render)>
+    <div>
+      <span
+        className="css-la2m3t"
+      >
+        W2
+      </span>
+      <SimplePopover
+        text="W2 tax form"
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-bmph1p",
+            }
+          }
+          style={
+            Object {
+              "color": "#828796",
+              "width": 16,
+            }
+          }
+        />
+      </SimplePopover>
+    </div>
     <ForwardRef(render) />
     <ForwardRef(render)
       marginBottom={51}
@@ -694,24 +827,63 @@ exports[`Case require one of multiple document 1`] = `
     >
       <ForwardRef(RadioGroup)
         aria-label="documents"
+        className="css-weqa2y"
         name="documents"
         onChange={[Function]}
         value={null}
       >
-        <ForwardRef(WithStyles)
-          control={<ForwardRef(WithStyles) />}
-          disabled={false}
-          id="radioButton2"
-          label="1099 Form"
-          value={0}
-        />
-        <ForwardRef(WithStyles)
-          control={<ForwardRef(WithStyles) />}
-          disabled={false}
-          id="radioButton3"
-          label="3 Paystubs"
-          value={1}
-        />
+        <div>
+          <ForwardRef(WithStyles)
+            control={<ForwardRef(WithStyles) />}
+            disabled={false}
+            id="radioButton2"
+            label="1099 Form"
+            value={0}
+          />
+          <SimplePopover
+            text="1099 IRS Tax Form"
+          >
+            <UNDEFINED
+              classes={
+                Object {
+                  "root": "css-bmph1p",
+                }
+              }
+              style={
+                Object {
+                  "color": "#828796",
+                  "width": 16,
+                }
+              }
+            />
+          </SimplePopover>
+        </div>
+        <div>
+          <ForwardRef(WithStyles)
+            control={<ForwardRef(WithStyles) />}
+            disabled={false}
+            id="radioButton3"
+            label="3 Paystubs"
+            value={1}
+          />
+          <SimplePopover
+            text="3 latest pay-stubs"
+          >
+            <UNDEFINED
+              classes={
+                Object {
+                  "root": "css-bmph1p",
+                }
+              }
+              style={
+                Object {
+                  "color": "#828796",
+                  "width": 16,
+                }
+              }
+            />
+          </SimplePopover>
+        </div>
       </ForwardRef(RadioGroup)>
     </ForwardRef(WithStyles)>
   </React.Fragment>
