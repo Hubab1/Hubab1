@@ -523,6 +523,50 @@ describe('selectInitialPage', () => {
         });
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
     });
+
+    it('selects direct route correctly', () => {
+        delete window.location;
+        window.location = {
+            pathname: '/payment-details',
+        };
+        const initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
+        });
+        expect(initialPage).toEqual(ROUTES.PAYMENT_DETAILS);
+    });
+});
+
+describe('select default initial page', () => {
+    it('selects default initial page correctly, ignoring direct route', () => {
+        delete window.location;
+        window.location = {
+            pathname: '/payment-details',
+        };
+        const initialPage = selectors.selectDefaultInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
+        });
+        expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
+    });
 });
 
 describe('fetch renter profile', () => {
