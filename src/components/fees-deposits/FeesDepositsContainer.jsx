@@ -41,6 +41,10 @@ export const FeesDepositsContainer = ({
         applicant && setReceipt(applicant.receipt);
     }, [applicant]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
+
     if (!profile || !applicant || (!payments && !receipt && !isOutstanding)) return <div />;
 
     const isPrimaryApplicant = applicant.role === ROLE_PRIMARY_APPLICANT;
