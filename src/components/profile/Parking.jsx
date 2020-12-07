@@ -91,7 +91,7 @@ export const Parking = (props) => {
                                     key={option.id}
                                     title={option.name}
                                     subtitle={getSubtitles(option)}
-                                    value={values[option.id]}
+                                    value={values[option.id].quantity}
                                     limit={option.limit}
                                     onChange={(e) => {
                                         setFieldValue(`[${option.id}].quantity`, e);
