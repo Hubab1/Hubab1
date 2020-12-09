@@ -349,6 +349,7 @@ export class UploadDocuments extends React.Component {
                                     )}
                                 </div>
                             ))}
+                            <p className="text-center">We accept .jpg, .png, and .pdf files under 10 mb.</p>
                         </UploadButtonContainer>
                     </>
                 ) : (

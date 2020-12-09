@@ -137,6 +137,11 @@ exports[`Case documents uploaded 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -279,6 +284,11 @@ exports[`Case documents uploaded 1 large document 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -421,6 +431,11 @@ exports[`Case documents uploaded 2`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -563,6 +578,11 @@ exports[`Case documents uploaded 2 large document 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -665,6 +685,11 @@ exports[`Case multiple required document (require all) 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -737,6 +762,11 @@ exports[`Case no uploaded documents 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
@@ -809,6 +839,11 @@ exports[`Case only one required document 1`] = `
           />
         </ForwardRef(WithStyles)>
       </div>
+      <p
+        className="text-center"
+      >
+        We accept .jpg, .png, and .pdf files under 10 mb.
+      </p>
     </ForwardRef(render)>
   </React.Fragment>
 </React.Fragment>
