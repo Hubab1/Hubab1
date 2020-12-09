@@ -33,7 +33,10 @@ export const Storage = (props) => {
         setErrorSubmitting(false);
         const selectedRentalOptionsArray = [];
         Object.entries(values).forEach((option) => {
-            selectedRentalOptionsArray.push({ rental_option: { id: parseInt(option[0]) }, quantity: option[1] });
+            selectedRentalOptionsArray.push({
+                rental_option: { id: parseInt(option[0]) },
+                quantity: option[1].quantity,
+            });
         });
         const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
         return props.updateRenterProfile(selectedRentalOptions).then((res) => {
@@ -87,12 +90,14 @@ export const Storage = (props) => {
                                 key={option.id}
                                 title={option.name}
                                 subtitle={getSubtitles(option)}
-                                value={values[option.id]}
+                                value={values[option.id].quantity}
                                 limit={option.limit}
-                                onChange={(e) => setFieldValue(option.id, e)}
+                                onChange={(e) => {
+                                    setFieldValue(`[${option.id}].quantity`, e);
+                                }}
                             />
                         ))}
-                        {Object.values(values).reduce((a, b) => a + b, 0) > 0 && (
+                        {Object.values(values).reduce((a, b) => a + b.quantity, 0) > 0 && (
                             <PriceBreakdown
                                 selectedOptions={values}
                                 application={props.application}
