@@ -6,14 +6,15 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
+import { allValuesSet } from 'utils/formik';
 import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
-import { H1, SpacedH3 } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import LocationSearchInput from 'components/common/LocationSearchInput/LocationSearchInput';
+import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
-import { allValuesSet } from 'utils/formik';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -69,79 +70,82 @@ export class Address extends React.Component {
                 <ImageContainer>
                     <img src={sticky} alt="sticky note" />
                 </ImageContainer>
-                <Formik
-                    validationSchema={validationSchema}
-                    initialValues={this.initialValues()}
-                    onSubmit={this.onSubmit}
-                >
-                    {({ values, errors, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (
-                        <form onSubmit={handleSubmit} autoComplete="off">
-                            <Grid container spacing={1}>
-                                <Grid item xs={9}>
-                                    <FormTextInput
-                                        label="Street Address"
-                                        name="address_street"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.address_street}
-                                        value={values.address_street}
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormTextInput
-                                        label="Apt/Ste/Floor"
-                                        name="address_line_2"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.address_line_2}
-                                        value={values.address_line_2}
-                                    />
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <FormTextInput
-                                        label="City"
-                                        name="address_city"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.address_city}
-                                        value={values.address_city}
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormTextInput
-                                        label="State"
-                                        name="address_state"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.address_state}
-                                        value={values.address_state}
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormTextInput
-                                        label="Zip"
-                                        name="address_postal_code"
-                                        submitted={submitCount > 0}
-                                        handleChange={handleChange}
-                                        handleBlur={handleBlur}
-                                        error={errors.address_postal_code}
-                                        value={values.address_postal_code}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <ActionButton
-                                marginTop={50}
-                                disabled={!allValuesSet(values, { exclude: ['address_line_2'] }) || isSubmitting}
-                            >
-                                Continue
-                            </ActionButton>
-                        </form>
-                    )}
-                </Formik>
+                <LocationSearchInput
+
+                />
+                {/*<Formik*/}
+                {/*    validationSchema={validationSchema}*/}
+                {/*    initialValues={this.initialValues()}*/}
+                {/*    onSubmit={this.onSubmit}*/}
+                {/*>*/}
+                {/*    {({ values, errors, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (*/}
+                {/*        <form onSubmit={handleSubmit} autoComplete="off">*/}
+                {/*            <Grid container spacing={1}>*/}
+                {/*                <Grid item xs={9}>*/}
+                {/*                    <FormTextInput*/}
+                {/*                        label="Street Address"*/}
+                {/*                        name="address_street"*/}
+                {/*                        submitted={submitCount > 0}*/}
+                {/*                        handleChange={handleChange}*/}
+                {/*                        handleBlur={handleBlur}*/}
+                {/*                        error={errors.address_street}*/}
+                {/*                        value={values.address_street}*/}
+                {/*                    />*/}
+                {/*                </Grid>*/}
+                {/*                <Grid item xs={3}>*/}
+                {/*                    <FormTextInput*/}
+                {/*                        label="Apt/Ste/Floor"*/}
+                {/*                        name="address_line_2"*/}
+                {/*                        submitted={submitCount > 0}*/}
+                {/*                        handleChange={handleChange}*/}
+                {/*                        handleBlur={handleBlur}*/}
+                {/*                        error={errors.address_line_2}*/}
+                {/*                        value={values.address_line_2}*/}
+                {/*                    />*/}
+                {/*                </Grid>*/}
+                {/*                <Grid item xs={9}>*/}
+                {/*                    <FormTextInput*/}
+                {/*                        label="City"*/}
+                {/*                        name="address_city"*/}
+                {/*                        submitted={submitCount > 0}*/}
+                {/*                        handleChange={handleChange}*/}
+                {/*                        handleBlur={handleBlur}*/}
+                {/*                        error={errors.address_city}*/}
+                {/*                        value={values.address_city}*/}
+                {/*                    />*/}
+                {/*                </Grid>*/}
+                {/*                <Grid item xs={3}>*/}
+                {/*                    <FormTextInput*/}
+                {/*                        label="State"*/}
+                {/*                        name="address_state"*/}
+                {/*                        submitted={submitCount > 0}*/}
+                {/*                        handleChange={handleChange}*/}
+                {/*                        handleBlur={handleBlur}*/}
+                {/*                        error={errors.address_state}*/}
+                {/*                        value={values.address_state}*/}
+                {/*                    />*/}
+                {/*                </Grid>*/}
+                {/*                <Grid item xs={3}>*/}
+                {/*                    <FormTextInput*/}
+                {/*                        label="Zip"*/}
+                {/*                        name="address_postal_code"*/}
+                {/*                        submitted={submitCount > 0}*/}
+                {/*                        handleChange={handleChange}*/}
+                {/*                        handleBlur={handleBlur}*/}
+                {/*                        error={errors.address_postal_code}*/}
+                {/*                        value={values.address_postal_code}*/}
+                {/*                    />*/}
+                {/*                </Grid>*/}
+                {/*            </Grid>*/}
+                {/*            <ActionButton*/}
+                {/*                marginTop={50}*/}
+                {/*                disabled={!allValuesSet(values, { exclude: ['address_line_2'] }) || isSubmitting}*/}
+                {/*            >*/}
+                {/*                Continue*/}
+                {/*            </ActionButton>*/}
+                {/*        </form>*/}
+                {/*    )}*/}
+                {/*</Formik>*/}
             </Fragment>
         );
     }
