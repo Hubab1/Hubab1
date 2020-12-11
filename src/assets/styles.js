@@ -22,7 +22,7 @@ export const ErrorDetail = styled.div`
     text-align: left;
     font-size: 0.75rem;
     margin: 8px 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     line-height: 1em;
 `;
 
@@ -32,13 +32,13 @@ export const Logo = styled.img`
 `;
 
 export const Bold = styled.b`
-    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
-    font-weight: ${props => props.fontWeight ? `${props.fontWeight}` : '600'};
+    font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : 'inherit')};
+    font-weight: ${(props) => (props.fontWeight ? `${props.fontWeight}` : '600')};
 `;
 
 export const H1 = styled.h1`
-    font-weight:600;
-    font-size:23px;
+    font-weight: 600;
+    font-size: 23px;
     margin: 0 auto;
     padding: 0;
 `;
@@ -52,24 +52,24 @@ export const H3 = styled.h3`
     font-weight: 400;
     line-height: 22px;
     font-size: 18px;
-    color: #454B57;
+    color: #454b57;
     margin: 0;
 `;
 
 export const Span = styled.span`
-    font-size: ${props => props.fontSize ? `${props.fontSize}px` : 'inherit'};
+    font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : 'inherit')};
 `;
 
 export const PrimarySpan = withTheme((props) => {
     const { theme, ...rest } = props;
     return (
-        <span {...rest} style={{color: theme.palette.primary.main}}>
+        <span {...rest} style={{ color: theme.palette.primary.main }}>
             {props.children}
         </span>
     );
 });
 
-export const P = styled.p(props => ({
+export const P = styled.p((props) => ({
     fontWeight: props.fontWeight ? props.fontWeight : props.bold ? 600 : 400,
     fontSize: props.fontSize ? props.fontSize : 16,
     margin: props.margin ? props.margin : 0,
@@ -81,18 +81,17 @@ export const P = styled.p(props => ({
     textAlign: props.textAlign || 'inherit',
 }));
 
-
 export const link = css`
     display: inline-block;
     margin-bottom: 20px;
-    color: #2B44FF;
+    color: #2b44ff;
 `;
 
 export const LinkButton = styled.button`
-    background:none!important;
-    color:#2B44FF;
-    border:none; 
-    padding:0!important;
+    background: none !important;
+    color: #2b44ff;
+    border: none;
+    padding: 0 !important;
     font: inherit;
     cursor: pointer;
     text-decoration: underline;
@@ -100,7 +99,6 @@ export const LinkButton = styled.button`
     font-size: 14px;
 `;
 LinkButton.displayName = 'LinkButton';
-
 
 export const blackLinkRoot = css`
     font-weight: 500 !important;
@@ -120,7 +118,7 @@ export const CardSection = styled.div`
 `;
 
 export const Spacer = styled.div`
-    height: ${props => props.height ? `${props.height}px` : '20px'}
+    height: ${(props) => (props.height ? `${props.height}px` : '20px')};
 `;
 
 export const ScrollableTermsCardSection = styled(CardSection)`
@@ -132,9 +130,9 @@ export const ScrollableTermsCardSection = styled(CardSection)`
 
 export const Card = styled.div`
     margin-bottom: 20px;
-    border: 1px solid #EEEEEE;	
-    border-radius: 5px;	
-    box-shadow: 0 2px 4px 0 rgba(197,197,197,0.5);
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(197, 197, 197, 0.5);
     text-align: left;
 `;
 export const leftText = css`
@@ -144,7 +142,7 @@ export const leftText = css`
 export const CardRow = styled.div`
     display: flex;
     padding: 10px 0;
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
     justify-content: space-between;
     &:first-of-type {
         padding-top: 0;
@@ -163,7 +161,7 @@ export const CardRowBorderless = styled.div`
 export const CardRowTotal = styled(CardRow)`
     width: 100%;
     box-sizing: content-box;
-    background-color: rgba(86,186,130,0.1);
+    background-color: rgba(86, 186, 130, 0.1);
     margin: 0 0 -15px -15px;
     padding: 15px !important;
 `;
@@ -179,7 +177,7 @@ export const arrowIcon = css`
 `;
 
 export const paperRoot = css`
-    box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1) !important;
     border-width: 0px !important;
     padding: 15px !important;
     font-size: 16px !important;

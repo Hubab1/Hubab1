@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TextField } from 'formik-material-ui';
-import { Formik, Form, Field  } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
@@ -13,7 +13,7 @@ import ActionButton from 'components/common/ActionButton/ActionButton';
 import LocationSearchInput from 'components/common/LocationSearchInput/LocationSearchInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
-import GenericFormMessage from "./common/GenericFormMessage";
+import GenericFormMessage from './common/GenericFormMessage';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -26,60 +26,45 @@ const ImageContainer = styled.div`
 
 const validationSchema = Yup.object().shape({
     address_search: Yup.object().shape({
-        address_street: Yup
-            .string()
+        address_street: Yup.string()
             .required('Street is required')
             .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
-        address_city: Yup
-            .string()
+        address_city: Yup.string()
             .required('City is required')
             .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
-        address_state: Yup
-            .string()
-            .required('State is required'),
-        address_postal_code: Yup
-            .number()
-            .required('Zip code is required'),
+        address_state: Yup.string().required('State is required'),
+        address_postal_code: Yup.number().required('Zip code is required'),
     }),
     address_line_2: Yup.string(),
 });
 
-const Address = ({
-    applicant,
-    updateApplicant,
-    _nextRoute,
-}) => {
+const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
-    const handleSubmit = useCallback(async (values, {
-        setSubmitting,
-        setErrors: setFormErrors
-    }) => {
-        try {
-            const serialized = {
-                ...values.address_search,
-                address_line_2: values.address_line_2
-            };
+    const handleSubmit = useCallback(
+        async (values, { setSubmitting, setErrors: setFormErrors }) => {
+            try {
+                const serialized = {
+                    ...values.address_search,
+                    address_line_2: values.address_line_2,
+                };
 
-            const response = await updateApplicant(serialized)
-            if (response.errors) {
-                setFormErrors(response.errors);
-            } else {
-                _nextRoute();
+                const response = await updateApplicant(serialized);
+                if (response.errors) {
+                    setFormErrors(response.errors);
+                } else {
+                    _nextRoute();
+                }
+            } catch {
+                setErrors(['Oops! We ran into some issues. Please try again later.']);
+            } finally {
+                setSubmitting(false);
             }
-        } catch {
-            setErrors([
-                'Oops! We ran into some issues. Please try again later.'
-            ])
-        } finally {
-            setSubmitting(false);
-        }
-    }, [
-        updateApplicant,
-        _nextRoute
-    ]);
+        },
+        [updateApplicant, _nextRoute]
+    );
 
     const initialValues = useMemo(() => {
-        console.log(applicant)
+        console.log(applicant);
         const searchBuilder = [];
         if (applicant.address_street) searchBuilder.push(applicant.address_street);
         if (applicant.address_city) searchBuilder.push(applicant.address_city);
@@ -87,7 +72,7 @@ const Address = ({
         if (applicant.address_postal_code) searchBuilder.push(applicant.address_postal_code);
         const search = searchBuilder.join(', ');
 
-        console.log({ search })
+        console.log({ search });
 
         return {
             address_search: {
@@ -110,54 +95,48 @@ const Address = ({
             <H1>Tell Us A Little More</H1>
             <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
             <ImageContainer>
-                <img src={sticky} alt='sticky note' />
+                <img src={sticky} alt="sticky note" />
             </ImageContainer>
-            <Formik
-                validationSchema={validationSchema}
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-            >
+            <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
                 {({ values, isSubmitting, handleSubmit, submitCount }) => {
                     const disableSubmit = !values.address_search.search || isSubmitting;
 
                     return (
-                        <Form onSubmit={handleSubmit} autoComplete='off'>
+                        <Form onSubmit={handleSubmit} autoComplete="off">
                             <Field
                                 fullWidth
-                                margin='normal'
-                                label='Street name, city, state, zip'
-                                name='address_search'
+                                margin="normal"
+                                label="Street name, city, state, zip"
+                                name="address_search"
                                 submitCount={submitCount}
-                                inputProps={{
-                                    // TODO: this can go away?
-                                    // TODO: disable browser auto complete
-                                    // autoComplete: 'new-password'
-                                    // Note: will disable browser auto complete
-                                }}
+                                inputProps={
+                                    {
+                                        // TODO: this can go away?
+                                        // TODO: disable browser auto complete
+                                        // autoComplete: 'new-password'
+                                        // Note: will disable browser auto complete
+                                    }
+                                }
                                 component={LocationSearchInput}
                             />
                             <Field
                                 fullWidth
-                                margin='normal'
-                                label='Apt/Ste/Floor'
-                                name='address_line_2'
+                                margin="normal"
+                                label="Apt/Ste/Floor"
+                                name="address_line_2"
                                 component={TextField}
                             />
                             <GenericFormMessage type="error" messages={errors} />
-                            <ActionButton
-                                marginTop={50}
-                                disabled={disableSubmit}
-                            >
+                            <ActionButton marginTop={50} disabled={disableSubmit}>
                                 Continue
                             </ActionButton>
                         </Form>
-                    )
+                    );
                 }}
             </Formik>
         </>
-    )
-}
-
+    );
+};
 
 Address.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
@@ -170,12 +149,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    updateApplicant
-}
+    updateApplicant,
+};
 
-export default connect(
-    mapStateToProps,
-    mapActionsToProps
-)(
-    withRelativeRoutes(Address, ROUTES.ADDRESS)
-);
+export default connect(mapStateToProps, mapActionsToProps)(withRelativeRoutes(Address, ROUTES.ADDRESS));
