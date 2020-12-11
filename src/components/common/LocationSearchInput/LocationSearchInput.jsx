@@ -59,7 +59,6 @@ export const LocationSearchInput = ({
         field
     ]);
 
-
     const handleChange = useCallback((address) => {
         const event = getMockedOnChangeEvent({ search: address })
         field.onChange(event)
@@ -106,7 +105,6 @@ export const LocationSearchInput = ({
 
             field.onChange(event);
         } catch (error) {
-            console.error('Error', error);
             // TODO: handle error
         }
     }, [
