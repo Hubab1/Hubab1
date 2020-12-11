@@ -28,7 +28,7 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearchInput = ({ form, field, submitCount, ...props }) => {
+export const LocationSearch = ({ form, field, submitCount, ...props }) => {
     const errors = form.errors[field.name];
     let error = null;
     if (!isEmpty(errors)) {
@@ -147,4 +147,4 @@ export const LocationSearchInput = ({ form, field, submitCount, ...props }) => {
     );
 };
 
-export default LocationSearchInput;
+export default LocationSearch;

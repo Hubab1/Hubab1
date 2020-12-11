@@ -10,7 +10,7 @@ import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import LocationSearchInput from 'components/common/LocationSearchInput/LocationSearchInput';
+import LocationSearch from 'components/common/Formik/LocationSearch/LocationSearch';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
 import GenericFormMessage from './common/GenericFormMessage';
@@ -106,7 +106,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 label="Street name, city, state, zip"
                                 name="address_search"
                                 submitCount={submitCount}
-                                component={LocationSearchInput}
+                                component={LocationSearch}
                             />
                             <Field
                                 fullWidth
