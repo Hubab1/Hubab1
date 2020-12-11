@@ -83,9 +83,9 @@ export const P = styled.p(props => ({
 
 
 export const link = css`
-display: inline-block;
-margin-bottom: 20px;
-color: #2B44FF;
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2B44FF;
 `;
 
 export const LinkButton = styled.button`
