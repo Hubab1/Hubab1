@@ -1,66 +1,350 @@
-import React from 'react';
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng,
-} from 'react-places-autocomplete';
+import React, { useState, useCallback } from 'react';
+import { isEmpty } from 'lodash'
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+import {
+    Paper,
+    TextField,
+    MenuList,
+    MenuItem,
+    InputAdornment,
+} from '@material-ui/core';
+import styled from '@emotion/styled';
+import GoogleImg from 'assets/images/google.png';
+import {
+    Create as CreateIcon
+} from '@material-ui/icons';
 
-export default class LocationSearchInput extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { address: '' };
-    }
+const PoweredBy = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
 
-    handleChange = address => {
-        this.setState({ address });
-    };
+  img {
+    margin-left: 5px;
+    width: 40px;
+  }
+`;
 
-    handleSelect = address => {
-        geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
-    };
-
-    render() {
-        return (
-            <PlacesAutocomplete
-                value={this.state.address}
-                onChange={this.handleChange}
-                onSelect={this.handleSelect}
-            >
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
-                        <input
-                            {...getInputProps({
-                                placeholder: 'Search Places ...',
-                                className: 'location-search-input',
-                            })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                                const className = suggestion.active
-                                    ? 'suggestion-item--active'
-                                    : 'suggestion-item';
-                                // inline style for demonstration purpose
-                                const style = suggestion.active
-                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style,
-                                        })}
-                                    >
-                                        <span>{suggestion.description}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
-        );
-    }
+// https://developers.google.com/maps/documentation/geocoding/intro#Types
+const TYPES = {
+    city: 'locality',
+    streetName: 'route',
+    streetNumber: 'street_number',
+    postalCode: 'postal_code',
+    state: 'administrative_area_level_1',
+    county: 'country',
 }
+
+export const LocationSearchInput = ({
+    form,
+    field,
+    submitCount,
+    ...props
+}) => {
+    const [didSelect, setDidSelect] = useState(false);
+    const errors = form.errors[field.name];
+    let error = null;
+    if (!isEmpty(errors)) {
+        error = errors[Object.keys(errors)[0]]
+    }
+
+    const getMockedOnChangeEvent = useCallback((values) => {
+        return {
+            target: {
+                value: {
+                    ...field.value,
+                    ...values,
+                },
+                name: field.name
+            }
+        }
+    }, [
+        field
+    ]);
+
+
+    const handleChange = useCallback((address) => {
+        const event = getMockedOnChangeEvent({ search: address })
+        field.onChange(event)
+    }, [
+        field
+    ]);
+
+    const handleClearInput = useCallback(() => {
+        // handleChange('')
+        // form.resetForm();
+        setDidSelect(false);
+    }, []);
+
+    const handleSelect = useCallback(async (address) => {
+        try {
+            const [result] = await geocodeByAddress(address);
+            const { formatted_address, address_components } = result;
+            handleChange(address);
+            setDidSelect(true);
+
+            let city = undefined;
+            let streetName = undefined;
+            let streetNumber = undefined;
+            let postalCode = undefined;
+            let state = undefined;
+            let county = undefined;
+
+            address_components.forEach(a => {
+                if (a.types.indexOf(TYPES.city) !== -1) {
+                    city = a.long_name;
+                } else if (a.types.indexOf(TYPES.streetName) !== -1) {
+                    streetName = a.long_name;
+                } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
+                    streetNumber = a.long_name;
+                } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
+                    postalCode = a.long_name;
+                } else if (a.types.indexOf(TYPES.state) !== -1) {
+                    state = a.long_name;
+                } else if (a.types.indexOf(TYPES.county) !== -1) {
+                    county = a.long_name;
+                }
+            });
+
+            const event = getMockedOnChangeEvent({
+                search: formatted_address,
+                address_street: streetName,
+                address_city: city,
+                address_state: state,
+                address_postal_code: postalCode
+            });
+
+            console.log({ event })
+
+            field.onChange(event);
+        } catch (error) {
+            console.error('Error', error);
+            // TODO: handle error
+        }
+    }, [
+        handleChange
+    ]);
+
+    return (
+        <PlacesAutocomplete
+            debounce={300}
+            value={field.value.search}
+            onChange={handleChange}
+            onSelect={handleSelect}
+        >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+                const hasSuggestions = suggestions.length > 0;
+                const showSuggestions = loading || hasSuggestions;
+                const inputProps = getInputProps();
+                const InputProps = {
+                    endAdornment: didSelect && (
+                        <InputAdornment
+                            position="end"
+                            onClick={handleClearInput}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <CreateIcon />
+                        </InputAdornment>
+                    )
+                };
+
+                console.log({
+                    showSuggestions
+                })
+
+                return (
+                    <>
+                        <TextField
+                            {...field}
+                            {...props}
+                            {...inputProps}
+                            // disabled={didSelect}
+                            // disabled={hasSuggestions}
+                            error={submitCount > 0 && !!error}
+                            helperText={submitCount > 0 && error}
+                            // InputProps={InputProps}
+                        />
+                        {showSuggestions && (
+                            <Paper elevation={8}>
+                                <MenuList>
+                                    {loading && (
+                                        <MenuItem>Loading...</MenuItem>
+                                    )}
+                                    {suggestions.map((suggestion, i) => {
+                                        const suggestionProps = getSuggestionItemProps(suggestion);
+
+                                        return (
+                                            <MenuItem {...suggestionProps} key={i}>
+                                                {suggestion.description}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                    <PoweredBy>
+                                        <span>Powered by</span>
+                                        <img src={GoogleImg} />
+                                    </PoweredBy>
+                                </MenuList>
+                            </Paper>
+                        )}
+                    </>
+                )
+            }}
+        </PlacesAutocomplete>
+    )
+}
+
+export default LocationSearchInput;
+//
+//
+// import React, { useCallback, useState } from 'react';
+// import PropTypes from 'prop-types';
+// import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+// import {
+//     Paper,
+//     TextField,
+//     MenuList,
+//     MenuItem, Grid,
+// } from '@material-ui/core';
+// import styled from '@emotion/styled';
+// import GoogleImg from 'assets/images/google.png';
+// // import {Field} from "formik";
+//
+//
+// const PoweredBy = styled.div`
+//   display: flex;
+//   flex-flow: row nowrap;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 5px;
+//
+//   img {
+//     margin-left: 5px;
+//     width: 40px;
+//   }
+// `;
+//
+// // https://developers.google.com/maps/documentation/geocoding/intro#Types
+// const TYPES = {
+//     city: 'locality',
+//     streetName: 'route',
+//     streetNumber: 'street_number',
+//     postalCode: 'postal_code',
+//     state: 'administrative_area_level_1',
+//     county: 'country',
+// }
+//
+// export const LocationSearchInput = ({
+//     onChange
+// }) => {
+//     const [address, setAddress] = useState('');
+//
+//     const handleChange = useCallback((address) => {
+//         setAddress(address)
+//     }, [])
+//
+//     const handleSelect = useCallback(async (address) => {
+//         try {
+//             const [result] = await geocodeByAddress(address);
+//             const { formatted_address, address_components } = result;
+//             setAddress(formatted_address)
+//
+//             let city = undefined;
+//             let streetName = undefined;
+//             let streetNumber = undefined;
+//             let postalCode = undefined;
+//             let state = undefined;
+//             let county = undefined;
+//
+//             console.log({ address_components })
+//
+//             address_components.forEach(a => {
+//                 if (a.types.indexOf(TYPES.city) !== -1) {
+//                     city = a.long_name;
+//                 } else if (a.types.indexOf(TYPES.streetName) !== -1) {
+//                     streetName = a.long_name;
+//                 } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
+//                     streetNumber = a.long_name;
+//                 } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
+//                     postalCode = a.long_name;
+//                 } else if (a.types.indexOf(TYPES.state) !== -1) {
+//                     state = a.long_name;
+//                 } else if (a.types.indexOf(TYPES.county) !== -1) {
+//                     county = a.long_name;
+//                 }
+//             });
+//
+//             onChange({
+//                 streetName,
+//                 city,
+//                 state,
+//                 postalCode
+//             })
+//         } catch (error) {
+//             console.error('Error', error);
+//             // TODO: handle error
+//         }
+//     }, [
+//         handleChange
+//     ]);
+//
+//     return (
+//         <PlacesAutocomplete
+//             debounce={300}
+//             value={address}
+//             onChange={handleChange}
+//             onSelect={handleSelect}
+//         >
+//             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+//                 const showSuggestions = loading || suggestions.length > 0;
+//                 const inputProps = getInputProps({
+//                     label: 'Search address',
+//                 });
+//
+//                 return (
+//                     <>
+//                         <TextField
+//                             fullWidth
+//                             margin='normal'
+//                             {...inputProps}
+//                             inputProps={{
+//                                 // TODO: disable browser auto complete
+//                                 autoComplete: 'new-password'
+//                                 // Note: will disable browser auto complete
+//                             }}
+//                         />
+//                         {showSuggestions && (
+//                             <Paper elevation={8}>
+//                                 <MenuList>
+//                                     {loading && (
+//                                         <MenuItem>Loading...</MenuItem>
+//                                     )}
+//                                     {suggestions.map((suggestion, i) => {
+//                                         const suggestionProps = getSuggestionItemProps(suggestion);
+//
+//                                         return (
+//                                             <MenuItem {...suggestionProps} key={i}>
+//                                                 {suggestion.description}
+//                                             </MenuItem>
+//                                         );
+//                                     })}
+//                                     <PoweredBy>
+//                                         <span>Powered by</span>
+//                                         <img src={GoogleImg} />
+//                                     </PoweredBy>
+//                                 </MenuList>
+//                             </Paper>
+//                         )}
+//                     </>
+//                 )
+//             }}
+//         </PlacesAutocomplete>
+//     )
+// }
+//
+// LocationSearchInput.propTypes = {
+//     onChange: PropTypes.func.isRequired
+// }
+//
+// export default LocationSearchInput;

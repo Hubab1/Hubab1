@@ -1,20 +1,19 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { TextField } from 'formik-material-ui';
+import { Formik, Form, Field  } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
-import { allValuesSet } from 'utils/formik';
 import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import LocationSearchInput from 'components/common/LocationSearchInput/LocationSearchInput';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
+import GenericFormMessage from "./common/GenericFormMessage";
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -26,130 +25,134 @@ const ImageContainer = styled.div`
 `;
 
 const validationSchema = Yup.object().shape({
-    address_street: Yup.string()
-        .required('required')
-        .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+    address_search: Yup.object().shape({
+        address_street: Yup
+            .string()
+            .required('Street is required')
+            .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+        address_city: Yup
+            .string()
+            .required('City is required')
+            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
+        address_state: Yup
+            .string()
+            .required('State is required'),
+        address_postal_code: Yup
+            .number()
+            .required('Zip code is required'),
+    }),
     address_line_2: Yup.string(),
-    address_city: Yup.string()
-        .required('required')
-        .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
-    address_state: Yup.string().required('required'),
-    address_postal_code: Yup.number().zipcodeBelongsToState(),
 });
 
-export class Address extends React.Component {
-    onSubmit = (values, { setSubmitting, setErrors }) => {
-        const serialized = Object.assign({}, values);
-        this.props.updateApplicant(serialized).then((res) => {
-            if (res.errors) {
-                setErrors(res.errors);
+const Address = ({
+    applicant,
+    updateApplicant,
+    _nextRoute,
+}) => {
+    const [errors, setErrors] = useState(null);
+    const handleSubmit = useCallback(async (values, {
+        setSubmitting,
+        setErrors: setFormErrors
+    }) => {
+        try {
+            const serialized = Object.assign({}, values);
+            const response = await updateApplicant(serialized)
+            if (response.errors) {
+                setFormErrors(response.errors);
             } else {
-                this.props._nextRoute();
+                _nextRoute();
             }
+        } catch {
+            setErrors([
+                'Oops! We ran into some issues. Please try again later.'
+            ])
+        } finally {
             setSubmitting(false);
-        });
-    };
+        }
+    }, [
+        updateApplicant,
+        _nextRoute
+    ]);
 
-    initialValues() {
-        const applicant = this.props.applicant;
+    // TODO: test if it works after the applicant has saved its address once and
+    // TODO: want's to change it again
+    const initialValues = useMemo(() => {
+        const searchBuilder = [];
+        if (applicant.address_street) searchBuilder.push(applicant.address_street);
+        if (applicant.address_city) searchBuilder.push(applicant.address_city);
+        if (applicant.address_state) searchBuilder.push(applicant.address_state);
+        if (applicant.address_postal_code) searchBuilder.push(applicant.address_postal_code);
+        const search = searchBuilder.join(', ');
+
         return {
-            address_street: applicant.address_street,
+            address_search: {
+                search,
+                address_street: applicant.address_street,
+                address_city: applicant.address_city,
+                address_state: applicant.address_state,
+                address_postal_code: applicant.address_postal_code,
+            },
             address_line_2: applicant.address_line_2,
-            address_city: applicant.address_city,
-            address_state: applicant.address_state,
-            address_postal_code: applicant.address_postal_code,
         };
+    }, [applicant]);
+
+    if (!applicant) {
+        return null;
     }
 
-    render() {
-        if (!this.props.applicant) return null;
-        return (
-            <Fragment>
-                <H1>Tell Us A Little More</H1>
-                <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
-                <ImageContainer>
-                    <img src={sticky} alt="sticky note" />
-                </ImageContainer>
-                <LocationSearchInput
+    return (
+        <>
+            <H1>Tell Us A Little More</H1>
+            <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
+            <ImageContainer>
+                <img src={sticky} alt='sticky note' />
+            </ImageContainer>
+            <Formik
+                validationSchema={validationSchema}
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+            >
+                {({ values, isSubmitting, handleSubmit, submitCount }) => {
+                    const disableSubmit = !values.address_search.search || isSubmitting;
 
-                />
-                {/*<Formik*/}
-                {/*    validationSchema={validationSchema}*/}
-                {/*    initialValues={this.initialValues()}*/}
-                {/*    onSubmit={this.onSubmit}*/}
-                {/*>*/}
-                {/*    {({ values, errors, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (*/}
-                {/*        <form onSubmit={handleSubmit} autoComplete="off">*/}
-                {/*            <Grid container spacing={1}>*/}
-                {/*                <Grid item xs={9}>*/}
-                {/*                    <FormTextInput*/}
-                {/*                        label="Street Address"*/}
-                {/*                        name="address_street"*/}
-                {/*                        submitted={submitCount > 0}*/}
-                {/*                        handleChange={handleChange}*/}
-                {/*                        handleBlur={handleBlur}*/}
-                {/*                        error={errors.address_street}*/}
-                {/*                        value={values.address_street}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*                <Grid item xs={3}>*/}
-                {/*                    <FormTextInput*/}
-                {/*                        label="Apt/Ste/Floor"*/}
-                {/*                        name="address_line_2"*/}
-                {/*                        submitted={submitCount > 0}*/}
-                {/*                        handleChange={handleChange}*/}
-                {/*                        handleBlur={handleBlur}*/}
-                {/*                        error={errors.address_line_2}*/}
-                {/*                        value={values.address_line_2}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*                <Grid item xs={9}>*/}
-                {/*                    <FormTextInput*/}
-                {/*                        label="City"*/}
-                {/*                        name="address_city"*/}
-                {/*                        submitted={submitCount > 0}*/}
-                {/*                        handleChange={handleChange}*/}
-                {/*                        handleBlur={handleBlur}*/}
-                {/*                        error={errors.address_city}*/}
-                {/*                        value={values.address_city}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*                <Grid item xs={3}>*/}
-                {/*                    <FormTextInput*/}
-                {/*                        label="State"*/}
-                {/*                        name="address_state"*/}
-                {/*                        submitted={submitCount > 0}*/}
-                {/*                        handleChange={handleChange}*/}
-                {/*                        handleBlur={handleBlur}*/}
-                {/*                        error={errors.address_state}*/}
-                {/*                        value={values.address_state}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*                <Grid item xs={3}>*/}
-                {/*                    <FormTextInput*/}
-                {/*                        label="Zip"*/}
-                {/*                        name="address_postal_code"*/}
-                {/*                        submitted={submitCount > 0}*/}
-                {/*                        handleChange={handleChange}*/}
-                {/*                        handleBlur={handleBlur}*/}
-                {/*                        error={errors.address_postal_code}*/}
-                {/*                        value={values.address_postal_code}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*            </Grid>*/}
-                {/*            <ActionButton*/}
-                {/*                marginTop={50}*/}
-                {/*                disabled={!allValuesSet(values, { exclude: ['address_line_2'] }) || isSubmitting}*/}
-                {/*            >*/}
-                {/*                Continue*/}
-                {/*            </ActionButton>*/}
-                {/*        </form>*/}
-                {/*    )}*/}
-                {/*</Formik>*/}
-            </Fragment>
-        );
-    }
+                    return (
+                        <Form onSubmit={handleSubmit} autoComplete='off'>
+                            <Field
+                                fullWidth
+                                margin='normal'
+                                label='Street name, city, state, zip'
+                                name='address_search'
+                                submitCount={submitCount}
+                                inputProps={{
+                                    // TODO: this can go away?
+                                    // TODO: disable browser auto complete
+                                    // autoComplete: 'new-password'
+                                    // Note: will disable browser auto complete
+                                }}
+                                component={LocationSearchInput}
+                            />
+                            <Field
+                                fullWidth
+                                margin='normal'
+                                label='Apt/Ste/Floor'
+                                name='address_line_2'
+                                component={TextField}
+                            />
+                            <GenericFormMessage type="error" messages={errors} />
+                            <ActionButton
+                                marginTop={50}
+                                disabled={disableSubmit}
+                            >
+                                Continue
+                            </ActionButton>
+                        </Form>
+                    )
+                }}
+            </Formik>
+        </>
+    )
 }
+
 
 Address.propTypes = {
     updateApplicant: PropTypes.func.isRequired,
@@ -161,4 +164,263 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps, { updateApplicant })(withRelativeRoutes(Address, ROUTES.ADDRESS));
+const mapActionsToProps = {
+    updateApplicant
+}
+
+export default connect(
+    mapStateToProps,
+    mapActionsToProps
+)(
+    withRelativeRoutes(Address, ROUTES.ADDRESS)
+);
+
+
+
+// import React, { useCallback, useMemo } from 'react';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import { Grid } from '@material-ui/core';
+// import { TextField } from 'formik-material-ui';
+// import { Formik, Form, Field  } from 'formik';
+// import * as Yup from 'yup';
+// import styled from '@emotion/styled';
+//
+// import { ROUTES } from 'app/constants';
+// import { allValuesSet } from 'utils/formik';
+// import { updateApplicant } from 'reducers/applicant';
+// import withRelativeRoutes from 'app/withRelativeRoutes';
+// import FormTextInput from 'components/common/FormTextInput/FormTextInput';
+// import ActionButton from 'components/common/ActionButton/ActionButton';
+// import LocationSearchInput from 'components/common/LocationSearchInput/LocationSearchInput';
+// import { H1, SpacedH3 } from 'assets/styles';
+// import sticky from 'assets/images/sticky.png';
+//
+// const ImageContainer = styled.div`
+//     margin-top: 31px;
+//     margin-bottom: 31px;
+//     img {
+//         max-height: 105px;
+//         max-width: 114px;
+//     }
+// `;
+//
+// const validationSchema = Yup.object().shape({
+//     // address_search: Yup.object().shape({
+//     //     address_street: Yup
+//     //         .string()
+//     //         .required('Street is required')
+//     //         .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+//     //     address_city: Yup
+//     //         .string()
+//     //         .required('City is required')
+//     //         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
+//     //     address_state: Yup
+//     //         .string()
+//     //         .required('State is required'),
+//     //     address_postal_code: Yup
+//     //         .number()
+//     //         .required('Zip code is required')
+//     //         .zipcodeBelongsToState(),
+//     // })
+//     address_street: Yup
+//         .string()
+//         .required('Street is required')
+//         .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+//     address_city: Yup
+//         .string()
+//         .required('City is required')
+//         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
+//     address_state: Yup
+//         .string()
+//         .required('State is required'),
+//     address_postal_code: Yup
+//         .number()
+//         .required('Zip code is required')
+//         .zipcodeBelongsToState(),
+// });
+//
+// const Address = ({
+//     applicant,
+//     updateApplicant,
+//     _nextRoute,
+// }) => {
+//     const handleSubmit = useCallback(async (values, { setSubmitting, setErrors }) => {
+//         try {
+//             const serialized = Object.assign({}, values);
+//             const response = await updateApplicant(serialized)
+//             if (response.errors) {
+//                 setErrors(response.errors);
+//             } else {
+//                 _nextRoute();
+//             }
+//         } catch {
+//             setErrors([
+//                 'Oops! We ran into some issues. Please try again later.'
+//             ])
+//         } finally {
+//             setSubmitting(false);
+//         }
+//     }, [
+//         updateApplicant,
+//         _nextRoute
+//     ]);
+//
+//     const initialValues = useMemo(() => {
+//         return {
+//             // address_search: {
+//             //     searchValue: '',
+//             //     address_line_2: applicant.address_line_2,
+//             //     address_street: applicant.address_street,
+//             //     address_city: applicant.address_city,
+//             //     address_state: applicant.address_state,
+//             //     address_postal_code: applicant.address_postal_code,
+//             // },
+//
+//             address_line_2: applicant.address_line_2,
+//             address_street: applicant.address_street,
+//             address_city: applicant.address_city,
+//             address_state: applicant.address_state,
+//             address_postal_code: applicant.address_postal_code,
+//         };
+//     }, [applicant]);
+//
+//     if (!applicant) {
+//         return null;
+//     }
+//
+//     return (
+//         <>
+//             <H1>Tell Us A Little More</H1>
+//             <SpacedH3>Now, by filling out these details below we can screen you more accurately.</SpacedH3>
+//             <ImageContainer>
+//                 <img src={sticky} alt='sticky note' />
+//             </ImageContainer>
+//             <Formik
+//                 validationSchema={validationSchema}
+//                 initialValues={initialValues}
+//                 onSubmit={handleSubmit}
+//             >
+//                 {({ values, isSubmitting, handleSubmit, setValues }) => {
+//                     const disableSubmit = allValuesSet(values, { exclude: ['address_line_2'] }) || isSubmitting;
+//
+//                     console.log({
+//                         values
+//                     })
+//
+//                     return (
+//                         <Form onSubmit={handleSubmit} autoComplete='off'>
+//                             {/*<Field*/}
+//                             {/*    fullWidth*/}
+//                             {/*    margin='normal'*/}
+//                             {/*    label='Street name, city, state, zip'*/}
+//                             {/*    name='address_search'*/}
+//                             {/*    inputProps={{*/}
+//                             {/*        // TODO: disable browser auto complete*/}
+//                             {/*        // autoComplete: 'new-password'*/}
+//                             {/*        // Note: will disable browser auto complete*/}
+//                             {/*    }}*/}
+//                             {/*    component={LocationSearchInput}*/}
+//                             {/*/>*/}
+//                             {/*<Field*/}
+//                             {/*    fullWidth*/}
+//                             {/*    margin='normal'*/}
+//                             {/*    label='Apt/Ste/Floor'*/}
+//                             {/*    name='address_line_2'*/}
+//                             {/*    component={TextField}*/}
+//                             {/*/>*/}
+//
+//                             <Grid container spacing={1}>
+//                                 <Grid xs={12}>
+//                                     <LocationSearchInput
+//                                         onChange={(values) => {
+//                                             setValues({
+//                                                 address_street: values.streetName,
+//                                                 address_city: values.city,
+//                                                 address_state: values.state,
+//                                                 address_postal_code: values.postalCode
+//                                             })
+//                                         }}
+//                                     />
+//                                 </Grid>
+//                                 <Grid item xs={9}>
+//                                     <Field
+//                                         fullWidth
+//                                         margin='normal'
+//                                         label='Street Address'
+//                                         name='address_street'
+//                                         component={TextField}
+//                                     />
+//                                 </Grid>
+//                                 <Grid item xs={3}>
+//                                     <Field
+//                                         fullWidth
+//                                         margin='normal'
+//                                         label='Apt/Ste/Floor'
+//                                         name='address_line_2'
+//                                         component={TextField}
+//                                     />
+//                                 </Grid>
+//                                 <Grid item xs={9}>
+//                                     <Field
+//                                         fullWidth
+//                                         margin='normal'
+//                                         label='City'
+//                                         name='address_city'
+//                                         component={TextField}
+//                                     />
+//                                 </Grid>
+//                                 <Grid item xs={3}>
+//                                     <Field
+//                                         fullWidth
+//                                         margin='normal'
+//                                         label='State'
+//                                         name='address_state'
+//                                         component={TextField}
+//                                     />
+//                                 </Grid>
+//                                 <Grid item xs={3}>
+//                                     <Field
+//                                         fullWidth
+//                                         margin='normal'
+//                                         label='Zip'
+//                                         name='address_postal_code'
+//                                         component={TextField}
+//                                     />
+//                                 </Grid>
+//                             </Grid>
+//                             <ActionButton
+//                                 marginTop={50}
+//                                 disabled={disableSubmit}
+//                             >
+//                                 Continue
+//                             </ActionButton>
+//                         </Form>
+//                     )
+//                 }}
+//             </Formik>
+//         </>
+//     )
+// }
+//
+//
+// Address.propTypes = {
+//     updateApplicant: PropTypes.func.isRequired,
+//     applicant: PropTypes.object,
+//     _nextRoute: PropTypes.func,
+// };
+//
+// const mapStateToProps = (state) => ({
+//     applicant: state.applicant,
+// });
+//
+// const mapActionsToProps = {
+//     updateApplicant
+// }
+//
+// export default connect(
+//     mapStateToProps,
+//     mapActionsToProps
+// )(
+//     withRelativeRoutes(Address, ROUTES.ADDRESS)
+// );
