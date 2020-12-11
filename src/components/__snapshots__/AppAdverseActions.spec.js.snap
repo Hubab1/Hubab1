@@ -9,7 +9,7 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -56,11 +56,11 @@ exports[`Credit score color Display color gray when no credit score 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#828796\\">
                             <div color=\\"#828796\\" className=\\"css-1ugflqs\\">
                               N/A
@@ -263,7 +263,7 @@ exports[`Credit score color Display color green when good credit score 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -310,11 +310,11 @@ exports[`Credit score color Display color green when good credit score 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#60C28D\\">
                             <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                               800
@@ -517,7 +517,7 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -564,11 +564,11 @@ exports[`Credit score color Display color grey when no credit score rating 1`] =
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#828796\\">
                             <div color=\\"#828796\\" className=\\"css-1ugflqs\\">
                               800
@@ -771,7 +771,7 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -818,11 +818,11 @@ exports[`Credit score color Display color red when bad credit score 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#D0021B\\">
                             <div color=\\"#D0021B\\" className=\\"css-161huin\\">
                               300
@@ -1025,7 +1025,7 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -1072,11 +1072,11 @@ exports[`Credit score color Display color yellow when average credit score 1`] =
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#FCC022\\">
                             <div color=\\"#FCC022\\" className=\\"css-19loggr\\">
                               600
@@ -1279,7 +1279,7 @@ exports[`Display N/A when only credit date is available 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -1326,11 +1326,11 @@ exports[`Display N/A when only credit date is available 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#60C28D\\">
                             <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                               671
@@ -1533,7 +1533,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -1580,11 +1580,11 @@ exports[`Display adverseFactorsList when Factors 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-psvgb8\\">
+                        <div className=\\"css-138910b\\">
                           <Styled(p)>
                             <p className=\\"css-3m08t9\\">
                               Factors affecting our decision:
@@ -1593,7 +1593,7 @@ exports[`Display adverseFactorsList when Factors 1`] = `
                         </div>
                       </Styled(div)>
                       <Styled(div)>
-                        <div className=\\"css-psvgb8\\">
+                        <div className=\\"css-138910b\\">
                           <Styled(ul)>
                             <ul className=\\"css-114wr7l\\">
                               <li>
@@ -1792,7 +1792,7 @@ exports[`Display credit data when available 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -1839,11 +1839,11 @@ exports[`Display credit data when available 1`] = `
               </Styled(p)>
               <br />
               <Styled(div)>
-                <div className=\\"css-16zjmml\\">
+                <div className=\\"css-vw0dhz\\">
                   <Styled(div)>
                     <div className=\\"css-c7ae6s\\">
                       <Styled(div)>
-                        <div className=\\"css-19pnj2g\\">
+                        <div className=\\"css-xpbshq\\">
                           <Styled(div) color=\\"#60C28D\\">
                             <div color=\\"#60C28D\\" className=\\"css-6hp194\\">
                               671
@@ -2046,7 +2046,7 @@ exports[`Do not display adverseFactorsList when no factor and no credit data 1`]
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -2268,7 +2268,7 @@ exports[`Matches Snapshot if it has an international applicant 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -2498,7 +2498,7 @@ exports[`Matches Snapshot when applicant matches do not rent list 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -2725,7 +2725,7 @@ exports[`Matches Snapshot when requesting a guarantor 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -2953,7 +2953,7 @@ exports[`Matches Snapshot with security deposit 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>
@@ -3183,7 +3183,7 @@ exports[`Matches Snapshot without security deposit 1`] = `
           <Styled(div)>
             <div className=\\"css-ssuyy8\\">
               <Styled(h1)>
-                <h1 className=\\"css-r7wuwd\\">
+                <h1 className=\\"css-buvfym\\">
                   Reason for Our Decision
                 </h1>
               </Styled(h1)>

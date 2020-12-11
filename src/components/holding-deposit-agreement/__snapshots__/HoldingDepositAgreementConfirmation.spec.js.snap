@@ -3,12 +3,12 @@
 exports[`Matches Snapshot 1`] = `
 "<HoldingDepositAgreementConfirmation handleContinue={[Function: mockConstructor]} viewDocument={[Function: mockConstructor]} configuration={{...}} profile={{...}}>
   <Styled(h1)>
-    <h1 className=\\"css-r7wuwd\\">
+    <h1 className=\\"css-buvfym\\">
       Thanks for Signing!
     </h1>
   </Styled(h1)>
   <Styled(h3)>
-    <h3 className=\\"css-1caxa3\\">
+    <h3 className=\\"css-4iaclr\\">
       We&#39;ll send you an email with a copy of the signed agreement.
     </h3>
   </Styled(h3)>
@@ -19,7 +19,7 @@ exports[`Matches Snapshot 1`] = `
      Unit Unit 14F
   </div>
   <Styled(div) height={40}>
-    <div height={40} className=\\"css-vbdlzz\\" />
+    <div height={40} className=\\"css-qwymfs\\" />
   </Styled(div)>
   <ActionButton onClick={[Function: mockConstructor]} marginTop={30} marginBottom={20} variant=\\"contained\\" color=\\"primary\\" successGreen={false}>
     <Styled(div) target=\\"_blank\\" href={[undefined]} as=\\"div\\" marginTop={30} marginBottom={20}>
