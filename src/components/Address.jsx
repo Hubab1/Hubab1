@@ -11,9 +11,9 @@ import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import LocationSearch from 'components/common/Formik/LocationSearch/LocationSearch';
+import GenericFormMessage from './common/GenericFormMessage';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
-import GenericFormMessage from './common/GenericFormMessage';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
