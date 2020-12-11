@@ -38,7 +38,7 @@ const validationSchema = Yup.object().shape({
     address_line_2: Yup.string(),
 });
 
-const Address = ({ applicant, updateApplicant, _nextRoute }) => {
+export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors: setFormErrors }) => {
@@ -64,15 +64,12 @@ const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     );
 
     const initialValues = useMemo(() => {
-        console.log(applicant);
         const searchBuilder = [];
         if (applicant.address_street) searchBuilder.push(applicant.address_street);
         if (applicant.address_city) searchBuilder.push(applicant.address_city);
         if (applicant.address_state) searchBuilder.push(applicant.address_state);
         if (applicant.address_postal_code) searchBuilder.push(applicant.address_postal_code);
         const search = searchBuilder.join(', ');
-
-        console.log({ search });
 
         return {
             address_search: {
