@@ -55,7 +55,11 @@ const Address = ({
         setErrors: setFormErrors
     }) => {
         try {
-            const serialized = Object.assign({}, values);
+            const serialized = {
+                ...values.address_search,
+                address_line_2: values.address_line_2
+            };
+
             const response = await updateApplicant(serialized)
             if (response.errors) {
                 setFormErrors(response.errors);
@@ -74,15 +78,16 @@ const Address = ({
         _nextRoute
     ]);
 
-    // TODO: test if it works after the applicant has saved its address once and
-    // TODO: want's to change it again
     const initialValues = useMemo(() => {
+        console.log(applicant)
         const searchBuilder = [];
         if (applicant.address_street) searchBuilder.push(applicant.address_street);
         if (applicant.address_city) searchBuilder.push(applicant.address_city);
         if (applicant.address_state) searchBuilder.push(applicant.address_state);
         if (applicant.address_postal_code) searchBuilder.push(applicant.address_postal_code);
         const search = searchBuilder.join(', ');
+
+        console.log({ search })
 
         return {
             address_search: {
