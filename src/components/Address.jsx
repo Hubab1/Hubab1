@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
     }
 `;
 
-const validationSchema = Yup.object().shape({
+export const validationSchema = Yup.object().shape({
     address_search: Yup.object().shape({
         address_street: Yup.string()
             .required('Street is required')
@@ -106,14 +106,6 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 label="Street name, city, state, zip"
                                 name="address_search"
                                 submitCount={submitCount}
-                                inputProps={
-                                    {
-                                        // TODO: this can go away?
-                                        // TODO: disable browser auto complete
-                                        // autoComplete: 'new-password'
-                                        // Note: will disable browser auto complete
-                                    }
-                                }
                                 component={LocationSearchInput}
                             />
                             <Field
