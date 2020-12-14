@@ -6,12 +6,6 @@ import 'utils/configureYup';
 configure({ adapter: new Adapter() });
 enableHooks(jest, { dontMockByDefault: true });
 
-// Note: to prevent the following warning: "Warning: useLayoutEffect does nothing on the server.."
-jest.mock('react', () => ({
-    ...jest.requireActual('react'),
-    useLayoutEffect: jest.requireActual('react').useEffect,
-}));
-
 const setupGoogleMock = () => {
     const google = {
         maps: {

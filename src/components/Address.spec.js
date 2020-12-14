@@ -135,6 +135,14 @@ describe('initial values', () => {
 describe('handle submit', () => {
     let defaultProps;
 
+    beforeAll(() => {
+        // Note: to prevent the following warning: "Warning: useLayoutEffect does nothing on the server.."
+        jest.mock('react', () => ({
+            ...jest.requireActual('react'),
+            useLayoutEffect: jest.requireActual('react').useEffect,
+        }));
+    });
+
     beforeEach(() => {
         defaultProps = {
             applicant: {
