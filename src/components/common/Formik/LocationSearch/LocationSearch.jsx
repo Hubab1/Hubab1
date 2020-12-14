@@ -78,27 +78,20 @@ export const LocationSearch = ({
                 const { formatted_address, address_components } = result;
                 handleChange(address);
 
-                /* eslint-disable no-unused-vars */
                 let city = undefined;
                 let streetName = undefined;
-                let streetNumber = undefined;
                 let postalCode = undefined;
                 let state = undefined;
-                let county = undefined;
 
                 address_components.forEach((a) => {
                     if (a.types.indexOf(TYPES.city) !== -1) {
                         city = a.long_name;
                     } else if (a.types.indexOf(TYPES.streetName) !== -1) {
                         streetName = a.long_name;
-                    } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
-                        streetNumber = a.long_name;
                     } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
                         postalCode = a.long_name;
                     } else if (a.types.indexOf(TYPES.state) !== -1) {
                         state = a.long_name;
-                    } else if (a.types.indexOf(TYPES.county) !== -1) {
-                        county = a.long_name;
                     }
                 });
 
