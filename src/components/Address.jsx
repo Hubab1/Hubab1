@@ -106,6 +106,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 label="Street name, city, state, zip"
                                 name="address_search"
                                 submitCount={submitCount}
+                                setErrors={setErrors}
                                 component={LocationSearch}
                             />
                             <Field

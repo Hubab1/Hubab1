@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
@@ -28,12 +29,21 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({ form, field, submitCount, ...props }) => {
+export const LocationSearch = ({
+    form,
+    field,
+    submitCount,
+    setErrors,
+    ...props
+}) => {
     const errors = form.errors[field.name];
-    let error = null;
-    if (!isEmpty(errors)) {
-        error = errors[Object.keys(errors)[0]];
-    }
+    const error = useMemo(() => {
+        if (!isEmpty(errors)) {
+            return errors[Object.keys(errors)[0]];
+        }
+
+        return null;
+    }, [errors]);
 
     const getMockedOnChangeEvent = useCallback(
         (values) => {
@@ -55,7 +65,10 @@ export const LocationSearch = ({ form, field, submitCount, ...props }) => {
             const event = getMockedOnChangeEvent({ search: address });
             field.onChange(event);
         },
-        [field]
+        [
+            field,
+            getMockedOnChangeEvent
+        ]
     );
 
     const handleSelect = useCallback(
@@ -65,6 +78,7 @@ export const LocationSearch = ({ form, field, submitCount, ...props }) => {
                 const { formatted_address, address_components } = result;
                 handleChange(address);
 
+                /* eslint-disable no-unused-vars */
                 let city = undefined;
                 let streetName = undefined;
                 let streetNumber = undefined;
@@ -97,11 +111,18 @@ export const LocationSearch = ({ form, field, submitCount, ...props }) => {
                 });
 
                 field.onChange(event);
-            } catch (error) {
-                // TODO: handle error
+            } catch {
+                setErrors([
+                    'Oops! We ran into some issues. Please try again later.'
+                ]);
             }
         },
-        [handleChange]
+        [
+            field,
+            handleChange,
+            getMockedOnChangeEvent,
+            setErrors
+        ]
     );
 
     return (
@@ -135,7 +156,7 @@ export const LocationSearch = ({ form, field, submitCount, ...props }) => {
                                     })}
                                     <PoweredBy>
                                         <span>Powered by</span>
-                                        <img src={GoogleImg} />
+                                        <img src={GoogleImg}  alt="powered-by-google" />
                                     </PoweredBy>
                                 </MenuList>
                             </Paper>
@@ -145,6 +166,13 @@ export const LocationSearch = ({ form, field, submitCount, ...props }) => {
             }}
         </PlacesAutocomplete>
     );
+};
+
+LocationSearch.propTypes = {
+    form: PropTypes.object.isRequired,
+    field: PropTypes.object.isRequired,
+    submitCount: PropTypes.number.isRequired,
+    setErrors: PropTypes.func.isRequired,
 };
 
 export default LocationSearch;
