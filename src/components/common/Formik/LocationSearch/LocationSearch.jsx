@@ -98,7 +98,7 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
                 setErrors(['Oops! We ran into some issues. Please try again later.']);
             }
         },
-        [field, handleChange, getMockedOnChangeEvent, setErrors]
+        [field, getMockedOnChangeEvent, setErrors]
     );
 
     return (
