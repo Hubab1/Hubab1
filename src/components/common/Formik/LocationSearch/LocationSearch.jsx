@@ -67,7 +67,6 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
             try {
                 const [result] = await geocodeByAddress(address);
                 const { formatted_address, address_components } = result;
-                handleChange(address);
 
                 let city = undefined;
                 let streetName = undefined;
