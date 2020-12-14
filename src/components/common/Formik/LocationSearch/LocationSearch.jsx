@@ -29,13 +29,7 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({
-    form,
-    field,
-    submitCount,
-    setErrors,
-    ...props
-}) => {
+export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }) => {
     const errors = form.errors[field.name];
     const error = useMemo(() => {
         if (!isEmpty(errors)) {
@@ -65,10 +59,7 @@ export const LocationSearch = ({
             const event = getMockedOnChangeEvent({ search: address });
             field.onChange(event);
         },
-        [
-            field,
-            getMockedOnChangeEvent
-        ]
+        [field, getMockedOnChangeEvent]
     );
 
     const handleSelect = useCallback(
@@ -105,17 +96,10 @@ export const LocationSearch = ({
 
                 field.onChange(event);
             } catch {
-                setErrors([
-                    'Oops! We ran into some issues. Please try again later.'
-                ]);
+                setErrors(['Oops! We ran into some issues. Please try again later.']);
             }
         },
-        [
-            field,
-            handleChange,
-            getMockedOnChangeEvent,
-            setErrors
-        ]
+        [field, handleChange, getMockedOnChangeEvent, setErrors]
     );
 
     return (
@@ -149,7 +133,7 @@ export const LocationSearch = ({
                                     })}
                                     <PoweredBy>
                                         <span>Powered by</span>
-                                        <img src={GoogleImg}  alt="powered-by-google" />
+                                        <img src={GoogleImg} alt="powered-by-google" />
                                     </PoweredBy>
                                 </MenuList>
                             </Paper>
