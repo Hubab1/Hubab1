@@ -14,7 +14,7 @@
                 "is_registered": false,
                 "last_milestone": {
                     "created_at": "2020-07-23 15:22:49",
-                    "event": 220,
+                    "event": 10060,
                     "id": 10554
                 }
             }
@@ -24,7 +24,7 @@
         "last_name": "underwood",
         "last_milestone": {
             "created_at": "2020-07-23 15:22:49",
-            "event": 210,
+            "event": 10020,
             "id": 10557
         },
         "id": 18,
@@ -56,7 +56,7 @@
             "status": "Completed",
             "last_milestone": {
                 "created_at": "2020-07-23 15:22:49",
-                "event": 210,
+                "event": 10020,
                 "id": 10557
             }
         }
@@ -71,7 +71,7 @@
             "status": "Completed",
             "last_milestone": {
                 "created_at": "2020-07-23 15:22:49",
-                "event": 210,
+                "event": 10020,
                 "id": 10557
             }
         }

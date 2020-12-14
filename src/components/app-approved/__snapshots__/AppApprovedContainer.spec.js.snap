@@ -21,7 +21,7 @@ exports[`it displays the right section hides payment details section when clicki
     Object {
       "events": Array [
         Object {
-          "event": "270",
+          "event": "20040",
         },
       ],
       "last_status_change": Object {
@@ -50,7 +50,7 @@ exports[`it displays the right section shows payment details section when clicki
     Object {
       "events": Array [
         Object {
-          "event": "270",
+          "event": "20040",
         },
       ],
       "last_status_change": Object {
