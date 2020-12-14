@@ -45,6 +45,8 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
 
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors: setFormErrors }) => {
+            setErrors(null);
+
             try {
                 const serialized = {
                     ...values.address_search,
