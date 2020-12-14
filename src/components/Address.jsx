@@ -24,6 +24,8 @@ const ImageContainer = styled.div`
     }
 `;
 
+export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
+
 export const validationSchema = Yup.object().shape({
     address_search: Yup.object().shape({
         address_street: Yup.string()
@@ -40,6 +42,7 @@ export const validationSchema = Yup.object().shape({
 
 export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
+
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors: setFormErrors }) => {
             try {
@@ -55,7 +58,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                     _nextRoute();
                 }
             } catch {
-                setErrors(['Oops! We ran into some issues. Please try again later.']);
+                setErrors([GENERIC_ERROR_MESSAGE]);
             } finally {
                 setSubmitting(false);
             }
