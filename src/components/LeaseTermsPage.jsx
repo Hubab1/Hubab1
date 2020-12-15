@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
+import moment from 'moment';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
@@ -59,243 +60,398 @@ function getMinLeaseStartDate(unit) {
     }
 }
 
-function getMaxLeaseStartDate() {
-    const now = new Date();
-    now.setDate(now.getDate() + 60);
-    now.setHours(0, 0, 0, 0);
+function getMaxLeaseStartDate(daysOffset = 60) {
+    const now = moment();
+    now.add({ days: daysOffset });
     return now;
 }
 
-export const leaseTermsValidationSchema = (maxLeaseTermStartDate) => {
-    maxLeaseTermStartDate = maxLeaseTermStartDate || getMaxLeaseStartDate();
-    console.log({ maxLeaseTermStartDate })
-
+export const validationSchema = (acceptedLeaseStartDateRange = 60) => {
     return Yup.object()
         .test('is-unit-available-for-date', 'An error has occurred', function (values) {
             const { createError } = this;
-            const { unit, lease_start_date } = values;
+            const { unit, leaseStartDate } = values;
 
-            if (!lease_start_date) {
+            if (!leaseStartDate) {
                 return true;
             }
 
-            const start_date = Date.parse(lease_start_date);
-            const min_available = getMinLeaseStartDate(unit);
-            if (new Date(start_date) < min_available) {
+            const start_date = Date.parse(leaseStartDate);
+            const minAvailable = getMinLeaseStartDate(unit);
+            if (new Date(start_date) < minAvailable) {
                 const unitNumber = unit ? unit.unit_number : '';
                 return createError({
                     path: 'lease_start_date',
-                    message: `Oops! Unit ${unitNumber} isn’t available until ${format(min_available, 'M/d/yy')}`,
+                    message: `Oops! Unit ${unitNumber} isn’t available until ${format(minAvailable, 'M/d/yy')}`,
                 });
             }
 
             return true;
         })
         .shape({
-            lease_start_date: Yup
-                .date()
+            lease_start_date: Yup.date()
                 .nullable()
                 .typeError('Invalid Date Format')
                 .required('Select a Move In Date')
-                .test('test-max-lease-start-date', 'Please enter a date within 60 days of today', (lease_start_date) => {
-                    if (!lease_start_date) {
-                        return true;
+                .test(
+                    'test-max-lease-start-date',
+                    `Enter a date within ${acceptedLeaseStartDateRange} days of today`,
+                    (leaseStartDate) => {
+                        if (!leaseStartDate) {
+                            return true;
+                        }
+
+                        const maxStartDate = getMaxLeaseStartDate(acceptedLeaseStartDateRange);
+                        maxStartDate.endOf('day');
+
+                        const startDate = moment(leaseStartDate);
+                        startDate.startOf('day');
+
+                        return startDate.isBefore(maxStartDate);
                     }
-
-                    console.log('Test lease start date, lease_start_date: ', lease_start_date)
-
-                    const start_date = Date.parse(lease_start_date);
-                    console.log({
-                        start_date,
-                        maxLeaseTermStartDate
-                    })
-
-
-                    return false;
-                })
-            ,
-            unit: Yup
-                .object()
-                .nullable()
-                .required('Select a Unit'),
-            lease_term: Yup
-                .mixed()
-                .nullable()
-                .required('Select a Lease Term'),
+                ),
+            unit: Yup.object().nullable().required('Select a Unit'),
+            lease_term: Yup.mixed().nullable().required('Select a Lease Term'),
         });
-}
+};
 
-export class LeaseTermsPage extends React.Component {
-    state = { confirmSent: false, errors: null };
+const LeaseTermsPage = ({
+    application,
+    isPrimaryApplicant,
+    hasOutstandingBalance,
+    config,
+    updateRenterProfile,
+    pageComplete,
+    _nextRoute
+}) => {
+    const [hasError, setHasError] = useState(false);
+    const { community } = config;
+    const { company } = community;
+    const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
 
-    onSubmit = async (values, { setSubmitting, setErrors }) => {
-        const stateUpdate = Object.assign({}, values);
-        stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
-        setSubmitting(true);
-        try {
-            let errors;
-            if (this.props.isPrimaryApplicant) {
-                const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
-                errors = renterProfileRes.errors;
-            }
-            if (errors) {
-                setErrors(errors);
-            } else {
-                await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
-                this.props._nextRoute();
-            }
-        } catch {
-            this.setState({ hasError: true });
-        } finally {
-            setSubmitting(false);
+    const handleSubmit = useCallback(async (values, { setErrors }) => {
+        if (!isPrimaryApplicant) {
+            return;
         }
-    };
 
-    initialValues() {
-        const application = this.props.application;
+        try {
+            const stateUpdate = Object.assign({}, values);
+            stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
+
+            const response = await updateRenterProfile(serializeValues(values), stateUpdate);
+            if (response.errors) {
+                return setErrors(response.errors);
+            }
+
+            await pageComplete(LEASE_TERMS_IDENTIFIER);
+            _nextRoute();
+        } catch {
+            setHasError(true);
+        }
+    }, [
+        isPrimaryApplicant,
+        updateRenterProfile,
+        pageComplete,
+        _nextRoute
+    ]);
+
+    const initialValues = useMemo(() => {
         let lease_start_date = application.lease_start_date;
         if (lease_start_date) {
             lease_start_date = parseDateISOString(lease_start_date);
         }
+
         return {
             lease_start_date,
             lease_term: application.lease_term || '',
             unit: application.unit,
         };
+    }, [
+        application
+    ]);
+
+    if (!application) {
+        return null;
     }
 
-    render() {
-        if (!this.props.application) return null;
-        const { isPrimaryApplicant, hasOutstandingBalance } = this.props;
-        const contactPhone = prettyFormatPhoneNumber(this.props.config.community.contact_phone);
-
-        return (
-            <Fragment>
-                <H1>Lease Terms</H1>
-                {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
-                {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
-                {this.state.hasError && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
-                    />
-                )}
-                {!hasOutstandingBalance && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
-                    />
-                )}
-                <ImageContainer>
-                    <img src={rent} alt="for rent sign" />
-                </ImageContainer>
-                <Formik
-                    onSubmit={this.onSubmit}
-                    initialValues={this.initialValues()}
-                    validationSchema={leaseTermsValidationSchema()}
-                >
-                    {({
-                        values,
-                        errors,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        submitCount,
-                        isSubmitting,
-                        setFieldValue,
-                    }) => {
-                        console.log({
-                            values,
-                            errors,
-                            submitCount
-                        })
-
-                        return (
-                            <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
-                                <div className={gridContainer}>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={6}>
-                                            <KeyboardDatePicker
-                                                id="move-in-date"
-                                                clearable
-                                                disablePast
-                                                format="MM/dd/yyyy"
-                                                placeholder="mm/dd/yyyy"
-                                                label="Move In Date"
-                                                value={values.lease_start_date || null}
-                                                fullWidth
-                                                disabled={!isPrimaryApplicant || !hasOutstandingBalance}
-                                                onBlur={handleBlur}
-                                                onChange={(value) => {
-                                                    setFieldValue('lease_start_date', value);
-                                                }}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'change date',
-                                                }}
-                                                error={!!errors.lease_start_date}
-                                                helperText={errors.lease_start_date}
-                                                minDate={getMinLeaseStartDate(values.unit)}
-                                                maxDate={getMaxLeaseStartDate()}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <AvailableUnitsSelector
-                                                application={this.props.application}
-                                                update={(value) => {
-                                                    setFieldValue('unit', value);
-                                                    setFieldValue('lease_term', null);
-                                                }}
-                                                error={submitCount >= 1 && !!errors.unit}
-                                                helperText={submitCount >= 1 && errors.unit}
-                                                leaseStartDate={values.lease_start_date}
-                                                errors={errors}
-                                                disabled={!isPrimaryApplicant || !hasOutstandingBalance}
-                                                value={values.unit}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <AvailableLeaseTermsSelector
-                                                unitId={values.unit?.id}
-                                                leaseTerm={values.lease_term}
-                                                handleChange={handleChange}
-                                                disabled={!isPrimaryApplicant || !hasOutstandingBalance}
-                                                leaseStartDate={values.lease_start_date}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </div>
-                                {values.unit && values.lease_start_date && values.lease_term && !errors.lease_start_date && (
-                                    <>
-                                        <PriceBreakdown
-                                            selectedOptions={{}}
-                                            application={this.props.application}
-                                            unitId={values.unit.id}
-                                            category={'lease_terms'}
-                                            moveInDate={values.lease_start_date}
-                                            leaseTerm={values.lease_term}
-                                            onError={() => this.setState({ hasError: true })}
-                                            onSuccess={() => this.setState({ hasError: false })}
+    return (
+        <>
+            <H1>Lease Terms</H1>
+            {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
+            {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
+            {hasError && (
+                <GenericFormMessage
+                    type="error"
+                    messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
+                />
+            )}
+            {!hasOutstandingBalance && (
+                <GenericFormMessage
+                    type="error"
+                    messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
+                />
+            )}
+            <ImageContainer>
+                <img src={rent} alt="for rent sign" />
+            </ImageContainer>
+            <Formik
+                onSubmit={handleSubmit}
+                initialValues={initialValues}
+                validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
+            >
+                {({ values, errors, handleChange, handleBlur, submitCount, isSubmitting, setFieldValue }) => {
+                    return (
+                        <Form className="text-left" autoComplete="off">
+                            <div className={gridContainer}>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={6}>
+                                        <KeyboardDatePicker
+                                            id="move-in-date"
+                                            clearable
+                                            disablePast
+                                            format="MM/dd/yyyy"
+                                            placeholder="mm/dd/yyyy"
+                                            label="Move In Date"
+                                            value={values.lease_start_date || null}
+                                            fullWidth
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+                                            onBlur={handleBlur}
+                                            onChange={(value) => {
+                                                setFieldValue('lease_start_date', value);
+                                            }}
+                                            KeyboardButtonProps={{
+                                                'aria-label': 'change date',
+                                            }}
+                                            error={submitCount >= 1 && !!errors.lease_start_date}
+                                            helperText={submitCount >= 1 && errors.lease_start_date}
+                                            minDate={getMinLeaseStartDate(values.unit)}
+                                            maxDate={getMaxLeaseStartDate(company?.accepted_lease_start_date_range)}
                                         />
-                                        <div className={leasingPricingDisclaimer}>
-                                            {this.props.config.leasing_pricing_disclaimer}
-                                        </div>
-                                    </>
-                                )}
-                                <ActionButton
-                                    disabled={!values.lease_start_date || !values.unit || !values.lease_term || isSubmitting}
-                                    marginTop={31}
-                                    marginBottom={20}
-                                >
-                                    Continue
-                                </ActionButton>
-                            </form>
-                        )
-                    }}
-                </Formik>
-            </Fragment>
-        );
-    }
-}
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <AvailableUnitsSelector
+                                            application={application}
+                                            update={(value) => {
+                                                setFieldValue('unit', value);
+                                                setFieldValue('lease_term', null);
+                                            }}
+                                            error={submitCount >= 1 && !!errors.unit}
+                                            helperText={submitCount >= 1 && errors.unit}
+                                            leaseStartDate={values.lease_start_date}
+                                            errors={errors}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+                                            value={values.unit}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <AvailableLeaseTermsSelector
+                                            unitId={values.unit?.id}
+                                            leaseTerm={values.lease_term}
+                                            handleChange={handleChange}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+                                            leaseStartDate={values.lease_start_date}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </div>
+                            {values.unit &&
+                            values.lease_start_date &&
+                            values.lease_term &&
+                            !errors.lease_start_date && (
+                                <>
+                                    <PriceBreakdown
+                                        selectedOptions={{}}
+                                        category={'lease_terms'}
+                                        application={application}
+                                        unitId={values.unit.id}
+                                        moveInDate={values.lease_start_date}
+                                        leaseTerm={values.lease_term}
+                                        onError={() => setHasError(true)}
+                                        onSuccess={() => setHasError(false)}
+                                    />
+                                    <div className={leasingPricingDisclaimer}>
+                                        {config.leasing_pricing_disclaimer}
+                                    </div>
+                                </>
+                            )}
+                            <ActionButton
+                                disabled={
+                                    !values.lease_start_date || !values.unit || !values.lease_term || isSubmitting
+                                }
+                                marginTop={31}
+                                marginBottom={20}
+                            >
+                                Continue
+                            </ActionButton>
+                        </Form>
+                    );
+                }}
+            </Formik>
+        </>
+    );
+};
+
+// export class LeaseTermsPage extends React.Component {
+//     state = { confirmSent: false, errors: null };
+//
+//     onSubmit = async (values, { setErrors }) => {
+//         const stateUpdate = Object.assign({}, values);
+//         stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
+//
+//         try {
+//             let errors;
+//             if (this.props.isPrimaryApplicant) {
+//                 const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
+//                 errors = renterProfileRes.errors;
+//             }
+//             if (errors) {
+//                 setErrors(errors);
+//             } else {
+//                 await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
+//                 this.props._nextRoute();
+//             }
+//         } catch {
+//             this.setState({ hasError: true });
+//         }
+//     };
+//
+//     initialValues() {
+//         const application = this.props.application;
+//         let lease_start_date = application.lease_start_date;
+//         if (lease_start_date) {
+//             lease_start_date = parseDateISOString(lease_start_date);
+//         }
+//         return {
+//             lease_start_date,
+//             lease_term: application.lease_term || '',
+//             unit: application.unit,
+//         };
+//     }
+//
+//     render() {
+//         if (!this.props.application) return null;
+//         const { isPrimaryApplicant, hasOutstandingBalance, config } = this.props;
+//         const { community } = config;
+//         const { company } = community;
+//         const contactPhone = prettyFormatPhoneNumber(community.contact_phone);
+//
+//         return (
+//             <>
+//                 <H1>Lease Terms</H1>
+//                 {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
+//                 {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
+//                 {this.state.hasError && (
+//                     <GenericFormMessage
+//                         type="error"
+//                         messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
+//                     />
+//                 )}
+//                 {!hasOutstandingBalance && (
+//                     <GenericFormMessage
+//                         type="error"
+//                         messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
+//                     />
+//                 )}
+//                 <ImageContainer>
+//                     <img src={rent} alt="for rent sign" />
+//                 </ImageContainer>
+//                 <Formik
+//                     onSubmit={this.onSubmit}
+//                     initialValues={this.initialValues()}
+//                     validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
+//                 >
+//                     {({ values, errors, handleChange, handleBlur, submitCount, isSubmitting, setFieldValue }) => {
+//                         return (
+//                             <Form className="text-left" autoComplete="off">
+//                                 <div className={gridContainer}>
+//                                     <Grid container spacing={3}>
+//                                         <Grid item xs={6}>
+//                                             <KeyboardDatePicker
+//                                                 id="move-in-date"
+//                                                 clearable
+//                                                 disablePast
+//                                                 format="MM/dd/yyyy"
+//                                                 placeholder="mm/dd/yyyy"
+//                                                 label="Move In Date"
+//                                                 value={values.lease_start_date || null}
+//                                                 fullWidth
+//                                                 disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+//                                                 onBlur={handleBlur}
+//                                                 onChange={(value) => {
+//                                                     setFieldValue('lease_start_date', value);
+//                                                 }}
+//                                                 KeyboardButtonProps={{
+//                                                     'aria-label': 'change date',
+//                                                 }}
+//                                                 error={submitCount >= 1 && !!errors.lease_start_date}
+//                                                 helperText={submitCount >= 1 && errors.lease_start_date}
+//                                                 minDate={getMinLeaseStartDate(values.unit)}
+//                                                 maxDate={getMaxLeaseStartDate(company?.accepted_lease_start_date_range)}
+//                                             />
+//                                         </Grid>
+//                                         <Grid item xs={6}>
+//                                             <AvailableUnitsSelector
+//                                                 application={this.props.application}
+//                                                 update={(value) => {
+//                                                     setFieldValue('unit', value);
+//                                                     setFieldValue('lease_term', null);
+//                                                 }}
+//                                                 error={submitCount >= 1 && !!errors.unit}
+//                                                 helperText={submitCount >= 1 && errors.unit}
+//                                                 leaseStartDate={values.lease_start_date}
+//                                                 errors={errors}
+//                                                 disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+//                                                 value={values.unit}
+//                                             />
+//                                         </Grid>
+//                                         <Grid item xs={12}>
+//                                             <AvailableLeaseTermsSelector
+//                                                 unitId={values.unit?.id}
+//                                                 leaseTerm={values.lease_term}
+//                                                 handleChange={handleChange}
+//                                                 disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+//                                                 leaseStartDate={values.lease_start_date}
+//                                             />
+//                                         </Grid>
+//                                     </Grid>
+//                                 </div>
+//                                 {values.unit &&
+//                                     values.lease_start_date &&
+//                                     values.lease_term &&
+//                                     !errors.lease_start_date && (
+//                                         <>
+//                                             <PriceBreakdown
+//                                                 selectedOptions={{}}
+//                                                 application={this.props.application}
+//                                                 unitId={values.unit.id}
+//                                                 category={'lease_terms'}
+//                                                 moveInDate={values.lease_start_date}
+//                                                 leaseTerm={values.lease_term}
+//                                                 onError={() => this.setState({ hasError: true })}
+//                                                 onSuccess={() => this.setState({ hasError: false })}
+//                                             />
+//                                             <div className={leasingPricingDisclaimer}>
+//                                                 {this.props.config.leasing_pricing_disclaimer}
+//                                             </div>
+//                                         </>
+//                                     )}
+//                                 <ActionButton
+//                                     disabled={
+//                                         !values.lease_start_date || !values.unit || !values.lease_term || isSubmitting
+//                                     }
+//                                     marginTop={31}
+//                                     marginBottom={20}
+//                                 >
+//                                     Continue
+//                                 </ActionButton>
+//                             </Form>
+//                         );
+//                     }}
+//                 </Formik>
+//             </>
+//         );
+//     }
+// }
 
 LeaseTermsPage.propTypes = {
     isPrimaryApplicant: PropTypes.bool,
