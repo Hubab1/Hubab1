@@ -23,7 +23,7 @@ beforeEach(() => {
             lease_term_options: [],
             community: {
                 contact_phone: '555-555-5555',
-                company: {}
+                company: {},
             },
             leasing_pricing_disclaimer: 'test disclaimer',
         },
@@ -175,11 +175,7 @@ describe('handleSubmit', () => {
     it('calls updateRenterProfile with valid parameters', async () => {
         const updateRenterProfile = jest.fn().mockReturnValue(Promise.resolve({}));
         const wrapper = shallow(
-            <LeaseTermsPage
-                {...defaultProps}
-                isPrimaryApplicant={true}
-                updateRenterProfile={updateRenterProfile}
-            />
+            <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
         );
         const submitHandler = wrapper.find(Formik).props().onSubmit;
 
@@ -197,11 +193,7 @@ describe('handleSubmit', () => {
     it('does NOT call updateRenterProfile if isPrimaryApplicant == false', async () => {
         const updateRenterProfile = jest.fn().mockReturnValue(Promise.resolve({}));
         const wrapper = shallow(
-            <LeaseTermsPage
-                {...defaultProps}
-                isPrimaryApplicant={false}
-                updateRenterProfile={updateRenterProfile}
-            />
+            <LeaseTermsPage {...defaultProps} isPrimaryApplicant={false} updateRenterProfile={updateRenterProfile} />
         );
         const submitHandler = wrapper.find(Formik).props().onSubmit;
 
@@ -218,18 +210,11 @@ describe('handleSubmit', () => {
     it('calls pageComplete with lease_terms and nextRoute', async () => {
         const updateRenterProfile = jest.fn().mockReturnValue(Promise.resolve({}));
         const wrapper = shallow(
-            <LeaseTermsPage
-                {...defaultProps}
-                isPrimaryApplicant={true}
-                updateRenterProfile={updateRenterProfile}
-            />
+            <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
         );
         const submitHandler = wrapper.find(Formik).props().onSubmit;
 
-        await submitHandler(
-            { unit: { id: 123 } },
-            { setErrors: jest.fn() }
-        );
+        await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn() });
 
         expect(defaultProps.pageComplete).toHaveBeenCalledWith('lease_terms');
         expect(defaultProps._nextRoute).toHaveBeenCalled();
@@ -239,18 +224,11 @@ describe('handleSubmit', () => {
         await withHooksAsync(async () => {
             const updateRenterProfile = jest.fn().mockReturnValue(Promise.reject({}));
             const wrapper = shallow(
-                <LeaseTermsPage
-                    {...defaultProps}
-                    isPrimaryApplicant={true}
-                    updateRenterProfile={updateRenterProfile}
-                />
+                <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
             );
             const submitHandler = wrapper.find(Formik).props().onSubmit;
 
-            await submitHandler(
-                { unit: { id: 123 } },
-                { setErrors: jest.fn() }
-            );
+            await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn() });
 
             expect(defaultProps.pageComplete).not.toHaveBeenCalled();
             expect(defaultProps._nextRoute).not.toHaveBeenCalled();
