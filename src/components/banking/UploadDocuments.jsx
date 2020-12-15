@@ -43,7 +43,7 @@ const UploadButtonContainer = styled.div`
     text-decoration: none;
     display: block;
     label {
-        margin-bottom: 5px;
+        margin-bottom: 15px;
     }
 `;
 const FileNamesContainer = styled.div`
