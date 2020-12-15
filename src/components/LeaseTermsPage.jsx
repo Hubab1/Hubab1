@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import moment from 'moment';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
@@ -130,7 +130,9 @@ export const LeaseTermsPage = ({
     const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
 
     const handleSubmit = useCallback(
-        async (values, { setErrors }) => {
+        async (values, { setSubmitting, setErrors }) => {
+            setSubmitting(true);
+
             if (!isPrimaryApplicant) {
                 await pageComplete(LEASE_TERMS_IDENTIFIER);
                 return _nextRoute();
@@ -149,6 +151,8 @@ export const LeaseTermsPage = ({
                 _nextRoute();
             } catch {
                 setHasError(true);
+            } finally {
+                setSubmitting(false);
             }
         },
         [isPrimaryApplicant, updateRenterProfile, pageComplete, _nextRoute]
@@ -196,9 +200,18 @@ export const LeaseTermsPage = ({
                 initialValues={initialValues}
                 validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
             >
-                {({ values, errors, handleChange, handleBlur, submitCount, isSubmitting, setFieldValue }) => {
+                {({
+                    values,
+                    errors,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    submitCount,
+                    isSubmitting,
+                    setFieldValue,
+                }) => {
                     return (
-                        <form className="text-left" autoComplete="off">
+                        <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
                                 <Grid container spacing={3}>
                                     <Grid item xs={6}>

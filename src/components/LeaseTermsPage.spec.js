@@ -4,7 +4,6 @@ import { addDays, subDays, format } from 'date-fns';
 import { Formik } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import withHooksAsync from 'utils/withHooksAsync';
 import { ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { LeaseTermsPage, validationSchema } from './LeaseTermsPage';
 import PriceBreakdown from './profile/options/PriceBreakdown';
@@ -181,7 +180,7 @@ describe('handleSubmit', () => {
 
         await submitHandler(
             { lease_start_date: new Date('2019-8-15'), unit: { id: 123 }, lease_term: 12 },
-            { setErrors: jest.fn() }
+            { setErrors: jest.fn(), setSubmitting: jest.fn() }
         );
 
         expect(updateRenterProfile).toHaveBeenCalledWith(
@@ -199,7 +198,7 @@ describe('handleSubmit', () => {
 
         await submitHandler(
             { lease_start_date: new Date('2019-8-15'), unit: { id: 123 }, lease_term: 12 },
-            { setErrors: jest.fn() }
+            { setErrors: jest.fn(), setSubmitting: jest.fn() }
         );
 
         expect(updateRenterProfile).not.toHaveBeenCalled();
@@ -214,94 +213,82 @@ describe('handleSubmit', () => {
         );
         const submitHandler = wrapper.find(Formik).props().onSubmit;
 
-        await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn() });
+        await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn(), setSubmitting: jest.fn() });
 
         expect(defaultProps.pageComplete).toHaveBeenCalledWith('lease_terms');
         expect(defaultProps._nextRoute).toHaveBeenCalled();
     });
 
     it('doesnt call pageComplete if if updateRenterProfile returns errors and displays error', async () => {
-        await withHooksAsync(async () => {
-            const updateRenterProfile = jest.fn().mockReturnValue(Promise.reject({}));
-            const wrapper = shallow(
-                <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
-            );
-            const submitHandler = wrapper.find(Formik).props().onSubmit;
+        const updateRenterProfile = jest.fn().mockReturnValue(Promise.reject({}));
+        const wrapper = shallow(
+            <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
+        );
+        const submitHandler = wrapper.find(Formik).props().onSubmit;
 
-            await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn() });
+        await submitHandler({ unit: { id: 123 } }, { setErrors: jest.fn(), setSubmitting: jest.fn() });
 
-            expect(defaultProps.pageComplete).not.toHaveBeenCalled();
-            expect(defaultProps._nextRoute).not.toHaveBeenCalled();
-            expect(wrapper.find(GenericFormDetail).length).toBe(1);
-            expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
-                "Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit."
-            );
-        });
+        expect(defaultProps.pageComplete).not.toHaveBeenCalled();
+        expect(defaultProps._nextRoute).not.toHaveBeenCalled();
+        expect(wrapper.find(GenericFormDetail).length).toBe(1);
+        expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
+            "Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit."
+        );
     });
 });
 
 describe('render', () => {
-    it('renders PriceBreakdown if unit and lease-start_date and lease_term are set', async () => {
-        await withHooksAsync(() => {
-            const application = {
-                lease_start_date: '2019-8-15',
-                lease_term: 12,
-                unit: 123,
-            };
-            const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
-            expect(wrapper.find(Formik).dive().find(PriceBreakdown).length).toBe(1);
-        });
+    it('renders PriceBreakdown if unit and lease-start_date and lease_term are set', () => {
+        const application = {
+            lease_start_date: '2019-8-15',
+            lease_term: 12,
+            unit: 123,
+        };
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
+        expect(wrapper.find(Formik).dive().find(PriceBreakdown).length).toBe(1);
     });
 
-    it('renders leasing pricing disclaimer if unit and lease-start_date and lease_term are set', async () => {
-        await withHooksAsync(() => {
-            const application = {
-                lease_start_date: '2019-8-15',
-                lease_term: 12,
-                unit: 123,
-            };
-            const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
-            expect(wrapper.find(Formik).dive().text()).toContain(defaultProps.config.leasing_pricing_disclaimer);
-        });
+    it('renders leasing pricing disclaimer if unit and lease-start_date and lease_term are set', () => {
+        const application = {
+            lease_start_date: '2019-8-15',
+            lease_term: 12,
+            unit: 123,
+        };
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} application={application} />);
+        expect(wrapper.find(Formik).dive().text()).toContain(defaultProps.config.leasing_pricing_disclaimer);
     });
 
-    it('displays error when !hasOutstandingBalance', async () => {
-        await withHooksAsync(() => {
-            defaultProps.hasOutstandingBalance = false;
-            const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
-            expect(wrapper.find(GenericFormDetail).length).toBe(1);
-            expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
-                "Please call us at 555‑555‑5555 if you'd like to make any changes to your lease details."
-            );
-        });
+    it('displays error when !hasOutstandingBalance', () => {
+        defaultProps.hasOutstandingBalance = false;
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        expect(wrapper.find(GenericFormDetail).length).toBe(1);
+        expect(wrapper.find(GenericFormDetail).prop('messages')).toContain(
+            "Please call us at 555‑555‑5555 if you'd like to make any changes to your lease details."
+        );
     });
 
-    it('disables form fields when !hasOutstandingBalance', async () => {
-        await withHooksAsync(() => {
-            defaultProps.hasOutstandingBalance = false;
-            const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
-            const formik = wrapper.find(Formik).dive();
+    it('disables form fields when !hasOutstandingBalance', () => {
+        defaultProps.hasOutstandingBalance = false;
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        const formik = wrapper.find(Formik).dive();
 
-            const keyboardDatePicker = formik.find(KeyboardDatePicker);
-            expect(keyboardDatePicker.props().disabled).toBe(true);
-            const availableUnitsSelector = formik.find(AvailableUnitsSelector);
-            expect(availableUnitsSelector.props().disabled).toBe(true);
-            const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
-            expect(availableLeaseTermsSelector.props().disabled).toBe(true);
-        });
+        const keyboardDatePicker = formik.find(KeyboardDatePicker);
+        expect(keyboardDatePicker.props().disabled).toBe(true);
+        const availableUnitsSelector = formik.find(AvailableUnitsSelector);
+        expect(availableUnitsSelector.props().disabled).toBe(true);
+        const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
+        expect(availableLeaseTermsSelector.props().disabled).toBe(true);
     });
 
-    it('does not disable form fields when has hasOutstandingBalance and primaryApplicant', async () => {
-        await withHooksAsync(() => {
-            const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
-            const formik = wrapper.find(Formik).dive();
+    it('does not disable form fields when has hasOutstandingBalance and primaryApplicant', () => {
+        const wrapper = shallow(<LeaseTermsPage {...defaultProps} />);
+        const formik = wrapper.find(Formik).dive();
 
-            const keyboardDatePicker = formik.find(KeyboardDatePicker);
-            expect(keyboardDatePicker.props().disabled).toBe(false);
-            const availableUnitsSelector = formik.find(AvailableUnitsSelector);
-            expect(availableUnitsSelector.props().disabled).toBe(false);
-            const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
-            expect(availableLeaseTermsSelector.props().disabled).toBe(false);
-        });
+        const keyboardDatePicker = formik.find(KeyboardDatePicker);
+        expect(keyboardDatePicker.props().disabled).toBe(false);
+        const availableUnitsSelector = formik.find(AvailableUnitsSelector);
+        expect(availableUnitsSelector.props().disabled).toBe(false);
+        const availableLeaseTermsSelector = formik.find(AvailableLeaseTermsSelector);
+        expect(availableLeaseTermsSelector.props().disabled).toBe(false);
     });
 });
