@@ -1,17 +1,17 @@
 import clsx from 'clsx';
-import { Bold, H1, leftText, LinkButton, P, SpacedH3 } from 'assets/styles';
+import { Bold, H1, leftText, P, SpacedH3 } from 'assets/styles';
 import approvedSign from 'assets/images/approvedSign.svg';
 import Grid from '@material-ui/core/Grid';
 import lightbulb from 'assets/images/lightbulb.png';
 import { prettyCurrency } from 'utils/misc';
 import Box from '@material-ui/core/Box';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { AppAdverseActions } from 'components/AppAdverseActions';
-import React, { useState } from 'react';
+import React from 'react';
 import { MILESTONE_LEASE_SENT, ROLE_OCCUPANT } from 'app/constants';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
+import { AdverseActionNoticeButton } from 'components/AdverseActionNoticeButton';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;
@@ -46,18 +46,15 @@ export const securityDepositTip = css`
     margin-top: 28px;
 `;
 
-export const AppApprovedView = ({ profile, configuration, applicant, setShowPaymentDetails }) => {
-    const { unit, last_status_change, security_deposit: securityDeposit } = profile;
+export const aanDocButton = css`
+    outline: none;
+`;
 
-    const [viewAdverseActions, setViewAdverseActions] = useState(false);
+export const AppApprovedView = ({ profile, configuration, applicant, setShowPaymentDetails }) => {
+    const { unit, security_deposit: securityDeposit } = profile;
 
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
-    const { name } = applicant.person;
-
-    const toggleViewAdverseActions = () => {
-        setViewAdverseActions(!viewAdverseActions);
-    };
 
     const leaseSent = !!profile.events.find((e) => String(e.event) === String(MILESTONE_LEASE_SENT));
     const isOccupant = applicant.role === ROLE_OCCUPANT;
@@ -71,13 +68,9 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
         subtitle = `We'll send an email with instructions on how to sign the lease shortly.`;
     }
 
-    const applicants = [profile.primary_applicant || {}, ...(profile.co_applicants || [])];
-
-    const hasInternationalApplicant = !!applicants.find((applicant) => applicant.international);
-
     return (
         <>
-            <div className={clsx({ 'hide-element': viewAdverseActions })}>
+            <div className={clsx({ 'hide-element': false })}>
                 <H1>{`You've Been Approved!`}</H1>
                 <SpacedH3>{subtitle}</SpacedH3>
                 <ApprovedImage src={approvedSign} />
@@ -105,7 +98,8 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                                     </Bold>
                                     is required for this application.&nbsp;
                                 </span>
-                                <LinkButton onClick={toggleViewAdverseActions}>Learn why</LinkButton>
+
+                                <AdverseActionNoticeButton />
                             </Grid>
                         </Grid>
                     )}
@@ -127,18 +121,6 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                     )}
                 </div>
             </div>
-            {viewAdverseActions && (
-                <AppAdverseActions
-                    date={last_status_change.created_at}
-                    buildingName={buildingName}
-                    unitNumber={unitNumber}
-                    name={name}
-                    securityDeposit={prettyCurrency(securityDeposit)}
-                    onAgree={toggleViewAdverseActions}
-                    hasInternationalApplicant={hasInternationalApplicant}
-                    configuration={configuration}
-                />
-            )}
         </>
     );
 };

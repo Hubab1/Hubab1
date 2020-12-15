@@ -21,15 +21,7 @@ exports[`matches snapshot 1`] = `
       Fake Building
        Unit 2B
     </div>
-    <ActionButton
-      color="primary"
-      marginTop={50}
-      onClick={[Function]}
-      successGreen={false}
-      variant="contained"
-    >
-      Learn Why
-    </ActionButton>
+    <AdverseActionNoticeButton />
   </div>
 </React.Fragment>
 `;

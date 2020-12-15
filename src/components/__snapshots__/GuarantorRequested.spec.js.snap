@@ -40,15 +40,7 @@ exports[`Matches snapshot 1`] = `
       </a>
        if you have any questions or if you are unable or unwilling to add a guarantor.
     </ForwardRef(render)>
-    <ActionButton
-      color="primary"
-      marginTop={65}
-      onClick={[Function]}
-      successGreen={false}
-      variant="contained"
-    >
-      Learn Why
-    </ActionButton>
+    <AdverseActionNoticeButton />
   </div>
 </React.Fragment>
 `;

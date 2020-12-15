@@ -9,10 +9,10 @@ import { H1, SpacedH3, LinkButton } from 'assets/styles';
 import addGuarantor from 'assets/images/add-guarantor.png';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
-import AppAdverseActions from 'components/AppAdverseActions';
 import captureRoute from 'app/captureRoute';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import GuarantorExplanation from './GuarantorExplanation';
+import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 
 export const requestGuarantorHelpText = css`
     color: #454b57;
@@ -50,6 +50,7 @@ export class GuarantorRequested extends React.Component {
     state = {
         viewRequestReason: false,
         viewGuarantorExplanation: false,
+        error: false,
     };
 
     toggleViewRequestReason = () => {
@@ -73,12 +74,7 @@ export class GuarantorRequested extends React.Component {
         if (!profile || !configuration || !applicant) return null;
 
         const { viewRequestReason, viewGuarantorExplanation } = this.state;
-        const { unit, last_status_change } = profile;
 
-        const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-        const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
-        const denialDecisionDate = last_status_change.created_at;
-        const { name } = applicant.person;
         const contactPhone = configuration.community.contact_phone;
         const guarantor_income_requirement_multiplier = configuration.guarantor_income_requirement_multiplier;
         const primaryApplicantFullName = `${profile.primary_applicant.first_name} ${profile.primary_applicant.last_name}`;
@@ -119,9 +115,7 @@ export class GuarantorRequested extends React.Component {
                             Add a Guarantor
                         </ActionButton>
                     ) : (
-                        <ActionButton onClick={this.toggleViewRequestReason} marginTop={65}>
-                            Learn Why
-                        </ActionButton>
+                        <AdverseActionNoticeButton />
                     )}
                 </div>
                 {viewGuarantorExplanation && (
@@ -129,16 +123,6 @@ export class GuarantorRequested extends React.Component {
                         onAgree={this.toggleViewGuarantorExplanation}
                         contactPhone={contactPhone}
                         multiplier={guarantor_income_requirement_multiplier}
-                    />
-                )}
-                {viewRequestReason && (
-                    <AppAdverseActions
-                        date={denialDecisionDate}
-                        buildingName={buildingName}
-                        unitNumber={unitNumber}
-                        name={name}
-                        onAgree={this.toggleViewRequestReason}
-                        guarantorRequested={true}
                     />
                 )}
             </>

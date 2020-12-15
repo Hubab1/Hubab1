@@ -7,10 +7,9 @@ import { connect } from 'react-redux';
 import { ROUTES } from 'app/constants';
 import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
-import ActionButton from 'components/common/ActionButton/ActionButton';
 import clsx from 'clsx';
-import AppAdverseActions from 'components/AppAdverseActions';
 import captureRoute from 'app/captureRoute';
+import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -25,54 +24,30 @@ export const applicationUnit = css`
     padding-top: 10px;
 `;
 
-export class AppDenied extends React.Component {
-    state = {
-        viewDenialReason: false,
-    };
+export const AppDenied = (props) => {
+    const { profile, configuration, applicant } = props;
+    if (!profile || !configuration || !applicant) return null;
 
-    toggleViewDenialDecision = () => {
-        this.setState({ viewDenialReason: !this.state.viewDenialReason });
-    };
+    const { unit } = profile;
 
-    render() {
-        const { profile, configuration, applicant } = this.props;
-        if (!profile || !configuration || !applicant) return null;
+    const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
+    const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
 
-        const { viewDenialReason } = this.state;
-        const { unit, last_status_change } = profile;
-
-        const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-        const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
-        const denialDecisionDate = last_status_change.created_at;
-        const { name } = applicant.person;
-
-        return (
-            <>
-                <div className={clsx({ 'hide-element': viewDenialReason })}>
-                    <H1>Application Denied</H1>
-                    <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
-                    <Img src={cry} />
-                    <div id="application-unit" className={applicationUnit}>
-                        {buildingName}
-                        {unitNumber}
-                    </div>
-                    <ActionButton marginTop={50} onClick={this.toggleViewDenialDecision}>
-                        Learn Why
-                    </ActionButton>
+    return (
+        <>
+            <div className={clsx({ 'hide-element': false })}>
+                <H1>Application Denied</H1>
+                <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
+                <Img src={cry} />
+                <div id="application-unit" className={applicationUnit}>
+                    {buildingName}
+                    {unitNumber}
                 </div>
-                {viewDenialReason && (
-                    <AppAdverseActions
-                        date={denialDecisionDate}
-                        buildingName={buildingName}
-                        unitNumber={unitNumber}
-                        name={name}
-                        onAgree={this.toggleViewDenialDecision}
-                    />
-                )}
-            </>
-        );
-    }
-}
+                <AdverseActionNoticeButton />
+            </div>
+        </>
+    );
+};
 
 AppDenied.propTypes = {
     profile: PropTypes.object,
