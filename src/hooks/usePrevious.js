@@ -1,5 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
-import API from '../app/api';
+import { useRef, useEffect } from 'react';
 
 export default function usePrevious(value) {
     const ref = useRef();

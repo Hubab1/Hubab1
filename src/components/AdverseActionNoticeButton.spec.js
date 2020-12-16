@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
-import API from '../app/api';
-import { LinkButton } from '../assets/styles';
+import API from 'app/api';
+import { LinkButton } from 'assets/styles';
 
 describe('AdverseActionNoticeButton', () => {
     let mockedWindow;

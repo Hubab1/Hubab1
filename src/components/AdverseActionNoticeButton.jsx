@@ -7,15 +7,11 @@ export const aanLink = css`
     outline: none;
 `;
 
-export const openNewWindow = () => {
-    return window.open('data:text/plain;charset=utf-8;base64,TG9hZGluZw==', '_blank');
-};
-
 export const AdverseActionNoticeButton = () => {
     const [error, setError] = useState(false);
 
     const openDocument = async () => {
-        const w = openNewWindow();
+        const w = window.open('data:text/plain;charset=utf-8;base64,TG9hZGluZw==', '_blank');
         try {
             const response = await API.fetchAANDocument();
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
