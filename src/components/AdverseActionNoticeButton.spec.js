@@ -38,12 +38,14 @@ describe('AdverseActionNoticeButton', () => {
     });
 
     it('handles error', async () => {
-        API.fetchAANDocument = jest.fn().mockReturnValue(Promise.reject({}));
+        API.fetchAANDocument = jest.fn().mockReturnValue(Promise.reject());
 
         const wrapper = shallow(<AdverseActionNoticeButton />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
         await wrapper.find(LinkButton).simulate('click');
+
+        expect(API.fetchAANDocument).toBeCalled();
         expect(wrapper.find(LinkButton).text()).toBe('An error occurred. Please try again.');
     });
 });
