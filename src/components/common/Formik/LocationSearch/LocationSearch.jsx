@@ -63,65 +63,66 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
         [field, getMockedOnChangeEvent]
     );
 
-    const handleAddressSearched = useCallback(async (address) => {
-        try {
-            const [result] = await geocodeByAddress(address);
-            const { formatted_address, address_components } = result;
-            let city = undefined;
-            let streetName = undefined;
-            let streetNumber = undefined;
-            let postalCode = undefined;
-            let state = undefined;
-            let addressStreet = undefined;
+    const handleAddressSearched = useCallback(
+        async (address) => {
+            try {
+                const [result] = await geocodeByAddress(address);
+                const { formatted_address, address_components } = result;
+                let city = undefined;
+                let streetName = undefined;
+                let streetNumber = undefined;
+                let postalCode = undefined;
+                let state = undefined;
+                let addressStreet = undefined;
 
-            address_components.forEach((a) => {
-                if (a.types.indexOf(TYPES.city) !== -1) {
-                    city = a.long_name;
-                } else if (!city && a.types.indexOf(TYPES.cityFallback) !== -1) {
-                    city = a.long_name;
-                } else if (a.types.indexOf(TYPES.streetName) !== -1) {
-                    streetName = a.long_name;
-                } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
-                    streetNumber = a.long_name;
-                } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
-                    postalCode = a.long_name;
-                } else if (a.types.indexOf(TYPES.state) !== -1) {
-                    state = a.long_name;
-                }
-            });
+                address_components.forEach((a) => {
+                    if (a.types.indexOf(TYPES.city) !== -1) {
+                        city = a.long_name;
+                    } else if (!city && a.types.indexOf(TYPES.cityFallback) !== -1) {
+                        city = a.long_name;
+                    } else if (a.types.indexOf(TYPES.streetName) !== -1) {
+                        streetName = a.long_name;
+                    } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
+                        streetNumber = a.long_name;
+                    } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
+                        postalCode = a.long_name;
+                    } else if (a.types.indexOf(TYPES.state) !== -1) {
+                        state = a.long_name;
+                    }
+                });
 
-            const addressStreetBuilder = [];
-            if (streetNumber) addressStreetBuilder.push(streetNumber);
-            if (streetName) addressStreetBuilder.push(streetName);
-            addressStreet = addressStreetBuilder.join(' ');
+                const addressStreetBuilder = [];
+                if (streetNumber) addressStreetBuilder.push(streetNumber);
+                if (streetName) addressStreetBuilder.push(streetName);
+                addressStreet = addressStreetBuilder.join(' ');
 
-            const event = getMockedOnChangeEvent({
-                search: formatted_address,
-                address_street: addressStreet,
-                address_city: city,
-                address_state: state,
-                address_postal_code: postalCode,
-            });
+                const event = getMockedOnChangeEvent({
+                    search: formatted_address,
+                    address_street: addressStreet,
+                    address_city: city,
+                    address_state: state,
+                    address_postal_code: postalCode,
+                });
 
-            field.onChange(event);
-        } catch  {
-            setErrors(['Oops! We ran into some issues. Please try again later.']);
-        }
-    }, [
-        field,
-        getMockedOnChangeEvent,
-        setErrors,
-    ]);
+                field.onChange(event);
+            } catch {
+                setErrors(['Oops! We ran into finding your address. Please try again.']);
+            }
+        },
+        [field, getMockedOnChangeEvent, setErrors]
+    );
 
     const handleBlur = useCallback(() => {
         handleAddressSearched(field.value.search);
-    }, [
-        field,
-        handleAddressSearched
-    ]);
+    }, [field, handleAddressSearched]);
 
     return (
-        <PlacesAutocomplete debounce={300} value={field.value.search} onChange={handleChange} onSelect={handleAddressSearched}>
+        <PlacesAutocomplete
+            debounce={300}
+            value={field.value.search}
+            onChange={handleChange}
+            onSelect={handleAddressSearched}
+        >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                 const hasSuggestions = suggestions.length > 0;
                 const showSuggestions = loading || hasSuggestions;
