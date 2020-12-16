@@ -47,6 +47,7 @@ describe('AdverseActionNoticeButton', () => {
         await wrapper.find(LinkButton).simulate('click');
         wrapper.update();
 
+        expect(API.fetchAANDocument).toBeCalled();
         expect(wrapper.find(LinkButton).text()).toBe('An error occurred. Please try again.');
     });
 });
