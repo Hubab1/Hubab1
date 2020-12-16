@@ -16,16 +16,13 @@ export const AdverseActionNoticeButton = () => {
             const response = await API.fetchAANDocument();
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
             w.location.replace(blobUrl);
-            // console.log('no error');
         } catch (e) {
-            // console.log('ERROR1');
             setError(true);
         }
     };
 
     const getText = () => {
         if (error) {
-            // console.log('ERROR2');
             return 'An error occurred. Please try again.';
         }
 
