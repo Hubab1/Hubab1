@@ -70,14 +70,18 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
 
                 let city = undefined;
                 let streetName = undefined;
+                let streetNumber = undefined;
                 let postalCode = undefined;
                 let state = undefined;
+                let addressStreet = undefined;
 
                 address_components.forEach((a) => {
                     if (a.types.indexOf(TYPES.city) !== -1) {
                         city = a.long_name;
                     } else if (a.types.indexOf(TYPES.streetName) !== -1) {
                         streetName = a.long_name;
+                    } else if (a.types.indexOf(TYPES.streetNumber) !== -1) {
+                        streetNumber = a.long_name;
                     } else if (a.types.indexOf(TYPES.postalCode) !== -1) {
                         postalCode = a.long_name;
                     } else if (a.types.indexOf(TYPES.state) !== -1) {
@@ -85,9 +89,14 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
                     }
                 });
 
+                const addressStreetBuilder = [];
+                if (streetNumber) addressStreetBuilder.push(streetNumber);
+                if (streetName) addressStreetBuilder.push(streetName);
+                addressStreet = addressStreetBuilder.join(' ');
+
                 const event = getMockedOnChangeEvent({
                     search: formatted_address,
-                    address_street: streetName,
+                    address_street: addressStreet,
                     address_city: city,
                     address_state: state,
                     address_postal_code: postalCode,
