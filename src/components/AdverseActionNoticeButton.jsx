@@ -7,7 +7,7 @@ export const aanLink = css`
     outline: none;
 `;
 
-export const AdverseActionNoticeButton = () => {
+export function AdverseActionNoticeButton() {
     const [error, setError] = useState(false);
 
     const openDocument = async () => {
@@ -21,17 +21,9 @@ export const AdverseActionNoticeButton = () => {
         }
     };
 
-    const getText = () => {
-        if (error) {
-            return 'An error occurred. Please try again.';
-        }
-
-        return 'Learn why';
-    };
-
     return (
         <LinkButton onClick={openDocument} className={aanLink}>
-            {getText()}
+            {error ? 'An error occurred. Please try again.' : 'Learn why'}
         </LinkButton>
     );
-};
+}

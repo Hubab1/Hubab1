@@ -4,6 +4,8 @@ import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 import API from 'app/api';
 import { LinkButton } from 'assets/styles';
 
+const runAllPromises = () => new Promise(setImmediate);
+
 describe('AdverseActionNoticeButton', () => {
     let mockedWindow;
     beforeEach(() => {
@@ -29,8 +31,9 @@ describe('AdverseActionNoticeButton', () => {
         const wrapper = shallow(<AdverseActionNoticeButton />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
-        await wrapper.find(LinkButton).simulate('click');
-        wrapper.update();
+        wrapper.find(LinkButton).simulate('click');
+
+        await runAllPromises();
 
         expect(global.open).toBeCalled();
         expect(API.fetchAANDocument).toBeCalled();
@@ -44,7 +47,9 @@ describe('AdverseActionNoticeButton', () => {
         const wrapper = shallow(<AdverseActionNoticeButton />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
-        await wrapper.find(LinkButton).simulate('click');
+        wrapper.find(LinkButton).simulate('click');
+
+        await runAllPromises();
         wrapper.update();
 
         expect(API.fetchAANDocument).toBeCalled();
