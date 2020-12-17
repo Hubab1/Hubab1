@@ -65,9 +65,7 @@ function getMaxLeaseStartDate(daysOffset) {
         return undefined;
     }
 
-    const now = moment();
-    now.add({ days: daysOffset });
-    return now;
+    return moment().add({ days: daysOffset });
 }
 
 export const validationSchema = (acceptedLeaseStartDateRange) => {
