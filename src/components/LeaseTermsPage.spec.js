@@ -169,7 +169,6 @@ describe('validationSchema', () => {
         await verifyValid(data, acceptedLeaseStartDateRange);
     });
 
-
     it('should not verify that the selected lease start date is within an accepted lease start date range if there is none', async () => {
         const data = getValidData();
         const acceptedLeaseStartDateRange = null;
