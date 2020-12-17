@@ -9,5 +9,5 @@ const flags = {
 ldRedux.init({
     clientSideId: process.env.REACT_APP_LD_CLIENT_KEY,
     dispatch: store.dispatch,
-    flags
+    flags,
 });
