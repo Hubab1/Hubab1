@@ -97,7 +97,7 @@ export class GuarantorRequested extends React.Component {
                                     Unfortunately, we will not be able to approve your application without a
                                     guarantor.&nbsp;
                                 </span>
-                                <LinkButton onClick={this.toggleViewRequestReason}>Learn why</LinkButton>
+                                <AdverseActionNoticeButton />
                             </>
                         ) : (
                             <span className={requestGuarantorHelpText}>

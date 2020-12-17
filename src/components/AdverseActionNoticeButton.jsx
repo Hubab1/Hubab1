@@ -11,7 +11,8 @@ export function AdverseActionNoticeButton() {
     const [error, setError] = useState(false);
 
     const openDocument = async () => {
-        const w = window.open('data:text/plain;charset=utf-8;base64,TG9hZGluZw==', '_blank');
+        const w = window.open('', '_blank');
+        w.document.write('Loading');
         try {
             const response = await API.fetchAANDocument();
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));

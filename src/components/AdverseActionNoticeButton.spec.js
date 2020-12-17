@@ -13,6 +13,9 @@ describe('AdverseActionNoticeButton', () => {
             location: {
                 replace: jest.fn(),
             },
+            document: {
+                write: jest.fn(),
+            },
         };
         const PDF_DATA_URI = 'data:application/pdf;base64,SOMETHING';
         global.open = jest.fn().mockReturnValue(mockedWindow);
@@ -36,6 +39,8 @@ describe('AdverseActionNoticeButton', () => {
         await runAllPromises();
 
         expect(global.open).toBeCalled();
+        expect(mockedWindow.document.write).toBeCalledWith('Loading');
+
         expect(API.fetchAANDocument).toBeCalled();
         expect(global.URL.createObjectURL).toBeCalled();
         expect(mockedWindow.location.replace).toBeCalledWith('data:application/pdf;base64,SOMETHING');
