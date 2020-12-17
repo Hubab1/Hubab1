@@ -168,6 +168,18 @@ describe('validationSchema', () => {
         data.lease_start_date = new Date(dateAvailable);
         await verifyValid(data, acceptedLeaseStartDateRange);
     });
+
+
+    it('should not verify that the selected lease start date is within an accepted lease start date range if there is none', async () => {
+        const data = getValidData();
+        const acceptedLeaseStartDateRange = null;
+
+        const dateAvailable = addDays(referenceDate, 7);
+        data.unit.date_available = format(dateAvailable, 'yyyy-MM-dd');
+
+        data.lease_start_date = new Date(dateAvailable);
+        await verifyValid(data, acceptedLeaseStartDateRange);
+    });
 });
 
 describe('handleSubmit', () => {

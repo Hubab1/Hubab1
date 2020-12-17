@@ -60,13 +60,17 @@ function getMinLeaseStartDate(unit) {
     }
 }
 
-function getMaxLeaseStartDate(daysOffset = 60) {
+function getMaxLeaseStartDate(daysOffset) {
+    if (!daysOffset) {
+        return undefined;
+    }
+
     const now = moment();
     now.add({ days: daysOffset });
     return now;
 }
 
-export const validationSchema = (acceptedLeaseStartDateRange = 60) => {
+export const validationSchema = (acceptedLeaseStartDateRange) => {
     return Yup.object()
         .test('is-unit-available-for-date', 'An error has occurred', function (values) {
             const { createError } = this;
@@ -97,7 +101,7 @@ export const validationSchema = (acceptedLeaseStartDateRange = 60) => {
                     'test-max-lease-start-date',
                     `Enter a date within ${acceptedLeaseStartDateRange} days of today`,
                     (leaseStartDate) => {
-                        if (!leaseStartDate) {
+                        if (!acceptedLeaseStartDateRange || !leaseStartDate) {
                             return true;
                         }
 
