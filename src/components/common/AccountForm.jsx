@@ -213,7 +213,7 @@ AccountForm.propTypes = {
     status: PropTypes.string,
     withPassword: PropTypes.bool,
     showConsentInput: PropTypes.bool,
-    resetPassword: PropTypes.func.isRequired,
+    resetPassword: PropTypes.func,
     onSubmit: PropTypes.func.isRequired,
     configuration: PropTypes.object.isRequired,
     maxDate: PropTypes.object,

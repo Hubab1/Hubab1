@@ -55,6 +55,7 @@ export class ForgotPasswordPage extends React.Component {
                             .required('Phone Number is required')
                             .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
                     })}
+                    initialValues={{ phone: '' }}
                     onSubmit={this.onSubmit}
                 >
                     {({ values, errors, handleChange, submitCount, handleSubmit, isSubmitting }) => (

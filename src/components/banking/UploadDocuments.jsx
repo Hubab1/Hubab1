@@ -43,7 +43,7 @@ const UploadButtonContainer = styled.div`
     text-decoration: none;
     display: block;
     label {
-        margin-bottom: 17px;
+        margin-bottom: 15px;
     }
 `;
 const FileNamesContainer = styled.div`
@@ -91,6 +91,14 @@ const FileName = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
 `;
+
+const FileRestrictionText = () => {
+    return (
+        <P textAlign="center" fontSize="14">
+            We accept .jpg, .png, and .pdf files under 10 mb.
+        </P>
+    );
+};
 
 export class UploadDocuments extends React.Component {
     state = {
@@ -349,6 +357,7 @@ export class UploadDocuments extends React.Component {
                                     )}
                                 </div>
                             ))}
+                            <FileRestrictionText />
                         </UploadButtonContainer>
                     </>
                 ) : (
@@ -408,6 +417,7 @@ export class UploadDocuments extends React.Component {
                                             />
                                         </Button>
                                     )}
+                                    <FileRestrictionText />
                                 </UploadButtonContainer>
                             </>
                         )}
