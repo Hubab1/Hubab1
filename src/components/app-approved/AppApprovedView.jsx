@@ -98,7 +98,6 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                                     </Bold>
                                     is required for this application.&nbsp;
                                 </span>
-
                                 <AdverseActionNoticeButton />
                             </Grid>
                         </Grid>

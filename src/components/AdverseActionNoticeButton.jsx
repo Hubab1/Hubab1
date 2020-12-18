@@ -18,6 +18,7 @@ export function AdverseActionNoticeButton() {
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
             w.location.replace(blobUrl);
         } catch (e) {
+            console.error(e);
             setError(true);
         }
     };

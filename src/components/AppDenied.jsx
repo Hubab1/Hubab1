@@ -34,18 +34,16 @@ export const AppDenied = (props) => {
     const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
 
     return (
-        <>
-            <div className={clsx({ 'hide-element': false })}>
-                <H1>Application Denied</H1>
-                <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
-                <Img src={cry} />
-                <div id="application-unit" className={applicationUnit}>
-                    {buildingName}
-                    {unitNumber}
-                </div>
-                <AdverseActionNoticeButton />
+        <div className={clsx({ 'hide-element': false })}>
+            <H1>Application Denied</H1>
+            <SpacedH3>Unfortunately, we were unable to approve your application.</SpacedH3>
+            <Img src={cry} />
+            <div id="application-unit" className={applicationUnit}>
+                {buildingName}
+                {unitNumber}
             </div>
-        </>
+            <AdverseActionNoticeButton />
+        </div>
     );
 };
 
