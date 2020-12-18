@@ -74,7 +74,7 @@ export default function FormTextInput(props) {
 
     return (
         <TextField
-            error={submitted && error}
+            error={submitted && !!error}
             helperText={fieldHelperText}
             label={label}
             classes={{ root }}
