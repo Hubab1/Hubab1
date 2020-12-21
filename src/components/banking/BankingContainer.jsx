@@ -1,15 +1,8 @@
-import React, {
-    useReducer,
-    useEffect,
-    useCallback,
-} from 'react';
+import React, { useReducer, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import {
-    ROUTES,
-    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
-} from 'app/constants';
+import { ROUTES, MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED } from 'app/constants';
 import API from 'app/api';
 import reducer from './reducer';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -21,11 +14,7 @@ import AddIncomeSource from './AddIncomeSource';
 import AddAssetSource from './AddAssetSource';
 import BankingContext from './BankingContext';
 
-function BankingContainer({
-    applicationEvents,
-    history,
-    _nextRoute
-}) {
+function BankingContainer({ applicationEvents, history, _nextRoute }) {
     const [state, dispatch] = useReducer(reducer, {});
 
     const refreshFinancialSources = useCallback(async () => {
@@ -40,7 +29,9 @@ function BankingContainer({
     useEffect(() => {
         (async () => {
             const data = await refreshFinancialSources();
-            const agentRequestedIncomeAssets = applicationEvents.find(({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED);
+            const agentRequestedIncomeAssets = applicationEvents.find(
+                ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
+            );
             if (agentRequestedIncomeAssets) return;
             if (data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets) {
                 history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
@@ -48,9 +39,7 @@ function BankingContainer({
         })();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        applicationEvents
-    ]);
+    }, [applicationEvents]);
 
     return (
         <BankingContext.Provider
@@ -80,7 +69,7 @@ BankingContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    applicationEvents: state.renterProfile?.events
+    applicationEvents: state.renterProfile?.events,
 });
 
 const mapDispatchToProps = null;
@@ -88,6 +77,4 @@ const mapDispatchToProps = null;
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(
-    withRelativeRoutes(BankingContainer, ROUTES.INCOME_AND_EMPLOYMENT)
-);
+)(withRelativeRoutes(BankingContainer, ROUTES.INCOME_AND_EMPLOYMENT));
