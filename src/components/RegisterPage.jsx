@@ -32,6 +32,7 @@ export class RegisterPage extends React.Component {
             email: '',
             birthday: '',
             password: '',
+            sms_opt_in: false,
         };
 
         if (person) {

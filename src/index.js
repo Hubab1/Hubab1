@@ -11,6 +11,9 @@ import 'app/configureSentry';
 // Yup
 import 'utils/configureYup';
 
+// LD
+import 'app/configureLD';
+
 import store from 'reducers/store';
 import App from 'app/App';
 

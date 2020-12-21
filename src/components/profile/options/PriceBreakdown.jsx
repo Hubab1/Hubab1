@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import pluralize from 'pluralize';
@@ -53,10 +53,9 @@ function PriceBreakdown(props) {
     const [priceBreakdown, setPriceBreakdown] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
-    useEffect(() => {
+    const fetchQuote = useCallback(async () => {
         const body = {
             application: props.application.id,
             rental_options: props.selectedOptions,
@@ -64,31 +63,38 @@ function PriceBreakdown(props) {
             lease_term: props.leaseTerm,
             move_in_date: serializeDate(props.moveInDate),
         };
-        API.getCurrentFlatQuote(body)
-            .then((result) => {
-                if (result.errors) {
-                    props.onError && props.onError(result.errors);
-                    setHasError(true);
-                    return;
-                }
-                props.onSuccess && props.onSuccess(result);
-                setHasError(false);
-                setPriceBreakdown(result);
-                setIsLoading(false);
-            })
-            .catch(() => {
-                props.onError && props.onError();
+        try {
+            const result = await API.getCurrentFlatQuote(body);
+            if (result.errors) {
+                props.onError && props.onError(result.errors);
                 setHasError(true);
-            });
+                return;
+            }
+            props.onSuccess && props.onSuccess(result);
+            setHasError(false);
+            setPriceBreakdown(result);
+            setIsLoading(false);
+        } catch {
+            props.onError && props.onError();
+            setHasError(true);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.application.id, stringifiedSelectedOptions, props.unitId, props.leaseTerm, props.moveInDate]);
 
+    // Bind fetch quote so it can be triggered from outside this component
+    props.bindFetchQuote && props.bindFetchQuote(fetchQuote);
+
+    useEffect(() => {
+        (async () => {
+            fetchQuote();
+        })();
+    }, [fetchQuote]);
+
     const getCurrentCategoryInfo = () => {
         // Count the number of rental options selected
-        const categoryCount = Object.values(props.selectedOptions).reduce((a, b) => a + b, 0);
-
+        const categoryCount = Object.values(props.selectedOptions).reduce((a, b) => a + b.quantity, 0);
         let categoryMonthlyPrice = priceBreakdown.items_breakdown[props.category];
-
         let categoryInfo = 'Your monthly rent may update as you add rental options in the next steps.';
 
         if (categoryMonthlyPrice != null) {
@@ -178,6 +184,7 @@ PriceBreakdown.propTypes = {
     moveInDate: PropTypes.any,
     onError: PropTypes.func,
     onSuccess: PropTypes.func,
+    bindFetchQuote: PropTypes.func,
     name: PropTypes.string,
 };
 

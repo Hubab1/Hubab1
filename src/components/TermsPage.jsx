@@ -16,7 +16,7 @@ const AgreementCheckboxContainer = styled.div`
     div {
         padding: 26px 0 0 0;
     }
-    div:first-child {
+    div:first-of-type {
         padding: 6px 0 0 0;
     }
     .MuiCheckbox-root {
