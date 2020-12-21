@@ -40,9 +40,9 @@ function BankingContainer({
     useEffect(() => {
         (async () => {
             const data = await refreshFinancialSources();
-            const agentRequestedIncomeAssets = applicationEvents.find(({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED) !== null;
+            const agentRequestedIncomeAssets = applicationEvents.find(({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED);
             if (agentRequestedIncomeAssets) return;
-            if (data?.asset_sources?.length || data?.reported_no_income_assets) {
+            if (data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets) {
                 history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
             }
         })();
