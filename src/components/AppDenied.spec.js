@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { MILESTONE_LEASE_SENT } from '../app/constants';
 import { AppDenied } from './AppDenied';
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [{ event: '270' }],
+            events: [{ event: MILESTONE_LEASE_SENT.toString() }],
             unit: {
                 unit_number: unitNumber,
             },

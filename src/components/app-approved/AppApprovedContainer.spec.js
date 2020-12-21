@@ -6,11 +6,12 @@ import React from 'react';
 import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import { SignLeaseView } from 'components/app-approved/SignLeaseView';
 import { LinkButton } from 'assets/styles';
+import { MILESTONE_LEASE_SENT } from 'app/constants';
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [{ event: '270' }],
+            events: [{ event: MILESTONE_LEASE_SENT.toString() }],
             unit: {
                 unit_number: unitNumber,
             },
