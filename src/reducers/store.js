@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import ldRedux from 'ld-redux';
 
 import renterProfile from 'reducers/renter-profile';
 import configuration from 'reducers/configuration';
@@ -11,14 +12,16 @@ const reducer = {
     renterProfile,
     configuration,
     siteConfig,
-    payments
+    payments,
+    launchDarkly: ldRedux.reducer(),
 };
 
 export const actions = {};
+
 actions.logout = () => ({
-    type: 'USER_LOGOUT'
+    type: 'USER_LOGOUT',
 });
 
 export default configureStore({
-    reducer
+    reducer,
 });
