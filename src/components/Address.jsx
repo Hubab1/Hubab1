@@ -10,7 +10,7 @@ import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import LocationSearch from 'components/common/Formik/LocationSearch/LocationSearch';
+import LocationSearch from 'components/common/LocationSearch/LocationSearch';
 import GenericFormMessage from './common/GenericFormMessage';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
@@ -27,16 +27,14 @@ const ImageContainer = styled.div`
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
 export const validationSchema = Yup.object().shape({
-    address_search: Yup.object().shape({
-        address_street: Yup.string()
-            .required('Street is required')
-            .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
-        address_city: Yup.string()
-            .required('City is required')
-            .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
-        address_state: Yup.string().required('State is required'),
-        address_postal_code: Yup.number().required('Zip code is required'),
-    }),
+    address_street: Yup.string()
+        .required('Street is required')
+        .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+    address_city: Yup.string()
+        .required('City is required')
+        .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
+    address_state: Yup.string().required('State is required'),
+    address_postal_code: Yup.number().required('Zip code is required'),
     address_line_2: Yup.string(),
 });
 
@@ -44,16 +42,11 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
 
     const handleSubmit = useCallback(
-        async (values, { setSubmitting, setErrors: setFormErrors }) => {
+        async (values, { setErrors: setFormErrors }) => {
             setErrors(null);
 
             try {
-                const serialized = {
-                    ...values.address_search,
-                    address_line_2: values.address_line_2,
-                };
-
-                const response = await updateApplicant(serialized);
+                const response = await updateApplicant(values);
                 if (response.errors) {
                     setFormErrors(response.errors);
                 } else {
@@ -61,8 +54,6 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                 }
             } catch {
                 setErrors([GENERIC_ERROR_MESSAGE]);
-            } finally {
-                setSubmitting(false);
             }
         },
         [updateApplicant, _nextRoute]
@@ -77,13 +68,11 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
         const search = searchBuilder.join(', ');
 
         return {
-            address_search: {
-                search,
-                address_street: applicant.address_street,
-                address_city: applicant.address_city,
-                address_state: applicant.address_state,
-                address_postal_code: applicant.address_postal_code,
-            },
+            search,
+            address_street: applicant.address_street,
+            address_city: applicant.address_city,
+            address_state: applicant.address_state,
+            address_postal_code: applicant.address_postal_code,
             address_line_2: applicant.address_line_2,
         };
     }, [applicant]);
@@ -100,19 +89,27 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
             <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
-                {({ values, isSubmitting, handleSubmit, submitCount }) => {
-                    const disableSubmit = !values.address_search.search || isSubmitting;
+                {({ values, errors: validationErrors, isSubmitting, setValues }) => {
+                    const disableSubmit = !values.search || isSubmitting;
 
                     return (
-                        <Form onSubmit={handleSubmit} autoComplete="off">
-                            <Field
+                        <Form autoComplete="off">
+                            <LocationSearch
                                 fullWidth
                                 margin="normal"
                                 label="Street name, city, state, zip"
                                 name="address_search"
-                                submitCount={submitCount}
-                                setErrors={setErrors}
-                                component={LocationSearch}
+                                initialValue={values.search}
+                                validationError={Object.values(validationErrors)?.join(', ')}
+                                onAddressPicked={(address) => {
+                                    setValues({
+                                        ...values,
+                                        address_street: address.addressStreet,
+                                        address_city: address.city,
+                                        address_state: address.state,
+                                        address_postal_code: address.postalCode,
+                                    });
+                                }}
                             />
                             <Field
                                 fullWidth

@@ -4,18 +4,17 @@ import { Formik, Field } from 'formik';
 
 import withHooksAsync from 'utils/withHooksAsync';
 import { Address, validationSchema, GENERIC_ERROR_MESSAGE } from './Address';
+import LocationSearch from 'components/common/LocationSearch/LocationSearch';
 
 describe('validationSchema', () => {
     let formValues = {};
 
     beforeEach(() => {
         formValues = {
-            address_search: {
-                address_street: '123 Fulton st',
-                address_city: 'New York',
-                address_state: 'NY',
-                address_postal_code: '10038',
-            },
+            address_street: '123 Fulton st',
+            address_city: 'New York',
+            address_state: 'NY',
+            address_postal_code: '10038',
             address_line_2: '',
         };
     });
@@ -32,20 +31,14 @@ describe('validationSchema', () => {
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_postal_code: 'INVALID',
-                },
+                address_postal_code: 'INVALID',
             })
         ).toBe(false);
 
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_postal_code: null,
-                },
+                address_postal_code: null,
             })
         ).toBe(false);
     });
@@ -54,20 +47,14 @@ describe('validationSchema', () => {
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_street: 'INV@LID',
-                },
+                address_street: 'INV@LID',
             })
         ).toBe(false);
 
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_street: null,
-                },
+                address_street: null,
             })
         ).toBe(false);
     });
@@ -76,20 +63,14 @@ describe('validationSchema', () => {
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_city: 'INV@LID',
-                },
+                address_city: 'INV@LID',
             })
         ).toBe(false);
 
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_search: {
-                    ...formValues.address_search,
-                    address_city: null,
-                },
+                address_city: null,
             })
         ).toBe(false);
     });
@@ -113,8 +94,8 @@ describe('initial values', () => {
 
     it('will populate form with address from applicant', () => {
         const wrapper = mount(<Address {...defaultProps} />);
-        const addressSearchField = wrapper.find(Field).at(0);
-        const addressLineField = wrapper.find(Field).at(1);
+        const addressSearchField = wrapper.find(LocationSearch).at(0);
+        const addressLineField = wrapper.find(Field).at(0);
 
         const expectedAddressLineValue = defaultProps.applicant.address_line_2;
         const expectedAddressSearchValue =
@@ -174,18 +155,9 @@ describe('handle submit', () => {
                 address_line_2: defaultProps.applicant.address_line_2,
             };
 
-            await submitHandler(
-                {
-                    address_search: {
-                        ...addressData,
-                    },
-                    address_line_2: addressData.address_line_2,
-                },
-                {
-                    setSubmitting: jest.fn(),
-                    setErrors: jest.fn(),
-                }
-            );
+            await submitHandler(addressData, {
+                setErrors: jest.fn(),
+            });
 
             expect(updateApplicant).toBeCalledWith(addressData);
             expect(_nextRoute).toBeCalled();
@@ -211,22 +183,12 @@ describe('handle submit', () => {
                 address_line_2: defaultProps.applicant.address_line_2,
             };
 
-            await submitHandler(
-                {
-                    address_search: {
-                        ...addressData,
-                    },
-                    address_line_2: addressData.address_line_2,
-                },
-                {
-                    setSubmitting: jest.fn(),
-                    setErrors: jest.fn(),
-                }
-            );
+            await submitHandler(addressData, {
+                setErrors: jest.fn(),
+            });
 
             expect(updateApplicant).toBeCalledWith(addressData);
             expect(_nextRoute).not.toBeCalled();
-
             expect(wrapper.html().includes(GENERIC_ERROR_MESSAGE)).toBe(true);
         });
     });

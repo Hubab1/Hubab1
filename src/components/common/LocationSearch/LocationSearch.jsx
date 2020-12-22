@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
 import styled from '@emotion/styled';
@@ -30,38 +29,9 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }) => {
-    const errors = form.errors[field.name];
-    const error = useMemo(() => {
-        if (!isEmpty(errors)) {
-            return errors[Object.keys(errors)[0]];
-        }
-
-        return null;
-    }, [errors]);
-
-    const getMockedOnChangeEvent = useCallback(
-        (values) => {
-            return {
-                target: {
-                    value: {
-                        ...field.value,
-                        ...values,
-                    },
-                    name: field.name,
-                },
-            };
-        },
-        [field]
-    );
-
-    const handleChange = useCallback(
-        (address) => {
-            const event = getMockedOnChangeEvent({ search: address });
-            field.onChange(event);
-        },
-        [field, getMockedOnChangeEvent]
-    );
+export const LocationSearch = ({ initialValue, onAddressPicked, validationError, ...props }) => {
+    const [value, setValue] = useState(initialValue || '');
+    const [error, setErrors] = useState(undefined);
 
     const handleAddressSearched = useCallback(
         async (address) => {
@@ -96,33 +66,26 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
                 if (streetName) addressStreetBuilder.push(streetName);
                 addressStreet = addressStreetBuilder.join(' ');
 
-                const event = getMockedOnChangeEvent({
-                    search: formatted_address,
-                    address_street: addressStreet,
-                    address_city: city,
-                    address_state: state,
-                    address_postal_code: postalCode,
+                setValue(formatted_address);
+                onAddressPicked({
+                    addressStreet,
+                    city,
+                    state,
+                    postalCode,
                 });
-
-                field.onChange(event);
             } catch {
                 setErrors(['Oops! We ran into finding your address. Please try again.']);
             }
         },
-        [field, getMockedOnChangeEvent, setErrors]
+        [onAddressPicked, setErrors]
     );
 
     const handleBlur = useCallback(() => {
-        handleAddressSearched(field.value.search);
-    }, [field, handleAddressSearched]);
+        handleAddressSearched(value);
+    }, [value, handleAddressSearched]);
 
     return (
-        <PlacesAutocomplete
-            debounce={300}
-            value={field.value.search}
-            onChange={handleChange}
-            onSelect={handleAddressSearched}
-        >
+        <PlacesAutocomplete debounce={300} value={value} onChange={setValue} onSelect={handleAddressSearched}>
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                 const hasSuggestions = suggestions.length > 0;
                 const showSuggestions = loading || hasSuggestions;
@@ -131,11 +94,11 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
                 return (
                     <>
                         <TextField
-                            {...field}
                             {...props}
                             {...inputProps}
-                            error={submitCount > 0 && !!error}
-                            helperText={submitCount > 0 && error}
+                            value={value}
+                            error={!!error || !!validationError}
+                            helperText={error || validationError}
                             onBlur={handleBlur}
                         />
                         {showSuggestions && (
@@ -166,10 +129,9 @@ export const LocationSearch = ({ form, field, submitCount, setErrors, ...props }
 };
 
 LocationSearch.propTypes = {
-    form: PropTypes.object.isRequired,
-    field: PropTypes.object.isRequired,
-    submitCount: PropTypes.number.isRequired,
-    setErrors: PropTypes.func.isRequired,
+    initialValue: PropTypes.string,
+    validationError: PropTypes.string,
+    onAddressPicked: PropTypes.func.isRequired,
 };
 
 export default LocationSearch;
