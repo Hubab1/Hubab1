@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
+import moment from 'moment';
 import * as Yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import { css } from 'emotion';
@@ -59,119 +60,159 @@ function getMinLeaseStartDate(unit) {
     }
 }
 
-function getMaxLeaseStartDate() {
-    const now = new Date();
-    now.setDate(now.getDate() + 60);
-    now.setHours(0, 0, 0, 0);
-    return now;
+function getMaxLeaseStartDate(daysOffset) {
+    if (!daysOffset) {
+        return undefined;
+    }
+
+    return moment().add({ days: daysOffset });
 }
 
-export const leaseTermsValidationSchema = Yup.object()
-    .test('is-unit-available-for-date', 'An error has occurred', function (values) {
-        const { createError } = this;
-        const { unit, lease_start_date } = values;
+export const validationSchema = (acceptedLeaseStartDateRange) => {
+    return Yup.object()
+        .test('is-unit-available-for-date', 'An error has occurred', function (values) {
+            const { createError } = this;
+            const { unit, lease_start_date } = values;
 
-        if (!lease_start_date) {
+            if (!lease_start_date) {
+                return true;
+            }
+
+            const start_date = Date.parse(lease_start_date);
+            const min_available = getMinLeaseStartDate(unit);
+            if (new Date(start_date) < min_available) {
+                const unitNumber = unit ? unit.unit_number : '';
+                return createError({
+                    path: 'lease_start_date',
+                    message: `Oops! Unit ${unitNumber} isn’t available until ${format(min_available, 'M/d/yy')}`,
+                });
+            }
+
             return true;
-        }
+        })
+        .shape({
+            lease_start_date: Yup.date()
+                .nullable()
+                .typeError('Invalid Date Format')
+                .required('Select a Move In Date')
+                .test(
+                    'test-max-lease-start-date',
+                    `Enter a date within ${acceptedLeaseStartDateRange} days of today`,
+                    (leaseStartDate) => {
+                        if (!acceptedLeaseStartDateRange || !leaseStartDate) {
+                            return true;
+                        }
 
-        const start_date = Date.parse(lease_start_date);
-        const min_available = getMinLeaseStartDate(unit);
-        if (new Date(start_date) < min_available) {
-            const unitNumber = unit ? unit.unit_number : '';
-            return createError({
-                path: 'lease_start_date',
-                message: `Oops! Unit ${unitNumber} isn’t available until ${format(min_available, 'M/d/yy')}`,
-            });
-        }
+                        const maxStartDate = getMaxLeaseStartDate(acceptedLeaseStartDateRange);
+                        maxStartDate.endOf('day');
 
-        return true;
-    })
-    .shape({
-        lease_start_date: Yup.date().nullable().typeError('Invalid Date Format').required('Select a Move In Date'),
-        unit: Yup.object().nullable().required('Select a Unit'),
-        lease_term: Yup.mixed().nullable().required('Select a Lease Term'),
-    });
+                        const startDate = moment(leaseStartDate);
+                        startDate.startOf('day');
 
-export class LeaseTermsPage extends React.Component {
-    state = { confirmSent: false, errors: null };
+                        return startDate.isBefore(maxStartDate);
+                    }
+                ),
+            unit: Yup.object().nullable().required('Select a Unit'),
+            lease_term: Yup.mixed().nullable().required('Select a Lease Term'),
+        });
+};
 
-    onSubmit = async (values, { setSubmitting, setErrors }) => {
-        const stateUpdate = Object.assign({}, values);
-        stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
-        setSubmitting(true);
-        try {
-            let errors;
-            if (this.props.isPrimaryApplicant) {
-                const renterProfileRes = await this.props.updateRenterProfile(serializeValues(values), stateUpdate);
-                errors = renterProfileRes.errors;
+export const LeaseTermsPage = ({
+    application,
+    isPrimaryApplicant,
+    hasOutstandingBalance,
+    config,
+    updateRenterProfile,
+    pageComplete,
+    _nextRoute,
+}) => {
+    const [hasError, setHasError] = useState(false);
+    const { community } = config;
+    const { company } = community;
+    const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
+
+    const handleSubmit = useCallback(
+        async (values, { setSubmitting, setErrors }) => {
+            setSubmitting(true);
+
+            if (!isPrimaryApplicant) {
+                await pageComplete(LEASE_TERMS_IDENTIFIER);
+                return _nextRoute();
             }
-            if (errors) {
-                setErrors(errors);
-            } else {
-                await this.props.pageComplete(LEASE_TERMS_IDENTIFIER);
-                this.props._nextRoute();
-            }
-        } catch {
-            this.setState({ hasError: true });
-        } finally {
-            setSubmitting(false);
-        }
-    };
 
-    initialValues() {
-        const application = this.props.application;
+            try {
+                const stateUpdate = Object.assign({}, values);
+                stateUpdate.lease_start_date = serializeDate(stateUpdate.lease_start_date);
+
+                const response = await updateRenterProfile(serializeValues(values), stateUpdate);
+                if (response.errors) {
+                    return setErrors(response.errors);
+                }
+
+                await pageComplete(LEASE_TERMS_IDENTIFIER);
+                _nextRoute();
+            } catch {
+                setHasError(true);
+            } finally {
+                setSubmitting(false);
+            }
+        },
+        [isPrimaryApplicant, updateRenterProfile, pageComplete, _nextRoute]
+    );
+
+    const initialValues = useMemo(() => {
         let lease_start_date = application.lease_start_date;
         if (lease_start_date) {
             lease_start_date = parseDateISOString(lease_start_date);
         }
+
         return {
             lease_start_date,
             lease_term: application.lease_term || '',
             unit: application.unit,
         };
+    }, [application]);
+
+    if (!application) {
+        return null;
     }
 
-    render() {
-        if (!this.props.application) return null;
-        const { isPrimaryApplicant, hasOutstandingBalance } = this.props;
-        const contactPhone = prettyFormatPhoneNumber(this.props.config.community.contact_phone);
-
-        return (
-            <Fragment>
-                <H1>Lease Terms</H1>
-                {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
-                {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
-                {this.state.hasError && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
-                    />
-                )}
-                {!hasOutstandingBalance && (
-                    <GenericFormMessage
-                        type="error"
-                        messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
-                    />
-                )}
-                <ImageContainer>
-                    <img src={rent} alt="for rent sign" />
-                </ImageContainer>
-                <Formik
-                    onSubmit={this.onSubmit}
-                    initialValues={this.initialValues()}
-                    validationSchema={leaseTermsValidationSchema}
-                >
-                    {({
-                        values,
-                        errors,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        submitCount,
-                        isSubmitting,
-                        setFieldValue,
-                    }) => (
+    return (
+        <>
+            <H1>Lease Terms</H1>
+            {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
+            {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
+            {hasError && (
+                <GenericFormMessage
+                    type="error"
+                    messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
+                />
+            )}
+            {!hasOutstandingBalance && (
+                <GenericFormMessage
+                    type="error"
+                    messages={`Please call us at ${contactPhone} if you'd like to make any changes to your lease details.`}
+                />
+            )}
+            <ImageContainer>
+                <img src={rent} alt="for rent sign" />
+            </ImageContainer>
+            <Formik
+                onSubmit={handleSubmit}
+                initialValues={initialValues}
+                validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
+            >
+                {({
+                    values,
+                    errors,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    submitCount,
+                    isSubmitting,
+                    setFieldValue,
+                }) => {
+                    return (
                         <form className="text-left" onSubmit={handleSubmit} autoComplete="off">
                             <div className={gridContainer}>
                                 <Grid container spacing={3}>
@@ -196,12 +237,12 @@ export class LeaseTermsPage extends React.Component {
                                             error={submitCount >= 1 && !!errors.lease_start_date}
                                             helperText={submitCount >= 1 && errors.lease_start_date}
                                             minDate={getMinLeaseStartDate(values.unit)}
-                                            maxDate={getMaxLeaseStartDate()}
+                                            maxDate={getMaxLeaseStartDate(company?.accepted_lease_start_date_range)}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
-                                            application={this.props.application}
+                                            application={application}
                                             update={(value) => {
                                                 setFieldValue('unit', value);
                                                 setFieldValue('lease_term', null);
@@ -229,17 +270,15 @@ export class LeaseTermsPage extends React.Component {
                                 <>
                                     <PriceBreakdown
                                         selectedOptions={{}}
-                                        application={this.props.application}
-                                        unitId={values.unit.id}
                                         category={'lease_terms'}
+                                        application={application}
+                                        unitId={values.unit.id}
                                         moveInDate={values.lease_start_date}
                                         leaseTerm={values.lease_term}
-                                        onError={() => this.setState({ hasError: true })}
-                                        onSuccess={() => this.setState({ hasError: false })}
+                                        onError={() => setHasError(true)}
+                                        onSuccess={() => setHasError(false)}
                                     />
-                                    <div className={leasingPricingDisclaimer}>
-                                        {this.props.config.leasing_pricing_disclaimer}
-                                    </div>
+                                    <div className={leasingPricingDisclaimer}>{config.leasing_pricing_disclaimer}</div>
                                 </>
                             )}
                             <ActionButton
@@ -252,12 +291,12 @@ export class LeaseTermsPage extends React.Component {
                                 Continue
                             </ActionButton>
                         </form>
-                    )}
-                </Formik>
-            </Fragment>
-        );
-    }
-}
+                    );
+                }}
+            </Formik>
+        </>
+    );
+};
 
 LeaseTermsPage.propTypes = {
     isPrimaryApplicant: PropTypes.bool,

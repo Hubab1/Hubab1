@@ -5,4 +5,5 @@ steps:
       queue: docker
     env:
       BUILDKITE_ASSUME_ROLE: arn:aws:iam::380368738393:role/CI/ProductionDeployWoodhouse
+      DEPLOY_ENVIRONMENT: production
       S3_BUCKET: s3://apply.funnelleasing.com
