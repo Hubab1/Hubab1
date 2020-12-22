@@ -10,6 +10,7 @@ import {
     MILESTONE_APPLICANT_SUBMITTED,
     EVENT_LEASE_TERMS_COMPLETED,
     MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED,
+    MILESTONE_APPLICATION_FEE_COMPLETED,
 } from 'app/constants';
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
@@ -402,7 +403,7 @@ describe('selectInitialPage', () => {
                     { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
                     { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                     { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
-                    { event: MILESTONE_APPLICANT_SUBMITTED },
+                    { event: MILESTONE_APPLICATION_FEE_COMPLETED },
                 ],
                 outstanding_balances: [
                     { receipt: 123, paid: false },
