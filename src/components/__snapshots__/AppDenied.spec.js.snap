@@ -20,6 +20,9 @@ exports[`matches snapshot 1`] = `
     Fake Building
      Unit 2B
   </div>
-  <AdverseActionNoticeButton />
+  <AdverseActionNoticeButton
+    componentType="button"
+    marginTop={50}
+  />
 </div>
 `;

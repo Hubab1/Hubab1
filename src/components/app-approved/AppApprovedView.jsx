@@ -11,7 +11,7 @@ import { MILESTONE_LEASE_SENT, ROLE_OCCUPANT } from 'app/constants';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-import { AdverseActionNoticeButton } from 'components/AdverseActionNoticeButton';
+import { AdverseActionNoticeButton, LINK_BUTTON } from 'components/AdverseActionNoticeButton';
 
 export const ApprovedImage = styled.img`
     padding-top: 10px;
@@ -98,7 +98,7 @@ export const AppApprovedView = ({ profile, configuration, applicant, setShowPaym
                                     </Bold>
                                     is required for this application.&nbsp;
                                 </span>
-                                <AdverseActionNoticeButton />
+                                <AdverseActionNoticeButton componentType={LINK_BUTTON} />
                             </Grid>
                         </Grid>
                     )}

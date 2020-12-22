@@ -9,7 +9,7 @@ import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
 import clsx from 'clsx';
 import captureRoute from 'app/captureRoute';
-import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
+import { ACTION_BUTTON, AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 
 export const Img = styled.img`
     padding-top: 10px;
@@ -42,7 +42,7 @@ export const AppDenied = (props) => {
                 {buildingName}
                 {unitNumber}
             </div>
-            <AdverseActionNoticeButton />
+            <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={50} />
         </div>
     );
 };

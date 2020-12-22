@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import API from 'app/api';
-import { LinkButton } from 'assets/styles';
 import { css } from 'emotion';
+import ActionButton from './common/ActionButton/ActionButton';
+import { LinkButton } from 'assets/styles';
 
 export const aanLink = css`
     outline: none;
 `;
 
-export function AdverseActionNoticeButton() {
+export const LINK_BUTTON = 'link';
+export const ACTION_BUTTON = 'button';
+
+export function AdverseActionNoticeButton({ componentType, ...props }) {
     const [error, setError] = useState(false);
 
     const openDocument = async () => {
@@ -18,14 +24,22 @@ export function AdverseActionNoticeButton() {
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
             w.location.replace(blobUrl);
         } catch (e) {
-            console.error(e);
             setError(true);
         }
     };
 
+    const Component = componentType === LINK_BUTTON ? LinkButton : ActionButton;
+
     return (
-        <LinkButton onClick={openDocument} className={aanLink}>
-            {error ? 'An error occurred. Please try again.' : 'Learn why'}
-        </LinkButton>
+        <>
+            <Component onClick={openDocument} className={aanLink} {...props}>
+                Learn why
+            </Component>
+            {error && <p>An error occurred. Please try again.</p>}
+        </>
     );
 }
+
+AdverseActionNoticeButton.propTypes = {
+    componentType: PropTypes.oneOf([LINK_BUTTON, ACTION_BUTTON]).isRequired,
+};

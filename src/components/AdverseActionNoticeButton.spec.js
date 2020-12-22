@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
+import { AdverseActionNoticeButton, ACTION_BUTTON, LINK_BUTTON } from './AdverseActionNoticeButton';
 import API from 'app/api';
 import { LinkButton } from 'assets/styles';
+import ActionButton from './common/ActionButton/ActionButton';
 
 const runAllPromises = () => new Promise(setImmediate);
 
@@ -28,10 +29,20 @@ describe('AdverseActionNoticeButton', () => {
         jest.clearAllMocks();
     });
 
+    it('renders link button', async () => {
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
+        expect(wrapper.find(LinkButton).length).toBe(1);
+    });
+
+    it('renders action button', async () => {
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={ACTION_BUTTON} />);
+        expect(wrapper.find(ActionButton).length).toBe(1);
+    });
+
     it('opens document on click', async () => {
         API.fetchAANDocument = jest.fn().mockReturnValue('pdf-data');
 
-        const wrapper = shallow(<AdverseActionNoticeButton />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
         wrapper.find(LinkButton).simulate('click');
@@ -49,7 +60,7 @@ describe('AdverseActionNoticeButton', () => {
     it('handles error', async () => {
         API.fetchAANDocument = jest.fn().mockReturnValue(Promise.reject());
 
-        const wrapper = shallow(<AdverseActionNoticeButton />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
         wrapper.find(LinkButton).simulate('click');
@@ -58,6 +69,6 @@ describe('AdverseActionNoticeButton', () => {
         wrapper.update();
 
         expect(API.fetchAANDocument).toBeCalled();
-        expect(wrapper.find(LinkButton).text()).toBe('An error occurred. Please try again.');
+        expect(wrapper.find('p').text()).toBe('An error occurred. Please try again.');
     });
 });

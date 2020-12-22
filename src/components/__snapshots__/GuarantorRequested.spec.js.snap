@@ -40,7 +40,10 @@ exports[`Matches snapshot 1`] = `
       </a>
        if you have any questions or if you are unable or unwilling to add a guarantor.
     </ForwardRef(render)>
-    <AdverseActionNoticeButton />
+    <AdverseActionNoticeButton
+      componentType="button"
+      marginTop={65}
+    />
   </div>
 </React.Fragment>
 `;

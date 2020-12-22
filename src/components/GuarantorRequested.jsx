@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import captureRoute from 'app/captureRoute';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import GuarantorExplanation from './GuarantorExplanation';
-import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
+import { ACTION_BUTTON, LINK_BUTTON, AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 
 export const requestGuarantorHelpText = css`
     color: #454b57;
@@ -97,7 +97,7 @@ export class GuarantorRequested extends React.Component {
                                     Unfortunately, we will not be able to approve your application without a
                                     guarantor.&nbsp;
                                 </span>
-                                <AdverseActionNoticeButton />
+                                <AdverseActionNoticeButton componentType={LINK_BUTTON} />
                             </>
                         ) : (
                             <span className={requestGuarantorHelpText}>
@@ -115,7 +115,7 @@ export class GuarantorRequested extends React.Component {
                             Add a Guarantor
                         </ActionButton>
                     ) : (
-                        <AdverseActionNoticeButton />
+                        <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={65} />
                     )}
                 </div>
                 {viewGuarantorExplanation && (
