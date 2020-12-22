@@ -29,12 +29,17 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({ initialValue, onAddressPicked, validationError, ...props }) => {
-    const [value, setValue] = useState(initialValue || '');
+export const LocationSearch = ({ value, validationError, onChange, onAddressPicked, ...props }) => {
     const [error, setErrors] = useState(undefined);
 
     const handleAddressSearched = useCallback(
         async (address) => {
+            if (!address || address === '') {
+                return;
+            }
+
+            setErrors(undefined);
+
             try {
                 const [result] = await geocodeByAddress(address);
                 const { formatted_address, address_components } = result;
@@ -66,8 +71,8 @@ export const LocationSearch = ({ initialValue, onAddressPicked, validationError,
                 if (streetName) addressStreetBuilder.push(streetName);
                 addressStreet = addressStreetBuilder.join(' ');
 
-                setValue(formatted_address);
                 onAddressPicked({
+                    search: formatted_address,
                     addressStreet,
                     city,
                     state,
@@ -85,7 +90,7 @@ export const LocationSearch = ({ initialValue, onAddressPicked, validationError,
     }, [value, handleAddressSearched]);
 
     return (
-        <PlacesAutocomplete debounce={300} value={value} onChange={setValue} onSelect={handleAddressSearched}>
+        <PlacesAutocomplete debounce={300} value={value} onChange={onChange} onSelect={handleAddressSearched}>
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                 const hasSuggestions = suggestions.length > 0;
                 const showSuggestions = loading || hasSuggestions;
@@ -129,8 +134,9 @@ export const LocationSearch = ({ initialValue, onAddressPicked, validationError,
 };
 
 LocationSearch.propTypes = {
-    initialValue: PropTypes.string,
+    value: PropTypes.string,
     validationError: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     onAddressPicked: PropTypes.func.isRequired,
 };
 

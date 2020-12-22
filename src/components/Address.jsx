@@ -27,6 +27,7 @@ const ImageContainer = styled.div`
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
 export const validationSchema = Yup.object().shape({
+    search: Yup.string(),
     address_street: Yup.string()
         .required('Street is required')
         .matches(/^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
@@ -89,8 +90,8 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
             <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
-                {({ values, errors: validationErrors, isSubmitting, setValues }) => {
-                    const disableSubmit = !values.search || isSubmitting;
+                {({ values, errors: validationErrors, isSubmitting, setValues, setFieldValue }) => {
+                    const disableSubmit = !values.search || values.search === '' || isSubmitting;
 
                     return (
                         <Form autoComplete="off">
@@ -99,11 +100,13 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 margin="normal"
                                 label="Street name, city, state, zip"
                                 name="address_search"
-                                initialValue={values.search}
+                                value={values.search}
                                 validationError={Object.values(validationErrors)?.join(', ')}
+                                onChange={(search) => setFieldValue('search', search)}
                                 onAddressPicked={(address) => {
                                     setValues({
                                         ...values,
+                                        search: address.search,
                                         address_street: address.addressStreet,
                                         address_city: address.city,
                                         address_state: address.state,
