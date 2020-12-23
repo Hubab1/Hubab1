@@ -395,4 +395,13 @@ API.fetchAvailableLeaseTerms = (data) => {
     }).then((res) => res.json());
 };
 
+API.fetchAANDocument = () => {
+    return fetch(chuck('/aan-document/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.blob());
+};
+
 export default API;
