@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import API from 'app/api';
 import { SignLeaseView } from 'components/app-approved/SignLeaseView';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import { MILESTONE_LEASE_SENT } from 'app/constants';
 
 var mockhsclient;
 jest.mock('utils/hsclient', () => {
@@ -23,7 +23,7 @@ jest.mock('utils/hsclient', () => {
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [{ event: '270' }],
+            events: [{ event: MILESTONE_LEASE_SENT.toString() }],
             unit: {
                 unit_number: unitNumber,
             },

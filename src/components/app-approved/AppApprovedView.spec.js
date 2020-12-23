@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ROLE_OCCUPANT } from 'app/constants';
+import { MILESTONE_LEASE_SENT, ROLE_OCCUPANT } from 'app/constants';
 import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
@@ -9,7 +9,7 @@ import { LinkButton } from 'assets/styles';
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [{ event: '270' }],
+            events: [{ event: MILESTONE_LEASE_SENT.toString() }],
             unit: {
                 unit_number: unitNumber,
             },

@@ -3,7 +3,7 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import { ROUTE_LABELS } from 'app/constants';
+import { MILESTONE_APPLICATION_FEE_COMPLETED, ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
     ROUTES,
@@ -219,7 +219,7 @@ selectors.selectDefaultInitialPage = createSelector(
                 return ROUTES.GUARANTOR_REQUESTED;
             }
 
-            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED) && applicant.outstanding_balances.length > 0) {
+            if (eventsSet.has(MILESTONE_APPLICATION_FEE_COMPLETED) && applicant.outstanding_balances.length > 0) {
                 return ROUTES.OUTSTANDING_BALANCE;
             }
 
