@@ -5,7 +5,6 @@ import { AppApprovedView } from 'components/app-approved/AppApprovedView';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import API from 'app/api';
 import { LinkButton } from 'assets/styles';
-import { AppAdverseActions } from 'components/AppAdverseActions';
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
@@ -131,58 +130,8 @@ describe('approved occupants', () => {
     });
 });
 
-it('matches snapshot without security deposit', () => {
+it('matches snapshot', () => {
     const props = buildProps();
-    props.profile.security_deposit = null;
-    props.profile.security_deposit_multiplier = null;
     const wrapper = shallow(<AppApprovedView {...props} />);
     expect(wrapper.getElement()).toMatchSnapshot();
-});
-
-it('matches snapshot with security deposit', () => {
-    const props = buildProps();
-    props.profile.security_deposit = 123.45;
-    const wrapper = shallow(<AppApprovedView {...props} />);
-    expect(wrapper.getElement()).toMatchSnapshot();
-});
-
-it('matches snapshot with occupant', () => {
-    const props = buildProps();
-    props.profile.security_deposit = null;
-    props.profile.security_deposit_multiplier = null;
-    props.applicant.role = ROLE_OCCUPANT;
-    const wrapper = shallow(<AppApprovedView {...props} />);
-    expect(wrapper.getElement()).toMatchSnapshot();
-});
-
-it('renders adverse actions without international applicant', () => {
-    const props = buildProps();
-    props.profile.security_deposit = 123;
-    props.applicant.role = ROLE_OCCUPANT;
-    const wrapper = shallow(<AppApprovedView {...props} />);
-    wrapper.find(LinkButton).simulate('click');
-    expect(wrapper.find(AppAdverseActions)).toBeTruthy();
-    expect(wrapper.find(AppAdverseActions).prop('hasInternationalApplicant')).toBe(false);
-});
-
-it('renders adverse actions with international primary applicant', () => {
-    const props = buildProps();
-    props.profile.security_deposit = 123;
-    props.profile.primary_applicant = { international: true };
-    const wrapper = shallow(<AppApprovedView {...props} />);
-    wrapper.find(LinkButton).simulate('click');
-    expect(wrapper.find(AppAdverseActions)).toBeTruthy();
-    expect(wrapper.find(AppAdverseActions).prop('hasInternationalApplicant')).toBe(true);
-});
-
-it('renders adverse actions with international co-applicant', () => {
-    const props = buildProps();
-    props.profile.security_deposit = 123;
-    props.profile.primary_applicant = { international: false };
-    props.profile.co_applicants = [{ international: true }];
-
-    const wrapper = shallow(<AppApprovedView {...props} />);
-    wrapper.find(LinkButton).simulate('click');
-    expect(wrapper.find(AppAdverseActions)).toBeTruthy();
-    expect(wrapper.find(AppAdverseActions).prop('hasInternationalApplicant')).toBe(true);
 });
