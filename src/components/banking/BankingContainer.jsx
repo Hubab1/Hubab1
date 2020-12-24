@@ -32,6 +32,7 @@ function BankingContainer({ applicationEvents, history, _nextRoute }) {
             const agentRequestedIncomeAssets = applicationEvents.find(
                 ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
             );
+
             if (agentRequestedIncomeAssets) return;
             if (data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets) {
                 history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
@@ -39,7 +40,7 @@ function BankingContainer({ applicationEvents, history, _nextRoute }) {
         })();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [applicationEvents]);
+    }, []);
 
     return (
         <BankingContext.Provider
