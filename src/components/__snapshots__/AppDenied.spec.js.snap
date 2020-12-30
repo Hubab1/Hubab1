@@ -1,35 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<React.Fragment>
+<div
+  className=""
+>
+  <ForwardRef(render)>
+    Application Denied
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Unfortunately, we were unable to approve your application.
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="cry.svg"
+  />
   <div
-    className=""
+    className="css-x0fehc"
+    id="application-unit"
   >
-    <ForwardRef(render)>
-      Application Denied
-    </ForwardRef(render)>
-    <ForwardRef(render)>
-      Unfortunately, we were unable to approve your application.
-    </ForwardRef(render)>
-    <ForwardRef(render)
-      src="cry.svg"
-    />
-    <div
-      className="css-x0fehc"
-      id="application-unit"
-    >
-      Fake Building
-       Unit 2B
-    </div>
-    <ActionButton
-      color="primary"
-      marginTop={50}
-      onClick={[Function]}
-      successGreen={false}
-      variant="contained"
-    >
-      Learn Why
-    </ActionButton>
+    Fake Building
+     Unit 2B
   </div>
-</React.Fragment>
+  <AdverseActionNoticeButton
+    componentType="button"
+    marginTop={50}
+  />
+</div>
 `;
