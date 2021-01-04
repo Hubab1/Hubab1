@@ -67,7 +67,6 @@ export class EditFinancialSource extends Component {
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
-        formData.append('adjusted_amount', 0);
         formData.append('has_requested_more_documents', false);
         formData.append('status', FINANCIAL_STREAM_STATUS_PENDING);
 
