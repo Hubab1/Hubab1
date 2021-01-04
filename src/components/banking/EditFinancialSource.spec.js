@@ -102,7 +102,6 @@ it('onSubmit submits correct form data', async () => {
     const formData = API.updateFinancialSource.mock.calls[0][1];
     expect(formData.getAll('uploaded_documents[]')).toEqual(['5']);
     expect(formData.getAll('1[]')).toEqual(['file']);
-    expect(formData.get('adjusted_amount')).toBe('0');
     expect(formData.get('status')).toBe(String(FINANCIAL_STREAM_STATUS_PENDING));
 });
 
