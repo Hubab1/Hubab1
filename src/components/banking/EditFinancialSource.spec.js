@@ -1,10 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import * as sentryUtils from 'utils/sentry';
 import API from 'app/api';
 import { EditFinancialSource, ERROR_UPLOAD } from './EditFinancialSource';
 import { FINANCIAL_STREAM_STATUS_PENDING } from 'app/constants';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+
+const mockGetFinancialSource = (resturnValue) => {
+    API.getFinancialSource = jest.fn().mockReturnValue(resturnValue);
+};
+
+const mockUpdateFinancialSource = (resturnValue) => {
+    API.updateFinancialSource = jest.fn().mockReturnValue(resturnValue);
+};
 
 let defaultProps;
 beforeEach(() => {
@@ -20,8 +29,12 @@ beforeEach(() => {
     };
 });
 
+afterEach(() => {
+    jest.restoreAllMocks();
+});
+
 it('sets initial values', async () => {
-    API.getFinancialSource = jest.fn().mockReturnValue({
+    mockGetFinancialSource({
         uploaded_documents: [
             {
                 id: 3,
@@ -49,7 +62,9 @@ it('sets initial values', async () => {
             },
         ],
     });
+
     const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
+
     expect(wrapper.instance().initialValues['uploadedDocuments']).toEqual({
         1: {
             files: [
@@ -63,7 +78,8 @@ it('sets initial values', async () => {
 });
 
 it('onSubmit submits correct form data', async () => {
-    API.getFinancialSource = jest.fn().mockReturnValue({
+    mockUpdateFinancialSource(Promise.resolve({}));
+    mockGetFinancialSource({
         uploaded_documents: [
             {
                 id: 4,
@@ -83,8 +99,9 @@ it('onSubmit submits correct form data', async () => {
             },
         ],
     });
-    API.updateFinancialSource = jest.fn();
+
     const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
+
     wrapper.instance().onSubmit(
         {
             uploadedDocuments: {
@@ -93,7 +110,6 @@ it('onSubmit submits correct form data', async () => {
             },
         },
         {
-            setErrors: jest.fn(),
             setSubmitting: jest.fn(),
         }
     );
@@ -106,8 +122,10 @@ it('onSubmit submits correct form data', async () => {
     expect(formData.get('status')).toBe(String(FINANCIAL_STREAM_STATUS_PENDING));
 });
 
-it('Case onError called', async () => {
-    API.getFinancialSource = jest.fn().mockReturnValue({
+it('onSubmit handle failire', async () => {
+    const logToSentry = jest.spyOn(sentryUtils, 'logToSentry');
+    mockUpdateFinancialSource(Promise.reject({ status: 400 }));
+    mockGetFinancialSource({
         uploaded_documents: [
             {
                 id: 4,
@@ -119,9 +137,22 @@ it('Case onError called', async () => {
             },
         ],
     });
-    API.updateFinancialSource = jest.fn();
+
     const wrapper = await shallow(<EditFinancialSource {...defaultProps} />);
-    wrapper.instance().setErrors(['Some error']);
+
+    await wrapper.instance().onSubmit(
+        {
+            uploadedDocuments: {
+                1: { files: [{ name: 'w2-1.pdf', id: 3, file: 'file' }], label: 'W2' },
+                2: { files: [{ name: 'paystub1.pdf', id: 5 }], label: '3 recent paystubs' },
+            },
+        },
+        {
+            setSubmitting: jest.fn(),
+        }
+    );
+
     expect(wrapper.find(GenericFormMessage).length).toBe(1);
-    expect(wrapper.find(GenericFormMessage).prop('messages')).toContain('Some error');
+    expect(wrapper.find(GenericFormMessage).prop('messages')).toContain(ERROR_UPLOAD);
+    expect(logToSentry).toBeCalled();
 });
