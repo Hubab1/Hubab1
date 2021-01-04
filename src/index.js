@@ -9,6 +9,7 @@ import { setupSentry } from 'utils/sentry';
 import 'utils/configureYup';
 import 'app/configureLD';
 import store from 'reducers/store';
+import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
 import App from 'app/App';
 
 setupSentry();
@@ -22,7 +23,9 @@ TagManager.initialize(tagManagerArgs);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ErrorBoundary>
+            <App />
+        </ErrorBoundary>
     </Provider>,
     document.getElementById('root')
 );
