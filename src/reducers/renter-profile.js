@@ -12,7 +12,8 @@ import {
     APPLICATION_STATUSES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
-    MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -211,7 +212,11 @@ selectors.selectDefaultInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
-            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED)) {
+            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
+                return ROUTES.INCOME_AND_EMPLOYMENT;
+            }
+
+            if (applicationEvents && applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)) {
                 return ROUTES.INCOME_AND_EMPLOYMENT;
             }
 
