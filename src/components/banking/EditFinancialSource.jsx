@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
 import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
+import { logToSentry } from 'utils/sentry';
 import {
     ROUTES,
     FINANCIAL_STREAM_INCOME,
@@ -93,6 +94,7 @@ export class EditFinancialSource extends Component {
             this.context.refreshFinancialSources?.();
             this.props.history.push(this.returnLink);
         } catch (e) {
+            logToSentry(e);
             this.setState({ errors: [ERROR_UPLOAD] });
         } finally {
             setSubmitting(false);
@@ -107,10 +109,10 @@ export class EditFinancialSource extends Component {
         let data;
         try {
             data = await API.getFinancialSource(this.props.match.params.id);
-        } catch (e) {
-            return;
+            this.setState({ financialSource: data });
+        } catch {
+            // Ignore
         }
-        this.setState({ financialSource: data });
     }
 
     get isAsset() {

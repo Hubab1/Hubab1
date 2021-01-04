@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import API from 'app/api';
 import { ROUTES, FINANCIAL_STREAM_ASSET } from 'app/constants';
 import { getFinancialSourceRequestBody } from 'utils/misc';
+import { logToSentry } from 'utils/sentry';
 
 import { H1, H3, Spacer } from 'assets/styles';
 import { BackLink } from 'components/common/BackLink';
@@ -44,12 +45,14 @@ export function AddAssetSource(props) {
         let response;
         try {
             response = await API.submitFinancialSource(formData, props.vgsEnabled);
-        } catch {
+        } catch (e) {
+            logToSentry(e);
             setErrors([ERROR_UPLOAD]);
             return setSubmitting(false);
         }
 
         if (response.status !== 200) {
+            logToSentry(response);
             setErrors([ERROR_UPLOAD]);
             setSubmitting(false);
             return;
