@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { GuarantorRequested } from './GuarantorRequested';
 import { ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES } from 'app/constants';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import { AdverseActionNoticeButton } from './AdverseActionNoticeButton';
 
 const buildProps = (
     buildingName = 'Fake Building',
@@ -49,8 +50,7 @@ it('Matches snapshot', () => {
 
 it('Case Co-applicant', () => {
     const wrapper = mount(<GuarantorRequested {...buildProps()} />);
-    expect(wrapper.find(ActionButton)).toHaveLength(1);
-    expect(wrapper.find(ActionButton).text()).toEqual('Learn Why');
+    expect(wrapper.find(AdverseActionNoticeButton)).toHaveLength(1);
 });
 
 it('Primary Applicant', () => {
