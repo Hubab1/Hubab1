@@ -35,7 +35,7 @@ export const validationSchema = Yup.object().shape({
         .required('City is required')
         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
     address_state: Yup.string().required('State is required'),
-    address_postal_code: Yup.number().required('Zip code is required'),
+    address_postal_code: Yup.string().required('Zip code is required'),
     address_line_2: Yup.string(),
 });
 
@@ -98,7 +98,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                             <LocationSearch
                                 fullWidth
                                 margin="normal"
-                                label="Street name, city, state, zip"
+                                label="Street address, city, state, zip"
                                 name="address_search"
                                 value={values.search}
                                 validationError={Object.values(validationErrors)?.join(', ')}

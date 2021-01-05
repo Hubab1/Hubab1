@@ -31,6 +31,7 @@ const TYPES = {
 
 export const LocationSearch = ({ value, validationError, onChange, onAddressPicked, ...props }) => {
     const [error, setErrors] = useState(undefined);
+    const [chooseASuggestion, setChooseASuggestion] = useState(false);
 
     const handleAddressSearched = useCallback(
         async (address) => {
@@ -39,6 +40,7 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
             }
 
             setErrors(undefined);
+            setChooseASuggestion(true);
 
             try {
                 const [result] = await geocodeByAddress(address);
@@ -79,7 +81,7 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
                     postalCode,
                 });
             } catch {
-                setErrors(['Oops! We ran into finding your address. Please try again.']);
+                setErrors(['Oops! We’re having trouble finding that address. Please try again.']);
             }
         },
         [onAddressPicked, setErrors]
@@ -89,11 +91,31 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
         handleAddressSearched(value);
     }, [value, handleAddressSearched]);
 
+    const handleChange = useCallback(
+        (address) => {
+            setChooseASuggestion(false);
+            onChange(address);
+        },
+        [onChange]
+    );
+
+    const handleError = useCallback((status, clearSuggestions) => {
+        clearSuggestions();
+    }, []);
+
     return (
-        <PlacesAutocomplete debounce={300} value={value} onChange={onChange} onSelect={handleAddressSearched}>
+        <PlacesAutocomplete
+            debounce={300}
+            value={value}
+            onChange={handleChange}
+            onSelect={handleAddressSearched}
+            onError={handleError}
+        >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                 const hasSuggestions = suggestions.length > 0;
                 const showSuggestions = loading || hasSuggestions;
+                const showErrror = chooseASuggestion && (error || validationError);
+                const errorMessage = chooseASuggestion ? error || validationError : null;
                 const inputProps = getInputProps();
 
                 return (
@@ -102,8 +124,8 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
                             {...props}
                             {...inputProps}
                             value={value}
-                            error={!!error || !!validationError}
-                            helperText={error || validationError}
+                            error={showErrror}
+                            helperText={errorMessage}
                             onBlur={handleBlur}
                         />
                         {showSuggestions && (
