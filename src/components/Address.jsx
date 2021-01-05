@@ -90,7 +90,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
             <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
-                {({ values, errors: validationErrors, isSubmitting, setValues, setFieldValue }) => {
+                {({ values, errors: validationErrors, isSubmitting, setValues, setFieldValue, submitCount }) => {
                     const disableSubmit = !values.search || values.search === '' || isSubmitting;
 
                     return (
@@ -102,6 +102,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 name="address_search"
                                 value={values.search}
                                 validationError={Object.values(validationErrors)?.join(', ')}
+                                didSubmit={submitCount > 0}
                                 onChange={(search) => setFieldValue('search', search)}
                                 onAddressPicked={(address) => {
                                     setValues({

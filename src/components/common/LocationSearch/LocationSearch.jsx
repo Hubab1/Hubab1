@@ -29,7 +29,7 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({ value, validationError, onChange, onAddressPicked, ...props }) => {
+export const LocationSearch = ({ value, validationError, didSubmit, onChange, onAddressPicked, ...props }) => {
     const [error, setErrors] = useState(undefined);
     const [chooseASuggestion, setChooseASuggestion] = useState(false);
 
@@ -114,8 +114,8 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                 const hasSuggestions = suggestions.length > 0;
                 const showSuggestions = loading || hasSuggestions;
-                const showErrror = chooseASuggestion && (error || validationError);
-                const errorMessage = chooseASuggestion ? error || validationError : null;
+                const showErrror = didSubmit && chooseASuggestion && (error || validationError);
+                const errorMessage = showErrror ? error || validationError : null;
                 const inputProps = getInputProps();
 
                 return (
@@ -158,6 +158,7 @@ export const LocationSearch = ({ value, validationError, onChange, onAddressPick
 LocationSearch.propTypes = {
     value: PropTypes.string,
     validationError: PropTypes.string,
+    didSubmit: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onAddressPicked: PropTypes.func.isRequired,
 };
