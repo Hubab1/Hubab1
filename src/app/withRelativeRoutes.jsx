@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as Sentry from '@sentry/browser';
 
 import { MOCKY } from 'app/api';
+import { setSentryUser } from 'utils/sentry';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
@@ -44,10 +44,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
             }
 
             if (prevProps.applicant !== props.applicant && props.applicant.email && props.applicant.id) {
-                Sentry.setUser({
-                    id: props.applicant.id,
-                    email: props.applicant.email,
-                });
+                setSentryUser(props.applicant);
             }
         }
         render() {
