@@ -31,13 +31,6 @@ describe('validationSchema', () => {
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_postal_code: 'INVALID',
-            })
-        ).toBe(false);
-
-        expect(
-            validationSchema.isValidSync({
-                ...formValues,
                 address_postal_code: null,
             })
         ).toBe(false);
