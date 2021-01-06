@@ -40,13 +40,6 @@ describe('validationSchema', () => {
         expect(
             validationSchema.isValidSync({
                 ...formValues,
-                address_street: 'INV@LID',
-            })
-        ).toBe(false);
-
-        expect(
-            validationSchema.isValidSync({
-                ...formValues,
                 address_street: null,
             })
         ).toBe(false);
