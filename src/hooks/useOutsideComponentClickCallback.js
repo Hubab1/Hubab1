@@ -12,10 +12,7 @@ const useOutsideComponentClickCallback = (ref, callback) => {
         return () => {
             document.removeEventListener('mousedown', clickHandler);
         };
-    }, [
-        ref,
-        callback
-    ]);
+    }, [ref, callback]);
 };
 
 export default useOutsideComponentClickCallback;
