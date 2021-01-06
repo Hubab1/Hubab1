@@ -37,8 +37,8 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
     const [chooseASuggestion, setChooseASuggestion] = useState(false);
 
     const reset = useCallback(() => {
-        onChange('');
-    }, [onChange]);
+        !chooseASuggestion && onChange('');
+    }, [chooseASuggestion, onChange]);
 
     useOutsideComponentClickCallback(componentRef, reset);
 
