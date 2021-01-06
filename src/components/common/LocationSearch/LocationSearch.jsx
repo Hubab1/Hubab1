@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
 import styled from '@emotion/styled';
+
+import useOutsideComponentClickCallback from 'hooks/useOutsideComponentClickCallback';
 import GoogleImg from 'assets/images/google.png';
 
 const PoweredBy = styled.div`
@@ -30,8 +32,15 @@ const TYPES = {
 };
 
 export const LocationSearch = ({ value, validationError, didSubmit, onChange, onAddressPicked, ...props }) => {
+    const componentRef = useRef(null);
     const [error, setErrors] = useState(undefined);
     const [chooseASuggestion, setChooseASuggestion] = useState(false);
+
+    const reset = useCallback(() => {
+        onChange('');
+    }, [onChange]);
+
+    useOutsideComponentClickCallback(componentRef, reset);
 
     const handleAddressSearched = useCallback(
         async (address) => {
@@ -87,10 +96,6 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
         [onAddressPicked, setErrors]
     );
 
-    const handleBlur = useCallback(() => {
-        handleAddressSearched(value);
-    }, [value, handleAddressSearched]);
-
     const handleChange = useCallback(
         (address) => {
             setChooseASuggestion(false);
@@ -105,7 +110,7 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
 
     return (
         <PlacesAutocomplete
-            debounce={300}
+            debounce={100}
             value={value}
             onChange={handleChange}
             onSelect={handleAddressSearched}
@@ -119,14 +124,13 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
                 const inputProps = getInputProps();
 
                 return (
-                    <>
+                    <div ref={componentRef}>
                         <TextField
                             {...props}
                             {...inputProps}
                             value={value}
                             error={showErrror}
                             helperText={errorMessage}
-                            onBlur={handleBlur}
                         />
                         {showSuggestions && (
                             <Paper elevation={8}>
@@ -148,7 +152,7 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
                                 </MenuList>
                             </Paper>
                         )}
-                    </>
+                    </div>
                 );
             }}
         </PlacesAutocomplete>
