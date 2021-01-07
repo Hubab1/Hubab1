@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { TextField } from 'formik-material-ui';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
 import { ROUTES } from 'app/constants';
+import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import AutomatedAddressForm from './AutomatedAddressForm';
