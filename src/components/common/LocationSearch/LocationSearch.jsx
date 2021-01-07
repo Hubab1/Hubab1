@@ -96,7 +96,7 @@ const LocationSearch = ({
     }, []);
 
     const handleBlur = useCallback(() => {
-        // Note: timeout to take into account clicking a prediction before the dissapear
+        // Note: timeout to take into account clicking a prediction before its dissapears
         setTimeout(() => {
             setHidePredictions(true);
         }, 200);
