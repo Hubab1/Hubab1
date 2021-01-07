@@ -1,10 +1,10 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+import { debounce } from 'lodash';
 import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
 import styled from '@emotion/styled';
 
-import useOutsideComponentClickCallback from 'hooks/useOutsideComponentClickCallback';
+import * as utils from './utils';
 import GoogleImg from 'assets/images/google.png';
 
 const PoweredBy = styled.div`
@@ -31,28 +31,85 @@ const TYPES = {
     county: 'country',
 };
 
-export const LocationSearch = ({ value, validationError, didSubmit, onChange, onAddressPicked, ...props }) => {
-    const componentRef = useRef(null);
-    const [error, setErrors] = useState(undefined);
-    const [chooseASuggestion, setChooseASuggestion] = useState(false);
+const FETCH_ERROR = 'Oops! We’re having trouble finding that address. Please try again.';
 
-    const reset = useCallback(() => {
-        !chooseASuggestion && onChange('');
-    }, [chooseASuggestion, onChange]);
+const autocompleteService = new window.google.maps.places.AutocompleteService();
+const autocompleteOK = window.google.maps.places.PlacesServiceStatus.OK;
 
-    useOutsideComponentClickCallback(componentRef, reset);
+const LocationSearch = ({
+    value,
+    delay = 300,
+    submitCount = 0,
+    validationError = undefined,
+    searchOptions = {},
+    onChange,
+    onAddressPicked,
+    resetValidationErrors,
+    ...props
+}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(undefined);
+    const [predictions, setPredictions] = useState([]);
+    const [hidePredictions, setHidePredictions] = useState(false);
+    const showValidaitonError = submitCount > 0 && validationError;
+    const errorMessage = error ? error : showValidaitonError ? validationError : undefined;
 
-    const handleAddressSearched = useCallback(
-        async (address) => {
-            if (!address || address === '') {
+    const fetchSuggestions = useCallback(
+        debounce(() => {
+            if (!value) return;
+
+            setError(undefined);
+            setIsLoading(true);
+
+            autocompleteService.getPlacePredictions(
+                {
+                    ...searchOptions,
+                    input: value,
+                },
+                (predictions, status) => {
+                    if (status === autocompleteOK) {
+                        setPredictions(predictions);
+                    }
+
+                    setIsLoading(false);
+                }
+            );
+        }, delay),
+        [value]
+    );
+
+    const handleChange = useCallback(
+        (e) => {
+            onChange(e.target.value);
+            resetValidationErrors();
+            fetchSuggestions();
+        },
+        [onChange, resetValidationErrors, fetchSuggestions]
+    );
+
+    const handleFocus = useCallback(() => {
+        setHidePredictions(false);
+    }, []);
+
+    const handleBlur = useCallback(() => {
+        // Note: timeout to take into account clicking a prediction before the dissapear
+        setTimeout(() => {
+            setHidePredictions(true);
+        }, 200);
+    }, []);
+
+    const handlePredictionClick = useCallback(
+        async (prediction) => {
+            const { description } = prediction;
+
+            if (!description || description === '') {
                 return;
             }
 
-            setErrors(undefined);
-            setChooseASuggestion(true);
+            setError(undefined);
 
             try {
-                const [result] = await geocodeByAddress(address);
+                const [result] = await utils.geocodeByAddress(description);
                 const { formatted_address, address_components } = result;
                 let city = undefined;
                 let streetName = undefined;
@@ -90,81 +147,57 @@ export const LocationSearch = ({ value, validationError, didSubmit, onChange, on
                     postalCode,
                 });
             } catch {
-                setErrors(['Oops! We’re having trouble finding that address. Please try again.']);
+                setError(FETCH_ERROR);
+            } finally {
+                setPredictions([]);
             }
         },
-        [onAddressPicked, setErrors]
+        [onAddressPicked, setPredictions, setError]
     );
-
-    const handleChange = useCallback(
-        (address) => {
-            setChooseASuggestion(false);
-            onChange(address);
-        },
-        [onChange]
-    );
-
-    const handleError = useCallback((status, clearSuggestions) => {
-        clearSuggestions();
-    }, []);
 
     return (
-        <PlacesAutocomplete
-            debounce={100}
-            value={value}
-            onChange={handleChange}
-            onSelect={handleAddressSearched}
-            onError={handleError}
-        >
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
-                const hasSuggestions = suggestions.length > 0;
-                const showSuggestions = loading || hasSuggestions;
-                const showErrror = didSubmit && chooseASuggestion && (error || validationError);
-                const errorMessage = showErrror ? error || validationError : null;
-                const inputProps = getInputProps();
-
-                return (
-                    <div ref={componentRef}>
-                        <TextField
-                            {...props}
-                            {...inputProps}
-                            value={value}
-                            error={showErrror}
-                            helperText={errorMessage}
-                        />
-                        {showSuggestions && (
-                            <Paper elevation={8}>
-                                <MenuList>
-                                    {loading && <MenuItem>Loading...</MenuItem>}
-                                    {suggestions.map((suggestion, i) => {
-                                        const suggestionProps = getSuggestionItemProps(suggestion);
-
-                                        return (
-                                            <MenuItem {...suggestionProps} key={i}>
-                                                {suggestion.description}
-                                            </MenuItem>
-                                        );
-                                    })}
-                                    <PoweredBy>
-                                        <span>Powered by</span>
-                                        <img src={GoogleImg} alt="powered-by-google" />
-                                    </PoweredBy>
-                                </MenuList>
-                            </Paper>
-                        )}
-                    </div>
-                );
-            }}
-        </PlacesAutocomplete>
+        <div>
+            <TextField
+                {...props}
+                value={value}
+                error={error || showValidaitonError}
+                helperText={errorMessage}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+            />
+            {!hidePredictions && predictions.length > 0 && (
+                <Paper elevation={8}>
+                    <MenuList>
+                        {isLoading && <MenuItem>Loading...</MenuItem>}
+                        {predictions.map((prediction) => {
+                            return (
+                                <MenuItem key={prediction.id} onClick={() => handlePredictionClick(prediction)}>
+                                    {prediction.description}
+                                </MenuItem>
+                            );
+                        })}
+                        {/*<MenuItem>{'I can\'t find my address'}</MenuItem>*/}
+                        <PoweredBy>
+                            <span>Powered by</span>
+                            <img src={GoogleImg} alt="powered-by-google" />
+                        </PoweredBy>
+                    </MenuList>
+                </Paper>
+            )}
+        </div>
     );
 };
 
 LocationSearch.propTypes = {
     value: PropTypes.string,
+    delay: PropTypes.number,
     validationError: PropTypes.string,
-    didSubmit: PropTypes.bool,
+    searchOptions: PropTypes.object,
+    submitCount: PropTypes.number,
     onChange: PropTypes.func.isRequired,
     onAddressPicked: PropTypes.func.isRequired,
+    resetValidationErrors: PropTypes.func.isRequired,
 };
 
 export default LocationSearch;

@@ -41,7 +41,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
 
     const handleSubmit = useCallback(
-        async (values, { setErrors: setFormErrors }) => {
+        async (values, { setErrors: setFormErrors, setSubmitting }) => {
             setErrors(null);
 
             try {
@@ -53,9 +53,11 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                 }
             } catch {
                 setErrors([GENERIC_ERROR_MESSAGE]);
+            } finally {
+                setSubmitting(false);
             }
         },
-        [updateApplicant, _nextRoute]
+        [updateApplicant, _nextRoute, setErrors]
     );
 
     const initialValues = useMemo(() => {
@@ -87,8 +89,23 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
             <ImageContainer>
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
-            <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
-                {({ values, errors: validationErrors, isSubmitting, setValues, setFieldValue, submitCount }) => {
+            <Formik
+                validationSchema={validationSchema}
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validateOnBlur={false}
+                validateOnChange={false}
+            >
+                {({
+                    values,
+                    errors: validationErrors,
+                    isSubmitting,
+                    setValues,
+                    setFieldValue,
+                    submitCount,
+                    setErrors,
+                    validateForm,
+                }) => {
                     const disableSubmit = !values.search || values.search === '' || isSubmitting;
 
                     return (
@@ -100,8 +117,9 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                 name="address_search"
                                 value={values.search}
                                 validationError={Object.values(validationErrors)?.join(', ')}
-                                didSubmit={submitCount > 0}
+                                submitCount={submitCount}
                                 onChange={(search) => setFieldValue('search', search)}
+                                resetValidationErrors={() => setErrors({})}
                                 onAddressPicked={(address) => {
                                     setValues({
                                         ...values,
@@ -111,6 +129,8 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
                                         address_state: address.state,
                                         address_postal_code: address.postalCode,
                                     });
+
+                                    validateForm();
                                 }}
                             />
                             <Field
