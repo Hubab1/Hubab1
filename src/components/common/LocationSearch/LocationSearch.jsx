@@ -1,5 +1,5 @@
-import React, {useRef, useState, useCallback, useEffect} from 'react';
-import PropTypes, {bool} from 'prop-types';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
 import styled from '@emotion/styled';
