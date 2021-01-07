@@ -8,7 +8,7 @@ import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
-export const AutomatedAddressForm = ({ initialValues, errors, validationSchema, onSubmit }) => {
+export const ManualAddressForm = ({ initialValues, errors, validationSchema, onSubmit }) => {
     return (
         <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={onSubmit}>
             {({ values, isSubmitting }) => {
@@ -76,11 +76,11 @@ export const AutomatedAddressForm = ({ initialValues, errors, validationSchema, 
     );
 };
 
-AutomatedAddressForm.propTypes = {
+ManualAddressForm.propTypes = {
     initialValues: PropTypes.object,
     errors: PropTypes.array,
     validationSchema: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
 };
 
-export default AutomatedAddressForm;
+export default ManualAddressForm;
