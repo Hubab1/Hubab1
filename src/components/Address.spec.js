@@ -143,6 +143,7 @@ describe('handle submit', () => {
 
             await submitHandler(addressData, {
                 setErrors: jest.fn(),
+                setSubmitting: jest.fn(),
             });
 
             expect(updateApplicant).toBeCalledWith(addressData);
@@ -171,6 +172,7 @@ describe('handle submit', () => {
 
             await submitHandler(addressData, {
                 setErrors: jest.fn(),
+                setSubmitting: jest.fn(),
             });
 
             expect(updateApplicant).toBeCalledWith(addressData);
