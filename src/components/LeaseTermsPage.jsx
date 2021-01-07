@@ -126,10 +126,12 @@ export const LeaseTermsPage = ({
     pageComplete,
     _nextRoute,
 }) => {
-    const [hasError, setHasError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const { community } = config;
     const { company } = community;
+
     const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
+    const genericErrorMsg = `Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`;
 
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors }) => {
@@ -146,13 +148,18 @@ export const LeaseTermsPage = ({
 
                 const response = await updateRenterProfile(serializeValues(values), stateUpdate);
                 if (response.errors) {
+                    if (response.errors?.unit_id) {
+                        setErrorMsg(
+                            `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`
+                        );
+                    }
                     return setErrors(response.errors);
                 }
 
                 await pageComplete(LEASE_TERMS_IDENTIFIER);
                 _nextRoute();
             } catch {
-                setHasError(true);
+                setErrorMsg(genericErrorMsg);
             } finally {
                 setSubmitting(false);
             }
@@ -182,12 +189,7 @@ export const LeaseTermsPage = ({
             <H1>Lease Terms</H1>
             {isPrimaryApplicant && <SpacedH3>Please select from the options below to move forward.</SpacedH3>}
             {!isPrimaryApplicant && <SpacedH3>The options below have been selected for your application.</SpacedH3>}
-            {hasError && (
-                <GenericFormMessage
-                    type="error"
-                    messages={`Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`}
-                />
-            )}
+            {errorMsg && <GenericFormMessage type="error" messages={errorMsg} />}
             {!hasOutstandingBalance && (
                 <GenericFormMessage
                     type="error"
@@ -275,8 +277,8 @@ export const LeaseTermsPage = ({
                                         unitId={values.unit.id}
                                         moveInDate={values.lease_start_date}
                                         leaseTerm={values.lease_term}
-                                        onError={() => setHasError(true)}
-                                        onSuccess={() => setHasError(false)}
+                                        onError={() => setErrorMsg(genericErrorMsg)}
+                                        onSuccess={() => setErrorMsg('')}
                                     />
                                     <div className={leasingPricingDisclaimer}>{config.leasing_pricing_disclaimer}</div>
                                 </>
