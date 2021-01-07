@@ -1,9 +1,11 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Formik, Field } from 'formik';
+import { Field } from 'formik';
 
 import withHooksAsync from 'utils/withHooksAsync';
 import { Address, validationSchema, GENERIC_ERROR_MESSAGE } from './Address';
+import AutomatedAddressForm from './AutomatedAddressForm';
+import ManualAddressForm from './ManualAddressForm';
 import LocationSearch from 'components/common/LocationSearch/LocationSearch';
 
 describe('validationSchema', () => {
@@ -62,6 +64,38 @@ describe('validationSchema', () => {
     });
 });
 
+describe('Shows form based on launch darkly flay', () => {
+    let defaultProps;
+
+    beforeEach(() => {
+        defaultProps = {
+            applicant: {
+                address_street: '123 Fulton st',
+                address_line_2: '1F',
+                address_city: 'New York',
+                address_state: 'NY',
+                address_postal_code: '10038',
+            },
+            updateApplicant: jest.fn(),
+            _nextRoute: jest.fn(),
+        };
+    });
+
+    it('shows automated address form when flag is enabled', () => {
+        const wrapper = shallow(<Address {...defaultProps} showAutomatedAddress={true} />);
+
+        expect(wrapper.find(AutomatedAddressForm).length).toBe(1);
+        expect(wrapper.find(ManualAddressForm).length).toBe(0);
+    });
+
+    it('shows manual address form when flag is disabled', () => {
+        const wrapper = shallow(<Address {...defaultProps} showAutomatedAddress={false} />);
+
+        expect(wrapper.find(ManualAddressForm).length).toBe(1);
+        expect(wrapper.find(AutomatedAddressForm).length).toBe(0);
+    });
+});
+
 describe('initial values', () => {
     let defaultProps;
 
@@ -75,6 +109,8 @@ describe('initial values', () => {
                 address_postal_code: '10038',
             },
             updateApplicant: jest.fn(),
+            _nextRoute: jest.fn(),
+            showAutomatedAddress: true,
         };
     });
 
@@ -102,14 +138,6 @@ describe('initial values', () => {
 describe('handle submit', () => {
     let defaultProps;
 
-    beforeAll(() => {
-        // Note: to prevent the following warning: "Warning: useLayoutEffect does nothing on the server.."
-        jest.mock('react', () => ({
-            ...jest.requireActual('react'),
-            useLayoutEffect: jest.requireActual('react').useEffect,
-        }));
-    });
-
     beforeEach(() => {
         defaultProps = {
             applicant: {
@@ -119,6 +147,7 @@ describe('handle submit', () => {
                 address_state: 'NY',
                 address_postal_code: '10038',
             },
+            showAutomatedAddress: true,
         };
     });
 
@@ -131,7 +160,7 @@ describe('handle submit', () => {
                 <Address {...defaultProps} updateApplicant={updateApplicant} _nextRoute={_nextRoute} />
             );
 
-            const submitHandler = wrapper.find(Formik).props().onSubmit;
+            const submitHandler = wrapper.find(AutomatedAddressForm).props().onSubmit;
 
             const addressData = {
                 address_street: defaultProps.applicant.address_street,
@@ -160,7 +189,7 @@ describe('handle submit', () => {
                 <Address {...defaultProps} updateApplicant={updateApplicant} _nextRoute={_nextRoute} />
             );
 
-            const submitHandler = wrapper.find(Formik).props().onSubmit;
+            const submitHandler = wrapper.find(AutomatedAddressForm).props().onSubmit;
 
             const addressData = {
                 address_street: defaultProps.applicant.address_street,
