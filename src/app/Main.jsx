@@ -24,7 +24,7 @@ import BankingContainer from 'components/banking/BankingContainer';
 import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
-import Address from 'components/Address';
+import Address from 'components/address/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';

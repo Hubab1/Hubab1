@@ -4,6 +4,7 @@ import store from 'reducers/store';
 
 const flags = {
     'agent-request-more-income-when-no-income': false,
+    'ol-show-automated-address-form': false,
 };
 
 ldRedux.init({

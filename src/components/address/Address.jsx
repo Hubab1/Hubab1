@@ -9,9 +9,8 @@ import styled from '@emotion/styled';
 import { ROUTES } from 'app/constants';
 import { updateApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import LocationSearch from 'components/common/LocationSearch/LocationSearch';
-import GenericFormMessage from './common/GenericFormMessage';
+import AutomatedAddressForm from './AutomatedAddressForm';
+import ManualAddressForm from './ManualAddressForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
 
@@ -37,7 +36,7 @@ export const validationSchema = Yup.object().shape({
     address_line_2: Yup.string(),
 });
 
-export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
+export const Address = ({ applicant, showAutomatedAddress, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
 
     const handleSubmit = useCallback(
@@ -82,6 +81,8 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
         return null;
     }
 
+    const AddressForm = showAutomatedAddress ? AutomatedAddressForm : ManualAddressForm;
+
     return (
         <>
             <H1>Tell Us A Little More</H1>
@@ -89,77 +90,21 @@ export const Address = ({ applicant, updateApplicant, _nextRoute }) => {
             <ImageContainer>
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
-            <Formik
-                validationSchema={validationSchema}
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validateOnBlur={false}
-                validateOnChange={false}
-            >
-                {({
-                    values,
-                    errors: validationErrors,
-                    isSubmitting,
-                    setValues,
-                    setFieldValue,
-                    submitCount,
-                    setErrors,
-                    validateForm,
-                }) => {
-                    const disableSubmit = !values.search || values.search === '' || isSubmitting;
-
-                    return (
-                        <Form autoComplete="off">
-                            <LocationSearch
-                                fullWidth
-                                margin="normal"
-                                label="Street address, city, state, zip"
-                                name="address_search"
-                                value={values.search}
-                                validationError={Object.values(validationErrors)?.join(', ')}
-                                submitCount={submitCount}
-                                onChange={(search) => setFieldValue('search', search)}
-                                resetValidationErrors={() => setErrors({})}
-                                onAddressPicked={(address) => {
-                                    setValues({
-                                        ...values,
-                                        search: address.search,
-                                        address_street: address.addressStreet,
-                                        address_city: address.city,
-                                        address_state: address.state,
-                                        address_postal_code: address.postalCode,
-                                    });
-
-                                    validateForm();
-                                }}
-                            />
-                            <Field
-                                fullWidth
-                                margin="normal"
-                                label="Apt/Ste/Floor"
-                                name="address_line_2"
-                                component={TextField}
-                            />
-                            <GenericFormMessage type="error" messages={errors} />
-                            <ActionButton marginTop={50} disabled={disableSubmit}>
-                                Continue
-                            </ActionButton>
-                        </Form>
-                    );
-                }}
-            </Formik>
+            <AddressForm validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit} />
         </>
     );
 };
 
 Address.propTypes = {
-    updateApplicant: PropTypes.func.isRequired,
     applicant: PropTypes.object,
+    showAutomatedAddress: PropTypes.bool,
+    updateApplicant: PropTypes.func.isRequired,
     _nextRoute: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    showAutomatedAddress: getShowAutomatedAddressForm(state),
 });
 
 const mapActionsToProps = {
