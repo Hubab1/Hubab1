@@ -89,7 +89,12 @@ export const Address = ({ applicant, showAutomatedAddress, updateApplicant, _nex
             <ImageContainer>
                 <img src={sticky} alt="sticky note" />
             </ImageContainer>
-            <AddressForm validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit} />
+            <AddressForm
+                validationSchema={validationSchema}
+                initialValues={initialValues}
+                errors={errors}
+                onSubmit={handleSubmit}
+            />
         </>
     );
 };
