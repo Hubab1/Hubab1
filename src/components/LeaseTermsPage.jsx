@@ -162,7 +162,7 @@ export const LeaseTermsPage = ({
                 setSubmitting(false);
             }
         },
-        [isPrimaryApplicant, updateRenterProfile, pageComplete, _nextRoute, unitErrorMsg]
+        [isPrimaryApplicant, pageComplete, _nextRoute, updateRenterProfile, unitErrorMsg, genericErrorMsg]
     );
 
     const initialValues = useMemo(() => {
