@@ -164,7 +164,7 @@ describe('community selectors', () => {
         state.configuration.community = { foo: 'bar' };
         expect(selectors.selectCommunityContactPhoneNumber(state)).toBeUndefined();
 
-        state.configuration.community.contact_phone = '12345';
+        state.configuration.community = { contact_phone: '12345' };
         expect(selectors.selectCommunityContactPhoneNumber(state)).toEqual('12345');
     });
 });

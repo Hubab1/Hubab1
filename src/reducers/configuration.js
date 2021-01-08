@@ -96,8 +96,4 @@ selectors.selectTheme = createSelector(
 );
 
 selectors.selectCommunity = (state) => state.configuration?.community;
-
-selectors.selectCommunityContactPhoneNumber = createSelector(
-    selectors.selectCommunity,
-    (community) => community?.contact_phone
-);
+selectors.selectCommunityContactPhoneNumber = (state) => state.configuration?.community?.contact_phone;
