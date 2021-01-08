@@ -132,7 +132,7 @@ export const LeaseTermsPage = ({
 
     const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
     const genericErrorMsg = `Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`;
-
+    const unitErrorMsg = `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`;
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors }) => {
             setSubmitting(true);
@@ -149,9 +149,7 @@ export const LeaseTermsPage = ({
                 const response = await updateRenterProfile(serializeValues(values), stateUpdate);
                 if (response.errors) {
                     if (response.errors?.unit_id) {
-                        setErrorMsg(
-                            `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`
-                        );
+                        setErrorMsg(unitErrorMsg);
                     }
                     return setErrors(response.errors);
                 }
@@ -164,7 +162,7 @@ export const LeaseTermsPage = ({
                 setSubmitting(false);
             }
         },
-        [isPrimaryApplicant, updateRenterProfile, pageComplete, _nextRoute]
+        [isPrimaryApplicant, updateRenterProfile, pageComplete, _nextRoute, unitErrorMsg]
     );
 
     const initialValues = useMemo(() => {
