@@ -5,6 +5,7 @@ import { Paper, TextField, MenuList, MenuItem } from '@material-ui/core';
 import styled from '@emotion/styled';
 
 import * as utils from './utils';
+import useOutsideComponentClickCallback from 'hooks/useOutsideComponentClickCallback';
 import GoogleImg from 'assets/images/google.png';
 
 const PoweredBy = styled.div`
@@ -35,6 +36,7 @@ const FETCH_ERROR = 'Oops! We’re having trouble finding that address. Please t
 
 const LocationSearch = ({
     value,
+    initialValue,
     delay = 300,
     submitCount = 0,
     validationError = undefined,
@@ -44,12 +46,14 @@ const LocationSearch = ({
     resetValidationErrors,
     ...props
 }) => {
+    const componentRef = useRef(null);
     const autocompleteService = useRef(undefined);
     const autocompleteOK = useRef(undefined);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(undefined);
     const [predictions, setPredictions] = useState([]);
     const [hidePredictions, setHidePredictions] = useState(false);
+    const [didChoosePredication, setDidChoosePredication] = useState(initialValue !== '');
     const showValidaitonError = submitCount > 0 && validationError;
     const errorMessage = error ? error : showValidaitonError ? validationError : undefined;
 
@@ -58,9 +62,17 @@ const LocationSearch = ({
         autocompleteOK.current = window.google.maps.places.PlacesServiceStatus.OK;
     }, []);
 
+    const reset = useCallback(() => {
+        !didChoosePredication && onChange('');
+    }, [didChoosePredication, onChange]);
+
+    useOutsideComponentClickCallback(componentRef, reset);
+
     const fetchPredications = useCallback(
-        debounce(() => {
-            if (!value) return;
+        debounce((searchedValue) => {
+            if (!searchedValue || searchedValue === '') {
+                return setPredictions([]);
+            }
 
             setError(undefined);
             setIsLoading(true);
@@ -68,7 +80,7 @@ const LocationSearch = ({
             autocompleteService.current.getPlacePredictions(
                 {
                     ...searchOptions,
-                    input: value,
+                    input: searchedValue,
                 },
                 (predictions, status) => {
                     if (status === autocompleteOK.current) {
@@ -79,16 +91,18 @@ const LocationSearch = ({
                 }
             );
         }, delay),
-        [value]
+        []
     );
 
     const handleChange = useCallback(
         (e) => {
-            onChange(e.target.value);
+            const searchedValue = e.target.value;
+            setDidChoosePredication(false);
+            onChange(searchedValue);
             resetValidationErrors();
-            fetchPredications();
+            fetchPredications(searchedValue);
         },
-        [onChange, resetValidationErrors, fetchPredications]
+        [onChange, resetValidationErrors, fetchPredications, setDidChoosePredication]
     );
 
     const handleFocus = useCallback(() => {
@@ -150,6 +164,8 @@ const LocationSearch = ({
                     state,
                     postalCode,
                 });
+
+                setDidChoosePredication(true);
             } catch {
                 setError(FETCH_ERROR);
             } finally {
@@ -160,7 +176,7 @@ const LocationSearch = ({
     );
 
     return (
-        <div>
+        <div ref={componentRef}>
             <TextField
                 {...props}
                 value={value}
@@ -194,6 +210,7 @@ const LocationSearch = ({
 
 LocationSearch.propTypes = {
     value: PropTypes.string,
+    initialValue: PropTypes.string,
     delay: PropTypes.number,
     validationError: PropTypes.string,
     searchOptions: PropTypes.object,
