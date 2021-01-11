@@ -68,6 +68,7 @@ export function AccountForm({
     onSubmit,
     resetPassword,
     configuration,
+    disableTUFields = false,
 }) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
@@ -95,6 +96,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.first_name}
                                     value={values.first_name}
+                                    disabled={disableTUFields}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -106,6 +108,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.last_name}
                                     value={values.last_name}
+                                    disabled={disableTUFields}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -117,6 +120,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.email}
                                     value={values.email}
+                                    disabled={disableTUFields}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -148,6 +152,7 @@ export function AccountForm({
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
+                                    disabled={disableTUFields}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -217,6 +222,7 @@ AccountForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     configuration: PropTypes.object.isRequired,
     maxDate: PropTypes.object,
+    disableTUFields: PropTypes.bool,
 };
 
 export default AccountForm;

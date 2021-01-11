@@ -8,6 +8,7 @@ import auth from 'utils/auth';
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
 import { updateApplicant } from 'reducers/applicant';
+import { getApplicantSubmittedApplication } from 'selectors/applicant';
 import { serializeDate, parseDateISOString } from 'utils/misc';
 import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 import VerifyAccount from 'components/account/VerifyAccount';
@@ -36,7 +37,7 @@ export class AccountPage extends React.Component {
     onAccountDetailsSubmit = async (values, { setSubmitting, setErrors }) => {
         const data = {
             ...values,
-            birthday: serializeDate(values.birthday)
+            birthday: serializeDate(values.birthday),
         };
 
         try {
@@ -122,8 +123,9 @@ export class AccountPage extends React.Component {
                 <H1>Your Account Details</H1>
                 <AccountForm
                     submitText="Save Changes"
-                    initialValues={this.initialValues}
                     status={this.state.status}
+                    disableTUFields={this.props.applicantSubmittedApplication}
+                    initialValues={this.initialValues}
                     onSubmit={this.onAccountDetailsSubmit}
                     resetPassword={() => this.setState({ showChangePassword: true })}
                 />
@@ -136,11 +138,13 @@ AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
     applicant: PropTypes.object,
+    applicantSubmittedApplication: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     communityId: state.siteConfig.basename,
+    applicantSubmittedApplication: getApplicantSubmittedApplication(state),
 });
 
 const mapDispatchToProps = { updateApplicant };
