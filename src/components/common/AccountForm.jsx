@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { css } from 'emotion';
-import Checkbox from 'components/common/Checkbox';
+
+import { ROUTES } from 'app/constants';
+import { allValuesSet, nameValidationRegex, phoneNumberValidationRegex } from 'utils/formik';
 import { formContent, LinkButton } from 'assets/styles';
+import Checkbox from 'components/common/Checkbox';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { allValuesSet, nameValidationRegex, phoneNumberValidationRegex } from 'utils/formik';
-import { ROUTES } from 'app/constants';
 
 const linkContainer = css`
     text-align: left !important;
