@@ -58,7 +58,7 @@ const LocationSearch = ({
         autocompleteOK.current = window.google.maps.places.PlacesServiceStatus.OK;
     }, []);
 
-    const fetchSuggestions = useCallback(
+    const fetchPredications = useCallback(
         debounce(() => {
             if (!value) return;
 
@@ -86,9 +86,9 @@ const LocationSearch = ({
         (e) => {
             onChange(e.target.value);
             resetValidationErrors();
-            fetchSuggestions();
+            fetchPredications();
         },
-        [onChange, resetValidationErrors, fetchSuggestions]
+        [onChange, resetValidationErrors, fetchPredications]
     );
 
     const handleFocus = useCallback(() => {
