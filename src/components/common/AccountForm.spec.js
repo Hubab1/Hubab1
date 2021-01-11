@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Formik } from 'formik';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 import Checkbox from 'components/common/Checkbox';
 import AccountForm from 'components/common/AccountForm';
 import ActionButton from 'components/common/ActionButton/ActionButton';
+import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { validationSchema } from 'components/common/AccountForm';
 
 let defaultProps;
@@ -69,6 +71,28 @@ it('ActionButton is not disabled when sms opt in is unchecked', function () {
         />
     );
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(false);
+});
+
+it('Should enable TU fields when disableTUFields is false', () => {
+    const wrapper = shallow(<AccountForm {...defaultProps} disableTUFields={false} />);
+    const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
+    const lastNameField = wrapper.find(Formik).dive().find(FormTextInput).at(1);
+    const dateOfBirthField = wrapper.find(Formik).dive().find(KeyboardDatePicker);
+
+    expect(firstNameField.prop('disabled')).toBe(false);
+    expect(lastNameField.prop('disabled')).toBe(false);
+    expect(dateOfBirthField.prop('disabled')).toBe(false);
+});
+
+it('Should disable TU fields when disableTUFields is set to true', () => {
+    const wrapper = shallow(<AccountForm {...defaultProps} disableTUFields={true} />);
+    const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
+    const lastNameField = wrapper.find(Formik).dive().find(FormTextInput).at(1);
+    const dateOfBirthField = wrapper.find(Formik).dive().find(KeyboardDatePicker);
+
+    expect(firstNameField.prop('disabled')).toBe(true);
+    expect(lastNameField.prop('disabled')).toBe(true);
+    expect(dateOfBirthField.prop('disabled')).toBe(true);
 });
 
 describe('validationSchema', () => {
