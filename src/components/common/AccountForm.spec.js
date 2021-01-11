@@ -84,7 +84,7 @@ it('Should enable TU fields when disableTUFields is false', () => {
     expect(dateOfBirthField.prop('disabled')).toBe(false);
 });
 
-it('Should disable TU fields when disableTUFields is set to true', () => {
+it('Should disable TU fields when disableTUFields is true', () => {
     const wrapper = shallow(<AccountForm {...defaultProps} disableTUFields={true} />);
     const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
     const lastNameField = wrapper.find(Formik).dive().find(FormTextInput).at(1);
