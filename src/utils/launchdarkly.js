@@ -8,7 +8,7 @@ const flags = {
     'ol-show-automated-address-form': true,
 };
 
-export const initLaunchDarkly = (company) => {
+export const initLaunchDarkly = (company = {}) => {
     ldRedux.init({
         clientSideId: process.env.REACT_APP_LD_CLIENT_KEY,
         dispatch: store.dispatch,
@@ -17,9 +17,7 @@ export const initLaunchDarkly = (company) => {
             key: uuidv4(),
             custom: {
                 company_id: company.id,
-            }
+            },
         },
     });
 };
-
-

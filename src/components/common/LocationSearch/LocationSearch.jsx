@@ -41,7 +41,7 @@ const LocationSearch = ({
     submitCount = 0,
     validationError = undefined,
     searchOptions = {
-        componentRestrictions: { country: 'US' }
+        componentRestrictions: { country: 'US' },
     },
     onChange,
     onAddressPicked,
