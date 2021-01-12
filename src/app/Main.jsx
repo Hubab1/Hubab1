@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { initLaunchDarkly} from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -53,6 +54,8 @@ export class Main extends Component {
         const clientRegistered = configuration.client && configuration.client.applicant_id;
         const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
         const hasRegistered = clientRegistered || inviteeRegistered;
+
+        initLaunchDarkly(configuration.community.company);
 
         if (!isAuthenticated) {
             if (
