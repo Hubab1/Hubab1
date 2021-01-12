@@ -44,6 +44,27 @@ describe('validationSchema', () => {
                 address_street: null,
             })
         ).toBe(false);
+
+        expect(
+            validationSchema.isValidSync({
+                ...formValues,
+                address_street: 'street address without number',
+            })
+        ).toBe(false);
+
+        expect(
+            validationSchema.isValidSync({
+                ...formValues,
+                address_street: '10-15 street name',
+            })
+        ).toBe(true);
+
+        expect(
+            validationSchema.isValidSync({
+                ...formValues,
+                address_street: '12th street name',
+            })
+        ).toBe(true);
     });
 
     it('city validation', () => {

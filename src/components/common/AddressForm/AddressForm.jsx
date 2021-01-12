@@ -9,7 +9,7 @@ export const validationSchema = Yup.object().shape({
     search: Yup.string(),
     address_street: Yup.string()
         .required('Street is required')
-        .matches(/^[A-Za-z0-9\-]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
+        .matches(/^[0-9-]/, 'Street address must start with a number'),
     address_city: Yup.string()
         .required('City is required')
         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
