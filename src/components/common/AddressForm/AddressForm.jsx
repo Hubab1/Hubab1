@@ -7,7 +7,9 @@ import ManualAddressForm from 'components/common/AddressForm/ManualAddressForm';
 
 export const validationSchema = Yup.object().shape({
     search: Yup.string(),
-    address_street: Yup.string().required('Street is required'),
+    address_street: Yup.string()
+        .required('Street is required')
+        .matches(/^[A-Za-z0-9\-]+(?:\s[A-Za-z0-9'_-]+)+$/, 'Invalid street'),
     address_city: Yup.string()
         .required('City is required')
         .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/, 'Invalid city'),
