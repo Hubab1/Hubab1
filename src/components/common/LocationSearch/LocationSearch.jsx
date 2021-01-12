@@ -40,7 +40,9 @@ const LocationSearch = ({
     delay = 300,
     submitCount = 0,
     validationError = undefined,
-    searchOptions = {},
+    searchOptions = {
+        componentRestrictions: { country: 'US' }
+    },
     onChange,
     onAddressPicked,
     resetValidationErrors,
