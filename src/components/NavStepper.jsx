@@ -115,7 +115,7 @@ export function VerticalLinearStepper(props) {
                             active
                             classes={{ root: iconRoot }}
                         >
-                            <span className="appCompletedMsg">
+                            <span className="holdingDepositReagreement">
                                 We’ll need you to agree to the new holding deposit terms. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}

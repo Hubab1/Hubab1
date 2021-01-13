@@ -21,3 +21,10 @@ it('Matches snapshot', () => {
     const wrapper = mount(<PaymentTerms {...defaultProps} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+it('Matches snapshot when reagreeing', () => {
+    const wrapper = mount(
+        <PaymentTerms {...defaultProps} isReagreeing={true} reagree={() => {}} canProceedToPayment={true} />
+    );
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
