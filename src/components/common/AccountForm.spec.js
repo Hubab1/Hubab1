@@ -73,8 +73,8 @@ it('ActionButton is not disabled when sms opt in is unchecked', function () {
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(false);
 });
 
-it('Should enable TU fields when disableTUFields is false', () => {
-    const wrapper = shallow(<AccountForm {...defaultProps} disableTUFields={false} />);
+it('Should enable personal fields when canUpdatePersonalInfo is false', () => {
+    const wrapper = shallow(<AccountForm {...defaultProps} canUpdatePersonalInfo={false} />);
     const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
     const lastNameField = wrapper.find(Formik).dive().find(FormTextInput).at(1);
     const dateOfBirthField = wrapper.find(Formik).dive().find(KeyboardDatePicker);
@@ -84,8 +84,8 @@ it('Should enable TU fields when disableTUFields is false', () => {
     expect(dateOfBirthField.prop('disabled')).toBe(false);
 });
 
-it('Should disable TU fields when disableTUFields is true', () => {
-    const wrapper = shallow(<AccountForm {...defaultProps} disableTUFields={true} />);
+it('Should disable personal fields when canUpdatePersonalInfo is true', () => {
+    const wrapper = shallow(<AccountForm {...defaultProps} canUpdatePersonalInfo={true} />);
     const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
     const lastNameField = wrapper.find(Formik).dive().find(FormTextInput).at(1);
     const dateOfBirthField = wrapper.find(Formik).dive().find(KeyboardDatePicker);

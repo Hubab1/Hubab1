@@ -69,7 +69,7 @@ export function AccountForm({
     onSubmit,
     resetPassword,
     configuration,
-    disableTUFields = false,
+    canUpdatePersonalInfo = false,
 }) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
@@ -97,7 +97,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.first_name}
                                     value={values.first_name}
-                                    disabled={disableTUFields}
+                                    disabled={canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -109,7 +109,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.last_name}
                                     value={values.last_name}
-                                    disabled={disableTUFields}
+                                    disabled={canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -121,7 +121,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.email}
                                     value={values.email}
-                                    disabled={disableTUFields}
+                                    disabled={canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -153,7 +153,7 @@ export function AccountForm({
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
-                                    disabled={disableTUFields}
+                                    disabled={canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -223,7 +223,7 @@ AccountForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     configuration: PropTypes.object.isRequired,
     maxDate: PropTypes.object,
-    disableTUFields: PropTypes.bool,
+    canUpdatePersonalInfo: PropTypes.bool,
 };
 
 export default AccountForm;

@@ -124,7 +124,7 @@ export class AccountPage extends React.Component {
                 <AccountForm
                     submitText="Save Changes"
                     status={this.state.status}
-                    disableTUFields={this.props.applicantSubmittedApplication}
+                    canUpdatePersonalInfo={this.props.applicantSubmittedApplication}
                     initialValues={this.initialValues}
                     onSubmit={this.onAccountDetailsSubmit}
                     resetPassword={() => this.setState({ showChangePassword: true })}
