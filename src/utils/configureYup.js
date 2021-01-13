@@ -6,7 +6,7 @@ import { STATE_ZIP_CODES } from 'constants/zipcodes';
 Yup.setLocale({});
 
 Yup.addMethod(Yup.number, 'zipcodeBelongsToState', function () {
-    return this.test('test-zipcode-belongs-to-state', 'Invalid Zip Code', function (zipcode) {
+    return this.test('test-zipcode-belongs-to-state', 'Invalid zip code', function (zipcode) {
         const stateKey = Object.keys(this.parent).find((key) => {
             return key.includes('state');
         });
