@@ -140,3 +140,31 @@ describe('selectTheme', () => {
         expect(themeTwo).not.toEqual(themeThree);
     });
 });
+
+describe('community selectors', () => {
+    it('selectCommunity returns community when available', () => {
+        const state = {};
+        expect(selectors.selectCommunity(state)).toBeUndefined();
+
+        state.configuration = {};
+        expect(selectors.selectCommunity(state)).toBeUndefined();
+
+        const community = { foo: 'bar' };
+        state.configuration.community = community;
+        expect(selectors.selectCommunity(state)).toEqual(community);
+    });
+
+    it('selectCommunityContactPhoneNumber returns number when available', () => {
+        const state = {};
+        expect(selectors.selectCommunityContactPhoneNumber(state)).toBeUndefined();
+
+        state.configuration = {};
+        expect(selectors.selectCommunityContactPhoneNumber(state)).toBeUndefined();
+
+        state.configuration.community = { foo: 'bar' };
+        expect(selectors.selectCommunityContactPhoneNumber(state)).toBeUndefined();
+
+        state.configuration.community = { contact_phone: '12345' };
+        expect(selectors.selectCommunityContactPhoneNumber(state)).toEqual('12345');
+    });
+});

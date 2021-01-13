@@ -1,7 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { GENERIC_ERROR_MESSAGE, CARD_DECLINE_ERROR_MESSAGE, PaymentForm } from './PaymentForm';
+import {
+    GENERIC_ERROR_MESSAGE,
+    CARD_DECLINE_ERROR_MESSAGE,
+    PaymentForm,
+    UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE,
+} from './PaymentForm';
 import API from 'app/api';
 
 let defaultProps;
@@ -12,6 +17,7 @@ beforeEach(() => {
         fetchApplicant: jest.fn(),
         fetchRenterProfile: jest.fn(),
         onSuccess: jest.fn(),
+        contactPhone: 'community@company.com',
     };
 });
 
@@ -19,6 +25,7 @@ it('Shows a messsage about stripe processing', function () {
     const wrapper = shallow(<PaymentForm {...defaultProps} />);
     expect(wrapper.text()).toContain('Stripe and its affiliates will be processing this transaction');
 });
+
 it('handleSubmit sets paymentSuccess to true on Success', function () {
     const wrapper = shallow(<PaymentForm {...defaultProps} />);
 
@@ -45,6 +52,24 @@ it('handleSubmit sets error on API fail', function () {
         .then(() => {
             expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
             expect(wrapper.state().errors).toEqual([GENERIC_ERROR_MESSAGE]);
+            expect(wrapper.state().submitting).toBeFalsy();
+        });
+});
+
+it('handleSubmit sets error on Unit PMS Unavailable error', () => {
+    const wrapper = shallow(<PaymentForm {...defaultProps} />);
+
+    API.stripePayment = jest.fn().mockResolvedValue({
+        error_type: 'UnitPmsUnavailableError',
+        errors: 'Unit is no longer available.',
+    });
+
+    return wrapper
+        .instance()
+        .handleSubmit({ preventDefault: () => {} })
+        .then(() => {
+            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(wrapper.state().errors).toEqual([UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE('community@company.com')]);
             expect(wrapper.state().submitting).toBeFalsy();
         });
 });
