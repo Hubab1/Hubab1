@@ -65,7 +65,7 @@ export const ManualAddressForm = ({ initialValues, errors, validationSchema, onS
                         <GenericFormMessage type="error" messages={errors} />
                         <ActionButton
                             marginTop={50}
-                            disabled={!allValuesSet(values, { exclude: ['address_line_2'] }) || isSubmitting}
+                            disabled={!allValuesSet(values, { exclude: ['address_line_2', 'search'] }) || isSubmitting}
                         >
                             Continue
                         </ActionButton>
