@@ -213,8 +213,6 @@ selectors.selectDefaultInitialPage = createSelector(
                 return ROUTES.UNIT_UNAVAILABLE;
             }
 
-            console.log('check if have milestone');
-            console.log(eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD));
             if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
                 return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
             }
