@@ -22,6 +22,8 @@ export const PaymentTerms = ({
     communityName,
     leaseStartDate,
     canProceedToPayment,
+    isReagreeing = false,
+    reagree,
 }) => {
     const [html, setHtml] = useState(null);
     const moveInDate = moment(leaseStartDate).format('LL');
@@ -50,8 +52,11 @@ export const PaymentTerms = ({
                 unit_number: unitNumber,
             },
         };
-
-        goToPayment(data);
+        if (!isReagreeing) {
+            goToPayment(data);
+        } else {
+            reagree(data);
+        }
     };
 
     return (
@@ -66,7 +71,7 @@ export const PaymentTerms = ({
                     />
                 </ScrollableTermsCardSection>
             </Card>
-            {!!handleClickBack && (
+            {!!handleClickBack && !isReagreeing && (
                 <Fragment>
                     {canProceedToPayment ? (
                         <>
@@ -84,18 +89,27 @@ export const PaymentTerms = ({
                     )}
                 </Fragment>
             )}
+            {isReagreeing && (
+                <Fragment>
+                    <ActionButton onClick={handleContinueClick} marginTop={25} marginBottom={20}>
+                        Agree and Continue
+                    </ActionButton>
+                </Fragment>
+            )}
         </Fragment>
     );
 };
 
 PaymentTerms.propTypes = {
-    handleClickBack: PropTypes.func.isRequired,
+    handleClickBack: PropTypes.func,
     goToPayment: PropTypes.func,
     holdingDepositAmount: PropTypes.number.isRequired,
     unitNumber: PropTypes.string.isRequired,
     communityName: PropTypes.string.isRequired,
     leaseStartDate: PropTypes.string.isRequired,
     canProceedToPayment: PropTypes.bool.isRequired,
+    isReagreeing: PropTypes.bool,
+    reagree: PropTypes.func,
 };
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

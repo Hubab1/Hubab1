@@ -67,6 +67,7 @@ export function VerticalLinearStepper(props) {
     const firstUncompletedStep = getStepperIndex(props.navRoutes, props.defaultInitialPage);
     const unitUnavailable = props.renterProfile?.unit_available === false;
     const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
+    const holdingDepositAgreementSignatureRequested = props.initialPage === ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
 
     function onClickRoute(e, route, i) {
         e.stopPropagation();
@@ -107,9 +108,42 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
+                {holdingDepositAgreementSignatureRequested && (
+                    <Step active>
+                        <StepLabel
+                            StepIconComponent={() => <ErrorIcon color="primary" />}
+                            active
+                            classes={{ root: iconRoot }}
+                        >
+                            <span className="appCompletedMsg">
+                                We’ll need you to agree to the new holding deposit terms. Please call us at&nbsp;
+                                <a href={`tel:${props.config.community.contact_phone}`}>
+                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                </a>{' '}
+                                if you have any questions.
+                            </span>
+                        </StepLabel>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            id="viewProgressButton"
+                            classes={{
+                                root: viewProgress,
+                            }}
+                            disabled={false}
+                            onClick={() => {
+                                props.history.push(props.initialPage);
+                                props.handleDrawerClose();
+                            }}
+                        >
+                            View Progress
+                        </Button>
+                    </Step>
+                )}
                 {props.applicantStillFinishingApplication &&
                     !unitUnavailable &&
                     !props.guarantorRequested &&
+                    !holdingDepositAgreementSignatureRequested &&
                     props.navRoutes.map((route, i) => (
                         <Step
                             classes={{

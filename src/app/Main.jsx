@@ -43,6 +43,7 @@ import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
 import GuarantorRequested from 'components/GuarantorRequested';
+import HoldingDepositReagreement from 'components/fees-deposits/HoldingDepositReagreement';
 
 export class Main extends Component {
     state = { error: null };
@@ -179,6 +180,10 @@ export class Main extends Component {
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
                                     component={HoldingDepositAgreementContainer}
+                                />
+                                <Route
+                                    path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
+                                    component={HoldingDepositReagreement}
                                 />
                                 <Route path={ROUTES.SCREENING} component={SCREENING} />
                                 <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />

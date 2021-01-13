@@ -14,6 +14,7 @@ import {
     MILESTONE_REQUEST_GUARANTOR,
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -210,6 +211,12 @@ selectors.selectDefaultInitialPage = createSelector(
 
             if (profile.unit_available === false) {
                 return ROUTES.UNIT_UNAVAILABLE;
+            }
+
+            console.log('check if have milestone');
+            console.log(eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD));
+            if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
+                return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
             }
 
             if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
