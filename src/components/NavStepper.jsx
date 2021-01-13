@@ -190,34 +190,37 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
-                {!props.applicantStillFinishingApplication && !props.guarantorRequested && !outstandingBalance && (
-                    <Step active>
-                        <StepLabel completed classes={{ root: iconRoot }}>
-                            <span className="appCompletedMsg">
-                                Your application has been completed and submitted. Please call us at&nbsp;
-                                <a href={`tel:${props.config.community.contact_phone}`}>
-                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a>{' '}
-                                if you have any questions.
-                            </span>
-                        </StepLabel>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            id="viewProgressButton"
-                            classes={{
-                                root: viewProgress,
-                            }}
-                            disabled={false}
-                            onClick={() => {
-                                props.history.push(props.initialPage);
-                                props.handleDrawerClose();
-                            }}
-                        >
-                            View Progress
-                        </Button>
-                    </Step>
-                )}
+                {!props.applicantStillFinishingApplication &&
+                    !props.guarantorRequested &&
+                    !outstandingBalance &&
+                    !holdingDepositAgreementSignatureRequested && (
+                        <Step active>
+                            <StepLabel completed classes={{ root: iconRoot }}>
+                                <span className="appCompletedMsg">
+                                    Your application has been completed and submitted. Please call us at&nbsp;
+                                    <a href={`tel:${props.config.community.contact_phone}`}>
+                                        {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                    </a>{' '}
+                                    if you have any questions.
+                                </span>
+                            </StepLabel>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                id="viewProgressButton"
+                                classes={{
+                                    root: viewProgress,
+                                }}
+                                disabled={false}
+                                onClick={() => {
+                                    props.history.push(props.initialPage);
+                                    props.handleDrawerClose();
+                                }}
+                            >
+                                View Progress
+                            </Button>
+                        </Step>
+                    )}
                 {outstandingBalance && (
                     <Step active>
                         <StepLabel
