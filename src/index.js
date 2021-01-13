@@ -7,7 +7,6 @@ import TagManager from 'react-gtm-module';
 
 import { setupSentry } from 'utils/sentry';
 import 'utils/configureYup';
-import 'app/configureLD';
 import store from 'reducers/store';
 import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
 import App from 'app/App';

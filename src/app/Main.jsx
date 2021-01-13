@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { initLaunchDarkly } from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -24,7 +25,7 @@ import BankingContainer from 'components/banking/BankingContainer';
 import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
-import Address from 'components/Address';
+import Address from 'components/address/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
@@ -53,6 +54,8 @@ export class Main extends Component {
         const clientRegistered = configuration.client && configuration.client.applicant_id;
         const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
         const hasRegistered = clientRegistered || inviteeRegistered;
+
+        initLaunchDarkly(configuration?.community?.company);
 
         if (!isAuthenticated) {
             if (
