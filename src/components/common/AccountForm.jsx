@@ -121,7 +121,6 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.email}
                                     value={values.email}
-                                    disabled={canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={6}>
