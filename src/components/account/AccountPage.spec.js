@@ -10,7 +10,6 @@ import auth from 'utils/auth';
 
 import API from 'app/api';
 
-
 let defaultProps;
 
 beforeEach(() => {
@@ -20,60 +19,61 @@ beforeEach(() => {
         applicant: mockApplicant,
         configuration: {
             community: {
-                contact_phone: '11111111'
-            }
-        }
+                contact_phone: '11111111',
+            },
+        },
     };
 });
 
 it('renders VerifyAccount when not verified', () => {
-    const wrapper = shallow(<AccountPage {...defaultProps}/>);
+    const wrapper = shallow(<AccountPage {...defaultProps} />);
     expect(wrapper.find(VerifyAccount).exists).toBeTruthy();
     expect(wrapper.find(AccountForm).exists()).not.toBeTruthy();
 });
 
 it('renders AccountForm when verified', () => {
-    const wrapper = shallow(<AccountPage {...defaultProps}/>);
-    wrapper.setState({verified:true});
+    const wrapper = shallow(<AccountPage {...defaultProps} />);
+    wrapper.setState({ verified: true });
 
     expect(wrapper.find(VerifyAccount).exists()).not.toBeTruthy();
     expect(wrapper.find(AccountForm).exists()).toBeTruthy();
 });
 
 it('renders ChangePasswordForm when password has been verified and Change Password button is clicked', () => {
-    const wrapper = shallow(<AccountPage {...defaultProps}/>);
-    wrapper.setState({verified:true});
+    const wrapper = shallow(<AccountPage {...defaultProps} />);
+    wrapper.setState({ verified: true });
     expect(wrapper.find(ChangePasswordForm).exists()).not.toBeTruthy();
 
-    wrapper.setState({showChangePassword: true});
+    wrapper.setState({ showChangePassword: true });
     expect(wrapper.find(ChangePasswordForm).exists()).toBeTruthy();
 });
 
-it('calls API.passwordReset onChangePasswordSubmit', function() {
+it('calls API.passwordReset onChangePasswordSubmit', function () {
     const token = '123';
 
     auth.getToken = jest.fn().mockReturnValue('123');
 
-    const wrapper = shallow( <AccountPage {...defaultProps}/> );
+    const wrapper = shallow(<AccountPage {...defaultProps} />);
     API.passwordReset = jest.fn().mockReturnValue(Promise.resolve());
-    return wrapper.instance().onChangePasswordSubmit({password: 'Abagail'}, { setSubmitting: function() {} }).then(() => {
-        expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token);
-    });
+    return wrapper
+        .instance()
+        .onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function () {} })
+        .then(() => {
+            expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token);
+        });
 });
 
-it('renders errors if has errors', function() {
+it('renders errors if has errors', function () {
     const errorMessage = 'There was an error with resetting your password. Please try again.';
 
     auth.getToken = jest.fn().mockReturnValue('123');
 
-    const wrapper = shallow( <AccountPage {...defaultProps}/> );
-    API.passwordReset = jest.fn().mockReturnValue(
-        Promise.resolve(
-            {errors: [errorMessage]}
-        )
-    );
-    return wrapper.instance().onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function() {} }).then(() => {
-        expect(wrapper.state('resetPasswordErrors')).toEqual([errorMessage]);
-    });
-
+    const wrapper = shallow(<AccountPage {...defaultProps} />);
+    API.passwordReset = jest.fn().mockReturnValue(Promise.resolve({ errors: [errorMessage] }));
+    return wrapper
+        .instance()
+        .onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function () {} })
+        .then(() => {
+            expect(wrapper.state('resetPasswordErrors')).toEqual([errorMessage]);
+        });
 });
