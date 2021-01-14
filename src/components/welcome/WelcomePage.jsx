@@ -66,7 +66,11 @@ export class WelcomePage extends Component {
                         {unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={{ pathname: ROUTES.SIGNUP }} style={{ textDecoration: 'none' }} className="cta-container">
+                        <Link
+                            to={{ pathname: ROUTES.SIGNUP }}
+                            style={{ textDecoration: 'none' }}
+                            className="cta-container"
+                        >
                             <CallToActionButton fullWidth style={callToActionButtonStyle}>
                                 Start Application
                             </CallToActionButton>
