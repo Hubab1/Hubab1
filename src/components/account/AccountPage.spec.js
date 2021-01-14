@@ -18,6 +18,11 @@ beforeEach(() => {
         updateApplication: jest.fn(),
         communityId: '123',
         applicant: mockApplicant,
+        configuration: {
+            community: {
+                contact_phone: '11111111'
+            }
+        }
     };
 });
 

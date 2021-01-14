@@ -9,11 +9,12 @@ import API from 'app/api';
 import captureRoute from 'app/captureRoute';
 import { updateApplicant } from 'reducers/applicant';
 import { getApplicantSubmittedApplication } from 'selectors/applicant';
-import { serializeDate, parseDateISOString } from 'utils/misc';
+import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
 import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 import VerifyAccount from 'components/account/VerifyAccount';
 import AccountForm from 'components/common/AccountForm';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 export class AccountPage extends React.Component {
     state = { status: null, verified: false, showChangePassword: false, resetPasswordErrors: null };
@@ -118,9 +119,15 @@ export class AccountPage extends React.Component {
             );
         }
 
+        const phoneNumber = prettyFormatPhoneNumber(this.props.configuration.community.contact_phone);
+
         return (
             <>
                 <H1>Your Account Details</H1>
+                <GenericFormMessage
+                    type="error"
+                    messages={`Please call us at ${phoneNumber} if you'd like to make any changes to your name or date of birth.`}
+                />
                 <AccountForm
                     submitText="Save Changes"
                     status={this.state.status}
@@ -137,6 +144,7 @@ export class AccountPage extends React.Component {
 AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
+    configuration: PropTypes.object,
     applicant: PropTypes.object,
     applicantSubmittedApplication: PropTypes.bool,
 };
@@ -144,6 +152,7 @@ AccountPage.propTypes = {
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     communityId: state.siteConfig.basename,
+    configuration: state.configuration,
     applicantSubmittedApplication: getApplicantSubmittedApplication(state),
 });
 

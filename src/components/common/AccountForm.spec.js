@@ -106,7 +106,7 @@ it.skip('ActionButton is not disabled when sms opt in is unchecked', async funct
     // simulate change to make form diry (doesnt work)
     const firstNameField = wrapper.find(Formik).dive().find(FormTextInput).at(0);
     await firstNameField.props().handleChange({ target: { name: 'first_name', value: 'John' } });
-    
+
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(false);
 });
 
