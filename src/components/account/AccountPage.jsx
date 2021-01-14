@@ -120,18 +120,21 @@ export class AccountPage extends React.Component {
         }
 
         const phoneNumber = prettyFormatPhoneNumber(this.props.configuration.community.contact_phone);
+        const canUpdatePersonalInfo = !this.props.applicantSubmittedApplication;
 
         return (
             <>
                 <H1>Your Account Details</H1>
-                <GenericFormMessage
-                    type="error"
-                    messages={`Please call us at ${phoneNumber} if you'd like to make any changes to your name or date of birth.`}
-                />
+                {!canUpdatePersonalInfo && (
+                    <GenericFormMessage
+                        type="error"
+                        messages={`Please call us at ${phoneNumber} if you'd like to make any changes to your name or date of birth.`}
+                    />
+                )}
                 <AccountForm
                     submitText="Save Changes"
                     status={this.state.status}
-                    canUpdatePersonalInfo={this.props.applicantSubmittedApplication}
+                    canUpdatePersonalInfo={canUpdatePersonalInfo}
                     initialValues={this.initialValues}
                     onSubmit={this.onAccountDetailsSubmit}
                     resetPassword={() => this.setState({ showChangePassword: true })}

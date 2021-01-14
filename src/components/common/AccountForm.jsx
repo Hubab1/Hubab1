@@ -72,7 +72,12 @@ export function AccountForm({
     canUpdatePersonalInfo = true,
 }) {
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
+        <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            validationSchema={validationSchema(withPassword)}
+            onSubmit={onSubmit}
+        >
             {({
                 values,
                 errors,
@@ -84,131 +89,133 @@ export function AccountForm({
                 touched,
                 dirty,
                 setFieldValue,
-            }) => (
-                <form onSubmit={handleSubmit} autoComplete="off">
-                    <div className={formContent}>
-                        {status && <GenericFormMessage type={status.type} messages={status.detail} />}
-                        <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <FormTextInput
-                                    label="First Name"
-                                    name="first_name"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
-                                    handleBlur={handleBlur}
-                                    error={errors.first_name}
-                                    value={values.first_name}
-                                    disabled={!canUpdatePersonalInfo}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormTextInput
-                                    label="Last Name"
-                                    name="last_name"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
-                                    handleBlur={handleBlur}
-                                    error={errors.last_name}
-                                    value={values.last_name}
-                                    disabled={!canUpdatePersonalInfo}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormTextInput
-                                    label="Email"
-                                    name="email"
-                                    submitted={submitCount > 0}
-                                    handleChange={handleChange}
-                                    handleBlur={handleBlur}
-                                    error={errors.email}
-                                    value={values.email}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <PhoneNumberInput
-                                    label="Phone Number"
-                                    name="phone_number"
-                                    value={values.phone_number}
-                                    handleChange={handleChange}
-                                    error={submitCount > 0 && !!errors.phone_number}
-                                    helperText={submitCount > 0 ? errors.phone_number : null}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <KeyboardDatePicker
-                                    id="birthday-picker"
-                                    clearable
-                                    disableFuture
-                                    format="MM/dd/yyyy"
-                                    placeholder="mm/dd/yyyy"
-                                    label="Birthday"
-                                    minDate={new Date(1901, 1, 1)}
-                                    maxDate={MAX_DATE}
-                                    error={submitCount > 0 && !!errors.birthday}
-                                    helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday} // preemptive helper text
-                                    value={values.birthday || null}
-                                    fullWidth
-                                    onBlur={handleBlur}
-                                    onChange={(e) => setFieldValue('birthday', e)}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                    disabled={!canUpdatePersonalInfo}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {withPassword && (
+            }) => {
+                return (
+                    <form onSubmit={handleSubmit} autoComplete="off">
+                        <div className={formContent}>
+                            {status && <GenericFormMessage type={status.type} messages={status.detail} />}
+                            <Grid container spacing={1}>
+                                <Grid item xs={12}>
                                     <FormTextInput
-                                        label="Password"
-                                        name="password"
-                                        type="password"
+                                        label="First Name"
+                                        name="first_name"
                                         submitted={submitCount > 0}
                                         handleChange={handleChange}
                                         handleBlur={handleBlur}
-                                        error={errors.password}
-                                        value={values.password}
-                                        showValidationText
-                                        touched={touched && touched.password}
+                                        error={errors.first_name}
+                                        value={values.first_name}
+                                        disabled={!canUpdatePersonalInfo}
                                     />
-                                )}
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormTextInput
+                                        label="Last Name"
+                                        name="last_name"
+                                        submitted={submitCount > 0}
+                                        handleChange={handleChange}
+                                        handleBlur={handleBlur}
+                                        error={errors.last_name}
+                                        value={values.last_name}
+                                        disabled={!canUpdatePersonalInfo}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormTextInput
+                                        label="Email"
+                                        name="email"
+                                        submitted={submitCount > 0}
+                                        handleChange={handleChange}
+                                        handleBlur={handleBlur}
+                                        error={errors.email}
+                                        value={values.email}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <PhoneNumberInput
+                                        label="Phone Number"
+                                        name="phone_number"
+                                        value={values.phone_number}
+                                        handleChange={handleChange}
+                                        error={submitCount > 0 && !!errors.phone_number}
+                                        helperText={submitCount > 0 ? errors.phone_number : null}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <KeyboardDatePicker
+                                        id="birthday-picker"
+                                        clearable
+                                        disableFuture
+                                        format="MM/dd/yyyy"
+                                        placeholder="mm/dd/yyyy"
+                                        label="Birthday"
+                                        minDate={new Date(1901, 1, 1)}
+                                        maxDate={MAX_DATE}
+                                        error={submitCount > 0 && !!errors.birthday}
+                                        helperText={submitCount === 0 ? 'Must be 18 or older' : errors.birthday} // preemptive helper text
+                                        value={values.birthday || null}
+                                        fullWidth
+                                        onBlur={handleBlur}
+                                        onChange={(e) => setFieldValue('birthday', e)}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                        disabled={!canUpdatePersonalInfo}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    {withPassword && (
+                                        <FormTextInput
+                                            label="Password"
+                                            name="password"
+                                            type="password"
+                                            submitted={submitCount > 0}
+                                            handleChange={handleChange}
+                                            handleBlur={handleBlur}
+                                            error={errors.password}
+                                            value={values.password}
+                                            showValidationText
+                                            touched={touched && touched.password}
+                                        />
+                                    )}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        {showConsentInput && (
-                            <Checkbox
-                                name="sms_opt_in"
-                                onChange={handleChange}
-                                checked={values.sms_opt_in}
-                                value={values.sms_opt_in}
-                                error={errors.sms_opt_in}
-                                label={
-                                    <>
-                                        By clicking this checkbox, you consent to receiving calls and texts on behalf of{' '}
-                                        {configuration.community.company.name} via automatic dialing or other technology
-                                        about apartment listings that may fit your needs. Your consent is not required
-                                        to enter into a rental transaction or make any purchase. Reply STOP to cancel
-                                        anytime.{' '}
-                                        <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
-                                            Privacy Policy
-                                        </Link>
-                                    </>
-                                }
-                            />
-                        )}
-                        {resetPassword && (
-                            <div className={linkContainer}>
-                                <LinkButton onClick={resetPassword}>Change Password</LinkButton>
-                            </div>
-                        )}
-                        <ActionButton
-                            disabled={!dirty || !allValuesSet(values, { exclude: ['sms_opt_in'] }) || isSubmitting}
-                            marginTop={20}
-                            marginBottom={20}
-                        >
-                            {submitText}
-                        </ActionButton>
-                    </div>
-                </form>
-            )}
+                            {showConsentInput && (
+                                <Checkbox
+                                    name="sms_opt_in"
+                                    onChange={handleChange}
+                                    checked={values.sms_opt_in}
+                                    value={values.sms_opt_in}
+                                    error={errors.sms_opt_in}
+                                    label={
+                                        <>
+                                            By clicking this checkbox, you consent to receiving calls and texts on
+                                            behalf of {configuration.community.company.name} via automatic dialing or
+                                            other technology about apartment listings that may fit your needs. Your
+                                            consent is not required to enter into a rental transaction or make any
+                                            purchase. Reply STOP to cancel anytime.{' '}
+                                            <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
+                                                Privacy Policy
+                                            </Link>
+                                        </>
+                                    }
+                                />
+                            )}
+                            {resetPassword && (
+                                <div className={linkContainer}>
+                                    <LinkButton onClick={resetPassword}>Change Password</LinkButton>
+                                </div>
+                            )}
+                            <ActionButton
+                                disabled={!dirty || !allValuesSet(values, { exclude: ['sms_opt_in'] }) || isSubmitting}
+                                marginTop={20}
+                                marginBottom={20}
+                            >
+                                {submitText}
+                            </ActionButton>
+                        </div>
+                    </form>
+                );
+            }}
         </Formik>
     );
 }
