@@ -4,7 +4,7 @@ import { RewriteFrames } from '@sentry/integrations';
 
 export const setupSentry = () => {
     const sentryOptions = {
-        dsn: 'https://99462942d8ac4d5ba01227973cf9a8b1@sentry.io/1784084',
+        dsn: 'https://99462942d8ac4d5ba01227973cf9a8b1@o16407.ingest.sentry.io/1784084',
         environment: process.env.NODE_ENV,
         integrations: [new RewriteFrames(), new Integrations.BrowserTracing()],
     };
