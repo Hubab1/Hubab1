@@ -55,9 +55,11 @@ export const WelcomeTextContainer = styled.div`
 
 export const WelcomeFooterContainer = styled.div`
     label: welcome__footer;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     margin: 2% 10%;
     height: 15%;
-    text-align: center;
 `;
 
 export const HomeImageContainer = styled.div`
