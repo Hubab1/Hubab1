@@ -32,11 +32,11 @@ class Auth {
     };
 
     getToken = () => {
-        return localStorage.getItem('access_token');
+        return localStorage?.getItem('access_token');
     };
 
     accessScope = () => {
-        return localStorage.getItem('access_scope');
+        return localStorage?.getItem('access_scope');
     };
 
     setSession = (authToken, scope) => {
@@ -53,7 +53,7 @@ class Auth {
     };
 
     isAuthenticated = () => {
-        const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+        const expiresAt = JSON.parse(localStorage?.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
     };
 }

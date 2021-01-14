@@ -20,7 +20,7 @@ export const UnitUnavailable = ({ configuration, profile }) => {
         return null;
     }
 
-    const unit = configuration.unit || profile.unit;
+    const unit = configuration?.unit || profile?.unit;
     const Wrapper = profile ? React.Fragment : UnauthenticatedPage;
 
     return (

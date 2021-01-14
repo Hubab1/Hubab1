@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import API from 'app/api';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'app/constants';
 import { getFinancialSourceRequestBody } from 'utils/misc';
+import { logToSentry } from 'utils/sentry';
 
 import { H1, H3, Spacer } from 'assets/styles';
 import { BackLink } from 'components/common/BackLink';
@@ -28,6 +29,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
+// TODO: refactor component usable for both income and assets?
 export function AddIncomeSource(props) {
     const [errors, setErrors] = useState([]);
     const context = useContext(BankingContext);
@@ -41,12 +43,14 @@ export function AddIncomeSource(props) {
         let response;
         try {
             response = await API.submitFinancialSource(formData, props.vgsEnabled);
-        } catch {
+        } catch (e) {
+            logToSentry(e);
             setErrors([ERROR_UPLOAD]);
             return setSubmitting(false);
         }
 
         if (response.status !== 200) {
+            logToSentry(response);
             setErrors([ERROR_UPLOAD]);
             setSubmitting(false);
             return;
