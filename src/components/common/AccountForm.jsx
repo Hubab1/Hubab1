@@ -82,6 +82,7 @@ export function AccountForm({
                 handleSubmit,
                 isSubmitting,
                 touched,
+                dirty,
                 setFieldValue,
             }) => (
                 <form onSubmit={handleSubmit} autoComplete="off">
@@ -199,7 +200,7 @@ export function AccountForm({
                             </div>
                         )}
                         <ActionButton
-                            disabled={!allValuesSet(values, { exclude: ['sms_opt_in'] }) || isSubmitting}
+                            disabled={!dirty || !allValuesSet(values, { exclude: ['sms_opt_in'] }) || isSubmitting}
                             marginTop={20}
                             marginBottom={20}
                         >
