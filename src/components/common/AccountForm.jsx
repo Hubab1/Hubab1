@@ -69,7 +69,7 @@ export function AccountForm({
     onSubmit,
     resetPassword,
     configuration,
-    canUpdatePersonalInfo = false,
+    canUpdatePersonalInfo = true,
 }) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema(withPassword)} onSubmit={onSubmit}>
@@ -98,7 +98,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.first_name}
                                     value={values.first_name}
-                                    disabled={canUpdatePersonalInfo}
+                                    disabled={!canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -110,7 +110,7 @@ export function AccountForm({
                                     handleBlur={handleBlur}
                                     error={errors.last_name}
                                     value={values.last_name}
-                                    disabled={canUpdatePersonalInfo}
+                                    disabled={!canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -153,7 +153,7 @@ export function AccountForm({
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
-                                    disabled={canUpdatePersonalInfo}
+                                    disabled={!canUpdatePersonalInfo}
                                 />
                             </Grid>
                             <Grid item xs={12}>
