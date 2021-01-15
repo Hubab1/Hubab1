@@ -322,8 +322,7 @@ export function IncomeVerificationSummaryPage(props) {
                 props.history.push(ROUTES.EMPLOYER_DETAILS);
                 return;
             }
-            fetchApplicant();
-            context._nextRoute();
+            window.location.reload();
             return;
         }
         if (props.config.collect_employer_information && !reportedNoIncomeAssets) {
