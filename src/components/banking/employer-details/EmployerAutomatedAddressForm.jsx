@@ -27,19 +27,21 @@ export const EmployerAutomatedAddressForm = ({ initialValues, errors, validation
                 validateForm,
             }) => {
                 return (
-                    <Form autoComplete="off">
+                    <Form autoComplete="none">
                         <Field
                             fullWidth
                             margin="normal"
-                            label="Employer/Company name"
+                            label="Employer/Company name (optional)"
                             name="name"
                             component={TextField}
+                            autoComplete="none"
                         />
                         <LocationSearch
                             fullWidth
                             margin="normal"
-                            label="Street address, city, state, zip"
+                            label="Street address, city, state, zip (optional)"
                             name="address_search"
+                            autoComplete="none"
                             value={values.search}
                             initialValues={initialValues}
                             validationError={Object.values(validationErrors)?.join(', ')}
@@ -71,9 +73,10 @@ export const EmployerAutomatedAddressForm = ({ initialValues, errors, validation
                         <Field
                             fullWidth
                             margin="normal"
-                            label="Apt/Ste/Floor"
+                            label="Apt/Ste/Floor (optional)"
                             name="address_line_2"
                             component={TextField}
+                            autoComplete="none"
                         />
                         <GenericFormMessage type="error" messages={errors} />
                         <ActionButton marginTop={50} marginBottom={20} disabled={isSubmitting}>
