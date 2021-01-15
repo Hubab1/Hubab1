@@ -271,17 +271,6 @@ API.getCurrentFlatQuote = (data) => {
     });
 };
 
-API.getAdverseActions = () => {
-    return fetch(chuck('/applicant/adverse-action/'), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
-    }).then((res) => {
-        return res.json();
-    });
-};
-
 API.submitFinancialSource = (data, vgsEnabled) => {
     const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
     return fetch(url, {
