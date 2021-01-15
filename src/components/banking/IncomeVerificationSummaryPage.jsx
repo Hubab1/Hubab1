@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
-//import API from 'app/api';
 import {
     ROUTES,
     ROLE_GUARANTOR,
@@ -16,7 +15,6 @@ import {
     ALL_INCOME_OR_ASSET_TYPES,
     FINANCIAL_STREAM_STATUS_INCOMPLETE,
     FINANCIAL_STREAM_ASSET,
-    //APPLICANT_EVENTS,
 } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
 import { prettyCurrency } from 'utils/misc';

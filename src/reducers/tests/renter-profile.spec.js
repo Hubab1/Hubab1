@@ -24,6 +24,7 @@ describe('selectNav', () => {
         const pages = selectors.selectNav({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -69,6 +70,7 @@ describe('canAccessRoute', () => {
     const state = {
         configuration: {
             enable_automatic_income_verification: true,
+            collect_employer_information: true,
         },
         renterProfile: {
             co_applicants: null,
@@ -146,6 +148,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -170,6 +173,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -193,6 +197,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: false,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -220,6 +225,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -235,6 +241,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 unit_available: false,
@@ -255,6 +262,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 unit_available: true,
@@ -274,6 +282,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 unit_available: true,
@@ -294,6 +303,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -313,6 +323,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: [{ name: 'bob' }],
@@ -338,6 +349,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -362,6 +374,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -385,6 +398,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -410,6 +424,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -438,6 +453,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -460,6 +476,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -481,6 +498,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -503,6 +521,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -525,6 +544,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -554,6 +574,7 @@ describe('selectInitialPage', () => {
         const initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -577,6 +598,7 @@ describe('select default initial page', () => {
         const initialPage = selectors.selectDefaultInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
