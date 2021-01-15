@@ -39,15 +39,6 @@ API.fetchFunnelTerms = (leaseSettingsId) => {
     return fetch(chuck(`/funnel_terms/${leaseSettingsId}`));
 };
 
-API.fetchHoldingDepositTerms = (canProceedToPayment) => {
-    return fetch(chuck(`/holding_deposit_terms?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
-    });
-};
-
 API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
@@ -275,17 +266,6 @@ API.getCurrentFlatQuote = (data) => {
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
-    }).then((res) => {
-        return res.json();
-    });
-};
-
-API.getAdverseActions = () => {
-    return fetch(chuck('/applicant/adverse-action/'), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
     }).then((res) => {
         return res.json();
     });
