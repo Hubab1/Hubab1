@@ -29,7 +29,6 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
 
     useEffect(() => {
         (async () => {
-            console.log('called');
             const data = await refreshFinancialSources();
             const agentRequestedIncomeAssets = applicationEvents.find(
                 ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
