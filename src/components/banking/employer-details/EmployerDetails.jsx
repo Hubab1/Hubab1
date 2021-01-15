@@ -10,7 +10,7 @@ import EmployerAddressForm from 'components/banking/employer-details/EmployerAdd
 import BankingContext from 'components/banking/BankingContext';
 import { fetchApplicant } from 'reducers/applicant';
 
-import { ROUTES } from 'app/constants';
+import { APPLICANT_EVENTS, MILESTONE_APPLICANT_SUBMITTED, ROUTES } from 'app/constants';
 import BackLink from 'components/common/BackLink';
 
 const ImageContainer = styled.div`
@@ -28,6 +28,16 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
     const [errors, setErrors] = useState(null);
     const context = React.useContext(BankingContext);
 
+    const updatesWereRequested = !!applicant.events?.find(
+        (e) =>
+            String(e.event) ===
+            String(APPLICANT_EVENTS.EVENT_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED_EMAIL_SENT)
+    );
+
+    const applicantSubmittedApplication = !!applicant.events?.find(
+        (e) => String(e.event) === String(MILESTONE_APPLICANT_SUBMITTED)
+    );
+
     const handleSubmit = (values, { setErrors: setFormErrors, setSubmitting }) => {
         setErrors(null);
         const employerInfo = { ...values };
@@ -41,6 +51,10 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
                     setFormErrors(res.errors);
                 } else {
                     fetchApplicant();
+                    if (updatesWereRequested || applicantSubmittedApplication) {
+                        context._nextRoute();
+                        return;
+                    }
                     context.history.push(ROUTES.FEES_AND_DEPOSITS);
                 }
                 setSubmitting(false);
@@ -58,7 +72,7 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
     return (
         <>
             <H1>Employer Details</H1>
-            <SpacedH3>{`Tell us about your Employer. ${showAutomatedAddress ? '' : 'This is optional.'}`} </SpacedH3>
+            <SpacedH3>{`Tell us about your employer. ${showAutomatedAddress ? '' : 'This is optional.'}`} </SpacedH3>
             <ImageContainer>
                 <img src={portfolio} alt="Employer" />
             </ImageContainer>

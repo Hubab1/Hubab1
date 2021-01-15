@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT, APPLICANT_EVENTS } from 'app/constants';
+import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
+import { fetchApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
@@ -20,6 +21,7 @@ export const FeesDepositsContainer = ({
     configuration,
     fetchPayments,
     isOutstanding,
+    fetchApplicant,
 }) => {
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
@@ -31,8 +33,9 @@ export const FeesDepositsContainer = ({
             setCurrentPage('receipt');
         } else {
             fetchPayments();
+            fetchApplicant();
         }
-    }, [receipt, fetchPayments, isOutstanding]);
+    }, [receipt, fetchPayments, isOutstanding, fetchApplicant]);
 
     useEffect(() => {
         setPayments(payables);
@@ -93,9 +96,7 @@ export const FeesDepositsContainer = ({
     everyone.unshift(profile.primary_applicant);
 
     const goToPreviousPage = () => {
-        const reportedNoIncome = !!applicant.events.find(
-            (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
-        );
+        const reportedNoIncome = !applicant.income_total && !applicant.asset_total;
 
         if (configuration.collect_employer_information && !reportedNoIncome) {
             return ROUTES.EMPLOYER_DETAILS;
@@ -108,7 +109,7 @@ export const FeesDepositsContainer = ({
         return (
             <FeesDepositsOptions
                 baseAppFee={baseAppFee}
-                handleClickBack={() => goToPreviousPage()}
+                handleClickBack={goToPreviousPage}
                 handleContinue={handlePaymentOptionsContinue}
                 applicant={applicant}
                 holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
@@ -179,10 +180,10 @@ const mapStateToPropsOutstandingBalance = (state) => ({
     isOutstanding: true,
 });
 
-export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments })(
+export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments, fetchApplicant })(
     withRelativeRoutes(FeesDepositsContainer, ROUTES.FEES_AND_DEPOSITS)
 );
 
-export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments })(
+export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments, fetchApplicant })(
     withRelativeRoutes(FeesDepositsContainer, ROUTES.OUTSTANDING_BALANCE)
 );

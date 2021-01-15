@@ -15,6 +15,8 @@ import {
     ALL_INCOME_OR_ASSET_TYPES,
     FINANCIAL_STREAM_STATUS_INCOMPLETE,
     FINANCIAL_STREAM_ASSET,
+    APPLICANT_EVENTS,
+    MILESTONE_APPLICANT_SUBMITTED,
 } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
 import { prettyCurrency } from 'utils/misc';
@@ -300,14 +302,45 @@ export function IncomeVerificationSummaryPage(props) {
     const reportedNoIncomeAssets = context.bankingData?.reported_no_income_assets;
     const canContinue = !hasNotAddedFinancialSources || reportedNoIncomeAssets;
 
+    const updatesWereRequested = !!props.applicant.events?.find(
+        (e) =>
+            String(e.event) ===
+            String(APPLICANT_EVENTS.EVENT_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED_EMAIL_SENT)
+    );
+
+    const applicantSubmittedApplication = !!props.applicant.events?.find(
+        (e) => String(e.event) === String(MILESTONE_APPLICANT_SUBMITTED)
+    );
+
+    const applicantUpdatedEmployerInfo = !!props.applicant.events?.find(
+        (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
+    );
+
     const onContinue = useCallback(async () => {
+        if (applicantSubmittedApplication || updatesWereRequested) {
+            if (!reportedNoIncomeAssets && !applicantUpdatedEmployerInfo) {
+                props.history.push(ROUTES.EMPLOYER_DETAILS);
+                return;
+            }
+            fetchApplicant();
+            context._nextRoute();
+            return;
+        }
         if (props.config.collect_employer_information && !reportedNoIncomeAssets) {
             props.history.push(ROUTES.EMPLOYER_DETAILS);
         } else {
             fetchApplicant();
             context.history.push(ROUTES.FEES_AND_DEPOSITS);
         }
-    }, [context, props.history, props.config, reportedNoIncomeAssets]);
+    }, [
+        context,
+        props.history,
+        props.config,
+        reportedNoIncomeAssets,
+        updatesWereRequested,
+        applicantSubmittedApplication,
+        applicantUpdatedEmployerInfo,
+    ]);
 
     if (showResetFinancials) {
         return (

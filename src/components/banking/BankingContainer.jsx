@@ -69,8 +69,6 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
                     !reportedNoIncome &&
                     !applicant.submitted_application;
 
-                console.log(shouldEditEmployerInfo);
-
                 if (shouldEditEmployerInfo) {
                     history.push(ROUTES.EMPLOYER_DETAILS);
                 } else {

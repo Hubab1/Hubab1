@@ -162,6 +162,9 @@ const isIncomeAndEmploymentCompleted = (events, profile, configuration) => {
         if (!configuration.collect_employer_information) return true;
         return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
     }
+    if (!configuration.enable_automatic_income_verification && configuration.collect_employer_information) {
+        return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
+    }
     return false;
 };
 
