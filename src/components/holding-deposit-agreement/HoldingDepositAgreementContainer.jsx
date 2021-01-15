@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     ROUTES,
     DOCUMENT_TYPE_HOLDING_DEPOSIT,
-    APPLICATION_EVENTS,
+    APPLICANT_EVENTS,
     MILESTONE_APPLICANT_SUBMITTED,
     EVENT_SCREENING_COMPLETED,
 } from 'app/constants';
@@ -29,7 +29,7 @@ export const HoldingDepositAgreementContainer = ({
 
     useEffect(() => {
         const signedAgreement = !!profile.events.find(
-            (e) => String(e.event) === String(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+            (e) => String(e.event) === String(APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
         );
         if (signedAgreement) {
             setCurrentPage('signed');
@@ -40,11 +40,11 @@ export const HoldingDepositAgreementContainer = ({
         hsclient.on('sign', async () => {
             const newApplicant = await API.fetchApplicant();
             const signedAgreement = newApplicant.events.find(
-                (e) => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
+                (e) => parseInt(e.event) === parseInt(APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
             );
             if (!signedAgreement) {
                 newApplicant.events.push({
-                    event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED,
+                    event: APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED,
                     milestone: true,
                 });
             }
@@ -76,10 +76,10 @@ export const HoldingDepositAgreementContainer = ({
 
         // HelloSign takes time to send a callback, this is to allow us to move forward
         const signedAgreement = newApplicant.events.find(
-            (e) => parseInt(e.event) === APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED
+            (e) => parseInt(e.event) === APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED
         );
         if (!signedAgreement) {
-            newApplicant.events.push({ event: APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: true });
+            newApplicant.events.push({ event: APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED, milestone: true });
         }
 
         const finishedApplication = newApplicant.events.find(

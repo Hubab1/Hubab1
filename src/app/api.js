@@ -393,4 +393,14 @@ API.fetchAANDocument = () => {
     }).then((res) => res.blob());
 };
 
+API.postEmployer = (data) => {
+    return fetch(chuck('/applicant-employer/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(data),
+    }).then((res) => res.json());
+};
+
 export default API;
