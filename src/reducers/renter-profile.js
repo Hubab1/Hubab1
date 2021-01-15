@@ -3,17 +3,18 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import { MILESTONE_APPLICATION_FEE_COMPLETED, ROUTE_LABELS } from 'app/constants';
 import API, { MOCKY } from 'app/api';
 import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
-    APPLICATION_EVENTS,
+    APPLICANT_EVENTS,
     APPLICATION_STATUSES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_APPLICATION_FEE_COMPLETED,
+    ROUTE_LABELS,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -104,14 +105,15 @@ selectors.selectOrderedRoutes = createSelector(
     (state) => state.applicant?.role,
     (state) => state.configuration?.enable_automatic_income_verification,
     (state) => state.configuration?.enable_holding_deposit_agreement,
-    (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement) => {
-        if (role == null || enableAutomaticIncomeVerification == null) return;
+    (state) => state.configuration?.collect_employer_information,
+    (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement, collectEmployerInfo) => {
+        if (role == null || enableAutomaticIncomeVerification == null || collectEmployerInfo == null) return;
 
         return [
             ROUTES.ADDRESS,
             ROUTES.LEASE_TERMS,
             role === ROLE_PRIMARY_APPLICANT && ROUTES.PROFILE_OPTIONS,
-            enableAutomaticIncomeVerification && ROUTES.INCOME_AND_EMPLOYMENT,
+            (enableAutomaticIncomeVerification || collectEmployerInfo) && ROUTES.INCOME_AND_EMPLOYMENT,
             ROUTES.FEES_AND_DEPOSITS,
             role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             ROUTES.SCREENING,
@@ -124,18 +126,56 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 
 // Determines which routes the applicant still needs to submit/complete
 // A route returning FALSE here indicates that the user has not completed it
-const pageCompleted = (events, applicant) => ({
-    [ROUTES.ADDRESS]: ADDRESS_FIELDS.some((field) => !!applicant[field]),
-    [ROUTES.LEASE_TERMS]: events.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED),
-    [ROUTES.PROFILE_OPTIONS]:
-        events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) ||
-        events.has(APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED),
-    [ROUTES.INCOME_AND_EMPLOYMENT]: events.has(APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED),
-    [ROUTES.FEES_AND_DEPOSITS]: !!applicant.receipt, //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICATION_EVENTS.EVENT_APPLICATION_FEE_PAID),
-    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: events.has(APPLICATION_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED),
-    [ROUTES.SCREENING]: events.has(MILESTONE_APPLICANT_SUBMITTED),
-    [ROUTES.APP_COMPLETE]: events.has(MILESTONE_APPLICANT_SUBMITTED),
+const pageCompleted = (events, applicant, profile, configuration) => ({
+    [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
+    [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
+    [ROUTES.PROFILE_OPTIONS]: isRentalOptionsCompleted(events),
+    [ROUTES.INCOME_AND_EMPLOYMENT]: isIncomeAndEmploymentCompleted(events, profile, configuration),
+    [ROUTES.FEES_AND_DEPOSITS]: isFeesAndDepositsCompleted(applicant),
+    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: isHoldingDepositAgreementCompleted(events),
+    [ROUTES.SCREENING]: isScreeningCompleted(events),
+    [ROUTES.APP_COMPLETE]: isApplicationCompleted(events),
 });
+
+const isApplicantAddressCompleted = (applicant) => {
+    return ADDRESS_FIELDS.some((field) => !!applicant[field]);
+};
+
+const isLeaseTermsCompleted = (events) => {
+    return events.has(APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
+};
+
+const isRentalOptionsCompleted = (events) => {
+    return (
+        events.has(APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED) ||
+        events.has(APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED)
+    );
+};
+
+const isFeesAndDepositsCompleted = (applicant) => {
+    //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICANT_EVENTS.EVENT_APPLICATION_FEE_PAID),
+    return !!applicant.receipt;
+};
+
+const isIncomeAndEmploymentCompleted = (events, profile, configuration) => {
+    if (events.has(APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED)) {
+        if (!configuration.collect_employer_information) return true;
+        return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
+    }
+    return false;
+};
+
+const isHoldingDepositAgreementCompleted = (events) => {
+    return events.has(APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED);
+};
+
+const isScreeningCompleted = (events) => {
+    return events.has(MILESTONE_APPLICANT_SUBMITTED);
+};
+
+const isApplicationCompleted = (events) => {
+    return events.has(MILESTONE_APPLICANT_SUBMITTED);
+};
 
 selectors.canAccessRoute = (state, route) => {
     if (MOCKY && route != null) return true;
@@ -153,11 +193,11 @@ selectors.canAccessRoute = (state, route) => {
     const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
 
     if (route === ROUTES.PAYMENT_DETAILS) {
-        return eventsSet.has(APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
+        return eventsSet.has(APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
     }
 
     // check if page was completed
-    if (pageCompleted(eventsSet, state.applicant, state.renterProfile)[route] === true) {
+    if (pageCompleted(eventsSet, state.applicant, state.renterProfile, state.configuration)[route] === true) {
         return true;
     }
     //  route is next page
@@ -176,7 +216,8 @@ selectors.selectDefaultInitialPage = createSelector(
     (state) => state.applicant && state.applicant.events,
     (state) => state.applicant,
     (state) => state.renterProfile,
-    (orderedRoutes, events, applicant, profile) => {
+    (state) => state.configuration,
+    (orderedRoutes, events, applicant, profile, configuration) => {
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map((event) => parseInt(event.event)));
             const applicationEvents = profile.events
@@ -193,11 +234,11 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.APP_DENIED;
             }
 
-            if (applicationEvents && applicationEvents.has(APPLICATION_EVENTS.MILESTONE_LEASE_VOIDED)) {
+            if (applicationEvents && applicationEvents.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
                 return ROUTES.LEASE_VOIDED;
             }
 
-            if (eventsSet.has(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
+            if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
                 return ROUTES.LEASE_SIGNED;
             }
 
@@ -232,7 +273,7 @@ selectors.selectDefaultInitialPage = createSelector(
                 return ROUTES.APP_COMPLETE;
             }
 
-            const accessibleRoutes = pageCompleted(eventsSet, applicant, profile);
+            const accessibleRoutes = pageCompleted(eventsSet, applicant, profile, configuration);
 
             const route = orderedRoutes.find((r) => !accessibleRoutes[r]);
             if (route) return route;

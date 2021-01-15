@@ -2,7 +2,7 @@ import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
     ROLE_CO_APPLICANT,
-    APPLICATION_EVENTS,
+    APPLICANT_EVENTS,
     APPLICATION_STATUS_APPROVED,
     APPLICATION_STATUS_COMPLETED,
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
@@ -247,7 +247,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
         expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
@@ -305,7 +305,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
@@ -326,10 +326,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
                 ],
             },
         });
@@ -351,9 +351,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                 ],
             },
         });
@@ -373,9 +373,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                 ],
                 receipt: { id: 123 },
             },
@@ -396,9 +396,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                     { event: MILESTONE_APPLICANT_SUBMITTED },
                 ],
                 outstanding_balances: [],
@@ -421,9 +421,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                     { event: MILESTONE_APPLICATION_FEE_COMPLETED },
                 ],
                 outstanding_balances: [
@@ -450,8 +450,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -472,8 +472,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -493,9 +493,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -515,9 +515,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -537,9 +537,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });

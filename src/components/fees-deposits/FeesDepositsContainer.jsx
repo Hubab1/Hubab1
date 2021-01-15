@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT, APPLICANT_EVENTS } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
@@ -17,6 +17,7 @@ export const FeesDepositsContainer = ({
     payables,
     profile,
     applicant,
+    configuration,
     fetchPayments,
     isOutstanding,
 }) => {
@@ -91,11 +92,23 @@ export const FeesDepositsContainer = ({
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants).concat(profile.occupants);
     everyone.unshift(profile.primary_applicant);
 
+    const goToPreviousPage = () => {
+        const reportedNoIncome = !!applicant.events.find(
+            (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
+        );
+
+        if (configuration.collect_employer_information && !reportedNoIncome) {
+            return ROUTES.EMPLOYER_DETAILS;
+        } else {
+            return _prev;
+        }
+    };
+
     if (currentPage === 'options') {
         return (
             <FeesDepositsOptions
                 baseAppFee={baseAppFee}
-                handleClickBack={_prev}
+                handleClickBack={() => goToPreviousPage()}
                 handleContinue={handlePaymentOptionsContinue}
                 applicant={applicant}
                 holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
@@ -148,11 +161,13 @@ export const FeesDepositsContainer = ({
 FeesDepositsContainer.propTypes = {
     isOutstanding: PropTypes.bool,
     applicant: PropTypes.object,
+    configuration: PropTypes.object,
     payables: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
 });
