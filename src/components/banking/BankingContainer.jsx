@@ -29,6 +29,7 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
 
     useEffect(() => {
         (async () => {
+            console.log('called');
             const data = await refreshFinancialSources();
             const agentRequestedIncomeAssets = applicationEvents.find(
                 ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
@@ -39,7 +40,7 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
             const applicantEnteredIncomeOrAssets =
                 data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
 
-            if (!configuration.enable_holding_deposit_agreement) {
+            if (!configuration.enable_automatic_income_verification) {
                 if (configuration.collect_employer_information) {
                     history.push(ROUTES.EMPLOYER_DETAILS);
                     return;
@@ -68,6 +69,8 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
                     !addedEmployerInfo &&
                     !reportedNoIncome &&
                     !applicant.submitted_application;
+
+                console.log(shouldEditEmployerInfo);
 
                 if (shouldEditEmployerInfo) {
                     history.push(ROUTES.EMPLOYER_DETAILS);
