@@ -374,6 +374,31 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                pets: [
+                    { name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog' },
+                    { name: 'garfield', pet_type: 'Cat' },
+                ],
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
+                ],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
                 collect_employer_information: false,
             },
             renterProfile: {

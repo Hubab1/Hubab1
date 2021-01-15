@@ -6,6 +6,7 @@ import EmployerAutomatedAddressForm from 'components/banking/employer-details/Em
 import EmployerManualAddressForm from 'components/banking/employer-details/EmployerManualAddressForm';
 
 export const validationSchema = Yup.object().shape({
+    name: Yup.string().nullable(),
     search: Yup.string().nullable(),
     address_street: Yup.string()
         .matches(/^[0-9-]/, 'Street address must start with a number')
