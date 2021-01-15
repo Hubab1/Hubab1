@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import { Formik, Form, Field } from 'formik';
-
-import { allValuesSet } from 'utils/formik';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 
-export const ManualAddressForm = ({ initialValues, errors, validationSchema, onSubmit }) => {
+export const EmployerManualAddressForm = ({ initialValues, errors, validationSchema, onSubmit }) => {
     return (
         <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={onSubmit}>
-            {({ values, isSubmitting }) => {
+            {({ isSubmitting }) => {
                 return (
                     <Form autoComplete="off">
                         <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Field
+                                    fullWidth
+                                    margin="normal"
+                                    label="Employer/Company name"
+                                    name="name"
+                                    component={TextField}
+                                />
+                            </Grid>
                             <Grid item xs={9}>
                                 <Field
                                     fullWidth
@@ -63,10 +70,7 @@ export const ManualAddressForm = ({ initialValues, errors, validationSchema, onS
                         </Grid>
 
                         <GenericFormMessage type="error" messages={errors} />
-                        <ActionButton
-                            marginTop={50}
-                            disabled={!allValuesSet(values, { exclude: ['address_line_2', 'search'] }) || isSubmitting}
-                        >
+                        <ActionButton marginTop={50} marginBottom={20} disabled={isSubmitting}>
                             Continue
                         </ActionButton>
                     </Form>
@@ -76,11 +80,11 @@ export const ManualAddressForm = ({ initialValues, errors, validationSchema, onS
     );
 };
 
-ManualAddressForm.propTypes = {
+EmployerManualAddressForm.propTypes = {
     initialValues: PropTypes.object,
     errors: PropTypes.array,
     validationSchema: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
 };
 
-export default ManualAddressForm;
+export default EmployerManualAddressForm;
