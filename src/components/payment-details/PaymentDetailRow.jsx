@@ -78,6 +78,7 @@ PaymentDetailRow.propTypes = {
     days: PropTypes.number,
     perDay: PropTypes.string,
     exempted: PropTypes.number,
+    type: PropTypes.string,
 };
 
 // This should match the logic in chuck

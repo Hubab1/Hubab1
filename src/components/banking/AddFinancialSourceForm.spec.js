@@ -18,6 +18,9 @@ beforeEach(() => {
             income_or_asset_type: 10,
             estimated_amount: '1111',
         },
+        config: {
+            financial_documents_validations: [],
+        },
     };
 });
 
@@ -43,7 +46,6 @@ it('Sorts income/asset types by id', async () => {
         { income_or_asset_type: 500, stream_type: 10 },
     ];
     defaultProps.financialType = 10;
-    defaultProps.financial_documents_validations = financial_documents_validations;
     defaultProps.config = { financial_documents_validations };
 
     const wrapper = shallow(<AddFinancialSourceForm {...defaultProps} />);

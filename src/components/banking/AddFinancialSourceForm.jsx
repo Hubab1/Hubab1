@@ -25,7 +25,7 @@ export function AddFinancialSourceForm(props) {
 
     const filterByType = filter({ stream_type: props.financialType });
     const sortByType = sortBy(['income_or_asset_type']);
-    const selectChoices = flow(filterByType, sortByType)(props.financial_documents_validations);
+    const selectChoices = flow(filterByType, sortByType)(props.config.financial_documents_validations);
 
     function getInitialValues() {
         return Object.assign(
@@ -196,7 +196,6 @@ AddFinancialSourceForm.propTypes = {
 
 const mapStateToProps = (state) => ({
     config: state.configuration,
-    financial_documents_validations: state.configuration.financial_documents_validations,
 });
 
 export default connect(mapStateToProps)(AddFinancialSourceForm);
