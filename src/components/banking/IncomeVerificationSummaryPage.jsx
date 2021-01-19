@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
-
 import {
     ROUTES,
     ROLE_GUARANTOR,
@@ -16,7 +15,10 @@ import {
     ALL_INCOME_OR_ASSET_TYPES,
     FINANCIAL_STREAM_STATUS_INCOMPLETE,
     FINANCIAL_STREAM_ASSET,
+    APPLICANT_EVENTS,
+    MILESTONE_APPLICANT_SUBMITTED,
 } from 'app/constants';
+import { fetchApplicant } from 'reducers/applicant';
 import { prettyCurrency } from 'utils/misc';
 import SimplePopover from 'components/common/SimplePopover';
 import ResetApplicantFinancials from './ResetApplicantFinancials';
@@ -295,14 +297,49 @@ export function IncomeVerificationSummaryPage(props) {
         );
     }, []);
 
-    const onContinue = useCallback(() => {
-        context._nextRoute();
-    }, [context]);
-
     const hasNotAddedFinancialSources =
         !context.bankingData?.asset_sources.length && !context.bankingData?.income_sources.length;
     const reportedNoIncomeAssets = context.bankingData?.reported_no_income_assets;
     const canContinue = !hasNotAddedFinancialSources || reportedNoIncomeAssets;
+
+    const updatesWereRequested = !!props.applicant.events?.find(
+        (e) =>
+            String(e.event) ===
+            String(APPLICANT_EVENTS.EVENT_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED_EMAIL_SENT)
+    );
+
+    const applicantSubmittedApplication = !!props.applicant.events?.find(
+        (e) => String(e.event) === String(MILESTONE_APPLICANT_SUBMITTED)
+    );
+
+    const applicantUpdatedEmployerInfo = !!props.applicant.events?.find(
+        (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
+    );
+
+    const onContinue = useCallback(async () => {
+        if (applicantSubmittedApplication || updatesWereRequested) {
+            if (!reportedNoIncomeAssets && !applicantUpdatedEmployerInfo) {
+                props.history.push(ROUTES.EMPLOYER_DETAILS);
+                return;
+            }
+            window.location.reload();
+            return;
+        }
+        if (props.config.collect_employer_information && !reportedNoIncomeAssets) {
+            props.history.push(ROUTES.EMPLOYER_DETAILS);
+        } else {
+            fetchApplicant();
+            context.history.push(ROUTES.FEES_AND_DEPOSITS);
+        }
+    }, [
+        context,
+        props.history,
+        props.config,
+        reportedNoIncomeAssets,
+        updatesWereRequested,
+        applicantSubmittedApplication,
+        applicantUpdatedEmployerInfo,
+    ]);
 
     if (showResetFinancials) {
         return (
@@ -416,6 +453,7 @@ IncomeVerificationSummaryPage.propTypes = {
     applicant: PropTypes.object,
     location: PropTypes.object,
     history: PropTypes.object,
+    fetchApplicant: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -424,4 +462,4 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps)(IncomeVerificationSummaryPage);
+export default connect(mapStateToProps, { fetchApplicant })(IncomeVerificationSummaryPage);
