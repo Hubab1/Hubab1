@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import funnelImage from 'assets/images/PoweredByFunnel.png';
 import homeImage from 'assets/images/home-image.png';
-import { H1, H2, P, Logo } from 'assets/styles';
+import { H1, H2, P, Logo, link } from 'assets/styles';
 import {
     BackgroundImage,
     BackgroundImageTint,
@@ -36,11 +36,11 @@ export class WelcomePage extends Component {
     render() {
         const { background, logo, community, unit, primary_color, dark_mode } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
-
         const firstName = this.getFirstName();
         const cityStateZip = `${city}, ${state} ${postal_code}`;
         const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
         const callToActionButtonStyle = dark_mode ? {} : { background: `#${primary_color}` };
+        const linkStyle = dark_mode ? { color: 'white' } : { color: 'black' };
 
         return (
             <Fragment>
@@ -66,14 +66,19 @@ export class WelcomePage extends Component {
                         {unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
-                        <Link to={{ pathname: ROUTES.SIGNUP }} style={{ textDecoration: 'none' }}>
-                            <div className="cta-container">
-                                <CallToActionButton fullWidth style={callToActionButtonStyle}>
-                                    Start Application
-                                </CallToActionButton>
-                            </div>
+                        <Link
+                            to={{ pathname: ROUTES.SIGNUP }}
+                            style={{ textDecoration: 'none' }}
+                            className="cta-container"
+                        >
+                            <CallToActionButton fullWidth style={callToActionButtonStyle}>
+                                Start Application
+                            </CallToActionButton>
                         </Link>
-                        <img src={funnelImage} width="150" style={{ marginTop: '20px' }} alt="funnel logo" />
+                        <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
+                            I already started an application
+                        </Link>
+                        <img src={funnelImage} width="150" alt="funnel logo" />
                     </WelcomeFooterContainer>
                 </WelcomeFlexContainer>
             </Fragment>
