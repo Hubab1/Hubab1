@@ -691,8 +691,8 @@ export function FAQ({ community }) {
                                 <br />
                                 As an alternative to a security freeze, you have the right to place an initial or
                                 extended fraud alert on your credit file at no cost. An initial fraud alert is a 1-year
-                                alert that is placed on a consumer's credit file. Upon seeing a fraud alert display on a
-                                consumer's credit file, a business is required to take steps to verify the consumer's
+                                alert that is placed on a consumer’s credit file. Upon seeing a fraud alert display on a
+                                consumer’s credit file, a business is required to take steps to verify the consumer’s
                                 identity before extending new credit. If you are a victim of identity theft, you are
                                 entitled to an extended fraud alert, which is a fraud alert lasting 7 years.
                                 <br />
@@ -877,7 +877,7 @@ export function FAQ({ community }) {
                             the circumstances under which a consumer report may be obtained and disclosed. The FCRA
                             gives you the right to receive a free copy of your consumer file if you are denied credit,
                             housing, employment or had any other adverse action as a result of information obtained from
-                            a CRA. For additional information on the FCRA, visit the Federal Trade Commission's Web site
+                            a CRA. For additional information on the FCRA, visit the Federal Trade Commission’s Web site
                             at:{' '}
                             <a href="www.ftc.gov" target="_blank" rel="noopener noreferrer">
                                 www.ftc.gov
@@ -889,7 +889,7 @@ export function FAQ({ community }) {
                         <p>
                             If you believe you are the victim of identity theft, you should contact the credit bureau[s]
                             for information on how to place a fraud alert or file block on your consumer credit file.
-                            Additional information on identity fraud may be found on the Federal Trade Commission's
+                            Additional information on identity fraud may be found on the Federal Trade Commission’s
                             Identity Theft Data Clearinghouse Web site at{' '}
                             <a href="www.consumer.gov/idtheft" target="_blank" rel="noopener noreferrer">
                                 www.consumer.gov/idtheft
@@ -950,12 +950,12 @@ export function FAQ({ community }) {
                         <p>
                             By sharing your identity theft complaint with the FTC, you will provide important
                             information that can help law enforcement officials across the nation track down identity
-                            thieves and stop them. The FTC can refer victims' complaints to other government agencies
+                            thieves and stop them. The FTC can refer victim’s complaints to other government agencies
                             and companies for further action, as well as investigate companies for violations of laws
                             the agency enforces.
                         </p>
                         <p>
-                            You can file a complaint online at www.ftc.gov/idtheft by phone through the FTC's Identity
+                            You can file a complaint online at www.ftc.gov/idtheft by phone through the FTC’s Identity
                             Theft Hotline, toll-free: 1-877-IDTHEFT (438-4338); TTY: 1-866-653- 4261; or write: Identity
                             Theft Clearinghouse, Federal Trade Commission, 600 Pennsylvania Avenue, NW, Washington, DC
                             20580.

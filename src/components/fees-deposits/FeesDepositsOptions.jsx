@@ -73,7 +73,7 @@ export const FeesDepositsOptions = ({
             <SpacedH1>{isOutstanding ? 'Outstanding Balance' : 'Application Fees and Holding Deposit'}</SpacedH1>
             {isOutstanding ? (
                 <P>
-                    It looks like you have some outstanding fees/deposits. Let's settle up so you can move forward with
+                    It looks like you have some outstanding fees/deposits. Let’s settle up so you can move forward with
                     your application.
                 </P>
             ) : null}

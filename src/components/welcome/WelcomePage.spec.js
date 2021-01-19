@@ -88,7 +88,7 @@ describe('configuration is set to darkmode', () => {
 
     it('renders the call to action button with the default white background', () => {
         const wrapper = shallow(<WelcomePage {...defaultProps} />);
-        let buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
+        const buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
         expect(buttonStyle.background).toBe(undefined);
     });
 });
@@ -100,7 +100,7 @@ describe('configuration is set to lightmode', () => {
 
     it('renders the call to action button with the configured primary color', () => {
         const wrapper = shallow(<WelcomePage {...defaultProps} />);
-        let buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
+        const buttonStyle = wrapper.find(CallToActionButton).get(0).props.style;
         expect(buttonStyle.background).toBe(`#${defaultProps.configuration.primary_color}`);
     });
 });
