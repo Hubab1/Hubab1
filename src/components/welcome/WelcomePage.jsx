@@ -36,11 +36,11 @@ export class WelcomePage extends Component {
     render() {
         const { background, logo, community, unit, primary_color, dark_mode } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
-
         const firstName = this.getFirstName();
         const cityStateZip = `${city}, ${state} ${postal_code}`;
         const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
         const callToActionButtonStyle = dark_mode ? {} : { background: `#${primary_color}` };
+        const linkStyle = dark_mode ? { color: 'white' } : { color: 'black' };
 
         return (
             <Fragment>
@@ -75,7 +75,7 @@ export class WelcomePage extends Component {
                                 Start Application
                             </CallToActionButton>
                         </Link>
-                        <Link to={ROUTES.LOGIN} className={link}>
+                        <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
                             I already started an application
                         </Link>
                         <img src={funnelImage} width="150" alt="funnel logo" />
