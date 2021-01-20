@@ -697,7 +697,7 @@ exports[`FAQPage matches snapshot 1`] = `
             The security freeze is designed to prevent credit, loans, and services from being approved in your name without your consent. However, you should be aware that using a security freeze to take control over who gets access to the personal and financial information in your credit report may delay, interfere with, or prohibit the timely approval of any subsequent request or application you make regarding a new loan, credit, mortgage, or any other account involving the extension of credit.
             <br />
             <br />
-            As an alternative to a security freeze, you have the right to place an initial or extended fraud alert on your credit file at no cost. An initial fraud alert is a 1-year alert that is placed on a consumer's credit file. Upon seeing a fraud alert display on a consumer's credit file, a business is required to take steps to verify the consumer's identity before extending new credit. If you are a victim of identity theft, you are entitled to an extended fraud alert, which is a fraud alert lasting 7 years.
+            As an alternative to a security freeze, you have the right to place an initial or extended fraud alert on your credit file at no cost. An initial fraud alert is a 1-year alert that is placed on a consumer’s credit file. Upon seeing a fraud alert display on a consumer’s credit file, a business is required to take steps to verify the consumer’s identity before extending new credit. If you are a victim of identity theft, you are entitled to an extended fraud alert, which is a fraud alert lasting 7 years.
             <br />
             <br />
             A security freeze does not apply to a person or entity, or its affiliates, or collection agencies acting on behalf of the person or entity, with which you have an existing account that requests information in your credit report for the purposes of reviewing or collecting the account. Reviewing the account includes activities related to account maintenance, monitoring, credit line increases, and account upgrades and enhancements.
@@ -904,7 +904,7 @@ exports[`FAQPage matches snapshot 1`] = `
           What is the Fair Credit Reporting Act?
         </h2>
         <p>
-          The Fair Credit Reporting Act (FCRA) is a federal law that gives you the right to know what Consumer Reporting Agencies (CRAs) have on file about you, as well as outlining your right to dispute errors contained in your consumer file. It sets tight restrictions for CRAs about the circumstances under which a consumer report may be obtained and disclosed. The FCRA gives you the right to receive a free copy of your consumer file if you are denied credit, housing, employment or had any other adverse action as a result of information obtained from a CRA. For additional information on the FCRA, visit the Federal Trade Commission's Web site at:
+          The Fair Credit Reporting Act (FCRA) is a federal law that gives you the right to know what Consumer Reporting Agencies (CRAs) have on file about you, as well as outlining your right to dispute errors contained in your consumer file. It sets tight restrictions for CRAs about the circumstances under which a consumer report may be obtained and disclosed. The FCRA gives you the right to receive a free copy of your consumer file if you are denied credit, housing, employment or had any other adverse action as a result of information obtained from a CRA. For additional information on the FCRA, visit the Federal Trade Commission’s Web site at:
            
           <a
             href="www.ftc.gov"
@@ -919,7 +919,7 @@ exports[`FAQPage matches snapshot 1`] = `
           Someone else has been using my identity, what do I do?
         </h2>
         <p>
-          If you believe you are the victim of identity theft, you should contact the credit bureau[s] for information on how to place a fraud alert or file block on your consumer credit file. Additional information on identity fraud may be found on the Federal Trade Commission's Identity Theft Data Clearinghouse Web site at
+          If you believe you are the victim of identity theft, you should contact the credit bureau[s] for information on how to place a fraud alert or file block on your consumer credit file. Additional information on identity fraud may be found on the Federal Trade Commission’s Identity Theft Data Clearinghouse Web site at
            
           <a
             href="www.consumer.gov/idtheft"
@@ -998,10 +998,10 @@ exports[`FAQPage matches snapshot 1`] = `
           If you are a victim of identity theft, you should contact the Federal Trade Commission’s Identity Theft Hotline to obtain more detailed information about how to protect yourself and recover from identity theft and to file an identity theft complaint.
         </p>
         <p>
-          By sharing your identity theft complaint with the FTC, you will provide important information that can help law enforcement officials across the nation track down identity thieves and stop them. The FTC can refer victims' complaints to other government agencies and companies for further action, as well as investigate companies for violations of laws the agency enforces.
+          By sharing your identity theft complaint with the FTC, you will provide important information that can help law enforcement officials across the nation track down identity thieves and stop them. The FTC can refer victim’s complaints to other government agencies and companies for further action, as well as investigate companies for violations of laws the agency enforces.
         </p>
         <p>
-          You can file a complaint online at www.ftc.gov/idtheft by phone through the FTC's Identity Theft Hotline, toll-free: 1-877-IDTHEFT (438-4338); TTY: 1-866-653- 4261; or write: Identity Theft Clearinghouse, Federal Trade Commission, 600 Pennsylvania Avenue, NW, Washington, DC 20580.
+          You can file a complaint online at www.ftc.gov/idtheft by phone through the FTC’s Identity Theft Hotline, toll-free: 1-877-IDTHEFT (438-4338); TTY: 1-866-653- 4261; or write: Identity Theft Clearinghouse, Federal Trade Commission, 600 Pennsylvania Avenue, NW, Washington, DC 20580.
         </p>
       </ForwardRef(render)>
       <ForwardRef(render)>

@@ -724,13 +724,13 @@ exports[`signed out matches snapshot 1`] = `
     </ForwardRef(render)>
   </React.Fragment>
   <ForwardRef(render)>
-    <_default
+    <LabeledCheckbox
       checked={false}
       label="I agree to Consent to Electronic Signature"
       onChange={[Function]}
       value={false}
     />
-    <_default
+    <LabeledCheckbox
       checked={false}
       label="I agree to the Terms of Service"
       onChange={[Function]}

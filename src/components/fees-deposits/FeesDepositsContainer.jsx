@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
+import { fetchApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
@@ -17,8 +18,10 @@ export const FeesDepositsContainer = ({
     payables,
     profile,
     applicant,
+    configuration,
     fetchPayments,
     isOutstanding,
+    fetchApplicant,
 }) => {
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
@@ -30,8 +33,9 @@ export const FeesDepositsContainer = ({
             setCurrentPage('receipt');
         } else {
             fetchPayments();
+            fetchApplicant();
         }
-    }, [receipt, fetchPayments, isOutstanding]);
+    }, [receipt, fetchPayments, isOutstanding, fetchApplicant]);
 
     useEffect(() => {
         setPayments(payables);
@@ -91,11 +95,21 @@ export const FeesDepositsContainer = ({
     const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants).concat(profile.occupants);
     everyone.unshift(profile.primary_applicant);
 
+    const goToPreviousPage = () => {
+        const reportedNoIncome = !applicant.income_total && !applicant.asset_total;
+
+        if (configuration.collect_employer_information && !reportedNoIncome) {
+            return ROUTES.EMPLOYER_DETAILS;
+        } else {
+            return _prev;
+        }
+    };
+
     if (currentPage === 'options') {
         return (
             <FeesDepositsOptions
                 baseAppFee={baseAppFee}
-                handleClickBack={_prev}
+                handleClickBack={goToPreviousPage}
                 handleContinue={handlePaymentOptionsContinue}
                 applicant={applicant}
                 holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
@@ -148,11 +162,13 @@ export const FeesDepositsContainer = ({
 FeesDepositsContainer.propTypes = {
     isOutstanding: PropTypes.bool,
     applicant: PropTypes.object,
+    configuration: PropTypes.object,
     payables: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
 });
@@ -164,10 +180,10 @@ const mapStateToPropsOutstandingBalance = (state) => ({
     isOutstanding: true,
 });
 
-export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments })(
+export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments, fetchApplicant })(
     withRelativeRoutes(FeesDepositsContainer, ROUTES.FEES_AND_DEPOSITS)
 );
 
-export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments })(
+export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments, fetchApplicant })(
     withRelativeRoutes(FeesDepositsContainer, ROUTES.OUTSTANDING_BALANCE)
 );

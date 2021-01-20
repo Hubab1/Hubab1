@@ -2,7 +2,7 @@ import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
     ROLE_CO_APPLICANT,
-    APPLICATION_EVENTS,
+    APPLICANT_EVENTS,
     APPLICATION_STATUS_APPROVED,
     APPLICATION_STATUS_COMPLETED,
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
@@ -24,6 +24,7 @@ describe('selectNav', () => {
         const pages = selectors.selectNav({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -69,6 +70,7 @@ describe('canAccessRoute', () => {
     const state = {
         configuration: {
             enable_automatic_income_verification: true,
+            collect_employer_information: true,
         },
         renterProfile: {
             co_applicants: null,
@@ -146,6 +148,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -170,6 +173,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -193,6 +197,7 @@ describe('selectOrderedRoutes', () => {
         const pages = selectors.selectOrderedRoutes({
             configuration: {
                 enable_automatic_income_verification: false,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -220,6 +225,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -235,6 +241,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 unit_available: false,
@@ -247,7 +254,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
         expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
@@ -255,6 +262,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 unit_available: true,
@@ -274,6 +282,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 unit_available: true,
@@ -294,6 +303,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -305,7 +315,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
         expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
@@ -313,6 +323,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: [{ name: 'bob' }],
@@ -326,10 +337,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
                 ],
             },
         });
@@ -338,6 +349,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -351,9 +363,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                 ],
             },
         });
@@ -362,6 +374,32 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                pets: [
+                    { name: 'Luscious', breed: 'Pitty', weight: '99', pet_type: 'Dog' },
+                    { name: 'garfield', pet_type: 'Cat' },
+                ],
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
+                ],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 co_applicants: null,
@@ -373,9 +411,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                 ],
                 receipt: { id: 123 },
             },
@@ -385,6 +423,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -396,9 +435,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                     { event: MILESTONE_APPLICANT_SUBMITTED },
                 ],
                 outstanding_balances: [],
@@ -410,6 +449,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -421,9 +461,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICATION_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
                     { event: MILESTONE_APPLICATION_FEE_COMPLETED },
                 ],
                 outstanding_balances: [
@@ -438,6 +478,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -450,8 +491,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -460,6 +501,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -472,8 +514,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -481,6 +523,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -493,9 +536,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -503,6 +546,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -515,9 +559,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -525,6 +569,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -537,9 +582,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICATION_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICATION_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
                 ],
             },
         });
@@ -554,6 +599,7 @@ describe('selectInitialPage', () => {
         const initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
@@ -577,6 +623,7 @@ describe('select default initial page', () => {
         const initialPage = selectors.selectDefaultInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
+                collect_employer_information: true,
             },
             renterProfile: {
                 co_applicants: null,
