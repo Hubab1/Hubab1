@@ -271,17 +271,6 @@ API.getCurrentFlatQuote = (data) => {
     });
 };
 
-API.getAdverseActions = () => {
-    return fetch(chuck('/applicant/adverse-action/'), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
-    }).then((res) => {
-        return res.json();
-    });
-};
-
 API.submitFinancialSource = (data, vgsEnabled) => {
     const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
     return fetch(url, {
@@ -402,6 +391,16 @@ API.fetchAANDocument = () => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => res.blob());
+};
+
+API.postEmployer = (data) => {
+    return fetch(chuck('/applicant-employer/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(data),
+    }).then((res) => res.json());
 };
 
 export default API;

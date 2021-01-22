@@ -15,7 +15,7 @@ describe('AvailableLeaseTermsSelector', () => {
 
     it('Does not call API if no unit', () => {
         API.fetchAvailableLeaseTerms = jest.fn().mockReturnValue(Promise.resolve({ lease_terms: [] }));
-        const wrapper = mount(
+        mount(
             <AvailableLeaseTermsSelector
                 {...defaultProps}
                 leaseTerm={null}
@@ -28,7 +28,7 @@ describe('AvailableLeaseTermsSelector', () => {
 
     it('Call API if unit id provided', () => {
         API.fetchAvailableLeaseTerms = jest.fn().mockReturnValue(Promise.resolve({ lease_terms: [6, 12, 24] }));
-        const wrapper = mount(
+        mount(
             <AvailableLeaseTermsSelector
                 {...defaultProps}
                 leaseTerm={null}

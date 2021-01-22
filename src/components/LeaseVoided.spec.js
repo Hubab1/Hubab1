@@ -1,13 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { LeaseVoided } from './LeaseVoided';
-import { APPLICATION_EVENTS } from 'app/constants';
-
+import { APPLICANT_EVENTS } from 'app/constants';
 
 const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake Street', unitNumber = '2B') => {
     return {
         profile: {
-            events: [APPLICATION_EVENTS.MILESTONE_LEASE_VOIDED],
+            events: [APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED],
             unit: {
                 unit_number: unitNumber,
             },
@@ -16,14 +15,14 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
             community: {
                 building_name: buildingName,
                 normalized_street_address: streetAddress,
-                contact_phone: '1234445510'
-            }
+                contact_phone: '1234445510',
+            },
         },
     };
 };
 
 it('matches snapshot', () => {
-    const wrapper = shallow(<LeaseVoided {...buildProps()}/>);
+    const wrapper = shallow(<LeaseVoided {...buildProps()} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 

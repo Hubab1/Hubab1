@@ -3,30 +3,12 @@ export const community = {
 };
 
 export const ROUTES = {
+    // Independent routes
     COMMUNITY: '/',
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
-    PASSWORD: '/password',
     ADDRESS: '/address',
-    FORGOT_PASSWORD: '/password/forgot',
-    VERIFY_PASSWORD_CODE: '/password/verify',
-    RESET_PASSWORD: '/password/reset',
-    RENTAL_PROFILE: '/rental-profile',
-    PROFILE_OPTIONS: '/rental-profile/options',
-    GUARANTOR: '/rental-profile/invite-guarantor',
-    PARKING: '/rental-profile/parking',
-    PETS: '/rental-profile/pets',
-    STORAGE: '/rental-profile/storage',
-    WINE_COOLER: '/rental-profile/wine-cooler',
-    CO_APPLICANTS: '/rental-profile/invite-roommates',
-    INCOME_AND_EMPLOYMENT: '/income-employment',
-    BANKING: '/income-employment',
-    INCOME_VERIFICATION_SUMMARY: '/income-employment/summary',
-    MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
-    MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
-    EDIT_MANUAL_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/edit',
-    REMOVE_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/remove',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
     HOLDING_DEPOSIT_AGREEMENT: '/holding-deposit-agreement',
@@ -49,10 +31,36 @@ export const ROUTES = {
     FAQ: '/faq',
     UNIT_UNAVAILABLE: '/unit-unavailable',
     UNAUTHENTICATED_UNIT_UNAVAILABLE: '/unauth-unit-unavailable',
-    EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
-    REMOVE_PERSON: '/rental-profile/:type/:id/remove',
     GUARANTOR_REQUESTED: '/guarantor_request',
     PAYMENT_DETAILS: '/payment-details',
+
+    // Password related routes
+    PASSWORD: '/password',
+    FORGOT_PASSWORD: '/password/forgot',
+    VERIFY_PASSWORD_CODE: '/password/verify',
+    RESET_PASSWORD: '/password/reset',
+
+    // Rental Profile related routes
+    RENTAL_PROFILE: '/rental-profile',
+    PROFILE_OPTIONS: '/rental-profile/options',
+    GUARANTOR: '/rental-profile/invite-guarantor',
+    PARKING: '/rental-profile/parking',
+    PETS: '/rental-profile/pets',
+    STORAGE: '/rental-profile/storage',
+    WINE_COOLER: '/rental-profile/wine-cooler',
+    CO_APPLICANTS: '/rental-profile/invite-roommates',
+    EDIT_DEPENDANT: '/rental-profile/dependent/:id/edit',
+    REMOVE_PERSON: '/rental-profile/:type/:id/remove',
+
+    // Income and Employment related routes
+    INCOME_AND_EMPLOYMENT: '/income-employment',
+    BANKING: '/income-employment',
+    INCOME_VERIFICATION_SUMMARY: '/income-employment/summary',
+    MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
+    MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
+    EDIT_MANUAL_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/edit',
+    REMOVE_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/remove',
+    EMPLOYER_DETAILS: '/income-employment/employer-details',
 };
 
 export const ROUTE_LABELS = {
@@ -87,7 +95,6 @@ export const REPORT_POLL_INTERVAL = 10000;
 
 export const STRIPE_PUBLISHABLE_KEY_DEMO = 'pk_test_vWO9q0lWvTCjPSq2FKMQeTpv00zsjtEm5j';
 export const STRIPE_PUBLISHABLE_KEY_LIVE = 'pk_live_96Wm4LI5GkUtEFjhJq6WmDQv00feQM9V8E';
-// TODO: Should this be set in .env instead so we can switch between dev and prod (when we have the new client_id)?
 export const HELLOSIGN_CLIENT_ID = '530b26fda96d75b4abef002d9876fb7c';
 
 export const ROLE_PRIMARY_APPLICANT = 'primary_applicant';
@@ -111,6 +118,9 @@ export const EVENT_INCOME_REPORTS_GENERATED = 45;
 export const EVENT_APPLICATION_FEE_PAID = 50;
 
 export const EVENT_SCREENING_COMPLETED = 60;
+export const EVENT_INCOME_REPORTED_NONE = 185;
+export const EVENT_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED_EMAIL_SENT = 390;
+export const EVENT_APPLICANT_UPDATED_EMPLOYER_INFO = 400;
 
 // Applicant Milestones
 export const MILESTONE_RENTAL_PROFILE_COMPLETED = 10020;
@@ -118,7 +128,8 @@ export const MILESTONE_INCOME_COMPLETED = 10030;
 export const MILESTONE_APPLICATION_FEE_COMPLETED = 10040;
 export const MILESTONE_HOLDING_DEPOSIT_SIGNED = 10050;
 export const MILESTONE_APPLICANT_SUBMITTED = 10070;
-export const MILESTONE_FINANCIAL_STREAM_DOCUMENTS_REQUESTED = 10090;
+export const MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED = 10090;
+export const MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED = 10110;
 export const MILESTONE_APPLICANT_SIGNED_LEASE = 10100;
 // Application Milestones
 export const MILESTONE_REQUEST_GUARANTOR = 20020;
@@ -131,8 +142,8 @@ export const APPLICATION_STATUS_CANCELED = 20;
 export const APPLICATION_STATUS_COMPLETED = 25;
 export const APPLICATION_STATUS_CONDITIONALLY_APPROVED = 30;
 
-// TODO: rename this to applicant events?
-export const APPLICATION_EVENTS = {
+export const APPLICANT_EVENTS = {
+    // Regular events
     EVENT_APPLICANT_REGISTERED,
     EVENT_LEASE_TERMS_COMPLETED,
     EVENT_RENTAL_OPTIONS_SELECTED,
@@ -143,6 +154,11 @@ export const APPLICATION_EVENTS = {
     EVENT_INCOME_REPORTS_GENERATED,
     EVENT_APPLICATION_FEE_PAID,
     EVENT_SCREENING_COMPLETED,
+    EVENT_APPLICANT_UPDATED_EMPLOYER_INFO,
+    EVENT_INCOME_REPORTED_NONE,
+    EVENT_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED_EMAIL_SENT,
+
+    // Milestones
     MILESTONE_APPLICANT_SIGNED_LEASE,
     MILESTONE_LEASE_VOIDED,
     MILESTONE_INCOME_COMPLETED,

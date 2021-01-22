@@ -170,7 +170,7 @@ describe('oustanding balance state', () => {
             wrapper
                 .text()
                 .includes(
-                    "It looks like you have some outstanding fees/deposits. Let's settle up so you can move forward with your application."
+                    'It looks like you have some outstanding fees/deposits. Let’s settle up so you can move forward with your application.'
                 )
         ).toBeTruthy();
     });

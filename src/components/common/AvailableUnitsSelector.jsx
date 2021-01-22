@@ -248,4 +248,5 @@ AvailableUnitsSelector.propTypes = {
     disabled: PropTypes.bool,
     update: PropTypes.func.isRequired,
     leaseStartDate: PropTypes.instanceOf(Date),
+    value: PropTypes.string,
 };

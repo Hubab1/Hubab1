@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 import { css } from 'emotion';
 
@@ -19,9 +20,7 @@ const gridContainer = css`
     align-items: flex-start;
 `;
 
-// TODO: Avoid anon functions
-//eslint-disable-next-line react/prop-types
-export default function ({ name, value, checked, onChange, error, label }) {
+export default function LabeledCheckbox({ name, value, checked, onChange, error, label }) {
     return (
         <div className={gridContainer}>
             <Checkbox
@@ -36,3 +35,13 @@ export default function ({ name, value, checked, onChange, error, label }) {
         </div>
     );
 }
+
+LabeledCheckbox.propTypes = {
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    checked: PropTypes.bool,
+    value: PropTypes.any,
+    error: PropTypes.any,
+    checkboxRoot: PropTypes.any,
+    label: PropTypes.string,
+};
