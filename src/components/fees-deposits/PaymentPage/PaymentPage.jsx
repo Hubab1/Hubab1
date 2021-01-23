@@ -85,6 +85,7 @@ PaymentPage.propTypes = {
     payments: PropTypes.array,
     handleSuccess: PropTypes.func,
     handleClickBack: PropTypes.func,
+    isOutstanding: PropTypes.bool,
 };
 
 export default PaymentPage;
