@@ -15,6 +15,7 @@ import {
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
     MILESTONE_APPLICATION_FEE_COMPLETED,
     ROUTE_LABELS,
+    MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
 } from 'app/constants';
 import mock from './mock-profile';
 
@@ -254,6 +255,10 @@ selectors.selectDefaultInitialPage = createSelector(
 
             if (profile.unit_available === false) {
                 return ROUTES.UNIT_UNAVAILABLE;
+            }
+
+            if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
+                return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
             }
 
             if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
