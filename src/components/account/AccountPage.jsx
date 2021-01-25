@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
+import { ROUTES } from 'app/constants';
+import auth from 'utils/auth';
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
+import { updateApplicant } from 'reducers/applicant';
+import { getApplicantSubmittedApplication } from 'selectors/applicant';
+import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
 import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 import VerifyAccount from 'components/account/VerifyAccount';
 import AccountForm from 'components/common/AccountForm';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
-import { ROUTES } from 'app/constants';
-import { updateApplicant } from 'reducers/applicant';
-import auth from 'utils/auth';
-import { serializeDate, parseDateISOString } from 'utils/misc';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 
 export class AccountPage extends React.Component {
     state = { status: null, verified: false, showChangePassword: false, resetPasswordErrors: null };
@@ -23,6 +25,7 @@ export class AccountPage extends React.Component {
         if (birthday) {
             birthday = parseDateISOString(birthday);
         }
+
         return {
             first_name: applicant.first_name,
             last_name: applicant.last_name,
@@ -32,62 +35,62 @@ export class AccountPage extends React.Component {
         };
     }
 
-    onAccountDetailsSubmit = (values, { setSubmitting, setErrors }) => {
-        const stateUpdate = Object.assign({}, values);
-        stateUpdate.birthday = serializeDate(stateUpdate.birthday);
-        this.props
-            .updateApplicant(stateUpdate, stateUpdate)
-            .then((res) => {
-                if (res.errors) {
-                    setErrors(res.errors);
-                } else {
-                    this.setState({
-                        status: {
-                            type: 'success',
-                            detail: 'Changes saved',
-                        },
-                    });
-                }
-                setSubmitting(false);
-            })
-            .catch(() => {
-                this.setState({
-                    status: {
-                        type: 'error',
-                        detail: "We couldn't save your information. Please try again.",
-                    },
-                });
-                setSubmitting(false);
+    onAccountDetailsSubmit = async (values, { setSubmitting, setErrors }) => {
+        const data = {
+            ...values,
+            birthday: serializeDate(values.birthday),
+        };
+
+        try {
+            const response = await this.props.updateApplicant(data, data);
+            if (response.errors) {
+                return setErrors(response.errors);
+            }
+
+            this.setState({
+                status: {
+                    type: 'success',
+                    detail: 'Changes saved',
+                },
             });
+        } catch {
+            this.setState({
+                status: {
+                    type: 'error',
+                    detail: "We couldn't save your information. Please try again.",
+                },
+            });
+        } finally {
+            setSubmitting(false);
+        }
     };
 
-    onChangePasswordSubmit = (values, { setSubmitting }) => {
+    onChangePasswordSubmit = async (values, { setSubmitting }) => {
         const token = auth.getToken();
 
-        return API.passwordReset(values.password, token)
-            .then((res) => {
-                if (res.errors) {
-                    this.setState({
-                        resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
-                    });
-                } else {
-                    this.setState({
-                        status: {
-                            type: 'success',
-                            detail: 'Password successfully changed',
-                        },
-                        showChangePassword: false,
-                        resetPasswordErrors: null,
-                    });
-                }
-                setSubmitting(false);
-            })
-            .catch(() => {
-                this.setState({
+        try {
+            const response = await API.passwordReset(values.password, token);
+            if (response.errors) {
+                return this.setState({
                     resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
                 });
-                setSubmitting(false);
+            }
+
+            this.setState({
+                status: {
+                    type: 'success',
+                    detail: 'Password successfully changed',
+                },
+                showChangePassword: false,
+                resetPasswordErrors: null,
             });
+        } catch {
+            this.setState({
+                resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
+            });
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     render() {
@@ -116,13 +119,23 @@ export class AccountPage extends React.Component {
             );
         }
 
+        const phoneNumber = prettyFormatPhoneNumber(this.props.configuration.community.contact_phone);
+        const canUpdatePersonalInfo = !this.props.applicantSubmittedApplication;
+
         return (
             <>
                 <H1>Your Account Details</H1>
+                {!canUpdatePersonalInfo && (
+                    <GenericFormMessage
+                        type="error"
+                        messages={`Please call us at ${phoneNumber} if you'd like to make any changes to your name or date of birth.`}
+                    />
+                )}
                 <AccountForm
                     submitText="Save Changes"
-                    initialValues={this.initialValues}
                     status={this.state.status}
+                    canUpdatePersonalInfo={canUpdatePersonalInfo}
+                    initialValues={this.initialValues}
                     onSubmit={this.onAccountDetailsSubmit}
                     resetPassword={() => this.setState({ showChangePassword: true })}
                 />
@@ -134,12 +147,16 @@ export class AccountPage extends React.Component {
 AccountPage.propTypes = {
     updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
+    configuration: PropTypes.object,
     applicant: PropTypes.object,
+    applicantSubmittedApplication: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     communityId: state.siteConfig.basename,
+    configuration: state.configuration,
+    applicantSubmittedApplication: getApplicantSubmittedApplication(state),
 });
 
 const mapDispatchToProps = { updateApplicant };

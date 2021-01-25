@@ -5,6 +5,7 @@
     "lease_term_options": [12, 24],
     "secondary_color": "0fce98",
     "allow_guarantors": true,
+    "collect_employer_information": true,
     "community": {
         "city": "Santa Barbara",
         "building_number": "3732",

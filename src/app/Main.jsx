@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { initLaunchDarkly } from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -24,7 +25,7 @@ import BankingContainer from 'components/banking/BankingContainer';
 import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/FeesDepositsContainer';
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
-import Address from 'components/Address';
+import Address from 'components/address/Address';
 import SCREENING from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
@@ -42,6 +43,7 @@ import UnitUnavailable from 'components/UnitUnavailable';
 import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
 import GuarantorRequested from 'components/GuarantorRequested';
+import HoldingDepositReagreement from 'components/fees-deposits/HoldingDepositReagreement';
 
 export class Main extends Component {
     state = { error: null };
@@ -53,6 +55,8 @@ export class Main extends Component {
         const clientRegistered = configuration.client && configuration.client.applicant_id;
         const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
         const hasRegistered = clientRegistered || inviteeRegistered;
+
+        initLaunchDarkly(configuration?.community?.company);
 
         if (!isAuthenticated) {
             if (
@@ -176,6 +180,10 @@ export class Main extends Component {
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
                                     component={HoldingDepositAgreementContainer}
+                                />
+                                <Route
+                                    path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
+                                    component={HoldingDepositReagreement}
                                 />
                                 <Route path={ROUTES.SCREENING} component={SCREENING} />
                                 <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />

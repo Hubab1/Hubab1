@@ -5,7 +5,7 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import React, { useEffect } from 'react';
 import hsclient from 'utils/hsclient';
 import API from 'app/api';
-import { APPLICATION_EVENTS, DOCUMENT_TYPE_LEASE, ROUTES } from 'app/constants';
+import { APPLICANT_EVENTS, DOCUMENT_TYPE_LEASE, ROUTES } from 'app/constants';
 import PropTypes from 'prop-types';
 
 export const SignLeaseView = ({
@@ -23,11 +23,11 @@ export const SignLeaseView = ({
             // ensure FE has the applicant signed milestone before navigating to next screen
             const newApplicant = await API.fetchApplicant();
             const leaseSignedMilestone = newApplicant.events.find(
-                (e) => parseInt(e.event) === parseInt(APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
+                (e) => parseInt(e.event) === parseInt(APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
             );
             if (!leaseSignedMilestone) {
                 newApplicant.events.push({
-                    event: APPLICATION_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE,
+                    event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE,
                     milestone: true,
                 });
             }
