@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,7 +16,7 @@ export const Img = styled.img`
 `;
 
 export const UnitUnavailable = ({ configuration, profile }) => {
-    if (!configuration && !profile) {
+    if (!configuration || !profile) {
         return null;
     }
 
