@@ -178,6 +178,27 @@ describe('Outstanding balance state', function () {
     });
 });
 
+describe('Holding deposit reagreement state', function () {
+    it('renders Holding deposit reagreement message', function () {
+        const defaultProps = {
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891',
+                },
+            },
+            initialPage: ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT,
+            handleDrawerClose: jest.fn(),
+        };
+
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const outstandingBalance = wrapper.find('.holdingDepositReagreement');
+        const viewProgressButton = wrapper.find('#viewProgressButton');
+        expect(outstandingBalance.text()).toContain('We’ll need you to agree to the new holding deposit terms');
+        expect(viewProgressButton.exists()).toEqual(true);
+    });
+});
+
 describe('Guarantor requested state', function () {
     it('renders request guarantor message', function () {
         const defaultProps = {

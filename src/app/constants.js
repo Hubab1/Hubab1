@@ -11,7 +11,8 @@ export const ROUTES = {
     ADDRESS: '/address',
     MANUAL_INCOME_ENTRY: '/manual-income-entry',
     FEES_AND_DEPOSITS: '/fees-deposits',
-    HOLDING_DEPOSIT_AGREEMENT: '/holding-deposit-agreement',
+    HOLDING_DEPOSIT_AGREEMENT: '/holding-deposit-agreement', // For HelloSign HD Agreement
+    HOLDING_DEPOSIT_TERMS_AGREEMENT: '/holding-deposit-terms-agreement', // For payment terms agreement
     SCREENING: '/screening',
     APP_COMPLETE: '/application-complete',
     LEASE_TERMS: '/lease-terms',
@@ -73,6 +74,7 @@ export const ROUTE_LABELS = {
     [ROUTES.SCREENING]: 'Screening',
     [ROUTES.APP_COMPLETE]: 'Application Complete',
     [ROUTES.PAYMENT_DETAILS]: 'Payment Details',
+    [ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT]: 'Holding Deposit Agreement',
 };
 
 export const ROUTES_TOP_LEVEL = [
@@ -127,6 +129,7 @@ export const MILESTONE_RENTAL_PROFILE_COMPLETED = 10020;
 export const MILESTONE_INCOME_COMPLETED = 10030;
 export const MILESTONE_APPLICATION_FEE_COMPLETED = 10040;
 export const MILESTONE_HOLDING_DEPOSIT_SIGNED = 10050;
+export const MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD = 10065;
 export const MILESTONE_APPLICANT_SUBMITTED = 10070;
 export const MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED = 10090;
 export const MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED = 10110;
@@ -164,6 +167,7 @@ export const APPLICANT_EVENTS = {
     MILESTONE_INCOME_COMPLETED,
     MILESTONE_HOLDING_DEPOSIT_SIGNED,
     MILESTONE_REQUEST_GUARANTOR,
+    MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
 };
 
 export const APPLICATION_STATUSES = {

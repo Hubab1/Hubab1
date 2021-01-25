@@ -206,3 +206,17 @@ exports[`calls handleClickBack when Go Back is clicked 1`] = `
   </React.Fragment>
 </React.Fragment>
 `;
+
+exports[`Matches snapshot when reagreeing 1`] = `
+<PaymentTerms
+  canProceedToPayment={true}
+  communityName="Monterey Pines Apartments"
+  goToPayment={[MockFunction]}
+  handleClickBack={[MockFunction]}
+  holdingDepositAmount={500}
+  isReagreeing={true}
+  leaseStartDate="2020-10-30"
+  reagree={[Function]}
+  unitNumber="24"
+/>
+`;

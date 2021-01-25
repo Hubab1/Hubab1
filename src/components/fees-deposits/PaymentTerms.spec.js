@@ -56,3 +56,10 @@ it('Terms matches snapshot when canProceedToPayment is False', () => {
     const wrapper = shallow(<PaymentTerms {...defaultProps} canProceedToPayment={false} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+it('Matches snapshot when reagreeing', () => {
+    const wrapper = mount(
+        <PaymentTerms {...defaultProps} isReagreeing={true} reagree={() => {}} canProceedToPayment={true} />
+    );
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
