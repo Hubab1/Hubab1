@@ -16,7 +16,7 @@ export const Img = styled.img`
 `;
 
 export const UnitUnavailable = ({ configuration, profile }) => {
-    if (!configuration || !profile) {
+    if (!configuration) {
         return null;
     }
 
