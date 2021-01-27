@@ -10,6 +10,7 @@ import PriceBreakdown from './profile/options/PriceBreakdown';
 import GenericFormDetail from './common/GenericFormMessage';
 import AvailableUnitsSelector from './common/AvailableUnitsSelector';
 import AvailableLeaseTermsSelector from 'components/common/AvailableLeaseTermsSelector';
+import GenericFormMessage from './common/GenericFormMessage';
 
 let defaultProps;
 let updateRenterProfile;
@@ -246,10 +247,34 @@ describe('handleSubmit', () => {
             "Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at 555‑555‑5555 if this still isn’t working in a bit."
         );
     });
+
+    it('shows correct error when unit is unavailable', async () => {
+        const updateRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                errors: {
+                    unit_id: 'error',
+                },
+            })
+        );
+
+        const wrapper = shallow(
+            <LeaseTermsPage {...defaultProps} isPrimaryApplicant={true} updateRenterProfile={updateRenterProfile} />
+        );
+        const submitHandler = wrapper.find(Formik).props().onSubmit;
+        await submitHandler(
+            { lease_start_date: new Date('2019-8-15'), unit: { id: 123 }, lease_term: 12 },
+            { setErrors: jest.fn(), setSubmitting: jest.fn() }
+        );
+
+        expect(wrapper.find(GenericFormMessage).length).toBe(1);
+        expect(wrapper.find(GenericFormMessage).prop('messages')).toBe(
+            `We're sorry, it looks like this unit is not available. Please select another unit, or call us at 555‑555‑5555 if you are having further issues.`
+        );
+    });
 });
 
 describe('render', () => {
-    it('renders PriceBreakdown if unit and lease-start_date and lease_term are set', () => {
+    it('renders PriceBreakdown if unit and lease_start_date and lease_term are set', () => {
         const application = {
             lease_start_date: '2019-8-15',
             lease_term: 12,
