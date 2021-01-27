@@ -144,6 +144,7 @@ export function AddFinancialSourceForm(props) {
                                     outputFormat="string"
                                     value={values.estimated_amount}
                                     inputProps={{ autoComplete: 'off' }}
+                                    modifyValueOnWheel={false}
                                 />
                                 <UploadDocuments
                                     removeFile={(docId, fileId) => {
