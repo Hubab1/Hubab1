@@ -28,7 +28,7 @@ describe('PriceBreakDown', () => {
     });
 
     afterEach(() => {
-       jest.restoreAllMocks();
+        jest.restoreAllMocks();
     });
 
     it('display correct info', async () => {
