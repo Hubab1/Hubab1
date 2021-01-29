@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import pluralize from 'pluralize';
+import moment from 'moment';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -56,6 +57,10 @@ function PriceBreakdown(props) {
     const stringifiedSelectedOptions = JSON.stringify(props.selectedOptions);
 
     const fetchQuote = useCallback(async () => {
+        if (!props.moveInDate || !moment(props.moveInDate).isValid()) {
+            return;
+        }
+
         const body = {
             application: props.application.id,
             rental_options: props.selectedOptions,
@@ -63,6 +68,7 @@ function PriceBreakdown(props) {
             lease_term: props.leaseTerm,
             move_in_date: serializeDate(props.moveInDate),
         };
+
         try {
             const result = await API.getCurrentFlatQuote(body);
             if (result.errors) {
