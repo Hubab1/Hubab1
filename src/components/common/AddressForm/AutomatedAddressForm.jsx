@@ -36,7 +36,7 @@ export const AutomatedAddressForm = ({ initialValues, errors, validationSchema, 
                             label="Street address, city, state, zip"
                             name="address_search"
                             value={values.search}
-                            initialValues={initialValues}
+                            initialValue={initialValues.search}
                             validationError={Object.values(validationErrors)?.join(', ')}
                             submitCount={submitCount}
                             onChange={(search) => setFieldValue('search', search)}
