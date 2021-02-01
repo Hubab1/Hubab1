@@ -72,7 +72,7 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
     return (
         <>
             <H1>Employer Details</H1>
-            <SpacedH3>{`Tell us about your employer. ${showAutomatedAddress ? '' : 'This is optional.'}`} </SpacedH3>
+            <SpacedH3>Tell us about your employer.</SpacedH3>
             <ImageContainer>
                 <img src={portfolio} alt="Employer" />
             </ImageContainer>
