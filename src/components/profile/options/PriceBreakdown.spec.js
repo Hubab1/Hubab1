@@ -4,72 +4,107 @@ import React from 'react';
 import API from 'app/api';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 
-const buildProps = () => {
-    return {
-        application: { id: 123 },
-        selectedOptions: {
-            1: {
-                quantity: 1,
-            },
-            2: {
-                quantity: 2,
-            },
-        },
-        unitId: 12,
-        category: 'storage',
-        categoryHelperText: 'storage space',
-        onError: jest.fn(),
-        onSuccess: jest.fn(),
-    };
-};
+describe('PriceBreakDown', () => {
+    let props = {};
 
-it('display correct info', async () => {
-    const props = buildProps();
-    API.getCurrentFlatQuote = jest.fn().mockReturnValue(
-        Promise.resolve({
-            total: '$2,020',
-            items_breakdown: {
-                storage: '$10',
-                pets: '$10',
+    beforeEach(() => {
+        props = {
+            application: { id: 123 },
+            selectedOptions: {
+                1: {
+                    quantity: 1,
+                },
+                2: {
+                    quantity: 2,
+                },
             },
-            base_rent: '$2,000',
-        })
-    );
-    const wrapper = mount(<PriceBreakdown {...props} />);
-    await act(async () => {
-        await Promise.resolve(wrapper);
-        wrapper.update();
+            unitId: 12,
+            moveInDate: '01/01/2020',
+            category: 'storage',
+            categoryHelperText: 'storage space',
+            onError: jest.fn(),
+            onSuccess: jest.fn(),
+        };
     });
-    expect(API.getCurrentFlatQuote).toHaveBeenCalled();
-    expect(props.onSuccess).toHaveBeenCalled();
-    expect(wrapper.debug()).toMatchSnapshot();
-});
-it('display correct info if has included options', async () => {
-    const props = buildProps();
-    API.getCurrentFlatQuote = jest.fn().mockReturnValue(
-        Promise.resolve({
-            total: '$2,020',
-            items_breakdown: {
-                storage: '', // storage included, serialized as empty string
-                pets: '$10',
-            },
-            base_rent: '$2,000',
-        })
-    );
-    const wrapper = mount(<PriceBreakdown {...props} />);
-    await act(async () => {
-        await Promise.resolve(wrapper);
-        wrapper.update();
+
+    afterEach(() => {
+        jest.restoreAllMocks();
     });
-    expect(wrapper.debug()).toMatchSnapshot();
-});
-it('calls onerror if api rejects', async () => {
-    const props = buildProps();
-    API.getCurrentFlatQuote = jest.fn().mockRejectedValue();
-    const wrapper = mount(<PriceBreakdown {...props} />);
-    await act(async () => {
-        await Promise.resolve(wrapper);
-        wrapper.update();
+
+    it('display correct info', async () => {
+        const fetchQuote = jest.spyOn(API, 'getCurrentFlatQuote').mockReturnValue(
+            Promise.resolve({
+                total: '$2,020',
+                items_breakdown: {
+                    storage: '$10',
+                    pets: '$10',
+                },
+                base_rent: '$2,000',
+            })
+        );
+        const wrapper = mount(<PriceBreakdown {...props} />);
+        await act(async () => {
+            await Promise.resolve(wrapper);
+            wrapper.update();
+        });
+
+        expect(fetchQuote).toHaveBeenCalled();
+        expect(props.onSuccess).toHaveBeenCalled();
+        expect(wrapper.debug()).toMatchSnapshot();
     });
-    expect(props.onError).toHaveBeenCalled();
+
+    it('display correct info if has included options', async () => {
+        const fetchQuote = jest.spyOn(API, 'getCurrentFlatQuote').mockReturnValue(
+            Promise.resolve({
+                total: '$2,020',
+                items_breakdown: {
+                    storage: '', // storage included, serialized as empty string
+                    pets: '$10',
+                },
+                base_rent: '$2,000',
+            })
+        );
+        const wrapper = mount(<PriceBreakdown {...props} />);
+        await act(async () => {
+            await Promise.resolve(wrapper);
+            wrapper.update();
+        });
+
+        expect(fetchQuote).toHaveBeenCalled();
+        expect(wrapper.debug()).toMatchSnapshot();
+    });
+
+    it('calls onerror if api rejects', async () => {
+        const fetchQuote = jest.spyOn(API, 'getCurrentFlatQuote').mockRejectedValue();
+        const wrapper = mount(<PriceBreakdown {...props} />);
+        await act(async () => {
+            await Promise.resolve(wrapper);
+            wrapper.update();
+        });
+
+        expect(fetchQuote).toHaveBeenCalled();
+        expect(props.onError).toHaveBeenCalled();
+    });
+
+    it('will not fetch quote when date is missing', async () => {
+        const fetchQuote = jest.spyOn(API, 'getCurrentFlatQuote').mockReturnValue(Promise.resolve());
+        const wrapper = mount(<PriceBreakdown {...props} moveInDate={null} />);
+        await act(async () => {
+            await Promise.resolve(wrapper);
+            wrapper.update();
+        });
+
+        expect(fetchQuote).not.toHaveBeenCalled();
+    });
+
+    it('will not fetch quote when date is invalid', async () => {
+        const fetchQuote = jest.spyOn(API, 'getCurrentFlatQuote').mockReturnValue(Promise.resolve());
+        const wrapper = mount(<PriceBreakdown {...props} moveInDate={'blablabla'} />);
+        await act(async () => {
+            await Promise.resolve(wrapper);
+            wrapper.update();
+        });
+
+        expect(fetchQuote).not.toHaveBeenCalled();
+    });
 });
