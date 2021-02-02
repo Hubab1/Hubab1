@@ -1,13 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Matches snapshot 1`] = `
-<PaymentTerms
-  canProceedToPayment={true}
-  communityName="Monterey Pines Apartments"
-  goToPayment={[MockFunction]}
-  handleClickBack={[MockFunction]}
-  holdingDepositAmount={500}
-  leaseStartDate="2020-10-30"
-  unitNumber="24"
-/>
+exports[`PaymentTerms Matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Payment and Holding Deposit Terms
+  </ForwardRef(render)>
+  <React.Fragment>
+    <React.Fragment>
+      <ActionButton
+        color="primary"
+        marginBottom={20}
+        marginTop={25}
+        onClick={[Function]}
+        successGreen={false}
+        variant="contained"
+      >
+        Agree and Continue
+      </ActionButton>
+      <ForwardRef(render)
+        className="css-vq6rzm"
+        onClick={[MockFunction]}
+      >
+        <UNDEFINED
+          classes={
+            Object {
+              "root": "css-13z8uwt",
+            }
+          }
+        />
+         Go Back
+      </ForwardRef(render)>
+    </React.Fragment>
+  </React.Fragment>
+</React.Fragment>
 `;

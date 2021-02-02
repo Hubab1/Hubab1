@@ -1,22 +1,20 @@
-// eslint-disable-next-line no-unused-vars
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-import PropTypes from 'prop-types';
+import moment from 'moment';
+
+import API from 'app/api';
 import { ROUTES, TOS_TYPE_PAYMENTS } from 'app/constants';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { Card, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 import captureRoute from 'app/captureRoute';
 import { prettyCurrency } from 'utils/misc';
-import moment from 'moment';
-import API from 'app/api';
-import auth from 'utils/auth';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import GenericFormMessage from 'components/common/GenericFormMessage';
+import { Card, H1, LinkButton, ScrollableTermsCardSection, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
 `;
-
-export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
 export const PaymentTerms = ({
     handleClickBack,
@@ -27,57 +25,25 @@ export const PaymentTerms = ({
     leaseStartDate,
     canProceedToPayment,
 }) => {
-    // eslint-disable-next-line no-unused-vars
-    const [html, setHtml] = useState(<div>HTML</div>);
+    const [html, setHtml] = useState(undefined);
+    const [errors, setErrors] = useState(null);
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
 
-    const fetchHoldingDepositTerms = async () => {
-        try {
-            const apiUrl = `${CHUCK_BASE_URL}/api/onlineleasing/holding_deposit_terms?can_proceed_to_payment=${
-                canProceedToPayment ? 1 : 0
-            }`;
-            const headers = {
-                Authorization: `Token ${auth.getToken()}`,
-            };
-            // eslint-disable-next-line no-console
-            console.log({ apiUrl, headers });
+    useEffect(() => {
+        (async () => {
+            try {
+                const html = await API.fetchHoldingDepositTerms(canProceedToPayment);
+                setHtml(html);
+            } catch (e) {
+                setErrors([
+                    'Oops! We ran into some issues trying to obtain the holding deposit terms. Please try again later.',
+                ]);
+            }
+        })();
+    }, [canProceedToPayment]);
 
-            const res2 = await fetch(apiUrl, {
-                method: 'GET',
-                headers,
-            });
-
-            // eslint-disable-next-line no-console
-            console.log({ res2 });
-
-            // eslint-disable-next-line no-debugger
-            debugger;
-
-            const res = await API.fetchHoldingDepositTerms(canProceedToPayment);
-            // eslint-disable-next-line no-console
-            console.log('res: ', res);
-            // .then((res) => {
-            //     return res.text();
-            // })
-            // .then((res) => {
-            //     setHtml(res);
-            // });
-        } catch (e) {
-            // eslint-disable-next-line no-console
-            console.log('E: ', e);
-        }
-    };
-
-    // useEffect(() => {
-    //     (async () => {
-    //
-    //     })();
-    // }, [canProceedToPayment]);
-
-    if (!html) return null;
-
-    const handleContinueClick = () => {
+    const handleContinueClick = useCallback(() => {
         const data = {
             type: TOS_TYPE_PAYMENTS,
             context: {
@@ -90,21 +56,23 @@ export const PaymentTerms = ({
         };
 
         goToPayment(data);
-    };
+    }, [moveInDate, holdingDepositDisplayedAmount, communityName, unitNumber, goToPayment]);
 
     return (
         <Fragment>
             <SpacedH1>Payment and Holding Deposit Terms</SpacedH1>
-            <button onClick={() => fetchHoldingDepositTerms()}>Fetch data</button>
-            <Card>
-                <ScrollableTermsCardSection>
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: html,
-                        }}
-                    />
-                </ScrollableTermsCardSection>
-            </Card>
+            {errors && <GenericFormMessage type="error" messages={errors} />}
+            {html && (
+                <Card>
+                    <ScrollableTermsCardSection>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: html,
+                            }}
+                        />
+                    </ScrollableTermsCardSection>
+                </Card>
+            )}
             {!!handleClickBack && (
                 <Fragment>
                     {canProceedToPayment ? (
