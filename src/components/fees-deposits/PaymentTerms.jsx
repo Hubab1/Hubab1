@@ -17,7 +17,6 @@ const SpacedH1 = styled(H1)`
 
 export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
 
-
 export const PaymentTerms = ({
     handleClickBack,
     goToPayment,
@@ -33,10 +32,12 @@ export const PaymentTerms = ({
 
     const fetchHoldingDepositTerms = async () => {
         try {
-            const apiUrl = `${CHUCK_BASE_URL}/api/onlineleasing/holding_deposit_terms?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`;
+            const apiUrl = `${CHUCK_BASE_URL}/api/onlineleasing/holding_deposit_terms?can_proceed_to_payment=${
+                canProceedToPayment ? 1 : 0
+            }`;
             const headers = {
                 Authorization: `Token ${auth.getToken()}`,
-            }
+            };
             console.log({ apiUrl, headers });
 
             const res2 = await fetch(apiUrl, {
@@ -44,10 +45,9 @@ export const PaymentTerms = ({
                 headers,
             });
 
-            console.log({ res2 })
+            console.log({ res2 });
 
             debugger;
-
 
             const res = await API.fetchHoldingDepositTerms(canProceedToPayment);
             console.log('res: ', res);
@@ -88,9 +88,7 @@ export const PaymentTerms = ({
     return (
         <Fragment>
             <SpacedH1>Payment and Holding Deposit Terms</SpacedH1>
-            <button onClick={() => fetchHoldingDepositTerms()}>
-                Fetch data
-            </button>
+            <button onClick={() => fetchHoldingDepositTerms()}>Fetch data</button>
             <Card>
                 <ScrollableTermsCardSection>
                     <div
