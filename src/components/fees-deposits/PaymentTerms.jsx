@@ -26,6 +26,7 @@ export const PaymentTerms = ({
     leaseStartDate,
     canProceedToPayment,
 }) => {
+    // eslint-disable-next-line no-unused-vars
     const [html, setHtml] = useState(<div>HTML</div>);
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
@@ -38,6 +39,7 @@ export const PaymentTerms = ({
             const headers = {
                 Authorization: `Token ${auth.getToken()}`,
             };
+            // eslint-disable-next-line no-console
             console.log({ apiUrl, headers });
 
             const res2 = await fetch(apiUrl, {
@@ -45,11 +47,14 @@ export const PaymentTerms = ({
                 headers,
             });
 
+            // eslint-disable-next-line no-console
             console.log({ res2 });
 
+            // eslint-disable-next-line no-debugger
             debugger;
 
             const res = await API.fetchHoldingDepositTerms(canProceedToPayment);
+            // eslint-disable-next-line no-console
             console.log('res: ', res);
             // .then((res) => {
             //     return res.text();
@@ -58,6 +63,7 @@ export const PaymentTerms = ({
             //     setHtml(res);
             // });
         } catch (e) {
+            // eslint-disable-next-line no-console
             console.log('E: ', e);
         }
     };
