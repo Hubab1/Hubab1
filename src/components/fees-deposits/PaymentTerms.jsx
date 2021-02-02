@@ -9,10 +9,14 @@ import captureRoute from 'app/captureRoute';
 import { prettyCurrency } from 'utils/misc';
 import moment from 'moment';
 import API from 'app/api';
+import auth from 'utils/auth';
 
 const SpacedH1 = styled(H1)`
     margin: 15px 10% 15px 10%;
 `;
+
+export const CHUCK_BASE_URL = process.env.REACT_APP_CHUCK_DOMAIN;
+
 
 export const PaymentTerms = ({
     handleClickBack,
@@ -23,19 +27,46 @@ export const PaymentTerms = ({
     leaseStartDate,
     canProceedToPayment,
 }) => {
-    const [html, setHtml] = useState(null);
+    const [html, setHtml] = useState(<div>HTML</div>);
     const moveInDate = moment(leaseStartDate).format('LL');
     const holdingDepositDisplayedAmount = prettyCurrency(holdingDepositAmount);
 
-    useEffect(() => {
-        API.fetchHoldingDepositTerms(canProceedToPayment)
-            .then((res) => {
-                return res.text();
-            })
-            .then((res) => {
-                setHtml(res);
+    const fetchHoldingDepositTerms = async () => {
+        try {
+            const apiUrl = `${CHUCK_BASE_URL}/api/onlineleasing/holding_deposit_terms?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`;
+            const headers = {
+                Authorization: `Token ${auth.getToken()}`,
+            }
+            console.log({ apiUrl, headers });
+
+            const res2 = await fetch(apiUrl, {
+                method: 'GET',
+                headers,
             });
-    }, [canProceedToPayment]);
+
+            console.log({ res2 })
+
+            debugger;
+
+
+            const res = await API.fetchHoldingDepositTerms(canProceedToPayment);
+            console.log('res: ', res);
+            // .then((res) => {
+            //     return res.text();
+            // })
+            // .then((res) => {
+            //     setHtml(res);
+            // });
+        } catch (e) {
+            console.log('E: ', e);
+        }
+    };
+
+    // useEffect(() => {
+    //     (async () => {
+    //
+    //     })();
+    // }, [canProceedToPayment]);
 
     if (!html) return null;
 
@@ -57,6 +88,9 @@ export const PaymentTerms = ({
     return (
         <Fragment>
             <SpacedH1>Payment and Holding Deposit Terms</SpacedH1>
+            <button onClick={() => fetchHoldingDepositTerms()}>
+                Fetch data
+            </button>
             <Card>
                 <ScrollableTermsCardSection>
                     <div

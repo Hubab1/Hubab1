@@ -42,9 +42,9 @@ API.fetchFunnelTerms = (leaseSettingsId) => {
 API.fetchHoldingDepositTerms = (canProceedToPayment) => {
     return fetch(chuck(`/holding_deposit_terms?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`), {
         method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
+        // headers: {
+        //     Authorization: `Token ${auth.getToken()}`,
+        // },
     });
 };
 
