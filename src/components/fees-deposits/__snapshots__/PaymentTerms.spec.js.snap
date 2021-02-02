@@ -9,6 +9,7 @@ exports[`PaymentTerms Matches snapshot 1`] = `
     <React.Fragment>
       <ActionButton
         color="primary"
+        disabled={null}
         marginBottom={20}
         marginTop={25}
         onClick={[Function]}

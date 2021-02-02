@@ -37,7 +37,7 @@ export const PaymentTerms = ({
                 setHtml(html);
             } catch (e) {
                 setErrors([
-                    'Oops! We ran into some issues trying to obtain the holding deposit terms. Please try again later.',
+                    "Oops! we're having troubles finding your Payment and Holiding Deposit Terms. Try again in a bit.",
                 ]);
             }
         })();
@@ -77,7 +77,12 @@ export const PaymentTerms = ({
                 <Fragment>
                     {canProceedToPayment ? (
                         <>
-                            <ActionButton onClick={handleContinueClick} marginTop={25} marginBottom={20}>
+                            <ActionButton
+                                disabled={errors}
+                                onClick={handleContinueClick}
+                                marginTop={25}
+                                marginBottom={20}
+                            >
                                 Agree and Continue
                             </ActionButton>
                             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
