@@ -26,11 +26,6 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
         }
       }
       onChange={[MockFunction]}
-      style={
-        Object {
-          "maxHeight": "200px",
-        }
-      }
       value=""
     >
       <ForwardRef(WithStyles)>

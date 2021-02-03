@@ -76,7 +76,6 @@ export default function AvailableLeaseTermsSelector(props) {
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
                     disabled={props.disabled}
-                    style={{ maxHeight: '200px' }}
                     MenuProps={{ classes: { paper: classes.paper } }}
                     inputProps={{
                         name: 'lease_term',
