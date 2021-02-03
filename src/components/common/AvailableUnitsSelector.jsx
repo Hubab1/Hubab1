@@ -2,11 +2,11 @@ import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Downshift from 'downshift'; // TODO: uninstall?
+// import Downshift from 'downshift'; // TODO: uninstall?
 import fuzzaldrin from 'fuzzaldrin-plus'; // TODO: uninstall
 import moment from 'moment';
 import { filter } from 'lodash';
@@ -15,6 +15,7 @@ import API from 'app/api';
 import usePrevious from 'hooks/usePrevious';
 
 // Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
+// eslint-disable-next-line
 export function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
     return (
@@ -35,6 +36,7 @@ export function renderInput(inputProps) {
     );
 }
 
+// eslint-disable-next-line
 function renderSuggestion(suggestionProps) {
     const { suggestion, index, itemProps, highlightedIndex, selectedItem, inputValue } = suggestionProps;
     const inputLength = inputValue.length;
@@ -65,6 +67,7 @@ function renderSuggestion(suggestionProps) {
     );
 }
 
+// eslint-disable-next-line
 function getSuggestions(allSuggestions, value, { showEmpty = false } = {}) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
@@ -76,6 +79,7 @@ function getSuggestions(allSuggestions, value, { showEmpty = false } = {}) {
     return fuzzaldrin.filter(allSuggestions, value, { key: 'unit_number' });
 }
 
+// eslint-disable-next-line
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
