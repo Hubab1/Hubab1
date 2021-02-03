@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { filter } from 'lodash';
@@ -10,12 +10,22 @@ import API from 'app/api';
 
 // Adjust box shawdow to match AvailableLeaseTermsSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
+    root: {
+        // Hack to keep the clear functionality without showing the icon!
+        '& .MuiAutocomplete-inputRoot': {
+            paddingRight: '30px !important',
+        },
+        '& .MuiAutocomplete-clearIndicator': {
+            display: 'none',
+        },
+    },
     paper: {
         boxShadow: theme.shadows[8],
         maxHeight: 300,
     },
 }));
 
+// TODO: clear selection
 export default function AvailableUnitsSelector({
     value,
     disabled,
@@ -73,33 +83,36 @@ export default function AvailableUnitsSelector({
         [onChange]
     );
 
+    const defaultProps = useMemo(() => {
+        return {
+            options: availableUnits,
+            getOptionLabel: (u) => u.unit_number,
+            getOptionSelected: (option, value) => option.id === value.id,
+        };
+    }, [availableUnits]);
+
     return (
         <Autocomplete
-            options={availableUnits}
-            getOptionLabel={(u) => u.unit_number}
-            getOptionSelected={(option, value) => option.id === value.id}
+            {...defaultProps}
             value={value}
             disabled={disabled}
             loading={isLoading}
             loadingText={loadingText}
             onChange={handleChange}
-            includeInputInList
-            disableClearable
             classes={{
+                root: classes.root,
                 paper: classes.paper,
             }}
-            renderInput={(params) => {
-                return (
-                    <TextField
-                        {...params}
-                        fullWidth
-                        label="Select Unit"
-                        error={error}
-                        helperText={helperText}
-                        disabled={disabled}
-                    />
-                );
-            }}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    fullWidth
+                    label="Select Unit"
+                    error={error}
+                    helperText={helperText}
+                    disabled={disabled}
+                />
+            )}
         />
     );
 }
