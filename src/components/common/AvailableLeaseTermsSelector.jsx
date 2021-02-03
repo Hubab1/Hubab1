@@ -71,7 +71,90 @@ export default function AvailableLeaseTermsSelector(props) {
                         id: 'lease-term',
                     }}
                 >
-                    {getMenuItems(isReady, leaseTerms, props.unitId)}
+                    {/*{getMenuItems(isReady, leaseTerms, props.unitId)}*/}
+
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
+                    <MenuItem>Menu Item</MenuItem>
                 </Select>
                 <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
             </FormControl>
