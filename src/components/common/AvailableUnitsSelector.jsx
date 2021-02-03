@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// TODO: clear selection
 export default function AvailableUnitsSelector({
     value,
     disabled,
