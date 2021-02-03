@@ -28,8 +28,7 @@ export default function AvailableUnitsSelector({
                 // In that case, we manually add it to the list of available units.
                 const availableUnits = [...units];
                 const applicationUnitIsInListOfUnits =
-                    application?.unit &&
-                    availableUnits.findIndex((u) => u.id === application.unit.id) === -1;
+                    application?.unit && availableUnits.findIndex((u) => u.id === application.unit.id) === -1;
 
                 if (application?.unit_available && applicationUnitIsInListOfUnits) {
                     availableUnits.push(application.unit);
@@ -57,14 +56,17 @@ export default function AvailableUnitsSelector({
     const isLoading = !isReady || availableUnits.length === 0;
     const loadingText = !isReady ? 'Loading ...' : availableUnits.length === 0 ? 'No results found' : undefined;
 
-    const handleChange = useCallback((_, u) => {
-        onChange(u);
-    }, [onChange]);
+    const handleChange = useCallback(
+        (_, u) => {
+            onChange(u);
+        },
+        [onChange]
+    );
 
     return (
         <Autocomplete
             options={availableUnits}
-            getOptionLabel={u => u.unit_number}
+            getOptionLabel={(u) => u.unit_number}
             getOptionSelected={(option, value) => option.id === value.id}
             value={value}
             disabled={disabled}
