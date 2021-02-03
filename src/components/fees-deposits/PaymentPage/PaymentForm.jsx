@@ -39,6 +39,7 @@ export class PaymentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
         if (MOCKY) {
             this.setState({ submitting: false });
             return this.props.onSuccess(mockReceipt);
@@ -135,8 +136,14 @@ export class PaymentForm extends React.Component {
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >
-                    <Lock style={{ width: 16, marginRight: 8 }} />
-                    {`Pay ${prettyCurrency(this.props.totalPayment)}`}
+                    {submitting ? (
+                        'Processing Payment...'
+                    ) : (
+                        <>
+                            <Lock style={{ width: 16, marginRight: 8 }} />
+                            {`Pay ${prettyCurrency(this.props.totalPayment)}`}
+                        </>
+                    )}
                 </ActionButton>
             </form>
         );
