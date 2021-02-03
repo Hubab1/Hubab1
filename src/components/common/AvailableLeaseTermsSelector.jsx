@@ -70,7 +70,7 @@ export default function AvailableLeaseTermsSelector(props) {
             <FormControl fullWidth>
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
-                    {/* eslint-disable-next-line no-console */}
+                    // eslint-disable-next-line no-console
                     onFocus={() => console.log('FOCUS')}
                     open={isOpen}
                     onClick={toggleOpen}
