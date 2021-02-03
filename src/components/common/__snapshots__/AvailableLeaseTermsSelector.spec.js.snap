@@ -19,6 +19,12 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
         }
       }
       fullWidth={true}
+      inputProps={
+        Object {
+          "id": "lease-term",
+          "name": "lease_term",
+        }
+      }
       onChange={[MockFunction]}
       style={
         Object {
