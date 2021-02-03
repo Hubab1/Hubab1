@@ -12,7 +12,6 @@ export default async (...args) => {
 
         if (!window.location.href.includes('/login')) {
             const basename = window.location.pathname.split('/')[1];
-            // TODO: should we use react-router to avoid full-page reload?
             window.location.href = `${window.location.origin}/${basename}${ROUTES.LOGIN}`;
         }
         return Promise.reject('TokenExpiredError');

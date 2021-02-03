@@ -154,7 +154,6 @@ const isRentalOptionsCompleted = (events) => {
 };
 
 const isFeesAndDepositsCompleted = (applicant) => {
-    //  TODO: maybe change this back to using events when we create paid events other people paying for roommates/guarantors !events.has(APPLICANT_EVENTS.EVENT_APPLICATION_FEE_PAID),
     return !!applicant.receipt;
 };
 

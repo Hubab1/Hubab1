@@ -86,7 +86,7 @@ export class PaymentForm extends React.Component {
 
         // Stripe error types: https://stripe.com/docs/api/errors
         if (errorResponse?.errors?.error?.type === 'card_error') {
-            // TODO: This is for troubleshooting only. Remove when better custom error messages.
+            // TODO: This is for troubleshooting only. Remove when better custom error messages. | created by: @Hasday | Ticket: NESTIO-19933
             console.error(errorResponse?.errors?.message);
             // List of decline codes: https://stripe.com/docs/declines/codes
             return CARD_DECLINE_ERROR_MESSAGE;
