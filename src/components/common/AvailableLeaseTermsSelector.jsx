@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import API from 'app/api';
@@ -40,6 +40,7 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
 }
 
 export default function AvailableLeaseTermsSelector(props) {
+    const [isOpen, setIsOpen] = useState(false);
     const [leaseTerms, setLeaseTerms] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
@@ -57,11 +58,19 @@ export default function AvailableLeaseTermsSelector(props) {
         }
     }, [props, leaseTerms]);
 
+    const toggleOpen = useCallback(() => {
+        console.log('onClick, toggleOpen');
+        setIsOpen(!isOpen);
+    }, [isOpen]);
+
     return (
         <div>
             <FormControl fullWidth>
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
+                    onFocus={() => console.log('FOCUS')}
+                    open={isOpen}
+                    onClick={toggleOpen}
                     fullWidth
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
