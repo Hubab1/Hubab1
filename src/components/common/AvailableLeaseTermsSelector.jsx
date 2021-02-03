@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { isValid } from 'date-fns';
 import { offsetDate } from 'utils/misc';
 
-// Adjust box shawdow to match AvailableUnitSelecotr box shadow (elevation 8)
+// Adjust box shawdow to match AvailableUnitSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
     paper: {
         boxShadow: theme.shadows[8],
@@ -78,6 +78,10 @@ export default function AvailableLeaseTermsSelector(props) {
                     disabled={props.disabled}
                     style={{ maxHeight: '200px' }}
                     MenuProps={{ classes: { paper: classes.paper } }}
+                    inputProps={{
+                        name: 'lease_term',
+                        id: 'lease-term',
+                    }}
                 >
                     {getMenuItems(isReady, leaseTerms, props.unitId)}
                 </Select>
