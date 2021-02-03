@@ -104,69 +104,6 @@ export default function AvailableLeaseTermsSelector(props) {
                     <MenuItem>Menu Item</MenuItem>
                     <MenuItem>Menu Item</MenuItem>
                     <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
                 </Select>
                 <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
             </FormControl>

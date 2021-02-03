@@ -1,12 +1,13 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
-import Downshift from 'downshift';
-import fuzzaldrin from 'fuzzaldrin-plus';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Downshift from 'downshift'; // TODO: uninstall?
+import fuzzaldrin from 'fuzzaldrin-plus'; // TODO: uninstall
 import moment from 'moment';
 import { filter } from 'lodash';
 
@@ -163,150 +164,190 @@ export default function AvailableUnitsSelector(props) {
         setAvailableUnitsByDate(availableUnits);
     }, [units, leaseStartDate]);
 
-    const classes = useStyles();
+    const defaultProps = useMemo(() => {
+        return {
+            options: [
+                ...availableUnitsByDate.map((unit) => ({ value: unit.unit_number })),
+                ...availableUnitsByDate.map((unit) => ({ value: unit.unit_number })),
+                ...availableUnitsByDate.map((unit) => ({ value: unit.unit_number })),
+            ],
+            getOptionLabel: (option) => option.value,
+        };
+    }, [availableUnitsByDate]);
+
+    const isLoading = !isReady || availableUnitsByDate.length === 0;
+    const loadingText = !isReady ? 'Loading ...' : availableUnitsByDate.length === 0 ? 'No results found' : undefined;
+
     return (
-        <div>
-            <Downshift
-                id="downshift-options"
-                itemToString={(item) => (item ? item.unit_number : '')}
-                onChange={props.update}
-                initialSelectedItem={props.value}
-            >
-                {({
-                    clearSelection,
-                    getInputProps,
-                    getItemProps,
-                    getLabelProps,
-                    getMenuProps,
-                    highlightedIndex,
-                    inputValue,
-                    isOpen,
-                    openMenu,
-                    selectedItem,
-                }) => {
-                    bindClearSelection(clearSelection);
-
-                    const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
-                        onChange: (event) => {
-                            if (event.target.value === '') {
-                                clearSelection();
-                            }
-                        },
-                        onFocus: openMenu,
-                    });
-                    let suggestions = getSuggestions(availableUnitsByDate, inputValue, { showEmpty: true }).map(
-                        (suggestion, index) =>
-                            renderSuggestion({
-                                suggestion,
-                                inputValue,
-                                index,
-                                itemProps: getItemProps({ item: suggestion }),
-                                highlightedIndex,
-                                selectedItem,
-                            })
-                    );
-                    if (!isReady) {
-                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
-                    } else if (suggestions.length === 0) {
-                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
-                    }
-
-                    suggestions = [
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                        <MenuItem>Menu Item</MenuItem>,
-                    ];
-
-                    return (
-                        <div className={classes.container}>
-                            {renderInput({
-                                fullWidth: true,
-                                classes,
-                                label: 'Select Unit',
-                                InputLabelProps: getLabelProps({ shrink: true }),
-                                InputProps: { onBlur, onChange, onFocus },
-                                inputProps,
-                                error: props.error,
-                                helperText: props.helperText,
-                                disabled: props.disabled,
-                            })}
-
-                            <div {...getMenuProps()}>
-                                {isOpen ? (
-                                    <Paper className={classes.paper} square>
-                                        {suggestions}
-                                    </Paper>
-                                ) : null}
-                            </div>
-                        </div>
-                    );
-                }}
-            </Downshift>
-        </div>
+        <Autocomplete
+            {...defaultProps}
+            loading={isLoading}
+            loadingText={loadingText}
+            onChange={(_, value) => console.log('value changed: ', value)}
+            includeInputInList
+            disableClearable
+            renderInput={(params) => {
+                return (
+                    <TextField
+                        {...params}
+                        fullWidth
+                        label="Select Unit"
+                        error={props.error}
+                        helperText={props.helperText}
+                        disabled={props.disabled}
+                    />
+                );
+            }}
+        />
     );
+
+    // const classes = useStyles();
+    // return (
+    //     <div>
+    //         <Downshift
+    //             id="downshift-options"
+    //             itemToString={(item) => (item ? item.unit_number : '')}
+    //             onChange={props.update}
+    //             initialSelectedItem={props.value}
+    //         >
+    //             {({
+    //                 clearSelection,
+    //                 getInputProps,
+    //                 getItemProps,
+    //                 getLabelProps,
+    //                 getMenuProps,
+    //                 highlightedIndex,
+    //                 inputValue,
+    //                 isOpen,
+    //                 openMenu,
+    //                 selectedItem,
+    //             }) => {
+    //                 bindClearSelection(clearSelection);
+    //
+    //                 const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
+    //                     onChange: (event) => {
+    //                         if (event.target.value === '') {
+    //                             clearSelection();
+    //                         }
+    //                     },
+    //                     onFocus: openMenu,
+    //                 });
+    //                 let suggestions = getSuggestions(availableUnitsByDate, inputValue, { showEmpty: true }).map(
+    //                     (suggestion, index) =>
+    //                         renderSuggestion({
+    //                             suggestion,
+    //                             inputValue,
+    //                             index,
+    //                             itemProps: getItemProps({ item: suggestion }),
+    //                             highlightedIndex,
+    //                             selectedItem,
+    //                         })
+    //                 );
+    //
+    //                 console.log({ availableUnitsByDate, suggestions })
+    //
+    //                 if (!isReady) {
+    //                     suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
+    //                 } else if (suggestions.length === 0) {
+    //                     suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
+    //                 }
+    //
+    //                 // suggestions = [
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 //     <MenuItem>Menu Item</MenuItem>,
+    //                 // ];
+    //
+    //                 return (
+    //                     <div className={classes.container}>
+    //                         {renderInput({
+    //                             fullWidth: true,
+    //                             classes,
+    //                             label: 'Select Unit',
+    //                             InputLabelProps: getLabelProps({ shrink: true }),
+    //                             InputProps: { onBlur, onChange, onFocus },
+    //                             inputProps,
+    //                             error: props.error,
+    //                             helperText: props.helperText,
+    //                             disabled: props.disabled,
+    //                         })}
+    //
+    //                         <div {...getMenuProps()}>
+    //                             {isOpen ? (
+    //                                 <Paper className={classes.paper} square>
+    //                                     {suggestions}
+    //                                 </Paper>
+    //                             ) : null}
+    //                         </div>
+    //                     </div>
+    //                 );
+    //             }}
+    //         </Downshift>
+    //     </div>
+    // );
 }
 
 AvailableUnitsSelector.propTypes = {
