@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { isValid } from 'date-fns';
 import { offsetDate } from 'utils/misc';
 
+// eslint-disable-next-line
 function getMenuItems(isReady, leaseTerms, unitId) {
     if (!unitId) {
         return <MenuItem key="not-ready">Please select a unit</MenuItem>;
@@ -59,6 +60,7 @@ export default function AvailableLeaseTermsSelector(props) {
     }, [props, leaseTerms]);
 
     const toggleOpen = useCallback(() => {
+        // eslint-disable-next-line
         console.log('onClick, toggleOpen');
         setIsOpen(!isOpen);
     }, [isOpen]);
@@ -68,6 +70,7 @@ export default function AvailableLeaseTermsSelector(props) {
             <FormControl fullWidth>
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
+                    {/* eslint-disable-next-line no-console */}
                     onFocus={() => console.log('FOCUS')}
                     open={isOpen}
                     onClick={toggleOpen}
