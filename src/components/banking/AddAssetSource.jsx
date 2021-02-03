@@ -32,7 +32,7 @@ export const Img = styled.img`
     height: 83px;
 `;
 
-// TODO: refactor component usable for both income and assets?
+// TODO: refactor component usable for both income and assets? created by: @JimVercoelen | Ticket: NESTIO-19929
 export function AddAssetSource(props) {
     const context = useContext(BankingContext);
     const [errors, setErrors] = useState([]);

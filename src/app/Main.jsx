@@ -98,7 +98,6 @@ export class Main extends Component {
             configuration = await this.props.fetchConfiguration(communityId, hash);
             isLoggedIn && (await this.props.fetchApplicant());
         } catch {
-            // todo: handle community id not found better.
             return this.setState({ hasError: true });
         }
         this.mountNavigation(isLoggedIn, configuration);

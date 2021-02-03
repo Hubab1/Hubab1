@@ -34,7 +34,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-// TODO: refactor to functional comp using hooks similar to AddAssetSource and AddIncomeSource
+// TODO: refactor to functional comp using hooks similar to AddAssetSource and AddIncomeSource | created by: @JimVercoelen | Ticket: NESTIO-19936
 export class EditFinancialSource extends Component {
     state = { errors: [], financialSource: null };
 
