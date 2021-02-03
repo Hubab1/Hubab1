@@ -29,7 +29,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-// TODO: refactor component usable for both income and assets?
+// TODO: refactor component usable for both income and assets? created by: @JimVercoelen | Ticket: NESTIO-19929
 export function AddIncomeSource(props) {
     const [errors, setErrors] = useState([]);
     const context = useContext(BankingContext);
