@@ -2,10 +2,19 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { filter } from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import API from 'app/api';
+
+// Adjust box shawdow to match AvailableLeaseTermsSelector box shadow (elevation 8)
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        boxShadow: theme.shadows[8],
+        maxHeight: 300,
+    },
+}));
 
 export default function AvailableUnitsSelector({
     value,
@@ -16,6 +25,7 @@ export default function AvailableUnitsSelector({
     leaseStartDate,
     onChange,
 }) {
+    const classes = useStyles();
     const [units, setUnits] = useState([]);
     const [availableUnits, setAvailableUnits] = useState([]);
     const [isReady, setIsReady] = useState(false);
@@ -75,6 +85,9 @@ export default function AvailableUnitsSelector({
             onChange={handleChange}
             includeInputInList
             disableClearable
+            classes={{
+                paper: classes.paper,
+            }}
             renderInput={(params) => {
                 return (
                     <TextField

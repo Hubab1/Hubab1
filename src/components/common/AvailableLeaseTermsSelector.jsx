@@ -6,8 +6,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
 import { isValid } from 'date-fns';
 import { offsetDate } from 'utils/misc';
+
+// Adjust box shawdow to match AvailableUnitSelecotr box shadow (elevation 8)
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        boxShadow: theme.shadows[8],
+        maxHeight: 300,
+    },
+}));
 
 function getMenuItems(isReady, leaseTerms, unitId) {
     if (!unitId) {
@@ -40,6 +49,7 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
 }
 
 export default function AvailableLeaseTermsSelector(props) {
+    const classes = useStyles();
     const [leaseTerms, setLeaseTerms] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
@@ -66,10 +76,8 @@ export default function AvailableLeaseTermsSelector(props) {
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
                     disabled={props.disabled}
-                    inputProps={{
-                        name: 'lease_term',
-                        id: 'lease-term',
-                    }}
+                    style={{ maxHeight: '200px' }}
+                    MenuProps={{ classes: { paper: classes.paper } }}
                 >
                     {getMenuItems(isReady, leaseTerms, props.unitId)}
                 </Select>

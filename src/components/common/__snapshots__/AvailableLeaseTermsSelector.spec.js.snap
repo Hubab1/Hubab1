@@ -11,14 +11,20 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
       Lease Term
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
-      fullWidth={true}
-      inputProps={
+      MenuProps={
         Object {
-          "id": "lease-term",
-          "name": "lease_term",
+          "classes": Object {
+            "paper": "makeStyles-paper-1",
+          },
         }
       }
+      fullWidth={true}
       onChange={[MockFunction]}
+      style={
+        Object {
+          "maxHeight": "200px",
+        }
+      }
       value=""
     >
       <ForwardRef(WithStyles)>
