@@ -75,11 +75,30 @@ export default function AvailableLeaseTermsSelector(props) {
 
     // if (!didHideKeyboard) return null;
 
+    const [open, setOpen] = useState(false);
+
     return (
         <div>
-            <FormControl fullWidth>
+            <FormControl
+                fullWidth
+                onClick={() => {
+                    // eslint-disable-next-line no-console
+                    console.log('Click select');
+
+                    if (!open) {
+                        document.activeElement.blur();
+
+                        return setTimeout(() => {
+                            setOpen(true);
+                        }, 2000);
+                    }
+
+                    setOpen(false);
+                }}
+            >
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
+                    open={open}
                     fullWidth
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}

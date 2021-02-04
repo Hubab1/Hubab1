@@ -98,11 +98,6 @@ export default function AvailableUnitsSelector({
             loading={isLoading}
             loadingText={loadingText}
             onChange={handleChange}
-            onOpen={() => {
-                setTimeout(() => {
-                    window.scrollTo(0, document.body.scrollHeight);
-                }, 250);
-            }}
             classes={{
                 root: classes.root,
                 paper: classes.paper,
