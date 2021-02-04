@@ -50,14 +50,14 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
 
 export default function AvailableLeaseTermsSelector(props) {
     const classes = useStyles();
-    const [didHideKeyboard, setDidHideKeyboard] = useState(false);
+    // const [didHideKeyboard, setDidHideKeyboard] = useState(false);
     const [leaseTerms, setLeaseTerms] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
-    useEffect(() => {
-        document.activeElement.blur();
-        setDidHideKeyboard(true);
-    }, []);
+    // useEffect(() => {
+    //     document.activeElement.blur();
+    //     setDidHideKeyboard(true);
+    // }, []);
 
     useEffect(() => {
         if (props.unitId && leaseTerms.length === 0) {
@@ -73,7 +73,7 @@ export default function AvailableLeaseTermsSelector(props) {
         }
     }, [props, leaseTerms]);
 
-    if (!didHideKeyboard) return null;
+    // if (!didHideKeyboard) return null;
 
     return (
         <div>
