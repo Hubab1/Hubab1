@@ -90,7 +90,7 @@ export default function AvailableLeaseTermsSelector(props) {
 
                         return setTimeout(() => {
                             setOpen(true);
-                        }, 2000);
+                        });
                     }
 
                     setOpen(false);
