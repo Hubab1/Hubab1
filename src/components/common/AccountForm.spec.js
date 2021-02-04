@@ -37,7 +37,7 @@ it('doesnt show consent input when showConsentInput=false', function () {
     expect(wrapper.find(Formik).dive().find(Checkbox).length).toBe(0);
 });
 
-// TODO: figure out how to set is dirty to true
+// TODO: figure out how to set is dirty to true | created by: @JimVercoelen | Ticket: NESTIO-19930
 it.skip('ActionButton is disabled while form is not touched', function () {
     const wrapper = shallow(
         <AccountForm
@@ -62,7 +62,7 @@ it.skip('ActionButton is disabled while form is not touched', function () {
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(false);
 });
 
-// TODO: figure out how to set is dirty to true
+// TODO: figure out how to set is dirty to true | created by: @JimVercoelen | Ticket: NESTIO-19930
 it.skip('ActionButton is disabled when certain fields are missing', function () {
     const wrapper = shallow(
         <AccountForm
@@ -86,7 +86,7 @@ it.skip('ActionButton is disabled when certain fields are missing', function () 
     expect(wrapper.find(Formik).dive().find(ActionButton).prop('disabled')).toBe(true);
 });
 
-// TODO: figure out how to set is dirty to true
+// TODO: figure out how to set is dirty to true | created by: @JimVercoelen | Ticket: NESTIO-19930
 it.skip('ActionButton is not disabled when sms opt in is unchecked', async function () {
     const wrapper = shallow(
         <AccountForm

@@ -8,7 +8,7 @@ const title = css`
     font-size: 20px;
 `;
 
-// TODO: change size to 16px
+// TODO: change size to 16px | created by: @Chakib | Ticket: NESTIO-19932
 const subtitle = css`
     font-size: 14px;
     color: #444b58;

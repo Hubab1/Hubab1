@@ -35,7 +35,7 @@ module.exports = {
         semi: ['error', 'always'],
         'react/prop-types': [2, { ignore: ['className'] }],
 
-        // TODO: Fix those progressively
+        // TODO: Fix those progressively | created by: @Chakib | Ticket: NESTIO-19935
         //"no-shadow": ["error"],
     },
 };

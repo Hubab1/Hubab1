@@ -74,7 +74,6 @@ export class RegisterPage extends React.Component {
             localStorage?.getItem(`accepted-electronic-signature-terms-${this.props.leaseSettingsId}`)
         );
 
-        // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
         // particularly need this for guarantor and co-applicant to associate with existing application
         return auth
             .register(serialized, this.props.leaseSettingsId, hash)

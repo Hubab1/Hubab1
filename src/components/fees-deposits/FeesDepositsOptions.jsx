@@ -123,7 +123,7 @@ export const FeesDepositsOptions = ({
 
 FeesDepositsOptions.propTypes = {
     baseAppFee: PropTypes.number,
-    holdingDepositAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // TODO: Fix this
+    holdingDepositAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // TODO: Fix this | created by: @Chakib | Ticket: NESTIO-19931
     handleContinue: PropTypes.func,
     handleClickBack: PropTypes.string,
     everyone: PropTypes.array,

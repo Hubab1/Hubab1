@@ -360,16 +360,8 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
             quantity={2}
             rentalOption={
               Object {
-                "deposit_amount": null,
-                "fee_amount": null,
                 "id": 102,
-                "included": 1,
-                "limit": 6,
-                "mandatory": true,
-                "monthly_amount": "75.00",
-                "name": "Garage (12x9)",
-                "payment_time": 10,
-                "type": 10,
+                "name": "Garage",
               }
             }
           />
@@ -437,16 +429,8 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
   quantity={2}
   rentalOption={
     Object {
-      "deposit_amount": null,
-      "fee_amount": null,
       "id": 102,
-      "included": 1,
-      "limit": 6,
-      "mandatory": true,
-      "monthly_amount": "75.00",
-      "name": "Garage (12x9)",
-      "payment_time": 10,
-      "type": 10,
+      "name": "Garage",
     }
   }
 />
