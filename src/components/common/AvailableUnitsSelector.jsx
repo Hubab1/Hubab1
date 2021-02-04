@@ -24,6 +24,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function filterUnitsAvailableAtleaseDate(leaseStartDate, units) {
+    const availableAtLeaseDate = (unit) => {
+        if (leaseStartDate === null) {
+            return true;
+        }
+        return moment(leaseStartDate).isAfter(unit.date_available);
+    };
+
+    return filter(units, availableAtLeaseDate);
+}
+
 export default function AvailableUnitsSelector({
     value,
     disabled,
@@ -54,20 +65,14 @@ export default function AvailableUnitsSelector({
 
                 setUnits(availableUnits);
             }
+
             setIsReady(true);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const availableAtLeaseDate = (unit) => {
-            if (leaseStartDate === null) {
-                return true;
-            }
-            return moment(leaseStartDate).isAfter(unit.date_available);
-        };
-
-        const availableUnits = filter(units, availableAtLeaseDate);
+        const availableUnits = filterUnitsAvailableAtleaseDate(leaseStartDate, units);
         setAvailableUnits(availableUnits);
     }, [units, leaseStartDate]);
 
