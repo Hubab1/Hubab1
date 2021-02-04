@@ -90,7 +90,7 @@ export default function AvailableLeaseTermsSelector(props) {
 
                         return setTimeout(() => {
                             setOpen(true);
-                        });
+                        }, 25); // TODO: only when not desktop
                     }
 
                     setOpen(false);
