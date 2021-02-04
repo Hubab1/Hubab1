@@ -99,7 +99,9 @@ export default function AvailableUnitsSelector({
             loadingText={loadingText}
             onChange={handleChange}
             onOpen={() => {
-                window.scrollTo(0, document.body.scrollHeight);
+                setTimeout(() => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, 250);
             }}
             classes={{
                 root: classes.root,
