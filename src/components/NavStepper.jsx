@@ -15,7 +15,11 @@ import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import Button from '@material-ui/core/Button';
 import { ROUTES } from 'app/constants';
-import { MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED } from 'app/constants';
+import {
+    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
+} from 'app/constants';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -71,8 +75,12 @@ export function VerticalLinearStepper(props) {
     const unitUnavailable = props.renterProfile?.unit_available === false;
     const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
     const holdingDepositAgreementSignatureRequested = props.initialPage === ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
-    const additionalDocumentsRequested = props.renterProfile?.events?.find(
-        ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
+    const additionalDocumentsRequested = props.renterProfile?.events?.find(({ event }) =>
+        [
+            MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+            MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+            MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
+        ].includes(event)
     );
 
     function onClickRoute(e, route, i) {
