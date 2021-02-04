@@ -243,9 +243,7 @@ export class RentalProfileOptions extends React.Component {
                                             <ExistingGenericRentalOption
                                                 key={item.id}
                                                 quantity={item.quantity}
-                                                rentalOption={this.props.config.rental_options.parking.find(
-                                                    (option) => option.id === item.rental_option.id
-                                                )}
+                                                rentalOption={item.rental_option}
                                             />
                                         ))}
                                     </ExistingItemsExpansionPanel>
@@ -276,9 +274,7 @@ export class RentalProfileOptions extends React.Component {
                                             <ExistingGenericRentalOption
                                                 key={item.id}
                                                 quantity={item.quantity}
-                                                rentalOption={this.props.config.rental_options.storage.find(
-                                                    (option) => option.id === item.rental_option.id
-                                                )}
+                                                rentalOption={item.rental_option}
                                             />
                                         ))}
                                     </ExistingItemsExpansionPanel>
@@ -309,9 +305,7 @@ export class RentalProfileOptions extends React.Component {
                                             <ExistingGenericRentalOption
                                                 key={item.id}
                                                 quantity={item.quantity}
-                                                rentalOption={this.props.config.rental_options['wine-cooler'].find(
-                                                    (option) => option.id === item.rental_option.id
-                                                )}
+                                                rentalOption={item.rental_option}
                                             />
                                         ))}
                                     </ExistingItemsExpansionPanel>
