@@ -66,7 +66,7 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
         parking: [
             {
                 leasing_context: {},
-                rental_option: { id: 102 },
+                rental_option: { id: 102, name: 'Garage' },
                 quoted_fee_amount: null,
                 quoted_monthly_amount: '55.00',
                 quoted_deposit_amount: null,
@@ -75,7 +75,7 @@ it('renders ExistingItemsExpansionPanel for parking when there are selected_rent
             },
             {
                 leasing_context: {},
-                rental_option: { id: 63 },
+                rental_option: { id: 63, name: 'Storage' },
                 quoted_fee_amount: null,
                 quoted_monthly_amount: '75.00',
                 quoted_deposit_amount: null,
