@@ -8,7 +8,7 @@ import API from 'app/api';
 import { offsetDate } from 'utils/misc';
 import { isDesktop } from 'utils/mobileDetect';
 
-const KEYBOARD_CLOSE_DURATION = 30;
+const KEYBOARD_CLOSE_DURATION_MS = 30;
 
 // Adjust box shawdow to match AvailableUnitSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +75,7 @@ export default function AvailableLeaseTermsSelector(props) {
         if (!open) {
             // Close keyboard and wait for it to close before showing lease term options
             document.activeElement.blur();
-            await new Promise((resolve) => setTimeout(resolve, KEYBOARD_CLOSE_DURATION));
+            await new Promise((resolve) => setTimeout(resolve, KEYBOARD_CLOSE_DURATION_MS));
             return setOpen(true);
         }
 
