@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import API from 'app/api';
@@ -10,11 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { isValid } from 'date-fns';
 import { offsetDate } from 'utils/misc';
 
+const KEYBOARD_CLOSE_DURATION = 25;
+
 // Adjust box shawdow to match AvailableUnitSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
     paper: {
         boxShadow: theme.shadows[8],
-        maxHeight: 300,
+        // maxHeight: 300,
     },
 }));
 
@@ -50,14 +52,9 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
 
 export default function AvailableLeaseTermsSelector(props) {
     const classes = useStyles();
-    // const [didHideKeyboard, setDidHideKeyboard] = useState(false);
+    const [open, setOpen] = useState(false);
     const [leaseTerms, setLeaseTerms] = useState([]);
     const [isReady, setIsReady] = useState(false);
-
-    // useEffect(() => {
-    //     document.activeElement.blur();
-    //     setDidHideKeyboard(true);
-    // }, []);
 
     useEffect(() => {
         if (props.unitId && leaseTerms.length === 0) {
@@ -73,29 +70,22 @@ export default function AvailableLeaseTermsSelector(props) {
         }
     }, [props, leaseTerms]);
 
-    // if (!didHideKeyboard) return null;
+    const handleClick = useCallback(() => {
+        if (!open) {
+            // Will close keyboard before opening
+            document.activeElement.blur();
 
-    const [open, setOpen] = useState(false);
+            return setTimeout(() => {
+                setOpen(true);
+            }, KEYBOARD_CLOSE_DURATION); // TODO: only when not desktop
+        }
+
+        setOpen(false);
+    }, [open]);
 
     return (
         <div>
-            <FormControl
-                fullWidth
-                onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('Click select');
-
-                    if (!open) {
-                        document.activeElement.blur();
-
-                        return setTimeout(() => {
-                            setOpen(true);
-                        }, 25); // TODO: only when not desktop
-                    }
-
-                    setOpen(false);
-                }}
-            >
+            <FormControl fullWidth onClick={handleClick}>
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
                     open={open}

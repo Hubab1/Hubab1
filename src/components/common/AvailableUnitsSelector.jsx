@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         boxShadow: theme.shadows[8],
-        maxHeight: 300,
+        // maxHeight: 300,
     },
 }));
 
