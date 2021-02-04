@@ -1,22 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import MenuItem from '@material-ui/core/MenuItem';
-import API from 'app/api';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
 import { isValid } from 'date-fns';
-import { offsetDate } from 'utils/misc';
+import { FormControl, InputLabel, FormHelperText, Select, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-const KEYBOARD_CLOSE_DURATION = 25;
+import API from 'app/api';
+import { offsetDate } from 'utils/misc';
+import { isDesktop } from 'utils/mobileDetect';
+
+const KEYBOARD_CLOSE_DURATION = 30;
 
 // Adjust box shawdow to match AvailableUnitSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
     paper: {
         boxShadow: theme.shadows[8],
-        // maxHeight: 300,
     },
 }));
 
@@ -70,14 +67,16 @@ export default function AvailableLeaseTermsSelector(props) {
         }
     }, [props, leaseTerms]);
 
-    const handleClick = useCallback(() => {
-        if (!open) {
-            // Will close keyboard before opening
-            document.activeElement.blur();
+    const handleClick = useCallback(async () => {
+        if (isDesktop) {
+            return setOpen(!open);
+        }
 
-            return setTimeout(() => {
-                setOpen(true);
-            }, KEYBOARD_CLOSE_DURATION); // TODO: only when not desktop
+        if (!open) {
+            // Close keyboard and wait for it to be hidden before showing lease term options
+            document.activeElement.blur();
+            await new Promise((resolve) => setTimeout(resolve, KEYBOARD_CLOSE_DURATION));
+            return setOpen(true);
         }
 
         setOpen(false);

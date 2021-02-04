@@ -25,6 +25,7 @@
         "hellosign-embedded": "^2.7.1",
         "ld-redux": "^3.3.2",
         "lodash": "^4.17.11",
+        "mobile-detect": "^1.4.4",
         "moment": "^2.29.1",
         "node-sass": "^4.11.0",
         "pluralize": "^8.0.0",
