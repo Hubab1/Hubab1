@@ -174,7 +174,8 @@ export class Main extends Component {
                                 <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                                 <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                                 <Route path={ROUTES.ADDRESS} component={Address} />
-                                <Route path={ROUTES.BANKING} component={BankingContainer} />
+                                {/* Key is added to force component re-mount, even when clicking on the same link */}
+                                <Route path={ROUTES.BANKING} component={BankingContainer} key={new Date()} />
                                 <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDeposits} />
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
