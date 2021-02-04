@@ -99,9 +99,6 @@ export default function AvailableLeaseTermsSelector(props) {
                     }}
                 >
                     {getMenuItems(isReady, leaseTerms, props.unitId)}
-                    {getMenuItems(isReady, leaseTerms, props.unitId)}
-                    {getMenuItems(isReady, leaseTerms, props.unitId)}
-                    {getMenuItems(isReady, leaseTerms, props.unitId)}
                 </Select>
                 <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
             </FormControl>
