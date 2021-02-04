@@ -73,7 +73,7 @@ export default function AvailableLeaseTermsSelector(props) {
         }
 
         if (!open) {
-            // Close keyboard and wait for it to be hidden before showing lease term options
+            // Close keyboard and wait for it to close before showing lease term options
             document.activeElement.blur();
             await new Promise((resolve) => setTimeout(resolve, KEYBOARD_CLOSE_DURATION));
             return setOpen(true);

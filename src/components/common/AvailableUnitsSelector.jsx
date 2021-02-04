@@ -11,7 +11,7 @@ import API from 'app/api';
 // Adjust box shawdow to match AvailableLeaseTermsSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
     root: {
-        // Hack to keep the clear functionality without showing the icon!
+        // Keep the clear functionality without showing the icon!
         '& .MuiAutocomplete-inputRoot': {
             paddingRight: '30px !important',
         },
