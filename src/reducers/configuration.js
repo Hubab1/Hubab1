@@ -94,3 +94,6 @@ selectors.selectTheme = createSelector(
         return createTheme(primaryColor, secondaryColor);
     }
 );
+
+selectors.selectCommunity = (state) => state.configuration?.community;
+selectors.selectCommunityContactPhoneNumber = (state) => state.configuration?.community?.contact_phone;

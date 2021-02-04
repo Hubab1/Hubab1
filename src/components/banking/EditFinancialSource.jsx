@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
 import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
+import { logToSentry } from 'utils/sentry';
 import {
     ROUTES,
     FINANCIAL_STREAM_INCOME,
@@ -33,7 +34,7 @@ const SpacedH3 = styled(H3)`
     margin-bottom: 30px;
 `;
 
-// TODO: refactor to functional comp using hooks similar to AddAssetSource and AddIncomeSource
+// TODO: refactor to functional comp using hooks similar to AddAssetSource and AddIncomeSource | created by: @JimVercoelen | Ticket: NESTIO-19936
 export class EditFinancialSource extends Component {
     state = { errors: [], financialSource: null };
 
@@ -67,7 +68,6 @@ export class EditFinancialSource extends Component {
 
         const formData = new FormData();
         formData.append('estimated_amount', String(values.estimated_amount).replace(/,/g, ''));
-        formData.append('adjusted_amount', 0);
         formData.append('has_requested_more_documents', false);
         formData.append('status', FINANCIAL_STREAM_STATUS_PENDING);
 
@@ -93,6 +93,7 @@ export class EditFinancialSource extends Component {
             this.context.refreshFinancialSources?.();
             this.props.history.push(this.returnLink);
         } catch (e) {
+            logToSentry(e);
             this.setState({ errors: [ERROR_UPLOAD] });
         } finally {
             setSubmitting(false);
@@ -107,10 +108,10 @@ export class EditFinancialSource extends Component {
         let data;
         try {
             data = await API.getFinancialSource(this.props.match.params.id);
-        } catch (e) {
-            return;
+            this.setState({ financialSource: data });
+        } catch {
+            // Ignore
         }
-        this.setState({ financialSource: data });
     }
 
     get isAsset() {

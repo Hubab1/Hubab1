@@ -17,7 +17,7 @@ export class RegisterPage extends React.Component {
 
     constructor(props) {
         super(props);
-        const viewedTerms = localStorage.getItem(`accepted-platform-terms-${props.leaseSettingsId}`);
+        const viewedTerms = localStorage?.getItem(`accepted-platform-terms-${props.leaseSettingsId}`);
         if (!viewedTerms) {
             props.history.push(ROUTES.TERMS);
         }
@@ -68,13 +68,12 @@ export class RegisterPage extends React.Component {
         const serialized = Object.assign({}, values);
         serialized.birthday = serializeDate(serialized.birthday);
         serialized.terms_of_service_acceptance = JSON.parse(
-            localStorage.getItem(`accepted-platform-terms-${this.props.leaseSettingsId}`)
+            localStorage?.getItem(`accepted-platform-terms-${this.props.leaseSettingsId}`)
         );
         serialized.electronic_signature_acceptance = JSON.parse(
-            localStorage.getItem(`accepted-electronic-signature-terms-${this.props.leaseSettingsId}`)
+            localStorage?.getItem(`accepted-electronic-signature-terms-${this.props.leaseSettingsId}`)
         );
 
-        // TODO: add hash (and possibly initial values) to localStorage in case user refreshes
         // particularly need this for guarantor and co-applicant to associate with existing application
         return auth
             .register(serialized, this.props.leaseSettingsId, hash)

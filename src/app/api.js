@@ -39,6 +39,15 @@ API.fetchFunnelTerms = (leaseSettingsId) => {
     return fetch(chuck(`/funnel_terms/${leaseSettingsId}`));
 };
 
+API.fetchHoldingDepositTerms = (canProceedToPayment) => {
+    return fetch(chuck(`/holding_deposit_terms/?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.text());
+};
+
 API.fetchPersonalizedInfo = (communityId, hash) => {
     return getWithHeaders(CHUCK_PERSONALIZED_LEASE_SETTINGS(communityId, hash));
 };
@@ -271,17 +280,6 @@ API.getCurrentFlatQuote = (data) => {
     });
 };
 
-API.getAdverseActions = () => {
-    return fetch(chuck('/applicant/adverse-action/'), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
-    }).then((res) => {
-        return res.json();
-    });
-};
-
 API.submitFinancialSource = (data, vgsEnabled) => {
     const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
     return fetch(url, {
@@ -402,6 +400,16 @@ API.fetchAANDocument = () => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => res.blob());
+};
+
+API.postEmployer = (data) => {
+    return fetch(chuck('/applicant-employer/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(data),
+    }).then((res) => res.json());
 };
 
 export default API;

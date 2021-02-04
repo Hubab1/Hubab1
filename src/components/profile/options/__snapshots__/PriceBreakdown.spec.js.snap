@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`display correct info 1`] = `
-"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
+exports[`PriceBreakDown display correct info 1`] = `
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} moveInDate=\\"01/01/2020\\" category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
   <Styled(div)>
     <div className=\\"css-1gbujtk\\">
       <div className=\\"css-101ez95\\">
         <div id={[undefined]} className=\\"css-1h1izsk\\" />
-        <div className=\\"css-coqf6u\\">
+        <div className=\\"css-1t9b4ew\\">
           <div className=\\"css-hgfyev\\">
             <div>
               <Styled(MuiBox)>
@@ -137,7 +137,7 @@ exports[`display correct info 1`] = `
                                             </div>
                                           </div>
                                           <Styled(div)>
-                                            <div className=\\"css-zgrhnt\\">
+                                            <div className=\\"css-15qatac\\">
                                               <Styled(p) bold={true}>
                                                 <p className=\\"css-1bj6jbc\\">
                                                   Total
@@ -175,13 +175,13 @@ exports[`display correct info 1`] = `
 </PriceBreakdown>"
 `;
 
-exports[`display correct info if has included options 1`] = `
-"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
+exports[`PriceBreakDown display correct info if has included options 1`] = `
+"<PriceBreakdown application={{...}} selectedOptions={{...}} unitId={12} moveInDate=\\"01/01/2020\\" category=\\"storage\\" categoryHelperText=\\"storage space\\" onError={[Function: mockConstructor]} onSuccess={[Function: mockConstructor]}>
   <Styled(div)>
     <div className=\\"css-1gbujtk\\">
       <div className=\\"css-101ez95\\">
         <div id={[undefined]} className=\\"css-1h1izsk\\" />
-        <div className=\\"css-coqf6u\\">
+        <div className=\\"css-1t9b4ew\\">
           <div className=\\"css-hgfyev\\">
             <div>
               <Styled(MuiBox)>
@@ -312,7 +312,7 @@ exports[`display correct info if has included options 1`] = `
                                             </div>
                                           </div>
                                           <Styled(div)>
-                                            <div className=\\"css-zgrhnt\\">
+                                            <div className=\\"css-15qatac\\">
                                               <Styled(p) bold={true}>
                                                 <p className=\\"css-1bj6jbc\\">
                                                   Total

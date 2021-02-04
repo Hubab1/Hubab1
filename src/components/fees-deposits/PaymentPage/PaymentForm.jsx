@@ -12,13 +12,17 @@ import API, { MOCKY } from 'app/api';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import { prettyCurrency } from 'utils/misc';
+import { prettyCurrency, prettyFormatPhoneNumber } from 'utils/misc';
 import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
+import { selectors as configSelectors } from 'reducers/configuration';
 export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Try again in a bit.";
 export const CARD_DECLINE_ERROR_MESSAGE =
     "Oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
+export const UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE = (contactPhone) =>
+    "We're sorry but we were unable to process your payment at this time due to system issues unrelated to your " +
+    `card. Please contact our Leasing Office at ${contactPhone} and an agent will be able to assist you.`;
 
 export class PaymentForm extends React.Component {
     state = {
@@ -52,15 +56,10 @@ export class PaymentForm extends React.Component {
                     API.stripePayment(data)
                         .then((res) => {
                             if (res.errors) {
-                                let errorMessage = GENERIC_ERROR_MESSAGE;
-                                // Stripe error types: https://stripe.com/docs/api/errors
-                                if (res.errors?.error?.type === 'card_error') {
-                                    // List of decline codes: https://stripe.com/docs/declines/codes
-                                    errorMessage = CARD_DECLINE_ERROR_MESSAGE;
-                                    // TODO: This is for troubleshooting only. Remove when better custom error messages.
-                                    console.error(res.errors?.error?.message);
-                                }
-                                this.setState({ errors: [errorMessage], submitting: false });
+                                this.setState({
+                                    errors: [this.getErrorMessage(res)],
+                                    submitting: false,
+                                });
                             } else {
                                 this.setState({ submitting: false });
                                 this.props.fetchApplicant();
@@ -79,6 +78,22 @@ export class PaymentForm extends React.Component {
                 this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
             });
     };
+
+    getErrorMessage(errorResponse) {
+        if (errorResponse?.error_type === 'UnitPmsUnavailableError') {
+            return UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE(prettyFormatPhoneNumber(this.props.contactPhone));
+        }
+
+        // Stripe error types: https://stripe.com/docs/api/errors
+        if (errorResponse?.errors?.error?.type === 'card_error') {
+            // TODO: This is for troubleshooting only. Remove when better custom error messages. | created by: @Hasday | Ticket: NESTIO-19933
+            console.error(errorResponse?.errors?.message);
+            // List of decline codes: https://stripe.com/docs/declines/codes
+            return CARD_DECLINE_ERROR_MESSAGE;
+        }
+
+        return GENERIC_ERROR_MESSAGE;
+    }
 
     render() {
         const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
@@ -135,6 +150,16 @@ PaymentForm.propTypes = {
     stripe: PropTypes.object,
     fetchApplicant: PropTypes.func,
     fetchRenterProfile: PropTypes.func,
+    contactPhone: PropTypes.string,
 };
 
-export default connect(null, { fetchApplicant, fetchRenterProfile })(injectStripe(PaymentForm));
+const mapStateToProps = (state) => ({
+    contactPhone: configSelectors.selectCommunityContactPhoneNumber(state),
+});
+
+const mapDispatchToProps = {
+    fetchApplicant,
+    fetchRenterProfile,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(PaymentForm));

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot with a start date 1`] = `
+<PaymentTerms
+  canProceedToPayment={true}
+  holdingDepositAmount={501.5}
+  isReagreeing={true}
+  leaseStartDate="14/22/2050"
+  reagree={[Function]}
+  unitNumber="12a"
+/>
+`;
+
+exports[`Matches snapshot without a start date 1`] = `null`;

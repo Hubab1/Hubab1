@@ -242,10 +242,11 @@ export default function AvailableUnitsSelector(props) {
 
 AvailableUnitsSelector.propTypes = {
     application: PropTypes.object.isRequired,
-    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one | created by: @JimVercoelen | Ticket: NESTIO-19931
     error: PropTypes.bool,
     helperText: PropTypes.bool,
     disabled: PropTypes.bool,
     update: PropTypes.func.isRequired,
     leaseStartDate: PropTypes.instanceOf(Date),
+    value: PropTypes.string,
 };

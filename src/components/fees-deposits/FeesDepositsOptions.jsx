@@ -73,7 +73,7 @@ export const FeesDepositsOptions = ({
             <SpacedH1>{isOutstanding ? 'Outstanding Balance' : 'Application Fees and Holding Deposit'}</SpacedH1>
             {isOutstanding ? (
                 <P>
-                    It looks like you have some outstanding fees/deposits. Let's settle up so you can move forward with
+                    It looks like you have some outstanding fees/deposits. Let’s settle up so you can move forward with
                     your application.
                 </P>
             ) : null}
@@ -123,7 +123,7 @@ export const FeesDepositsOptions = ({
 
 FeesDepositsOptions.propTypes = {
     baseAppFee: PropTypes.number,
-    holdingDepositAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // TODO: Fix this
+    holdingDepositAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // TODO: Fix this | created by: @Chakib | Ticket: NESTIO-19931
     handleContinue: PropTypes.func,
     handleClickBack: PropTypes.string,
     everyone: PropTypes.array,

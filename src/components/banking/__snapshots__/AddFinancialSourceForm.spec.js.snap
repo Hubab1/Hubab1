@@ -62,6 +62,7 @@ exports[`Matches snapshot showing other field 1`] = `
         }
         label="Estimated annual income"
         minimumValue="0"
+        modifyValueOnWheel={false}
         name="estimated_amount"
         onChange={[Function]}
         outputFormat="string"

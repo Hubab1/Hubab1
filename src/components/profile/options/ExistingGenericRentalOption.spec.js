@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import ExistingGenericRentalOption from 'components/profile/options/ExistingGenericRentalOption';
 
-// TODO: Tests in this file were temporarily commented and updated for small fix related to pricing group
+// TODO: Tests in this file were temporarily commented and updated for small fix related to pricing group | created by: @Chakib | Ticket: NESTIO-19932
 
 it('shows included and additional if included is less than quantity requested', () => {
     const rentalOption = {

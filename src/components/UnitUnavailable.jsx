@@ -16,11 +16,13 @@ export const Img = styled.img`
 `;
 
 export const UnitUnavailable = ({ configuration, profile }) => {
-    if (!configuration && !profile) {
+    if (!configuration) {
         return null;
     }
-
-    const unit = configuration.unit || profile.unit;
+    const unit = configuration?.unit || profile?.unit;
+    if (!unit) {
+        return null;
+    }
     const Wrapper = profile ? React.Fragment : UnauthenticatedPage;
 
     return (
