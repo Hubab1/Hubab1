@@ -13,11 +13,12 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         applicationFee: 60.567,
+        contactPhone: 'community@company.com',
         stripe: { createToken: jest.fn().mockResolvedValue({ token: { id: 123 } }) },
         fetchApplicant: jest.fn(),
         fetchRenterProfile: jest.fn(),
         onSuccess: jest.fn(),
-        contactPhone: 'community@company.com',
+        setDisableBack: jest.fn(),
     };
 });
 

@@ -39,10 +39,13 @@ export class PaymentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
         if (MOCKY) {
             this.setState({ submitting: false });
             return this.props.onSuccess(mockReceipt);
         }
+
+        this.props.setDisableBack(true);
         this.setState({ submitting: true });
         return this.props.stripe
             .createToken({ type: 'card', name: 'client card' })
@@ -69,13 +72,18 @@ export class PaymentForm extends React.Component {
                         })
                         .catch(() => {
                             this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
+                        })
+                        .finally(() => {
+                            this.props.setDisableBack(false);
                         });
                 } else {
                     this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
+                    this.props.setDisableBack(false);
                 }
             })
             .catch(() => {
                 this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
+                this.props.setDisableBack(false);
             });
     };
 
@@ -135,8 +143,14 @@ export class PaymentForm extends React.Component {
                     marginBottom={20}
                     disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
                 >
-                    <Lock style={{ width: 16, marginRight: 8 }} />
-                    {`Pay ${prettyCurrency(this.props.totalPayment)}`}
+                    {submitting ? (
+                        'Processing Payment...'
+                    ) : (
+                        <>
+                            <Lock style={{ width: 16, marginRight: 8 }} />
+                            {`Pay ${prettyCurrency(this.props.totalPayment)}`}
+                        </>
+                    )}
                 </ActionButton>
             </form>
         );
@@ -144,13 +158,14 @@ export class PaymentForm extends React.Component {
 }
 
 PaymentForm.propTypes = {
-    onSuccess: PropTypes.func,
     totalPayment: PropTypes.number,
     payments: PropTypes.array,
     stripe: PropTypes.object,
-    fetchApplicant: PropTypes.func,
-    fetchRenterProfile: PropTypes.func,
     contactPhone: PropTypes.string,
+    onSuccess: PropTypes.func.isRequired,
+    setDisableBack: PropTypes.func.isRequired,
+    fetchApplicant: PropTypes.func.isRequired,
+    fetchRenterProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
