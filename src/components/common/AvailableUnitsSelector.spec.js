@@ -1,9 +1,10 @@
 // import React from 'react';
 // import { mount } from 'enzyme';
-// import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
-// import API from 'app/api';
-// import Downshift from 'downshift';
 // import { act } from 'react-dom/test-utils';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
+//
+// import API from 'app/api';
+// import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 //
 // describe('availableUnitsByDate', () => {
 //     let defaultProps;
@@ -12,7 +13,7 @@
 //         defaultProps = {
 //             application: {},
 //             isPrimaryApplicant: true,
-//             update: jest.fn(),
+//             onChange: jest.fn(),
 //         };
 //
 //         const units = [
@@ -28,57 +29,64 @@
 //         it('should exclude this unit', async () => {
 //             defaultProps.leaseStartDate = new Date('2020-11-21');
 //             let wrapper;
-//             let downshift;
+//             let autocomplete;
 //
 //             await act(async () => {
 //                 wrapper = mount(<AvailableUnitsSelector {...defaultProps} />);
-//                 downshift = wrapper.find(Downshift).find('input');
-//                 await downshift.simulate('change', { target: { value: '' } });
+//                 autocomplete = mount(wrapper.find(Autocomplete).find('input'));
+//
+//                 console.log(autocomplete.html())
+//
+//                 // // await autocomplete.simulate('change', { target: { value: '' } });
+//                 // await autocomplete.simulate('click', { target: {  } });
 //             });
 //
-//             expect(wrapper.text()).toContain('2b');
-//             expect(wrapper.text()).toContain('5c');
-//             expect(wrapper.text()).not.toContain('9a');
+//             // console.log(wrapper.text());
+//
+//             // expect(wrapper.text()).toContain('2b');
+//             // expect(wrapper.text()).toContain('5c');
+//             // expect(wrapper.text()).not.toContain('9a');
 //         });
 //     });
 //
-//     describe('leaseStartDate is after all unit available dates', () => {
-//         it('should include all units', async () => {
-//             defaultProps.leaseStartDate = new Date('2020-12-21');
-//             let wrapper;
-//             let downshift;
-//
-//             await act(async () => {
-//                 wrapper = mount(<AvailableUnitsSelector {...defaultProps} />);
-//                 downshift = wrapper.find(Downshift).find('input');
-//                 await downshift.simulate('change', { target: { value: '' } });
-//             });
-//
-//             expect(wrapper.text()).toContain('2b');
-//             expect(wrapper.text()).toContain('5c');
-//             expect(wrapper.text()).toContain('9a');
-//         });
-//     });
-//
-//     describe('leaseStartDate is null', () => {
-//         it('should include all units', async () => {
-//             defaultProps.leaseStartDate = null;
-//             let wrapper;
-//             let downshift;
-//
-//             await act(async () => {
-//                 wrapper = mount(<AvailableUnitsSelector {...defaultProps} />);
-//                 downshift = wrapper.find(Downshift).find('input');
-//                 await downshift.simulate('change', { target: { value: '' } });
-//             });
-//
-//             expect(wrapper.text()).toContain('2b');
-//             expect(wrapper.text()).toContain('5c');
-//             expect(wrapper.text()).toContain('9a');
-//         });
-//     });
+//     // describe('leaseStartDate is after all unit available dates', () => {
+//     //     it('should include all units', async () => {
+//     //         defaultProps.leaseStartDate = new Date('2020-12-21');
+//     //         let wrapper;
+//     //         let downshift;
+//     //
+//     //         await act(async () => {
+//     //             wrapper = mount(<AvailableUnitsSelector {...defaultProps} />);
+//     //             downshift = wrapper.find(Downshift).find('input');
+//     //             await downshift.simulate('change', { target: { value: '' } });
+//     //         });
+//     //
+//     //         expect(wrapper.text()).toContain('2b');
+//     //         expect(wrapper.text()).toContain('5c');
+//     //         expect(wrapper.text()).toContain('9a');
+//     //     });
+//     // });
+//     //
+//     // describe('leaseStartDate is null', () => {
+//     //     it('should include all units', async () => {
+//     //         defaultProps.leaseStartDate = null;
+//     //         let wrapper;
+//     //         let downshift;
+//     //
+//     //         await act(async () => {
+//     //             wrapper = mount(<AvailableUnitsSelector {...defaultProps} />);
+//     //             downshift = wrapper.find(Downshift).find('input');
+//     //             await downshift.simulate('change', { target: { value: '' } });
+//     //         });
+//     //
+//     //         expect(wrapper.text()).toContain('2b');
+//     //         expect(wrapper.text()).toContain('5c');
+//     //         expect(wrapper.text()).toContain('9a');
+//     //     });
+//     // });
 // });
 
 it('adasds', () => {
     expect(true).toBe(true);
 });
+
