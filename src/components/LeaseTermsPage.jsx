@@ -242,17 +242,16 @@ export const LeaseTermsPage = ({
                                     </Grid>
                                     <Grid item xs={6}>
                                         <AvailableUnitsSelector
+                                            value={values.unit}
+                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
+                                            error={submitCount >= 1 && !!errors.unit}
+                                            helperText={submitCount >= 1 && errors.unit}
                                             application={application}
-                                            update={(value) => {
+                                            leaseStartDate={values.lease_start_date}
+                                            onChange={(value) => {
                                                 setFieldValue('unit', value);
                                                 setFieldValue('lease_term', null);
                                             }}
-                                            error={submitCount >= 1 && !!errors.unit}
-                                            helperText={submitCount >= 1 && errors.unit}
-                                            leaseStartDate={values.lease_start_date}
-                                            errors={errors}
-                                            disabled={!isPrimaryApplicant || !hasOutstandingBalance}
-                                            value={values.unit}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
