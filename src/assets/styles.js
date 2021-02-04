@@ -101,12 +101,20 @@ export const LinkButton = styled.button`
 LinkButton.displayName = 'LinkButton';
 
 export const blackLinkRoot = css`
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
     font-weight: 500 !important;
     font-size: 16px !important;
     text-transform: capitalize;
     text-decoration: none !important;
     color: black !important;
     cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+        color: #bdc0cd !important;
+    }
 `;
 
 export const SpacedH3 = styled(H3)`

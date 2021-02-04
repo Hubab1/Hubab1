@@ -19,7 +19,7 @@ exports[`PaymentTerms Matches snapshot 1`] = `
         Agree and Continue
       </ActionButton>
       <ForwardRef(render)
-        className="css-vq6rzm"
+        className="css-kz97o6"
         onClick={[MockFunction]}
       >
         <UNDEFINED

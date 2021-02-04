@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
@@ -36,8 +36,10 @@ const linkStyle = css`
 `;
 
 export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack, isOutstanding }) => {
+    const [disableBack, setDisableBack] = useState(false);
+
     return (
-        <Fragment>
+        <>
             <H1>Almost There, {applicant.first_name}!</H1>
             {!isOutstanding && (
                 <SpacedH3>
@@ -51,7 +53,7 @@ export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, 
                     The outstanding balance for this apartment is {totalPayment ? prettyCurrency(totalPayment) : '$0'}.
                 </SpacedH3>
             )}
-            <img src={creditCardImage} alt="credit card"></img>
+            <img src={creditCardImage} alt="credit card" />
             <div className={bodyRow}>
                 <img src={padlockImage} alt="padlock" width="18" height="28" />
                 <div className={bodyText}>
@@ -70,12 +72,17 @@ export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, 
                     },
                 ]}
             >
-                <PaymentForm onSuccess={handleSuccess} totalPayment={totalPayment} payments={payments} />
+                <PaymentForm
+                    setDisableBack={setDisableBack}
+                    onSuccess={handleSuccess}
+                    totalPayment={totalPayment}
+                    payments={payments}
+                />
             </Elements>
-            <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
+            <LinkButton disabled={disableBack} className={blackLinkRoot} onClick={handleClickBack}>
                 <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
             </LinkButton>
-        </Fragment>
+        </>
     );
 };
 
