@@ -17,12 +17,14 @@ import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
+import { selectors as profileSelectors } from 'reducers/renter-profile';
 export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Try again in a bit.";
 export const CARD_DECLINE_ERROR_MESSAGE =
     "Oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
-export const UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE = (contactPhone) =>
-    "We're sorry but we were unable to process your payment at this time due to system issues unrelated to your " +
-    `card. Please contact our Leasing Office at ${contactPhone} and an agent will be able to assist you.`;
+export const AVAILABILITY_ERROR_MESSAGE = (unit, contactPhone) =>
+    `We’re having trouble verifying if ${unit ? `unit ${unit.unit_number}` : 'this unit'} is still available. Please ` +
+    `try again in bit. If you continue to see this error, please contact our Leasing Office at ${contactPhone} and ` +
+    'an agent will be able to assist you.';
 
 export class PaymentForm extends React.Component {
     state = {
@@ -80,8 +82,9 @@ export class PaymentForm extends React.Component {
     };
 
     getErrorMessage(errorResponse) {
-        if (errorResponse?.error_type === 'UnitPmsUnavailableError') {
-            return UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE(prettyFormatPhoneNumber(this.props.contactPhone));
+        const errorType = errorResponse?.error_type;
+        if (errorType === 'UnitPmsUnavailableError' || errorType === 'UnitTemporarilyUnavailableError') {
+            return AVAILABILITY_ERROR_MESSAGE(this.props.unit, prettyFormatPhoneNumber(this.props.contactPhone));
         }
 
         // Stripe error types: https://stripe.com/docs/api/errors
@@ -151,10 +154,12 @@ PaymentForm.propTypes = {
     fetchApplicant: PropTypes.func,
     fetchRenterProfile: PropTypes.func,
     contactPhone: PropTypes.string,
+    unit: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     contactPhone: configSelectors.selectCommunityContactPhoneNumber(state),
+    unit: profileSelectors.selectUnit(state),
 });
 
 const mapDispatchToProps = {

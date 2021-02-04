@@ -5,7 +5,7 @@ import {
     GENERIC_ERROR_MESSAGE,
     CARD_DECLINE_ERROR_MESSAGE,
     PaymentForm,
-    UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE,
+    AVAILABILITY_ERROR_MESSAGE,
 } from './PaymentForm';
 import API from 'app/api';
 
@@ -18,6 +18,9 @@ beforeEach(() => {
         fetchRenterProfile: jest.fn(),
         onSuccess: jest.fn(),
         contactPhone: 'community@company.com',
+        unit: {
+            unit_number: '123',
+        },
     };
 });
 
@@ -69,7 +72,47 @@ it('handleSubmit sets error on Unit PMS Unavailable error', () => {
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
             expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
-            expect(wrapper.state().errors).toEqual([UNIT_PMS_UNAVAILABLE_ERROR_MESSAGE('community@company.com')]);
+            expect(wrapper.state().errors).toEqual([
+                AVAILABILITY_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
+            ]);
+            expect(wrapper.state().submitting).toBeFalsy();
+        });
+});
+
+it('handleSubmit sets error on Unit Temporarily Unavailable error', () => {
+    const wrapper = shallow(<PaymentForm {...defaultProps} />);
+
+    API.stripePayment = jest.fn().mockResolvedValue({
+        error_type: 'UnitTemporarilyUnavailableError',
+        errors: 'Unit is temporarily unavailable',
+    });
+
+    return wrapper
+        .instance()
+        .handleSubmit({ preventDefault: () => {} })
+        .then(() => {
+            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(wrapper.state().errors).toEqual([
+                AVAILABILITY_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
+            ]);
+            expect(wrapper.state().submitting).toBeFalsy();
+        });
+});
+
+it('handleSubmit sets error on Unit Temporarily Unavailable error and no unit selected', () => {
+    const wrapper = shallow(<PaymentForm {...defaultProps} unit={null} />);
+
+    API.stripePayment = jest.fn().mockResolvedValue({
+        error_type: 'UnitTemporarilyUnavailableError',
+        errors: 'Unit is temporarily unavailable',
+    });
+
+    return wrapper
+        .instance()
+        .handleSubmit({ preventDefault: () => {} })
+        .then(() => {
+            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(wrapper.state().errors).toEqual([AVAILABILITY_ERROR_MESSAGE(null, 'community@company.com')]);
             expect(wrapper.state().submitting).toBeFalsy();
         });
 });
