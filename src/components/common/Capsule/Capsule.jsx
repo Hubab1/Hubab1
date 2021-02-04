@@ -61,7 +61,7 @@ Capsule.propTypes = {
     expansionPanel: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     limitReached: PropTypes.bool,
     name: PropTypes.string,
-    tip: PropTypes.string,
+    tip: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export default Capsule;

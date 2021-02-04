@@ -60,6 +60,7 @@ export function AddAssetSource(props) {
         }
 
         context.refreshFinancialSources();
+        await context.fetchRenterProfile();
         props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
         setSubmitting(false);
         setErrors([]);
