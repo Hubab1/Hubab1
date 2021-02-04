@@ -203,7 +203,7 @@ export function IncomeVerificationSummaryPage(props) {
 
     const showIncompleteFinancialSourcesWarning = hasIncompleteIncomeSources || hasIncompleteAssetSources;
 
-    const showRequestAdditionalInfo = props.profile?.events?.find(
+    const showRequestAdditionalInfoWarning = props.profile?.events?.find(
         ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
     );
 
@@ -368,7 +368,7 @@ export function IncomeVerificationSummaryPage(props) {
                     ? `Easy, right? Now just review the info below.`
                     : `Add at least one income source or asset below.`}
             </SpacedH3>
-            {showRequestAdditionalInfo && (
+            {showRequestAdditionalInfoWarning && (
                 <GenericFormMessage
                     type="error"
                     messages={["We're requesting additional info to verify your income/assets."]}
