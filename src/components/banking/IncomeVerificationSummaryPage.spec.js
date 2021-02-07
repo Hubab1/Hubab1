@@ -6,6 +6,7 @@ import {
     ROLE_PRIMARY_APPLICANT,
     FINANCIAL_STREAM_STATUS_PENDING,
     FINANCIAL_STREAM_STATUS_INCOMPLETE,
+    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 
 const mockUseContext = jest.spyOn(React, 'useContext');
@@ -200,6 +201,35 @@ it('matches snapshot with only asset sources - with warning', () => {
     );
 
     const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});
+
+it('renders more document requested warning when applicable', () => {
+    mockBankingData(
+        [],
+        [
+            {
+                id: 125,
+                income_or_asset_type: 510,
+                estimated_amount: 40000,
+                adjusted_amount: null,
+                uploaded_documents: [],
+                status: 40,
+            },
+        ],
+        '100000.00',
+        '40000.00',
+        false
+    );
+
+    const profile = {
+        unit: {
+            price: 1000,
+        },
+        events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+    };
+
+    const wrapper = shallow(<IncomeVerificationSummaryPage {...defaultProps} profile={profile} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
