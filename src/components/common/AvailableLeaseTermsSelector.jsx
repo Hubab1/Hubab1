@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import MenuItem from '@material-ui/core/MenuItem';
-import API from 'app/api';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import { isValid } from 'date-fns';
+import { FormControl, InputLabel, FormHelperText, Select, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import API from 'app/api';
 import { offsetDate } from 'utils/misc';
+import { isDesktop } from 'utils/mobileDetect';
+
+const KEYBOARD_CLOSE_DURATION_MS = 30;
+
+// Adjust box shawdow to match AvailableUnitSelector box shadow (elevation 8)
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        boxShadow: theme.shadows[8],
+    },
+}));
 
 function getMenuItems(isReady, leaseTerms, unitId) {
     if (!unitId) {
@@ -40,6 +48,8 @@ function getLeaseEndDateText(leaseStartDate, leaseTerm) {
 }
 
 export default function AvailableLeaseTermsSelector(props) {
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const [leaseTerms, setLeaseTerms] = useState([]);
     const [isReady, setIsReady] = useState(false);
 
@@ -57,15 +67,32 @@ export default function AvailableLeaseTermsSelector(props) {
         }
     }, [props, leaseTerms]);
 
+    const handleClick = useCallback(async () => {
+        if (isDesktop) {
+            return setOpen(!open);
+        }
+
+        if (!open) {
+            // Close keyboard and wait for it to close before showing lease term options
+            document.activeElement.blur();
+            await new Promise((resolve) => setTimeout(resolve, KEYBOARD_CLOSE_DURATION_MS));
+            return setOpen(true);
+        }
+
+        setOpen(false);
+    }, [open]);
+
     return (
         <div>
-            <FormControl fullWidth>
+            <FormControl fullWidth onClick={handleClick}>
                 <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
                 <Select
+                    open={open}
                     fullWidth
                     value={isReady && props.leaseTerm ? props.leaseTerm : ''}
                     onChange={props.handleChange}
                     disabled={props.disabled}
+                    MenuProps={{ classes: { paper: classes.paper } }}
                     inputProps={{
                         name: 'lease_term',
                         id: 'lease-term',

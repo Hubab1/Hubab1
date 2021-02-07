@@ -1,133 +1,53 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import deburr from 'lodash/deburr';
-import TextField from '@material-ui/core/TextField';
-import Downshift from 'downshift';
-import fuzzaldrin from 'fuzzaldrin-plus';
 import moment from 'moment';
 import { filter } from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import API from 'app/api';
-import usePrevious from 'hooks/usePrevious';
 
-// Autocomplete code adapted from code here https://material-ui.com/components/autocomplete/
-export function renderInput(inputProps) {
-    const { InputProps, classes, ref, ...other } = inputProps;
-    return (
-        <TextField
-            InputProps={{
-                inputRef: ref,
-                classes: {
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                },
-                ...InputProps,
-            }}
-            {...other}
-            InputLabelProps={{
-                shrink: undefined,
-            }}
-        />
-    );
-}
-
-function renderSuggestion(suggestionProps) {
-    const { suggestion, index, itemProps, highlightedIndex, selectedItem, inputValue } = suggestionProps;
-    const inputLength = inputValue.length;
-    const isHighlighted = highlightedIndex === index;
-    const isSelected = (selectedItem ? selectedItem.unit_number : '').indexOf(suggestion.unit_number) > -1;
-
-    return (
-        <MenuItem
-            {...itemProps}
-            key={suggestion.unit_number}
-            selected={isHighlighted}
-            component="div"
-            style={{
-                fontWeight: isSelected ? 600 : 'inherit',
-            }}
-        >
-            {' '}
-            {inputLength === 0 ? (
-                suggestion.unit_number
-            ) : (
-                <span
-                    dangerouslySetInnerHTML={{
-                        __html: fuzzaldrin.wrap(suggestion.unit_number, inputValue),
-                    }}
-                />
-            )}
-        </MenuItem>
-    );
-}
-
-function getSuggestions(allSuggestions, value, { showEmpty = false } = {}) {
-    const inputValue = deburr(value.trim()).toLowerCase();
-    const inputLength = inputValue.length;
-    if (inputLength === 0 && showEmpty) {
-        return allSuggestions.filter(
-            (suggestion) => suggestion.unit_number.slice(0, inputLength).toLowerCase() === inputValue
-        );
-    }
-    return fuzzaldrin.filter(allSuggestions, value, { key: 'unit_number' });
-}
-
+// Adjust box shawdow to match AvailableLeaseTermsSelector box shadow (elevation 8)
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        height: 250,
-    },
-    container: {
-        flexGrow: 1,
-        position: 'relative',
+        // Keep the clear functionality without showing the icon!
+        '& .MuiAutocomplete-inputRoot': {
+            paddingRight: '30px !important',
+        },
+        '& .MuiAutocomplete-clearIndicator': {
+            display: 'none',
+        },
     },
     paper: {
-        position: 'absolute',
-        zIndex: 1,
-        marginTop: theme.spacing(1),
-        left: 0,
-        right: 0,
-        maxHeight: 240,
-        overflow: 'auto',
-    },
-    chip: {
-        margin: theme.spacing(0.5, 0.25),
-    },
-    inputRoot: {
-        flexWrap: 'wrap',
-    },
-    inputInput: {
-        width: 'auto',
-        flexGrow: 1,
-    },
-    divider: {
-        height: theme.spacing(2),
+        boxShadow: theme.shadows[8],
     },
 }));
 
-export default function AvailableUnitsSelector(props) {
-    const { leaseStartDate } = props;
-    const clearSelection = useRef(undefined);
-    const previousValue = usePrevious(props.value);
-    const [units, setUnits] = useState([]);
-    const [availableUnitsByDate, setAvailableUnitsByDate] = useState([]);
-    const [isReady, setIsReady] = useState(false);
-
-    const bindClearSelection = useCallback((clear) => {
-        clearSelection.current = clear;
-    }, []);
-
-    // Use effect to clear selection if the value got 'reset' from outside
-    useEffect(() => {
-        if (previousValue && !props.value) {
-            clearSelection.current && clearSelection.current();
+function filterUnitsAvailableAtleaseDate(leaseStartDate, units) {
+    const availableAtLeaseDate = (unit) => {
+        if (leaseStartDate === null) {
+            return true;
         }
+        return moment(leaseStartDate).isAfter(unit.date_available);
+    };
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.value, bindClearSelection]);
+    return filter(units, availableAtLeaseDate);
+}
+
+export default function AvailableUnitsSelector({
+    value,
+    disabled,
+    error,
+    helperText,
+    application,
+    leaseStartDate,
+    onChange,
+}) {
+    const classes = useStyles();
+    const [units, setUnits] = useState([]);
+    const [availableUnits, setAvailableUnits] = useState([]);
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         API.fetchAvailableUnits().then((units) => {
@@ -137,116 +57,75 @@ export default function AvailableUnitsSelector(props) {
                 // In that case, we manually add it to the list of available units.
                 const availableUnits = [...units];
                 const applicationUnitIsInListOfUnits =
-                    props.application?.unit &&
-                    availableUnits.findIndex((u) => u.id === props.application.unit.id) === -1;
+                    application?.unit && availableUnits.findIndex((u) => u.id === application.unit.id) === -1;
 
-                if (props.application?.unit_available && applicationUnitIsInListOfUnits) {
-                    availableUnits.push(props.application.unit);
+                if (application?.unit_available && applicationUnitIsInListOfUnits) {
+                    availableUnits.push(application.unit);
                 }
 
                 setUnits(availableUnits);
             }
+
             setIsReady(true);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const availableAtLeaseDate = (unit) => {
-            if (leaseStartDate === null) {
-                return true;
-            }
-            return moment(leaseStartDate).isAfter(unit.date_available);
-        };
-
-        const availableUnits = filter(units, availableAtLeaseDate);
-        setAvailableUnitsByDate(availableUnits);
+        const availableUnits = filterUnitsAvailableAtleaseDate(leaseStartDate, units);
+        setAvailableUnits(availableUnits);
     }, [units, leaseStartDate]);
 
-    const classes = useStyles();
+    const isLoading = !isReady || availableUnits.length === 0;
+    const loadingText = !isReady ? 'Loading ...' : availableUnits.length === 0 ? 'No results found' : undefined;
+
+    const handleChange = useCallback(
+        (_, u) => {
+            onChange(u);
+        },
+        [onChange]
+    );
+
+    const defaultProps = useMemo(() => {
+        return {
+            options: availableUnits,
+            getOptionLabel: (u) => u.unit_number,
+            getOptionSelected: (option, value) => option.id === value.id,
+        };
+    }, [availableUnits]);
+
     return (
-        <div>
-            <Downshift
-                id="downshift-options"
-                itemToString={(item) => (item ? item.unit_number : '')}
-                onChange={props.update}
-                initialSelectedItem={props.value}
-            >
-                {({
-                    clearSelection,
-                    getInputProps,
-                    getItemProps,
-                    getLabelProps,
-                    getMenuProps,
-                    highlightedIndex,
-                    inputValue,
-                    isOpen,
-                    openMenu,
-                    selectedItem,
-                }) => {
-                    bindClearSelection(clearSelection);
-
-                    const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
-                        onChange: (event) => {
-                            if (event.target.value === '') {
-                                clearSelection();
-                            }
-                        },
-                        onFocus: openMenu,
-                    });
-                    let suggestions = getSuggestions(availableUnitsByDate, inputValue, { showEmpty: true }).map(
-                        (suggestion, index) =>
-                            renderSuggestion({
-                                suggestion,
-                                inputValue,
-                                index,
-                                itemProps: getItemProps({ item: suggestion }),
-                                highlightedIndex,
-                                selectedItem,
-                            })
-                    );
-                    if (!isReady) {
-                        suggestions = [<MenuItem key="not-ready">Loading...</MenuItem>];
-                    } else if (suggestions.length === 0) {
-                        suggestions = [<MenuItem key="no-results">No results found</MenuItem>];
-                    }
-
-                    return (
-                        <div className={classes.container}>
-                            {renderInput({
-                                fullWidth: true,
-                                classes,
-                                label: 'Select Unit',
-                                InputLabelProps: getLabelProps({ shrink: true }),
-                                InputProps: { onBlur, onChange, onFocus },
-                                inputProps,
-                                error: props.error,
-                                helperText: props.helperText,
-                                disabled: props.disabled,
-                            })}
-
-                            <div {...getMenuProps()}>
-                                {isOpen ? (
-                                    <Paper className={classes.paper} square>
-                                        {suggestions}
-                                    </Paper>
-                                ) : null}
-                            </div>
-                        </div>
-                    );
-                }}
-            </Downshift>
-        </div>
+        <Autocomplete
+            {...defaultProps}
+            value={value}
+            disabled={disabled}
+            loading={isLoading}
+            loadingText={loadingText}
+            onChange={handleChange}
+            classes={{
+                root: classes.root,
+                paper: classes.paper,
+            }}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    fullWidth
+                    label="Select Unit"
+                    error={error}
+                    helperText={helperText}
+                    disabled={disabled}
+                />
+            )}
+        />
     );
 }
 
 AvailableUnitsSelector.propTypes = {
-    application: PropTypes.object.isRequired,
-    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), // TODO: Fix this to keep one | created by: @JimVercoelen | Ticket: NESTIO-19931
+    value: PropTypes.object,
+    disabled: PropTypes.bool,
     error: PropTypes.bool,
     helperText: PropTypes.bool,
-    disabled: PropTypes.bool,
-    update: PropTypes.func.isRequired,
+    application: PropTypes.object.isRequired,
     leaseStartDate: PropTypes.instanceOf(Date),
-    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
 };
