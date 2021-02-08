@@ -15,7 +15,7 @@ import AddAssetSource from 'components/banking/AddAssetSource';
 import BankingContext from 'components/banking/BankingContext';
 import EmployerDetails from 'components/banking/employer-details/EmployerDetails';
 
-function BankingContainer({ applicationEvents, history, _nextRoute, applicant, configuration }) {
+function BankingContainer({ applicationEvents, history, _nextRoute, applicant, configuration, location }) {
     const [state, dispatch] = useReducer(reducer, {});
 
     const [routeSelected, setRouteSelected] = useState(false);
@@ -29,69 +29,87 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
         }
     }, []);
 
+    const redirectToFirstPage = location?.state?.redirectToFirstPage;
+
     useEffect(() => {
         (async () => {
-            const pathname = window.location.pathname;
-            if (
-                !pathname.endsWith(ROUTES.EMPLOYER_DETAILS) &&
-                !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY) &&
-                !pathname.endsWith(ROUTES.INCOME_AND_EMPLOYMENT)
-            ) {
-                return;
-            }
-
-            const data = await refreshFinancialSources();
-            const agentRequestedIncomeAssets = applicationEvents.find(
-                ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
-            );
-
-            if (agentRequestedIncomeAssets) return;
-
-            const applicantEnteredIncomeOrAssets =
-                data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
-
-            if (!configuration.enable_automatic_income_verification) {
-                if (configuration.collect_employer_information) {
-                    history.push(ROUTES.EMPLOYER_DETAILS);
-                    setRouteSelected(true);
-                    return;
-                }
-            }
-
-            if (applicantEnteredIncomeOrAssets) {
-                const addedEmployerInfo = !!applicant.events.find(
-                    (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
-                );
-                const reportedNoIncome = !!applicant.events.find(
-                    (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
-                );
-
-                // This is needed when clicked on the Back button from the fees page
+            const selectRoute = async () => {
+                const pathname = window.location.pathname;
                 if (
-                    window.location.pathname.includes(ROUTES.EMPLOYER_DETAILS) &&
-                    configuration.collect_employer_information
+                    !pathname.endsWith(ROUTES.EMPLOYER_DETAILS) &&
+                    !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY) &&
+                    !pathname.endsWith(ROUTES.INCOME_AND_EMPLOYMENT)
                 ) {
-                    history.push(ROUTES.EMPLOYER_DETAILS);
-                    setRouteSelected(true);
                     return;
                 }
 
-                const shouldEditEmployerInfo =
-                    configuration.collect_employer_information &&
-                    !addedEmployerInfo &&
-                    !reportedNoIncome &&
-                    !applicant.submitted_application;
-
-                if (shouldEditEmployerInfo && !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY)) {
-                    history.push(ROUTES.EMPLOYER_DETAILS);
-                } else {
-                    history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                // Needed for back links to redirect to the first / intro page, otherwise we would always land on summary.
+                if (redirectToFirstPage) {
+                    return;
                 }
 
-                setRouteSelected(true);
-            }
+                const data = await refreshFinancialSources();
+                const agentRequestedIncomeAssets = applicationEvents.find(
+                    ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
+                );
+
+                if (agentRequestedIncomeAssets) return;
+
+                const applicantEnteredIncomeOrAssets =
+                    data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
+
+                if (!configuration.enable_automatic_income_verification) {
+                    if (configuration.collect_employer_information) {
+                        history.push(ROUTES.EMPLOYER_DETAILS);
+                        return;
+                    }
+                }
+
+                if (applicantEnteredIncomeOrAssets) {
+                    const addedEmployerInfo = !!applicant.events.find(
+                        (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
+                    );
+
+                    const reportedNoIncome = !!applicant.events.find(
+                        (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
+                    );
+
+                    // This is needed when clicked on the Back button from the fees page
+                    if (
+                        window.location.pathname.includes(ROUTES.EMPLOYER_DETAILS) &&
+                        configuration.collect_employer_information
+                    ) {
+                        history.push(ROUTES.EMPLOYER_DETAILS);
+                        return;
+                    }
+
+                    const shouldEditEmployerInfo =
+                        configuration.collect_employer_information &&
+                        !addedEmployerInfo &&
+                        !reportedNoIncome &&
+                        !applicant.submitted_application;
+
+                    // const shouldEditEmployerInfo = true;
+                    if (shouldEditEmployerInfo && !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY)) {
+                        history.push(ROUTES.EMPLOYER_DETAILS);
+                    } else {
+                        history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                    }
+                }
+            };
+
+            await selectRoute();
+            setRouteSelected(true);
         })();
-    }, [applicant, history, configuration, applicationEvents, refreshFinancialSources]);
+    }, [
+        applicant,
+        history,
+        configuration,
+        applicationEvents,
+        refreshFinancialSources,
+        setRouteSelected,
+        redirectToFirstPage,
+    ]);
 
     return (
         <BankingContext.Provider
