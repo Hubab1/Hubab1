@@ -6,6 +6,7 @@ import {
     CARD_DECLINE_ERROR_MESSAGE,
     PaymentForm,
     AVAILABILITY_ERROR_MESSAGE,
+    UNAVAILABLE_ERROR_MESSAGE,
 } from './PaymentForm';
 import API from 'app/api';
 
@@ -93,6 +94,26 @@ it('handleSubmit sets error on Unit Temporarily Unavailable error', () => {
             expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
             expect(wrapper.state().errors).toEqual([
                 AVAILABILITY_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
+            ]);
+            expect(wrapper.state().submitting).toBeFalsy();
+        });
+});
+
+it('handleSubmit sets error on Unit Unavailable error', () => {
+    const wrapper = shallow(<PaymentForm {...defaultProps} />);
+
+    API.stripePayment = jest.fn().mockResolvedValue({
+        error_type: 'UnitUnavailableError',
+        errors: 'Unit is no longer available.',
+    });
+
+    return wrapper
+        .instance()
+        .handleSubmit({ preventDefault: () => {} })
+        .then(() => {
+            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(wrapper.state().errors).toEqual([
+                UNAVAILABLE_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
             ]);
             expect(wrapper.state().submitting).toBeFalsy();
         });

@@ -18,13 +18,16 @@ import { P } from 'assets/styles';
 import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
 import { selectors as profileSelectors } from 'reducers/renter-profile';
-export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Try again in a bit.";
+export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Please try again in a bit.";
 export const CARD_DECLINE_ERROR_MESSAGE =
     "Oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
 export const AVAILABILITY_ERROR_MESSAGE = (unit, contactPhone) =>
     `We’re having trouble verifying if ${unit ? `unit ${unit.unit_number}` : 'this unit'} is still available. Please ` +
-    `try again in bit. If you continue to see this error, please contact our Leasing Office at ${contactPhone} and ` +
+    `try again in a bit. If you continue to see this error, please contact our Leasing Office at ${contactPhone} and ` +
     'an agent will be able to assist you.';
+export const UNAVAILABLE_ERROR_MESSAGE = (unit, contactPhone) =>
+    `Sorry, ${unit ? `unit ${unit.unit_number}` : 'this unit'} is no longer available. Call us at ${contactPhone} ` +
+    'and we can help you find a similar one!';
 
 export class PaymentForm extends React.Component {
     state = {
@@ -33,6 +36,7 @@ export class PaymentForm extends React.Component {
         cardCvc: false,
         submitting: false,
         errors: null,
+        unitUnavailable: false,
     };
 
     handleChangeUpdate = (changeObj) => {
@@ -95,6 +99,11 @@ export class PaymentForm extends React.Component {
             return AVAILABILITY_ERROR_MESSAGE(this.props.unit, prettyFormatPhoneNumber(this.props.contactPhone));
         }
 
+        if (errorType === 'UnitUnavailableError') {
+            this.setState({ unitUnavailable: true });
+            return UNAVAILABLE_ERROR_MESSAGE(this.props.unit, prettyFormatPhoneNumber(this.props.contactPhone));
+        }
+
         // Stripe error types: https://stripe.com/docs/api/errors
         if (errorResponse?.errors?.error?.type === 'card_error') {
             // TODO: This is for troubleshooting only. Remove when better custom error messages. | created by: @Hasday | Ticket: NESTIO-19933
@@ -107,7 +116,7 @@ export class PaymentForm extends React.Component {
     }
 
     render() {
-        const { cardNumber, cardExpiry, cardCvc, submitting } = this.state;
+        const { cardNumber, cardExpiry, cardCvc, submitting, unitUnavailable } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 {!!this.state.errors && <GenericFormMessage type="error" messages={this.state.errors} />}
@@ -144,7 +153,7 @@ export class PaymentForm extends React.Component {
                 <ActionButton
                     marginTop={35}
                     marginBottom={20}
-                    disabled={submitting || !cardNumber || !cardExpiry || !cardCvc}
+                    disabled={submitting || !cardNumber || !cardExpiry || !cardCvc || unitUnavailable}
                 >
                     {submitting ? (
                         'Processing Payment...'
