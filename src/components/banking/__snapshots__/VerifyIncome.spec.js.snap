@@ -29,7 +29,7 @@ exports[`matches snapshot 1`] = `
         <ForwardRef(render)>
           Link your bank account for instant verification.
         </ForwardRef(render)>
-         If your income is directly deposited to your bank account.
+         This option works best if your income is directly deposited to your bank account.
       </ForwardRef(render)>
     </div>
     <div
