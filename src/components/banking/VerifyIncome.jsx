@@ -48,8 +48,8 @@ const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, repor
                 <div className={bodyRow}>
                     <img src={thunderImage} alt="thunder" width="18" height="28" className={iconColumn} />
                     <P>
-                        <Bold>Link your bank account for instant verification.</Bold> If your income is directly
-                        deposited to your bank account.
+                        <Bold>Link your bank account for instant verification.</Bold> This option works best if your
+                        income is directly deposited to your bank account.
                     </P>
                 </div>
                 <div className={bodyRow}>
