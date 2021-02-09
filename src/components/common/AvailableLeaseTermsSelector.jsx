@@ -65,7 +65,7 @@ export default function AvailableLeaseTermsSelector(props) {
                 setIsReady(true);
             });
         }
-    }, [props, leaseTerms]);
+    }, [props.unitId, props.leaseStartDate, leaseTerms]);
 
     const handleClick = useCallback(async () => {
         if (isDesktop) {
