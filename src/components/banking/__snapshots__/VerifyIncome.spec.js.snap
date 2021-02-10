@@ -3,10 +3,10 @@
 exports[`matches snapshot 1`] = `
 <React.Fragment>
   <ForwardRef(render)>
-    Verify Your Income
+    Verify Your Income and Assets
   </ForwardRef(render)>
   <ForwardRef(render)>
-    Verifying your income will help us ensure that you qualify for this apartment.
+    Verifying your income and/or assets will help us ensure that you qualify for this apartment.
   </ForwardRef(render)>
   <img
     alt="vault"
@@ -15,6 +15,23 @@ exports[`matches snapshot 1`] = `
   <div
     className="css-ztp2fh"
   >
+    <div
+      className="css-1ezfrk2"
+    >
+      <img
+        alt="thunder"
+        className="css-uvjnz5"
+        height="28"
+        src="thunder.jpg"
+        width="18"
+      />
+      <ForwardRef(render)>
+        <ForwardRef(render)>
+          Link your bank account for instant verification.
+        </ForwardRef(render)>
+         This option works best if your income is directly deposited to your bank account.
+      </ForwardRef(render)>
+    </div>
     <div
       className="css-1ezfrk2"
     >
@@ -43,23 +60,6 @@ exports[`matches snapshot 1`] = `
          This does not authorize any transactions from your account.
       </ForwardRef(render)>
     </div>
-    <div
-      className="css-1ezfrk2"
-    >
-      <img
-        alt="thunder"
-        className="css-uvjnz5"
-        height="28"
-        src="thunder.jpg"
-        width="18"
-      />
-      <ForwardRef(render)>
-        <ForwardRef(render)>
-          Link your bank account for instant verification.
-        </ForwardRef(render)>
-         If your income is directly deposited to your bank account.
-      </ForwardRef(render)>
-    </div>
   </div>
   <GenericFormDetail
     messages="Some random error"
@@ -83,7 +83,7 @@ exports[`matches snapshot 1`] = `
       successGreen={false}
       variant="outlined"
     >
-      Verify Manually
+      I’d Rather Manually Add Income/Assets
     </ActionButton>
   </ForwardRef>
   <ForwardRef
