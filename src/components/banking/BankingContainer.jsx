@@ -42,7 +42,7 @@ function BankingContainer({
 
     useEffect(() => {
         (async () => {
-            const selectRoute = async () => {
+            const selectRoute = async (data) => {
                 const pathname = window.location.pathname;
                 if (
                     !pathname.endsWith(ROUTES.EMPLOYER_DETAILS) &&
@@ -57,7 +57,6 @@ function BankingContainer({
                     return;
                 }
 
-                const data = await refreshFinancialSources();
                 const agentRequestedIncomeAssets = applicationEvents.find(
                     ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
                 );
@@ -113,7 +112,8 @@ function BankingContainer({
                 }
             };
 
-            await selectRoute();
+            const data = await refreshFinancialSources();
+            await selectRoute(data);
             setRouteSelected(true);
         })();
     }, [

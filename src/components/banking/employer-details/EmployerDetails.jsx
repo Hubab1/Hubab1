@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
 
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
-export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplicant }) {
+export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplicant, configuration }) {
     const [errors, setErrors] = useState(null);
     const context = React.useContext(BankingContext);
 
@@ -82,7 +82,11 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
                 onSubmit={handleSubmit}
                 showAutomatedAddress={showAutomatedAddress}
             />
-            <BackLink to={ROUTES.INCOME_VERIFICATION_SUMMARY} />
+            {configuration.enable_automatic_income_verification ? (
+                <BackLink to={ROUTES.INCOME_VERIFICATION_SUMMARY} />
+            ) : (
+                <BackLink to={ROUTES.PROFILE_OPTIONS} />
+            )}
         </>
     );
 }
@@ -91,11 +95,13 @@ EmployerDetails.propTypes = {
     applicant: PropTypes.object,
     showAutomatedAddress: PropTypes.bool,
     fetchApplicant: PropTypes.func,
+    configuration: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     showAutomatedAddress: getShowAutomatedAddressForm(state),
+    configuration: state.configuration,
 });
 
 export default connect(mapStateToProps, { fetchApplicant })(EmployerDetails);
