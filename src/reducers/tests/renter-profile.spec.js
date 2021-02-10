@@ -66,6 +66,7 @@ describe('selectNav', () => {
         ]);
     });
 });
+
 describe('canAccessRoute', () => {
     const state = {
         configuration: {
@@ -660,5 +661,20 @@ describe('fetch renter profile', () => {
                 filterRentalOptionsByUnit({ profile }),
             ]);
         });
+    });
+});
+
+describe('selectUnit', () => {
+    it('should return null when no renter profile', () => {
+        const actual = selectors.selectUnit({});
+        expect(actual).toBeUndefined();
+    });
+
+    it('should return the unit when profile loaded', () => {
+        const unit = { unit_number: '1B' };
+        const actual = selectors.selectUnit({
+            renterProfile: { unit },
+        });
+        expect(actual).toBe(unit);
     });
 });

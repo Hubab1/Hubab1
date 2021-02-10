@@ -341,3 +341,5 @@ selectors.selectNav = createSelector(selectors.selectOrderedRoutes, (orderedRout
         return orderedRoutes.map((r) => ({ name: ROUTE_LABELS[r], value: r }));
     }
 });
+
+selectors.selectUnit = (state) => state?.renterProfile?.unit;
