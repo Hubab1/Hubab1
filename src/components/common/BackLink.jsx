@@ -32,7 +32,7 @@ export const BackButton = ({ text = 'Go Back', onClick = () => {} }) => {
 };
 
 BackButton.propTypes = {
-    text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    text: PropTypes.string,
     onClick: PropTypes.func,
 };
 
