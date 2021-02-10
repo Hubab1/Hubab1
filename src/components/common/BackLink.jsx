@@ -15,7 +15,7 @@ export const BackLink = (props) => {
 };
 
 BackLink.propTypes = {
-    to: PropTypes.string,
+    to: PropTypes.oneOf([PropTypes.object, PropTypes.string]),
 };
 
 BackLink.defaultProps = {

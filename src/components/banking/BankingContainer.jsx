@@ -14,8 +14,17 @@ import AddIncomeSource from 'components/banking/AddIncomeSource';
 import AddAssetSource from 'components/banking/AddAssetSource';
 import BankingContext from 'components/banking/BankingContext';
 import EmployerDetails from 'components/banking/employer-details/EmployerDetails';
+import { fetchRenterProfile } from 'reducers/renter-profile';
 
-function BankingContainer({ applicationEvents, history, _nextRoute, applicant, configuration, location }) {
+function BankingContainer({
+    applicationEvents,
+    history,
+    _nextRoute,
+    applicant,
+    configuration,
+    location,
+    fetchRenterProfile,
+}) {
     const [state, dispatch] = useReducer(reducer, {});
 
     const [routeSelected, setRouteSelected] = useState(false);
@@ -53,7 +62,13 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
                     ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
                 );
 
-                if (agentRequestedIncomeAssets) return;
+                if (agentRequestedIncomeAssets) {
+                    if (data?.income_sources?.length || data?.asset_sources?.length) {
+                        history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                        return;
+                    }
+                    return;
+                }
 
                 const applicantEnteredIncomeOrAssets =
                     data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
@@ -116,6 +131,7 @@ function BankingContainer({ applicationEvents, history, _nextRoute, applicant, c
             value={{
                 refreshFinancialSources,
                 bankingData: state.bankingData,
+                fetchRenterProfile,
                 clearFinancialSources: () => dispatch({ type: 'BANKING_DATA_CLEARED' }),
                 _nextRoute,
                 history,
@@ -141,6 +157,7 @@ BankingContainer.propTypes = {
     _nextRoute: PropTypes.func,
     applicant: PropTypes.object,
     configuration: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -149,7 +166,7 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = { fetchRenterProfile };
 
 export default connect(
     mapStateToProps,

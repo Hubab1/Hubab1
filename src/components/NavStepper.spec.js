@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
-import { ROUTES } from 'app/constants';
+import { MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED, ROUTES } from 'app/constants';
 
 describe('getStepperIndex', function () {
     it('gets the correct index for an unnested route', function () {
@@ -238,5 +238,53 @@ describe('Guarantor requested state', function () {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/guarantor_request');
+    });
+});
+
+describe('More documents needed', function () {
+    it('Renders a more info needed message', function () {
+        const defaultProps = {
+            renterProfile: {
+                unit_available: true,
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            applicantStillFinishingApplication: true,
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891',
+                },
+            },
+            handleDrawerClose: jest.fn(),
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        const appCompletedMsg = wrapper.find('.appCompletedMsg');
+        expect(appCompletedMsg.text()).toContain(
+            'We’re requesting additional info to verify your income/assets. Please call us at 123‑456‑7891 if you have any questions.'
+        );
+        expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
+    });
+
+    it('View Progress when clicked takes to initialPage set', function () {
+        const defaultProps = {
+            renterProfile: {
+                unit_available: false,
+            },
+            applicantStillFinishingApplication: true,
+            navRoutes: [],
+            config: {
+                community: {
+                    contact_phone: '123-456-7891',
+                },
+            },
+            history: {
+                push: jest.fn(),
+            },
+            initialPage: ROUTES.INCOME_VERIFICATION_SUMMARY,
+            handleDrawerClose: jest.fn(),
+        };
+        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
+        wrapper.find('#viewProgressButton').simulate('click');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/income-employment/summary');
     });
 });

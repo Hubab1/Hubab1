@@ -15,6 +15,11 @@ import { actions } from 'reducers/store';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import Button from '@material-ui/core/Button';
 import { ROUTES } from 'app/constants';
+import {
+    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+    MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
+} from 'app/constants';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -70,6 +75,13 @@ export function VerticalLinearStepper(props) {
     const unitUnavailable = props.renterProfile?.unit_available === false;
     const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
     const holdingDepositAgreementSignatureRequested = props.initialPage === ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
+    const additionalDocumentsRequested = props.renterProfile?.events?.find(({ event }) =>
+        [
+            MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+            MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+            MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
+        ].includes(event)
+    );
 
     function onClickRoute(e, route, i) {
         e.stopPropagation();
@@ -146,6 +158,7 @@ export function VerticalLinearStepper(props) {
                     !unitUnavailable &&
                     !props.guarantorRequested &&
                     !holdingDepositAgreementSignatureRequested &&
+                    !additionalDocumentsRequested &&
                     props.navRoutes.map((route, i) => (
                         <Step
                             classes={{
@@ -192,10 +205,44 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
+                {additionalDocumentsRequested &&
+                    !props.guarantorRequested &&
+                    !unitUnavailable &&
+                    !holdingDepositAgreementSignatureRequested && (
+                        <Step active>
+                            <StepLabel
+                                StepIconComponent={() => <ErrorIcon color="primary" />}
+                                active
+                                classes={{ root: iconRoot }}
+                            >
+                                <span className="appCompletedMsg">
+                                    We’re requesting additional info to verify your income/assets. Please call us
+                                    at&nbsp;
+                                    <a href={`tel:${props.config.community.contact_phone}`}>
+                                        {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                                    </a>{' '}
+                                    if you have any questions.
+                                </span>
+                            </StepLabel>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                id="viewProgressButton"
+                                classes={{
+                                    root: viewProgress,
+                                }}
+                                disabled={false}
+                                onClick={() => props.history.push(props.initialPage)}
+                            >
+                                View Progress
+                            </Button>
+                        </Step>
+                    )}
                 {!props.applicantStillFinishingApplication &&
                     !props.guarantorRequested &&
                     !outstandingBalance &&
-                    !holdingDepositAgreementSignatureRequested && (
+                    !holdingDepositAgreementSignatureRequested &&
+                    !additionalDocumentsRequested && (
                         <Step active>
                             <StepLabel completed classes={{ root: iconRoot }}>
                                 <span className="appCompletedMsg">

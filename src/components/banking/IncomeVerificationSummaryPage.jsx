@@ -17,6 +17,7 @@ import {
     FINANCIAL_STREAM_ASSET,
     APPLICANT_EVENTS,
     MILESTONE_APPLICANT_SUBMITTED,
+    MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
 import { prettyCurrency } from 'utils/misc';
@@ -202,6 +203,10 @@ export function IncomeVerificationSummaryPage(props) {
 
     const showIncompleteFinancialSourcesWarning = hasIncompleteIncomeSources || hasIncompleteAssetSources;
 
+    const showRequestAdditionalInfoWarning = props.profile?.events?.find(
+        ({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED
+    );
+
     const setScrollPosition = useCallback(() => {
         // taken from https://github.com/ReactTraining/react-router/issues/394#issuecomment-128148470
         window.location.hash = window.decodeURIComponent(window.location.hash);
@@ -363,6 +368,12 @@ export function IncomeVerificationSummaryPage(props) {
                     ? `Easy, right? Now just review the info below.`
                     : `Add at least one income source or asset below.`}
             </SpacedH3>
+            {showRequestAdditionalInfoWarning && (
+                <GenericFormMessage
+                    type="error"
+                    messages={["We're requesting additional info to verify your income/assets."]}
+                />
+            )}
             {showIncompleteFinancialSourcesWarning && (
                 <GenericFormMessage
                     type="error"

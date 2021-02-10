@@ -12,6 +12,7 @@ jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useContext: () => ({
         refreshFinancialSources: () => {},
+        fetchRenterProfile: () => {},
     }),
 }));
 

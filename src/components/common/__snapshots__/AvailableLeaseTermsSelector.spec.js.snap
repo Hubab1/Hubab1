@@ -4,6 +4,7 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
 <div>
   <ForwardRef(WithStyles)
     fullWidth={true}
+    onClick={[Function]}
   >
     <ForwardRef(WithStyles)
       htmlFor="lease-term"
@@ -11,6 +12,13 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
       Lease Term
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
+      MenuProps={
+        Object {
+          "classes": Object {
+            "paper": "makeStyles-paper-1",
+          },
+        }
+      }
       fullWidth={true}
       inputProps={
         Object {
@@ -19,6 +27,7 @@ exports[`AvailableLeaseTermsSelector Matches snapshot 1`] = `
         }
       }
       onChange={[MockFunction]}
+      open={false}
       value=""
     >
       <ForwardRef(WithStyles)>

@@ -57,6 +57,7 @@ export function AddIncomeSource(props) {
         }
 
         context.refreshFinancialSources();
+        await context.fetchRenterProfile();
         props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`);
         setSubmitting(false);
         setErrors([]);
