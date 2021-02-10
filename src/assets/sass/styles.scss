@@ -4,6 +4,10 @@ body {
     font-family: proxima-nova, sans-serif;
 }
 
+a {
+    color: #0000EE;
+}
+
 img {
     max-height: 100%;
     max-width: 100%;
@@ -79,6 +83,7 @@ img {
 
 .cta-container {
     width: 100%;
+    max-width: 500px;
     margin-bottom: 20px;
     button:hover {
         background-color: #ccc !important;

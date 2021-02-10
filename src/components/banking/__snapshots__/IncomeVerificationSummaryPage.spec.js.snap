@@ -150,14 +150,7 @@ exports[`matches snapshot when no financial sources data, but reported no income
     Continue
   </ActionButton>
   <BackLink
-    to={
-      Object {
-        "pathname": "/income-employment",
-        "state": Object {
-          "redirectToFirstPage": true,
-        },
-      }
-    }
+    to="/income-employment"
   />
 </React.Fragment>
 `;
@@ -312,14 +305,7 @@ exports[`matches snapshot with no financial sources data 1`] = `
     Continue
   </ActionButton>
   <BackLink
-    to={
-      Object {
-        "pathname": "/income-employment",
-        "state": Object {
-          "redirectToFirstPage": true,
-        },
-      }
-    }
+    to="/income-employment"
   />
 </React.Fragment>
 `;
@@ -429,7 +415,7 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div
@@ -525,7 +511,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
     type="error"
   />
   <Capsule
-    buttonLabel="Add an Income Source"
+    buttonLabel="Add Another Income Source"
     expansionPanel={
       <React.Fragment>
         <div
@@ -638,7 +624,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div
@@ -738,7 +724,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     Add at least one income source or asset below.
   </ForwardRef(render)>
   <Capsule
-    buttonLabel="Add an Income Source"
+    buttonLabel="Add Another Income Source"
     expansionPanel={
       <React.Fragment>
         <div
@@ -891,7 +877,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div
@@ -985,7 +971,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
     type="error"
   />
   <Capsule
-    buttonLabel="Add an Income Source"
+    buttonLabel="Add Another Income Source"
     expansionPanel={
       <React.Fragment>
         <div
@@ -1098,7 +1084,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div
@@ -1198,7 +1184,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
     Add at least one income source or asset below.
   </ForwardRef(render)>
   <Capsule
-    buttonLabel="Add an Income Source"
+    buttonLabel="Add Another Income Source"
     expansionPanel={
       <React.Fragment>
         <div
@@ -1351,7 +1337,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div
@@ -1541,7 +1527,7 @@ exports[`renders more document requested warning when applicable 1`] = `
     }
   />
   <Capsule
-    buttonLabel="Add an Asset"
+    buttonLabel="Add Another Asset"
     expansionPanel={
       <React.Fragment>
         <div

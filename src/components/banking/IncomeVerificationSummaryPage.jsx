@@ -384,7 +384,9 @@ export function IncomeVerificationSummaryPage(props) {
                 name="income"
                 prefix={<img alt="coin" src={finance} />}
                 label="Income"
-                buttonLabel="Add an Income Source"
+                buttonLabel={
+                    !context.bankingData?.income_sources?.length ? 'Add an Income Source' : 'Add Another Income Source'
+                }
                 tip={getIncomeTipText()}
                 route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
                 expansionPanel={
@@ -413,7 +415,7 @@ export function IncomeVerificationSummaryPage(props) {
                 name="asset"
                 prefix={<img alt="piggy bank" src={piggyBank} />}
                 label="Assets"
-                buttonLabel="Add an Asset"
+                buttonLabel={!context.bankingData?.asset_sources?.length ? 'Add an Asset' : 'Add Another Asset'}
                 tip={getAssetTip()}
                 route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
                 expansionPanel={

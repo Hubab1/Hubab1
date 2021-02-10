@@ -45,10 +45,19 @@ const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, repor
 
     return (
         <Fragment>
-            <H1>Verify Your Income</H1>
-            <SpacedH3>Verifying your income will help us ensure that you qualify for this apartment.</SpacedH3>
+            <H1>Verify Your Income and Assets</H1>
+            <SpacedH3>
+                Verifying your income and/or assets will help us ensure that you qualify for this apartment.
+            </SpacedH3>
             <img src={safeImage} alt="vault" />
             <div className={bodyContainer}>
+                <div className={bodyRow}>
+                    <img src={thunderImage} alt="thunder" width="18" height="28" className={iconColumn} />
+                    <P>
+                        <Bold>Link your bank account for instant verification.</Bold> This option works best if your
+                        income is directly deposited to your bank account.
+                    </P>
+                </div>
                 <div className={bodyRow}>
                     <img src={padlockImage} alt="padlock" width="18" height="28" className={iconColumn} />
                     <P>
@@ -62,13 +71,6 @@ const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, repor
                         <Bold>Your money is safe.</Bold> This does not authorize any transactions from your account.
                     </P>
                 </div>
-                <div className={bodyRow}>
-                    <img src={thunderImage} alt="thunder" width="18" height="28" className={iconColumn} />
-                    <P>
-                        <Bold>Link your bank account for instant verification.</Bold> If your income is directly
-                        deposited to your bank account.
-                    </P>
-                </div>
             </div>
             {!!errors && <GenericFormMessage type="error" messages={errors} />}
             <ActionButton disabled={loadingFinicityIframe} onClick={openFinicityIframe} marginBottom={20}>
@@ -76,7 +78,7 @@ const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, repor
             </ActionButton>
             <Link to={ROUTES.INCOME_VERIFICATION_SUMMARY} className={styles.linkNoStyle}>
                 <ActionButton variant="outlined" marginBottom={20}>
-                    Verify Manually
+                    I’d Rather Manually Add Income/Assets
                 </ActionButton>
             </Link>
             <Link
