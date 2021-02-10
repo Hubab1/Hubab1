@@ -150,7 +150,14 @@ exports[`matches snapshot when no financial sources data, but reported no income
     Continue
   </ActionButton>
   <BackLink
-    to="/income-employment"
+    to={
+      Object {
+        "pathname": "/income-employment",
+        "state": Object {
+          "redirectToFirstPage": true,
+        },
+      }
+    }
   />
 </React.Fragment>
 `;
@@ -305,7 +312,14 @@ exports[`matches snapshot with no financial sources data 1`] = `
     Continue
   </ActionButton>
   <BackLink
-    to="/income-employment"
+    to={
+      Object {
+        "pathname": "/income-employment",
+        "state": Object {
+          "redirectToFirstPage": true,
+        },
+      }
+    }
   />
 </React.Fragment>
 `;
