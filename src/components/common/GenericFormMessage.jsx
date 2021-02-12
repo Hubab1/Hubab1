@@ -61,12 +61,6 @@ export default function GenericFormDetail(props) {
                             <span dangerouslySetInnerHTML={{ __html: error }} />
                         </Fragment>
                     );
-
-                    return (
-                        <Fragment key={error}>
-                            {error} <br />
-                        </Fragment>
-                    );
                 })}
             </div>
         </div>
