@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { getmultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES, SMS_OPT_IN_MARKETING_ENABLED } from 'app/constants';
@@ -86,7 +87,21 @@ export class RegisterPage extends React.Component {
             })
             .catch((res) => {
                 if (res?.errors?.error) {
-                    this.setState({ errors: [res.errors.error] });
+                    if (
+                        this.props.multipleAppsV2LoginAndNavigation &&
+                        res.errors.error.message &&
+                        res.errors.error.sign_in_url
+                    ) {
+                        const { message, sign_in_url } = res.errors.error;
+                        const html = (
+                            <span>
+                                {message} <a href={sign_in_url}>Sign In</a>
+                            </span>
+                        );
+                        this.setState({ errors: [html] });
+                    } else {
+                        this.setState({ errors: [res.errors.error] });
+                    }
                 } else {
                     this.setState({ errors: ['Oops, something went wrong. Try again.'] });
                 }
@@ -138,6 +153,7 @@ RegisterPage.propTypes = {
     initialPage: PropTypes.string,
     fetchRenterProfile: PropTypes.func,
     fetchApplicant: PropTypes.func,
+    multipleAppsV2LoginAndNavigation: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -146,6 +162,7 @@ const mapStateToProps = (state) => ({
     leaseSettingsId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
     configuration: state.configuration,
+    multipleAppsV2LoginAndNavigation: getmultipleAppsV2LoginAndNavigation(state),
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };

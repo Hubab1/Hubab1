@@ -55,10 +55,10 @@ export default function GenericFormDetail(props) {
                 <Icon style={{ color: 'white', width: '18px' }} />
             </div>
             <div className={clsx([messageDiv, props.type === 'success' ? lightGreen : lightRed])}>
-                {castArray(props.messages).map((error, i) => {
+                {castArray(props.messages).map((error) => {
                     return (
-                        <Fragment key={i}>
-                            <span dangerouslySetInnerHTML={{ __html: error }} />
+                        <Fragment key={error}>
+                            {error} <br />
                         </Fragment>
                     );
                 })}
