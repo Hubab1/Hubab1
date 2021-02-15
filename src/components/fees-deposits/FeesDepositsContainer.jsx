@@ -124,7 +124,7 @@ export const FeesDepositsContainer = ({
         return (
             <PaymentTerms
                 handleClickBack={() => setCurrentPage('options')}
-                goToPayment={(data) => handleTermsAccepted(data)}
+                handleTermsAccepted={(data) => handleTermsAccepted(data)}
                 holdingDepositAmount={holdingDepositAmount}
                 unitNumber={unitNumber}
                 communityName={communityName}
