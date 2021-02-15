@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getmultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
+import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES, SMS_OPT_IN_MARKETING_ENABLED } from 'app/constants';
@@ -162,7 +162,7 @@ const mapStateToProps = (state) => ({
     leaseSettingsId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
     configuration: state.configuration,
-    multipleAppsV2LoginAndNavigation: getmultipleAppsV2LoginAndNavigation(state),
+    multipleAppsV2LoginAndNavigation: getMultipleAppsV2LoginAndNavigation(state),
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
