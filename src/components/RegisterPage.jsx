@@ -86,12 +86,9 @@ export class RegisterPage extends React.Component {
                 });
             })
             .catch((res) => {
-                if (res?.errors?.error) {
-                    if (
-                        this.props.multipleAppsV2LoginAndNavigation &&
-                        res.errors.error.message &&
-                        res.errors.error.sign_in_url
-                    ) {
+                const error = res?.errors?.error;
+                if (error) {
+                    if (this.props.multipleAppsV2LoginAndNavigation && error.message && error.sign_in_url) {
                         const { message, sign_in_url } = res.errors.error;
                         const html = (
                             <span>
@@ -100,7 +97,7 @@ export class RegisterPage extends React.Component {
                         );
                         this.setState({ errors: [html] });
                     } else {
-                        this.setState({ errors: [res.errors.error] });
+                        this.setState({ errors: [error] });
                     }
                 } else {
                     this.setState({ errors: ['Oops, something went wrong. Try again.'] });
