@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import { usePopupState, bindTrigger, bindPopover } from 'material-ui-popup-state/hooks';
+import clsx from 'clsx';
 
 import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
 import { actions } from 'reducers/store';
@@ -31,9 +32,6 @@ import { H3 } from 'assets/styles';
 const useStyles = makeStyles((theme) => ({
     list: {
         width: 300,
-    },
-    padRight: {
-        width: 48,
     },
     drawerHeader: {
         display: 'flex',
@@ -56,9 +54,36 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#eee',
         margin: '4px 8px',
     },
-    accountDetails: {
-        padding: '28px 15px 15px 15px',
-        borderBottom: '1px solid #EEEEEE',
+    section: {
+        margin: '24px 16px',
+        marginBottom: 0,
+        paddingBottom: 24,
+        borderBottom: '1px solid #eee',
+    },
+    communitySection: {
+        display: 'flex',
+        flexFlow: 'column',
+
+        '& :first-child': {
+            fontSize: 18,
+            fontWeight: 600,
+        },
+        '& :nth-child(2)': {
+            fontSize: 14,
+        },
+    },
+    paymentSection: {
+        '& ul': {
+            margin: '10px 0 10px 0',
+            padding: '0',
+            listStyleType: 'none',
+        },
+    },
+    footer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        border: 'none',
     },
     initials: {
         color: '#828796',
@@ -70,14 +95,6 @@ const useStyles = makeStyles((theme) => ({
         width: 40,
         lineHeight: '40px',
         margin: '0 10px 10px 0',
-    },
-    name: {
-        width: 100,
-        fontSize: 18,
-        fontWeight: 700,
-    },
-    email: {
-        width: 100,
     },
     avatarWrapper: {
         display: 'flex',
@@ -96,25 +113,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.type === 'light' ? 'black' : 'white',
         fontSize: 12,
     },
-    ellipsed: {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    },
-    paymentsTitle: {
-        marginTop: '30px',
-    },
-    paymentSections: {
-        margin: '10px 0 10px 0',
-        padding: '0',
-        listStyleType: 'none',
-    },
-    footer: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '15px',
-    },
 }));
 
 export function PersistentDrawerLeft({
@@ -130,8 +128,9 @@ export function PersistentDrawerLeft({
     const classes = useStyles();
     const menuState = usePopupState({ variant: 'popover', popupId: 'menu' });
     const [open, setOpen] = useState(false);
+    const unitNumber = profile?.unit?.unit_number;
+    const communityName = profile?.community?.display_name;
     const name = `${applicant?.first_name} ${applicant?.last_name}`;
-    const email = applicant?.email;
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
     const progressBarPercentage = useMemo(() => {
@@ -169,7 +168,7 @@ export function PersistentDrawerLeft({
     if (!applicant) return null;
 
     return (
-        <div className={classes.root}>
+        <div>
             <CssBaseline />
             <AppBar color="primary" position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
@@ -201,40 +200,31 @@ export function PersistentDrawerLeft({
             </AppBar>
             <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
                 <div className={classes.list} role="presentation">
-                    <Box className={classes.accountDetails}>
-                        <Box display="flex">
-                            <Box className={classes.initials}>{initials}</Box>
-                            <Box display="flex" flexDirection="column">
-                                <Box className={classes.ellipsed} maxWidth={220}>
-                                    <span className={classes.name}>{name}</span>
-                                </Box>
-                                <Box className={classes.ellipsed} maxWidth={220}>
-                                    <span className={classes.email}>{email}</span>
-                                </Box>
-                            </Box>
-                        </Box>
-                        {canAccessRoute(ROUTES.PAYMENT_DETAILS) && profile?.fees_breakdown && (
-                            <Box>
-                                <H3 className={classes.paymentsTitle}>Payments</H3>
-                                <ul className={classes.paymentSections}>
-                                    <li>
-                                        <b>${profile.fees_breakdown.application_fees.total}</b> due at application
-                                    </li>
-                                    <li>
-                                        <b>${profile.fees_breakdown.move_in_fees_v2.total}</b> due at move in
-                                    </li>
-                                    <li>
-                                        <b>${profile.fees_breakdown.monthly_fees_v2.total}</b> monthly rent
-                                    </li>
-                                </ul>
-                                <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
-                            </Box>
-                        )}
+                    <Box className={clsx(classes.section, classes.communitySection)}>
+                        <span>{communityName}</span>
+                        <span>{`Unit ${unitNumber}`}</span>
                     </Box>
-                    <Divider />
-                    <NavStepper handleDrawerClose={handleDrawerClose} />
-                    <Divider />
-                    <Box className={classes.footer}>
+                    {canAccessRoute(ROUTES.PAYMENT_DETAILS) && profile?.fees_breakdown && (
+                        <Box className={clsx(classes.section, classes.paymentSection)}>
+                            <H3>Payments</H3>
+                            <ul>
+                                <li>
+                                    <b>${profile.fees_breakdown.application_fees.total}</b> due at application
+                                </li>
+                                <li>
+                                    <b>${profile.fees_breakdown.move_in_fees_v2.total}</b> due at move in
+                                </li>
+                                <li>
+                                    <b>${profile.fees_breakdown.monthly_fees_v2.total}</b> monthly rent
+                                </li>
+                            </ul>
+                            <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
+                        </Box>
+                    )}
+                    <Box className={classes.section}>
+                        <NavStepper handleDrawerClose={handleDrawerClose} />
+                    </Box>
+                    <Box className={clsx(classes.section, classes.footer)}>
                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                             Privacy
                         </Link>
