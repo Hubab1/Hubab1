@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
 import _ from 'lodash';
 
 import API, { MOCKY } from 'app/api';
@@ -84,16 +83,6 @@ export const fetchConfiguration = (communityId, hash) => {
 
 // selectors
 export const selectors = {};
-selectors.selectTheme = createSelector(
-    (state) => state.configuration && state.configuration.primary_color,
-    (state) => state.configuration && state.configuration.secondary_color,
-    (primary_color, secondary_color) => {
-        if (primary_color == null || secondary_color == null) return null;
-        const primaryColor = `#${primary_color}`;
-        const secondaryColor = `#${secondary_color}`;
-        return createTheme(primaryColor, secondaryColor);
-    }
-);
-
+selectors.selectTheme = (state) => createTheme(state.configuration);
 selectors.selectCommunity = (state) => state.configuration?.community;
 selectors.selectCommunityContactPhoneNumber = (state) => state.configuration?.community?.contact_phone;

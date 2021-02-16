@@ -1,32 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { css } from 'emotion';
 import { withRouter } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-
-import { actions } from 'reducers/store';
-import ProgressBar from 'components/common/Page/ProgressBar';
-import { AppTheme } from 'contexts/AppContextProvider';
-import BannerLogo from 'components/common/Page/BannerLogo';
-import { drawerContent } from 'components/common/Page/styles';
-import NavStepper from './NavStepper';
+import {
+    makeStyles,
+    CssBaseline,
+    Drawer,
+    AppBar,
+    Toolbar,
+    Divider,
+    IconButton,
+    Popover,
+    MenuList,
+    MenuItem,
+    Box,
+} from '@material-ui/core';
+import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { usePopupState, bindTrigger, bindPopover } from 'material-ui-popup-state/hooks';
 
 import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
-import styled from '@emotion/styled';
-import { withStyles } from '@material-ui/styles';
-import { H3 } from 'assets/styles';
-import PropTypes from 'prop-types';
+import { actions } from 'reducers/store';
 import { selectors } from 'reducers/renter-profile';
+import ProgressBar from 'components/common/Page/ProgressBar';
+import BannerLogo from 'components/common/Page/BannerLogo';
+import NavStepper from './NavStepper';
+import { drawerContent } from 'components/common/Page/styles';
+import { H3 } from 'assets/styles';
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -42,22 +42,25 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
-    darkThemeAppbar: {
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
-    },
-    liteThemeAppbar: {
-        backgroundColor: '#ffffff',
-        color: '#000000',
+    appBar: {
+        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : theme.palette.primary.main,
+        color: theme.palette.type === 'light' ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
         minHeight: 76,
+    },
+    menuList: {
+        width: 130,
+    },
+    menuListItemDivider: {
+        backgroundColor: '#eee',
+        margin: '4px 8px',
     },
     accountDetails: {
         padding: '28px 15px 15px 15px',
         borderBottom: '1px solid #EEEEEE',
     },
-    initialsContainer: {
+    initials: {
         color: '#828796',
         backgroundColor: '#EFEFEF',
         borderRadius: 50,
@@ -68,9 +71,35 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '40px',
         margin: '0 10px 10px 0',
     },
-    logout: {
-        fontWeight: 600,
-        'text-transform': 'none',
+    name: {
+        width: 100,
+        fontSize: 18,
+        fontWeight: 700,
+    },
+    email: {
+        width: 100,
+    },
+    avatarWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    avatar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 30,
+        height: 30,
+        backgroundColor: 'transparent',
+        border: theme.palette.type === 'light' ? '2px solid black' : '2px solid white',
+        borderRadius: '50%',
+        color: theme.palette.type === 'light' ? 'black' : 'white',
+        fontSize: 12,
+    },
+    ellipsed: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     paymentsTitle: {
         marginTop: '30px',
@@ -80,90 +109,93 @@ const useStyles = makeStyles((theme) => ({
         padding: '0',
         listStyleType: 'none',
     },
+    footer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '15px',
+    },
 }));
 
-const footer = css`
-    > a:not(:last-child) {
-        margin-right: 20px;
-    }
-`;
-
-const EllipsisText = styled.b`
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: ${(props) => (props.fontWeight ? `${props.fontWeight}` : '600')};
-    font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : 'inherit')};
-    width: ${(props) => (props.width ? `${props.width}px` : '50px')};
-`;
-
-const StyledBox = withStyles({
-    root: {
-        witheSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    },
-})(Box);
-
-export function PersistentDrawerLeft(props) {
-    const appThemeContext = useContext(AppTheme);
+export function PersistentDrawerLeft({
+    canAccessRoute,
+    logout,
+    history,
+    applicant,
+    children,
+    profile,
+    navRoutes,
+    currentRoute,
+}) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-
-    function handleDrawerOpen() {
-        setOpen(true);
-    }
-
-    function handleDrawerClose() {
-        setOpen(false);
-    }
-
-    function logout() {
-        localStorage.clear();
-        props.logout();
-        props.history.push(ROUTES.LOGIN);
-    }
-
-    if (!props.applicant) return null;
-
-    const name = `${props.applicant.first_name} ${props.applicant.last_name}`;
-    const email = props.applicant.email;
-
+    const menuState = usePopupState({ variant: 'popover', popupId: 'menu' });
+    const [open, setOpen] = useState(false);
+    const name = `${applicant?.first_name} ${applicant?.last_name}`;
+    const email = applicant?.email;
     const initials = name.split(' ').map((word) => word[0].toUpperCase());
 
-    const getProgressBarPercentage = () => {
-        const routes = props.navRoutes;
-        const currentRoute = props.currentRoute;
+    const progressBarPercentage = useMemo(() => {
+        if (!(currentRoute && navRoutes)) return 0;
 
-        if (!(currentRoute && routes)) return 0;
+        if (profile?.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) return 100;
 
-        if (props.profile?.status === APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED) return 100;
-
-        for (let i = 0; i < routes.length; i++) {
-            const route = routes[i];
-            if (route.value === currentRoute) return Math.floor((i * 100) / routes.length);
+        for (let i = 0; i < navRoutes.length; i++) {
+            const route = navRoutes[i];
+            if (route.value === currentRoute) return Math.floor((i * 100) / navRoutes.length);
         }
         return 0;
-    };
+    }, [navRoutes, currentRoute, profile]);
 
-    const progressBarPercentage = getProgressBarPercentage();
+    const handleDrawerOpen = useCallback(() => {
+        setOpen(true);
+    }, []);
+
+    const handleDrawerClose = useCallback(() => {
+        setOpen(false);
+    }, []);
+
+    const handleAccountClick = useCallback(() => {
+        menuState.close();
+        history.push(ROUTES.ACCOUNT);
+    }, [menuState, history]);
+
+    const handleLogoutClick = useCallback(() => {
+        menuState.close();
+        localStorage.clear();
+        logout();
+        history.push(ROUTES.LOGIN);
+    }, [menuState, logout, history]);
+
+    if (!applicant) return null;
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar
-                color="primary"
-                position="fixed"
-                classes={{
-                    colorPrimary: appThemeContext?.dark_mode ? classes.darkThemeAppbar : classes.liteThemeAppbar,
-                }}
-            >
+            <AppBar color="primary" position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton color="inherit" aria-label="Open drawer" onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
-                    <div className={classes.padRight} />
+                    <div className={classes.avatarWrapper}>
+                        <div className={classes.avatar}>{initials}</div>
+                        <IconButton size="small" {...bindTrigger(menuState)}>
+                            <ExpandMoreIcon />
+                        </IconButton>
+                        <Popover
+                            {...bindPopover(menuState)}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <MenuList className={classes.menuList}>
+                                <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                                <Divider className={classes.menuListItemDivider} />
+                                <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+                            </MenuList>
+                        </Popover>
+                    </div>
                 </Toolbar>
                 <ProgressBar percent={progressBarPercentage} />
             </AppBar>
@@ -171,35 +203,28 @@ export function PersistentDrawerLeft(props) {
                 <div className={classes.list} role="presentation">
                     <Box className={classes.accountDetails}>
                         <Box display="flex">
-                            <Box className={classes.initialsContainer}>{initials}</Box>
+                            <Box className={classes.initials}>{initials}</Box>
                             <Box display="flex" flexDirection="column">
-                                <StyledBox width={220} maxWidth={220}>
-                                    <EllipsisText fontSize={18} width={100}>
-                                        {name}
-                                    </EllipsisText>
-                                </StyledBox>
-                                <StyledBox width={220} maxWidth={220}>
-                                    <EllipsisText fontWeight={400} width={100}>
-                                        {email}
-                                    </EllipsisText>
-                                </StyledBox>
+                                <Box className={classes.ellipsed} maxWidth={220}>
+                                    <span className={classes.name}>{name}</span>
+                                </Box>
+                                <Box className={classes.ellipsed} maxWidth={220}>
+                                    <span className={classes.email}>{email}</span>
+                                </Box>
                             </Box>
                         </Box>
-                        <Box>
-                            <Link to={ROUTES.ACCOUNT}>Account Details</Link>
-                        </Box>
-                        {props.canAccessRoute(ROUTES.PAYMENT_DETAILS) && props.profile?.fees_breakdown && (
+                        {canAccessRoute(ROUTES.PAYMENT_DETAILS) && profile?.fees_breakdown && (
                             <Box>
                                 <H3 className={classes.paymentsTitle}>Payments</H3>
                                 <ul className={classes.paymentSections}>
                                     <li>
-                                        <b>${props.profile.fees_breakdown.application_fees.total}</b> due at application
+                                        <b>${profile.fees_breakdown.application_fees.total}</b> due at application
                                     </li>
                                     <li>
-                                        <b>${props.profile.fees_breakdown.move_in_fees_v2.total}</b> due at move in
+                                        <b>${profile.fees_breakdown.move_in_fees_v2.total}</b> due at move in
                                     </li>
                                     <li>
-                                        <b>${props.profile.fees_breakdown.monthly_fees_v2.total}</b> monthly rent
+                                        <b>${profile.fees_breakdown.monthly_fees_v2.total}</b> monthly rent
                                     </li>
                                 </ul>
                                 <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
@@ -209,19 +234,7 @@ export function PersistentDrawerLeft(props) {
                     <Divider />
                     <NavStepper handleDrawerClose={handleDrawerClose} />
                     <Divider />
-                    <Box display="flex" justifyContent="flex-start" alignItems="center" padding="5px">
-                        <Button onClick={logout} classes={{ root: classes.logout }}>
-                            Logout
-                        </Button>
-                    </Box>
-
-                    <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        padding="0 15px 15px"
-                        className={footer}
-                    >
+                    <Box className={classes.footer}>
                         <Link target="_blank" to={ROUTES.PRIVACY_POLICY}>
                             Privacy
                         </Link>
@@ -236,7 +249,7 @@ export function PersistentDrawerLeft(props) {
             </Drawer>
             <main>
                 <div className={classes.drawerHeader} />
-                <div className={drawerContent}>{props.children}</div>
+                <div className={drawerContent}>{children}</div>
             </main>
         </div>
     );
