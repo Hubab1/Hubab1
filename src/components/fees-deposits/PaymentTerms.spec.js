@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 
 import { PaymentTerms } from './PaymentTerms';
 import API from 'app/api';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { LinkButton } from 'assets/styles';
 
 describe('PaymentTerms', () => {
     let defaultProps;
@@ -10,7 +12,7 @@ describe('PaymentTerms', () => {
     beforeEach(() => {
         defaultProps = {
             handleClickBack: jest.fn(),
-            goToPayment: jest.fn(),
+            handleTermsAccepted: jest.fn(),
             communityName: 'Monterey Pines Apartments',
             holdingDepositAmount: 500,
             leaseStartDate: '2020-10-30',
@@ -27,5 +29,69 @@ describe('PaymentTerms', () => {
         API.fetchHoldingDepositTerms = jest.fn().mockResolvedValue();
         const wrapper = shallow(<PaymentTerms {...defaultProps} />);
         expect(wrapper.getElement()).toMatchSnapshot();
+    });
+});
+
+describe('When handleClickBack is not present', () => {
+    let defaultProps;
+
+    beforeEach(() => {
+        defaultProps = {
+            handleClickBack: null,
+            handleTermsAccepted: jest.fn(),
+            communityName: 'Monterey Pines Apartments',
+            holdingDepositAmount: 500,
+            leaseStartDate: '2020-10-30',
+            unitNumber: '24',
+            canProceedToPayment: true,
+        };
+    });
+
+    it('hides the Go Back Link', () => {
+        const wrapper = shallow(<PaymentTerms {...defaultProps} />);
+        expect(wrapper.find('LinkButton')).toHaveLength(0);
+    });
+});
+
+describe('can proceed to payment', () => {
+    let defaultProps;
+
+    beforeEach(() => {
+        defaultProps = {
+            handleClickBack: jest.fn(),
+            handleTermsAccepted: jest.fn(),
+            communityName: 'Monterey Pines Apartments',
+            holdingDepositAmount: 500,
+            leaseStartDate: '2020-10-30',
+            unitNumber: '24',
+            canProceedToPayment: true,
+        };
+    });
+
+    it('shows the Agree and Continue Button', () => {
+        const wrapper = shallow(<PaymentTerms {...defaultProps} />);
+        expect(wrapper.find(ActionButton).first().dive().text()).toBe('Agree and Continue');
+        expect(wrapper.find(LinkButton).text()).toBe(' Go Back');
+    });
+});
+
+describe('cannot proceed to payment', () => {
+    let defaultProps;
+
+    beforeEach(() => {
+        defaultProps = {
+            handleClickBack: jest.fn(),
+            handleTermsAccepted: jest.fn(),
+            communityName: 'Monterey Pines Apartments',
+            holdingDepositAmount: 500,
+            leaseStartDate: '2020-10-30',
+            unitNumber: '24',
+            canProceedToPayment: false,
+        };
+    });
+
+    it('shows the Agree and Continue Button', () => {
+        const wrapper = shallow(<PaymentTerms {...defaultProps} />);
+        expect(wrapper.find(ActionButton).first().dive().text()).toBe('Go Back');
     });
 });
