@@ -520,6 +520,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
+
         expect(initialPage).toEqual(ROUTES.APP_APPROVED);
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -543,6 +544,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
+
         expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -566,6 +568,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
+
         expect(initialPage).toEqual(ROUTES.LEASE_EXECUTED);
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -589,7 +592,26 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
+
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED }],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.LEASE_VOIDED);
     });
 
     it('selects direct route correctly', () => {
