@@ -20,58 +20,53 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         <UNDEFINED />
       </ForwardRef(WithStyles)>
       <BannerLogo />
-      <div
-        className="makeStyles-avatarWrapper-12"
+      <ForwardRef(WithStyles)
+        aria-controls={null}
+        aria-haspopup={true}
+        className="makeStyles-menuTrigger-5"
+        onClick={[Function]}
       >
         <div
           className="makeStyles-avatar-13"
         >
-          J
-          D
+          JD
         </div>
-        <ForwardRef(WithStyles)
-          aria-controls={null}
-          aria-haspopup={true}
-          onClick={[Function]}
-          size="small"
-        >
-          <UNDEFINED />
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
-          anchorEl={null}
-          anchorOrigin={
-            Object {
-              "horizontal": "right",
-              "vertical": "bottom",
-            }
+        <UNDEFINED />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "bottom",
           }
-          disableAutoFocus={false}
-          disableEnforceFocus={false}
-          disableRestoreFocus={false}
-          id="menu"
-          onClose={[Function]}
-          onMouseLeave={[Function]}
-          open={false}
+        }
+        disableAutoFocus={false}
+        disableEnforceFocus={false}
+        disableRestoreFocus={false}
+        id="menu"
+        onClose={[Function]}
+        onMouseLeave={[Function]}
+        open={false}
+      >
+        <ForwardRef(MenuList)
+          className="makeStyles-menuList-6"
         >
-          <ForwardRef(MenuList)
-            className="makeStyles-menuList-5"
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
           >
-            <ForwardRef(WithStyles)
-              onClick={[Function]}
-            >
-              Account
-            </ForwardRef(WithStyles)>
-            <ForwardRef(WithStyles)
-              className="makeStyles-menuListItemDivider-6"
-            />
-            <ForwardRef(WithStyles)
-              onClick={[Function]}
-            >
-              Logout
-            </ForwardRef(WithStyles)>
-          </ForwardRef(MenuList)>
-        </ForwardRef(WithStyles)>
-      </div>
+            Account
+          </ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            className="makeStyles-menuListItemDivider-7"
+          />
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
+          >
+            Logout
+          </ForwardRef(WithStyles)>
+        </ForwardRef(MenuList)>
+      </ForwardRef(WithStyles)>
     </ForwardRef(WithStyles)>
     <ProgressBar
       percent={0}
@@ -87,22 +82,19 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       role="presentation"
     >
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-7 makeStyles-communitySection-8"
+        className="makeStyles-section-8 makeStyles-communitySection-9"
       >
         <span />
-        <span>
-          Unit undefined
-        </span>
       </ForwardRef(StyledComponent)>
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-7"
+        className="makeStyles-section-8"
       >
         <UNDEFINED
           handleDrawerClose={[Function]}
         />
       </ForwardRef(StyledComponent)>
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-7 makeStyles-footer-10"
+        className="makeStyles-section-8 makeStyles-footer-11"
       >
         <ForwardRef
           target="_blank"
