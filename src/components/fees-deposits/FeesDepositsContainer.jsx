@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -35,7 +35,7 @@ export const FeesDepositsContainer = ({
             fetchPayments();
             fetchApplicant();
         }
-    }, [receipt, fetchPayments, isOutstanding, fetchApplicant]);
+    }, [receipt.id, fetchPayments, isOutstanding, fetchApplicant]);
 
     useEffect(() => {
         setPayments(payables);
