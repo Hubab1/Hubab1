@@ -116,14 +116,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function PersistentDrawerLeft({
-    canAccessRoute,
-    logout,
     history,
     applicant,
-    children,
     profile,
-    navRoutes,
     currentRoute,
+    children,
+    navRoutes,
+    canAccessRoute,
+    logout,
 }) {
     const classes = useStyles();
     const menuState = usePopupState({ variant: 'popover', popupId: 'menu' });
@@ -246,14 +246,14 @@ export function PersistentDrawerLeft({
 }
 
 PersistentDrawerLeft.propTypes = {
-    canAccessRoute: PropTypes.func,
-    logout: PropTypes.func,
     history: PropTypes.object,
     applicant: PropTypes.object,
-    children: PropTypes.array,
     profile: PropTypes.object,
-    navRoutes: PropTypes.array,
     currentRoute: PropTypes.string,
+    children: PropTypes.array,
+    navRoutes: PropTypes.array,
+    canAccessRoute: PropTypes.func,
+    logout: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
