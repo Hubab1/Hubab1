@@ -202,7 +202,7 @@ export function PersistentDrawerLeft({
                 <div className={classes.list} role="presentation">
                     <Box className={clsx(classes.section, classes.communitySection)}>
                         <span>{communityName}</span>
-                        <span>{`Unit ${unitNumber}`}</span>
+                        {unitNumber && <span>{`Unit ${unitNumber}`}</span>}
                     </Box>
                     {canAccessRoute(ROUTES.PAYMENT_DETAILS) && profile?.fees_breakdown && (
                         <Box className={clsx(classes.section, classes.paymentSection)}>
