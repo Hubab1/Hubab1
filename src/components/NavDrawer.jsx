@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     toolbar: {
         minHeight: 76,
     },
+    menuTrigger: {
+        borderRadius: '35px',
+    },
     menuList: {
         width: 130,
     },
@@ -95,11 +98,6 @@ const useStyles = makeStyles((theme) => ({
         width: 40,
         lineHeight: '40px',
         margin: '0 10px 10px 0',
-    },
-    avatarWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     avatar: {
         display: 'flex',
@@ -191,25 +189,23 @@ export function PersistentDrawerLeft({
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
-                    <div className={classes.avatarWrapper}>
+                    <IconButton className={classes.menuTrigger} {...bindTrigger(menuState)}>
                         <div className={classes.avatar}>{initials}</div>
-                        <IconButton size="small" {...bindTrigger(menuState)}>
-                            <ExpandMoreIcon />
-                        </IconButton>
-                        <Popover
-                            {...bindPopover(menuState)}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuList className={classes.menuList}>
-                                <MenuItem onClick={handleAccountClick}>Account</MenuItem>
-                                <Divider className={classes.menuListItemDivider} />
-                                <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-                            </MenuList>
-                        </Popover>
-                    </div>
+                        <ExpandMoreIcon />
+                    </IconButton>
+                    <Popover
+                        {...bindPopover(menuState)}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                    >
+                        <MenuList className={classes.menuList}>
+                            <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                            <Divider className={classes.menuListItemDivider} />
+                            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+                        </MenuList>
+                    </Popover>
                 </Toolbar>
                 <ProgressBar percent={progressBarPercentage} />
             </AppBar>
