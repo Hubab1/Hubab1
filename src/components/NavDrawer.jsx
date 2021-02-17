@@ -131,7 +131,22 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const name = `${applicant?.first_name} ${applicant?.last_name}`;
-    const initials = name.split(' ').map((word) => word[0].toUpperCase());
+
+    /**
+     * Determine the initials using the applicants full name.
+     * We always use the initials of the first name and the last name.
+     */
+    const initials = useMemo(() => {
+        let names = name.split(' ');
+        if (names.length > 2) {
+            names = [names[0], names[names.length - 1]];
+        }
+
+        return names
+            .map((name) => name.charAt(0))
+            .join('')
+            .toUpperCase();
+    }, [name]);
 
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
