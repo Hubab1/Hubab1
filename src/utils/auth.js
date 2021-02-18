@@ -2,16 +2,25 @@ import get from 'lodash/get';
 
 import history from 'app/history';
 import API, { MOCKY } from 'app/api';
+import { setTokenHeader, clearTokenHeader } from 'utils/request';
 
 // token auth service loosely based on the authentication service exemplified here: https://medium.appbase.io/how-to-implement-authentication-for-your-react-app-cf09eef3bb0b
 class Auth {
+    init = () => {
+        const token = this.getToken();
+        token && setTokenHeader(token);
+    }
+
     register = (data, leaseSettingsId, clientId) => {
         return API.register(data, leaseSettingsId, clientId)
             .then((res) => {
                 if (res.errors) {
                     return Promise.reject({ errors: res.errors });
                 }
-                return Promise.resolve({ token: res.token });
+
+                const { token } = res;
+                setTokenHeader(token);
+                return Promise.resolve({ token });
             })
             .catch((e) => {
                 const error = get(e, 'errors.error._schema[0]');
@@ -27,7 +36,9 @@ class Auth {
         }
         return API.login(email, password, communityId).then((res) => {
             if (res.errors) return Promise.reject({ errors: res.errors });
-            return Promise.resolve({ token: res.token });
+            const { token } = res;
+            setTokenHeader(token);
+            return Promise.resolve({ token });
         });
     };
 
@@ -50,6 +61,7 @@ class Auth {
         localStorage.removeItem('access_token');
         localStorage.removeItem('expires_at');
         history.push('/login');
+        clearTokenHeader();
     };
 
     isAuthenticated = () => {
