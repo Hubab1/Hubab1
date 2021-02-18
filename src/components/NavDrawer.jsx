@@ -207,6 +207,31 @@ export function PersistentDrawerLeft({
         history.push(ROUTES.LOGIN);
     }, [menuState, logout, history]);
 
+    const menu = useMemo(() => {
+        return (
+            <Popover
+                {...bindPopover(menuState)}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+            >
+                <MenuList className={classes.menuList}>
+                    <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                    {canSeeApplications && (
+                        // Material-UI: The Menu component doesn't accept a Fragment as a child...
+                        <div>
+                            <Divider className={classes.menuListItemDivider} />
+                            <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
+                        </div>
+                    )}
+                    <Divider className={classes.menuListItemDivider} />
+                    <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+                </MenuList>
+            </Popover>
+        );
+    }, [classes, canSeeApplications, menuState, handleAccountClick, handleApplicationsClick, handleLogoutClick]);
+
     if (!applicant) return null;
 
     if (showApplicationsToolbar) {
@@ -224,26 +249,7 @@ export function PersistentDrawerLeft({
                             <div className={classes.avatar}>{initials}</div>
                             <ExpandMoreIcon />
                         </IconButton>
-                        <Popover
-                            {...bindPopover(menuState)}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuList className={classes.menuList}>
-                                <MenuItem onClick={handleAccountClick}>Account</MenuItem>
-                                {canSeeApplications && (
-                                    // Material-UI: The Menu component doesn't accept a Fragment as a child...
-                                    <div>
-                                        <Divider className={classes.menuListItemDivider} />
-                                        <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
-                                    </div>
-                                )}
-                                <Divider className={classes.menuListItemDivider} />
-                                <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-                            </MenuList>
-                        </Popover>
+                        {menu}
                     </Toolbar>
                 </AppBar>
                 <main>
@@ -267,26 +273,7 @@ export function PersistentDrawerLeft({
                         <div className={classes.avatar}>{initials}</div>
                         <ExpandMoreIcon />
                     </IconButton>
-                    <Popover
-                        {...bindPopover(menuState)}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }}
-                    >
-                        <MenuList className={classes.menuList}>
-                            <MenuItem onClick={handleAccountClick}>Account</MenuItem>
-                            {canSeeApplications && (
-                                // Material-UI: The Menu component doesn't accept a Fragment as a child...
-                                <div>
-                                    <Divider className={classes.menuListItemDivider} />
-                                    <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
-                                </div>
-                            )}
-                            <Divider className={classes.menuListItemDivider} />
-                            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-                        </MenuList>
-                    </Popover>
+                    {menu}
                 </Toolbar>
                 <ProgressBar percent={progressBarPercentage} />
             </AppBar>
