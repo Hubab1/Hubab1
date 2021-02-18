@@ -9,7 +9,7 @@ class Auth {
     init = () => {
         const token = this.getToken();
         token && setTokenHeader(token);
-    }
+    };
 
     register = (data, leaseSettingsId, clientId) => {
         return API.register(data, leaseSettingsId, clientId)

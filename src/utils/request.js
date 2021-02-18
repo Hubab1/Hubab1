@@ -31,9 +31,9 @@ export default function request(path, args = {}) {
         options.headers['content-type'] = 'application/json';
     }
 
-  // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log({
-        headers: options.headers
+        headers: options.headers,
     });
 
     return fetch(url, options).then((res) => {
