@@ -143,7 +143,7 @@ export function PersistentDrawerLeft({
     const name = `${applicant?.first_name} ${applicant?.last_name}`;
 
     /**
-     * Determines wether or not to show the applications toolbar instead
+     * Determines wether or not to show the applications toolbar instead of the sidebar drawer
      * based on the current location.
      */
     const showApplicationsToolbar = useMemo(() => {
