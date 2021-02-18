@@ -16,13 +16,14 @@ import {
     MenuItem,
     Box,
 } from '@material-ui/core';
-import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import { usePopupState, bindTrigger, bindPopover } from 'material-ui-popup-state/hooks';
 import clsx from 'clsx';
 
 import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
 import { actions } from 'reducers/store';
-import { selectors } from 'reducers/renter-profile';
+import { selectors as profileSelectors } from 'reducers/renter-profile';
+import { getOlApplicantCanViewApplicationsListPage } from 'selectors/launchDarkly';
 import ProgressBar from 'components/common/Page/ProgressBar';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import NavStepper from './NavStepper';
@@ -111,7 +112,17 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.type === 'light' ? 'black' : 'white',
         fontSize: 12,
     },
+    goBack: {
+        color: theme.palette.type === 'light' ? 'black' : 'white',
+        borderRadius: '35px',
+
+        '& span': {
+            fontSize: 14,
+        },
+    },
 }));
+
+const APPLICATION_TOOLBAR_ROUTES = [ROUTES.APPLICATIONS];
 
 export function PersistentDrawerLeft({
     history,
@@ -120,6 +131,7 @@ export function PersistentDrawerLeft({
     currentRoute,
     children,
     navRoutes,
+    canSeeApplications,
     canAccessRoute,
     logout,
 }) {
@@ -129,6 +141,14 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const name = `${applicant?.first_name} ${applicant?.last_name}`;
+
+    /**
+     * Determines wether or not to show the applications toolbar instead
+     * based on the current location.
+     */
+    const showApplicationsToolbar = useMemo(() => {
+        return APPLICATION_TOOLBAR_ROUTES.includes(history.location.pathname);
+    }, [history.location.pathname]);
 
     /**
      * Determine the initials using the applicants full name.
@@ -158,6 +178,10 @@ export function PersistentDrawerLeft({
         return 0;
     }, [navRoutes, currentRoute, profile]);
 
+    const handleGoBackClick = useCallback(() => {
+        history.goBack();
+    }, [history]);
+
     const handleDrawerOpen = useCallback(() => {
         setOpen(true);
     }, []);
@@ -171,6 +195,11 @@ export function PersistentDrawerLeft({
         history.push(ROUTES.ACCOUNT);
     }, [menuState, history]);
 
+    const handleApplicationsClick = useCallback(() => {
+        menuState.close();
+        history.push(ROUTES.APPLICATIONS);
+    }, [menuState, history]);
+
     const handleLogoutClick = useCallback(() => {
         menuState.close();
         localStorage.clear();
@@ -179,6 +208,51 @@ export function PersistentDrawerLeft({
     }, [menuState, logout, history]);
 
     if (!applicant) return null;
+
+    if (showApplicationsToolbar) {
+        return (
+            <div>
+                <CssBaseline />
+                <AppBar color="primary" position="fixed" className={classes.appBar}>
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
+                            <ArrowBackIosIcon />
+                            <span>Go Back</span>
+                        </IconButton>
+                        <BannerLogo />
+                        <IconButton className={classes.menuTrigger} {...bindTrigger(menuState)}>
+                            <div className={classes.avatar}>{initials}</div>
+                            <ExpandMoreIcon />
+                        </IconButton>
+                        <Popover
+                            {...bindPopover(menuState)}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <MenuList className={classes.menuList}>
+                                <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                                {canSeeApplications && (
+                                    // Material-UI: The Menu component doesn't accept a Fragment as a child...
+                                    <div>
+                                        <Divider className={classes.menuListItemDivider} />
+                                        <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
+                                    </div>
+                                )}
+                                <Divider className={classes.menuListItemDivider} />
+                                <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+                            </MenuList>
+                        </Popover>
+                    </Toolbar>
+                </AppBar>
+                <main>
+                    <div className={classes.drawerHeader} />
+                    <div className={drawerContent}>{children}</div>
+                </main>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -202,6 +276,13 @@ export function PersistentDrawerLeft({
                     >
                         <MenuList className={classes.menuList}>
                             <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                            {canSeeApplications && (
+                                // Material-UI: The Menu component doesn't accept a Fragment as a child...
+                                <div>
+                                    <Divider className={classes.menuListItemDivider} />
+                                    <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
+                                </div>
+                            )}
                             <Divider className={classes.menuListItemDivider} />
                             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
                         </MenuList>
@@ -263,6 +344,7 @@ PersistentDrawerLeft.propTypes = {
     currentRoute: PropTypes.string,
     children: PropTypes.array,
     navRoutes: PropTypes.array,
+    canSeeApplications: PropTypes.bool,
     canAccessRoute: PropTypes.func,
     logout: PropTypes.func,
 };
@@ -270,9 +352,10 @@ PersistentDrawerLeft.propTypes = {
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
-    canAccessRoute: (route) => selectors.canAccessRoute(state, route),
-    navRoutes: selectors.selectNav(state),
+    canAccessRoute: (route) => profileSelectors.canAccessRoute(state, route),
+    navRoutes: profileSelectors.selectNav(state),
     currentRoute: state.siteConfig.currentRoute,
+    canSeeApplications: getOlApplicantCanViewApplicationsListPage(state),
 });
 
 const mapDispatchToProps = {
