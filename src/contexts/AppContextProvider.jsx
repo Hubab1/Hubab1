@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
-import PropTypes from 'prop-types';
 
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
 

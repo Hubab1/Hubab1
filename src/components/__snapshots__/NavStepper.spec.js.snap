@@ -1,93 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VerticalLinearStepper matches snapshot 1`] = `
-<div
+<ForwardRef(WithStyles)
+  activeStep={0}
   className="makeStyles-root-1"
+  orientation="vertical"
 >
   <ForwardRef(WithStyles)
-    activeStep={0}
-    orientation="vertical"
+    active={true}
+    classes={
+      Object {
+        "root": "css-1wi6ago",
+      }
+    }
+    onClick={[Function]}
   >
     <ForwardRef(WithStyles)
-      active={true}
-      classes={
-        Object {
-          "root": "css-1wi6ago",
-        }
-      }
-      onClick={[Function]}
+      completed={false}
+      icon=" "
     >
-      <ForwardRef(WithStyles)
-        completed={false}
-        icon=" "
-      >
-        lease settings
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
-      active={false}
-      classes={
-        Object {
-          "root": "",
-        }
-      }
-      onClick={[Function]}
-    >
-      <ForwardRef(WithStyles)
-        completed={false}
-        icon=" "
-      >
-        profile
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
-      active={false}
-      classes={
-        Object {
-          "root": "",
-        }
-      }
-      onClick={[Function]}
-    >
-      <ForwardRef(WithStyles)
-        completed={false}
-        icon=" "
-      >
-        income
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
-      active={false}
-      classes={
-        Object {
-          "root": "",
-        }
-      }
-      onClick={[Function]}
-    >
-      <ForwardRef(WithStyles)
-        completed={false}
-        icon=" "
-      >
-        fees
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
-      active={false}
-      classes={
-        Object {
-          "root": "",
-        }
-      }
-      onClick={[Function]}
-    >
-      <ForwardRef(WithStyles)
-        completed={false}
-        icon=" "
-      >
-        screening
-      </ForwardRef(WithStyles)>
+      lease settings
     </ForwardRef(WithStyles)>
   </ForwardRef(WithStyles)>
-</div>
+  <ForwardRef(WithStyles)
+    active={false}
+    classes={
+      Object {
+        "root": "",
+      }
+    }
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      completed={false}
+      icon=" "
+    >
+      profile
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    active={false}
+    classes={
+      Object {
+        "root": "",
+      }
+    }
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      completed={false}
+      icon=" "
+    >
+      income
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    active={false}
+    classes={
+      Object {
+        "root": "",
+      }
+    }
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      completed={false}
+      icon=" "
+    >
+      fees
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    active={false}
+    classes={
+      Object {
+        "root": "",
+      }
+    }
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      completed={false}
+      icon=" "
+    >
+      screening
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
 `;
