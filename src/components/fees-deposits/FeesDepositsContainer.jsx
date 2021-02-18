@@ -28,14 +28,16 @@ export const FeesDepositsContainer = ({
     const [totalPayment, setTotalPayment] = useState(null);
     const [receipt, setReceipt] = useState(applicant && applicant.receipt);
 
+    const receiptPaid = !!receipt ? receipt.paid : false;
+
     useEffect(() => {
-        if (receipt && receipt.paid && !isOutstanding) {
+        if (receiptPaid && !isOutstanding) {
             setCurrentPage('receipt');
         } else {
             fetchPayments();
             fetchApplicant();
         }
-    }, [receipt, fetchPayments, isOutstanding, fetchApplicant]);
+    }, [receiptPaid, fetchPayments, isOutstanding, fetchApplicant]);
 
     useEffect(() => {
         setPayments(payables);
@@ -124,7 +126,7 @@ export const FeesDepositsContainer = ({
         return (
             <PaymentTerms
                 handleClickBack={() => setCurrentPage('options')}
-                goToPayment={(data) => handleTermsAccepted(data)}
+                handleTermsAccepted={(data) => handleTermsAccepted(data)}
                 holdingDepositAmount={holdingDepositAmount}
                 unitNumber={unitNumber}
                 communityName={communityName}

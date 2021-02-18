@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { H1, P, link } from 'assets/styles';
+import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES, SMS_OPT_IN_MARKETING_ENABLED } from 'app/constants';
 import auth from 'utils/auth';
-import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import { serializeDate, parseDateISOString } from 'utils/misc';
+import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import AccountForm from 'components/common/AccountForm';
+import { H1, P, link } from 'assets/styles';
 
 export class RegisterPage extends React.Component {
     state = { errors: null };
@@ -85,8 +86,19 @@ export class RegisterPage extends React.Component {
                 });
             })
             .catch((res) => {
-                if (res?.errors?.error) {
-                    this.setState({ errors: [res.errors.error] });
+                const error = res?.errors?.error;
+                if (error) {
+                    if (this.props.multipleAppsV2LoginAndNavigation && error.message && error.sign_in_url) {
+                        const { message, sign_in_url } = res.errors.error;
+                        const html = (
+                            <span>
+                                {message} <a href={sign_in_url}>Sign In</a>
+                            </span>
+                        );
+                        this.setState({ errors: [html] });
+                    } else {
+                        this.setState({ errors: [error] });
+                    }
                 } else {
                     this.setState({ errors: ['Oops, something went wrong. Try again.'] });
                 }
@@ -114,7 +126,6 @@ export class RegisterPage extends React.Component {
                     withPassword
                     status={this.status}
                     initialValues={this.applicantInfo}
-                    messages={this.state.errors}
                     onSubmit={this.onSubmit}
                     showConsentInput={!optedIn && !this.props.configuration.invitee}
                     configuration={this.props.configuration}
@@ -132,13 +143,14 @@ export class RegisterPage extends React.Component {
 
 RegisterPage.propTypes = {
     profile: PropTypes.object,
-    fetchRenterProfile: PropTypes.func,
     leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
     configuration: PropTypes.object,
     history: PropTypes.object,
     initialPage: PropTypes.string,
+    fetchRenterProfile: PropTypes.func,
     fetchApplicant: PropTypes.func,
+    multipleAppsV2LoginAndNavigation: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -147,6 +159,7 @@ const mapStateToProps = (state) => ({
     leaseSettingsId: state.siteConfig.basename,
     hash: state.siteConfig.hash,
     configuration: state.configuration,
+    multipleAppsV2LoginAndNavigation: getMultipleAppsV2LoginAndNavigation(state),
 });
 
 const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };

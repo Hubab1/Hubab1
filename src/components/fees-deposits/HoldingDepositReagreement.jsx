@@ -31,7 +31,7 @@ export const HoldingDepositReagreement = ({ profile, configuration }) => {
             leaseStartDate={leaseStartDate}
             canProceedToPayment={true}
             isReagreeing={true}
-            reagree={(data) => handleTermsAccepted(data)}
+            handleTermsAccepted={(data) => handleTermsAccepted(data)}
         />
     );
 };

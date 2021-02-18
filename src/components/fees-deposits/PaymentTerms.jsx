@@ -18,7 +18,7 @@ const SpacedH1 = styled(H1)`
 
 export const PaymentTerms = ({
     handleClickBack,
-    goToPayment,
+    handleTermsAccepted,
     holdingDepositAmount = 0,
     unitNumber,
     communityName,
@@ -55,8 +55,8 @@ export const PaymentTerms = ({
             },
         };
 
-        goToPayment(data);
-    }, [moveInDate, holdingDepositDisplayedAmount, communityName, unitNumber, goToPayment]);
+        handleTermsAccepted(data);
+    }, [moveInDate, holdingDepositDisplayedAmount, communityName, unitNumber, handleTermsAccepted]);
 
     return (
         <Fragment>
@@ -73,36 +73,33 @@ export const PaymentTerms = ({
                     </ScrollableTermsCardSection>
                 </Card>
             )}
-            {!!handleClickBack && (
-                <Fragment>
-                    {canProceedToPayment ? (
-                        <>
-                            <ActionButton
-                                disabled={errors}
-                                onClick={handleContinueClick}
-                                marginTop={25}
-                                marginBottom={20}
-                            >
-                                Agree and Continue
-                            </ActionButton>
+            <Fragment>
+                {canProceedToPayment ? (
+                    <>
+                        <ActionButton disabled={errors} onClick={handleContinueClick} marginTop={25} marginBottom={20}>
+                            Agree and Continue
+                        </ActionButton>
+                        {!!handleClickBack && (
                             <LinkButton className={blackLinkRoot} onClick={handleClickBack}>
                                 <ArrowBackIos classes={{ root: arrowIcon }} /> Go Back
                             </LinkButton>
-                        </>
-                    ) : (
+                        )}
+                    </>
+                ) : (
+                    !!handleClickBack && (
                         <ActionButton onClick={handleClickBack} marginTop={25} marginBottom={20}>
                             Go Back
                         </ActionButton>
-                    )}
-                </Fragment>
-            )}
+                    )
+                )}
+            </Fragment>
         </Fragment>
     );
 };
 
 PaymentTerms.propTypes = {
     handleClickBack: PropTypes.func.isRequired,
-    goToPayment: PropTypes.func,
+    handleTermsAccepted: PropTypes.func,
     holdingDepositAmount: PropTypes.number.isRequired,
     unitNumber: PropTypes.string.isRequired,
     communityName: PropTypes.string.isRequired,

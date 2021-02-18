@@ -237,7 +237,7 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.APP_DENIED;
             }
 
-            if (applicationEvents && applicationEvents.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
+            if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
                 return ROUTES.LEASE_VOIDED;
             }
 
