@@ -10,9 +10,7 @@ import 'utils/configureYup';
 import store from 'reducers/store';
 import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
 import App from 'app/App';
-import Auth from 'utils/auth';
 
-Auth.init();
 setupSentry();
 
 const tagManagerArgs = {
