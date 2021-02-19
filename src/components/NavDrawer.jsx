@@ -128,24 +128,8 @@ export function PersistentDrawerLeft({
     const [open, setOpen] = useState(false);
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
-    const name = `${applicant?.first_name} ${applicant?.last_name}`;
-
-    /**
-     * Determine the initials using the applicants full name.
-     * We always use the initials of the first name and the last name.
-     */
-    const initials = useMemo(() => {
-        let names = name.split(' ');
-        if (names.length > 2) {
-            names = [names[0], names[names.length - 1]];
-        }
-
-        return names
-            .map((name) => name.charAt(0))
-            .join('')
-            .toUpperCase();
-    }, [name]);
-
+    const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase()
+    
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
 
