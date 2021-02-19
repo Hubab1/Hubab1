@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import API, { MOCKY } from 'app/api';
-import createTheme from 'assets/createTheme';
+import { createTheme } from 'assets/theme';
 import mock from './mock-config';
 import { DOES_NOT_EXIST } from 'app/constants';
 

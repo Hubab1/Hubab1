@@ -28,6 +28,7 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import NavStepper from './NavStepper';
 import { drawerContent } from 'components/common/Page/styles';
+import { PALLETE_TYPES } from 'assets/theme';
 import { H3 } from 'assets/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     appBar: {
-        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : theme.palette.primary.main,
-        color: theme.palette.type === 'light' ? '#000000' : theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.type === PALLETE_TYPES.LIGHT ? '#ffffff' : theme.palette.primary.main,
+        color: theme.palette.type === PALLETE_TYPES.LIGHT ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
         minHeight: 76,
@@ -107,13 +108,13 @@ const useStyles = makeStyles((theme) => ({
         width: 30,
         height: 30,
         backgroundColor: 'transparent',
-        border: theme.palette.type === 'light' ? '2px solid black' : '2px solid white',
+        border: theme.palette.type === PALLETE_TYPES.LIGHT ? '2px solid black' : '2px solid white',
         borderRadius: '50%',
-        color: theme.palette.type === 'light' ? 'black' : 'white',
+        color: theme.palette.type === PALLETE_TYPES.LIGHT ? 'black' : 'white',
         fontSize: 12,
     },
     goBack: {
-        color: theme.palette.type === 'light' ? 'black' : 'white',
+        color: theme.palette.type === PALLETE_TYPES.LIGHT ? 'black' : 'white',
         borderRadius: '35px',
 
         '& span': {
@@ -140,7 +141,7 @@ export function PersistentDrawerLeft({
     const [open, setOpen] = useState(false);
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
-    const name = `${applicant?.first_name} ${applicant?.last_name}`;
+    const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase();
 
     /**
      * Determines wether or not to show the applications toolbar instead of the sidebar drawer
@@ -149,22 +150,6 @@ export function PersistentDrawerLeft({
     const showApplicationsToolbar = useMemo(() => {
         return APPLICATION_TOOLBAR_ROUTES.includes(history.location.pathname);
     }, [history.location.pathname]);
-
-    /**
-     * Determine the initials using the applicants full name.
-     * We always use the initials of the first name and the last name.
-     */
-    const initials = useMemo(() => {
-        let names = name.split(' ');
-        if (names.length > 2) {
-            names = [names[0], names[names.length - 1]];
-        }
-
-        return names
-            .map((name) => name.charAt(0))
-            .join('')
-            .toUpperCase();
-    }, [name]);
 
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
