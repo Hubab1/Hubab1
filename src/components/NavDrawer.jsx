@@ -27,6 +27,7 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import NavStepper from './NavStepper';
 import { drawerContent } from 'components/common/Page/styles';
+import { PALLETE_TYPES } from 'assets/theme';
 import { H3 } from 'assets/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     appBar: {
-        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : theme.palette.primary.main,
-        color: theme.palette.type === 'light' ? '#000000' : theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.type === PALLETE_TYPES.LIGHT ? '#ffffff' : theme.palette.primary.main,
+        color: theme.palette.type === PALLETE_TYPES.LIGHT ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
         minHeight: 76,
@@ -106,9 +107,9 @@ const useStyles = makeStyles((theme) => ({
         width: 30,
         height: 30,
         backgroundColor: 'transparent',
-        border: theme.palette.type === 'light' ? '2px solid black' : '2px solid white',
+        border: theme.palette.type === PALLETE_TYPES.LIGHT ? '2px solid black' : '2px solid white',
         borderRadius: '50%',
-        color: theme.palette.type === 'light' ? 'black' : 'white',
+        color: theme.palette.type === PALLETE_TYPES.LIGHT ? 'black' : 'white',
         fontSize: 12,
     },
 }));
@@ -129,7 +130,7 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase()
-    
+
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
 
