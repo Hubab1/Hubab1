@@ -7,7 +7,7 @@ export const PALLETE_TYPES = {
 };
 
 export const THEME_CONSTANTS = {
-    PALLETE_TYPES
+    PALLETE_TYPES,
 };
 
 export const createTheme = (config) => {

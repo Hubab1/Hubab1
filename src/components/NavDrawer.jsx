@@ -129,7 +129,7 @@ export function PersistentDrawerLeft({
     const [open, setOpen] = useState(false);
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
-    const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase()
+    const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase();
 
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
