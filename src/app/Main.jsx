@@ -68,14 +68,9 @@ export class Main extends Component {
                 pathname.includes('faq')
             )
                 return;
-            if (!configuration.client || !configuration.invitee) {
-                if (configuration.unit?.is_unavailable) {
-                    history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
-                } else {
-                    history.replace(ROUTES.WELCOME);
-                }
-            } else if (hasRegistered) {
-                history.replace(ROUTES.LOGIN);
+
+            if (configuration.unit?.is_unavailable) {
+                history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
             } else {
                 history.replace(ROUTES.WELCOME);
             }

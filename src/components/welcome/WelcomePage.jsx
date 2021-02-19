@@ -33,8 +33,26 @@ export class WelcomePage extends Component {
         }
     }
 
+    getCTALabel() {
+        const { invitee } = this.props.configuration;
+        if (invitee?.is_registered) {
+            return 'Continue to Application';
+        }
+
+        return 'Create Account & Apply';
+    }
+
+    getCTALink() {
+        const { invitee } = this.props.configuration;
+        if (invitee?.is_registered) {
+            return ROUTES.LOGIN;
+        }
+
+        return ROUTES.SIGNUP;
+    }
+
     render() {
-        const { background, logo, community, unit, primary_color, dark_mode } = this.props.configuration;
+        const { background, logo, community, unit, primary_color, dark_mode, invitee } = this.props.configuration;
         const { building_name, city, state, postal_code, normalized_street_address } = community;
         const firstName = this.getFirstName();
         const cityStateZip = `${city}, ${state} ${postal_code}`;
@@ -67,17 +85,19 @@ export class WelcomePage extends Component {
                     </WelcomeTextContainer>
                     <WelcomeFooterContainer>
                         <Link
-                            to={{ pathname: ROUTES.SIGNUP }}
+                            to={{ pathname: this.getCTALink() }}
                             style={{ textDecoration: 'none' }}
                             className="cta-container"
                         >
                             <CallToActionButton fullWidth style={callToActionButtonStyle}>
-                                Start Application
+                                {this.getCTALabel()}
                             </CallToActionButton>
                         </Link>
-                        <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
-                            I already started an application
-                        </Link>
+                        {!invitee?.is_registered && (
+                            <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
+                                I already have an account
+                            </Link>
+                        )}
                         <img src={funnelImage} width="150" alt="funnel logo" />
                     </WelcomeFooterContainer>
                 </WelcomeFlexContainer>
