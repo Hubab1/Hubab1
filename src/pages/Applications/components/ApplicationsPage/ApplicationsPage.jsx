@@ -20,11 +20,12 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+// TODO: page will get populated in a follow up pr
 export function ApplicationsPage() {
     const classes = useStyles();
 
     return (
-        <Page className={classes.root} header="My Applications">
+        <Page className={classes.root} title="My Applications">
             <div className={classes.section}>
                 <H3>Active Applications</H3>
             </div>
