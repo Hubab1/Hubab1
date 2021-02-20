@@ -1,17 +1,86 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import { makeStyles, Typography } from '@material-ui/core';
 
 import Notification from 'components/common/GenericFormMessage';
-import { H1, SpacedH3 } from 'assets/styles';
 
-export function Page({ children, title, subTitle, notification, image: Image, className }) {
+const useStyles = makeStyles((theme) => ({
+    header: {
+        display: 'flex',
+        flexFlow: 'column',
+        alignItems: 'center',
+    },
+    title: {
+        marginBottom: theme.spacing(3),
+        fontSize: 23,
+        fontWeight: 600,
+        lineHeight: 1,
+        textAlign: 'center',
+        color: '#000',
+    },
+    subTitle: {
+        margin: theme.spacing(0, 2, 3, 2),
+        padding: 0,
+        fontSize: 18,
+        fontWeight: 400,
+        lineHeight: 1,
+        textAlign: 'center',
+        color: '#454b57',
+    },
+    notification: {
+        marginBottom: theme.spacing(3),
+    },
+    image: {
+        marginBottom: theme.spacing(3),
+        width: 100,
+        height: 100,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+    },
+    content: {},
+}));
+
+export function Page({
+    className,
+    title,
+    subTitle,
+    notification = {
+        messages: undefined,
+        type: undefined,
+    },
+    image = {
+        src: undefined,
+        className: undefined,
+    },
+    children,
+}) {
+    const classes = useStyles();
+
     return (
         <div className={className}>
-            {title && <H1>{title}</H1>}
-            {subTitle && <SpacedH3>{subTitle}</SpacedH3>}
-            {notification && <Notification type={notification.type} messages={notification.messages} />}
-            {Image && <Image />}
-            {children}
+            <div className={classes.header}>
+                {title && (
+                    <Typography variant="h1" className={classes.title}>
+                        {title}
+                    </Typography>
+                )}
+                {subTitle && (
+                    <Typography variant="h2" className={classes.subTitle}>
+                        {subTitle}
+                    </Typography>
+                )}
+                {notification && <Notification type={notification.type} messages={notification.messages} />}
+                {image.src && (
+                    <div
+                        className={clsx(classes.image, image.className)}
+                        style={{
+                            backgroundImage: `url(${image.src})`,
+                        }}
+                    />
+                )}
+            </div>
+            <div className={classes.content}>{children}</div>
         </div>
     );
 }
@@ -24,7 +93,11 @@ Page.propTypes = {
         messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         type: PropTypes.oneOf(['sucess', 'error']).isRequired,
     }),
-    image: PropTypes.node,
+    image: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        className: PropTypes.string,
+    }),
+    // image: PropTypes.node,
     children: PropTypes.node.isRequired,
 };
 
