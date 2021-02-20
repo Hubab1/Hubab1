@@ -70,10 +70,10 @@ export function Page({
                         {subTitle}
                     </Typography>
                 )}
-                {notification.type && notification.messages && (
+                {notification?.type && notification?.messages && (
                     <Notification type={notification.type} messages={notification.messages} />
                 )}
-                {image.src && (
+                {image?.src && (
                     <div
                         className={clsx(classes.image, image.className)}
                         style={{
