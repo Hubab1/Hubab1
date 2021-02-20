@@ -99,7 +99,6 @@ Page.propTypes = {
         src: PropTypes.string.isRequired,
         className: PropTypes.string,
     }),
-    // image: PropTypes.node,
     children: PropTypes.node.isRequired,
 };
 
