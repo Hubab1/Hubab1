@@ -50,18 +50,18 @@ export const PaymentDetailsCard = ({ profile, payables = [] }) => {
                 <PaymentDetailRows paymentObject={profile.fees_breakdown.application_fees} paymentType="application" />
             </PaymentItemsExpansionPanel>
             <PaymentItemsExpansionPanel
-                amount={profile.fees_breakdown.move_in_fees_v2.total}
+                amount={profile.fees_breakdown.move_in_fees.total}
                 label={'due at move in'}
                 defaultExpanded={false}
             >
-                <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees_v2} paymentType="move_in" />
+                <PaymentDetailRows paymentObject={profile.fees_breakdown.move_in_fees} paymentType="move_in" />
             </PaymentItemsExpansionPanel>
             <PaymentItemsExpansionPanel
-                amount={profile.fees_breakdown.monthly_fees_v2.total}
+                amount={profile.fees_breakdown.monthly_fees.total}
                 label={'monthly rent'}
                 defaultExpanded={false}
             >
-                <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees_v2} paymentType="monthly_fees" />
+                <PaymentDetailRows paymentObject={profile.fees_breakdown.monthly_fees} paymentType="monthly_fees" />
             </PaymentItemsExpansionPanel>
             {profile.fees_breakdown.savings?.items.length > 0 && (
                 <PaymentItemsExpansionPanel
