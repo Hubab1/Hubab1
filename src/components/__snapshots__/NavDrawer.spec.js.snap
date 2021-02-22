@@ -12,8 +12,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       className="makeStyles-toolbar-4"
     >
       <ForwardRef(WithStyles)
-        aria-label="Open drawer"
-        color="inherit"
+        className="makeStyles-drawerMenuTrigger-5"
         edge="start"
         onClick={[Function]}
       >
@@ -23,7 +22,8 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       <ForwardRef(WithStyles)
         aria-controls={null}
         aria-haspopup={true}
-        className="makeStyles-menuTrigger-5"
+        className="makeStyles-profileMenuTrigger-6"
+        edge="end"
         onClick={[Function]}
       >
         <div
@@ -31,7 +31,9 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         >
           JD
         </div>
-        <UNDEFINED />
+        <UNDEFINED
+          fontSize="small"
+        />
       </ForwardRef(WithStyles)>
       <ForwardRef(WithStyles)
         anchorEl={null}
@@ -50,16 +52,14 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         open={false}
       >
         <ForwardRef(MenuList)
-          className="makeStyles-menuList-6"
+          className="makeStyles-profileMenuList-7"
         >
           <ForwardRef(WithStyles)
             onClick={[Function]}
           >
             Account
           </ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
-            className="makeStyles-menuListItemDivider-7"
-          />
+          <ForwardRef(WithStyles) />
           <ForwardRef(WithStyles)
             onClick={[Function]}
           >
