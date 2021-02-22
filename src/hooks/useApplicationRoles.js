@@ -1,9 +1,9 @@
 import useEnhancedFetch from 'hooks/useEnhancedFetch';
 import { API_URL } from 'config';
 
-export const GET_APPLICATIONS = `${API_URL}/applications`;
+export const GET_APPLICATIONS = `${API_URL}/application-roles`;
 
-const useApplications = () => {
+const useApplicationRoles = () => {
     const { loading, error, data, ...rest } = useEnhancedFetch(GET_APPLICATIONS, {
         method: 'GET',
         fetchOnDemand: false,
@@ -13,9 +13,9 @@ const useApplications = () => {
     return {
         loading,
         error,
-        applications: data || [],
+        applicationRoles: data || [],
         ...rest,
     };
 };
 
-export default useApplications;
+export default useApplicationRoles;
