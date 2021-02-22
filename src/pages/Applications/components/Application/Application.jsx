@@ -12,22 +12,16 @@ import {
     Typography,
     Divider,
 } from '@material-ui/core';
-import {
-    ExpandMore as ExpandMoreIcone,
-} from '@material-ui/icons';
+import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
 
-import {
-    APPLICATION_STATUSES_LABELS,
-    APPLICANT_ROLE_LABELS,
-    APPLICATION_STATUSES_COLORS,
-} from 'app/constants';
+import { APPLICATION_STATUSES_LABELS, APPLICANT_ROLE_LABELS, APPLICATION_STATUSES_COLORS } from 'app/constants';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: theme.spacing(2),
         '&:last-child': {
             marginBottom: 0,
-        }
+        },
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -40,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         transform: 'rotate(180deg)',
     },
     divider: {
-        margin: theme.spacing(0, 2)
+        margin: theme.spacing(0, 2),
     },
     typography: {
         color: '#828796',
@@ -48,22 +42,18 @@ const useStyles = makeStyles(theme => ({
 
         '& span': {
             color: 'black',
-        }
+        },
     },
     title: {
         color: '#000',
     },
     applicationId: {
         display: 'block',
-        marginTop: theme.spacing(2)
-    }
+        marginTop: theme.spacing(2),
+    },
 }));
 
-export function Application ({
-    application = {},
-    role = undefined,
-    isActive = true,
-}) {
+export function Application({ application = {}, role = undefined, isActive = true }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, unit, community } = application;
     const classes = useStyles();
     const [expaneded, setExpanded] = useState(isActive);
@@ -75,34 +65,33 @@ export function Application ({
     return (
         <Card className={classes.root} elevation={2}>
             <CardHeader
-                title={(
+                title={
                     <Typography className={clsx(classes.typography, classes.title)} variant="body1">
                         <b>{`${community.display_name}, #${unit.unit_number}`}</b>
                     </Typography>
-                )}
-                subheader={(
+                }
+                subheader={
                     <Typography className={classes.typography} variant="body1">
-                        Application Status:
-                        {' '}
-                        <span style={{color: APPLICATION_STATUSES_COLORS[status]}}>
+                        Application Status:{' '}
+                        <span style={{ color: APPLICATION_STATUSES_COLORS[status] }}>
                             {APPLICATION_STATUSES_LABELS[status]}
                         </span>
                     </Typography>
-                )}
-                action={(
+                }
+                action={
                     <IconButton
                         className={clsx(classes.expand, {
-                            [classes.expandOpen]: expaneded
+                            [classes.expandOpen]: expaneded,
                         })}
                         onClick={handleExpandClick}
                         style={{
                             // Note: actions become visible for past application once we have CTA (other ticket)
-                            display: isActive ? 'inline-flex' : 'none'
+                            display: isActive ? 'inline-flex' : 'none',
                         }}
                     >
                         <ExpandMoreIcone />
                     </IconButton>
-                )}
+                }
             />
             {isActive && (
                 <Collapse in={expaneded}>
@@ -120,10 +109,7 @@ export function Application ({
                         <Typography className={classes.typography} variant="body1">
                             Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
                         </Typography>
-                        <Typography
-                            className={clsx(classes.typography, classes.applicationId)}
-                            variant="caption"
-                        >
+                        <Typography className={clsx(classes.typography, classes.applicationId)} variant="caption">
                             Application ID: <span>{id}</span>
                         </Typography>
                     </CardContent>

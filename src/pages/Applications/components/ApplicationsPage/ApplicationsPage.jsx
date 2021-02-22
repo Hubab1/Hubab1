@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
 import {
     ACTIVE_APPLICATION_STATUSES,
@@ -21,11 +21,20 @@ const useStyles = makeStyles(() => ({
 
         '& h3': {
             marginBottom: 16,
+            fontSize: 18,
+            color: '#454B57',
+        },
+        '& h4': {
+            fontSize: 16,
+            color: '#828796',
         },
     },
+
+    sectionSubTitle: {
+
+    }
 }));
 
-// TODO: page will get populated in a follow up pr
 export function ApplicationsPage() {
     const classes = useStyles();
     const { error, applicationRoles } = useApplicationRoles();
@@ -34,13 +43,10 @@ export function ApplicationsPage() {
         messages: ERROR_MESSAGE
     };
 
-    console.log({ applicationRoles });
-
-    // TODO: test empty states
     const [active, past] = useMemo(() => {
         return [
-            applicationRoles,
-            applicationRoles
+            applicationRoles.filter(({ application }) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
+            applicationRoles.filter(({ application }) => PAST_APPLICATION_STATUSES.includes(application.status)),
         ];
     }, [applicationRoles]);
 
@@ -51,7 +57,7 @@ export function ApplicationsPage() {
             notification={notification}
         >
             <div className={classes.section}>
-                <H3>Active Applications</H3>
+                <Typography variant="h3">Active Applications</Typography>
                 {active.map((applicationRole, i) => {
                     return (
                         <Application
@@ -62,6 +68,9 @@ export function ApplicationsPage() {
                         />
                     );
                 })}
+                {active.length === 0 && (
+                    <Typography variant="h4">{`You don't have any active applications.`}</Typography>
+                )}
             </div>
             <div className={classes.section}>
                 <H3>Past Applications</H3>
@@ -75,6 +84,9 @@ export function ApplicationsPage() {
                         />
                     );
                 })}
+                {past.length === 0 && (
+                    <Typography variant="h4">{`You don't have any past applications.`}</Typography>
+                )}
             </div>
         </Page>
     );
