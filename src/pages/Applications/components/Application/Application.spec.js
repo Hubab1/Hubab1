@@ -1,14 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {
-    ACTIVE_APPLICATION_STATUSES,
-    PAST_APPLICATION_STATUSES,
-    APPLICANT_ROLE_VALUES,
-    APPLICATION_STATUSES_LABELS,
-    APPLICANT_ROLE_LABELS,
-    APPLICATION_STATUSES_COLORS,
-} from 'app/constants';
+import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'app/constants';
 import Application from './Application';
 
 describe('Application', () => {
@@ -19,10 +12,11 @@ describe('Application', () => {
             lease_start_date: new Date('01-01-2020'),
             lease_term: 12,
             fees_breakdown: {
-                monthly_fees_v2: {
+                monthly_fees: {
                     total: '1.500',
                 },
             },
+            role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
             unit: {
                 unit_number: '12',
             },
@@ -31,9 +25,7 @@ describe('Application', () => {
             },
         };
 
-        const wrapper = shallow(
-            <Application application={application} role={APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT} isActive />
-        );
+        const wrapper = shallow(<Application application={application} isActive />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 
@@ -44,10 +36,11 @@ describe('Application', () => {
             lease_start_date: new Date('01-01-2020'),
             lease_term: 12,
             fees_breakdown: {
-                monthly_fees_v2: {
+                monthly_fees: {
                     total: '1.500',
                 },
             },
+            role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
             unit: {
                 unit_number: '12',
             },
@@ -56,9 +49,7 @@ describe('Application', () => {
             },
         };
 
-        const wrapper = shallow(
-            <Application application={application} role={APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT} isActive={false} />
-        );
+        const wrapper = shallow(<Application application={application} isActive={false} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 });

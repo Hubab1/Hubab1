@@ -207,7 +207,8 @@ selectors.canAccessRoute = (state, route) => {
     return route === selectors.selectInitialPage(state);
 };
 
-export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ];
+// TODO: remove routes.applications
+export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ, ROUTES.APPLICATIONS];
 
 const getDirectRoute = (route) => {
     if (!route) return null;

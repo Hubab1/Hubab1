@@ -1,3 +1,3 @@
-import useApplicationRoles from './useApplicationRoles';
+import useApplications from './useApplications';
 
-export { useApplicationRoles };
+export { useApplications };

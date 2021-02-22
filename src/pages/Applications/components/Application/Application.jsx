@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({ application = {}, role = undefined, isActive = true }) {
-    const { id, status, lease_start_date, lease_term, fees_breakdown, unit, community } = application;
+export function Application({ application = {}, isActive = true }) {
+    const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expaneded, setExpanded] = useState(isActive);
 
@@ -104,7 +104,7 @@ export function Application({ application = {}, role = undefined, isActive = tru
                             Lease Term: <span>{lease_term}</span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
-                            Montly Rent: <span>${fees_breakdown.monthly_fees_v2.total}</span>
+                            Montly Rent: <span>${fees_breakdown.monthly_fees.total}</span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
                             Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
@@ -121,7 +121,6 @@ export function Application({ application = {}, role = undefined, isActive = tru
 
 Application.propTypes = {
     application: PropTypes.object.isRequired,
-    role: PropTypes.number.isRequired,
     isActive: PropTypes.bool,
 };
 

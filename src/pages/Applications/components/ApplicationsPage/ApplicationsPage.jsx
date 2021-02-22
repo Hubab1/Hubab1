@@ -2,10 +2,9 @@ import React, { useMemo } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'app/constants';
-import { useApplicationRoles } from 'hooks';
+import { useApplications } from 'hooks';
 import Page from 'components/common/Page/Page';
 import Application from '../Application/Application';
-import { H3 } from 'assets/styles';
 
 export const ERROR_MESSAGE = "Oops, we're having trouble obtaining your applications. Please try again later.";
 
@@ -30,7 +29,7 @@ const useStyles = makeStyles(() => ({
 
 export function ApplicationsPage() {
     const classes = useStyles();
-    const { error, applicationRoles } = useApplicationRoles();
+    const { loading, error, applications } = useApplications();
     const notification = error && {
         type: 'error',
         messages: ERROR_MESSAGE,
@@ -38,28 +37,21 @@ export function ApplicationsPage() {
 
     const [active, past] = useMemo(() => {
         return [
-            applicationRoles.filter(({ application }) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
-            applicationRoles.filter(({ application }) => PAST_APPLICATION_STATUSES.includes(application.status)),
+            applications.filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
+            applications.filter((application) => PAST_APPLICATION_STATUSES.includes(application.status)),
         ];
-    }, [applicationRoles]);
+    }, [applications]);
 
     const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
         return [!error && active.length === 0, !error && past.length === 0];
     }, [error, active, past]);
 
     return (
-        <Page className={classes.root} title="My Applications" notification={notification}>
+        <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
             <div className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
-                {active.map((applicationRole, i) => {
-                    return (
-                        <Application
-                            key={i}
-                            application={applicationRole.application}
-                            role={applicationRole.role}
-                            isActive
-                        />
-                    );
+                {active.map((application, i) => {
+                    return <Application key={i} application={application} isActive />;
                 })}
                 {showActiveEmptyState && (
                     <Typography variant="h4">{`You don't have any active applications.`}</Typography>
@@ -67,15 +59,8 @@ export function ApplicationsPage() {
             </div>
             <div className={classes.section}>
                 <Typography variant="h3">Past Applications</Typography>
-                {past.map((applicationRole, i) => {
-                    return (
-                        <Application
-                            key={i}
-                            application={applicationRole.application}
-                            role={applicationRole.role}
-                            isActive={false}
-                        />
-                    );
+                {past.map((application, i) => {
+                    return <Application key={i} application={application} isActive={false} />;
                 })}
                 {showPastEmptyState && <Typography variant="h4">{`You don't have any past applications.`}</Typography>}
             </div>
