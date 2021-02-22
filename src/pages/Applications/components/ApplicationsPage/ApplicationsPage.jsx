@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'app/constants';
-import useApplicationRoles from 'hooks/useApplicationRoles';
+import { useApplicationRoles } from 'hooks';
 import Page from 'components/common/Page/Page';
 import Application from '../Application/Application';
 import { H3 } from 'assets/styles';
@@ -45,6 +45,17 @@ export function ApplicationsPage() {
         ];
     }, [applicationRoles]);
 
+    const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
+        return [!error && active.length === 0, !error && past.length === 0];
+    }, [error, active, past]);
+
+    console.log({
+        error,
+        applicationRoles,
+        active,
+        past,
+    });
+
     return (
         <Page className={classes.root} title="My Applications" notification={notification}>
             <div className={classes.section}>
@@ -59,7 +70,7 @@ export function ApplicationsPage() {
                         />
                     );
                 })}
-                {active.length === 0 && (
+                {showActiveEmptyState && (
                     <Typography variant="h4">{`You don't have any active applications.`}</Typography>
                 )}
             </div>
@@ -75,7 +86,7 @@ export function ApplicationsPage() {
                         />
                     );
                 })}
-                {past.length === 0 && <Typography variant="h4">{`You don't have any past applications.`}</Typography>}
+                {showPastEmptyState && <Typography variant="h4">{`You don't have any past applications.`}</Typography>}
             </div>
         </Page>
     );

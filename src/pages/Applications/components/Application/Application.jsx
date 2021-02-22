@@ -120,15 +120,7 @@ export function Application({ application = {}, role = undefined, isActive = tru
 }
 
 Application.propTypes = {
-    application: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        status: PropTypes.number.isRequired,
-        lease_start_date: PropTypes.string,
-        lease_term: PropTypes.number,
-        fees_breakdown: PropTypes.object.isRequired,
-        community: PropTypes.object.isRequired,
-        unit: PropTypes.object.isRequired,
-    }),
+    application: PropTypes.object.isRequired,
     role: PropTypes.number.isRequired,
     isActive: PropTypes.bool,
 };
