@@ -33,8 +33,11 @@ describe('ApplicationPage', () => {
 
     it('useApplicationRoles success with application shows active and past application sections', () => {
         const applicationRoles = [
-            { application: { status: ACTIVE_APPLICATION_STATUSES[0] }, role: APPLICANT_ROLE_VALUES[0] },
-            { application: { status: PAST_APPLICATION_STATUSES[0] }, role: APPLICANT_ROLE_VALUES[0] },
+            {
+                application: { status: ACTIVE_APPLICATION_STATUSES[0] },
+                role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
+            },
+            { application: { status: PAST_APPLICATION_STATUSES[0] }, role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT },
         ];
         mockUseApplicationRoles({ applicationRoles });
         const wrapper = shallow(<ApplicationsPage />);
