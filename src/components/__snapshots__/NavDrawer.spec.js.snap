@@ -31,7 +31,9 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         >
           JD
         </div>
-        <UNDEFINED />
+        <UNDEFINED
+          fontSize="small"
+        />
       </ForwardRef(WithStyles)>
       <ForwardRef(WithStyles)
         anchorEl={null}

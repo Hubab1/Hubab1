@@ -181,7 +181,7 @@ export function PersistentDrawerLeft({
                     <BannerLogo />
                     <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                         <div className={classes.avatar}>{initials}</div>
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon fontSize="small" />
                     </IconButton>
                     <Popover
                         {...bindPopover(menuState)}
