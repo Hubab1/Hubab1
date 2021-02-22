@@ -5,6 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
+import HttpProvider from './HttpProvider';
 
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
 
@@ -48,7 +49,9 @@ export function AppContextProvider(props) {
         <MuiThemeProvider theme={props.theme}>
             <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <StripeProvider apiKey={stripeApiKey}>{props.children}</StripeProvider>
+                    <StripeProvider apiKey={stripeApiKey}>
+                        <HttpProvider>{props.children}</HttpProvider>
+                    </StripeProvider>
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>
