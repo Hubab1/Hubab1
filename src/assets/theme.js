@@ -41,16 +41,16 @@ export const createTheme = (config) => {
             subheader: {
                 fontSize: 16,
                 fontWeight: 400,
-            }
+            },
         },
         // Note: the default padding of the card content is 16px, 16px, 24px, 16px
         // This override addresses that by forcing it all to 16px
         MuiCardContent: {
             root: {
                 '&:last-child': {
-                    padding: `${theme.spacing(2)}px !important`
-                }
-            }
+                    padding: `${theme.spacing(2)}px !important`,
+                },
+            },
         },
     };
 
