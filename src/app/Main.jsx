@@ -54,7 +54,6 @@ export class Main extends Component {
 
         const clientRegistered = configuration.client && configuration.client.applicant_id;
         const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
-        const hasRegistered = clientRegistered || inviteeRegistered;
 
         initLaunchDarkly(configuration?.community?.company);
 

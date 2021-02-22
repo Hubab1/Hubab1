@@ -63,7 +63,6 @@ export class LoginPage extends React.Component {
     };
 
     render() {
-        console.log(this.props.community);
         return (
             <UnauthenticatedPage>
                 <H1>Welcome Back</H1>
