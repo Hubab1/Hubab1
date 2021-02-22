@@ -52,9 +52,6 @@ export class Main extends Component {
         const { history, location } = this.props;
         const pathname = location.pathname;
 
-        const clientRegistered = configuration.client && configuration.client.applicant_id;
-        const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
-
         initLaunchDarkly(configuration?.community?.company);
 
         if (!isAuthenticated) {
