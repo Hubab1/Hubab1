@@ -23,9 +23,11 @@ exports[`ApplicationPage useApplicationRoles error shows error notification 1`] 
   <div
     className="makeStyles-section-2"
   >
-    <ForwardRef(render)>
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
       Past Applications
-    </ForwardRef(render)>
+    </ForwardRef(WithStyles)>
   </div>
 </Page>
 `;
@@ -56,9 +58,11 @@ exports[`ApplicationPage useApplicationRoles success with application shows acti
   <div
     className="makeStyles-section-2"
   >
-    <ForwardRef(render)>
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
       Past Applications
-    </ForwardRef(render)>
+    </ForwardRef(WithStyles)>
     <Application
       application={
         Object {
@@ -94,9 +98,11 @@ exports[`ApplicationPage useApplicationRoles success without application shows s
   <div
     className="makeStyles-section-2"
   >
-    <ForwardRef(render)>
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
       Past Applications
-    </ForwardRef(render)>
+    </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       variant="h4"
     >

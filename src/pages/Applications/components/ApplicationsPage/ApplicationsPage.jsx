@@ -66,7 +66,7 @@ export function ApplicationsPage() {
                 )}
             </div>
             <div className={classes.section}>
-                <H3>Past Applications</H3>
+                <Typography variant="h3">Past Applications</Typography>
                 {past.map((applicationRole, i) => {
                     return (
                         <Application
