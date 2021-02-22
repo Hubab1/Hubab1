@@ -1,30 +1,24 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { isEmpty } from 'lodash';
 
-export const PALLETE_TYPES = {
-    DARK: 'dark',
-    LIGHT: 'light',
-};
-
-export const THEME_CONSTANTS = {
-    PALLETE_TYPES,
-};
-
 export const createTheme = (config) => {
     if (isEmpty(config)) return;
 
     const { primary_color, secondary_color, dark_mode } = config;
-    const paletteType = dark_mode ? PALLETE_TYPES.DARK : PALLETE_TYPES.LIGHT;
+    const darkMode = dark_mode;
     const primaryColor = primary_color ? `#${primary_color}` : '#2B44FF';
     const secondaryColor = secondary_color ? `#${secondary_color}` : '#2B44FF';
 
     return createMuiTheme({
+        // Important note: don't set palette.type to 'dark' based on dark mode
+        // This will put all material ui's components in a dark mode state - which will cause a lot of styling issues
+        // Instead, we use our this darkMode variable
+        darkMode: darkMode,
         typography: {
             useNextVariants: true,
             fontFamily: ['proxima-nova', 'sans-serif'],
         },
         palette: {
-            type: paletteType,
             primary: {
                 main: primaryColor,
             },

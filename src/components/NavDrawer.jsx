@@ -28,7 +28,6 @@ import ProgressBar from 'components/common/Page/ProgressBar';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import NavStepper from './NavStepper';
 import { drawerContent } from 'components/common/Page/styles';
-import { PALLETE_TYPES } from 'assets/theme';
 import { H3 } from 'assets/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,21 +42,27 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     appBar: {
-        backgroundColor: theme.palette.type === PALLETE_TYPES.LIGHT ? '#ffffff' : theme.palette.primary.main,
-        color: theme.palette.type === PALLETE_TYPES.LIGHT ? '#000000' : theme.palette.primary.contrastText,
+        backgroundColor: !theme.darkMode ? '#ffffff' : theme.palette.primary.main,
+        color: !theme.darkMode ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
         minHeight: 76,
     },
-    menuTrigger: {
+    drawerMenuTrigger: {
+        color: !theme.darkMode ? 'black' : 'white',
+    },
+    profileMenuTrigger: {
         borderRadius: '35px',
+        color: !theme.darkMode ? 'black' : 'white',
     },
-    menuList: {
+    profileMenuList: {
         width: 130,
-    },
-    menuListItemDivider: {
-        backgroundColor: '#eee',
-        margin: '4px 8px',
+
+        // Divider
+        '& hr': {
+            backgroundColor: '#eee',
+            margin: '4px 8px',
+        },
     },
     section: {
         margin: '24px 16px',
@@ -108,13 +113,13 @@ const useStyles = makeStyles((theme) => ({
         width: 30,
         height: 30,
         backgroundColor: 'transparent',
-        border: theme.palette.type === PALLETE_TYPES.LIGHT ? '2px solid black' : '2px solid white',
+        border: !theme.darkMode ? '2px solid black' : '2px solid white',
         borderRadius: '50%',
-        color: theme.palette.type === PALLETE_TYPES.LIGHT ? 'black' : 'white',
+        color: !theme.darkMode ? 'black' : 'white',
         fontSize: 12,
     },
     goBack: {
-        color: theme.palette.type === PALLETE_TYPES.LIGHT ? 'black' : 'white',
+        color: !theme.darkMode ? 'black' : 'white',
         borderRadius: '35px',
 
         '& span': {
@@ -201,7 +206,7 @@ export function PersistentDrawerLeft({
                     horizontal: 'right',
                 }}
             >
-                <MenuList className={classes.menuList}>
+                <MenuList className={classes.profileMenuList}>
                     <MenuItem onClick={handleAccountClick}>Account</MenuItem>
                     {canSeeApplications && (
                         // Material-UI: The Menu component doesn't accept a Fragment as a child...
@@ -210,7 +215,7 @@ export function PersistentDrawerLeft({
                             <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
                         </div>
                     )}
-                    <Divider className={classes.menuListItemDivider} />
+                    <Divider />
                     <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
                 </MenuList>
             </Popover>
@@ -230,9 +235,9 @@ export function PersistentDrawerLeft({
                             <span>Go Back</span>
                         </IconButton>
                         <BannerLogo />
-                        <IconButton className={classes.menuTrigger} {...bindTrigger(menuState)}>
+                        <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                             <div className={classes.avatar}>{initials}</div>
-                            <ExpandMoreIcon />
+                            <ExpandMoreIcon fontSize="small" />
                         </IconButton>
                         {menu}
                     </Toolbar>
@@ -250,13 +255,13 @@ export function PersistentDrawerLeft({
             <CssBaseline />
             <AppBar color="primary" position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton color="inherit" aria-label="Open drawer" onClick={handleDrawerOpen} edge="start">
+                    <IconButton className={classes.drawerMenuTrigger} onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
                     <BannerLogo />
-                    <IconButton className={classes.menuTrigger} {...bindTrigger(menuState)}>
+                    <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                         <div className={classes.avatar}>{initials}</div>
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon fontSize="small" />
                     </IconButton>
                     {menu}
                 </Toolbar>
