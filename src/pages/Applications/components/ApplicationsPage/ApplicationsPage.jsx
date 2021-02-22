@@ -48,14 +48,7 @@ export function ApplicationsPage() {
     const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
         return [!error && active.length === 0, !error && past.length === 0];
     }, [error, active, past]);
-
-    console.log({
-        error,
-        applicationRoles,
-        active,
-        past,
-    });
-
+    
     return (
         <Page className={classes.root} title="My Applications" notification={notification}>
             <div className={classes.section}>
