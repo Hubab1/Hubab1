@@ -53,6 +53,7 @@ export function Page({
         src: undefined,
         className: undefined,
     },
+    loading = false,
     children,
 }) {
     const classes = useStyles();
@@ -82,7 +83,7 @@ export function Page({
                     />
                 )}
             </div>
-            <div className={classes.content}>{children}</div>
+            {!loading && <div className={classes.content}>{children}</div>}
         </div>
     );
 }
@@ -99,6 +100,7 @@ Page.propTypes = {
         src: PropTypes.string.isRequired,
         className: PropTypes.string,
     }),
+    loading: PropTypes.bool,
     children: PropTypes.node.isRequired,
 };
 
