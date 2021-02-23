@@ -6,6 +6,7 @@ import store from 'reducers/store';
 const flags = {
     'agent-request-more-income-when-no-income': true,
     'ol-show-automated-address-form': true,
+    'multiple-apps-v-2-login-and-navigation': true,
 };
 
 export const initLaunchDarkly = (company = {}) => {
