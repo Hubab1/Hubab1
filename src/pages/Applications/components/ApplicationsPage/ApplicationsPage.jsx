@@ -27,6 +27,10 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+const byLastActivitySorter = (a, b) => {
+    return new Date(b.lastActivity) - new Date(a.lastActivity);
+};
+
 export function ApplicationsPage() {
     const classes = useStyles();
     const { loading, error, applications } = useApplications();
@@ -37,8 +41,12 @@ export function ApplicationsPage() {
 
     const [active, past] = useMemo(() => {
         return [
-            applications.filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
-            applications.filter((application) => PAST_APPLICATION_STATUSES.includes(application.status)),
+            applications
+                .filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status))
+                .sort(byLastActivitySorter),
+            applications
+                .filter((application) => PAST_APPLICATION_STATUSES.includes(application.status))
+                .sort(byLastActivitySorter),
         ];
     }, [applications]);
 
@@ -50,8 +58,8 @@ export function ApplicationsPage() {
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
             <div className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
-                {active.map((application, i) => {
-                    return <Application key={i} application={application} isActive />;
+                {active.map((application) => {
+                    return <Application key={application.id} application={application} isActive />;
                 })}
                 {showActiveEmptyState && (
                     <Typography variant="h4">{`You don't have any active applications.`}</Typography>
@@ -59,8 +67,8 @@ export function ApplicationsPage() {
             </div>
             <div className={classes.section}>
                 <Typography variant="h3">Past Applications</Typography>
-                {past.map((application, i) => {
-                    return <Application key={i} application={application} isActive={false} />;
+                {past.map((application) => {
+                    return <Application key={application.id} application={application} isActive={false} />;
                 })}
                 {showPastEmptyState && <Typography variant="h4">{`You don't have any past applications.`}</Typography>}
             </div>

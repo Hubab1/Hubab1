@@ -60,7 +60,7 @@ exports[`ApplicationsPages useApplications loading shows empty page 1`] = `
 </div>
 `;
 
-exports[`ApplicationsPages useApplications success with application shows active and past application sections 1`] = `
+exports[`ApplicationsPages useApplications success with application shows active and past application sections sorted by last activity 1`] = `
 <Page
   className="makeStyles-root-1"
   loading={false}
@@ -77,6 +77,30 @@ exports[`ApplicationsPages useApplications success with application shows active
     <Application
       application={
         Object {
+          "id": "1st-recent",
+          "lastActivity": "01-03-2020",
+          "role": 10,
+          "status": 5,
+        }
+      }
+      isActive={true}
+    />
+    <Application
+      application={
+        Object {
+          "id": "2nd-recent",
+          "lastActivity": "01-02-2020",
+          "role": 10,
+          "status": 5,
+        }
+      }
+      isActive={true}
+    />
+    <Application
+      application={
+        Object {
+          "id": "3rd-recent",
+          "lastActivity": "01-01-2020",
           "role": 10,
           "status": 5,
         }
@@ -95,6 +119,8 @@ exports[`ApplicationsPages useApplications success with application shows active
     <Application
       application={
         Object {
+          "id": "past-application",
+          "lastActivity": "2021-02-22T17:05:39.170Z",
           "role": 20,
           "status": 25,
         }

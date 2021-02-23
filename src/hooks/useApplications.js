@@ -10,11 +10,14 @@ const useApplications = () => {
         cachePolicy: 'network-only',
     });
 
+    // Note: data returned by end point is actuall an list of ApplicantRoles
+    // We 'flatmap' them by merging the role and last activity with the application
     const applications =
-        data?.map(({ application, role }) => {
+        data?.map(({ application, role, last_activity }) => {
             return {
                 ...application,
                 role,
+                lastActivity: last_activity,
             };
         }) || [];
 
