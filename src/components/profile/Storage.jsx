@@ -66,6 +66,7 @@ export const Storage = (props) => {
 
     const storageOptions = props.config.rental_options.storage || [];
     const submitLabel = rentalOptionCTALabel(initialStorageOptions, 'Add Storage');
+
     return (
         <>
             <H1>Storage</H1>
@@ -103,6 +104,7 @@ export const Storage = (props) => {
                                 application={props.application}
                                 category={'Storage'}
                                 categoryHelperText={'storage spaces'}
+                                moveInDate={props.application.lease_start_date}
                             />
                         )}
                         <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
