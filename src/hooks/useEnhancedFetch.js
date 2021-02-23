@@ -38,7 +38,7 @@ const getEnhancedError = (fetch) => {
  * @param url (String): the api endpoint
  * @param fetchOnDemand (Boolean): determines wether or not to fetch data right away or on demand (GET requests only)
  * @param method (String): GET, POST, PUT or DELETE
- * @param options (Object): see https://use-http.com/#/?id=destructured
+ * @param other options: see https://use-http.com/#/?id=destructured
  */
 const useEnhancedFetch = (url, { method = undefined, fetchOnDemand = true, ...options }) => {
     if (!method) {
