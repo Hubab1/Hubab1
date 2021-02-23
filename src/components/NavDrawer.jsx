@@ -281,10 +281,10 @@ export function PersistentDrawerLeft({
                                     <b>${profile.fees_breakdown.application_fees.total}</b> due at application
                                 </li>
                                 <li>
-                                    <b>${profile.fees_breakdown.move_in_fees_v2.total}</b> due at move in
+                                    <b>${profile.fees_breakdown.move_in_fees.total}</b> due at move in
                                 </li>
                                 <li>
-                                    <b>${profile.fees_breakdown.monthly_fees_v2.total}</b> monthly rent
+                                    <b>${profile.fees_breakdown.monthly_fees.total}</b> monthly rent
                                 </li>
                             </ul>
                             <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
