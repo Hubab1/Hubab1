@@ -120,7 +120,7 @@ exports[`ApplicationsPages useApplications success with application shows active
       application={
         Object {
           "id": "past-application",
-          "lastActivity": "2021-02-22T17:05:39.170Z",
+          "lastActivity": "01-01-2020",
           "role": 20,
           "status": 25,
         }

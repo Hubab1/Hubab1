@@ -63,7 +63,7 @@ describe('ApplicationsPages', () => {
                 id: 'past-application',
                 status: PAST_APPLICATION_STATUSES[0],
                 role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT,
-                lastActivity: moment().subtract({ days: 1 }),
+                lastActivity: moment('2020-01-01').format('MM-DD-YYYY'),
             },
         ];
         mockUseApplicationRoles({ applications });
