@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         right: 0,
         margin: 'auto',
+        pointerEvents: 'none',
     },
     drawerMenuTrigger: {
         color: !theme.darkMode ? 'black' : 'white',
