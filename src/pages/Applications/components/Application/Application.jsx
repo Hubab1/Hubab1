@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { isEmpty } from 'lodash';
 import clsx from 'clsx';
 import {
     makeStyles,
@@ -14,7 +15,12 @@ import {
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
 
-import { APPLICATION_STATUSES_LABELS, APPLICANT_ROLE_LABELS, APPLICATION_STATUSES_COLORS } from 'app/constants';
+import {
+    APPLICATION_STATUSES,
+    APPLICATION_STATUSES_LABELS,
+    APPLICANT_ROLE_LABELS,
+    APPLICATION_STATUSES_COLORS
+} from 'app/constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +67,10 @@ export function Application({ application = {}, isActive = true }) {
     const handleExpandClick = useCallback(() => {
         setExpanded(!expaneded);
     }, [expaneded]);
+
+    if (isEmpty(application)) {
+        return null;
+    }
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -120,7 +130,16 @@ export function Application({ application = {}, isActive = true }) {
 }
 
 Application.propTypes = {
-    application: PropTypes.object.isRequired,
+    application: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        status: PropTypes.number.isRequired,
+        lease_start_date: PropTypes.string,
+        lease_term: PropTypes.string,
+        fees_breakdown: PropTypes.object,
+        role: PropTypes.number.isRequired,
+        unit: PropTypes.object.isRequired,
+        community: PropTypes.object.isRequired,
+    }),
     isActive: PropTypes.bool,
 };
 
