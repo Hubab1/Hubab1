@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { css } from 'emotion';
 
 import { Logo } from 'assets/styles';
@@ -15,7 +16,7 @@ export class BannerLogo extends React.Component {
     static contextType = AppTheme;
     render () {
         return (
-            <div className={container}>
+            <div className={clsx(container, {[this.props.className]: this.props.className})}>
                 <Logo src={this.context.logo} alt="company logo" />
             </div>
         );
@@ -23,8 +24,8 @@ export class BannerLogo extends React.Component {
 }
 
 BannerLogo.propTypes = {
-    logo: PropTypes.string
+    logo: PropTypes.string,
+    className: PropTypes.string,
 };
-
 
 export default BannerLogo;

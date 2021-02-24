@@ -46,7 +46,17 @@ const useStyles = makeStyles((theme) => ({
         color: !theme.darkMode ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         minHeight: 76,
+    },
+    bannerLogo: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: 'auto',
     },
     drawerMenuTrigger: {
         color: !theme.darkMode ? 'black' : 'white',
@@ -239,7 +249,7 @@ export function PersistentDrawerLeft({
                             <ArrowBackIosIcon />
                             <span>Go Back</span>
                         </IconButton>
-                        <BannerLogo />
+                        <BannerLogo className={classes.bannerLogo} />
                         <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                             <div className={classes.avatar}>{initials}</div>
                             <ExpandMoreIcon fontSize="small" />
@@ -263,7 +273,7 @@ export function PersistentDrawerLeft({
                     <IconButton className={classes.drawerMenuTrigger} onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
-                    <BannerLogo />
+                    <BannerLogo className={classes.bannerLogo} />
                     <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                         <div className={classes.avatar}>{initials}</div>
                         <ExpandMoreIcon fontSize="small" />
