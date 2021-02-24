@@ -16,7 +16,6 @@ import {
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
 
 import {
-    APPLICATION_STATUSES,
     APPLICATION_STATUSES_LABELS,
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
