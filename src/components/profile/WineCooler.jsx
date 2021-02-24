@@ -104,6 +104,7 @@ export const WineCooler = (props) => {
                                 application={props.application}
                                 category={'Wine Cooler'}
                                 categoryHelperText={'wine coolers'}
+                                moveInDate={props.application.lease_start_date}
                             />
                         )}
                         <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>

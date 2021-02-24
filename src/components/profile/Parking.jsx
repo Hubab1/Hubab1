@@ -104,6 +104,7 @@ export const Parking = (props) => {
                                     application={props.application}
                                     category={'Parking'}
                                     categoryHelperText={'parking spaces'}
+                                    moveInDate={props.application.lease_start_date}
                                 />
                             )}
                             <ActionButton marginTop={68} disabled={!dirty || isSubmitting}>
