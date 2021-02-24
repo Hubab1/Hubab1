@@ -169,8 +169,13 @@ export function PersistentDrawerLeft({
     }, [navRoutes, currentRoute, profile]);
 
     const handleGoBackClick = useCallback(() => {
-        history.goBack();
-    }, [history]);
+        const canGoBack = history.length > 2;
+        if (canGoBack) {
+            return history.goBack();
+        }
+
+        return logout();
+    }, [history, logout]);
 
     const handleDrawerOpen = useCallback(() => {
         setOpen(true);
