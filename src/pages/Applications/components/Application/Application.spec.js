@@ -29,6 +29,21 @@ describe('Application', () => {
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 
+    it('renders active application without required application data', () => {
+        const application = {
+            id: 1,
+            status: ACTIVE_APPLICATION_STATUSES[0],
+            lease_term: 12,
+            role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
+            community: {
+                display_name: 'Community Alpha',
+            },
+        };
+
+        const wrapper = shallow(<Application application={application} isActive />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
     it('renders past application', () => {
         const application = {
             id: 1,

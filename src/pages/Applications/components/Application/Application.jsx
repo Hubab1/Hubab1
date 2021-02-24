@@ -19,7 +19,7 @@ import {
     APPLICATION_STATUSES,
     APPLICATION_STATUSES_LABELS,
     APPLICANT_ROLE_LABELS,
-    APPLICATION_STATUSES_COLORS
+    APPLICATION_STATUSES_COLORS,
 } from 'app/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +63,7 @@ export function Application({ application = {}, isActive = true }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expaneded, setExpanded] = useState(isActive);
+    const title = unit?.unit_number ? `${community.display_name}, #${unit.unit_number}` : community.display_name;
 
     const handleExpandClick = useCallback(() => {
         setExpanded(!expaneded);
@@ -77,7 +78,7 @@ export function Application({ application = {}, isActive = true }) {
             <CardHeader
                 title={
                     <Typography className={clsx(classes.typography, classes.title)} variant="body1">
-                        <b>{`${community.display_name}, #${unit.unit_number}`}</b>
+                        <b>{title}</b>
                     </Typography>
                 }
                 subheader={
@@ -108,13 +109,17 @@ export function Application({ application = {}, isActive = true }) {
                     <Divider className={classes.divider} />
                     <CardContent>
                         <Typography className={classes.typography} variant="body1">
-                            Move in Date: <span>{moment(lease_start_date).format('MM/DD/YYYY')}</span>
+                            Move in Date:{' '}
+                            <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '-'}</span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
-                            Lease Term: <span>{lease_term}</span>
+                            Lease Term: <span>{lease_term ? lease_term : '-'}</span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
-                            Montly Rent: <span>${fees_breakdown.monthly_fees.total}</span>
+                            Montly Rent:{' '}
+                            <span>
+                                {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}
+                            </span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
                             Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
