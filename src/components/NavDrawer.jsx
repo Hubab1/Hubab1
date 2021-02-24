@@ -158,6 +158,7 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase();
+    const showGoBack = history.length > 2;
 
     /**
      * Determines wether or not to show the applications toolbar instead of the sidebar drawer
@@ -179,14 +180,16 @@ export function PersistentDrawerLeft({
         return 0;
     }, [navRoutes, currentRoute, profile]);
 
-    const handleGoBackClick = useCallback(() => {
-        const canGoBack = history.length > 2;
-        if (canGoBack) {
-            return history.goBack();
-        }
+    const getShouldHistoryPush = useCallback(
+        (route) => {
+            return history?.location?.pathname !== route;
+        },
+        [history]
+    );
 
-        return logout();
-    }, [history, logout]);
+    const handleGoBackClick = useCallback(() => {
+        history.goBack();
+    }, [history]);
 
     const handleDrawerOpen = useCallback(() => {
         setOpen(true);
@@ -198,13 +201,19 @@ export function PersistentDrawerLeft({
 
     const handleAccountClick = useCallback(() => {
         menuState.close();
-        history.push(ROUTES.ACCOUNT);
-    }, [menuState, history]);
+
+        if (getShouldHistoryPush(ROUTES.ACCOUNT)) {
+            history.push(ROUTES.ACCOUNT);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
 
     const handleApplicationsClick = useCallback(() => {
         menuState.close();
-        history.push(ROUTES.APPLICATIONS);
-    }, [menuState, history]);
+
+        if (getShouldHistoryPush(ROUTES.APPLICATIONS)) {
+            history.push(ROUTES.APPLICATIONS);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
 
     const handleLogoutClick = useCallback(() => {
         menuState.close();
@@ -245,11 +254,16 @@ export function PersistentDrawerLeft({
             <div>
                 <CssBaseline />
                 <AppBar color="primary" position="fixed" className={classes.appBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
-                            <ArrowBackIosIcon />
-                            <span>Go Back</span>
-                        </IconButton>
+                    <Toolbar
+                        className={classes.toolbar}
+                        style={{ justifyContent: showGoBack ? 'space-between' : 'flex-end' }}
+                    >
+                        {showGoBack && (
+                            <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
+                                <ArrowBackIosIcon />
+                                <span>Go Back</span>
+                            </IconButton>
+                        )}
                         <BannerLogo className={classes.bannerLogo} />
                         <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                             <div className={classes.avatar}>{initials}</div>
