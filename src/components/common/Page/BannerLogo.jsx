@@ -7,16 +7,16 @@ import { Logo } from 'assets/styles';
 import { AppTheme } from 'contexts/AppContextProvider';
 
 export const container = css`
-  text-align: center;
-  margin: auto;
-  padding: 10px 0;
+    text-align: center;
+    margin: auto;
+    padding: 10px 0;
 `;
 
 export class BannerLogo extends React.Component {
     static contextType = AppTheme;
-    render () {
+    render() {
         return (
-            <div className={clsx(container, {[this.props.className]: this.props.className})}>
+            <div className={clsx(container, { [this.props.className]: this.props.className })}>
                 <Logo src={this.context.logo} alt="company logo" />
             </div>
         );
