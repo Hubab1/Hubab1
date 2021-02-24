@@ -35,7 +35,7 @@ export class WelcomePage extends Component {
 
     getCTALabel() {
         const { invitee } = this.props.configuration;
-        if (invitee?.is_registered) {
+        if (invitee) {
             return 'Continue to Application';
         }
 
@@ -93,7 +93,7 @@ export class WelcomePage extends Component {
                                 {this.getCTALabel()}
                             </CallToActionButton>
                         </Link>
-                        {!invitee?.is_registered && (
+                        {!invitee && (
                             <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
                                 I already have an account
                             </Link>
