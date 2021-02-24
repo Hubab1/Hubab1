@@ -130,14 +130,16 @@ describe('selectTheme', () => {
                 secondary_color: 'ffffff',
             },
         });
-        expect(theme).toEqual(themeTwo);
+
+        expect(JSON.stringify(theme)).toEqual(JSON.stringify(themeTwo));
         const themeThree = selectors.selectTheme({
             configuration: {
                 primary_color: '000000',
                 secondary_color: 'cccccc',
             },
         });
-        expect(themeTwo).not.toEqual(themeThree);
+
+        expect(JSON.stringify(themeTwo)).not.toEqual(JSON.stringify(themeThree));
     });
 });
 

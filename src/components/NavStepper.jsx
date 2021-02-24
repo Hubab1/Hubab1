@@ -23,7 +23,7 @@ import {
 
 const useStyles = makeStyles(() => ({
     root: {
-        width: '100%',
+        padding: 0,
     },
 }));
 
@@ -91,26 +91,140 @@ export function VerticalLinearStepper(props) {
     }
 
     return (
-        <div className={classes.root}>
-            <Stepper activeStep={activeStep} orientation="vertical">
-                {unitUnavailable && !props.guarantorRequested && (
+        <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
+            {unitUnavailable && !props.guarantorRequested && (
+                <Step active>
+                    <StepLabel
+                        StepIconComponent={() => <ErrorIcon color="primary" />}
+                        active
+                        classes={{ root: iconRoot }}
+                    >
+                        <span className="unitUnavailableMsg">
+                            {`We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at `}
+                            <a href={`tel:${props.config.community.contact_phone}`}>
+                                {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                            </a>{' '}
+                            so we can discuss some other options.
+                        </span>
+                    </StepLabel>
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        id="viewProgressButton"
+                        classes={{
+                            root: viewProgress,
+                        }}
+                        disabled={false}
+                        onClick={() => props.history.push(props.initialPage)}
+                    >
+                        View Progress
+                    </Button>
+                </Step>
+            )}
+            {holdingDepositAgreementSignatureRequested && (
+                <Step active>
+                    <StepLabel
+                        StepIconComponent={() => <ErrorIcon color="primary" />}
+                        active
+                        classes={{ root: iconRoot }}
+                    >
+                        <span className="holdingDepositReagreement">
+                            We’ll need you to agree to the new holding deposit terms. Please call us at&nbsp;
+                            <a href={`tel:${props.config.community.contact_phone}`}>
+                                {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                            </a>{' '}
+                            if you have any questions.
+                        </span>
+                    </StepLabel>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        id="viewProgressButton"
+                        classes={{
+                            root: viewProgress,
+                        }}
+                        disabled={false}
+                        onClick={() => {
+                            props.history.push(props.initialPage);
+                            props.handleDrawerClose();
+                        }}
+                    >
+                        View Progress
+                    </Button>
+                </Step>
+            )}
+            {props.applicantStillFinishingApplication &&
+                !unitUnavailable &&
+                !props.guarantorRequested &&
+                !holdingDepositAgreementSignatureRequested &&
+                !additionalDocumentsRequested &&
+                props.navRoutes.map((route, i) => (
+                    <Step
+                        classes={{
+                            root: clsx({
+                                [active]: activeStep === i,
+                                [accessible]: i <= firstUncompletedStep,
+                            }),
+                        }}
+                        key={route.name}
+                        onClick={(e) => onClickRoute(e, route, i)}
+                        active={i === activeStep || i === firstUncompletedStep}
+                    >
+                        <StepLabel icon={' '} completed={i < firstUncompletedStep}>
+                            {route.name}
+                        </StepLabel>
+                    </Step>
+                ))}
+            {props.guarantorRequested && (
+                <Step active>
+                    <StepLabel
+                        StepIconComponent={() => <ErrorIcon color="primary" />}
+                        active
+                        classes={{ root: iconRoot }}
+                    >
+                        <span className="appCompletedMsg">
+                            We’re waiting for you to add a guarantor. Please call us at&nbsp;
+                            <a href={`tel:${props.config.community.contact_phone}`}>
+                                {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                            </a>{' '}
+                            if you have any questions or if you are unable or unwilling to add a guarantor.
+                        </span>
+                    </StepLabel>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        id="viewProgressButton"
+                        classes={{
+                            root: viewProgress,
+                        }}
+                        disabled={false}
+                        onClick={() => props.history.push(props.initialPage)}
+                    >
+                        View Progress
+                    </Button>
+                </Step>
+            )}
+            {additionalDocumentsRequested &&
+                !props.guarantorRequested &&
+                !unitUnavailable &&
+                !holdingDepositAgreementSignatureRequested && (
                     <Step active>
                         <StepLabel
                             StepIconComponent={() => <ErrorIcon color="primary" />}
                             active
                             classes={{ root: iconRoot }}
                         >
-                            <span className="unitUnavailableMsg">
-                                {`We've placed your application on hold for now, since the apartment you were interested in is no longer available. Please call us at `}
+                            <span className="appCompletedMsg">
+                                We’re requesting additional info to verify your income/assets. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
                                 </a>{' '}
-                                so we can discuss some other options.
+                                if you have any questions.
                             </span>
                         </StepLabel>
                         <Button
                             variant="outlined"
-                            color="default"
+                            color="primary"
                             id="viewProgressButton"
                             classes={{
                                 root: viewProgress,
@@ -122,15 +236,15 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
-                {holdingDepositAgreementSignatureRequested && (
+            {!props.applicantStillFinishingApplication &&
+                !props.guarantorRequested &&
+                !outstandingBalance &&
+                !holdingDepositAgreementSignatureRequested &&
+                !additionalDocumentsRequested && (
                     <Step active>
-                        <StepLabel
-                            StepIconComponent={() => <ErrorIcon color="primary" />}
-                            active
-                            classes={{ root: iconRoot }}
-                        >
-                            <span className="holdingDepositReagreement">
-                                We’ll need you to agree to the new holding deposit terms. Please call us at&nbsp;
+                        <StepLabel completed classes={{ root: iconRoot }}>
+                            <span className="appCompletedMsg">
+                                Your application has been completed and submitted. Please call us at&nbsp;
                                 <a href={`tel:${props.config.community.contact_phone}`}>
                                     {prettyFormatPhoneNumber(props.config.community.contact_phone)}
                                 </a>{' '}
@@ -154,158 +268,41 @@ export function VerticalLinearStepper(props) {
                         </Button>
                     </Step>
                 )}
-                {props.applicantStillFinishingApplication &&
-                    !unitUnavailable &&
-                    !props.guarantorRequested &&
-                    !holdingDepositAgreementSignatureRequested &&
-                    !additionalDocumentsRequested &&
-                    props.navRoutes.map((route, i) => (
-                        <Step
-                            classes={{
-                                root: clsx({
-                                    [active]: activeStep === i,
-                                    [accessible]: i <= firstUncompletedStep,
-                                }),
-                            }}
-                            key={route.name}
-                            onClick={(e) => onClickRoute(e, route, i)}
-                            active={i === activeStep || i === firstUncompletedStep}
-                        >
-                            <StepLabel icon={' '} completed={i < firstUncompletedStep}>
-                                {route.name}
-                            </StepLabel>
-                        </Step>
-                    ))}
-                {props.guarantorRequested && (
-                    <Step active>
-                        <StepLabel
-                            StepIconComponent={() => <ErrorIcon color="primary" />}
-                            active
-                            classes={{ root: iconRoot }}
-                        >
-                            <span className="appCompletedMsg">
-                                We’re waiting for you to add a guarantor. Please call us at&nbsp;
-                                <a href={`tel:${props.config.community.contact_phone}`}>
-                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a>{' '}
-                                if you have any questions or if you are unable or unwilling to add a guarantor.
-                            </span>
-                        </StepLabel>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            id="viewProgressButton"
-                            classes={{
-                                root: viewProgress,
-                            }}
-                            disabled={false}
-                            onClick={() => props.history.push(props.initialPage)}
-                        >
-                            View Progress
-                        </Button>
-                    </Step>
-                )}
-                {additionalDocumentsRequested &&
-                    !props.guarantorRequested &&
-                    !unitUnavailable &&
-                    !holdingDepositAgreementSignatureRequested && (
-                        <Step active>
-                            <StepLabel
-                                StepIconComponent={() => <ErrorIcon color="primary" />}
-                                active
-                                classes={{ root: iconRoot }}
-                            >
-                                <span className="appCompletedMsg">
-                                    We’re requesting additional info to verify your income/assets. Please call us
-                                    at&nbsp;
-                                    <a href={`tel:${props.config.community.contact_phone}`}>
-                                        {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                    </a>{' '}
-                                    if you have any questions.
-                                </span>
-                            </StepLabel>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                id="viewProgressButton"
-                                classes={{
-                                    root: viewProgress,
-                                }}
-                                disabled={false}
-                                onClick={() => props.history.push(props.initialPage)}
-                            >
-                                View Progress
-                            </Button>
-                        </Step>
-                    )}
-                {!props.applicantStillFinishingApplication &&
-                    !props.guarantorRequested &&
-                    !outstandingBalance &&
-                    !holdingDepositAgreementSignatureRequested &&
-                    !additionalDocumentsRequested && (
-                        <Step active>
-                            <StepLabel completed classes={{ root: iconRoot }}>
-                                <span className="appCompletedMsg">
-                                    Your application has been completed and submitted. Please call us at&nbsp;
-                                    <a href={`tel:${props.config.community.contact_phone}`}>
-                                        {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                    </a>{' '}
-                                    if you have any questions.
-                                </span>
-                            </StepLabel>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                id="viewProgressButton"
-                                classes={{
-                                    root: viewProgress,
-                                }}
-                                disabled={false}
-                                onClick={() => {
-                                    props.history.push(props.initialPage);
-                                    props.handleDrawerClose();
-                                }}
-                            >
-                                View Progress
-                            </Button>
-                        </Step>
-                    )}
-                {outstandingBalance && (
-                    <Step active>
-                        <StepLabel
-                            labelContainer
-                            classes={{ root: iconRoot }}
-                            StepIconComponent={() => <ErrorIcon color="primary" />}
-                        >
-                            <span className="outstandingBalance">
-                                {
-                                    "You'll be able to move forward with your application once all outstanding balances have been paid. Please call us at "
-                                }
-                                <a href={`tel:${props.config.community.contact_phone}`}>
-                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a>{' '}
-                                if you have any questions.
-                            </span>
-                        </StepLabel>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            id="viewProgressButton"
-                            classes={{
-                                root: viewProgress,
-                            }}
-                            disabled={false}
-                            onClick={() => {
-                                props.history.push(ROUTES.OUTSTANDING_BALANCE);
-                                props.handleDrawerClose();
-                            }}
-                        >
-                            View Progress
-                        </Button>
-                    </Step>
-                )}
-            </Stepper>
-        </div>
+            {outstandingBalance && (
+                <Step active>
+                    <StepLabel
+                        labelContainer
+                        classes={{ root: iconRoot }}
+                        StepIconComponent={() => <ErrorIcon color="primary" />}
+                    >
+                        <span className="outstandingBalance">
+                            {
+                                "You'll be able to move forward with your application once all outstanding balances have been paid. Please call us at "
+                            }
+                            <a href={`tel:${props.config.community.contact_phone}`}>
+                                {prettyFormatPhoneNumber(props.config.community.contact_phone)}
+                            </a>{' '}
+                            if you have any questions.
+                        </span>
+                    </StepLabel>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        id="viewProgressButton"
+                        classes={{
+                            root: viewProgress,
+                        }}
+                        disabled={false}
+                        onClick={() => {
+                            props.history.push(ROUTES.OUTSTANDING_BALANCE);
+                            props.handleDrawerClose();
+                        }}
+                    >
+                        View Progress
+                    </Button>
+                </Step>
+            )}
+        </Stepper>
     );
 }
 

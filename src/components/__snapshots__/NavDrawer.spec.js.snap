@@ -4,29 +4,69 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
 <div>
   <ForwardRef(WithStyles) />
   <ForwardRef(WithStyles)
-    classes={
-      Object {
-        "colorPrimary": "makeStyles-liteThemeAppbar-5",
-      }
-    }
+    className="makeStyles-appBar-3"
     color="primary"
     position="fixed"
   >
     <ForwardRef(WithStyles)
-      className="makeStyles-toolbar-6"
+      className="makeStyles-toolbar-4"
     >
       <ForwardRef(WithStyles)
-        aria-label="Open drawer"
-        color="inherit"
+        className="makeStyles-drawerMenuTrigger-5"
         edge="start"
         onClick={[Function]}
       >
         <UNDEFINED />
       </ForwardRef(WithStyles)>
       <BannerLogo />
-      <div
-        className="makeStyles-padRight-2"
-      />
+      <ForwardRef(WithStyles)
+        aria-controls={null}
+        aria-haspopup={true}
+        className="makeStyles-profileMenuTrigger-6"
+        edge="end"
+        onClick={[Function]}
+      >
+        <div
+          className="makeStyles-avatar-13"
+        >
+          JD
+        </div>
+        <UNDEFINED
+          fontSize="small"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "bottom",
+          }
+        }
+        disableAutoFocus={false}
+        disableEnforceFocus={false}
+        disableRestoreFocus={false}
+        id="menu"
+        onClose={[Function]}
+        onMouseLeave={[Function]}
+        open={false}
+      >
+        <ForwardRef(MenuList)
+          className="makeStyles-profileMenuList-7"
+        >
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
+          >
+            Account
+          </ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles) />
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
+          >
+            Logout
+          </ForwardRef(WithStyles)>
+        </ForwardRef(MenuList)>
+      </ForwardRef(WithStyles)>
     </ForwardRef(WithStyles)>
     <ProgressBar
       percent={0}
@@ -42,81 +82,19 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       role="presentation"
     >
       <ForwardRef(StyledComponent)
-        className="makeStyles-accountDetails-7"
+        className="makeStyles-section-8 makeStyles-communitySection-9"
       >
-        <ForwardRef(StyledComponent)
-          display="flex"
-        >
-          <ForwardRef(StyledComponent)
-            className="makeStyles-initialsContainer-8"
-          >
-            J
-            D
-          </ForwardRef(StyledComponent)>
-          <ForwardRef(StyledComponent)
-            display="flex"
-            flexDirection="column"
-          >
-            <ForwardRef(WithStyles)
-              maxWidth={220}
-              width={220}
-            >
-              <ForwardRef(render)
-                fontSize={18}
-                width={100}
-              >
-                John Doe
-              </ForwardRef(render)>
-            </ForwardRef(WithStyles)>
-            <ForwardRef(WithStyles)
-              maxWidth={220}
-              width={220}
-            >
-              <ForwardRef(render)
-                fontWeight={400}
-                width={100}
-              >
-                jdoe@nest.io
-              </ForwardRef(render)>
-            </ForwardRef(WithStyles)>
-          </ForwardRef(StyledComponent)>
-        </ForwardRef(StyledComponent)>
-        <ForwardRef(StyledComponent)>
-          <ForwardRef
-            to="/account"
-          >
-            Account Details
-          </ForwardRef>
-        </ForwardRef(StyledComponent)>
-      </ForwardRef(StyledComponent)>
-      <ForwardRef(WithStyles) />
-      <UNDEFINED
-        handleDrawerClose={[Function]}
-      />
-      <ForwardRef(WithStyles) />
-      <ForwardRef(StyledComponent)
-        alignItems="center"
-        display="flex"
-        justifyContent="flex-start"
-        padding="5px"
-      >
-        <ForwardRef(WithStyles)
-          classes={
-            Object {
-              "root": "makeStyles-logout-9",
-            }
-          }
-          onClick={[Function]}
-        >
-          Logout
-        </ForwardRef(WithStyles)>
+        <span />
       </ForwardRef(StyledComponent)>
       <ForwardRef(StyledComponent)
-        alignItems="center"
-        className="css-1f9n4qq"
-        display="flex"
-        justifyContent="space-between"
-        padding="0 15px 15px"
+        className="makeStyles-section-8"
+      >
+        <UNDEFINED
+          handleDrawerClose={[Function]}
+        />
+      </ForwardRef(StyledComponent)>
+      <ForwardRef(StyledComponent)
+        className="makeStyles-section-8 makeStyles-footer-11"
       >
         <ForwardRef
           target="_blank"
@@ -141,7 +119,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
   </ForwardRef(WithStyles)>
   <main>
     <div
-      className="makeStyles-drawerHeader-3"
+      className="makeStyles-drawerHeader-2"
     />
     <div
       className="css-us5k2a"
