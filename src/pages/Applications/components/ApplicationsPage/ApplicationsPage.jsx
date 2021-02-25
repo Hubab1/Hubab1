@@ -31,7 +31,7 @@ const byLastActivitySorter = (a, b) => {
     return new Date(b.lastActivity) - new Date(a.lastActivity);
 };
 
-export function useApplications () {
+export function useApplications() {
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [applications, setApplications] = useState([]);
@@ -65,7 +65,7 @@ export function useApplications () {
     return {
         loading,
         error,
-        applications
+        applications,
     };
 }
 
