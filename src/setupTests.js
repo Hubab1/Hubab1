@@ -10,11 +10,6 @@ React.useLayoutEffect = React.useEffect;
 configure({ adapter: new Adapter() });
 enableHooks(jest, { dontMockByDefault: true });
 
-// Mock hooks, issue: https://stackoverflow.com/questions/53162001/typeerror-during-jests-spyon-cannot-set-property-getrequest-of-object-which
-jest.mock('hooks', () => ({
-    useApplications: jest.fn(),
-}));
-
 const setupGoogleMock = () => {
     const google = {
         maps: {

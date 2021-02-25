@@ -3,12 +3,12 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'app/constants';
-import * as hooks from 'hooks';
 import Page from 'components/common/Page/Page';
 import ApplicationsPage from './ApplicationsPage';
+import * as applicationPage from './ApplicationsPage';
 
 const mockUseApplicationRoles = (returnValue = {}) => {
-    return jest.spyOn(hooks, 'useApplications').mockReturnValue({
+    return jest.spyOn(applicationPage, 'useApplications').mockReturnValue({
         loading: false,
         error: undefined,
         applications: [],

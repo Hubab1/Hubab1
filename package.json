@@ -42,7 +42,6 @@
         "react-scripts": "3.4.1",
         "react-stripe-elements": "^3.0.0",
         "reselect": "^4.0.0",
-        "use-http": "^1.0.16",
         "uuid": "^3.3.2",
         "yup": "^0.27.0"
     },
