@@ -1,10 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'app/constants';
+import {
+    APPLICATION_STATUSES,
+    APPLICATION_STATUSES_COLORS,
+    ACTIVE_APPLICATION_STATUSES,
+    PAST_APPLICATION_STATUSES,
+    APPLICANT_ROLE_VALUES
+} from 'app/constants';
 import Application from './Application';
 
-describe('Application', () => {
+// TODO: remove skip!
+describe.skip('Application - active / past applications match snapshots', () => {
     it('renders active application', () => {
         const application = {
             id: 1,
@@ -67,4 +74,26 @@ describe('Application', () => {
         const wrapper = shallow(<Application application={application} isActive={false} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
+});
+
+// TODO: remove only AND SKIP!!
+describe.only('Application', () => {
+    it('renders the correct application status color', () => {
+        let application = {
+            id: 1,
+            lease_term: 12,
+            status: APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED,
+            role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
+            community: {
+                display_name: 'Community Alpha',
+            }
+        };
+
+        let wrapper = shallow(<Application application={application} isActive />);
+        console.log(wrapper.htnl())
+    });
+
+    // TODO: renders correct roloe
+
+    // TODO: show / hides application content
 });
