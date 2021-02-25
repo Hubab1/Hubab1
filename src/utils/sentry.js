@@ -16,7 +16,13 @@ export const setupSentry = () => {
     Sentry.init(sentryOptions);
 };
 
-export const logToSentry = (error) => {
+export const logToSentry = async (error) => {
+    if (error instanceof Response) {
+        const apiError = new Error();
+        apiError.name = error.status + ' - ' + error.statusText;
+        apiError.message = await error.text();
+        return Sentry.captureException(apiError);
+    }
     Sentry.captureException(error);
 };
 
