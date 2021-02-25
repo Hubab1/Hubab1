@@ -185,8 +185,8 @@ export class UploadDocuments extends React.Component {
             ? uploadedDocuments[String(document.id)].files.length
             : 0;
         return {
-            max: Math.max(0, (settings.max_required || 0) - uploaded),
-            min: Math.max(0, (settings.min_required || 0) - uploaded),
+            max: Math.max(0, (settings?.max_required || 0) - uploaded),
+            min: Math.max(0, (settings?.min_required || 0) - uploaded),
         };
     };
 
