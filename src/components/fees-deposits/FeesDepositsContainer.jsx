@@ -7,6 +7,7 @@ import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
+import { UnitNotHeldWaitingPage } from './UnitNotHeldWaitingPage';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
@@ -106,6 +107,17 @@ export const FeesDepositsContainer = ({
             return _prev;
         }
     };
+
+    if (!isPrimaryApplicant) {
+        return (
+            <UnitNotHeldWaitingPage
+                primaryNameFirst={profile.primary_applicant.first_name}
+                primaryNameLast={profile.primary_applicant.last_name}
+                communityName={communityName}
+                unitNumber={unitNumber}
+            />
+        );
+    }
 
     if (currentPage === 'options') {
         return (
