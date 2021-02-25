@@ -11,6 +11,7 @@ import {
     PAYMENT_TIME_MONTHLY,
 } from 'app/constants';
 import { sumBy } from 'lodash';
+import { browserName, browserVersion, osName, osVersion, isPrivateBrowsing, isDesktop } from 'utils/mobileDetect';
 
 export function sessionIsValidForCommunityId(communityId) {
     return auth.accessScope() === communityId;
@@ -156,6 +157,17 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
                 });
             }
             formData.append('files_mapping', JSON.stringify(filesMapping));
+            formData.append(
+                'context',
+                JSON.stringify({
+                    browser_name: browserName,
+                    browser_version: browserVersion,
+                    os_name: osName,
+                    os_version: osVersion,
+                    is_private_browsing: isPrivateBrowsing,
+                    is_desktop: isDesktop,
+                })
+            );
         } else {
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
