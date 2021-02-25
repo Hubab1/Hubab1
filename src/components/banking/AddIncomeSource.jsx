@@ -38,11 +38,11 @@ export function AddIncomeSource(props) {
         setSubmitting(true);
         setErrors([]);
 
-        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, true);
+        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, props.vgsEnabled);
 
         let response;
         try {
-            response = await API.submitFinancialSource(formData, true);
+            response = await API.submitFinancialSource(formData, props.vgsEnabled);
         } catch (e) {
             logToSentry(e);
             setErrors([ERROR_UPLOAD]);
