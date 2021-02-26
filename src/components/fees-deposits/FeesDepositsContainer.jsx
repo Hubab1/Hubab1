@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { getPreventNonPrimaryFromPayingIfHeld } from 'selectors/launchDarkly';
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
@@ -19,6 +20,8 @@ export const FeesDepositsContainer = ({
     payables,
     profile,
     applicant,
+    application,
+    preventNonPrimaryFromPayingIfHeld,
     configuration,
     fetchPayments,
     isOutstanding,
@@ -108,7 +111,7 @@ export const FeesDepositsContainer = ({
         }
     };
 
-    if (!isPrimaryApplicant) {
+    if (preventNonPrimaryFromPayingIfHeld && !isPrimaryApplicant && !profile.unit_is_held) {
         return (
             <UnitNotHeldWaitingPage
                 primaryNameFirst={profile.primary_applicant.first_name}
@@ -185,6 +188,7 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
+    preventNonPrimaryFromPayingIfHeld: getPreventNonPrimaryFromPayingIfHeld(state),
 });
 
 const mapStateToPropsOutstandingBalance = (state) => ({
