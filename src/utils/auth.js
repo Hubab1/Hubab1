@@ -11,6 +11,7 @@ class Auth {
                 if (res.errors) {
                     return Promise.reject({ errors: res.errors });
                 }
+
                 return Promise.resolve({ token: res.token });
             })
             .catch((e) => {
