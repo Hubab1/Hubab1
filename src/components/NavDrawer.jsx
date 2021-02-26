@@ -16,13 +16,14 @@ import {
     MenuItem,
     Box,
 } from '@material-ui/core';
-import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { Menu as MenuIcon, ExpandMore as ExpandMoreIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import { usePopupState, bindTrigger, bindPopover } from 'material-ui-popup-state/hooks';
 import clsx from 'clsx';
 
 import { APPLICATION_STATUSES, ROUTES } from 'app/constants';
 import { actions } from 'reducers/store';
-import { selectors } from 'reducers/renter-profile';
+import { selectors as profileSelectors } from 'reducers/renter-profile';
+import { getOlApplicantCanViewApplicationsListPage } from 'selectors/launchDarkly';
 import ProgressBar from 'components/common/Page/ProgressBar';
 import BannerLogo from 'components/common/Page/BannerLogo';
 import NavStepper from './NavStepper';
@@ -45,7 +46,18 @@ const useStyles = makeStyles((theme) => ({
         color: !theme.darkMode ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         minHeight: 76,
+    },
+    bannerLogo: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: 'auto',
+        pointerEvents: 'none',
     },
     drawerMenuTrigger: {
         color: !theme.darkMode ? 'black' : 'white',
@@ -117,7 +129,17 @@ const useStyles = makeStyles((theme) => ({
         color: !theme.darkMode ? 'black' : 'white',
         fontSize: 12,
     },
+    goBack: {
+        color: !theme.darkMode ? 'black' : 'white',
+        borderRadius: '35px',
+
+        '& span': {
+            fontSize: 14,
+        },
+    },
 }));
+
+const APPLICATION_TOOLBAR_ROUTES = [ROUTES.APPLICATIONS];
 
 export function PersistentDrawerLeft({
     history,
@@ -126,6 +148,7 @@ export function PersistentDrawerLeft({
     currentRoute,
     children,
     navRoutes,
+    canSeeApplications,
     canAccessRoute,
     logout,
 }) {
@@ -135,6 +158,15 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase();
+    const showGoBack = history.length > 2;
+
+    /**
+     * Determines wether or not to show the applications toolbar instead of the sidebar drawer
+     * based on the current location.
+     */
+    const showApplicationsToolbar = useMemo(() => {
+        return APPLICATION_TOOLBAR_ROUTES.includes(history.location.pathname);
+    }, [history.location.pathname]);
 
     const progressBarPercentage = useMemo(() => {
         if (!(currentRoute && navRoutes)) return 0;
@@ -148,6 +180,17 @@ export function PersistentDrawerLeft({
         return 0;
     }, [navRoutes, currentRoute, profile]);
 
+    const getShouldHistoryPush = useCallback(
+        (route) => {
+            return history?.location?.pathname !== route;
+        },
+        [history]
+    );
+
+    const handleGoBackClick = useCallback(() => {
+        history.goBack();
+    }, [history]);
+
     const handleDrawerOpen = useCallback(() => {
         setOpen(true);
     }, []);
@@ -158,8 +201,19 @@ export function PersistentDrawerLeft({
 
     const handleAccountClick = useCallback(() => {
         menuState.close();
-        history.push(ROUTES.ACCOUNT);
-    }, [menuState, history]);
+
+        if (getShouldHistoryPush(ROUTES.ACCOUNT)) {
+            history.push(ROUTES.ACCOUNT);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
+
+    const handleApplicationsClick = useCallback(() => {
+        menuState.close();
+
+        if (getShouldHistoryPush(ROUTES.APPLICATIONS)) {
+            history.push(ROUTES.APPLICATIONS);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
 
     const handleLogoutClick = useCallback(() => {
         menuState.close();
@@ -168,7 +222,63 @@ export function PersistentDrawerLeft({
         history.push(ROUTES.LOGIN);
     }, [menuState, logout, history]);
 
+    const menu = useMemo(() => {
+        return (
+            <Popover
+                {...bindPopover(menuState)}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+            >
+                <MenuList className={classes.profileMenuList}>
+                    <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                    {canSeeApplications && (
+                        // Material-UI: The Menu component doesn't accept a Fragment as a child...
+                        <div>
+                            <Divider className={classes.menuListItemDivider} />
+                            <MenuItem onClick={handleApplicationsClick}>Applications</MenuItem>
+                        </div>
+                    )}
+                    <Divider />
+                    <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+                </MenuList>
+            </Popover>
+        );
+    }, [classes, canSeeApplications, menuState, handleAccountClick, handleApplicationsClick, handleLogoutClick]);
+
     if (!applicant) return null;
+
+    if (showApplicationsToolbar) {
+        return (
+            <div>
+                <CssBaseline />
+                <AppBar color="primary" position="fixed" className={classes.appBar}>
+                    <Toolbar
+                        className={classes.toolbar}
+                        style={{ justifyContent: showGoBack ? 'space-between' : 'flex-end' }}
+                    >
+                        {showGoBack && (
+                            <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
+                                <ArrowBackIosIcon />
+                                <span>Go Back</span>
+                            </IconButton>
+                        )}
+                        <BannerLogo className={classes.bannerLogo} />
+                        <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
+                            <div className={classes.avatar}>{initials}</div>
+                            <ExpandMoreIcon fontSize="small" />
+                        </IconButton>
+                        {menu}
+                    </Toolbar>
+                </AppBar>
+                <main>
+                    <div className={classes.drawerHeader} />
+                    <div className={drawerContent}>{children}</div>
+                </main>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -178,24 +288,12 @@ export function PersistentDrawerLeft({
                     <IconButton className={classes.drawerMenuTrigger} onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
-                    <BannerLogo />
+                    <BannerLogo className={classes.bannerLogo} />
                     <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                         <div className={classes.avatar}>{initials}</div>
                         <ExpandMoreIcon fontSize="small" />
                     </IconButton>
-                    <Popover
-                        {...bindPopover(menuState)}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }}
-                    >
-                        <MenuList className={classes.profileMenuList}>
-                            <MenuItem onClick={handleAccountClick}>Account</MenuItem>
-                            <Divider />
-                            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-                        </MenuList>
-                    </Popover>
+                    {menu}
                 </Toolbar>
                 <ProgressBar percent={progressBarPercentage} />
             </AppBar>
@@ -253,6 +351,7 @@ PersistentDrawerLeft.propTypes = {
     currentRoute: PropTypes.string,
     children: PropTypes.array,
     navRoutes: PropTypes.array,
+    canSeeApplications: PropTypes.bool,
     canAccessRoute: PropTypes.func,
     logout: PropTypes.func,
 };
@@ -260,9 +359,10 @@ PersistentDrawerLeft.propTypes = {
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     profile: state.renterProfile,
-    canAccessRoute: (route) => selectors.canAccessRoute(state, route),
-    navRoutes: selectors.selectNav(state),
+    canAccessRoute: (route) => profileSelectors.canAccessRoute(state, route),
+    navRoutes: profileSelectors.selectNav(state),
     currentRoute: state.siteConfig.currentRoute,
+    canSeeApplications: getOlApplicantCanViewApplicationsListPage(state),
 });
 
 const mapDispatchToProps = {
