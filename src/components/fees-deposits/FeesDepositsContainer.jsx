@@ -8,7 +8,7 @@ import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
 import withRelativeRoutes from 'app/withRelativeRoutes';
 import FeesDepositsOptions from './FeesDepositsOptions';
-import { UnitNotHeldWaitingPage } from './UnitNotHeldWaitingPage';
+import UnitNotHeldWaitingPage from './UnitNotHeldWaitingPage';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
@@ -26,6 +26,7 @@ export const FeesDepositsContainer = ({
     fetchPayments,
     isOutstanding,
     fetchApplicant,
+    pageComplete,
 }) => {
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);

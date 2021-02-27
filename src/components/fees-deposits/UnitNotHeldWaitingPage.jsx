@@ -1,9 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
+
 import { H1, H3 } from 'assets/styles';
-import PropTypes from 'prop-types';
+import { pageComplete } from 'reducers/renter-profile';
 import catOnCouch from 'assets/images/cat-on-couch.png';
+import { UNIT_NOT_HELD_WAITING_IDENTIFIER } from 'app/constants';
 
 const SpacedH1 = styled(H1)`
     margin-top: 35px;
@@ -24,7 +28,17 @@ const bodyRowAddress = css`
     margin-right: auto;
 `;
 
-export const UnitNotHeldWaitingPage = ({ primaryNameFirst, primaryNameLast, communityName, unitNumber }) => {
+export const UnitNotHeldWaitingPage = ({
+    primaryNameFirst,
+    primaryNameLast,
+    communityName,
+    unitNumber,
+    pageComplete,
+}) => {
+    useEffect(() => {
+        pageComplete(UNIT_NOT_HELD_WAITING_IDENTIFIER);
+    });
+
     return (
         <Fragment>
             <SpacedH1>
@@ -46,3 +60,5 @@ UnitNotHeldWaitingPage.propTypes = {
     communityName: PropTypes.string,
     unitNumber: PropTypes.string,
 };
+
+export default connect(null, { pageComplete })(UnitNotHeldWaitingPage);

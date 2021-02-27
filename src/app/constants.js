@@ -92,6 +92,7 @@ export const ROUTES_TOP_LEVEL = [
 export const DOES_NOT_EXIST = 'DoesNotExist';
 export const LEASE_TERMS_IDENTIFIER = 'lease_terms';
 export const RENTER_PROFILE_IDENTIFIER = 'renter_profile';
+export const UNIT_NOT_HELD_WAITING_IDENTIFIER = 'unit_not_held_waiting';
 
 export const REPORT_POLL_INTERVAL = 10000;
 
