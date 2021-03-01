@@ -62,6 +62,9 @@ export const ROUTES = {
     EDIT_MANUAL_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/edit',
     REMOVE_FINANCIAL_SOURCE: '/income-employment/manual/financial-sources/:id/remove',
     EMPLOYER_DETAILS: '/income-employment/employer-details',
+
+    // Applications
+    APPLICATIONS: '/applications',
 };
 
 export const ROUTE_LABELS = {

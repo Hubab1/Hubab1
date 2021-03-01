@@ -276,6 +276,7 @@ export class PetsPage extends React.Component {
                                                         categoryHelperText={'pets'}
                                                         application={this.props.application}
                                                         selectedOptions={this.getPriceBreakdownSelectedOptions(values)}
+                                                        moveInDate={this.props.application.lease_start_date}
                                                     />
                                                 )}
                                             </div>

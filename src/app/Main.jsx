@@ -26,7 +26,7 @@ import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/Fe
 import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
 import PaymentTerms from 'components/fees-deposits/PaymentTerms';
 import Address from 'components/address/Address';
-import SCREENING from 'components/Screening';
+import Screening from 'components/Screening';
 import NavDrawer from 'components/NavDrawer';
 import AppComplete from 'components/status/AppComplete';
 import AppApproved from 'components/app-approved/AppApprovedContainer';
@@ -44,6 +44,7 @@ import CriticalError from 'components/common/CriticalError';
 import PaymentDetails from 'components/payment-details/PaymentDetails';
 import GuarantorRequested from 'components/GuarantorRequested';
 import HoldingDepositReagreement from 'components/fees-deposits/HoldingDepositReagreement';
+import ApplicationsPage from 'pages/Applications';
 
 export class Main extends Component {
     state = { error: null };
@@ -153,12 +154,13 @@ export class Main extends Component {
                         <Route path={ROUTES.SIGNUP} component={RegisterPage} />
                         <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
                         {!isLoggedIn && (
-                            <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
+                            <>
+                                <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
+                                <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
+                                <Route path={ROUTES.FAQ} component={FAQPage} />
+                                <Route path={ROUTES.TERMS} component={TermsPage} />
+                            </>
                         )}
-                        {!isLoggedIn && <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />}
-                        {!isLoggedIn && <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />}
-                        {!isLoggedIn && <Route path={ROUTES.FAQ} component={FAQPage} />}
-                        {!isLoggedIn && <Route path={ROUTES.TERMS} component={TermsPage} />}
                         {isLoggedIn && (
                             <NavDrawer>
                                 <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
@@ -176,7 +178,7 @@ export class Main extends Component {
                                     path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
                                     component={HoldingDepositReagreement}
                                 />
-                                <Route path={ROUTES.SCREENING} component={SCREENING} />
+                                <Route path={ROUTES.SCREENING} component={Screening} />
                                 <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />
                                 <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm} />
                                 <Route path={ROUTES.APP_APPROVED} component={AppApproved} />
@@ -194,6 +196,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />
                                 <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTerms} />
                                 <Route path={ROUTES.OUTSTANDING_BALANCE} component={OutstandingBalance} />
+                                <Route path={ROUTES.APPLICATIONS} component={ApplicationsPage} />
                             </NavDrawer>
                         )}
                     </Switch>

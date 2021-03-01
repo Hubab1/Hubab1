@@ -72,10 +72,10 @@ export class ResendLinkForm extends React.Component {
                 <InviteForm
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
-                    initialValues={this.props.location.state.initialValues}
-                    isGuarantor={this.props.location.state.returnRoute.includes(RENTER_PROFILE_TYPE_GUARANTOR)}
+                    initialValues={this.props.location.state?.initialValues}
+                    isGuarantor={this.props.location.state?.returnRoute.includes(RENTER_PROFILE_TYPE_GUARANTOR)}
                 />
-                <BackLink to={this.props.location.state.returnRoute} />
+                <BackLink to={this.props.location.state?.returnRoute} />
             </Fragment>
         );
     }

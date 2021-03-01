@@ -8,6 +8,10 @@ beforeEach(() => {
         logout: jest.fn(),
         history: {
             push: jest.fn(),
+            goBack: jest.fn(),
+            location: {
+                pathname: '',
+            },
         },
         applicant: {
             first_name: 'John',
