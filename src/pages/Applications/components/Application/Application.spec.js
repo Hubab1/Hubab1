@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'app/constants';
 import Application from './Application';
 
+// TODO backfill tests with direct asserts | created by: @JimVercoelen | ticket: https://nestiolistings.atlassian.net/browse/NESTIO-20450
 describe('Application - active / past applications match snapshots', () => {
     it('renders active application', () => {
         const application = {

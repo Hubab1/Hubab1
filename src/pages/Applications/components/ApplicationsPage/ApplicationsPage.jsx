@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
-import API from 'app/api';
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'app/constants';
+import * as hooks from '../../hooks';
 import Page from 'components/common/Page/Page';
 import Application from '../Application/Application';
 
@@ -27,64 +27,18 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const byLastActivitySorter = (a, b) => {
-    return new Date(b.lastActivity) - new Date(a.lastActivity);
-};
-
-export function useApplications() {
-    const [loading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [applications, setApplications] = useState([]);
-
-    const getApplications = useCallback(async () => {
-        setIsLoading(true);
-
-        try {
-            const response = await API.getApplications();
-            const applications =
-                response?.map(({ application, role, last_activity }) => {
-                    return {
-                        ...application,
-                        role,
-                        lastActivity: last_activity,
-                    };
-                }) || [];
-
-            setApplications(applications);
-        } catch {
-            setError(ERROR_MESSAGE);
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        getApplications();
-    }, [getApplications]);
-
-    return {
-        loading,
-        error,
-        applications,
-    };
-}
-
 export function ApplicationsPage() {
     const classes = useStyles();
-    const { loading, error, applications } = useApplications();
+    const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
     const notification = error && {
         type: 'error',
-        messages: ERROR_MESSAGE,
+        messages: error,
     };
 
     const [active, past] = useMemo(() => {
         return [
-            applications
-                .filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status))
-                .sort(byLastActivitySorter),
-            applications
-                .filter((application) => PAST_APPLICATION_STATUSES.includes(application.status))
-                .sort(byLastActivitySorter),
+            applications.filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
+            applications.filter((application) => PAST_APPLICATION_STATUSES.includes(application.status)),
         ];
     }, [applications]);
 
