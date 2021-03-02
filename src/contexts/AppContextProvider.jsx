@@ -7,6 +7,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
 
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
+import MayorLoaderProvider from 'components/MayorLoader/MayorLoaderProvider';
 
 export const AppTheme = React.createContext();
 
@@ -48,7 +49,9 @@ export function AppContextProvider(props) {
         <MuiThemeProvider theme={props.theme}>
             <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <StripeProvider apiKey={stripeApiKey}>{props.children}</StripeProvider>
+                    <MayorLoaderProvider>
+                        <StripeProvider apiKey={stripeApiKey}>{props.children}</StripeProvider>
+                    </MayorLoaderProvider>
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>

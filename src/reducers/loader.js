@@ -18,7 +18,8 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-    [TOGGLE_LOADER]: (state, { payload: isVisible }) => ({
+    [TOGGLE_LOADER]: (state, { payload: isVisible = true }) => ({
+        ...state,
         isVisible: isVisible,
     }),
 });
