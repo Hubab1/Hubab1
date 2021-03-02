@@ -13,21 +13,34 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(1),
     },
+    snackbar: {
+        position: 'fixed',
+        top: 80, // toolbar offset
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(255, 255, 255, .8)',
+    }
 }));
 
 export function MayorLoader({ isVisible }) {
     const classes = useStyles();
 
-    const anchorOrigin = {
-        vertical: 'bottom',
-        horizontal: 'right',
-    };
-
     return (
         <Snackbar
-            anchorOrigin={anchorOrigin}
+            className={classes.snackbar}
             open={isVisible}
-            children={<CircularProgress size={35} color="primary" variant="indeterminate" className={classes.loader} />}
+            children={(
+                <CircularProgress
+                    size={96}
+                    color="primary"
+                    variant="indeterminate"
+                    className={classes.loader}
+                />
+            )}
         />
     );
 }
