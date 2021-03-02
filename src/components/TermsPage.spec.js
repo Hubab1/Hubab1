@@ -56,8 +56,7 @@ describe('TermsPage', () => {
             .at(0)
             .props()
             .control // checkbox
-            .props
-            .onChange({ target: { checked: true } });
+            .props.onChange({ target: { checked: true } });
         expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
 
         // Both checked => Enabled
@@ -66,8 +65,7 @@ describe('TermsPage', () => {
             .at(1)
             .props()
             .control // checkbox
-            .props
-            .onChange({ target: { checked: true } });
+            .props.onChange({ target: { checked: true } });
         expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
 
         // uncheck => Disabled
@@ -76,8 +74,7 @@ describe('TermsPage', () => {
             .at(1)
             .props()
             .control // checkbox
-            .props
-            .onChange({ target: { checked: false } });
+            .props.onChange({ target: { checked: false } });
         expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
     });
 
