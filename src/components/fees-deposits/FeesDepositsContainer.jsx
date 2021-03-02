@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPreventNonPrimaryFromPayingIfHeld } from 'selectors/launchDarkly';
+import { getPreventNonPrimaryFromPayingUnheldUnit } from 'selectors/launchDarkly';
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
@@ -20,13 +20,11 @@ export const FeesDepositsContainer = ({
     payables,
     profile,
     applicant,
-    application,
-    preventNonPrimaryFromPayingIfHeld,
+    preventNonPrimaryFromPayingUnheldUnit,
     configuration,
     fetchPayments,
     isOutstanding,
     fetchApplicant,
-    pageComplete,
 }) => {
     const [currentPage, setCurrentPage] = useState('options');
     const [payments, setPayments] = useState(payables);
@@ -112,11 +110,11 @@ export const FeesDepositsContainer = ({
         }
     };
 
-    if (preventNonPrimaryFromPayingIfHeld && !isPrimaryApplicant && !profile.unit_is_held) {
+    if (preventNonPrimaryFromPayingUnheldUnit && !isPrimaryApplicant && !profile.unit_is_held) {
         return (
             <UnitNotHeldWaitingPage
-                primaryNameFirst={profile.primary_applicant.first_name}
-                primaryNameLast={profile.primary_applicant.last_name}
+                primaryApplicantFirstName={profile.primary_applicant.first_name}
+                primaryApplicantLastName={profile.primary_applicant.last_name}
                 communityName={communityName}
                 unitNumber={unitNumber}
             />
@@ -189,7 +187,7 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
-    preventNonPrimaryFromPayingIfHeld: getPreventNonPrimaryFromPayingIfHeld(state),
+    preventNonPrimaryFromPayingUnheldUnit: getPreventNonPrimaryFromPayingUnheldUnit(state),
 });
 
 const mapStateToPropsOutstandingBalance = (state) => ({

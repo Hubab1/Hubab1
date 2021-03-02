@@ -29,8 +29,8 @@ const bodyRowAddress = css`
 `;
 
 export const UnitNotHeldWaitingPage = ({
-    primaryNameFirst,
-    primaryNameLast,
+    primaryApplicantFirstName,
+    primaryApplicantLastName,
     communityName,
     unitNumber,
     pageComplete,
@@ -42,11 +42,11 @@ export const UnitNotHeldWaitingPage = ({
     return (
         <Fragment>
             <SpacedH1>
-                Waiting on {primaryNameFirst} {primaryNameLast}
+                Waiting on {primaryApplicantFirstName} {primaryApplicantLastName}
             </SpacedH1>
             <H3>
-                You'll be able to continue once {primaryNameFirst} submits their application, putting your unit on hold.
-                We'll let you know when we're all set to continue
+                You'll be able to continue once {primaryApplicantFirstName} submits their application, putting your unit
+                on hold. We'll let you know when we're all set to continue.
             </H3>
             <img className={bodyRowImg} src={catOnCouch} alt="cat on couch" />
             <span className={bodyRowAddress}>{`${communityName} Unit ${unitNumber}`}</span>
@@ -55,10 +55,10 @@ export const UnitNotHeldWaitingPage = ({
 };
 
 UnitNotHeldWaitingPage.propTypes = {
-    primaryNameFirst: PropTypes.string,
-    primaryNameLast: PropTypes.string,
-    communityName: PropTypes.string,
-    unitNumber: PropTypes.string,
+    primaryApplicantFirstName: PropTypes.string.isRequired,
+    primaryApplicantLastName: PropTypes.string.isRequired,
+    communityName: PropTypes.string.isRequired,
+    unitNumber: PropTypes.string.isRequired,
 };
 
 export default connect(null, { pageComplete })(UnitNotHeldWaitingPage);

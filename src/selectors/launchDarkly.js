@@ -3,5 +3,5 @@ export const getShowAutomatedAddressForm = (state) => state.launchDarkly.olShowA
 export const getMultipleAppsV2LoginAndNavigation = (state) => state.launchDarkly.multipleAppsV2LoginAndNavigation;
 export const getOlApplicantCanViewApplicationsListPage = (state) =>
     state.launchDarkly.olApplicantCanViewApplicationsListPage;
-export const getPreventNonPrimaryFromPayingIfHeld = (state) =>
+export const getPreventNonPrimaryFromPayingUnheldUnit = (state) =>
     state.launchDarkly.preventNonPrimaryApplicantsFromPayingApplicationFeeBeforeUnitIsHeld;
