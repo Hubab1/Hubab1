@@ -1,8 +1,6 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { createMount } from '@material-ui/core/test-utils';
 import { shallow, mount } from 'enzyme';
-import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
 
 import { ROUTES } from 'app/constants';
 import { TOS_TYPE_NESTIO } from 'app/constants';
