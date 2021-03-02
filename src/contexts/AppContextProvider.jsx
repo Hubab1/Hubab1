@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
@@ -17,8 +17,6 @@ function getThemeValues(config, materialTheme) {
             logo: config.logo,
             bannerBackground: materialTheme.palette.primary.main,
             bannerColor: materialTheme.palette.primary.contrastText,
-            welcomeBackgroundImageOpacity: 1,
-            welcomeBackgroundImageTintBackground: materialTheme.palette.primary.main,
             progressBarTrackBackground: '#ffffff',
             progressBarTrackOpacity: 1,
             progressBarBackground: materialTheme.palette.primary.main,
@@ -30,8 +28,6 @@ function getThemeValues(config, materialTheme) {
             logo: config.logo,
             bannerBackground: '#ffffff',
             color: '#000000',
-            welcomeBackgroundImageOpacity: 0.3,
-            welcomeBackgroundImageTintBackground: undefined,
             progressBarTrackBackground: materialTheme.palette.primary.main,
             progressBarTrackOpacity: 0.3,
             progressBarBackground: materialTheme.palette.primary.main,
@@ -46,6 +42,7 @@ export function AppContextProvider(props) {
 
     return (
         <MuiThemeProvider theme={props.theme}>
+            <CssBaseline />
             <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <StripeProvider apiKey={stripeApiKey}>{props.children}</StripeProvider>
