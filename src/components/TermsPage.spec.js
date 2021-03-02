@@ -1,9 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+import { createMount } from '@material-ui/core/test-utils';
+import { shallow, mount } from 'enzyme';
+import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 
 import { ROUTES } from 'app/constants';
 import { TOS_TYPE_NESTIO } from 'app/constants';
 import { TermsPage } from './TermsPage';
+import MockMountableApp from 'utils/MockMountableApp';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 describe('TermsPage', () => {
@@ -18,6 +22,16 @@ describe('TermsPage', () => {
         };
     });
 
+    const renderMountedTermsPage = (props) => {
+        const wrapper = mount(
+            <MockMountableApp>
+                <TermsPage {...props} />
+            </MockMountableApp>
+        );
+
+        return wrapper.find(TermsPage);
+    };
+
     it('renders terms only when applicant is signed in', () => {
         const wrapper = shallow(<TermsPage {...defaultProps} isSignedIn />);
         expect(wrapper.find('[data-testid="terms"]').length).toBe(1);
@@ -29,6 +43,42 @@ describe('TermsPage', () => {
 
         expect(wrapper.find('[data-testid="terms"]').length).toBe(1);
         expect(wrapper.find('[data-testid="accept-terms"]').length).toBe(1);
+    });
+
+    it('disables CTA button as longs as the applicant has not agreed to the terms', async () => {
+        const wrapper = shallow(<TermsPage {...defaultProps} isSignedIn={false} />);
+        // Initially disabled
+        expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+
+        // Only 1 checked => Disabled
+        wrapper
+            .find(FormControlLabel)
+            .at(0)
+            .props()
+            .control // checkbox
+            .props
+            .onChange({ target: { checked: true } });
+        expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
+
+        // Both checked => Enabled
+        wrapper
+            .find(FormControlLabel)
+            .at(1)
+            .props()
+            .control // checkbox
+            .props
+            .onChange({ target: { checked: true } });
+        expect(wrapper.find(ActionButton).prop('disabled')).toBe(false);
+
+        // uncheck => Disabled
+        wrapper
+            .find(FormControlLabel)
+            .at(1)
+            .props()
+            .control // checkbox
+            .props
+            .onChange({ target: { checked: false } });
+        expect(wrapper.find(ActionButton).prop('disabled')).toBe(true);
     });
 
     it('on CTA button click sets localStorage and navigates to sign up', () => {
