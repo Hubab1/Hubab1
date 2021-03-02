@@ -1,15 +1,12 @@
 import React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
+import { mount } from 'enzyme';
 
 import { WelcomePage } from './WelcomePage';
 import MockMountableApp from 'utils/MockMountableApp';
 
 describe('WelcomePage', () => {
-    let mount;
     let defaultProps;
     beforeEach(() => {
-        mount = createMount();
-
         defaultProps = {
             configuration: {
                 application_fee: null,
@@ -42,10 +39,6 @@ describe('WelcomePage', () => {
                 },
             },
         };
-    });
-
-    afterEach(() => {
-        mount.cleanUp();
     });
 
     const renderWelcomePage = (props) => {

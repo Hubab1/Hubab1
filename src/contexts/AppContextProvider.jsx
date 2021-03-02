@@ -35,12 +35,7 @@ function getThemeValues(config, materialTheme) {
     }
 }
 
-export function AppContextProvider({
-    theme,
-    children,
-    config,
-    skipStripe = false,
-}) {
+export function AppContextProvider({ theme, children, config, skipStripe = false }) {
     const stripeApiKey = config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
 
     return (
@@ -48,9 +43,7 @@ export function AppContextProvider({
             <CssBaseline />
             <AppTheme.Provider value={getThemeValues(config, theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    {skipStripe ? children : (
-                        <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>
-                    )}
+                    {skipStripe ? children : <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>}
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>

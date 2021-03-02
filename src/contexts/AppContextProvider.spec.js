@@ -18,8 +18,8 @@ beforeEach(() => {
                 primary: {
                     main: '#000',
                     contrastText: '#666',
-                }
-            }
+                },
+            },
         },
     };
 });
@@ -27,14 +27,14 @@ beforeEach(() => {
 describe('dark mode', () => {
     it('should set dark mode when config.dark_mode is true', () => {
         defaultProps.config.dark_mode = true;
-        const wrapper = shallow(<AppContextProvider {...defaultProps}/>);
+        const wrapper = shallow(<AppContextProvider {...defaultProps} />);
 
         expect(wrapper.find(AppTheme.Provider).prop('value')['dark_mode']).toBe(true);
     });
 
     it('should not set dark mode when config.dark_mode is false', () => {
         defaultProps.config.dark_mode = false;
-        const wrapper = shallow(<AppContextProvider {...defaultProps}/>);
+        const wrapper = shallow(<AppContextProvider {...defaultProps} />);
 
         expect(wrapper.find(AppTheme.Provider).prop('value')['dark_mode']).toBe(false);
     });

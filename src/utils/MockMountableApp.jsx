@@ -10,9 +10,7 @@ function MockMountableApp({ config = mockConfig, children }) {
 
     return (
         <AppContextProvider theme={theme} config={config} skipStripe>
-            <BrowserRouter>
-                {children}
-            </BrowserRouter>
+            <BrowserRouter>{children}</BrowserRouter>
         </AppContextProvider>
     );
 }
