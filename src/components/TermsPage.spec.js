@@ -1,11 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { FormControlLabel } from '@material-ui/core';
 
 import { ROUTES } from 'app/constants';
 import { TOS_TYPE_NESTIO } from 'app/constants';
 import { TermsPage } from './TermsPage';
-import MockMountableApp from 'utils/MockMountableApp';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 
 describe('TermsPage', () => {
