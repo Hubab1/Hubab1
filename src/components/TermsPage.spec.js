@@ -20,16 +20,6 @@ describe('TermsPage', () => {
         };
     });
 
-    const renderMountedTermsPage = (props) => {
-        const wrapper = mount(
-            <MockMountableApp>
-                <TermsPage {...props} />
-            </MockMountableApp>
-        );
-
-        return wrapper.find(TermsPage);
-    };
-
     it('renders terms only when applicant is signed in', () => {
         const wrapper = shallow(<TermsPage {...defaultProps} isSignedIn />);
         expect(wrapper.find('[data-testid="terms"]').length).toBe(1);
