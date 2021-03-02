@@ -5,7 +5,6 @@ import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
-
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
 
 export const AppTheme = React.createContext();
@@ -36,16 +35,22 @@ function getThemeValues(config, materialTheme) {
     }
 }
 
-export function AppContextProvider(props) {
-    const stripeApiKey =
-        props.config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
+export function AppContextProvider({
+    theme,
+    children,
+    config,
+    skipStripe = false,
+}) {
+    const stripeApiKey = config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
 
     return (
-        <MuiThemeProvider theme={props.theme}>
+        <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <AppTheme.Provider value={getThemeValues(props.config, props.theme)}>
+            <AppTheme.Provider value={getThemeValues(config, theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <StripeProvider apiKey={stripeApiKey}>{props.children}</StripeProvider>
+                    {skipStripe ? children : (
+                        <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>
+                    )}
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>
@@ -53,9 +58,10 @@ export function AppContextProvider(props) {
 }
 
 AppContextProvider.propTypes = {
-    children: PropTypes.any,
     config: PropTypes.object,
     theme: PropTypes.object,
+    skipStripe: PropTypes.bool, // used for testing purposes
+    children: PropTypes.node,
 };
 
 const mapStateToProps = (state) => ({

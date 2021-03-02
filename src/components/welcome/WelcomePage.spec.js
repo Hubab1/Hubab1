@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { createMount } from '@material-ui/core/test-utils';
 
 import { WelcomePage } from './WelcomePage';
-import MockThemeComponent from 'utils/MockThemeComponent';
+import MockMountableApp from 'utils/MockMountableApp';
 
 describe('WelcomePage', () => {
     let mount;
@@ -51,11 +50,9 @@ describe('WelcomePage', () => {
 
     const renderWelcomePage = (props) => {
         const wrapper = mount(
-            <MockThemeComponent config={props.configuration}>
-                <BrowserRouter>
-                    <WelcomePage {...props} />
-                </BrowserRouter>
-            </MockThemeComponent>
+            <MockMountableApp config={props.configuration}>
+                <WelcomePage {...props} />
+            </MockMountableApp>
         );
 
         return wrapper.find(WelcomePage);
