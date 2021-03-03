@@ -4,8 +4,6 @@ import { shallow } from 'enzyme';
 import { ConnectBankPage } from 'components/banking/ConnectBankPage';
 import API from 'app/api';
 
-let defaultProps;
-
 beforeEach(() => {
     global.finicityConnect = {
         connectIFrame: jest.fn(),
