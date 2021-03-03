@@ -5,15 +5,25 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
+import { ROUTES } from 'app/constants';
+import API from 'app/api';
+import { actions as modalActions } from 'reducers/loader';
+
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import { formContent, H1, H3, P, LinkButton } from 'assets/styles';
 import forgotPassword from 'assets/images/forgot-password.png';
-import { ROUTES } from 'app/constants';
-import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
 `;
+
+const validationSchema = Yup.object().shape({
+    resetCode: Yup.string().max(6, 'Invalid code').matches(/^\d+$/, 'Only numbers are allowed'),
+});
+
+const initialValues = {
+    resetCode: '',
+};
 
 export class ResetPasswordVerificationPage extends React.Component {
     componentDidMount() {
@@ -25,6 +35,8 @@ export class ResetPasswordVerificationPage extends React.Component {
         const code = values.resetCode;
         const communityId = this.props.communityId;
 
+        this.props.toggleLoader(true);
+
         return API.passwordResetVerification(phoneNumber, code, communityId)
             .then((res) => {
                 if (res.errors) {
@@ -35,10 +47,12 @@ export class ResetPasswordVerificationPage extends React.Component {
                         state: { token: res.token },
                     });
                 }
-                setSubmitting(false);
             })
             .catch(() => {
                 setErrors({ resetCode: 'Invalid Error Code' });
+            })
+            .finally(() => {
+                this.props.toggleLoader(true);
                 setSubmitting(false);
             });
     };
@@ -53,6 +67,7 @@ export class ResetPasswordVerificationPage extends React.Component {
     render() {
         if (!this.props.history.location.state) return <div />;
         const phoneNumber = this.props.history.location.state.phoneNumber;
+
         return (
             <Fragment>
                 <H1>Enter Verification Code</H1>
@@ -60,12 +75,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                     We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
                 </SpacedH3>
                 <img src={forgotPassword} alt="hand with smartphone in it" />
-                <Formik
-                    validationSchema={Yup.object().shape({
-                        resetCode: Yup.string().max(6, 'Invalid code').matches(/^\d+$/, 'Only numbers are allowed'),
-                    })}
-                    onSubmit={this.onSubmit}
-                >
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
                     {({ values, errors, touched, handleChange, submitCount, handleBlur, handleSubmit, submitForm }) => {
                         const wrappedHandleChange = (event) => {
                             handleChange(event);
@@ -106,6 +116,7 @@ ResetPasswordVerificationPage.propTypes = {
     profile: PropTypes.object,
     history: PropTypes.object,
     communityId: PropTypes.string,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -113,4 +124,8 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
 });
 
-export default connect(mapStateToProps, null)(ResetPasswordVerificationPage);
+const mapDispatchToProps = {
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordVerificationPage);

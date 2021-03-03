@@ -5,25 +5,39 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 
+import API from 'app/api';
+import { ROUTES } from 'app/constants';
+import { fetchRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+
 import PhoneNumberInput from 'components/common/PhoneNumberInput';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import forgotPassword from 'assets/images/forgot-password.png';
 import { formContent, H1, H3 } from 'assets/styles';
-import { fetchRenterProfile } from 'reducers/renter-profile';
-import { ROUTES } from 'app/constants';
-import API from 'app/api';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 25px 15%;
 `;
+
+const validationSchema = Yup.object().shape({
+    phone: Yup.string()
+        .required('Phone Number is required')
+        .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
+});
+
+const initialValues = {
+    phone: '',
+};
 
 export class ForgotPasswordPage extends React.Component {
     state = { errors: null };
 
     onSubmit = (values, { setSubmitting }) => {
         const { communityId } = this.props;
+
+        this.props.toggleLoader(true);
 
         API.passwordResetRequest(values.phone, communityId)
             .then((res) => {
@@ -35,10 +49,12 @@ export class ForgotPasswordPage extends React.Component {
                         state: { phoneNumber: values.phone },
                     });
                 }
-                setSubmitting(false);
             })
             .catch(() => {
                 this.setState({ errors: ['Applicant does not exist'] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -49,15 +65,7 @@ export class ForgotPasswordPage extends React.Component {
                 <H1>Forgot Your Password?</H1>
                 <SpacedH3>Don’t worry! We’ll send you a text message with a code to reset your password.</SpacedH3>
                 <img src={forgotPassword} alt="hand with smartphone in it" />
-                <Formik
-                    validationSchema={Yup.object().shape({
-                        phone: Yup.string()
-                            .required('Phone Number is required')
-                            .matches(/^\(\d{3}\)\s\d{3}-\d{4}/, 'Must be a valid US phone number'),
-                    })}
-                    initialValues={{ phone: '' }}
-                    onSubmit={this.onSubmit}
-                >
+                <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={this.onSubmit}>
                     {({ values, errors, handleChange, submitCount, handleSubmit, isSubmitting }) => (
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div className={formContent}>
@@ -86,10 +94,11 @@ export class ForgotPasswordPage extends React.Component {
 }
 
 ForgotPasswordPage.propTypes = {
-    fetchRenterProfile: PropTypes.func,
     profile: PropTypes.object,
     communityId: PropTypes.string,
     history: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -97,6 +106,9 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
 });
 
-const mapDispatchToProps = { fetchRenterProfile };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordPage);
