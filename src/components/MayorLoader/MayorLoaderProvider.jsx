@@ -1,9 +1,13 @@
-import React, { createContext, useState, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import ReduxMayorLoader, { MayorLoader } from 'components/MayorLoader/MayorLoader';
 
 export const MayorLoaderContext = createContext({});
+
+export const useMayorLoader = () => {
+    return useContext(MayorLoaderContext);
+};
 
 export const MayorLoaderProvider = (props) => {
     const { children } = props;

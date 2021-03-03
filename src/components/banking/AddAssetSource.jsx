@@ -19,6 +19,7 @@ const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +
     'Be sure to use documents with unique filenames and refrain from renaming them during the upload process. ' +
     'If you continue to have issues, please contact an agent or try again later.';
+
 const SkinnyH1 = styled(H1)`
     width: 70%;
 `;
@@ -38,32 +39,25 @@ export function AddAssetSource(props) {
     const [errors, setErrors] = useState([]);
 
     const onSubmit = async (values, { setSubmitting }) => {
+        /* eslint-disable no-unused-expressions */
+        context.toggleLoader(true);
         setSubmitting(true);
         setErrors([]);
 
         const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_ASSET, props.vgsEnabled);
 
-        let response;
         try {
-            response = await API.submitFinancialSource(formData, props.vgsEnabled);
+            await API.submitFinancialSource(formData, props.vgsEnabled);
+            context.refreshFinancialSources();
+            await context.fetchRenterProfile();
+            props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
         } catch (e) {
-            logToSentry(e);
+            await logToSentry(e.response || e);
             setErrors([ERROR_UPLOAD]);
-            return setSubmitting(false);
-        }
-
-        if (response.status !== 200) {
-            logToSentry(response);
-            setErrors([ERROR_UPLOAD]);
+        } finally {
+            context.toggleLoader(false);
             setSubmitting(false);
-            return;
         }
-
-        context.refreshFinancialSources();
-        await context.fetchRenterProfile();
-        props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
-        setSubmitting(false);
-        setErrors([]);
     };
 
     return (

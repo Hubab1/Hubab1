@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import { H1, H3, P, Bold } from 'assets/styles';
 import { ROUTES, FINANCIAL_STREAM_ASSET, ALL_INCOME_OR_ASSET_TYPES } from 'app/constants';
 import API from 'app/api';
+import { prettyCurrency } from 'utils/misc';
+import { logToSentry } from 'utils/sentry';
+
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import BankingContext from './BankingContext';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { prettyCurrency } from 'utils/misc';
-import PropTypes from 'prop-types';
+import { H1, H3, P, Bold } from 'assets/styles';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -29,29 +31,31 @@ export class RemoveFinancialSource extends React.Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
 
     onSubmit = async () => {
+        /* eslint-disable no-unused-expressions */
+        this.context.toggleLoader?.(true);
         this.setState({ submitting: true });
         try {
             await API.deleteFinancialSource(this.props.match.params.id);
-        } catch {
-            this.setState({ submitting: false, errorSubmitting: true });
-            return;
+            this.context.refreshFinancialSources?.();
+            this.props.history.push(this.returnLink);
+        } catch (e) {
+            this.setState({ errorSubmitting: true });
+            logToSentry(e.response || e);
+        } finally {
+            this.context.toggleLoader?.(false);
+            this.setState({ submitting: false });
         }
-        // eslint-disable-next-line
-        this.context.refreshFinancialSources?.();
-        this.setState({ submitting: false });
-        this.props.history.push(this.returnLink);
     };
     async componentDidMount() {
         this.fetchFinancialSource();
     }
     async fetchFinancialSource() {
-        let data;
         try {
-            data = await API.getFinancialSource(this.props.match.params.id);
+            const data = await API.getFinancialSource(this.props.match.params.id);
+            this.setState({ financialSource: data });
         } catch (e) {
-            return;
+            logToSentry(e.response || e);
         }
-        this.setState({ financialSource: data });
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {

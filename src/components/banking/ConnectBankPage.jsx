@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import API from 'app/api';
+import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
+import { actions as modalActions } from 'reducers/loader';
+
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
-import PropTypes from 'prop-types';
 import BankingContext from './BankingContext';
 
 const finicityContainer = css`
@@ -142,6 +144,8 @@ export class ConnectBankPage extends React.Component {
     reportNoIncomeAssets = async (e, targetPath) => {
         e.preventDefault();
 
+        this.props.toggleLoader(true);
+
         // Handle reporting no income/assets
         const formData = new FormData();
         formData.append('report_no_income_assets', 'True');
@@ -149,6 +153,7 @@ export class ConnectBankPage extends React.Component {
 
         // Refresh data then redirect
         await this.context.refreshFinancialSources();
+        this.props.toggleLoader(false);
         this.props.history.push(targetPath);
     };
 
@@ -175,9 +180,10 @@ export class ConnectBankPage extends React.Component {
 
 ConnectBankPage.propTypes = {
     applicant: PropTypes.object,
+    history: PropTypes.object,
+    toggleLoader: PropTypes.func,
     refreshFinancialSources: PropTypes.func,
     fetchApplicant: PropTypes.func,
-    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
@@ -186,6 +192,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchApplicant,
+    toggleLoader: modalActions.toggleLoader,
 };
 
 ConnectBankPage.contextType = BankingContext;

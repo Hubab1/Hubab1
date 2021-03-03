@@ -24,6 +24,7 @@ it('delete financial source on submit', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});
     API.getFinancialSource = jest.fn().mockReturnValue({});
     const wrapper = await shallow(<RemoveFinancialSource {...defaultProps}/>);
+
     wrapper.find(ActionButton).at(0).simulate('click');
     expect(API.deleteFinancialSource).toHaveBeenCalledWith('666');
 });
