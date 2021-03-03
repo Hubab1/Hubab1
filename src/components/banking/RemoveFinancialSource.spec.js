@@ -11,19 +11,19 @@ beforeEach(() => {
     defaultProps = {
         match: {
             params: {
-                id: '666'
-            }
+                id: '666',
+            },
         },
         history: {
-            push: jest.fn()
-        }
+            push: jest.fn(),
+        },
     };
 });
 
 it('delete financial source on submit', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});
     API.getFinancialSource = jest.fn().mockReturnValue({});
-    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps}/>);
+    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps} />);
 
     wrapper.find(ActionButton).at(0).simulate('click');
     expect(API.deleteFinancialSource).toHaveBeenCalledWith('666');
@@ -32,19 +32,23 @@ it('delete financial source on submit', async () => {
 it('snapshot when isAsset=true', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});
     API.getFinancialSource = jest.fn().mockReturnValue({});
-    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps}/>, { disableLifecycleMethods: true });
-    wrapper.setState({financialSource: {
-        stream_type: FINANCIAL_STREAM_ASSET
-    }});
+    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps} />, { disableLifecycleMethods: true });
+    wrapper.setState({
+        financialSource: {
+            stream_type: FINANCIAL_STREAM_ASSET,
+        },
+    });
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('snapshot when isAsset=false', async () => {
     API.deleteFinancialSource = jest.fn().mockReturnValue({});
     API.getFinancialSource = jest.fn().mockReturnValue({});
-    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps}/>, { disableLifecycleMethods: true });
-    wrapper.setState({financialSource: {
-        stream_type: FINANCIAL_STREAM_INCOME
-    }});
+    const wrapper = await shallow(<RemoveFinancialSource {...defaultProps} />, { disableLifecycleMethods: true });
+    wrapper.setState({
+        financialSource: {
+            stream_type: FINANCIAL_STREAM_INCOME,
+        },
+    });
     expect(wrapper.getElement()).toMatchSnapshot();
 });

@@ -6,7 +6,6 @@ import { css } from 'emotion';
 import API from 'app/api';
 import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
-import { actions as modalActions } from 'reducers/loader';
 
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
@@ -144,16 +143,15 @@ export class ConnectBankPage extends React.Component {
     reportNoIncomeAssets = async (e, targetPath) => {
         e.preventDefault();
 
-        this.props.toggleLoader(true);
-
         // Handle reporting no income/assets
         const formData = new FormData();
         formData.append('report_no_income_assets', 'True');
+        this.context.toggleLoader(true);
         await API.submitFinancialSource(formData, false); // No files to encrypt
 
         // Refresh data then redirect
         await this.context.refreshFinancialSources();
-        this.props.toggleLoader(false);
+        this.context.toggleLoader(false);
         this.props.history.push(targetPath);
     };
 
@@ -180,20 +178,16 @@ export class ConnectBankPage extends React.Component {
 
 ConnectBankPage.propTypes = {
     applicant: PropTypes.object,
-    history: PropTypes.object,
-    toggleLoader: PropTypes.func,
     refreshFinancialSources: PropTypes.func,
     fetchApplicant: PropTypes.func,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-const mapDispatchToProps = {
-    fetchApplicant,
-    toggleLoader: modalActions.toggleLoader,
-};
+const mapDispatchToProps = { fetchApplicant };
 
 ConnectBankPage.contextType = BankingContext;
 

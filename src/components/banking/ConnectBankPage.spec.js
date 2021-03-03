@@ -12,7 +12,7 @@ beforeEach(() => {
     };
 
     defaultProps = {
-        toggleLoader: jest.fn()
+        toggleLoader: jest.fn(),
     };
 });
 
@@ -53,7 +53,7 @@ describe('reportNoIncomeAssets', () => {
     it('should submit a financial source for no income/assets then refresh sources and redirect', () => {
         const targetRoute = '/test/route';
         const mockHistory = { push: jest.fn() };
-        const mockContext = { refreshFinancialSources: jest.fn() };
+        const mockContext = { refreshFinancialSources: jest.fn(), toggleLoader: jest.fn() };
 
         API.submitFinancialSource = jest.fn().mockResolvedValue({});
 

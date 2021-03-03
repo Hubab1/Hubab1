@@ -39,7 +39,6 @@ export function AddAssetSource(props) {
     const [errors, setErrors] = useState([]);
 
     const onSubmit = async (values, { setSubmitting }) => {
-        /* eslint-disable no-unused-expressions */
         context.toggleLoader(true);
         setSubmitting(true);
         setErrors([]);

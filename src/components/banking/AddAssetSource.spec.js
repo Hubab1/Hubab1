@@ -40,9 +40,11 @@ it('matches snapshot', () => {
 });
 
 it('Goes back to manual income verification page on submit', async () => {
-    jest.spyOn(API, 'submitFinancialSource').mockReturnValue(Promise.resolve({
-        status: 200
-    }));
+    jest.spyOn(API, 'submitFinancialSource').mockReturnValue(
+        Promise.resolve({
+            status: 200,
+        })
+    );
     const wrapper = shallow(<AddAssetSource {...defaultProps} />);
 
     wrapper.find(AddFinancialSourceForm).prop('onSubmit')(
@@ -65,10 +67,12 @@ it('Goes back to manual income verification page on submit', async () => {
 
 it('Doesnt go back on failure to submit and logs to sentry', async () => {
     const logToSentry = jest.spyOn(sentryUtils, 'logToSentry');
-    jest.spyOn(API, 'submitFinancialSource').mockReturnValue(Promise.reject({
-        status: 400,
-        json: () => ({ income_or_asset_type: ['Required'] })
-    }));
+    jest.spyOn(API, 'submitFinancialSource').mockReturnValue(
+        Promise.reject({
+            status: 400,
+            json: () => ({ income_or_asset_type: ['Required'] }),
+        })
+    );
 
     const wrapper = shallow(<AddAssetSource {...defaultProps} />);
 
