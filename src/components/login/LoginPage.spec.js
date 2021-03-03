@@ -39,6 +39,7 @@ beforeEach(() => {
         community: {
             contact_phone: '4444444444'
         },
+        toggleLoader: jest.fn(),
     };
 });
 
