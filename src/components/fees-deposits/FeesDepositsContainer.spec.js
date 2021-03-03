@@ -15,6 +15,7 @@ beforeEach(() => {
         profile: mockProfile,
         applicant: mockApplicant,
         payments: mockPayments.payables,
+        toggleLoader: jest.fn(),
     };
 });
 

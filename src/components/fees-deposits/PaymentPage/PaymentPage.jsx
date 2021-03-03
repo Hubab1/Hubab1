@@ -35,7 +35,7 @@ const linkStyle = css`
     font-weight: 300;
 `;
 
-export const PaymentPage = ({ applicant, totalPayment, payments, handleSuccess, handleClickBack, isOutstanding }) => {
+export const PaymentPage = ({ applicant, totalPayment, payments, isOutstanding, handleSuccess, handleClickBack }) => {
     const [disableBack, setDisableBack] = useState(false);
 
     return (
@@ -90,9 +90,9 @@ PaymentPage.propTypes = {
     applicant: PropTypes.object,
     totalPayment: PropTypes.number,
     payments: PropTypes.array,
+    isOutstanding: PropTypes.bool,
     handleSuccess: PropTypes.func,
     handleClickBack: PropTypes.func,
-    isOutstanding: PropTypes.bool,
 };
 
 export default PaymentPage;
