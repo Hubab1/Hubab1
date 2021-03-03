@@ -2,46 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
-import { Snackbar, CircularProgress } from '@material-ui/core';
+import { Backdrop, CircularProgress, Fade } from '@material-ui/core';
 
 import { selectors } from 'reducers/loader';
 
 const useStyles = makeStyles((theme) => ({
-    loader: {
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
         color: theme.palette.primary.main,
-        padding: 0,
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(1),
+        backgroundColor: 'rgba(255, 255, 255, .5)',
     },
-    snackbar: {
-        position: 'fixed',
-        top: 80, // toolbar offset
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, .8)',
-    }
 }));
 
 export function MayorLoader({ isVisible }) {
     const classes = useStyles();
 
     return (
-        <Snackbar
-            className={classes.snackbar}
+        <Backdrop
+            className={classes.backdrop}
             open={isVisible}
-            children={(
-                <CircularProgress
-                    size={96}
-                    color="primary"
-                    variant="indeterminate"
-                    className={classes.loader}
-                />
-            )}
-        />
+            TransitionComponent={Fade}
+            transitionDuration={{
+                enter: 0,
+                exit: 500,
+            }}
+        >
+            <CircularProgress color="inherit" />
+        </Backdrop>
     );
 }
 
