@@ -10,15 +10,11 @@ beforeEach(() => {
     global.finicityConnect = {
         connectIFrame: jest.fn(),
     };
-
-    defaultProps = {
-        toggleLoader: jest.fn(),
-    };
 });
 
 describe('openFinicityIframe', () => {
     it('sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
-        const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
+        const wrapper = shallow(<ConnectBankPage />);
 
         API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({ success: true, reasonCode: 'OK' }));
 
@@ -34,7 +30,7 @@ describe('openFinicityIframe', () => {
 
 describe('handleFetchReports', () => {
     it('calls API.fetchFinicityReports and setState on success', () => {
-        const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
+        const wrapper = shallow(<ConnectBankPage />);
 
         const data = {
             json: () => {
@@ -57,7 +53,7 @@ describe('reportNoIncomeAssets', () => {
 
         API.submitFinancialSource = jest.fn().mockResolvedValue({});
 
-        const wrapper = shallow(<ConnectBankPage {...defaultProps} history={mockHistory} />);
+        const wrapper = shallow(<ConnectBankPage history={mockHistory} />);
         const instance = wrapper.instance();
 
         instance.context = mockContext;

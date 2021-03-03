@@ -153,7 +153,6 @@ export class EditFinancialSource extends Component {
 EditFinancialSource.propTypes = {
     match: PropTypes.object,
     history: PropTypes.object,
-    toggleLoader: PropTypes.func,
 };
 
 EditFinancialSource.route = ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE;
