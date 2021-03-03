@@ -5,16 +5,19 @@ import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { BackLink } from 'components/common/BackLink';
-import ItemAdder from 'components/common/ItemAdder';
-import storageImage from 'assets/images/storage.png';
-import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_STORAGE } from 'app/constants';
+import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder, rentalOptionCTALabel } from 'utils/misc';
+
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues, rentalOptionCTALabel } from 'utils/misc';
+import { actions as modalActions } from 'reducers/loader';
+
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import { BackLink } from 'components/common/BackLink';
+import ItemAdder from 'components/common/ItemAdder';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1, SpacedH3 } from 'assets/styles';
+import storageImage from 'assets/images/storage.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -39,15 +42,23 @@ export const Storage = (props) => {
             });
         });
         const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
-        return props.updateRenterProfile(selectedRentalOptions).then((res) => {
-            if (res.errors) {
-                setErrors(res.errors);
-                setErrorSubmitting(true);
-            } else {
-                props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`);
-            }
-            setSubmitting(false);
-        });
+
+        props.toggleLoader(true);
+
+        return props
+            .updateRenterProfile(selectedRentalOptions)
+            .then((res) => {
+                if (res.errors) {
+                    setErrors(res.errors);
+                    setErrorSubmitting(true);
+                } else {
+                    props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_STORAGE}`);
+                }
+            })
+            .finally(() => {
+                props.toggleLoader(false);
+                setSubmitting(false);
+            });
     };
 
     const getSubtitles = (option) => {
@@ -123,8 +134,9 @@ export const Storage = (props) => {
 Storage.propTypes = {
     application: PropTypes.object,
     config: PropTypes.object,
-    updateRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    toggleLoader: PropTypes.func,
+    updateRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -132,4 +144,9 @@ const mapStateToProps = (state) => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(Storage);
+const mapDispatchToProps = {
+    updateRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Storage);
