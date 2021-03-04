@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import API from 'app/api';
-import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
-import { H1, SpacedH3 } from 'assets/styles';
-import portfolio from 'assets/images/portfolio_bag.png';
-import EmployerAddressForm from 'components/banking/employer-details/EmployerAddressForm';
-import BankingContext from 'components/banking/BankingContext';
-import { fetchApplicant } from 'reducers/applicant';
 
 import { APPLICANT_EVENTS, MILESTONE_APPLICANT_SUBMITTED, ROUTES } from 'app/constants';
+import API from 'app/api';
+import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
+import { fetchApplicant } from 'reducers/applicant';
+
+import EmployerAddressForm from 'components/banking/employer-details/EmployerAddressForm';
+import BankingContext from 'components/banking/BankingContext';
 import BackLink from 'components/common/BackLink';
+import { H1, SpacedH3 } from 'assets/styles';
+import portfolio from 'assets/images/portfolio_bag.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -25,8 +26,8 @@ const ImageContainer = styled.div`
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
 export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplicant, configuration }) {
+    const context = useContext(BankingContext);
     const [errors, setErrors] = useState(null);
-    const context = React.useContext(BankingContext);
 
     const updatesWereRequested = !!applicant.events?.find(
         (e) =>
@@ -45,6 +46,8 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
             delete employerInfo.search;
         }
 
+        context.toggleLoader(true);
+
         API.postEmployer(employerInfo)
             .then((res) => {
                 if (res.errors) {
@@ -57,10 +60,12 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
                     }
                     context.history.push(ROUTES.FEES_AND_DEPOSITS);
                 }
-                setSubmitting(false);
             })
             .catch(() => {
                 setErrors([GENERIC_ERROR_MESSAGE]);
+            })
+            .finally(() => {
+                context.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -93,9 +98,9 @@ export function EmployerDetails({ applicant, showAutomatedAddress, fetchApplican
 
 EmployerDetails.propTypes = {
     applicant: PropTypes.object,
+    configuration: PropTypes.object,
     showAutomatedAddress: PropTypes.bool,
     fetchApplicant: PropTypes.func,
-    configuration: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
@@ -104,4 +109,8 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps, { fetchApplicant })(EmployerDetails);
+const mapDispatchToProps = {
+    fetchApplicant,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerDetails);

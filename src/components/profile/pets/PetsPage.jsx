@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
@@ -14,18 +14,21 @@ import {
     RENTER_PROFILE_TYPE_PETS,
     ROUTES,
 } from 'app/constants';
-import { H1, P, SpacedH3 } from 'assets/styles';
-import { petsImageMargin, policyDiv, viewPetPolicy as viewPetPolicyClassName } from './styles';
-import { updateRenterProfile } from 'reducers/renter-profile';
 import { rentalOptionsInitialValues } from 'utils/misc';
+
+import { updateRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+
 import PetItem from './PetItem';
-import petsImage from 'assets/images/pets.png';
 import PetPolicy from 'components/profile/pets/PetPolicy';
 import PetRestrictions from 'components/profile/pets/PetRestrictions';
 import AddAnotherButton from 'components/common/AddAnotherButton';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import BackLink from 'components/common/BackLink';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import { H1, P, SpacedH3 } from 'assets/styles';
+import { petsImageMargin, policyDiv, viewPetPolicy as viewPetPolicyClassName } from './styles';
+import petsImage from 'assets/images/pets.png';
 
 export const petsSchema = (config) =>
     Yup.object().shape({
@@ -64,7 +67,7 @@ export const petsSchema = (config) =>
 const FIRST_PET = { key: 'first-pet', service_animal: 'false' };
 const PET_PLACEHOLDER = { key: 'pet-placeholder', service_animal: 'false' };
 
-export class PetsPage extends React.Component {
+export class PetsPage extends Component {
     state = {
         viewPetPolicy: false,
         viewPetRestrictions: false,
@@ -158,14 +161,18 @@ export class PetsPage extends React.Component {
     onSubmit = (values, { setSubmitting }) => {
         const pets = this.serializePetsForPost(values.petOptions.filter(this.emptyPetFilter));
 
+        this.props.toggleLoader(true);
+
         this.props
             .updateRenterProfile({ selected_rental_options: pets })
             .then(() => {
-                setSubmitting(false);
                 this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
             })
             .catch((res) => {
                 this.setState({ errors: res.errors });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -203,7 +210,7 @@ export class PetsPage extends React.Component {
         const initialOptions = !!selectedPetOptions.length ? selectedPetOptions : [FIRST_PET];
 
         return (
-            <Fragment>
+            <>
                 <div className={clsx({ 'hide-element': viewPetPolicy || viewPetRestrictions })}>
                     <H1>Tell Us About Your Pets</H1>
                     <SpacedH3>Now is the time to gush about your pets, we are all ears.</SpacedH3>
@@ -301,7 +308,7 @@ export class PetsPage extends React.Component {
                         onAgree={this.toggleViewPetRestrictions}
                     />
                 )}
-            </Fragment>
+            </>
         );
     }
 }
@@ -310,8 +317,9 @@ PetsPage.propTypes = {
     profile: PropTypes.object,
     application: PropTypes.object,
     configuration: PropTypes.object,
-    updateRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    toggleLoader: PropTypes.func,
+    updateRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -320,4 +328,9 @@ const mapStateToProps = (state) => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(PetsPage);
+const mapDispatchToProps = {
+    updateRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PetsPage);

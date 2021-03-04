@@ -12,15 +12,18 @@ import { format, parseISO } from 'date-fns';
 
 import { LEASE_TERMS_IDENTIFIER, ROLE_PRIMARY_APPLICANT, ROUTES } from 'app/constants';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
 import { parseDateISOString, serializeDate } from 'utils/misc';
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import { H1, SpacedH3 } from 'assets/styles';
+
+import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import AvailableUnitsSelector from 'components/common/AvailableUnitsSelector';
 import AvailableLeaseTermsSelector from 'components/common/AvailableLeaseTermsSelector';
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
+import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 
 const ImageContainer = styled.div`
@@ -55,9 +58,9 @@ function getMinLeaseStartDate(unit) {
 
     if (!dateAvailable || today > dateAvailable) {
         return new Date(today).setHours(0, 0, 0, 0);
-    } else {
-        return dateAvailable;
     }
+
+    return dateAvailable;
 }
 
 function getMaxLeaseStartDate(daysOffset) {
@@ -122,6 +125,7 @@ export const LeaseTermsPage = ({
     isPrimaryApplicant,
     hasOutstandingBalance,
     config,
+    toggleLoader,
     updateRenterProfile,
     pageComplete,
     _nextRoute,
@@ -135,10 +139,13 @@ export const LeaseTermsPage = ({
     const unitErrorMsg = `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`;
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors }) => {
+            toggleLoader(true);
             setSubmitting(true);
 
             if (!isPrimaryApplicant) {
                 await pageComplete(LEASE_TERMS_IDENTIFIER);
+                toggleLoader(false);
+                setSubmitting(false);
                 return _nextRoute();
             }
 
@@ -159,10 +166,11 @@ export const LeaseTermsPage = ({
             } catch {
                 setErrorMsg(genericErrorMsg);
             } finally {
+                toggleLoader(false);
                 setSubmitting(false);
             }
         },
-        [isPrimaryApplicant, pageComplete, _nextRoute, updateRenterProfile, unitErrorMsg, genericErrorMsg]
+        [toggleLoader, isPrimaryApplicant, pageComplete, _nextRoute, updateRenterProfile, unitErrorMsg, genericErrorMsg]
     );
 
     const initialValues = useMemo(() => {
@@ -303,6 +311,7 @@ LeaseTermsPage.propTypes = {
     application: PropTypes.object,
     config: PropTypes.object,
     pageComplete: PropTypes.func,
+    toggleLoader: PropTypes.func,
     updateRenterProfile: PropTypes.func,
     _nextRoute: PropTypes.func,
 };
@@ -317,6 +326,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateRenterProfile,
     pageComplete,
+    toggleLoader: modalActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));

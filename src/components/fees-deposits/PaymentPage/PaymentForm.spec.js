@@ -21,6 +21,7 @@ beforeEach(() => {
         fetchRenterProfile: jest.fn(),
         onSuccess: jest.fn(),
         setDisableBack: jest.fn(),
+        toggleLoader: jest.fn(),
     };
 });
 

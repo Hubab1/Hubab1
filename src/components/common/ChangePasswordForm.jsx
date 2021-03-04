@@ -4,30 +4,32 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { css } from 'emotion';
 
-import changePassword from 'assets/images/change-password.jpeg';
-import { formContent } from 'assets/styles';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import FormTextInput from 'components/common/FormTextInput/FormTextInput';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import { formContent } from 'assets/styles';
+import changePassword from 'assets/images/change-password.jpeg';
 
 const imgSpacing = css`
     margin-top: 20px;
     margin-bottom: 10px;
 `;
 
+const validationSchema = Yup.object({
+    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+    password_confirm: Yup.string()
+        .oneOf([Yup.ref('password')], 'Oops! Passwords do not match.')
+        .required('Please confirm password'),
+});
+
+const initialValues = {
+    password: '',
+    password_confirm: '',
+};
+
 export function ChangePasswordForm(props) {
     return (
-        <Formik
-            validationSchema={Yup.object({
-                password: Yup.string()
-                    .min(8, 'Password must be at least 8 characters')
-                    .required('Password is required'),
-                password_confirm: Yup.string()
-                    .oneOf([Yup.ref('password')], 'Oops! Passwords do not match.')
-                    .required('Please confirm password'),
-            })}
-            onSubmit={props.onSubmit}
-        >
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={props.onSubmit}>
             {({ values, errors, touched, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <img className={imgSpacing} src={changePassword} alt="welcome sign" width="101" height="91" />
