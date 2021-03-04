@@ -1,26 +1,27 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import * as Yup from 'yup';
-import PropTypes from 'prop-types';
-import { ROUTES } from 'app/constants';
-import { H1, SpacedH3, P } from 'assets/styles';
-import withRelativeRoutes from 'app/withRelativeRoutes';
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import GenericFormMessage from 'components/common/GenericFormMessage';
-import portfolioImg from 'assets/images/portfolio.png';
-import SocialSecurityInput from 'components/common/SocialSecurityInput';
-import API, { MOCKY } from 'app/api';
+import { Grid, FormControl } from '@material-ui/core';
 
-import ssl from 'assets/images/ssl-image.png';
+import { ROUTES } from 'app/constants';
+import API, { MOCKY } from 'app/api';
+import withRelativeRoutes from 'app/withRelativeRoutes';
+import { actions as modalActions } from 'reducers/loader';
+
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import SocialSecurityInput from 'components/common/SocialSecurityInput';
+import portfolioImg from 'assets/images/portfolio.png';
+import GenericFormMessage from 'components/common/GenericFormMessage';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from 'components/common/Checkbox';
+import { H1, SpacedH3, P } from 'assets/styles';
+import ssl from 'assets/images/ssl-image.png';
 
 const Image = styled.img`
     width: 91px;
@@ -44,6 +45,8 @@ const socialSecurityPrompt = css`
     margin-bottom: 15px;
 `;
 
+const SUBMIT_ERROR = 'Oops! We ran into some issues trying to obtain your screening reports. Please try again later.';
+
 export class Screening extends React.Component {
     state = { errors: null };
 
@@ -54,26 +57,23 @@ export class Screening extends React.Component {
             body.ssn = '000-00-0000';
         }
         body.vgs = this.props.vgsEnabled;
+
+        this.props.toggleLoader(true);
+
         API.postPassthrough(body, this.props.vgsEnabled)
             .then((res) => {
                 if (res.errors) {
                     setErrors(res.errors);
-                    this.setState({
-                        errors: [
-                            'Oops! We ran into some issues trying to obtain your screening reports. Please try again later.',
-                        ],
-                    });
+                    this.setState({ errors: [SUBMIT_ERROR] });
                 } else {
                     this.props._nextRoute();
                 }
-                setSubmitting(false);
             })
             .catch(() => {
-                this.setState({
-                    errors: [
-                        'Oops! We ran into some issues trying to obtain your screening reports. Please try again later.',
-                    ],
-                });
+                this.setState({ errors: [SUBMIT_ERROR] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -221,9 +221,10 @@ export class Screening extends React.Component {
 }
 
 Screening.propTypes = {
-    _nextRoute: PropTypes.func,
     applicant: PropTypes.object,
     vgsEnabled: PropTypes.bool,
+    toggleLoader: PropTypes.func,
+    _nextRoute: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -233,4 +234,8 @@ const mapStateToProps = (state) => ({
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,
 });
 
-export default connect(mapStateToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));
+const mapDispatchToProps = {
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(Screening, ROUTES.SCREENING));

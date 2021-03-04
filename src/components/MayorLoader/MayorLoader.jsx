@@ -27,7 +27,7 @@ export function MayorLoader({ isVisible }) {
                 exit: 500,
             }}
         >
-            <CircularProgress color="inherit" />
+            <CircularProgress color="inherit" size={96} />
         </Backdrop>
     );
 }
