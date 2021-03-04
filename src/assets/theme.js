@@ -29,5 +29,9 @@ export const createTheme = (config) => {
                 default: '#ffffff',
             },
         },
+        assets: {
+            logo: config.logo,
+            background: config.background,
+        },
     });
 };

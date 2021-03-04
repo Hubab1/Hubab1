@@ -137,7 +137,7 @@ export class RegisterPage extends React.Component {
                     showConsentInput={!optedIn && !this.props.configuration.invitee}
                     configuration={this.props.configuration}
                 />
-                <P className="already-have-account">
+                <P className="already-have-account" fontSize={14}>
                     Already have an account?{' '}
                     <Link to={ROUTES.LOGIN} className={link}>
                         Sign in here

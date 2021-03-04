@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
-<div>
-  <ForwardRef(WithStyles) />
+<React.Fragment>
   <ForwardRef(WithStyles)
     className="makeStyles-appBar-3"
     color="primary"
@@ -127,5 +126,5 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       className="css-us5k2a"
     />
   </main>
-</div>
+</React.Fragment>
 `;
