@@ -293,9 +293,9 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             return res.json();
         }
 
-        // TODO: Figure out a way to handle this error
+        // TODO: NESTIO-20542
         // commenting out for now as it's blocking applicants from
-        // selecting not income/assets
+        // selecting no income/assets
 
         // const error = new Error();
         // error.response = res;
