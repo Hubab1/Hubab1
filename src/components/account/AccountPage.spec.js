@@ -14,7 +14,6 @@ let defaultProps;
 
 beforeEach(() => {
     defaultProps = {
-        updateApplication: jest.fn(),
         communityId: '123',
         applicant: mockApplicant,
         configuration: {
@@ -22,6 +21,8 @@ beforeEach(() => {
                 contact_phone: '11111111',
             },
         },
+        updateApplication: jest.fn(),
+        toggleLoader: jest.fn(),
     };
 });
 

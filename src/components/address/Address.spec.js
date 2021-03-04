@@ -18,6 +18,7 @@ describe('handle submit', () => {
                 address_postal_code: '10038',
             },
             showAutomatedAddress: true,
+            toggleLoader: jest.fn(),
         };
     });
 
@@ -43,6 +44,7 @@ describe('handle submit', () => {
             await submitHandler(addressData, {
                 setErrors: jest.fn(),
                 setSubmitting: jest.fn(),
+                toggleLoader: jest.fn(),
             });
 
             expect(updateApplicant).toBeCalledWith(addressData);
@@ -72,6 +74,7 @@ describe('handle submit', () => {
             await submitHandler(addressData, {
                 setErrors: jest.fn(),
                 setSubmitting: jest.fn(),
+                toggleLoader: jest.fn(),
             });
 
             expect(updateApplicant).toBeCalledWith(addressData);

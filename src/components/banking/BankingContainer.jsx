@@ -15,6 +15,7 @@ import AddAssetSource from 'components/banking/AddAssetSource';
 import BankingContext from 'components/banking/BankingContext';
 import EmployerDetails from 'components/banking/employer-details/EmployerDetails';
 import { fetchRenterProfile } from 'reducers/renter-profile';
+import { actions as loaderActions } from 'reducers/loader';
 
 function BankingContainer({
     applicationEvents,
@@ -24,6 +25,7 @@ function BankingContainer({
     configuration,
     location,
     fetchRenterProfile,
+    toggleLoader,
 }) {
     const [state, dispatch] = useReducer(reducer, {});
 
@@ -136,6 +138,7 @@ function BankingContainer({
                 _nextRoute,
                 history,
                 routeSelected,
+                toggleLoader,
             }}
         >
             <Switch>
@@ -154,10 +157,12 @@ function BankingContainer({
 BankingContainer.propTypes = {
     applicationEvents: PropTypes.array,
     history: PropTypes.object,
-    _nextRoute: PropTypes.func,
+    location: PropTypes.object,
     applicant: PropTypes.object,
     configuration: PropTypes.object,
     fetchRenterProfile: PropTypes.func,
+    toggleLoader: PropTypes.func,
+    _nextRoute: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -166,7 +171,10 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
 });
 
-const mapDispatchToProps = { fetchRenterProfile };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    toggleLoader: loaderActions.toggleLoader,
+};
 
 export default connect(
     mapStateToProps,

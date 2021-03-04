@@ -16,9 +16,10 @@ beforeEach(() => {
         updateRenterProfile: jest.fn(),
         profile: mockProfile,
         config: mockConfig,
-        _nextRoute: jest.fn(),
-        pageComplete: jest.fn().mockResolvedValue({}),
         location: { hash: '' },
+        toggleLoader: jest.fn(),
+        pageComplete: jest.fn().mockResolvedValue({}),
+        _nextRoute: jest.fn(),
     };
 });
 

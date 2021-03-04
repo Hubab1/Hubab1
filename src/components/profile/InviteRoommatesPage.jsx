@@ -1,27 +1,31 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import get from 'lodash/get';
-import PropTypes from 'prop-types';
-import { H1, H3 } from 'assets/styles';
-import roommatesImage from 'assets/images/roommates.png';
-import inviteConfirm from 'assets/images/invite-confirm.png';
-import BackLink from 'components/common/BackLink';
-import { InviteForm } from 'components/common/InviteForm';
 
-import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'app/constants';
 import { serializeDate } from 'utils/misc';
 import { updateRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+
+import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
+import BackLink from 'components/common/BackLink';
+import { InviteForm } from 'components/common/InviteForm';
+import { H1, H3 } from 'assets/styles';
+import roommatesImage from 'assets/images/roommates.png';
+import inviteConfirm from 'assets/images/invite-confirm.png';
 
 const SpacedH3 = styled(H3)`
-    margin: 20px 15% 20px 15%;s
+    margin: 20px 15% 20px 15%;
 `;
 
-export class InviteRoommatesPage extends React.Component {
+export class InviteRoommatesPage extends Component {
     state = { confirmSent: false, errors: null };
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        this.props.toggleLoader(true);
+
         this.props
             .updateRenterProfile({ co_applicants: [values] })
             .then((res) => {
@@ -36,16 +40,21 @@ export class InviteRoommatesPage extends React.Component {
                 } else {
                     this.setState({ confirmSent: true });
                 }
-                setSubmitting(false);
             })
             .catch((res) => {
                 this.setState({ errors: [res.errors] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
     onSubmitDependent = (values, { setSubmitting, setErrors }) => {
+        this.props.toggleLoader(true);
+
         const serialized = Object.assign({}, values);
         serialized.birthday = serializeDate(serialized.birthday);
+
         this.props
             .updateRenterProfile({ dependents: [serialized] })
             .then((res) => {
@@ -58,10 +67,12 @@ export class InviteRoommatesPage extends React.Component {
                 } else {
                     this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
                 }
-                setSubmitting(false);
             })
             .catch((res) => {
                 this.setState({ errors: [res.errors] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -91,7 +102,7 @@ export class InviteRoommatesPage extends React.Component {
             );
         }
         return (
-            <Fragment>
+            <>
                 <H1>Add a Person</H1>
                 <SpacedH3>Enter their info below.</SpacedH3>
                 <img src={roommatesImage} alt="hand with smartphone in it" />
@@ -102,19 +113,25 @@ export class InviteRoommatesPage extends React.Component {
                     displayedErrors={this.state.errors}
                 />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`} />
-            </Fragment>
+            </>
         );
     }
 }
 
 InviteRoommatesPage.propTypes = {
     profile: PropTypes.object,
-    updateRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    toggleLoader: PropTypes.func,
+    updateRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(InviteRoommatesPage);
+const mapDispatchToProps = {
+    updateRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InviteRoommatesPage);

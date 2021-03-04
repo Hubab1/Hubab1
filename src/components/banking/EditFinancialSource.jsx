@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import API from 'app/api';
-import captureRoute from 'app/captureRoute';
-import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
-import { logToSentry } from 'utils/sentry';
 import {
     ROUTES,
     FINANCIAL_STREAM_INCOME,
     FINANCIAL_STREAM_ASSET,
     FINANCIAL_STREAM_STATUS_PENDING,
 } from 'app/constants';
+import API from 'app/api';
+import captureRoute from 'app/captureRoute';
+import { logToSentry } from 'utils/sentry';
+import { getIncompleteFinancialSourceWarning } from './IncomeVerificationSummaryPage';
 
 import { BackLink } from 'components/common/BackLink';
 import AddFinancialSourceForm from './AddFinancialSourceForm';
@@ -63,6 +63,8 @@ export class EditFinancialSource extends Component {
     }
 
     onSubmit = async (values, { setSubmitting }) => {
+        /* eslint-disable no-unused-expressions */
+        this.context.toggleLoader?.(true);
         setSubmitting(true);
         this.setState({ errors: [] });
 
@@ -89,13 +91,13 @@ export class EditFinancialSource extends Component {
 
         try {
             await API.updateFinancialSource(this.props.match.params.id, formData);
-            // eslint-disable-next-line
             this.context.refreshFinancialSources?.();
             this.props.history.push(this.returnLink);
         } catch (e) {
-            logToSentry(e);
+            await logToSentry(e.response || e);
             this.setState({ errors: [ERROR_UPLOAD] });
         } finally {
+            this.context.toggleLoader?.(false);
             setSubmitting(false);
         }
     };
@@ -105,12 +107,11 @@ export class EditFinancialSource extends Component {
     };
 
     async fetchFinancialSource() {
-        let data;
         try {
-            data = await API.getFinancialSource(this.props.match.params.id);
+            const data = await API.getFinancialSource(this.props.match.params.id);
             this.setState({ financialSource: data });
-        } catch {
-            // Ignore
+        } catch (e) {
+            logToSentry(e.response || e);
         }
     }
 
