@@ -44,7 +44,9 @@ export function AppContextProvider({ theme, children, config, skipStripeAndMayor
             <CssBaseline />
             <AppTheme.Provider value={getThemeValues(config, theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    {skipStripeAndMayorLoader ? children : (
+                    {skipStripeAndMayorLoader ? (
+                        children
+                    ) : (
                         <MayorLoaderProvider>
                             <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>
                         </MayorLoaderProvider>
