@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ import ChangePasswordForm from 'components/common/ChangePasswordForm';
 import { H1 } from 'assets/styles';
 import thumbsUp from 'assets/images/thumbs-up.png';
 
-export class ResetPassword extends React.Component {
+export class ResetPassword extends Component {
     state = {
         confirmReset: false,
         errors: null,
@@ -34,7 +34,7 @@ export class ResetPassword extends React.Component {
                 this.setState({ errors: ['There was an error with resetting your password. Please try again.'] });
             })
             .finally(() => {
-                this.props.toggleLoader(true);
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };

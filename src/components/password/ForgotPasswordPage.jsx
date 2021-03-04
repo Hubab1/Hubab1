@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -31,7 +31,7 @@ const initialValues = {
     phone: '',
 };
 
-export class ForgotPasswordPage extends React.Component {
+export class ForgotPasswordPage extends Component {
     state = { errors: null };
 
     onSubmit = (values, { setSubmitting }) => {
@@ -61,7 +61,7 @@ export class ForgotPasswordPage extends React.Component {
 
     render() {
         return (
-            <Fragment>
+            <>
                 <H1>Forgot Your Password?</H1>
                 <SpacedH3>Don’t worry! We’ll send you a text message with a code to reset your password.</SpacedH3>
                 <img src={forgotPassword} alt="hand with smartphone in it" />
@@ -88,7 +88,7 @@ export class ForgotPasswordPage extends React.Component {
                         </form>
                     )}
                 </Formik>
-            </Fragment>
+            </>
         );
     }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -25,7 +25,7 @@ const initialValues = {
     resetCode: '',
 };
 
-export class ResetPasswordVerificationPage extends React.Component {
+export class ResetPasswordVerificationPage extends Component {
     componentDidMount() {
         !this.props.history.location.state && this.props.history.push(ROUTES.FORGOT_PASSWORD);
     }
@@ -52,7 +52,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                 setErrors({ resetCode: 'Invalid Error Code' });
             })
             .finally(() => {
-                this.props.toggleLoader(true);
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -69,7 +69,7 @@ export class ResetPasswordVerificationPage extends React.Component {
         const phoneNumber = this.props.history.location.state.phoneNumber;
 
         return (
-            <Fragment>
+            <>
                 <H1>Enter Verification Code</H1>
                 <SpacedH3>
                     We sent a text message to <strong>{phoneNumber}</strong> with a 6 digit code to reset your password.
@@ -107,7 +107,7 @@ export class ResetPasswordVerificationPage extends React.Component {
                 <P>
                     Didn&apos;t Receive a text? <LinkButton onClick={this.handleClickLink}>Resend Here</LinkButton>
                 </P>
-            </Fragment>
+            </>
         );
     }
 }
