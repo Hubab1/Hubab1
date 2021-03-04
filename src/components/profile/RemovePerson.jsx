@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import { H1, H3, P, Bold } from 'assets/styles';
+
 import {
     ROUTES,
     RENTER_PROFILE_TYPE_CO_APPLICANTS,
     RENTER_PROFILE_TYPE_DEPENDENT,
     RENTER_PROFILE_TYPE_GUARANTOR,
 } from 'app/constants';
+import API from 'app/api';
+
+import { fetchRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import ActionButton from 'components/common/ActionButton/ActionButton';
-import { connect } from 'react-redux';
-import API from 'app/api';
-import { fetchRenterProfile } from 'reducers/renter-profile';
-import PropTypes from 'prop-types';
+import { H1, H3, P, Bold } from 'assets/styles';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -37,7 +41,7 @@ const Content = styled.div`
     text-align: left;
 `;
 
-export class RemovePerson extends React.Component {
+export class RemovePerson extends Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
 
     get returnLink() {
@@ -75,6 +79,8 @@ export class RemovePerson extends React.Component {
         } = this.props;
 
         this.setState({ submitting: true });
+        this.props.toggleLoader(true);
+
         try {
             if (type === RENTER_PROFILE_TYPE_DEPENDENT) {
                 await API.deletePerson(id);
@@ -83,10 +89,12 @@ export class RemovePerson extends React.Component {
             }
 
             this.props.fetchRenterProfile();
-            this.setState({ submitting: false });
             this.props.history.push(this.returnLink);
         } catch {
-            this.setState({ submitting: false, errorSubmitting: true });
+            this.setState({ errorSubmitting: true });
+        } finally {
+            this.setState({ submitting: false });
+            this.props.toggleLoader(false);
         }
     };
 
@@ -154,12 +162,18 @@ export class RemovePerson extends React.Component {
 RemovePerson.propTypes = {
     profile: PropTypes.object,
     match: PropTypes.object,
-    fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    toggleLoader: PropTypes.func,
+    fetchRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { fetchRenterProfile })(RemovePerson);
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RemovePerson);

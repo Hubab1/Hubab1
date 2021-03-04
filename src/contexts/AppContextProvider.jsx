@@ -6,6 +6,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { StripeProvider } from 'react-stripe-elements';
 import { STRIPE_PUBLISHABLE_KEY_DEMO, STRIPE_PUBLISHABLE_KEY_LIVE } from 'app/constants';
+import MayorLoaderProvider from 'components/MayorLoader/MayorLoaderProvider';
 
 export const AppTheme = React.createContext();
 
@@ -35,7 +36,7 @@ function getThemeValues(config, materialTheme) {
     }
 }
 
-export function AppContextProvider({ theme, children, config, skipStripe = false }) {
+export function AppContextProvider({ theme, children, config, skipStripeAndMayorLoader = false }) {
     const stripeApiKey = config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
 
     return (
@@ -43,7 +44,13 @@ export function AppContextProvider({ theme, children, config, skipStripe = false
             <CssBaseline />
             <AppTheme.Provider value={getThemeValues(config, theme)}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    {skipStripe ? children : <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>}
+                    {skipStripeAndMayorLoader ? (
+                        children
+                    ) : (
+                        <MayorLoaderProvider>
+                            <StripeProvider apiKey={stripeApiKey}>{children}</StripeProvider>
+                        </MayorLoaderProvider>
+                    )}
                 </MuiPickersUtilsProvider>
             </AppTheme.Provider>
         </MuiThemeProvider>
@@ -53,7 +60,7 @@ export function AppContextProvider({ theme, children, config, skipStripe = false
 AppContextProvider.propTypes = {
     config: PropTypes.object,
     theme: PropTypes.object,
-    skipStripe: PropTypes.bool, // used for testing purposes
+    skipStripeAndMayorLoader: PropTypes.bool, // used for testing purposes
     children: PropTypes.node,
 };
 

@@ -9,7 +9,7 @@ function MockMountableApp({ config = mockConfig, children }) {
     const theme = createTheme(config);
 
     return (
-        <AppContextProvider theme={theme} config={config} skipStripe>
+        <AppContextProvider theme={theme} config={config} skipStripeAndMayorLoader>
             <BrowserRouter>{children}</BrowserRouter>
         </AppContextProvider>
     );

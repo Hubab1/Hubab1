@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { BackLink } from 'components/common/BackLink';
 import {
     ROUTES,
     RENTER_PROFILE_IDENTIFIER,
@@ -17,22 +15,25 @@ import {
     RENTER_PROFILE_TYPE_OCCUPANT,
     RENTER_PROFILE_TYPE_WINE_COOLER,
 } from 'app/constants';
-import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
-import { H1, H3 } from 'assets/styles';
 import withRelativeRoutes from 'app/withRelativeRoutes';
-import guarantor from 'assets/images/guarantor.png';
-import coapplicants from 'assets/images/coapplicants.png';
-import cat from 'assets/images/cat.svg';
-import addparking from 'assets/images/addparking.svg';
-import addstorage from 'assets/images/addstorage.svg';
-import addwinecooler from 'assets/images/wine.png';
+import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
 
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { BackLink } from 'components/common/BackLink';
 import ExistingItemsExpansionPanel from './ExistingItemsExpansionPanel';
 import ExistingGenericRentalOption from './ExistingGenericRentalOption';
 import ExistingPet from './ExistingPet';
 import ExistingRoommate from './ExistingRoommate';
 import Capsule from 'components/common/Capsule/Capsule';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import { H1, H3 } from 'assets/styles';
+import guarantor from 'assets/images/guarantor.png';
+import coapplicants from 'assets/images/coapplicants.png';
+import cat from 'assets/images/cat.svg';
+import addparking from 'assets/images/addparking.svg';
+import addstorage from 'assets/images/addstorage.svg';
+import addwinecooler from 'assets/images/wine.png';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -76,12 +77,15 @@ export class RentalProfileOptions extends React.Component {
     }
 
     onContinue = async () => {
+        this.props.toggleLoader(true);
+        this.setState({ submitting: true });
+
         try {
-            this.setState({ submitting: true });
             await this.props.pageComplete(RENTER_PROFILE_IDENTIFIER);
         } catch {
             this.setState({ hasError: true });
         } finally {
+            this.props.toggleLoader(false);
             this.setState({ submitting: false });
         }
         this.props._nextRoute();
@@ -334,6 +338,7 @@ RentalProfileOptions.propTypes = {
     config: PropTypes.object,
     profile: PropTypes.object,
     location: PropTypes.object,
+    toggleLoader: PropTypes.func,
     _nextRoute: PropTypes.func,
     _prev: PropTypes.string,
 };
@@ -346,6 +351,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateRenterProfile,
     pageComplete,
+    toggleLoader: modalActions.toggleLoader,
 };
 
 export default connect(
