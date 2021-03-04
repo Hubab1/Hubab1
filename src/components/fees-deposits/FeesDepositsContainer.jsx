@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
+import API from 'app/api';
+import withRelativeRoutes from 'app/withRelativeRoutes';
+
 import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
-import withRelativeRoutes from 'app/withRelativeRoutes';
+import { actions as modalActions } from 'reducers/loader';
+
 import FeesDepositsOptions from './FeesDepositsOptions';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
-import API from 'app/api';
 
 export const FeesDepositsContainer = ({
     _prev,
@@ -19,8 +22,9 @@ export const FeesDepositsContainer = ({
     profile,
     applicant,
     configuration,
-    fetchPayments,
     isOutstanding,
+    toggleLoader,
+    fetchPayments,
     fetchApplicant,
 }) => {
     const [currentPage, setCurrentPage] = useState('options');
@@ -85,9 +89,15 @@ export const FeesDepositsContainer = ({
     };
 
     const handleTermsAccepted = (data) => {
-        API.acceptTerms(data).then(() => {
-            setCurrentPage('payment');
-        });
+        toggleLoader(true);
+
+        API.acceptTerms(data)
+            .then(() => {
+                setCurrentPage('payment');
+            })
+            .finally(() => {
+                toggleLoader(false);
+            });
     };
 
     const baseAppFee = parseFloat(profile.selected_rental_options?.['app-fee']?.[0]?.quoted_fee_amount) || 0;
@@ -111,8 +121,6 @@ export const FeesDepositsContainer = ({
         return (
             <FeesDepositsOptions
                 baseAppFee={baseAppFee}
-                handleClickBack={goToPreviousPage}
-                handleContinue={handlePaymentOptionsContinue}
                 applicant={applicant}
                 holdingDepositAmount={isPrimaryApplicant ? holdingDepositAmount : 0}
                 everyone={everyone}
@@ -120,29 +128,31 @@ export const FeesDepositsContainer = ({
                 unitNumber={unitNumber}
                 communityName={communityName}
                 isOutstanding={isOutstanding}
+                handleClickBack={goToPreviousPage}
+                handleContinue={handlePaymentOptionsContinue}
             />
         );
     } else if (currentPage === 'terms') {
         return (
             <PaymentTerms
-                handleClickBack={() => setCurrentPage('options')}
-                handleTermsAccepted={(data) => handleTermsAccepted(data)}
                 holdingDepositAmount={holdingDepositAmount}
                 unitNumber={unitNumber}
                 communityName={communityName}
                 leaseStartDate={leaseStartDate}
                 canProceedToPayment={true}
+                handleClickBack={() => setCurrentPage('options')}
+                handleTermsAccepted={(data) => handleTermsAccepted(data)}
             />
         );
     } else if (currentPage === 'payment') {
         return (
             <PaymentPage
-                handleSuccess={() => setCurrentPage('receipt')}
                 applicant={applicant}
-                handleClickBack={() => setCurrentPage('terms')}
                 payments={payments}
                 totalPayment={totalPayment}
                 isOutstanding={isOutstanding}
+                handleSuccess={() => setCurrentPage('receipt')}
+                handleClickBack={() => setCurrentPage('terms')}
             />
         );
     } else if (currentPage === 'receipt') {
@@ -166,6 +176,7 @@ FeesDepositsContainer.propTypes = {
     applicant: PropTypes.object,
     configuration: PropTypes.object,
     payables: PropTypes.array,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -182,10 +193,18 @@ const mapStateToPropsOutstandingBalance = (state) => ({
     isOutstanding: true,
 });
 
-export const FeesAndDeposits = connect(mapStateToProps, { fetchPayments, fetchApplicant })(
-    withRelativeRoutes(FeesDepositsContainer, ROUTES.FEES_AND_DEPOSITS)
-);
+const mapDispatchToProps = {
+    fetchPayments,
+    fetchApplicant,
+    toggleLoader: modalActions.toggleLoader,
+};
 
-export const OutstandingBalance = connect(mapStateToPropsOutstandingBalance, { fetchPayments, fetchApplicant })(
-    withRelativeRoutes(FeesDepositsContainer, ROUTES.OUTSTANDING_BALANCE)
-);
+export const FeesAndDeposits = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRelativeRoutes(FeesDepositsContainer, ROUTES.FEES_AND_DEPOSITS));
+
+export const OutstandingBalance = connect(
+    mapStateToPropsOutstandingBalance,
+    mapDispatchToProps
+)(withRelativeRoutes(FeesDepositsContainer, ROUTES.OUTSTANDING_BALANCE));

@@ -5,16 +5,19 @@ import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 
-import ActionButton from 'components/common/ActionButton/ActionButton';
-import { BackLink } from 'components/common/BackLink';
-import ItemAdder from 'components/common/ItemAdder';
-import wineCoolerImage from 'assets/images/fridge.png';
-import { H1, SpacedH3 } from 'assets/styles';
 import { ROUTES, RENTER_PROFILE_TYPE_WINE_COOLER } from 'app/constants';
+import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder, rentalOptionCTALabel } from 'utils/misc';
+
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { getRentalOptionSubtitleItemAdder, rentalOptionsInitialValues, rentalOptionCTALabel } from 'utils/misc';
+import { actions as modalActions } from 'reducers/loader';
+
 import PriceBreakdown from 'components/profile/options/PriceBreakdown';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import { BackLink } from 'components/common/BackLink';
+import ItemAdder from 'components/common/ItemAdder';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import { H1, SpacedH3 } from 'assets/styles';
+import wineCoolerImage from 'assets/images/fridge.png';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -40,15 +43,22 @@ export const WineCooler = (props) => {
         });
         const selectedRentalOptions = Object.assign({}, { selected_rental_options: selectedRentalOptionsArray });
 
-        return props.updateRenterProfile(selectedRentalOptions).then((res) => {
-            if (res.errors) {
-                setErrors(res.errors);
-                setErrorSubmitting(true);
-            } else {
-                props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`);
-            }
-            setSubmitting(false);
-        });
+        props.toggleLoader(true);
+
+        return props
+            .updateRenterProfile(selectedRentalOptions)
+            .then((res) => {
+                if (res.errors) {
+                    setErrors(res.errors);
+                    setErrorSubmitting(true);
+                } else {
+                    props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`);
+                }
+            })
+            .finally(() => {
+                props.toggleLoader(false);
+                setSubmitting(false);
+            });
     };
 
     const getSubtitles = (option) => {
@@ -123,8 +133,9 @@ export const WineCooler = (props) => {
 WineCooler.propTypes = {
     config: PropTypes.object,
     application: PropTypes.object,
-    updateRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    toggleLoader: PropTypes.func,
+    updateRenterProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -132,4 +143,9 @@ const mapStateToProps = (state) => ({
     application: state.renterProfile,
 });
 
-export default connect(mapStateToProps, { updateRenterProfile })(WineCooler);
+const mapDispatchToProps = {
+    updateRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WineCooler);
