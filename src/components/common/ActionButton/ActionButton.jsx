@@ -6,7 +6,19 @@ import { root, label, mainDisabled, ButtonContainer } from './styles';
 
 export default class ActionButton extends React.Component {
     render() {
-        const { href, color, disabled, onClick, children, marginTop, marginBottom, variant } = this.props;
+        const {
+            href,
+            color,
+            disabled,
+            onClick,
+            children,
+            marginTop,
+            marginBottom,
+            variant,
+            buttonClassName,
+            ...rest
+        } = this.props;
+
         return (
             <ButtonContainer
                 target="_blank"
@@ -14,10 +26,12 @@ export default class ActionButton extends React.Component {
                 as={href == null ? 'div' : 'a'}
                 marginTop={marginTop}
                 marginBottom={marginBottom}
+                {...rest}
             >
                 <Button
                     onClick={onClick}
                     classes={{ root, label, disabled: mainDisabled }}
+                    className={buttonClassName}
                     variant={variant}
                     color={color}
                     type="submit"
@@ -40,6 +54,7 @@ ActionButton.propTypes = {
     variant: PropTypes.string,
     href: PropTypes.string,
     children: PropTypes.any,
+    buttonClassName: PropTypes.string,
 };
 
 ActionButton.defaultProps = {

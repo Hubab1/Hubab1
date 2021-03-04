@@ -1,48 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import styled from '@emotion/styled';
-import captureRoute from 'app/captureRoute';
+import { makeStyles, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+
 import { ROUTES } from 'app/constants';
-import ActionButton from 'components/common/ActionButton/ActionButton';
+import { TOS_TYPE_NESTIO } from 'app/constants';
+import captureRoute from 'app/captureRoute';
+import { sessionIsValidForCommunityId } from 'utils/misc';
 import { H1, Card, ScrollableTermsCardSection } from 'assets/styles';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
-import { sessionIsValidForCommunityId } from 'utils/misc';
-import { TOS_TYPE_NESTIO } from 'app/constants';
-import Checkbox from 'components/common/Checkbox';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 
-const AgreementCheckboxContainer = styled.div`
-    font-size: 14px;
-    div {
-        padding: 26px 0 0 0;
-    }
-    div:first-of-type {
-        padding: 6px 0 0 0;
-    }
-    .MuiCheckbox-root {
-        height: 14px;
-        width: 14px;
-    }
-    margin-bottom: 47px;
-`;
+const useFormGroupClasses = makeStyles(() => ({
+    root: {
+        marginBottom: 40,
+    },
+}));
 
-export function TermsPage(props) {
+const useFormControlStyles = makeStyles(() => ({
+    root: {
+        width: '100%',
+    },
+    label: {
+        fontSize: '14px',
+    },
+}));
+
+export function TermsPage({ leaseSettingsId, isSignedIn, history }) {
+    const formGroupClasses = useFormGroupClasses();
+    const formControlClasses = useFormControlStyles();
     const [agreeElectronicSignature, setAgreeElectronicSignature] = useState(false);
     const [agreeTermsOfService, setAgreeTermsOfService] = useState(false);
+    const disabled = !agreeTermsOfService || !agreeElectronicSignature;
 
-    function onAgree() {
+    const onAgree = useCallback(() => {
         const generalTerms = {
             type: TOS_TYPE_NESTIO,
             context: {
                 time: Date.now(),
             },
         };
-        localStorage.setItem(`accepted-platform-terms-${props.leaseSettingsId}`, JSON.stringify(generalTerms));
-        props.history.push(ROUTES.SIGNUP);
-    }
+        localStorage.setItem(`accepted-platform-terms-${leaseSettingsId}`, JSON.stringify(generalTerms));
+        history.push(ROUTES.SIGNUP);
+    }, [history, leaseSettingsId]);
 
     const base = (
-        <>
+        <div data-testid="terms">
             <H1>Consent to Electronic Signature and Terms of Service</H1>
             <br />
             <Card>
@@ -452,35 +456,52 @@ export function TermsPage(props) {
                     </div>
                 </ScrollableTermsCardSection>
             </Card>
-        </>
+        </div>
     );
-    if (props.isSignedIn) {
+
+    if (isSignedIn) {
         return base;
-    } else {
-        return (
-            <UnauthenticatedPage>
-                {base}
-                <AgreementCheckboxContainer>
-                    <Checkbox
-                        onChange={(e) => setAgreeElectronicSignature(e.target.checked)}
-                        checked={agreeElectronicSignature}
-                        value={agreeElectronicSignature}
+    }
+
+    return (
+        <UnauthenticatedPage>
+            {base}
+            <div data-testid="accept-terms">
+                <FormGroup classes={formGroupClasses} row>
+                    <FormControlLabel
+                        classes={formControlClasses}
                         label="I agree to Consent to Electronic Signature"
+                        control={
+                            <Checkbox
+                                checked={agreeElectronicSignature}
+                                onChange={(e) => setAgreeElectronicSignature(e.target.checked)}
+                            />
+                        }
                     />
-                    <Checkbox
-                        onChange={(e) => setAgreeTermsOfService(e.target.checked)}
-                        checked={agreeTermsOfService}
-                        value={agreeTermsOfService}
+                    <FormControlLabel
+                        classes={formControlClasses}
                         label="I agree to the Terms of Service"
+                        control={
+                            <Checkbox
+                                onChange={(e) => setAgreeTermsOfService(e.target.checked)}
+                                checked={agreeTermsOfService}
+                            />
+                        }
                     />
-                </AgreementCheckboxContainer>
-                <ActionButton onClick={onAgree} disabled={!(agreeTermsOfService && agreeElectronicSignature)}>
+                </FormGroup>
+                <ActionButton onClick={onAgree} disabled={disabled}>
                     Agree and Continue
                 </ActionButton>
-            </UnauthenticatedPage>
-        );
-    }
+            </div>
+        </UnauthenticatedPage>
+    );
 }
+
+TermsPage.propTypes = {
+    leaseSettingsId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    isSignedIn: PropTypes.bool,
+    history: PropTypes.object,
+};
 
 const mapStateToProps = (state) => ({
     leaseSettingsId: state.siteConfig.basename,
