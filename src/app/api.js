@@ -288,6 +288,14 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             AUTHORIZATION: `Token ${auth.getToken()}`,
         },
         body: data,
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -308,7 +316,10 @@ API.getFinancialSource = (id) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -323,7 +334,10 @@ API.updateFinancialSource = (id, body) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -337,7 +351,10 @@ API.deleteFinancialSource = (id) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
