@@ -5,6 +5,7 @@ import ReduxMayorLoader, { MayorLoader } from 'components/MayorLoader/MayorLoade
 
 export const MayorLoaderContext = createContext({});
 
+// TODO: backfill tests | created by @JimVercoelen | ticket: https://nestiolistings.atlassian.net/browse/NESTIO-20504
 export const MayorLoaderProvider = (props) => {
     const { children } = props;
     const [isVisible, setIsVisible] = useState(false);
