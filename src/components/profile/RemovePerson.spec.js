@@ -10,7 +10,7 @@ import API from 'app/api';
 import {
     RENTER_PROFILE_TYPE_CO_APPLICANTS,
     RENTER_PROFILE_TYPE_DEPENDENT,
-    RENTER_PROFILE_TYPE_GUARANTOR
+    RENTER_PROFILE_TYPE_GUARANTOR,
 } from 'app/constants';
 
 let defaultProps, fetchRenterProfile;
@@ -18,14 +18,15 @@ let defaultProps, fetchRenterProfile;
 beforeEach(() => {
     fetchRenterProfile = jest.fn().mockResolvedValue({});
     defaultProps = {
+        toggleLoader: jest.fn(),
         fetchRenterProfile: fetchRenterProfile,
         profile: {
             ...mockProfile,
-            dependents: [{id: 1, first_name: 'John', last_name: 'Doe', birthday: null}],
-            co_applicants: [{id: 1, first_name: 'John', last_name: 'Doe', birthday: null}],
+            dependents: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
+            co_applicants: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
             primary_applicant: {
-                guarantors: [{id: 1, first_name: 'John', last_name: 'Doe', birthday: null}],
-            }
+                guarantors: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
+            },
         },
         application: mockApplication,
         config: mockConfig,
@@ -39,30 +40,29 @@ afterEach(() => {
     jest.restoreAllMocks();
 });
 
-it('matches snapshot: case dependent', function() {
-    const wrapper = shallow(<RemovePerson
-        {...defaultProps}
-        match={{params: {id: 1, type: 'dependent'}, isExact: true, path: '', url: ''}}
-                            /> );
+it('matches snapshot: case dependent', function () {
+    const wrapper = shallow(
+        <RemovePerson
+            {...defaultProps}
+            match={{ params: { id: 1, type: 'dependent' }, isExact: true, path: '', url: '' }}
+        />
+    );
 
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
 it('renders content for dependent person type', () => {
     const wrapper = shallow(
-        <RemovePerson
-            {...defaultProps}
-            match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_DEPENDENT } }}
-        />
+        <RemovePerson {...defaultProps} match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_DEPENDENT } }} />
     );
 
     expect(wrapper.text()).toContain('Remove Person');
     expect(wrapper.text()).toContain('John Doe');
     expect(wrapper.text()).toContain('Are you sure you want to remove this person?');
     expect(wrapper.text()).toContain(
-        'You\'re about to remove John. Removing a person prevents ' +
-        'them from being able to apply for this unit as a dependent ' +
-        'or from being added to the lease.'
+        "You're about to remove John. Removing a person prevents " +
+            'them from being able to apply for this unit as a dependent ' +
+            'or from being added to the lease.'
     );
 
     wrapper.find('#submit-btn').simulate('click');
@@ -73,19 +73,16 @@ it('renders content for dependent person type', () => {
 
 it('renders content for co-applicant person type', () => {
     const wrapper = shallow(
-        <RemovePerson
-            {...defaultProps}
-            match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_CO_APPLICANTS } }}
-        />
+        <RemovePerson {...defaultProps} match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_CO_APPLICANTS } }} />
     );
 
     expect(wrapper.text()).toContain('Remove Person');
     expect(wrapper.text()).toContain('John Doe');
     expect(wrapper.text()).toContain('Are you sure you want to remove this person?');
     expect(wrapper.text()).toContain(
-        'You\'re about to remove John. Removing a person prevents ' +
-        'them from being able to apply for this unit as a co-applicant ' +
-        'or from being added to the lease.'
+        "You're about to remove John. Removing a person prevents " +
+            'them from being able to apply for this unit as a co-applicant ' +
+            'or from being added to the lease.'
     );
 
     wrapper.find('#submit-btn').simulate('click');
@@ -96,19 +93,16 @@ it('renders content for co-applicant person type', () => {
 
 it('renders content for guarantor person type', () => {
     const wrapper = shallow(
-        <RemovePerson
-            {...defaultProps}
-            match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_GUARANTOR } }}
-        />
+        <RemovePerson {...defaultProps} match={{ params: { id: 1, type: RENTER_PROFILE_TYPE_GUARANTOR } }} />
     );
 
     expect(wrapper.text()).toContain('Remove Guarantor');
     expect(wrapper.text()).toContain('John Doe');
     expect(wrapper.text()).toContain('Are you sure you want to remove this guarantor?');
     expect(wrapper.text()).toContain(
-        'You\'re about to remove John as guarantor. ' +
-        'Removing a guarantor prevents them from being able ' +
-        'to financially back your lease application.'
+        "You're about to remove John as guarantor. " +
+            'Removing a guarantor prevents them from being able ' +
+            'to financially back your lease application.'
     );
 
     wrapper.find('#submit-btn').simulate('click');
