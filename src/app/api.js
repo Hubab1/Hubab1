@@ -293,9 +293,13 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             return res.json();
         }
 
-        const error = new Error();
-        error.response = res;
-        throw error;
+        // TODO: Figure out a way to handle this error
+        // commenting out for now as it's blocking applicants from
+        // selecting not income/assets
+
+        // const error = new Error();
+        // error.response = res;
+        // throw error;
     });
 };
 
