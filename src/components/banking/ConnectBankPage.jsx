@@ -6,6 +6,7 @@ import { css } from 'emotion';
 import API from 'app/api';
 import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
+import { logToSentry } from 'utils/sentry';
 
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
@@ -157,12 +158,16 @@ export class ConnectBankPage extends React.Component {
         const formData = new FormData();
         formData.append('report_no_income_assets', 'True');
         this.context.toggleLoader(true);
-        await API.submitFinancialSource(formData, false); // No files to encrypt
 
-        // Refresh data then redirect
-        await this.context.refreshFinancialSources();
-        this.context.toggleLoader(false);
-        this.props.history.push(targetPath);
+        try {
+            await API.submitFinancialSource(formData, false); // No files to encrypt
+            await this.context.refreshFinancialSources();
+            this.props.history.push(targetPath);
+        } catch (e) {
+            await logToSentry(e.response || e);
+        } finally {
+            this.context.toggleLoader(false);
+        }
     };
 
     render() {
