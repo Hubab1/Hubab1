@@ -75,7 +75,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     <React.Fragment>
       <br />
       <ForwardRef
-        className="css-3v3cqv"
+        className="css-h8dj3w"
         to={
           Object {
             "pathname": "/resend-invite",
@@ -98,7 +98,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
       </ForwardRef>
     </React.Fragment>
     <ForwardRef
-      className="css-3v3cqv css-11kem00"
+      className="css-h8dj3w css-11kem00"
       to="/rental-profile/co_applicants/71/remove"
     >
       Remove

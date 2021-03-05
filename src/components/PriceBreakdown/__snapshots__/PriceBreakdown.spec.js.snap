@@ -63,7 +63,7 @@ exports[`PriceBreakDown display correct info 1`] = `
               </Styled(MuiBox)>
             </div>
           </div>
-          <div className=\\"css-1bh0d37\\">
+          <div className=\\"css-1fm3ks4\\">
             <WithStyles(ForwardRef(ExpansionPanel)) elevation={0} defaultExpanded={false}>
               <ForwardRef(ExpansionPanel) classes={{...}} elevation={0} defaultExpanded={false}>
                 <WithStyles(ForwardRef(Paper)) className=\\"MuiExpansionPanel-root MuiExpansionPanel-rounded\\" square={false} elevation={0}>
@@ -114,14 +114,14 @@ exports[`PriceBreakDown display correct info 1`] = `
                                     <WithStyles(ForwardRef(ExpansionPanelDetails)) classes={{...}}>
                                       <ForwardRef(ExpansionPanelDetails) classes={{...}}>
                                         <div className=\\"MuiExpansionPanelDetails-root makeStyles-root-1\\">
-                                          <div className=\\"css-olqeuu\\">
+                                          <div className=\\"css-1vyfysw\\">
                                             Base Rent
                                             <span className=\\"pull-right\\">
                                               $2,000
                                             </span>
                                           </div>
                                           <div>
-                                            <div className=\\"css-olqeuu\\">
+                                            <div className=\\"css-1vyfysw\\">
                                               storage
                                               <span className=\\"pull-right\\">
                                                 $10
@@ -129,7 +129,7 @@ exports[`PriceBreakDown display correct info 1`] = `
                                             </div>
                                           </div>
                                           <div>
-                                            <div className=\\"css-olqeuu\\">
+                                            <div className=\\"css-1vyfysw\\">
                                               pets
                                               <span className=\\"pull-right\\">
                                                 $10
@@ -238,7 +238,7 @@ exports[`PriceBreakDown display correct info if has included options 1`] = `
               </Styled(MuiBox)>
             </div>
           </div>
-          <div className=\\"css-1bh0d37\\">
+          <div className=\\"css-1fm3ks4\\">
             <WithStyles(ForwardRef(ExpansionPanel)) elevation={0} defaultExpanded={false}>
               <ForwardRef(ExpansionPanel) classes={{...}} elevation={0} defaultExpanded={false}>
                 <WithStyles(ForwardRef(Paper)) className=\\"MuiExpansionPanel-root MuiExpansionPanel-rounded\\" square={false} elevation={0}>
@@ -289,14 +289,14 @@ exports[`PriceBreakDown display correct info if has included options 1`] = `
                                     <WithStyles(ForwardRef(ExpansionPanelDetails)) classes={{...}}>
                                       <ForwardRef(ExpansionPanelDetails) classes={{...}}>
                                         <div className=\\"MuiExpansionPanelDetails-root makeStyles-root-1\\">
-                                          <div className=\\"css-olqeuu\\">
+                                          <div className=\\"css-1vyfysw\\">
                                             Base Rent
                                             <span className=\\"pull-right\\">
                                               $2,000
                                             </span>
                                           </div>
                                           <div>
-                                            <div className=\\"css-olqeuu\\">
+                                            <div className=\\"css-1vyfysw\\">
                                               storage
                                               <span className=\\"pull-right\\">
                                                 $0
@@ -304,7 +304,7 @@ exports[`PriceBreakDown display correct info if has included options 1`] = `
                                             </div>
                                           </div>
                                           <div>
-                                            <div className=\\"css-olqeuu\\">
+                                            <div className=\\"css-1vyfysw\\">
                                               pets
                                               <span className=\\"pull-right\\">
                                                 $10

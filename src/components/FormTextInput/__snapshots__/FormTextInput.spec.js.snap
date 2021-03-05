@@ -2,7 +2,7 @@
 
 exports[`FormTextInput password input Matches snapshot 1`] = `
 <div
-  className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
+  className="MuiFormControl-root MuiTextField-root css-11z3r4l MuiFormControl-fullWidth"
 >
   <label
     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
@@ -76,7 +76,7 @@ exports[`FormTextInput password input Matches snapshot 1`] = `
 
 exports[`FormTextInput password input showValidationText shows validation text before submit 1`] = `
 <div
-  className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
+  className="MuiFormControl-root MuiTextField-root css-11z3r4l MuiFormControl-fullWidth"
 >
   <label
     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -113,7 +113,7 @@ exports[`FormTextInput password input showValidationText shows validation text b
 
 exports[`FormTextInput regular text input Matches snapshot 1`] = `
 <div
-  className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
+  className="MuiFormControl-root MuiTextField-root css-11z3r4l MuiFormControl-fullWidth"
 >
   <label
     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
@@ -145,7 +145,7 @@ exports[`FormTextInput regular text input Matches snapshot 1`] = `
 
 exports[`FormTextInput regular text input can add endAdornment 1`] = `
 <div
-  className="MuiFormControl-root MuiTextField-root css-kebc3w MuiFormControl-fullWidth"
+  className="MuiFormControl-root MuiTextField-root css-11z3r4l MuiFormControl-fullWidth"
 >
   <label
     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"

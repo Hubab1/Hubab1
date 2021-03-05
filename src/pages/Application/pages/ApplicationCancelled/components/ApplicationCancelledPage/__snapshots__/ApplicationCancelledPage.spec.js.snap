@@ -17,7 +17,8 @@ exports[`matches snapshot 1`] = `
     bold={true}
     margin="90px 0 0 0"
   >
-    Call us at 
+    Call us at
+     
     <a
       href="tel:1234445510"
     >
