@@ -7,7 +7,7 @@ import ApplicationApprovedPage from './pages/ApplicationApproved';
 import ApplicationDeniedPage from './pages/ApplicationDenied';
 import ApplicationCancelledPage from './pages/ApplicationCancelled';
 
-class PasswordContainer extends Component {
+class ApplicationContainer extends Component {
     render() {
         return (
             <Switch>
@@ -20,4 +20,4 @@ class PasswordContainer extends Component {
     }
 }
 
-export default PasswordContainer;
+export default ApplicationContainer;

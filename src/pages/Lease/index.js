@@ -6,7 +6,7 @@ import LeaseSignedPage from './pages/LeaseSigned';
 import LeaseExecutedPage from './pages/LeaseExecuted';
 import LeaseVoidedPage from './pages/LeaseVoided';
 
-class PasswordContainer extends Component {
+class LeaseContainer extends Component {
     render() {
         return (
             <Switch>
@@ -18,4 +18,4 @@ class PasswordContainer extends Component {
     }
 }
 
-export default PasswordContainer;
+export default LeaseContainer;
