@@ -5,7 +5,10 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 import clsx from 'clsx';
 
-import { ACTION_BUTTON, AdverseActionNoticeButton } from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
+import {
+    ACTION_BUTTON,
+    AdverseActionNoticeButton,
+} from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
 import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
 

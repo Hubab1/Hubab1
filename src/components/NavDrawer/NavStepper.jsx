@@ -4,14 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { css } from 'emotion';
 import clsx from 'clsx';
-import {
-    makeStyles,
-    Stepper,
-    Step,
-    StepLabel,
-    Button,
-} from '@material-ui/core';
-import { Error as ErrorIcon} from '@material-ui/icons';
+import { makeStyles, Stepper, Step, StepLabel, Button } from '@material-ui/core';
+import { Error as ErrorIcon } from '@material-ui/icons';
 
 import { MOCKY } from 'config';
 import {

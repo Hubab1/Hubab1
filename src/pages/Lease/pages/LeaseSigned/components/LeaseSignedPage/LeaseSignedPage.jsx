@@ -28,7 +28,7 @@ export function LeaseSignedPage(props) {
     const [error, setError] = useState(false);
     const [retried, setRetried] = useState(false);
 
-    const fetchLeaseDocumentUrl = async ()=>{
+    const fetchLeaseDocumentUrl = async () => {
         setLoading(true);
         const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
         setUrl(response ? response.url : undefined);
@@ -65,12 +65,14 @@ export function LeaseSignedPage(props) {
         <>
             <H1>Thanks for Signing!</H1>
             <SpacedH3>{`We'll let you know when everyone has signed the lease.`}</SpacedH3>
-            <Img src={contract}/>
+            <Img src={contract} />
             <div>
-                <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
+                <P fontSize={14}>
+                    {community.display_name} Unit {unit.unit_number}
+                </P>
             </div>
             <div className={buttonsContainer}>
-                {retried && !!error && <GenericFormMessage type="error" messages={error}/>}
+                {retried && !!error && <GenericFormMessage type="error" messages={error} />}
                 <ActionButton
                     disabled={loading}
                     onClick={url ? undefined : onClick}
@@ -90,10 +92,9 @@ LeaseSignedPage.propTypes = {
     community: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     unit: state.renterProfile && state.renterProfile.unit,
     community: state.configuration && state.configuration.community,
 });
-
 
 export default connect(mapStateToProps)(LeaseSignedPage);

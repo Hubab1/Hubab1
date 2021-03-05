@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import {css} from 'emotion';
-
+import { css } from 'emotion';
 
 export const FolderImage = styled.img`
-width: 89px;
-height: 85px;
+    width: 89px;
+    height: 85px;
 `;
 
 export const BulbImage = styled.img`
@@ -13,7 +12,7 @@ export const BulbImage = styled.img`
 `;
 
 export const statusBlurb = css`
-    color: #454B57;
+    color: #454b57;
     font-size: 14px;
 `;
 

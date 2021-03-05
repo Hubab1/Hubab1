@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-    FormControl,
-    Input,
-    InputLabel,
-    FormHelperText,
-} from '@material-ui/core';
+import { FormControl, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
 import StripeInput from 'components/Stipe/StripeInput/StripeInput';
 

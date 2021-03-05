@@ -9,7 +9,10 @@ import { MILESTONE_LEASE_SENT, ROLE_OCCUPANT } from 'constants/constants';
 import { prettyCurrency } from 'utils/misc';
 
 import ActionButton from 'components//ActionButton/ActionButton';
-import { AdverseActionNoticeButton, LINK_BUTTON } from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
+import {
+    AdverseActionNoticeButton,
+    LINK_BUTTON,
+} from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
 import { Bold, H1, leftText, P, SpacedH3 } from 'assets/styles';
 import approvedSign from 'assets/images/approvedSign.svg';
 import lightbulb from 'assets/images/lightbulb.png';

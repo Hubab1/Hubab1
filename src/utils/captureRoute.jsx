@@ -13,26 +13,24 @@ export default function captureRoute(WrappedComponent, route) {
     // Make sure route is a top level page route! or else you will break relative routing.
     route = WrappedComponent.route || route;
     class Component extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
             props.currentRouteReceived(route);
         }
         render() {
             return (
                 <WrappedComponent
-                    _navigate={
-                        async (route) => {
-                            if (!MOCKY) {
-                                this.props.fetchApplicant();
-                                await this.props.fetchRenterProfile();
-                            }
-                            if (this.props.unitAvailable === false) {
-                                return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
-                            } else {
-                                return this.props.history.push(route);
-                            }
+                    _navigate={async (route) => {
+                        if (!MOCKY) {
+                            this.props.fetchApplicant();
+                            await this.props.fetchRenterProfile();
                         }
-                    }
+                        if (this.props.unitAvailable === false) {
+                            return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
+                        } else {
+                            return this.props.history.push(route);
+                        }
+                    }}
                     {...this.props}
                 />
             );
@@ -47,8 +45,5 @@ export default function captureRoute(WrappedComponent, route) {
         unitAvailable: PropTypes.bool,
     };
 
-    return connect(
-        null,
-        {currentRouteReceived, fetchApplicant, fetchRenterProfile})
-    (Component);
+    return connect(null, { currentRouteReceived, fetchApplicant, fetchRenterProfile })(Component);
 }

@@ -12,15 +12,19 @@ export const Img = styled.img`
     height: 200px;
 `;
 
-export const ApplicationCancelledPage = ({profile, configuration}) => {
-    if (!profile || ! configuration) return null;
+export const ApplicationCancelledPage = ({ profile, configuration }) => {
+    if (!profile || !configuration) return null;
 
     return (
         <>
             <H1>Application Cancelled</H1>
             <SpacedH3>You are no longer applying for unit {profile.unit.unit_number}.</SpacedH3>
-            <Img src={cancelled}/>
-            <P margin="90px 0 0 0" bold>Call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
+            <Img src={cancelled} />
+            <P margin="90px 0 0 0" bold>
+                Call us at{' '}
+                <a href={`tel:${configuration.community.contact_phone}`}>
+                    {prettyFormatPhoneNumber(configuration.community.contact_phone)}
+                </a>
                 &nbsp;if you have any questions or if you’d like to start a new application.
             </P>
         </>
@@ -32,8 +36,7 @@ ApplicationCancelledPage.propTypes = {
     configuration: PropTypes.object,
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
 });

@@ -12,30 +12,26 @@ beforeEach(() => {
         handleBlur: jest.fn(),
         value: 'orange',
         label: 'fruits',
-        type: 'text'
+        type: 'text',
     };
 });
 
-describe('FormTextInput', function() {
-    describe('regular text input', function() {
-        it('Matches snapshot', function() {
-            expect(
-                renderer.create(<FormTextInput {...defaultProps}/>)
-            ).toMatchSnapshot();
+describe('FormTextInput', function () {
+    describe('regular text input', function () {
+        it('Matches snapshot', function () {
+            expect(renderer.create(<FormTextInput {...defaultProps} />)).toMatchSnapshot();
         });
-        it('can add endAdornment', function() {
+        it('can add endAdornment', function () {
             expect(
-                renderer.create(<FormTextInput {...defaultProps} endAdornment={<span>Lb</span>}/>)
+                renderer.create(<FormTextInput {...defaultProps} endAdornment={<span>Lb</span>} />)
             ).toMatchSnapshot();
         });
     });
-    describe('password input', function() {
-        it('Matches snapshot', function() {
-            expect(
-                renderer.create(<FormTextInput {...defaultProps} type="password"/>)
-            ).toMatchSnapshot();
+    describe('password input', function () {
+        it('Matches snapshot', function () {
+            expect(renderer.create(<FormTextInput {...defaultProps} type="password" />)).toMatchSnapshot();
         });
-        it('showValidationText shows validation text before submit', function() {
+        it('showValidationText shows validation text before submit', function () {
             expect(
                 renderer.create(
                     <FormTextInput

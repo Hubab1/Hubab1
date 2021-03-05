@@ -15,29 +15,37 @@ export const Img = styled.img`
 `;
 
 export const applicationUnit = css`
-  color: #454B57;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  padding-top: 10px;
+    color: #454b57;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    padding-top: 10px;
 `;
 
-export const LeaseVoidedPage = ({profile, configuration}) => {
-    if (!profile || ! configuration) return null;
+export const LeaseVoidedPage = ({ profile, configuration }) => {
+    if (!profile || !configuration) return null;
 
-    const {
-        unit,
-    } = profile;
+    const { unit } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
-    const unitNumber = (!!unit && !!unit.unit_number) ? ` Unit ${unit.unit_number}` : '';
+    const unitNumber = !!unit && !!unit.unit_number ? ` Unit ${unit.unit_number}` : '';
 
     return (
         <>
             <H1>We&apos;re Revising Your Lease</H1>
-            <SpacedH3>We voided your lease because we&apos;re making some corrections. Don&apos;t worry, we&apos;ll have the new lease ready soon!</SpacedH3>
-            <Img src={leaseVoided}/>
-            <div id="application-unit" className={applicationUnit}>{buildingName}{unitNumber}</div>
-            <P margin="90px 0 0 0" bold>Call us at <a href={`tel:${configuration.community.contact_phone}`}>{prettyFormatPhoneNumber(configuration.community.contact_phone)}</a>
+            <SpacedH3>
+                We voided your lease because we&apos;re making some corrections. Don&apos;t worry, we&apos;ll have the
+                new lease ready soon!
+            </SpacedH3>
+            <Img src={leaseVoided} />
+            <div id="application-unit" className={applicationUnit}>
+                {buildingName}
+                {unitNumber}
+            </div>
+            <P margin="90px 0 0 0" bold>
+                Call us at{' '}
+                <a href={`tel:${configuration.community.contact_phone}`}>
+                    {prettyFormatPhoneNumber(configuration.community.contact_phone)}
+                </a>
                 &nbsp;if you have any questions.
             </P>
         </>
@@ -49,8 +57,7 @@ LeaseVoidedPage.propTypes = {
     configuration: PropTypes.object,
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     configuration: state.configuration,
 });

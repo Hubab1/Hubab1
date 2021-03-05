@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import {
-    makeStyles,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-} from '@material-ui/core';
+import { makeStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
 import { format, parseISO } from 'date-fns';

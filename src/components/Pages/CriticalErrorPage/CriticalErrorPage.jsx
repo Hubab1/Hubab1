@@ -16,7 +16,7 @@ const Img = styled.img`
     height: auto;
 `;
 
-export default function CriticalErrorPage () {
+export default function CriticalErrorPage() {
     return (
         <div className={centerAlign}>
             <H1>System Unavailable</H1>

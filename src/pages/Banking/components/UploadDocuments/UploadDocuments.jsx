@@ -5,13 +5,7 @@ import uuidv4 from 'uuid/v4';
 
 import { css } from 'emotion';
 import styled from '@emotion/styled';
-import {
-    Radio,
-    RadioGroup,
-    FormControl,
-    FormControlLabel,
-    Button,
-} from '@material-ui/core';
+import { Radio, RadioGroup, FormControl, FormControlLabel, Button } from '@material-ui/core';
 import { Info } from '@material-ui/icons';
 
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'constants/constants';

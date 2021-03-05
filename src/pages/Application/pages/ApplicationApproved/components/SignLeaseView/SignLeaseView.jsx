@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
-
 import { APPLICANT_EVENTS, DOCUMENT_TYPE_LEASE, ROUTES } from 'constants/constants';
 import hsclient from 'utils/hsclient';
 import API from 'api/api';

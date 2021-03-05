@@ -6,10 +6,7 @@ import captureRoute from 'utils/captureRoute';
 import PaymentTerms from 'components//PaymentTerms/PaymentTerms';
 
 export const PaymentTermsPage = () => {
-    return (
-        <PaymentTerms />
-    );
+    return <PaymentTerms />;
 };
-
 
 export default captureRoute(PaymentTerms, ROUTES.PAYMENT_TERMS);

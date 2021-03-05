@@ -24,7 +24,7 @@ export const buttonsContainer = css`
 export function LeaseExecutedPage(props) {
     const [url, setUrl] = useState('');
     useEffect(() => {
-        (async ()=>{
+        (async () => {
             const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
@@ -37,9 +37,11 @@ export function LeaseExecutedPage(props) {
         <>
             <H1>Welcome To Your New Home!</H1>
             <SpacedH3>{`Your application has been completed and we can't wait for you to move in.`}</SpacedH3>
-            <Img src={house}/>
+            <Img src={house} />
             <div>
-                <P fontSize={14}>{community.display_name} Unit {unit.unit_number}</P>
+                <P fontSize={14}>
+                    {community.display_name} Unit {unit.unit_number}
+                </P>
             </div>
             <div className={buttonsContainer}>
                 <ActionButton href={url} marginTop={17} variant="outlined">
@@ -55,7 +57,7 @@ LeaseExecutedPage.propTypes = {
     community: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     unit: state.renterProfile && state.renterProfile.unit,
     community: state.configuration && state.configuration.community,
 });

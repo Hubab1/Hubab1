@@ -13,7 +13,7 @@ const Piggy = styled.img`
     max-height: 300px;
 `;
 
-function BankVerifying () {
+function BankVerifying() {
     return (
         <>
             <H1>One Moment Please</H1>

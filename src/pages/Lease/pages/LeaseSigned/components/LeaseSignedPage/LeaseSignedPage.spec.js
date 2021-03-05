@@ -15,7 +15,7 @@ const buildProps = () => {
 
 it('fetches and links pdf url', async () => {
     const props = buildProps();
-    API.leaseDocumentUrl = jest.fn().mockReturnValue({url: 'testpdfurl.pdf'});
+    API.leaseDocumentUrl = jest.fn().mockReturnValue({ url: 'testpdfurl.pdf' });
     const wrapper = mount(<LeaseSignedPage {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);
@@ -26,7 +26,7 @@ it('fetches and links pdf url', async () => {
 
 it('lets you refetch lease url', async () => {
     const props = buildProps();
-    API.leaseDocumentUrl = jest.fn().mockReturnValue({error: 'bad'});
+    API.leaseDocumentUrl = jest.fn().mockReturnValue({ error: 'bad' });
     const wrapper = mount(<LeaseSignedPage {...props} />);
     await act(async () => {
         await Promise.resolve(wrapper);

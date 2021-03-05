@@ -12,7 +12,6 @@ import mockApplication from 'reducers/mock-profile.json';
 import mockProfile from 'reducers/mock-profile.json';
 import { RemovePersonPage } from './RemovePersonPage';
 
-
 let defaultProps, fetchRenterProfile;
 
 beforeEach(() => {

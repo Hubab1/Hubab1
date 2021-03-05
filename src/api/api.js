@@ -1,12 +1,7 @@
 import auth from 'utils/auth';
 import fetch from 'utils/fetch';
 
-import {
-    MOCKY,
-    CHUCK_BASE_URL,
-    VGS_VAULT_ID,
-    VGS_ENVIRONMENT,
-} from 'config';
+import { MOCKY, CHUCK_BASE_URL, VGS_VAULT_ID, VGS_ENVIRONMENT } from 'config';
 
 export function chuck(path) {
     return `${CHUCK_BASE_URL}/api/onlineleasing${path}`;

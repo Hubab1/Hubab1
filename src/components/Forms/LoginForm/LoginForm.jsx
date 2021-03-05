@@ -11,32 +11,22 @@ import FormTextInput from 'components/FormTextInput/FormTextInput';
 import GenericFormMessage from 'components/GenericFormMessage/GenericFormMessage';
 import { formContent, link } from 'assets/styles';
 
-export function LoginForm ({handleOnSubmit, includeRegister=false, buttonText, formErrors, email}) {
+export function LoginForm({ handleOnSubmit, includeRegister = false, buttonText, formErrors, email }) {
     return (
         <Formik
             validationSchema={Yup.object().shape({
-                email: Yup.string()
-                    .email('Must be a valid Email')
-                    .required('Email is required'),
+                email: Yup.string().email('Must be a valid Email').required('Email is required'),
                 password: Yup.string()
                     .min(8, 'Password must be at least 8 characters')
-                    .required('Password is required')
+                    .required('Password is required'),
             })}
             onSubmit={handleOnSubmit}
-            initialValues={{email, password: ''}}
+            initialValues={{ email, password: '' }}
         >
-            {({
-                values,
-                errors,
-                handleChange,
-                submitCount,
-                handleBlur,
-                handleSubmit,
-                isSubmitting
-            }) => (
+            {({ values, errors, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (
                 <form onSubmit={handleSubmit} autoComplete="off">
                     <div className={formContent}>
-                        {!!formErrors && <GenericFormMessage type="error" messages={formErrors}/>}
+                        {!!formErrors && <GenericFormMessage type="error" messages={formErrors} />}
                         <div>
                             <FormTextInput
                                 label="Email"
@@ -60,16 +50,21 @@ export function LoginForm ({handleOnSubmit, includeRegister=false, buttonText, f
                                 showValidationText
                             />
                         </div>
-                        <div>
-                        </div>
+                        <div></div>
                         <ActionButton disabled={isSubmitting} marginTop={31} marginBottom={50}>
                             {buttonText}
                         </ActionButton>
-                        {includeRegister && <Fragment>
-                            <Link to={ROUTES.FORGOT_PASSWORD} className={link}>Forgot your password?</Link>
-                            <br/>
-                            <Link to={ROUTES.SIGNUP} className={link}>Need an account?</Link>
-                        </Fragment>}
+                        {includeRegister && (
+                            <Fragment>
+                                <Link to={ROUTES.FORGOT_PASSWORD} className={link}>
+                                    Forgot your password?
+                                </Link>
+                                <br />
+                                <Link to={ROUTES.SIGNUP} className={link}>
+                                    Need an account?
+                                </Link>
+                            </Fragment>
+                        )}
                     </div>
                 </form>
             )}

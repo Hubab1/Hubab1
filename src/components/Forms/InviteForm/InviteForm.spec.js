@@ -4,10 +4,7 @@ import { Formik } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { FormHelperText } from '@material-ui/core';
 
-import InviteForm, {
-    dependentValidationSchema,
-    coApplicantsGuarantorsValidationSchema
-} from './InviteForm';
+import InviteForm, { dependentValidationSchema, coApplicantsGuarantorsValidationSchema } from './InviteForm';
 import ActionButton from 'components/ActionButton/ActionButton';
 import FormTextInput from 'components/FormTextInput/FormTextInput';
 

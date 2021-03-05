@@ -7,7 +7,7 @@ import ActionButton from 'components//ActionButton/ActionButton';
 import { H1 } from 'assets/styles';
 
 const Header = styled.div`
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
     padding: 20px;
 `;
 
@@ -26,22 +26,24 @@ const Contact = styled.div`
     font-size: 16px;
 `;
 
-export default function GuarantorExplanation (props) {
+export default function GuarantorExplanation(props) {
     return (
         <div>
             <Header>
                 <H1>Guarantors</H1>
             </Header>
             <Policy>
-                {`A guarantor is someone who agrees to be legally responsible for the rent if you are unable to pay. Guarantors are required to make ${props.multiplier}x the monthly rent.`}</Policy>
-            <br/>
+                {`A guarantor is someone who agrees to be legally responsible for the rent if you are unable to pay. Guarantors are required to make ${props.multiplier}x the monthly rent.`}
+            </Policy>
+            <br />
             <Contact>
                 Please call us at&nbsp;
-                <a href={`tel:${props.contactPhone}`}>
-                    {prettyFormatPhoneNumber(props.contactPhone)}
-                </a> if you have any questions or if you are unable or unwilling to add a guarantor.
+                <a href={`tel:${props.contactPhone}`}>{prettyFormatPhoneNumber(props.contactPhone)}</a> if you have any
+                questions or if you are unable or unwilling to add a guarantor.
             </Contact>
-            <ActionButton onClick={props.onAgree} marginTop={189}>Got It</ActionButton>
+            <ActionButton onClick={props.onAgree} marginTop={189}>
+                Got It
+            </ActionButton>
         </div>
     );
 }

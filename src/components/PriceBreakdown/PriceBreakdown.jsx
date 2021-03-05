@@ -5,13 +5,7 @@ import styled from '@emotion/styled';
 import pluralize from 'pluralize';
 import moment from 'moment';
 
-import {
-    makeStyles,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-    Box,
-} from '@material-ui/core';
+import { makeStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Box } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
 import API from 'api/api';

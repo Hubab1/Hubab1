@@ -7,10 +7,9 @@ import withRelativeRoutes from './withRelativeRoutes';
 jest.mock('react-redux', () => {
     return {
         // unwraps connected component
-        connect: ()=>(C)=>C,
+        connect: () => (C) => C,
     };
 });
-
 
 let defaultProps;
 beforeEach(() => {
@@ -20,14 +19,14 @@ beforeEach(() => {
         fetchRenterProfile: jest.fn(),
         history: {
             push: jest.fn(),
-        }
+        },
     };
 });
 
-const WrappedComponent = ()=><div>Wrapped Component Text</div>;
+const WrappedComponent = () => <div>Wrapped Component Text</div>;
 
 describe('application completed', function () {
-    it('prevents you from acccessing anything but the initialPage', function() {
+    it('prevents you from acccessing anything but the initialPage', function () {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
         const wrapper = mount(
             <Component
@@ -40,7 +39,7 @@ describe('application completed', function () {
         expect(wrapper.instance().blockRender).toBe(true);
         expect(wrapper.html()).toBe(null);
     });
-    it('allows accessing initialPage', function() {
+    it('allows accessing initialPage', function () {
         const Component = withRelativeRoutes(WrappedComponent, '/application/complete');
         const wrapper = mount(
             <Component
@@ -55,7 +54,7 @@ describe('application completed', function () {
     });
 });
 describe('application not completed', function () {
-    it('doesnt prevent you from acccessing anything but the initialPage', function() {
+    it('doesnt prevent you from acccessing anything but the initialPage', function () {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
         const wrapper = mount(
             <Component
@@ -68,7 +67,7 @@ describe('application not completed', function () {
         expect(defaultProps.currentRouteReceived).toHaveBeenCalledWith('/lease-terms');
         expect(wrapper.text()).toEqual('Wrapped Component Text');
     });
-    it('_nextRoute() pushes props._next if unitAvailable !== false', function() {
+    it('_nextRoute() pushes props._next if unitAvailable !== false', function () {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
         const wrapper = mount(
             <Component
@@ -78,11 +77,15 @@ describe('application not completed', function () {
                 _next="someroute"
             />
         );
-        wrapper.find('WrappedComponent').props()._nextRoute().then(() => {
-            expect(defaultProps.history.push).toHaveBeenCalledWith('someroute');
-        });
+        wrapper
+            .find('WrappedComponent')
+            .props()
+            ._nextRoute()
+            .then(() => {
+                expect(defaultProps.history.push).toHaveBeenCalledWith('someroute');
+            });
     });
-    it('_nextRoute() pushes unit unavaible page if unitAvailable === false', function() {
+    it('_nextRoute() pushes unit unavaible page if unitAvailable === false', function () {
         const Component = withRelativeRoutes(WrappedComponent, '/lease-terms');
         const wrapper = mount(
             <Component
@@ -92,8 +95,12 @@ describe('application not completed', function () {
                 initialPage="/application/complete"
             />
         );
-        wrapper.find('WrappedComponent').props()._nextRoute().then(() => {
-            expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.UNIT_UNAVAILABLE);
-        });
+        wrapper
+            .find('WrappedComponent')
+            .props()
+            ._nextRoute()
+            .then(() => {
+                expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.UNIT_UNAVAILABLE);
+            });
     });
 });

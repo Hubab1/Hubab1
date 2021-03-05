@@ -13,7 +13,7 @@ export const Subtitle = styled.small`
 `;
 
 const Header = styled.div`
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
     padding: 20px;
 `;
 
@@ -23,17 +23,15 @@ const Policy = styled.div`
     margin-bottom: 36px;
 `;
 
-export default function PetPolicy (props) {
+export default function PetPolicy(props) {
     return (
         <div>
             <Header>
                 <H1>Pet Policy</H1>
-                <br/>
+                <br />
                 {!!props.date && <Subtitle>Last Updated {props.date}</Subtitle>}
             </Header>
-            <Policy>
-                {props.policy}
-            </Policy>
+            <Policy>{props.policy}</Policy>
             <ActionButton onClick={props.onAgree}>Got It</ActionButton>
         </div>
     );
@@ -42,5 +40,5 @@ export default function PetPolicy (props) {
 PetPolicy.propTypes = {
     date: PropTypes.string,
     policy: PropTypes.string,
-    onAgree: PropTypes.func.isRequired
+    onAgree: PropTypes.func.isRequired,
 };

@@ -5,13 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
-import {
-    Grid,
-    FormControl,
-    FormControlLabel,
-    RadioGroup,
-    Radio,
-} from '@material-ui/core';
+import { Grid, FormControl, FormControlLabel, RadioGroup, Radio } from '@material-ui/core';
 
 import { MOCKY } from 'config';
 import { ROUTES } from 'constants/constants';

@@ -5,19 +5,14 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { filter, find, sortBy, flow } from 'lodash/fp';
 import { capitalize, omit } from 'lodash';
-import {
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Select,
-} from '@material-ui/core';
+import { MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 import {
     FINANCIAL_STREAM_ASSET,
     ALL_INCOME_OR_ASSET_TYPES,
     INCOME_TYPE_OTHER,
-    ASSET_TYPE_OTHER
+    ASSET_TYPE_OTHER,
 } from 'constants/constants';
 import { allValuesSet } from 'utils/formik';
 

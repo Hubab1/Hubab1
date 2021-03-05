@@ -9,7 +9,11 @@ import { ROUTES, ROLE_PRIMARY_APPLICANT } from 'constants/constants';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import captureRoute from 'utils/captureRoute';
 
-import { ACTION_BUTTON, LINK_BUTTON, AdverseActionNoticeButton } from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
+import {
+    ACTION_BUTTON,
+    LINK_BUTTON,
+    AdverseActionNoticeButton,
+} from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
 import ActionButton from 'components//ActionButton/ActionButton';
 import GuarantorExplanation from 'pages/GuarantorRequested/components/GuarantorExplanation/GuarantorExplanation';
 import { H1, SpacedH3, LinkButton } from 'assets/styles';

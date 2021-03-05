@@ -1,7 +1,7 @@
 import { css } from 'emotion';
 
 export const viewPetPolicy = css`
-    color: #2B44FF;
+    color: #2b44ff;
     cursor: pointer;
-    text-decoration: underline
+    text-decoration: underline;
 `;

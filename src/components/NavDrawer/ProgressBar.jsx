@@ -7,17 +7,17 @@ import { AppTheme } from 'components/App/AppContextProvider';
 export const Track = styled.div`
     position: absolute;
     width: 100%;
-    background-color: ${props => props.background};
-    opacity: ${props => props.opacity};
+    background-color: ${(props) => props.background};
+    opacity: ${(props) => props.opacity};
     height: 100%;
-    box-shadow: 0 2px 4px 0 rgba(177,181,189,0.4);
+    box-shadow: 0 2px 4px 0 rgba(177, 181, 189, 0.4);
 `;
 
 export const Bar = styled.div`
     position: absolute;
-    width: ${props => `${props.percent}%`};
-    background-color: ${props => props.background};
-    opacity: ${props => props.opacity};
+    width: ${(props) => `${props.percent}%`};
+    background-color: ${(props) => props.background};
+    opacity: ${(props) => props.opacity};
     height: 100%;
 `;
 
@@ -26,7 +26,7 @@ export const Container = styled.div`
     height: 10px;
 `;
 
-function ProgressBar (props) {
+function ProgressBar(props) {
     const appThemeContext = useContext(AppTheme);
 
     return (
@@ -34,8 +34,7 @@ function ProgressBar (props) {
             <Track
                 opacity={appThemeContext.progressBarTrackOpacity}
                 background={appThemeContext.progressBarTrackBackground}
-            >
-            </Track>
+            ></Track>
             <Bar
                 percent={props.percent}
                 opacity={appThemeContext.progressBarOpacity}
@@ -46,7 +45,7 @@ function ProgressBar (props) {
 }
 
 ProgressBar.propTypes = {
-    percent: PropTypes.number
+    percent: PropTypes.number,
 };
 
 export default ProgressBar;

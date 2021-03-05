@@ -177,9 +177,15 @@ export class Main extends Component {
                             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                             <Route path={ROUTES.RENTAL_PROFILE} component={RenterProfilePages} />
                             <Route path={ROUTES.BANKING} component={BankingPages} />
-                            <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDepositsPages.FeesAndDepositsPage} />
+                            <Route
+                                path={ROUTES.FEES_AND_DEPOSITS}
+                                component={FeesAndDepositsPages.FeesAndDepositsPage}
+                            />
                             <Route path={ROUTES.HOLDING_DEPOSIT_AGREEMENT} component={HoldingDepositAgreementPage} />
-                            <Route path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT} component={HoldingDepositReagreementPage} />
+                            <Route
+                                path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
+                                component={HoldingDepositReagreementPage}
+                            />
                             <Route path={ROUTES.SCREENING} component={ScreeningPage} />
                             <Route path={ROUTES.APP} component={ApplicationPages} />
                             <Route path={ROUTES.LEASE} component={LeasePages} />
@@ -190,7 +196,10 @@ export class Main extends Component {
                             <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetailsPage} />
                             <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTermsPage} />
 
-                            <Route path={ROUTES.OUTSTANDING_BALANCE} component={FeesAndDepositsPages.OutstandingBalancePage} />
+                            <Route
+                                path={ROUTES.OUTSTANDING_BALANCE}
+                                component={FeesAndDepositsPages.OutstandingBalancePage}
+                            />
                             <Route path={ROUTES.APPLICATIONS} component={ApplicationsPage} />
 
                             <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailablePage} />

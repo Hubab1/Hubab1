@@ -10,7 +10,7 @@ const Bulb = styled.img`
     height: 46px;
 `;
 
-export default function Tip (props) {
+export default function Tip(props) {
     return (
         <Grid container spacing={1} alignItems="center">
             <Grid item>

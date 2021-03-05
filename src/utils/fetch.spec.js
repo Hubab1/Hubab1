@@ -10,10 +10,10 @@ describe('token expired', () => {
             hostname: 'localhost',
             href: 'https://apply.funnelleasing.com/2/profile',
             origin: 'https://apply.funnelleasing.com',
-            pathname: '/2/profile'
+            pathname: '/2/profile',
         };
         global.fetch = jest.fn().mockReturnValue({
-            headers: { get: jest.fn().mockReturnValue('TokenExpiredError') }
+            headers: { get: jest.fn().mockReturnValue('TokenExpiredError') },
         });
     });
     it('clears localStorage and redirects to the login page', () => {
@@ -46,10 +46,10 @@ describe('token invalid', () => {
             hostname: 'localhost',
             href: 'https://apply.funnelleasing.com/2/profile',
             origin: 'https://apply.funnelleasing.com',
-            pathname: '/2/profile'
+            pathname: '/2/profile',
         };
         global.fetch = jest.fn().mockReturnValue({
-            headers: { get: jest.fn().mockReturnValue('TokenInvalidError') }
+            headers: { get: jest.fn().mockReturnValue('TokenInvalidError') },
         });
     });
     it('clears localStorage and redirects to the login page', () => {
@@ -82,10 +82,10 @@ describe('token not expired', () => {
             hostname: 'localhost',
             href: 'https://apply.funnelleasing.com/2/profile',
             origin: 'https://apply.funnelleasing.com',
-            pathname: '/2/profile'
+            pathname: '/2/profile',
         };
         global.fetch = jest.fn().mockReturnValue({
-            headers: { get: jest.fn().mockReturnValue('') }
+            headers: { get: jest.fn().mockReturnValue('') },
         });
     });
     it('doesnt clear access token and doesnt change url', () => {

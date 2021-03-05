@@ -10,28 +10,27 @@ export class VerifyAccount extends Component {
     state = { errors: null };
 
     onSubmit = (values, { setSubmitting }) => {
-        return auth.login(values.email, values.password, this.props.communityId).then((res) => {
-            auth.setSession(res.token, this.props.communityId);
-            setSubmitting(false);
-            if (this.state.errors) this.setState({errors: null});
-            this.props.setVerified();
-        }).catch(() => {
-            const errorMessage = 'The email and password you entered do not match our records. Please try again.';
-            this.setState({errors: [errorMessage]});
-            setSubmitting(false);
-        });
+        return auth
+            .login(values.email, values.password, this.props.communityId)
+            .then((res) => {
+                auth.setSession(res.token, this.props.communityId);
+                setSubmitting(false);
+                if (this.state.errors) this.setState({ errors: null });
+                this.props.setVerified();
+            })
+            .catch(() => {
+                const errorMessage = 'The email and password you entered do not match our records. Please try again.';
+                this.setState({ errors: [errorMessage] });
+                setSubmitting(false);
+            });
     };
 
-    render () {
+    render() {
         return (
             <>
-                <H1>
-                    Verify Password
-                </H1>
-                <SpacedH3>
-                    Enter your password so we can verify that it’s really you.
-                </SpacedH3>
-                <img src={verify} alt="welcome sign" width="101" height="91"/>
+                <H1>Verify Password</H1>
+                <SpacedH3>Enter your password so we can verify that it’s really you.</SpacedH3>
+                <img src={verify} alt="welcome sign" width="101" height="91" />
                 <LoginForm
                     handleOnSubmit={this.onSubmit}
                     buttonText="Verify Password"

@@ -2,5 +2,5 @@ import { FeesAndDepositsPage, OutstandingBalancePage } from './components/FeesDe
 
 export default {
     FeesAndDepositsPage,
-    OutstandingBalancePage
+    OutstandingBalancePage,
 };

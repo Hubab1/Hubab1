@@ -11,7 +11,7 @@ export const inviteeContact = css`
 
 export const link = css`
     display: inline-block;
-    color: #2B44FF;
+    color: #2b44ff;
     font-size: 14px;
     text-decoration: underline !important;
 `;

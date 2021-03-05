@@ -6,7 +6,7 @@ import ActionButton from 'components//ActionButton/ActionButton';
 import { H1 } from 'assets/styles';
 
 const Header = styled.div`
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
     padding: 20px;
 `;
 
@@ -23,16 +23,14 @@ const Contact = styled.div`
     font-weight: 600;
 `;
 
-export default function PetRestrictions (props) {
+export default function PetRestrictions(props) {
     return (
         <div>
             <Header>
                 <H1>Pet Restrictions</H1>
             </Header>
-            <Policy>
-                {props.breedPolicy}
-            </Policy>
-            <br/>
+            <Policy>{props.breedPolicy}</Policy>
+            <br />
             <Contact>
                 {`Please call us at ${props.contactPhone} if your pet is subject to one of the restrictions listed above.`}
             </Contact>

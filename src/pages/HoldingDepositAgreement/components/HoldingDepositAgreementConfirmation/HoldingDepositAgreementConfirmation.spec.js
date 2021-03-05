@@ -15,25 +15,24 @@ beforeEach(() => {
         configuration: {
             community: {
                 buildingName: 'Monterey Pines Apartments',
-
-            }
+            },
         },
         profile: {
             unit: {
                 unit_number: 'Unit 14F',
-            }
-        }
+            },
+        },
     };
 });
 
 it('Matches Snapshot', async () => {
-    const wrapper = mount( <HoldingDepositAgreementConfirmation {...defaultProps}/> );
+    const wrapper = mount(<HoldingDepositAgreementConfirmation {...defaultProps} />);
     expect(wrapper.debug()).toMatchSnapshot();
 });
 
 describe('Button text', function () {
     it('lets you refetch holding deposit url', async () => {
-        API.leaseDocumentUrl = jest.fn().mockReturnValue({error: 'bad'});
+        API.leaseDocumentUrl = jest.fn().mockReturnValue({ error: 'bad' });
         const wrapper = mount(<HoldingDepositAgreementConfirmation {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);
@@ -44,7 +43,7 @@ describe('Button text', function () {
     });
 
     it('fetches and links pdf url', async () => {
-        API.leaseDocumentUrl = jest.fn().mockReturnValue({url: 'testpdfurl.pdf'});
+        API.leaseDocumentUrl = jest.fn().mockReturnValue({ url: 'testpdfurl.pdf' });
         const wrapper = mount(<HoldingDepositAgreementConfirmation {...defaultProps} />);
         await act(async () => {
             await Promise.resolve(wrapper);

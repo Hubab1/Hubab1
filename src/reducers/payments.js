@@ -11,8 +11,8 @@ const payments = createSlice({
         paymentsReceived(state, action) {
             state = action.payload;
             return state;
-        }
-    }
+        },
+    },
 });
 
 const { actions, reducer } = payments;
@@ -20,7 +20,7 @@ export const { paymentsReceived } = actions;
 export default reducer;
 
 export const fetchPayments = () => {
-    return async dispatch => {
+    return async (dispatch) => {
         let payments;
         if (MOCKY) {
             payments = mock;

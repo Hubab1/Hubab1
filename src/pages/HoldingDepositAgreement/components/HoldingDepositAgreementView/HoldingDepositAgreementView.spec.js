@@ -12,18 +12,17 @@ beforeEach(() => {
         configuration: {
             community: {
                 buildingName: 'Monterey Pines Apartments',
-
-            }
+            },
         },
         profile: {
             unit: {
                 unit_number: 'Unit 14F',
-            }
-        }
+            },
+        },
     };
 });
 
 it('Matches Snapshot', async () => {
-    const wrapper = shallow( <HoldingDepositAgreementView {...defaultProps}/> );
+    const wrapper = shallow(<HoldingDepositAgreementView {...defaultProps} />);
     expect(wrapper.debug()).toMatchSnapshot();
 });

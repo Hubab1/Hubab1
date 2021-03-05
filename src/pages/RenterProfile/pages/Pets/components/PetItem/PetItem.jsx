@@ -2,19 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { getIn, Field } from 'formik';
-import {
-    Radio,
-    RadioGroup,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-} from '@material-ui/core';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormHelperText } from '@material-ui/core';
 
-import {
-    RENTAL_OPTIONS_PETS_DOGS,
-    RENTAL_OPTIONS_PETS_CATS,
-    RENTAL_OPTIONS_PETS_OTHER
-} from 'constants/constants';
+import { RENTAL_OPTIONS_PETS_DOGS, RENTAL_OPTIONS_PETS_CATS, RENTAL_OPTIONS_PETS_OTHER } from 'constants/constants';
 import FormTextInput from 'components//FormTextInput/FormTextInput';
 import PetTypeSelect from 'pages/RenterProfile/pages/Pets/components/PetTypeSelect/PetTypeSelect';
 import { ErrorDetail } from 'assets/styles';

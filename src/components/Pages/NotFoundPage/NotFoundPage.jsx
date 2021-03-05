@@ -14,7 +14,7 @@ const centerAlign = css`
     margin-top: 200px;
 `;
 
-export default function NotFoundPage () {
+export default function NotFoundPage() {
     return (
         <div className={centerAlign}>
             <H1>Page Not Found</H1>

@@ -6,7 +6,7 @@ import {
     MILESTONE_APPLICATION_FEE_COMPLETED,
     RENTER_PROFILE_TYPE_CO_APPLICANTS,
     RENTER_PROFILE_TYPE_GUARANTOR,
-    RENTER_PROFILE_TYPE_DEPENDENT
+    RENTER_PROFILE_TYPE_DEPENDENT,
 } from 'constants/constants';
 import ExistingRoommate from './ExistingRoommate';
 
@@ -19,10 +19,9 @@ it('matches snapshot for unregistered roommate', () => {
         is_registered: false,
         last_milestone: null,
     };
-    const wrapper = shallow(<ExistingRoommate item={unregistered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
+    const wrapper = shallow(<ExistingRoommate item={unregistered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
-
 
 it('matches snapshot for registered roommate', () => {
     const registered = {
@@ -31,9 +30,9 @@ it('matches snapshot for registered roommate', () => {
         last_name: 'mcgreebs',
         id: 71,
         is_registered: true,
-        last_milestone: {event: MILESTONE_APPLICANT_SUBMITTED}
+        last_milestone: { event: MILESTONE_APPLICANT_SUBMITTED },
     };
-    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
+    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -44,9 +43,9 @@ it('matches snapshot for roommate in progress', () => {
         last_name: 'mcgreebs',
         id: 71,
         is_registered: true,
-        last_milestone: {event: MILESTONE_APPLICATION_FEE_COMPLETED}
+        last_milestone: { event: MILESTONE_APPLICATION_FEE_COMPLETED },
     };
-    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS}/>);
+    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -56,7 +55,7 @@ it('doesnt show resend / edit for dependents', () => {
             phone_number: '(383) 838-4849',
             first_name: 'kreebs',
             last_name: 'mcgreebs',
-            id: 71
+            id: 71,
         },
     };
     let wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
@@ -72,7 +71,7 @@ it('can remove invitee while he didnt start his application', () => {
             first_name: 'kreebs',
             last_name: 'mcgreebs',
             id: 71,
-            last_milestone: null
+            last_milestone: null,
         },
     };
     const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
@@ -86,7 +85,7 @@ it('can not remove invitee while he already started his application', () => {
             first_name: 'kreebs',
             last_name: 'mcgreebs',
             id: 71,
-            last_milestone: {event: MILESTONE_APPLICANT_SUBMITTED}
+            last_milestone: { event: MILESTONE_APPLICANT_SUBMITTED },
         },
     };
     const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);

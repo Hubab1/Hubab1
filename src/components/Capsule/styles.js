@@ -1,6 +1,4 @@
-import {
-    css
-} from 'emotion';
+import { css } from 'emotion';
 
 export const container = css`
     margin-bottom: 10px;
@@ -10,7 +8,7 @@ export const container = css`
 `;
 
 export const paperRoot = css`
-    box-shadow: 0px 2px 4px 2px rgba(0,0,0,.1) !important;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1) !important;
     border-width: 0px !important;
     padding: 15px !important;
     font-size: 16px !important;
@@ -31,7 +29,7 @@ export const prefix = css`
 export const label = css`
     flex: 1;
     padding-left: 0;
-    color: #454B57;
+    color: #454b57;
     font-weight: 400;
     display: flex;
     font-size: 16px;

@@ -6,13 +6,13 @@ import ExistingPet from './ExistingPet';
 
 it('renders pet info correctly', () => {
     const petItem = {
-                key:'first-pet',
-                name:'stuart',
-                weight:'12',
-                breed:'chiwowzerz',
-                pet_type:RENTAL_OPTIONS_PETS_DOGS,
-                service_animal:'true',
+        key: 'first-pet',
+        name: 'stuart',
+        weight: '12',
+        breed: 'chiwowzerz',
+        pet_type: RENTAL_OPTIONS_PETS_DOGS,
+        service_animal: 'true',
     };
-    const wrapper = shallow(<ExistingPet item={petItem}/>);
+    const wrapper = shallow(<ExistingPet item={petItem} />);
     expect(wrapper.text()).toEqual('Dog - Service Animalstuart, chiwowzerz, 12lbs');
 });
