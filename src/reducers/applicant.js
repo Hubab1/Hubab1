@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 
-import API, { MOCKY } from 'app/api';
+import { MOCKY } from 'config';
+import API from 'api/api';
 import mock from './applicant-mock';
 
 const applicant = createSlice({

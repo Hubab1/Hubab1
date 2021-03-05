@@ -1,0 +1,3 @@
+import ResetPasswordVerificationPage from './components/ResetPasswordVerificationPage/ResetPasswordVerificationPage';
+
+export default ResetPasswordVerificationPage;

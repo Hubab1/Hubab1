@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
-import API from 'app/api';
+import API from 'api/api';
 import reducer, {
     fetchConfiguration,
     configurationReceived,
@@ -9,7 +9,7 @@ import reducer, {
     configurationDoesNotExist,
     filterRentalOptionsByUnit,
 } from 'reducers/configuration';
-import { DOES_NOT_EXIST } from 'app/constants';
+import { DOES_NOT_EXIST } from 'constants/constants';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);

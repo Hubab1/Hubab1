@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { createTheme } from 'assets/theme';
-import { AppContextProvider } from 'contexts/AppContextProvider';
+import { AppContextProvider } from 'components//App/AppContextProvider';
 
 function MockMountableApp({ config = mockConfig, children }) {
     const theme = createTheme(config);

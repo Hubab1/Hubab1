@@ -1,3 +1,6 @@
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
@@ -14,12 +17,11 @@ import {
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
     MILESTONE_LEASE_VOIDED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
-} from 'app/constants';
+} from 'constants/constants';
+import API from 'api/api';
+
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
-import API from '../../app/api';
-import thunk from 'redux-thunk';
-import configureStore from 'redux-mock-store';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {

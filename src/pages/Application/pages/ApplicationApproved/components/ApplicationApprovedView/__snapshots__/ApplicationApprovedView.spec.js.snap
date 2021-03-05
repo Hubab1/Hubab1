@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<React.Fragment>
+  <div
+    className=""
+  >
+    <ForwardRef(render)>
+      You've Been Approved!
+    </ForwardRef(render)>
+    <ForwardRef(render)>
+      All that's left to do is review your payment details and sign the lease.
+    </ForwardRef(render)>
+    <ForwardRef(render)
+      src="approvedSign.svg"
+    />
+    <div
+      className="css-x0fehc"
+      id="application-unit"
+    >
+      Fake Building
+       Unit 2B
+    </div>
+    <div
+      className="css-1b1t23e"
+    >
+      <ForwardRef(StyledComponent)
+        margin="28px 0 0 0"
+      >
+        <ForwardRef(render)
+          color="#000000"
+          fontSize={12}
+          textAlign="left"
+        >
+          The lease linked below constitutes a legal agreement between you and Landlord. Funnel Leasing does not provide legal advice, and we recommend that you consult your legal counsel before accepting these terms.
+        </ForwardRef(render)>
+        <ActionButton
+          className="show-payments"
+          color="primary"
+          marginTop={30}
+          onClick={[Function]}
+          successGreen={false}
+          variant="contained"
+        >
+          Continue
+        </ActionButton>
+      </ForwardRef(StyledComponent)>
+    </div>
+  </div>
+</React.Fragment>
+`;

@@ -3,7 +3,8 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import API, { MOCKY } from 'app/api';
+import { MOCKY } from 'config';
+import API from 'api/api';
 import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
@@ -16,7 +17,7 @@ import {
     MILESTONE_APPLICATION_FEE_COMPLETED,
     ROUTE_LABELS,
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
-} from 'app/constants';
+} from 'constants/constants';
 import mock from './mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';

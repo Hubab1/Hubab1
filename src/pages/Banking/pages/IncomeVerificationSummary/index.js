@@ -1,0 +1,3 @@
+import IncomeVerificationSummaryPage from './components/IncomeVerificationSummaryPage/IncomeVerificationSummaryPage';
+
+export default IncomeVerificationSummaryPage;

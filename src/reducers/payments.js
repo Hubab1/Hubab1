@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import API, { MOCKY } from 'app/api';
+import API from 'api/api';
+import { MOCKY } from 'config';
 import mock from './mock-payments';
 
 const payments = createSlice({

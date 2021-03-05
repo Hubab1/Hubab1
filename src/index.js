@@ -1,5 +1,3 @@
-import './assets/sass/styles.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,8 +6,10 @@ import TagManager from 'react-gtm-module';
 import { setupSentry } from 'utils/sentry';
 import 'utils/configureYup';
 import store from 'reducers/store';
-import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
-import App from 'app/App';
+
+import ErrorBoundary from 'components//ErrorBoundary/ErrorBoundary';
+import App from 'components//App/App';
+import './assets/sass/styles.scss';
 
 setupSentry();
 
