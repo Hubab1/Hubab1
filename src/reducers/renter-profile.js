@@ -20,6 +20,8 @@ import {
 import mock from './mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
+import { useLocation } from 'react-router-dom';
+import { useCallback, useReducer } from 'react';
 
 const renterProfile = createSlice({
     name: 'renterProfile',
@@ -102,19 +104,84 @@ export const pageComplete = (page) => {
 
 // selectors
 export const selectors = {};
+
+selectors.selectDefaultBankingPage = createSelector(
+    (state) => state.applicant,
+    (state) => state.application && state.application.events,
+    (state) => state.renterProfile,
+    (state) => state.configuration,
+    (state) => state.banking,
+    (applicant, applicationEvents, renterProfile, configuration, data) => {
+        const location = window.location;
+        const pathname = location.pathname;
+
+        const applicantEnteredIncomeOrAssets =
+            data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
+
+        if (!applicantEnteredIncomeOrAssets || !applicant) {
+            return ROUTES.INCOME_AND_EMPLOYMENT;
+        }
+
+        const agentRequestedIncomeAssets =
+            applicationEvents &&
+            applicationEvents.find(({ event }) => event === MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED);
+
+        if (agentRequestedIncomeAssets) {
+            if (data?.income_sources?.length || data?.asset_sources?.length) {
+                return ROUTES.INCOME_VERIFICATION_SUMMARY;
+            }
+            return ROUTES.INCOME_AND_EMPLOYMENT;
+        }
+
+        if (!configuration.enable_automatic_income_verification) {
+            if (configuration.collect_employer_information) {
+                return ROUTES.EMPLOYER_DETAILS;
+            }
+        }
+
+        if (applicantEnteredIncomeOrAssets) {
+            const addedEmployerInfo = !!applicant.events.find(
+                (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
+            );
+
+            const reportedNoIncome = !!applicant.events.find(
+                (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
+            );
+
+            // This is needed when clicked on the Back button from the fees page
+            if (pathname.includes(ROUTES.EMPLOYER_DETAILS) && configuration.collect_employer_information) {
+                return ROUTES.EMPLOYER_DETAILS;
+            }
+
+            const shouldEditEmployerInfo =
+                configuration.collect_employer_information &&
+                !addedEmployerInfo &&
+                !reportedNoIncome &&
+                !applicant.submitted_application;
+
+            if (shouldEditEmployerInfo && !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY)) {
+                return ROUTES.EMPLOYER_DETAILS;
+            } else {
+                return ROUTES.INCOME_VERIFICATION_SUMMARY;
+            }
+        }
+    }
+);
+
 selectors.selectOrderedRoutes = createSelector(
     (state) => state.applicant?.role,
     (state) => state.configuration?.enable_automatic_income_verification,
     (state) => state.configuration?.enable_holding_deposit_agreement,
     (state) => state.configuration?.collect_employer_information,
-    (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement, collectEmployerInfo) => {
+    selectors.selectDefaultBankingPage,
+    (role, enableAutomaticIncomeVerification, enableHoldingDepositAgreement, collectEmployerInfo, bankingIndex) => {
         if (role == null || enableAutomaticIncomeVerification == null || collectEmployerInfo == null) return;
 
         return [
             ROUTES.ADDRESS,
             ROUTES.LEASE_TERMS,
             role === ROLE_PRIMARY_APPLICANT && ROUTES.PROFILE_OPTIONS,
-            (enableAutomaticIncomeVerification || collectEmployerInfo) && ROUTES.INCOME_AND_EMPLOYMENT,
+            (enableAutomaticIncomeVerification || collectEmployerInfo) && bankingIndex,
             ROUTES.FEES_AND_DEPOSITS,
             role === ROLE_PRIMARY_APPLICANT && enableHoldingDepositAgreement && ROUTES.HOLDING_DEPOSIT_AGREEMENT,
             ROUTES.SCREENING,
@@ -127,15 +194,25 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 
 // Determines which routes the applicant still needs to submit/complete
 // A route returning FALSE here indicates that the user has not completed it
-const pageCompleted = (events, applicant, profile, configuration) => ({
-    [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
-    [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
-    [ROUTES.PROFILE_OPTIONS]: isRentalOptionsCompleted(events),
-    [ROUTES.INCOME_AND_EMPLOYMENT]: isIncomeAndEmploymentCompleted(events, profile, configuration),
-    [ROUTES.FEES_AND_DEPOSITS]: isFeesAndDepositsCompleted(applicant),
-    [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: isHoldingDepositAgreementCompleted(events),
-    [ROUTES.SCREENING]: isScreeningCompleted(events),
-    [ROUTES.APP_COMPLETE]: isApplicationCompleted(events),
+const pageCompleted = (events, state) => {
+    const { applicant, profile, configuration } = state;
+    const containerIndexRoutes = selectors.selectDefaultContainerPage(state);
+    return {
+        [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
+        [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
+        [ROUTES.PROFILE_OPTIONS]: isRentalOptionsCompleted(events),
+        [containerIndexRoutes[ROUTES.BANKING]]: isIncomeAndEmploymentCompleted(events, profile, configuration),
+        [ROUTES.FEES_AND_DEPOSITS]: isFeesAndDepositsCompleted(applicant),
+        [ROUTES.HOLDING_DEPOSIT_AGREEMENT]: isHoldingDepositAgreementCompleted(events),
+        [ROUTES.SCREENING]: isScreeningCompleted(events),
+        [ROUTES.APP_COMPLETE]: isApplicationCompleted(events),
+    };
+};
+
+selectors.selectDefaultContainerPage = createSelector(selectors.selectDefaultBankingPage, (bankingIndexRoute) => {
+    return {
+        [ROUTES.BANKING]: bankingIndexRoute,
+    };
 });
 
 const isApplicantAddressCompleted = (applicant) => {
@@ -159,9 +236,12 @@ const isFeesAndDepositsCompleted = (applicant) => {
 
 const isIncomeAndEmploymentCompleted = (events, profile, configuration) => {
     if (events.has(APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED)) {
-        if (!configuration.collect_employer_information) return true;
+        if (!configuration.collect_employer_information) {
+            return true;
+        }
         return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
     }
+
     if (!configuration.enable_automatic_income_verification && configuration.collect_employer_information) {
         return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
     }
@@ -200,7 +280,7 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     // check if page was completed
-    if (pageCompleted(eventsSet, state.applicant, state.renterProfile, state.configuration)[route] === true) {
+    if (pageCompleted(eventsSet, state)[route] === true) {
         return true;
     }
     //  route is next page
@@ -220,7 +300,8 @@ selectors.selectDefaultInitialPage = createSelector(
     (state) => state.applicant,
     (state) => state.renterProfile,
     (state) => state.configuration,
-    (orderedRoutes, events, applicant, profile, configuration) => {
+    (state) => state,
+    (orderedRoutes, events, applicant, profile, configuration, state) => {
         if (orderedRoutes && events && applicant && profile) {
             const eventsSet = new Set(events.map((event) => parseInt(event.event)));
             const applicationEvents = profile.events
@@ -280,9 +361,10 @@ selectors.selectDefaultInitialPage = createSelector(
                 return ROUTES.APP_COMPLETE;
             }
 
-            const accessibleRoutes = pageCompleted(eventsSet, applicant, profile, configuration);
+            const accessibleRoutes = pageCompleted(eventsSet, state);
 
             const route = orderedRoutes.find((r) => !accessibleRoutes[r]);
+
             if (route) return route;
             console.error('Could not determine current page.');
         }
@@ -297,6 +379,7 @@ selectors.selectInitialPage = createSelector(selectors.selectDefaultInitialPage,
 
     return defaultInitialPage;
 });
+
 selectors.selectNextRoute = createSelector(
     selectors.selectOrderedRoutes,
     (state) => state.siteConfig.currentRoute,

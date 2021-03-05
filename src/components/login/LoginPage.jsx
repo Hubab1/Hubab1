@@ -11,6 +11,7 @@ import LoginForm from 'components/common/LoginForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import { refreshFinancialSources } from 'reducers/banking';
 
 const BAD_CREDENTIALS_ERROR = 'The email and password you entered do not match our records. Please try again.';
 const NO_APPLICATION_ERROR = (phone) =>
@@ -51,7 +52,12 @@ export class LoginPage extends React.Component {
                 auth.setSession(res.token, this.props.communityId);
                 setSubmitting(false);
                 if (this.state.errors) this.setState({ errors: null });
-                Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
+
+                Promise.all([
+                    this.props.fetchRenterProfile(),
+                    this.props.fetchApplicant(),
+                    this.props.refreshFinancialSources(), // TODO: return this with applicant
+                ]).then(() => {
                     history.replace(this.props.initialPage);
                 });
             })
@@ -84,6 +90,7 @@ LoginPage.propTypes = {
     location: PropTypes.object,
     history: PropTypes.object,
     fetchApplicant: PropTypes.func,
+    refreshFinancialSources: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -93,6 +100,11 @@ const mapStateToProps = (state) => ({
     community: state.configuration && state.configuration.community,
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchApplicant, configuration: PropTypes.object };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchApplicant,
+    configuration: PropTypes.object,
+    refreshFinancialSources,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

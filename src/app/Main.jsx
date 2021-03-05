@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -45,6 +45,7 @@ import PaymentDetails from 'components/payment-details/PaymentDetails';
 import GuarantorRequested from 'components/GuarantorRequested';
 import HoldingDepositReagreement from 'components/fees-deposits/HoldingDepositReagreement';
 import ApplicationsPage from 'pages/Applications';
+import { refreshFinancialSources } from 'reducers/banking';
 
 export class Main extends Component {
     state = { error: null };
@@ -97,8 +98,12 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            isLoggedIn && (await this.props.fetchApplicant());
-        } catch {
+            if (isLoggedIn) {
+                await this.props.fetchApplicant();
+                // TODO: Instead of doing extra call we could return the initial data from the applicant
+                await this.props.refreshFinancialSources();
+            }
+        } catch (error) {
             return this.setState({ hasError: true });
         }
         this.mountNavigation(isLoggedIn, configuration);
@@ -176,8 +181,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                                 <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                                 <Route path={ROUTES.ADDRESS} component={Address} />
-                                {/* Key is added to force component re-mount, even when clicking on the same link */}
-                                <Route path={ROUTES.BANKING} component={BankingContainer} key={new Date()} />
+                                <Route path={ROUTES.BANKING} component={BankingContainer} />
                                 <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDeposits} />
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
@@ -245,6 +249,12 @@ const mapStateToProps = (state) => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchConfiguration,
+    fetchApplicant,
+    logout: mainActions.logout,
+    refreshFinancialSources,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -38,11 +38,6 @@ const bodyRow = css`
 `;
 
 const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, reportNoIncomeAssets }) => {
-    const context = React.useContext(BankingContext);
-    if (!context.routeSelected) {
-        return null;
-    }
-
     return (
         <Fragment>
             <H1>Verify Your Income and Assets</H1>

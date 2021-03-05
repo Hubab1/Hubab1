@@ -446,14 +446,7 @@ export function IncomeVerificationSummaryPage(props) {
                 Continue
             </ActionButton>
             {hasNotAddedFinancialSources ? (
-                <BackLink
-                    to={{
-                        pathname: ROUTES.INCOME_AND_EMPLOYMENT,
-                        state: {
-                            redirectToFirstPage: true,
-                        },
-                    }}
-                />
+                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
             ) : (
                 <Typography
                     classes={{ root: styles.cursor }}
