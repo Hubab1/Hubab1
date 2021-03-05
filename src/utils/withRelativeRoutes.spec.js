@@ -33,24 +33,24 @@ describe('application completed', function () {
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
-                initialPage="/application-complete"
+                initialPage="/application/complete"
             />
         );
-        expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/application/complete');
         expect(wrapper.instance().blockRender).toBe(true);
         expect(wrapper.html()).toBe(null);
     });
     it('allows accessing initialPage', function() {
-        const Component = withRelativeRoutes(WrappedComponent, '/application-complete');
+        const Component = withRelativeRoutes(WrappedComponent, '/application/complete');
         const wrapper = mount(
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={false}
-                initialPage="/application-complete"
+                initialPage="/application/complete"
             />
         );
         expect(defaultProps.history.push).not.toHaveBeenCalled();
-        expect(defaultProps.currentRouteReceived).toHaveBeenCalledWith('/application-complete');
+        expect(defaultProps.currentRouteReceived).toHaveBeenCalledWith('/application/complete');
         expect(wrapper.text()).toEqual('Wrapped Component Text');
     });
 });
@@ -61,7 +61,7 @@ describe('application not completed', function () {
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
-                initialPage="/application-complete"
+                initialPage="/application/complete"
             />
         );
         expect(defaultProps.history.push).not.toHaveBeenCalled();
@@ -74,7 +74,7 @@ describe('application not completed', function () {
             <Component
                 {...defaultProps}
                 selectApplicantStillFinishingApplication={true}
-                initialPage="/application-complete"
+                initialPage="/application/complete"
                 _next="someroute"
             />
         );
@@ -89,7 +89,7 @@ describe('application not completed', function () {
                 {...defaultProps}
                 unitAvailable={false}
                 selectApplicantStillFinishingApplication={true}
-                initialPage="/application-complete"
+                initialPage="/application/complete"
             />
         );
         wrapper.find('WrappedComponent').props()._nextRoute().then(() => {

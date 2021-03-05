@@ -99,12 +99,12 @@ describe('Application submitted state', function () {
             history: {
                 push: jest.fn(),
             },
-            initialPage: '/application-complete',
+            initialPage: '/application/complete',
             handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
-        expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
+        expect(defaultProps.history.push).toHaveBeenCalledWith('/application/complete');
         expect(defaultProps.handleDrawerClose).toHaveBeenCalled();
     });
 });
