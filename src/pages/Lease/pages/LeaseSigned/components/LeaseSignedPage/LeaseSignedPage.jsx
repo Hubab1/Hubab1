@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import { ROUTES, DOCUMENT_TYPE_LEASE } from 'constants/constants';
+import { DOCUMENT_TYPE_LEASE } from 'constants/constants';
 import API from 'api/api';
-import captureRoute from 'utils/captureRoute';
 
 import ActionButton from 'components//ActionButton/ActionButton';
 import GenericFormMessage from 'components//GenericFormMessage/GenericFormMessage';
@@ -97,4 +96,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(captureRoute(LeaseSignedPage, ROUTES.LEASE_SIGNED));
+export default connect(mapStateToProps)(LeaseSignedPage);

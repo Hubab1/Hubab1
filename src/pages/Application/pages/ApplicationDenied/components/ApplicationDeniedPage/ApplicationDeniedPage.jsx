@@ -5,9 +5,6 @@ import styled from '@emotion/styled';
 import { css } from 'emotion';
 import clsx from 'clsx';
 
-import { ROUTES } from 'constants/constants';
-import captureRoute from 'utils/captureRoute';
-
 import { ACTION_BUTTON, AdverseActionNoticeButton } from 'components//AdverseActionNoticeButton/AdverseActionNoticeButton';
 import { H1, SpacedH3 } from 'assets/styles';
 import cry from 'assets/images/cry.svg';
@@ -60,4 +57,4 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps)(captureRoute(ApplicationDeniedPage, ROUTES.APP_DENIED));
+export default connect(mapStateToProps)(ApplicationDeniedPage);

@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import { ROUTES, DOCUMENT_TYPE_LEASE } from 'constants/constants';
-import captureRoute from 'utils/captureRoute';
+import { DOCUMENT_TYPE_LEASE } from 'constants/constants';
 import API from 'api/api';
 
 import ActionButton from 'components//ActionButton/ActionButton';
@@ -61,4 +60,4 @@ const mapStateToProps = state => ({
     community: state.configuration && state.configuration.community,
 });
 
-export default connect(mapStateToProps)(captureRoute(LeaseExecutedPage, ROUTES.LEASE_EXECUTED));
+export default connect(mapStateToProps)(LeaseExecutedPage);

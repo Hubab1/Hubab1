@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
-import { ROUTES } from 'constants/constants';
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import captureRoute from 'utils/captureRoute';
 import { H1, SpacedH3, P } from 'assets/styles';
 import cancelled from 'assets/images/cancelled.png';
 
@@ -40,4 +38,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps)(captureRoute(ApplicationCancelledPage, ROUTES.APP_CANCELLED));
+export default connect(mapStateToProps)(ApplicationCancelledPage);

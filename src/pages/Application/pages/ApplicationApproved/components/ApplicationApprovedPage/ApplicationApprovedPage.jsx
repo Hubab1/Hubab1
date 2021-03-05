@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { ROUTES } from 'constants/constants';
-import captureRoute from 'utils/captureRoute';
-
 import { applicantUpdated } from 'reducers/applicant';
 import { fetchPayments } from 'reducers/payments';
 
@@ -61,4 +58,4 @@ const mapDispatchToProps = {
     fetchPayments,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(ApplicationApprovedPage, ROUTES.APP_APPROVED));
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationApprovedPage);

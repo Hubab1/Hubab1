@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import { ROUTES } from 'constants/constants';
-import captureRoute from 'utils/captureRoute';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 
 import { H1, SpacedH3, P } from 'assets/styles';
@@ -57,4 +55,4 @@ const mapStateToProps = state => ({
     configuration: state.configuration,
 });
 
-export default connect(mapStateToProps)(captureRoute(LeaseVoidedPage, ROUTES.LEASE_VOIDED));
+export default connect(mapStateToProps)(LeaseVoidedPage);

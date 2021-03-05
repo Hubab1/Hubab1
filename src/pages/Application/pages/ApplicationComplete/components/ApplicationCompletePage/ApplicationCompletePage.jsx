@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
-import { ROUTES } from 'constants/constants';
-import withRelativeRoutes from 'utils/withRelativeRoutes';
-
 import ResendLinkForm from 'components//Forms/ResendLinkForm/ResendLinkForm';
 import { PersonRow } from 'pages/Application/pages/ApplicationComplete/components/PersonRow/PersonRow';
 
@@ -135,4 +132,4 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps, null)(withRelativeRoutes(ApplicationCompletePage, ROUTES.APP_COMPLETE));
+export default connect(mapStateToProps, null)(ApplicationCompletePage);
