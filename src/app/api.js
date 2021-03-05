@@ -293,6 +293,10 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             return res.json();
         }
 
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
         const error = new Error();
         error.response = res;
         throw error;
@@ -317,6 +321,10 @@ API.getFinancialSource = (id) => {
             return res.json();
         }
 
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
         const error = new Error();
         error.response = res;
         throw error;
@@ -335,6 +343,10 @@ API.updateFinancialSource = (id, body) => {
             return res.json();
         }
 
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
         const error = new Error();
         error.response = res;
         throw error;
@@ -350,6 +362,10 @@ API.deleteFinancialSource = (id) => {
     }).then((res) => {
         if (res.status === 200) {
             return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
         }
 
         const error = new Error();
