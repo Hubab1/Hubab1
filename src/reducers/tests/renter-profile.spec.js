@@ -14,6 +14,8 @@ import {
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
     MILESTONE_LEASE_VOIDED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_REQUEST_GUARANTOR,
+    APPLICATION_STATUS_DENIED,
 } from 'app/constants';
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
@@ -621,6 +623,32 @@ describe('selectInitialPage', () => {
         });
 
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_DENIED,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
+        });
+
+        expect(initialPage).toEqual(ROUTES.APP_DENIED);
+
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
@@ -639,6 +667,26 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_VOIDED);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                events: [{ event: MILESTONE_REQUEST_GUARANTOR }],
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.GUARANTOR_REQUESTED);
     });
 
     it('selects direct route correctly', () => {
