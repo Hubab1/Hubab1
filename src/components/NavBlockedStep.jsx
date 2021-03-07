@@ -8,14 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { selectors } from 'reducers/renter-profile';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import { css } from 'emotion';
-
-const useStyles = makeStyles(() => ({
-    root: {
-        padding: 0,
-    },
-}));
 
 const iconRoot = css`
     align-items: flex-start !important;
@@ -68,11 +61,10 @@ export function NavBlockedStep({ text, history, config, initialPage, handleDrawe
 }
 
 NavBlockedStep.propTypes = {
-    closeDrawer: PropTypes.bool,
-    initialPage: PropTypes.string,
-    history: PropTypes.object,
-    text: PropTypes.string,
-    config: PropTypes.object,
+    initialPage: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
+    text: PropTypes.string.isRequired,
+    config: PropTypes.object.isRequired,
     handleDrawerClose: PropTypes.func,
 };
 

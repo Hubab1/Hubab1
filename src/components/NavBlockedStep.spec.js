@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
-import { MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED, ROUTES } from 'app/constants';
+import { shallow } from 'enzyme';
+import { ROUTES } from 'app/constants';
 import { NavBlockedStep } from 'components/NavBlockedStep';
 
 describe('NavBlockedStep', () => {
