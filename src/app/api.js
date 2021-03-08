@@ -293,13 +293,13 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             return res.json();
         }
 
-        // TODO: NESTIO-20542
-        // commenting out for now as it's blocking applicants from
-        // selecting no income/assets
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
 
-        // const error = new Error();
-        // error.response = res;
-        // throw error;
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -321,6 +321,10 @@ API.getFinancialSource = (id) => {
             return res.json();
         }
 
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
         const error = new Error();
         error.response = res;
         throw error;
@@ -339,6 +343,10 @@ API.updateFinancialSource = (id, body) => {
             return res.json();
         }
 
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
         const error = new Error();
         error.response = res;
         throw error;
@@ -354,6 +362,10 @@ API.deleteFinancialSource = (id) => {
     }).then((res) => {
         if (res.status === 200) {
             return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
         }
 
         const error = new Error();
