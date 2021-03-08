@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -235,6 +235,7 @@ Main.propTypes = {
     history: PropTypes.object,
     location: PropTypes.object,
     applicant: PropTypes.object,
+    refreshFinancialSources: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

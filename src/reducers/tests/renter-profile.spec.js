@@ -51,7 +51,7 @@ describe('selectNav', () => {
             },
             {
                 name: 'Income & Employment',
-                value: '/income-employment',
+                value: '/income-employment/connect',
             },
             {
                 name: 'Fees & Deposits',
@@ -166,7 +166,7 @@ describe('selectOrderedRoutes', () => {
             '/address',
             '/lease-terms',
             '/rental-profile/options',
-            '/income-employment',
+            '/income-employment/connect',
             '/fees-deposits',
             '/screening',
             '/application-complete',
@@ -190,7 +190,7 @@ describe('selectOrderedRoutes', () => {
         expect(pages).toEqual([
             '/address',
             '/lease-terms',
-            '/income-employment',
+            '/income-employment/connect',
             '/fees-deposits',
             '/screening',
             '/application-complete',

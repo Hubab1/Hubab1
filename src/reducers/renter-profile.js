@@ -20,8 +20,6 @@ import {
 import mock from './mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
-import { useLocation } from 'react-router-dom';
-import { useCallback, useReducer } from 'react';
 
 const renterProfile = createSlice({
     name: 'renterProfile',
