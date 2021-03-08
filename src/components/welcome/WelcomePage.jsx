@@ -122,7 +122,7 @@ export function WelcomePage(props) {
             <div className={classes.backgroundOverlay} />
             <div className={classes.root}>
                 <div className={classes.banner}>
-                    <img className={classes.logo} src={theme?.asserts?.logo} alt="company logo" />
+                    <img data-testid="logo" className={classes.logo} src={theme?.assets?.logo} alt="company logo" />
                 </div>
                 <div data-testid="content" className={classes.content}>
                     <div className={classes.homeImageContainer}>
