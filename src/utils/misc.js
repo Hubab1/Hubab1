@@ -151,6 +151,7 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
             const filesMapping = {};
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
                     const variableName = `file${cur}`;
                     formData.append(variableName, v.file);
                     filesMapping[variableName] = key;
@@ -172,6 +173,7 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
         } else {
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
                     formData.append(`${key}[]`, v.file);
                 });
             }

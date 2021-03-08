@@ -40,7 +40,11 @@ export function AddIncomeSourcePage(props) {
         setErrors([]);
 
         const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, props.vgsEnabled);
-
+        if (!formData) {
+            setErrors([ERROR_UPLOAD]);
+            context.toggleLoader(false);
+            setSubmitting(false);
+        }
         try {
             await API.submitFinancialSource(formData, props.vgsEnabled);
             context.refreshFinancialSources();
