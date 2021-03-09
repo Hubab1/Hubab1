@@ -11,6 +11,8 @@ import {
     EVENT_LEASE_TERMS_COMPLETED,
     MILESTONE_APPLICATION_FEE_COMPLETED,
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
+    MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
+    MILESTONE_LEASE_VOIDED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
 } from 'app/constants';
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
@@ -279,6 +281,31 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: false,
+            },
+            renterProfile: {
+                unit_available: true,
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD },
+                    { event: MILESTONE_LEASE_VOIDED },
+                    { event: APPLICATION_STATUS_APPROVED },
+                    { event: APPLICATION_STATUS_CONDITIONALLY_APPROVED },
+                ],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {

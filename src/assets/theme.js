@@ -29,6 +29,10 @@ export const createTheme = (config) => {
                 default: '#ffffff',
             },
         },
+        assets: {
+            logo: config.logo,
+            background: config.background,
+        },
     });
 
     // Overwrite component styling globally so when using the styling will be consistent

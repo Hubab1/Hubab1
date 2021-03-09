@@ -40,6 +40,7 @@ beforeEach(() => {
                 unit_number: '4B',
             },
         },
+        toggleLoader: jest.fn(),
     };
 });
 

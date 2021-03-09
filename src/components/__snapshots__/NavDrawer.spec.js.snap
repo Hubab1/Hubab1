@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
-<div>
-  <ForwardRef(WithStyles) />
+<React.Fragment>
   <ForwardRef(WithStyles)
     className="makeStyles-appBar-3"
     color="primary"
@@ -12,22 +11,24 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       className="makeStyles-toolbar-4"
     >
       <ForwardRef(WithStyles)
-        className="makeStyles-drawerMenuTrigger-5"
+        className="makeStyles-drawerMenuTrigger-6"
         edge="start"
         onClick={[Function]}
       >
         <UNDEFINED />
       </ForwardRef(WithStyles)>
-      <BannerLogo />
+      <BannerLogo
+        className="makeStyles-bannerLogo-5"
+      />
       <ForwardRef(WithStyles)
         aria-controls={null}
         aria-haspopup={true}
-        className="makeStyles-profileMenuTrigger-6"
+        className="makeStyles-profileMenuTrigger-7"
         edge="end"
         onClick={[Function]}
       >
         <div
-          className="makeStyles-avatar-13"
+          className="makeStyles-avatar-14"
         >
           JD
         </div>
@@ -52,7 +53,7 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
         open={false}
       >
         <ForwardRef(MenuList)
-          className="makeStyles-profileMenuList-7"
+          className="makeStyles-profileMenuList-8"
         >
           <ForwardRef(WithStyles)
             onClick={[Function]}
@@ -82,19 +83,19 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       role="presentation"
     >
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-8 makeStyles-communitySection-9"
+        className="makeStyles-section-9 makeStyles-communitySection-10"
       >
         <span />
       </ForwardRef(StyledComponent)>
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-8"
+        className="makeStyles-section-9"
       >
         <UNDEFINED
           handleDrawerClose={[Function]}
         />
       </ForwardRef(StyledComponent)>
       <ForwardRef(StyledComponent)
-        className="makeStyles-section-8 makeStyles-footer-11"
+        className="makeStyles-section-9 makeStyles-footer-12"
       >
         <ForwardRef
           target="_blank"
@@ -125,5 +126,5 @@ exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
       className="css-us5k2a"
     />
   </main>
-</div>
+</React.Fragment>
 `;

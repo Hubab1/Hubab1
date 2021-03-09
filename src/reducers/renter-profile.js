@@ -237,6 +237,10 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.APP_DENIED;
             }
 
+            if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
+                return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
+            }
+
             if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
                 return ROUTES.LEASE_VOIDED;
             }
@@ -254,10 +258,6 @@ selectors.selectDefaultInitialPage = createSelector(
 
             if (profile.unit_available === false) {
                 return ROUTES.UNIT_UNAVAILABLE;
-            }
-
-            if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
-                return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
             }
 
             if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {

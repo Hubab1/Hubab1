@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import API from 'app/api';
+import { ROUTES, REPORT_POLL_INTERVAL, TOS_TYPE_FINICITY } from 'app/constants';
 import { fetchApplicant } from 'reducers/applicant';
+import { logToSentry } from 'utils/sentry';
+
 import BankVerifying from './BankVerifying';
 import VerifyIncome from './VerifyIncome';
-import PropTypes from 'prop-types';
 import BankingContext from './BankingContext';
 
 const finicityContainer = css`
@@ -54,89 +56,99 @@ export class ConnectBankPage extends React.Component {
     };
 
     openFinicityIframe = () => {
+        /* eslint-disable no-unused-expressions */
         this.setState({ loadingFinicityIframe: true });
-        API.createFinicityUrl().then((res) => {
-            if (!res || !res.link) {
-                return this.setState({
-                    showFinicityIframe: false,
-                    errors: ['There was a problem with the request. Please try again.'],
-                });
-            }
-            this.setState(
-                {
-                    showFinicityIframe: true,
-                    errors: null,
-                },
-                () =>
-                    window.finicityConnect.connectIFrame(res.link, {
-                        selector: '#finicity-container',
-                        overlay: 'rgba(255,255,255, 0)',
-                        success: (data) => {
-                            // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
-                            if (!!data.success) {
-                                this.setState({
-                                    showFinicityIframe: null,
-                                    errors: null,
-                                    loadingReport: true,
-                                    loadingFinicityIframe: false,
-                                });
-                                API.generateFinicityReports()
-                                    .then(() => {
-                                        window.fetchReportsInterval = window.setInterval(
-                                            this.handleFetchReports,
-                                            REPORT_POLL_INTERVAL
-                                        );
-                                    })
-                                    .catch(() => {
-                                        this.setState({
-                                            showFinicityIframe: false,
-                                            loadingFinicityIframe: false,
-                                            errors: [
-                                                'There was an error generating your income and assets report. Please try again.',
-                                            ],
-                                        });
-                                    });
-                            } else {
-                                this.setState({
-                                    showFinicityIframe: false,
-                                    errors: ['There was an error accessing your information. Please try again.'],
-                                    loadingFinicityIframe: false,
-                                });
-                            }
-                        },
-                        cancel: () => {
-                            this.setState({ showFinicityIframe: false, loadingFinicityIframe: false });
-                        },
-                        error: () => {
-                            this.setState({
-                                showFinicityIframe: false,
-                                errors: ['There was an error attempting to get your records. Please try again.'],
-                                loadingFinicityIframe: false,
-                            });
-                        },
-                        loaded: () => {
-                            console.info('iframe has loaded');
-                        },
-                        route: function (event) {
-                            if (event.data && event.data.screen === 'Search') {
-                                const body = {
-                                    type: TOS_TYPE_FINICITY,
-                                    context: {
-                                        time: Date.now(),
-                                    },
-                                };
-                                API.acceptTerms(body).catch(() => {
+        this.context.toggleLoader?.(true);
+
+        API.createFinicityUrl()
+            .then((res) => {
+                if (!res || !res.link) {
+                    this.context.toggleLoader?.(false);
+
+                    return this.setState({
+                        showFinicityIframe: false,
+                        errors: ['There was a problem with the request. Please try again.'],
+                    });
+                }
+                this.setState(
+                    {
+                        showFinicityIframe: true,
+                        errors: null,
+                    },
+                    () =>
+                        window.finicityConnect.connectIFrame(res.link, {
+                            selector: '#finicity-container',
+                            overlay: 'rgba(255,255,255, 0)',
+                            success: (data) => {
+                                // for testing - fake bank = finbank profiles a; fake bank creds= user:demo pw:profile_2
+                                if (!!data.success) {
                                     this.setState({
-                                        showFinicityIframe: false,
-                                        errors: ['There was an error accepting the terms of use. Please try again.'],
+                                        showFinicityIframe: null,
+                                        errors: null,
+                                        loadingReport: true,
                                         loadingFinicityIframe: false,
                                     });
+
+                                    API.generateFinicityReports()
+                                        .then(() => {
+                                            window.fetchReportsInterval = window.setInterval(
+                                                this.handleFetchReports,
+                                                REPORT_POLL_INTERVAL
+                                            );
+                                        })
+                                        .catch(() => {
+                                            this.setState({
+                                                showFinicityIframe: false,
+                                                loadingFinicityIframe: false,
+                                                errors: [
+                                                    'There was an error generating your income and assets report. Please try again.',
+                                                ],
+                                            });
+                                        })
+                                        .finally(() => {});
+                                } else {
+                                    this.setState({
+                                        showFinicityIframe: false,
+                                        errors: ['There was an error accessing your information. Please try again.'],
+                                        loadingFinicityIframe: false,
+                                    });
+                                }
+                            },
+                            cancel: () => {
+                                this.setState({ showFinicityIframe: false, loadingFinicityIframe: false });
+                            },
+                            error: () => {
+                                this.setState({
+                                    showFinicityIframe: false,
+                                    errors: ['There was an error attempting to get your records. Please try again.'],
+                                    loadingFinicityIframe: false,
                                 });
-                            }
-                        },
-                    })
-            );
-        });
+                            },
+                            route: function (event) {
+                                if (event.data && event.data.screen === 'Search') {
+                                    const body = {
+                                        type: TOS_TYPE_FINICITY,
+                                        context: {
+                                            time: Date.now(),
+                                        },
+                                    };
+                                    API.acceptTerms(body).catch(() => {
+                                        this.setState({
+                                            showFinicityIframe: false,
+                                            errors: [
+                                                'There was an error accepting the terms of use. Please try again.',
+                                            ],
+                                            loadingFinicityIframe: false,
+                                        });
+                                    });
+                                }
+                            },
+                        })
+                );
+            })
+            .finally(() => {
+                this.context.toggleLoader?.(false);
+            });
     };
 
     reportNoIncomeAssets = async (e, targetPath) => {
@@ -145,11 +157,17 @@ export class ConnectBankPage extends React.Component {
         // Handle reporting no income/assets
         const formData = new FormData();
         formData.append('report_no_income_assets', 'True');
-        await API.submitFinancialSource(formData, false); // No files to encrypt
+        this.context.toggleLoader(true);
 
-        // Refresh data then redirect
-        await this.context.refreshFinancialSources();
-        this.props.history.push(targetPath);
+        try {
+            await API.submitFinancialSource(formData, false); // No files to encrypt
+            await this.context.refreshFinancialSources();
+            this.props.history.push(targetPath);
+        } catch (e) {
+            await logToSentry(e.response || e);
+        } finally {
+            this.context.toggleLoader(false);
+        }
     };
 
     render() {
@@ -184,9 +202,7 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-const mapDispatchToProps = {
-    fetchApplicant,
-};
+const mapDispatchToProps = { fetchApplicant };
 
 ConnectBankPage.contextType = BankingContext;
 

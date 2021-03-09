@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
-import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import { fetchApplicant } from 'reducers/applicant';
 import { ROUTES, SMS_OPT_IN_MARKETING_ENABLED } from 'app/constants';
 import auth from 'utils/auth';
 import { serializeDate, parseDateISOString } from 'utils/misc';
+
+import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { fetchApplicant } from 'reducers/applicant';
+import { actions as modalActions } from 'reducers/loader';
+
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import AccountForm from 'components/common/AccountForm';
 import { H1, P, link } from 'assets/styles';
@@ -75,12 +78,13 @@ export class RegisterPage extends React.Component {
             localStorage?.getItem(`accepted-electronic-signature-terms-${this.props.leaseSettingsId}`)
         );
 
+        this.props.toggleLoader(true);
+
         // particularly need this for guarantor and co-applicant to associate with existing application
         return auth
             .register(serialized, this.props.leaseSettingsId, hash)
             .then((res) => {
                 auth.setSession(res.token, this.props.leaseSettingsId);
-                setSubmitting(false);
                 Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                     history.replace(this.props.initialPage);
                 });
@@ -102,6 +106,9 @@ export class RegisterPage extends React.Component {
                 } else {
                     this.setState({ errors: ['Oops, something went wrong. Try again.'] });
                 }
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -130,7 +137,7 @@ export class RegisterPage extends React.Component {
                     showConsentInput={!optedIn && !this.props.configuration.invitee}
                     configuration={this.props.configuration}
                 />
-                <P className="already-have-account">
+                <P className="already-have-account" fontSize={14}>
                     Already have an account?{' '}
                     <Link to={ROUTES.LOGIN} className={link}>
                         Sign in here
@@ -148,9 +155,10 @@ RegisterPage.propTypes = {
     configuration: PropTypes.object,
     history: PropTypes.object,
     initialPage: PropTypes.string,
+    multipleAppsV2LoginAndNavigation: PropTypes.bool,
     fetchRenterProfile: PropTypes.func,
     fetchApplicant: PropTypes.func,
-    multipleAppsV2LoginAndNavigation: PropTypes.bool,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -162,6 +170,10 @@ const mapStateToProps = (state) => ({
     multipleAppsV2LoginAndNavigation: getMultipleAppsV2LoginAndNavigation(state),
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchApplicant };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchApplicant,
+    toggleLoader: modalActions.toggleLoader,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
     makeStyles,
-    CssBaseline,
     Drawer,
     AppBar,
     Toolbar,
@@ -46,7 +45,18 @@ const useStyles = makeStyles((theme) => ({
         color: !theme.darkMode ? '#000000' : theme.palette.primary.contrastText,
     },
     toolbar: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         minHeight: 76,
+    },
+    bannerLogo: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        margin: 'auto',
+        pointerEvents: 'none',
     },
     drawerMenuTrigger: {
         color: !theme.darkMode ? 'black' : 'white',
@@ -147,6 +157,7 @@ export function PersistentDrawerLeft({
     const unitNumber = profile?.unit?.unit_number;
     const communityName = profile?.community?.display_name;
     const initials = `${applicant?.first_name?.charAt(0)}${applicant?.last_name?.charAt(0)}`.toUpperCase();
+    const showGoBack = history.length > 2;
 
     /**
      * Determines wether or not to show the applications toolbar instead of the sidebar drawer
@@ -168,6 +179,13 @@ export function PersistentDrawerLeft({
         return 0;
     }, [navRoutes, currentRoute, profile]);
 
+    const getShouldHistoryPush = useCallback(
+        (route) => {
+            return history?.location?.pathname !== route;
+        },
+        [history]
+    );
+
     const handleGoBackClick = useCallback(() => {
         history.goBack();
     }, [history]);
@@ -182,13 +200,19 @@ export function PersistentDrawerLeft({
 
     const handleAccountClick = useCallback(() => {
         menuState.close();
-        history.push(ROUTES.ACCOUNT);
-    }, [menuState, history]);
+
+        if (getShouldHistoryPush(ROUTES.ACCOUNT)) {
+            history.push(ROUTES.ACCOUNT);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
 
     const handleApplicationsClick = useCallback(() => {
         menuState.close();
-        history.push(ROUTES.APPLICATIONS);
-    }, [menuState, history]);
+
+        if (getShouldHistoryPush(ROUTES.APPLICATIONS)) {
+            history.push(ROUTES.APPLICATIONS);
+        }
+    }, [menuState, history, getShouldHistoryPush]);
 
     const handleLogoutClick = useCallback(() => {
         menuState.close();
@@ -226,15 +250,19 @@ export function PersistentDrawerLeft({
 
     if (showApplicationsToolbar) {
         return (
-            <div>
-                <CssBaseline />
+            <>
                 <AppBar color="primary" position="fixed" className={classes.appBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
-                            <ArrowBackIosIcon />
-                            <span>Go Back</span>
-                        </IconButton>
-                        <BannerLogo />
+                    <Toolbar
+                        className={classes.toolbar}
+                        style={{ justifyContent: showGoBack ? 'space-between' : 'flex-end' }}
+                    >
+                        {showGoBack && (
+                            <IconButton className={classes.goBack} onClick={handleGoBackClick} edge="start">
+                                <ArrowBackIosIcon />
+                                <span>Go Back</span>
+                            </IconButton>
+                        )}
+                        <BannerLogo className={classes.bannerLogo} />
                         <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                             <div className={classes.avatar}>{initials}</div>
                             <ExpandMoreIcon fontSize="small" />
@@ -246,19 +274,18 @@ export function PersistentDrawerLeft({
                     <div className={classes.drawerHeader} />
                     <div className={drawerContent}>{children}</div>
                 </main>
-            </div>
+            </>
         );
     }
 
     return (
-        <div>
-            <CssBaseline />
+        <>
             <AppBar color="primary" position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton className={classes.drawerMenuTrigger} onClick={handleDrawerOpen} edge="start">
                         <MenuIcon />
                     </IconButton>
-                    <BannerLogo />
+                    <BannerLogo className={classes.bannerLogo} />
                     <IconButton className={classes.profileMenuTrigger} {...bindTrigger(menuState)} edge="end">
                         <div className={classes.avatar}>{initials}</div>
                         <ExpandMoreIcon fontSize="small" />
@@ -310,7 +337,7 @@ export function PersistentDrawerLeft({
                 <div className={classes.drawerHeader} />
                 <div className={drawerContent}>{children}</div>
             </main>
-        </div>
+        </>
     );
 }
 
