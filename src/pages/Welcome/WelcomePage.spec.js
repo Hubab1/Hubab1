@@ -11,6 +11,7 @@ describe('WelcomePage', () => {
             configuration: {
                 application_fee: null,
                 background: 'some background image url',
+                logo: 'some logo image url',
                 community: {
                     building_name: 'The Excelsior',
                     building_number: '601',
@@ -20,7 +21,6 @@ describe('WelcomePage', () => {
                     state: 'NY',
                 },
                 id: 1,
-                logo: 'logo of a pegasus flying over the moon',
                 primary_color: '286165',
                 secondary_color: 'FFFFFF',
                 client: {
@@ -89,5 +89,12 @@ describe('WelcomePage', () => {
         expect(wrapper.find('[data-testid="content"]').text()).toContain('601 W 57TH ST');
         expect(wrapper.find('[data-testid="content"]').text()).toContain('New York, NY 10019');
         expect(wrapper.find('[data-testid="content"]').text()).not.toContain('Unit 4B');
+    });
+
+    it('renders company and logo', () => {
+        const wrapper = renderWelcomePage(defaultProps);
+        const logo = wrapper.find('[data-testid="logo"]');
+
+        expect(logo.html().includes(`src="${defaultProps.configuration.logo}"`)).toBe(true);
     });
 });
