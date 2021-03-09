@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import API from 'app/api';
 
+import { useMayorLoader } from 'components/MayorLoader/MayorLoaderProvider';
+
 export default function useApplications(errorMessage) {
+    const { toggleLoader } = useMayorLoader();
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [applications, setApplications] = useState([]);
@@ -31,6 +34,11 @@ export default function useApplications(errorMessage) {
     useEffect(() => {
         getApplications();
     }, [getApplications]);
+
+    useEffect(() => {
+        toggleLoader(loading);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading]);
 
     return {
         loading,
