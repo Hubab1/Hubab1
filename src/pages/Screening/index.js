@@ -1,3 +1,3 @@
-import ScreeningPage from './components/ScreeningPage/ScreeningPage';
+import ScreeningPage from './ScreeningPage';
 
 export default ScreeningPage;

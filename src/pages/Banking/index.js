@@ -11,13 +11,13 @@ import { actions as loaderActions } from 'reducers/loader';
 import bankingReducer from './bankingReducer';
 
 import BankingContext from './BankingContext';
-import ConnectBankPage from './pages/ConnectBank';
-import IncomeVerificationSummaryPage from './pages/IncomeVerificationSummary';
-import EmployerDetailsPage from './pages/EmployerDetails';
-import AddAssetSourcePage from './pages/AddAssetSource';
-import AddIncomeSourcePage from './pages/AddIncomeSource';
-import EditFinancialSourcePage from './pages/EditFinancialSource';
-import RemoveFinancialSourcePage from './pages/RemoveFinancialSource';
+import ConnectBankPage from './ConnectBankPage/ConnectBankPage';
+import IncomeVerificationSummaryPage from './IncomeVerificationSummaryPage/IncomeVerificationSummaryPage';
+import EmployerDetailsPage from './EmployerDetailsPage/EmployerDetailsPage';
+import AddAssetSourcePage from './AddAssetSourcePage/AddAssetSourcePage';
+import AddIncomeSourcePage from './AddIncomeSourcePage/AddIncomeSourcePage';
+import EditFinancialSourcePage from './EditFinancialSourcePage/EditFinancialSourcePage';
+import RemoveFinancialSourcePage from './RemoveFinancialSourcePage/RemoveFinancialSourcePage';
 
 function BankingContainer({
     applicationEvents,

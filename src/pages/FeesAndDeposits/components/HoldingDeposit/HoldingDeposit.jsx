@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Info from '@material-ui/icons/Info';
 
-import PaidText from 'components//PaidText/PaidText';
-import SimplePopover from 'components//SimplePopover/SimplePopover';
+import PaidText from 'common-components/PaidText/PaidText';
+import SimplePopover from 'common-components/SimplePopover/SimplePopover';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 
 const CardRowBorderlessPadded = styled(CardRowBorderless)`

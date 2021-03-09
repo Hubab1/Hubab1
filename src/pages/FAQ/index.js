@@ -1,3 +1,3 @@
-import FAQPage from './components/FAQPage/FAQPage';
+import FAQPage from './FAQPage';
 
 export default FAQPage;

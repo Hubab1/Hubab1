@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 import { ApplicationFees, EveryoneRow } from './ApplicationFees';
-import { PaidText } from 'components//PaidText/PaidText';
+import { PaidText } from 'common-components/PaidText/PaidText';
 
 let defaultProps;
 

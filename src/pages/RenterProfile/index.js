@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'constants/constants';
-import RenterProfileOptionsPage from './pages/RenterProfileOptions';
-import GuarantorPage from './pages/Guarantor';
-import InviteRoommatesPage from './pages/InviteRoommates';
-import PetsPage from './pages/Pets';
-import StoragePage from './pages/Storage';
-import ParkingPage from './pages/Parking';
-import EditDependentPage from './pages/EditDependent';
-import RemovePersonPage from './pages/RemovePerson';
-import WineCoolerPage from './pages/WineCooler';
+import RenterProfileOptionsPage from './RentalProfileOptionsPage/RenterProfileOptionsPage';
+import GuarantorPage from './GuarantorPage/GuarantorPage';
+import InviteRoommatesPage from './InviteRoommatesPage/InviteRoommatesPage';
+import PetsPage from './PetsPage/PetsPage';
+import StoragePage from './StoragePage/StoragePage';
+import ParkingPage from './ParkingPage/ParkingPage';
+import EditDependentPage from './EditDependentPage/EditDependentPage';
+import RemovePersonPage from './RemovePersonPage/RemovePersonPage';
+import WineCoolerPage from './WineCoolerPage/WineCoolerPage';
 
 class RentalProfileContainer extends Component {
     render() {

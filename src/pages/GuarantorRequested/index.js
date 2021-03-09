@@ -1,3 +1,3 @@
-import GuarantorPage from '../RenterProfile/pages/Guarantor/components/GuarantorPage/GuarantorPage';
+import GuarantorRequestedPage from './GuarantorRequestedPage';
 
-export default GuarantorPage;
+export default GuarantorRequestedPage;

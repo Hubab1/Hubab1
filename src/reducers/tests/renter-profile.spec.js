@@ -65,7 +65,7 @@ describe('selectNav', () => {
             },
             {
                 name: 'Application Complete',
-                value: '/application/complete',
+                value: '/application-complete',
             },
         ]);
     });
@@ -171,7 +171,7 @@ describe('selectOrderedRoutes', () => {
             '/income-employment',
             '/fees-deposits',
             '/screening',
-            '/application/complete',
+            '/application-complete',
         ]);
     });
     it('Shows correct pages for secondary applicants', () => {
@@ -195,7 +195,7 @@ describe('selectOrderedRoutes', () => {
             '/income-employment',
             '/fees-deposits',
             '/screening',
-            '/application/complete',
+            '/application-complete',
         ]);
     });
     it('doesnt show income-employment page if enable_automatic_income_verification=false', () => {
@@ -219,7 +219,7 @@ describe('selectOrderedRoutes', () => {
             '/rental-profile/options',
             '/fees-deposits',
             '/screening',
-            '/application/complete',
+            '/application-complete',
         ]);
     });
 });

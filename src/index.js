@@ -7,8 +7,8 @@ import { setupSentry } from 'utils/sentry';
 import 'utils/configureYup';
 import store from 'reducers/store';
 
-import ErrorBoundary from 'components//ErrorBoundary/ErrorBoundary';
-import App from 'components//App/App';
+import ErrorBoundary from 'common-components/ErrorBoundary/ErrorBoundary';
+import App from 'common-components/App/App';
 import './assets/sass/styles.scss';
 
 setupSentry();

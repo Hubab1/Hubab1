@@ -28,18 +28,16 @@ export const ROUTES = {
     GUARANTOR_REQUESTED: '/guarantor_request',
     PAYMENT_DETAILS: '/payment-details',
 
-    // Application relative routes
-    APP: '/application',
-    APP_COMPLETE: '/application/complete',
-    APP_APPROVED: '/application/approved',
-    APP_CANCELLED: '/application/cancelled',
-    APP_DENIED: '/application/denied',
+    // Application routes
+    APP_COMPLETE: '/application-complete',
+    APP_APPROVED: '/application-approved',
+    APP_CANCELLED: '/application-cancelled',
+    APP_DENIED: '/application-denied',
 
-    // Lease relative routes
-    LEASE: '/lease',
-    LEASE_SIGNED: '/lease/signed',
-    LEASE_EXECUTED: '/lease/executed',
-    LEASE_VOIDED: '/lease/voided',
+    // Lease routes
+    LEASE_SIGNED: '/lease-signed',
+    LEASE_EXECUTED: '/lease-executed',
+    LEASE_VOIDED: '/lease-voided',
 
     // Password related routes
     PASSWORD: '/password',

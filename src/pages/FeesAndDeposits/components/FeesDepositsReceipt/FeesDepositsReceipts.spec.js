@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import mockReceipt from 'reducers/mock-receipt';
-import mockProfile from 'reducers/mock-profile';
-import mockApplicant from 'reducers/applicant-mock';
+import mockReceipt from 'reducers/tests/mock-receipt';
+import mockProfile from 'reducers/tests/mock-profile';
+import mockApplicant from 'reducers/tests/mock-applicant';
 
 import { FeesDepositsReceipt } from './FeesDepositsReceipt';
 import { ApplicationFees } from 'pages/FeesAndDeposits/components/ApplicationFees/ApplicationFees';

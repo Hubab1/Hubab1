@@ -1,3 +1,3 @@
-import UnitUnavailablePage from './components/UnitUnavailablePage/UnitUnavailablePage';
+import UnitUnavailablePage from './UnitUnavailablePage';
 
 export default UnitUnavailablePage;

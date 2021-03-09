@@ -1,3 +1,3 @@
-import FunnelTermsPage from './components/FunnelTermsPage/FunnelTermsPage';
+import FunnelTermsPage from './FunnelTermsPage';
 
 export default FunnelTermsPage;

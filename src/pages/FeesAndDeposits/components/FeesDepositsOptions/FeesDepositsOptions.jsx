@@ -6,8 +6,8 @@ import { css } from 'emotion';
 import { LINE_ITEM_TYPE_APPLICATION_FEE, LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'constants/constants';
 import { prettyCurrency } from 'utils/misc';
 
-import ActionButton from 'components//ActionButton/ActionButton';
-import { BackLink } from 'components//BackLink/BackLink';
+import ActionButton from 'common-components/ActionButton/ActionButton';
+import { BackLink } from 'common-components/BackLink/BackLink';
 import { ApplicationFees } from 'pages/FeesAndDeposits/components/ApplicationFees/ApplicationFees';
 import { HoldingDeposit } from 'pages/FeesAndDeposits/components/HoldingDeposit/HoldingDeposit';
 import { Card, CardSection, CardRow, CardRowTotal, P, H1 } from 'assets/styles';

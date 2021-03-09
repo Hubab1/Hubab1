@@ -1,3 +1,3 @@
-import AddressPage from './components/AddressPage/AddressPage';
+import AddressPage from './AddressPage';
 
 export default AddressPage;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import { prettyFormatPhoneNumber } from 'utils/misc';
-import ActionButton from 'components//ActionButton/ActionButton';
+import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1 } from 'assets/styles';
 
 const Header = styled.div`

@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import mockProfile from 'reducers/mock-profile';
-import mockApplicant from 'reducers/applicant-mock';
-import mockPayments from 'reducers/mock-payments';
+import mockProfile from 'reducers/tests/mock-profile';
+import mockApplicant from 'reducers/tests/mock-applicant';
+import mockPayments from 'reducers/tests/mock-payments';
 import { FeesDepositsOptions } from './FeesDepositsOptions';
-import { PaidText } from 'components//PaidText/PaidText';
-import { BackLink } from 'components//BackLink/BackLink';
+import { PaidText } from 'common-components/PaidText/PaidText';
+import { BackLink } from 'common-components/BackLink/BackLink';
 import { ApplicationFees } from 'pages/FeesAndDeposits/components/ApplicationFees/ApplicationFees';
 import { HoldingDeposit } from 'pages/FeesAndDeposits/components/HoldingDeposit/HoldingDeposit';
 

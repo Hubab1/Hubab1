@@ -1,4 +1,4 @@
-import { FeesAndDepositsPage, OutstandingBalancePage } from './components/FeesDepositsPage/FeesDepositsPage';
+import { FeesAndDepositsPage, OutstandingBalancePage } from './FeesDepositsPage';
 
 export default {
     FeesAndDepositsPage,

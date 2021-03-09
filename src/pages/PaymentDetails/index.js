@@ -1,3 +1,3 @@
-import PaymentDetailsPage from './components/PaymentDetailsPage/PaymentDetailsPage';
+import PaymentDetailsPage from './PaymentDetailsPage';
 
 export default PaymentDetailsPage;

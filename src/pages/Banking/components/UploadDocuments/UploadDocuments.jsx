@@ -9,7 +9,7 @@ import { Radio, RadioGroup, FormControl, FormControlLabel, Button } from '@mater
 import { Info } from '@material-ui/icons';
 
 import { FINANCIAL_STREAM_INCOME, FINANCIAL_STREAM_ASSET } from 'constants/constants';
-import SimplePopover from 'components//SimplePopover/SimplePopover';
+import SimplePopover from 'common-components/SimplePopover/SimplePopover';
 import { P, LinkButton, infoIconRoot } from 'assets/styles';
 
 const root = css`

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { HoldingDeposit } from './HoldingDeposit';
-import { PaidText } from 'components//PaidText/PaidText';
+import { PaidText } from 'common-components/PaidText/PaidText';
 
 describe('Holding Deposit', () => {
     it('shows PaidText if holdingDepositPaid=true', () => {

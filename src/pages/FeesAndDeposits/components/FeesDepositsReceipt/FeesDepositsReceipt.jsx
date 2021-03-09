@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { LINE_ITEM_TYPE_HOLDING_DEPOSIT } from 'constants/constants';
 import { prettyCurrency } from 'utils/misc';
 
-import ActionButton from 'components//ActionButton/ActionButton';
+import ActionButton from 'common-components/ActionButton/ActionButton';
 import { ApplicationFees } from 'pages/FeesAndDeposits/components/ApplicationFees/ApplicationFees';
 import { HoldingDeposit } from 'pages/FeesAndDeposits/components/HoldingDeposit/HoldingDeposit';
 

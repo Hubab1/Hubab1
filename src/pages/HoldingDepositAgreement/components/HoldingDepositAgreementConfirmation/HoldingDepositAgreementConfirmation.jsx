@@ -6,8 +6,8 @@ import { css } from 'emotion';
 import { DOCUMENT_TYPE_HOLDING_DEPOSIT } from 'constants/constants';
 import API from 'api/api';
 
-import ActionButton from 'components//ActionButton/ActionButton';
-import GenericFormMessage from 'components//GenericFormMessage/GenericFormMessage';
+import ActionButton from 'common-components/ActionButton/ActionButton';
+import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import { H1, SpacedH3, Spacer } from 'assets/styles';
 import contract from 'assets/images/contract.svg';
 

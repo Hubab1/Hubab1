@@ -9,8 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Info from '@material-ui/icons/Info';
 
 import { prettyCurrency } from 'utils/misc';
-import SimplePopover from 'components//SimplePopover/SimplePopover';
-import PaidText from 'components//PaidText/PaidText';
+import SimplePopover from 'common-components/SimplePopover/SimplePopover';
+import PaidText from 'common-components/PaidText/PaidText';
 import { CardRowBorderless, P, infoIconRoot } from 'assets/styles';
 
 const SelfSelectedAmountContainer = styled.div`

@@ -16,8 +16,8 @@ import {
 } from 'constants/constants';
 import { allValuesSet } from 'utils/formik';
 
-import ActionButton from 'components//ActionButton/ActionButton';
-import FormTextInput from 'components//FormTextInput/FormTextInput';
+import ActionButton from 'common-components/ActionButton/ActionButton';
+import FormTextInput from 'common-components/FormTextInput/FormTextInput';
 import UploadDocuments from 'pages/Banking/components/UploadDocuments/UploadDocuments';
 import { Spacer } from 'assets/styles';
 

@@ -4,7 +4,7 @@ import { act } from 'react-dom/test-utils';
 
 import API from 'api/api';
 import { HoldingDepositAgreementConfirmation } from './HoldingDepositAgreementConfirmation';
-import ActionButton from 'components//ActionButton/ActionButton';
+import ActionButton from 'common-components/ActionButton/ActionButton';
 
 let defaultProps;
 

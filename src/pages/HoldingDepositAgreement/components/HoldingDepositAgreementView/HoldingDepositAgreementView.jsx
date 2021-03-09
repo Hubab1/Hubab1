@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from 'emotion';
 
-import ActionButton from 'components//ActionButton/ActionButton';
-import { BackLink } from 'components//BackLink/BackLink';
+import ActionButton from 'common-components/ActionButton/ActionButton';
+import { BackLink } from 'common-components/BackLink/BackLink';
 import { H1, SpacedH3, Spacer } from 'assets/styles';
 import contract from 'assets/images/contract.svg';
 

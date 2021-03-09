@@ -1,3 +1,3 @@
-import LeaseTermsPage from './components/LeaseTermsPage/LeaseTermsPage';
+import LeaseTermsPage from './LeaseTermsPage';
 
 export default LeaseTermsPage;

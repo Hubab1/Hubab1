@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 import { INCOME_TYPE_OTHER } from 'constants/constants';
-import ActionButton from 'components//ActionButton/ActionButton';
+import ActionButton from 'common-components/ActionButton/ActionButton';
 import { AddFinancialSourceForm } from './AddFinancialSourceForm';
 
 let defaultProps;

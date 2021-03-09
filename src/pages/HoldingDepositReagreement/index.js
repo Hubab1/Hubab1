@@ -1,3 +1,3 @@
-import HoldingDepositReagreementPage from './components/HoldingDepositReagreementPage/HoldingDepositReagreementPage';
+import HoldingDepositReagreementPage from './HoldingDepositReagreementPage';
 
 export default HoldingDepositReagreementPage;

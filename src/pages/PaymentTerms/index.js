@@ -1,3 +1,3 @@
-import PaymentTermsPage from './components/PaymentTermsPage/PaymentTermsPage';
+import PaymentTermsPage from './PaymentTermsPage';
 
 export default PaymentTermsPage;

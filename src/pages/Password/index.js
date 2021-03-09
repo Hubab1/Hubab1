@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'constants/constants';
-import UnauthenticatedPage from 'components//Pages/UnauthenticatedPage/UnauthenticatedPage';
-import ForgotPasswordPage from './pages/ForgotPassword';
-import ResetPasswordVerificationPage from './pages/ResetPasswordVerification';
-import ResetPassword from './pages/ResetPassword';
+import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import ResetPassword from './ResetPasswordPage/ResetPasswordPage';
+import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
+import ResetPasswordVerificationPage from './ResetPasswordVerificationPage/ResetPasswordVerificationPage';
 
 class PasswordContainer extends Component {
     render() {
