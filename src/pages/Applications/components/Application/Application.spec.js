@@ -12,68 +12,90 @@ import Application from './Application';
 describe('Application', () => {
     let application = {};
     beforeEach(() => {
-       application = {
-           id: 1,
-           status: ACTIVE_APPLICATION_STATUSES[0],
-           lease_start_date: new Date('01-01-2020').toISOString(),
-           lease_term: 12,
-           fees_breakdown: {
-               monthly_fees: {
-                   total: '1.500',
-               },
-           },
-           role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
-           unit: {
-               unit_number: '12',
-           },
-           community: {
-               display_name: 'Community Alpha',
-           },
-       };
+        application = {
+            id: 1,
+            status: ACTIVE_APPLICATION_STATUSES[0],
+            lease_start_date: new Date('01-01-2020').toISOString(),
+            lease_term: 12,
+            fees_breakdown: {
+                monthly_fees: {
+                    total: '1.500',
+                },
+            },
+            role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
+            unit: {
+                unit_number: '12',
+            },
+            community: {
+                display_name: 'Community Alpha',
+            },
+        };
     });
 
     it('renders application statuses and colors', () => {
         let wrapper;
 
         // Black statusses
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS}} />);
+        wrapper = shallow(
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
+            />
+        );
         expect(wrapper.html().includes('<span style="color:#000">In Progress</span>')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_SUBMITTED}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_SUBMITTED }} />
+        );
         expect(wrapper.html().includes('<span style="color:#000">Submitted</span>')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }} />
+        );
         expect(wrapper.html().includes('<span style="color:#000">Completed</span>')).toBe(true);
 
         // Green statusses
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED }} />
+        );
         expect(wrapper.html().includes('<span style="color:#67C18B">Approved</span>')).toBe(true);
 
         // Yellow statusses
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED}} />);
+        wrapper = shallow(
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED }}
+            />
+        );
         expect(wrapper.html().includes('<span style="color:#FAC700">Conditionally Approved</span>')).toBe(true);
 
         // Red statusses
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_DENIED}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_DENIED }} />
+        );
         expect(wrapper.html().includes('<span style="color:#FB6D68">Denied</span>')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED }} />
+        );
         expect(wrapper.html().includes('<span style="color:#FB6D68">Canceled</span>')).toBe(true);
     });
 
     it('renders applicant roles', () => {
         let wrapper;
 
-        wrapper = shallow(<Application application={{...application, role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT }} />
+        );
         expect(wrapper.html().includes('Main Applicant')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT}} />);
+        wrapper = shallow(
+            <Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT }} />
+        );
         expect(wrapper.html().includes('Roommate')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, role: APPLICANT_ROLE_VALUES.ROLE_GUARANTOR}} />);
+        wrapper = shallow(<Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_GUARANTOR }} />);
         expect(wrapper.html().includes('Guarantor')).toBe(true);
 
-        wrapper = shallow(<Application application={{...application, role: APPLICANT_ROLE_VALUES.ROLE_OCCUPANT}} />);
+        wrapper = shallow(<Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_OCCUPANT }} />);
         expect(wrapper.html().includes('Occupant')).toBe(true);
     });
 
