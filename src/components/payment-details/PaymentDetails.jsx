@@ -11,7 +11,16 @@ import { PaymentDetailsCard } from 'components/payment-details/PaymentDetailsCar
 import { PaymentTerms } from 'components/fees-deposits/PaymentTerms';
 import { termsDiv, viewPaymentTerms } from './styles';
 
-export const PaymentDetails = ({ profile, configuration, payables, fetchPayments, applicant }) => {
+import { selectors } from 'reducers/renter-profile';
+
+export const PaymentDetails = ({
+    profile,
+    configuration,
+    fetchPayments,
+    applicant,
+    applicationFees,
+    applicationFeesTotal,
+}) => {
     const [currentPage, setCurrentPage] = useState('summary');
     useEffect(() => {
         fetchPayments();
@@ -46,7 +55,7 @@ export const PaymentDetails = ({ profile, configuration, payables, fetchPayments
             <>
                 <H1>Payment Details</H1>
                 <SpacedH3>Here’s the breakdown for unit {unitNumber}</SpacedH3>
-                <PaymentDetailsCard fetchPayments={fetchPayments} payables={payables} profile={profile} />
+                <PaymentDetailsCard fetchPayments={fetchPayments} profile={profile} applicationFees={applicationFees} />
                 {hasReceipt && (
                     <div className={termsDiv}>
                         <P fontSize={14}>
@@ -66,13 +75,13 @@ PaymentDetails.propTypes = {
     profile: PropTypes.object.isRequired,
     applicant: PropTypes.object.isRequired,
     configuration: PropTypes.object.isRequired,
-    payables: PropTypes.array.isRequired,
+    applicationFees: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    applicationFees: selectors.applicationFees(state),
     profile: state.renterProfile,
     configuration: state.configuration,
-    payables: state.payments || [],
     applicant: state.applicant,
 });
 

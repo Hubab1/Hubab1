@@ -143,6 +143,7 @@ const APPLICATION_TOOLBAR_ROUTES = [ROUTES.APPLICATIONS];
 export function PersistentDrawerLeft({
     history,
     applicant,
+    applicationFees,
     profile,
     currentRoute,
     children,
@@ -305,7 +306,7 @@ export function PersistentDrawerLeft({
                             <H3>Payments</H3>
                             <ul>
                                 <li>
-                                    <b>${profile.fees_breakdown.application_fees.total}</b> due at application
+                                    <b>${applicationFees.total}</b> due at application
                                 </li>
                                 <li>
                                     <b>${profile.fees_breakdown.move_in_fees.total}</b> due at move in
@@ -344,6 +345,7 @@ export function PersistentDrawerLeft({
 PersistentDrawerLeft.propTypes = {
     history: PropTypes.object,
     applicant: PropTypes.object,
+    applicationFees: PropTypes.object,
     profile: PropTypes.object,
     currentRoute: PropTypes.string,
     children: PropTypes.array,
@@ -355,6 +357,7 @@ PersistentDrawerLeft.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    applicationFees: profileSelectors.applicationFees(state),
     profile: state.renterProfile,
     canAccessRoute: (route) => profileSelectors.canAccessRoute(state, route),
     navRoutes: profileSelectors.selectNav(state),

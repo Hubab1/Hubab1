@@ -28,7 +28,26 @@ describe('PaymentDetails', () => {
                     },
                 },
             },
-            payables: [{ paid: true }, { paid: true }, { paid: true }],
+            applicationFees: {
+                total: 620,
+                allPaid: true,
+                items: [
+                    {
+                        name: 'Application Fee',
+                        amount: 500,
+                        quantity: 4,
+                        price: 125,
+                        type: 'fee',
+                    },
+                    {
+                        name: 'Holding Deposit',
+                        amount: 120,
+                        quantity: 1,
+                        price: 120,
+                        type: 'fee',
+                    },
+                ],
+            },
         };
     });
 

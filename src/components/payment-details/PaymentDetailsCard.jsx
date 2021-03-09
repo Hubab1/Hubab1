@@ -25,9 +25,8 @@ export const PaymentCard = styled(Card)`
     padding: 15px;
 `;
 
-export const PaymentDetailsCard = ({ profile, payables = [] }) => {
+export const PaymentDetailsCard = ({ profile, applicationFees }) => {
     const leaseStartDate = format(parseISO(profile.lease_start_date), 'MM/dd/yyyy');
-    const allPaymentsPaid = !payables.find((payment) => !payment.paid);
 
     return (
         <PaymentCard>
@@ -42,12 +41,12 @@ export const PaymentDetailsCard = ({ profile, payables = [] }) => {
                 </div>
             </div>
             <PaymentItemsExpansionPanel
-                amount={profile.fees_breakdown.application_fees.total}
+                amount={applicationFees.total}
                 label={'due at application'}
                 defaultExpanded={false}
-                isPaid={allPaymentsPaid}
+                isPaid={applicationFees.allPaid}
             >
-                <PaymentDetailRows paymentObject={profile.fees_breakdown.application_fees} paymentType="application" />
+                <PaymentDetailRows paymentObject={applicationFees} paymentType="application" />
             </PaymentItemsExpansionPanel>
             <PaymentItemsExpansionPanel
                 amount={profile.fees_breakdown.move_in_fees.total}
@@ -113,4 +112,5 @@ PaymentItemsExpansionPanel.propTypes = {
     label: PropTypes.string.isRequired,
     amount: PropTypes.string.isRequired,
     isPaid: PropTypes.bool,
+    applicationFees: PropTypes.object,
 };

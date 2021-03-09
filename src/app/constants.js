@@ -186,6 +186,11 @@ export const APPLICATION_STATUSES = {
 export const LINE_ITEM_TYPE_APPLICATION_FEE = 10;
 export const LINE_ITEM_TYPE_HOLDING_DEPOSIT = 20;
 
+export const LINE_ITEM_TYPES = {
+    [LINE_ITEM_TYPE_APPLICATION_FEE]: 'Application Fee',
+    [LINE_ITEM_TYPE_HOLDING_DEPOSIT]: 'Holding Deposit',
+};
+
 // applicant status constants
 export const CO_APPLICANT_STATUS_NOT_STARTED = 'Not Started';
 export const CO_APPLICANT_STATUS_IN_PROGRESS = 'In Progress';
