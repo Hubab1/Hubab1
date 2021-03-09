@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationsPages - match snapshots useApplications error shows error notification 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="makeStyles-header-3"
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-title-4"
+      variant="h1"
+    >
+      My Applications
+    </ForwardRef(WithStyles)>
+    <GenericFormDetail
+      messages="Woops"
+      type="error"
+    />
+  </div>
+</div>
+`;
+
+exports[`ApplicationsPages - match snapshots useApplications loading shows empty page 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="makeStyles-header-3"
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-title-4"
+      variant="h1"
+    >
+      My Applications
+    </ForwardRef(WithStyles)>
+  </div>
+</div>
+`;
+
+exports[`ApplicationsPages - match snapshots useApplications success with application shows active and past application sections 1`] = `
+<Page
+  className="makeStyles-root-1"
+  loading={false}
+  title="My Applications"
+>
+  <div
+    className="makeStyles-section-2"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Active Applications
+    </ForwardRef(WithStyles)>
+    <Application
+      application={
+        Object {
+          "id": "active-application",
+          "lastActivity": "01-02-2020",
+          "role": 10,
+          "status": 5,
+        }
+      }
+      isActive={true}
+    />
+  </div>
+  <div
+    className="makeStyles-section-2"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Past Applications
+    </ForwardRef(WithStyles)>
+    <Application
+      application={
+        Object {
+          "id": "past-application",
+          "lastActivity": "01-01-2020",
+          "role": 20,
+          "status": 25,
+        }
+      }
+      isActive={false}
+    />
+  </div>
+</Page>
+`;
+
+exports[`ApplicationsPages - match snapshots useApplications success without application shows sections with empty copy 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="makeStyles-header-3"
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-title-4"
+      variant="h1"
+    >
+      My Applications
+    </ForwardRef(WithStyles)>
+  </div>
+  <div
+    className="makeStyles-content-8"
+  >
+    <div
+      className="makeStyles-section-2"
+    >
+      <ForwardRef(WithStyles)
+        variant="h3"
+      >
+        Active Applications
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        variant="h4"
+      >
+        You don't have any active applications.
+      </ForwardRef(WithStyles)>
+    </div>
+    <div
+      className="makeStyles-section-2"
+    >
+      <ForwardRef(WithStyles)
+        variant="h3"
+      >
+        Past Applications
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        variant="h4"
+      >
+        You don't have any past applications.
+      </ForwardRef(WithStyles)>
+    </div>
+  </div>
+</div>
+`;
