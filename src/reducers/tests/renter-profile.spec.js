@@ -727,3 +727,57 @@ describe('selectUnit', () => {
         expect(actual).toBe(unit);
     });
 });
+
+describe('applicationFees', () => {
+    const state = {
+        payments: [
+            { paid: false, type: 10, amount: 120 },
+            { paid: false, type: 10, amount: 120 },
+            { paid: false, type: 20, amount: 300 },
+        ],
+    };
+
+    it('should return undefined when there are no payments', () => {
+        let state = { payments: [] };
+        let actual = selectors.applicationFees(state);
+        expect(actual).toBeUndefined;
+
+        state = {};
+        actual = selectors.applicationFees(state);
+        expect(actual).toBeUndefined;
+    });
+
+    it('creates an object with an allPaid flag, formatted items, and payment total', () => {
+        const actual = selectors.applicationFees(state);
+        expect(actual).toEqual({
+            allPaid: false,
+            items: [
+                {
+                    amount: 240,
+                    name: 'Application Fee',
+                    price: 120,
+                    quantity: 2,
+                    type: 'fee',
+                },
+                {
+                    amount: 300,
+                    name: 'Holding Deposit',
+                    price: 300,
+                    quantity: 1,
+                    type: 'fee',
+                },
+            ],
+            total: 540,
+        });
+    });
+
+    it('calculates allPaid == true when all payments have been paid', () => {
+        const newState = state.payments.map((p) => ({ ...p, paid: true }));
+        const actual = selectors.applicationFees(newState);
+        expect(actual).toEqual({
+            allPaid: true,
+            items: [],
+            total: 0,
+        });
+    });
+});
