@@ -48,7 +48,7 @@ export function ApplicationsPage() {
 
     return (
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
-            <div className={classes.section}>
+            <div data-testid="active-applications" className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
                 {active.map((application) => {
                     return <Application key={application.id} application={application} isActive />;
@@ -57,7 +57,7 @@ export function ApplicationsPage() {
                     <Typography variant="h4">{`You don't have any active applications.`}</Typography>
                 )}
             </div>
-            <div className={classes.section}>
+            <div data-testid="past-applications" className={classes.section}>
                 <Typography variant="h3">Past Applications</Typography>
                 {past.map((application) => {
                     return <Application key={application.id} application={application} isActive={false} />;

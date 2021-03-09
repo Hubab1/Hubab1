@@ -71,6 +71,7 @@ export function Application({ application = {}, isActive = true }) {
     return (
         <Card className={classes.root} elevation={2}>
             <CardHeader
+                data-testid="header"
                 title={
                     <Typography className={clsx(classes.typography, classes.title)} variant="body1">
                         <b>{title}</b>
@@ -102,7 +103,7 @@ export function Application({ application = {}, isActive = true }) {
             {isActive && (
                 <Collapse in={expaneded}>
                     <Divider className={classes.divider} />
-                    <CardContent>
+                    <CardContent data-testid="content">
                         <Typography className={classes.typography} variant="body1">
                             Move in Date:{' '}
                             <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '-'}</span>
