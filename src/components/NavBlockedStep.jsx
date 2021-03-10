@@ -28,16 +28,28 @@ const viewProgress = css`
 `;
 
 export function NavBlockedStep(props) {
-    const { text, history, config, initialPage, handleDrawerClose, stepProps, stepClass, buttonColor } = props;
+    const {
+        text,
+        history,
+        config,
+        initialPage,
+        handleDrawerClose,
+        stepProps,
+        stepClass,
+        buttonColor,
+        currentRoute,
+    } = props;
 
     const onClick = () => {
-        history.push(initialPage);
+        if (!currentRoute.startsWith(initialPage)) {
+            history.push(initialPage);
+        }
         handleDrawerClose && handleDrawerClose();
     };
 
     return (
         <Step active>
-            <StepLabel completed {...stepProps}>
+            <StepLabel {...stepProps}>
                 <span className={stepClass}>
                     {text} Please call us at{' '}
                     <a href={`tel:${config.community.contact_phone}`}>
@@ -74,6 +86,7 @@ NavBlockedStep.propTypes = {
 
 const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
+    currentRoute: state.siteConfig.currentRoute,
     config: state.configuration,
 });
 
@@ -104,6 +117,7 @@ export function NavBlockedCompletedStep(props) {
             stepProps={{
                 completed: true,
                 classes: { root: iconRoot },
+                icon: 1,
             }}
             buttonColor={'primary'}
         />

@@ -1,20 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavBlockedStep matches snapshot 1`] = `
+exports[`NavBlockedCompletedStep matches snapshot 1`] = `
+<ConnectFunction
+  buttonColor="primary"
+  stepClass="appCompletedMsg"
+  stepProps={
+    Object {
+      "classes": Object {
+        "root": "css-f2qeki",
+      },
+      "completed": true,
+      "icon": 1,
+    }
+  }
+  text="App is submitted."
+/>
+`;
+
+exports[`NavBlockedInProgressStep matches snapshot 1`] = `
+<ConnectFunction
+  buttonColor="default"
+  stepClass="stepBlockedMsg"
+  stepProps={
+    Object {
+      "StepIconComponent": [Function],
+      "active": true,
+      "classes": Object {
+        "root": "css-f2qeki",
+      },
+    }
+  }
+  text="You have to add guarantor."
+/>
+`;
+
+exports[`NavBlockedStep NavBlockedStepInProgress matches snapshot 1`] = `
 <ForwardRef(WithStyles)
   active={true}
 >
   <ForwardRef(WithStyles)
-    StepIconComponent={[Function]}
-    active={true}
-    classes={
-      Object {
-        "root": "css-f2qeki",
-      }
-    }
+    completed={true}
   >
     <span
-      className="stepBlockedMsg"
+      className="class"
     >
       We are waiting for xyz
        Please call us at
@@ -34,7 +62,6 @@ exports[`NavBlockedStep matches snapshot 1`] = `
         "root": "css-1lf61q0",
       }
     }
-    color="default"
     disabled={false}
     id="viewProgressButton"
     onClick={[Function]}

@@ -72,6 +72,7 @@ export function VerticalLinearStepper(props) {
     }
 
     const isNavigationBlocked =
+        unitUnavailable ||
         props.guarantorRequested ||
         outstandingBalance ||
         holdingDepositAgreementSignatureRequested ||
@@ -117,7 +118,7 @@ export function VerticalLinearStepper(props) {
         <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
             {isNavigationBlocked ? (
                 renderBlockedStep()
-            ) : true ? (
+            ) : !props.applicantStillFinishingApplication ? (
                 <NavBlockedCompletedStep text={'Your application has been completed and submitted.'} />
             ) : (
                 props.navRoutes.map((route, i) => (

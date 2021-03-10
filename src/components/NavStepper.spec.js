@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { getStepperIndex, VerticalLinearStepper } from 'components/NavStepper';
 import { MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED, ROUTES } from 'app/constants';
+import { NavBlockedInProgressStep, NavBlockedCompletedStep } from 'components/NavBlockedStep';
 
 describe('getStepperIndex', function () {
     it('gets the correct index for an unnested route', function () {
@@ -80,31 +81,8 @@ describe('Application submitted state', function () {
             handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const appCompletedMsg = wrapper.find('.appCompletedMsg');
-        expect(appCompletedMsg.text()).toContain(
-            'Your application has been completed and submitted. Please call us at 123‑456‑7891 if you have any questions.'
-        );
-        expect(wrapper.find('#viewProgressButton').text()).toContain('View Progress');
-    });
-
-    it('View Progress when clicked takes to the initialPage set', function () {
-        const defaultProps = {
-            navRoutes: [],
-            config: {
-                community: {
-                    contact_phone: '123-456-7891',
-                },
-            },
-            history: {
-                push: jest.fn(),
-            },
-            initialPage: '/application-complete',
-            handleDrawerClose: jest.fn(),
-        };
-        const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        wrapper.find('#viewProgressButton').simulate('click');
-        expect(defaultProps.history.push).toHaveBeenCalledWith('/application-complete');
-        expect(defaultProps.handleDrawerClose).toHaveBeenCalled();
+        const step = wrapper.find(NavBlockedCompletedStep);
+        expect(step.prop('text')).toBe('Your application has been completed and submitted.');
     });
 });
 
@@ -124,7 +102,7 @@ describe('Unit unavailable state', function () {
             handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const step = wrapper.find('Connect(withRouter(NavBlockedStep))');
+        const step = wrapper.find(NavBlockedInProgressStep);
         expect(step.prop('text')).toBe(
             "We've placed your application on hold for now, since the apartment you were interested in is no longer available."
         );
@@ -145,7 +123,7 @@ describe('Outstanding balance state', function () {
         };
 
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const step = wrapper.find('Connect(withRouter(NavBlockedStep))');
+        const step = wrapper.find(NavBlockedInProgressStep);
         expect(step.prop('text')).toBe(
             "You'll be able to move forward with your application once all outstanding balances have been paid."
         );
@@ -166,7 +144,7 @@ describe('Holding deposit reagreement state', function () {
         };
 
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const step = wrapper.find('Connect(withRouter(NavBlockedStep))');
+        const step = wrapper.find(NavBlockedInProgressStep);
         expect(step.prop('text')).toBe('We’ll need you to agree to the new holding deposit terms.');
     });
 });
@@ -186,7 +164,7 @@ describe('Guarantor requested state', function () {
         };
 
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const step = wrapper.find('Connect(withRouter(NavBlockedStep))');
+        const step = wrapper.find(NavBlockedInProgressStep);
         expect(step.prop('text')).toBe('We’re waiting for you to add a guarantor.');
     });
 });
@@ -208,7 +186,7 @@ describe('More documents needed', function () {
             handleDrawerClose: jest.fn(),
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
-        const step = wrapper.find('Connect(withRouter(NavBlockedStep))');
+        const step = wrapper.find(NavBlockedInProgressStep);
         expect(step.prop('text')).toBe('We’re requesting additional info to verify your income/assets.');
     });
 });

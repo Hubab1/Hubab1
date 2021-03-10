@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ROUTES } from 'app/constants';
-import { NavBlockedStep } from 'components/NavBlockedStep';
+import { NavBlockedCompletedStep, NavBlockedInProgressStep, NavBlockedStep } from 'components/NavBlockedStep';
 
 describe('NavBlockedStep', () => {
     const defaultProps = {
@@ -17,9 +17,13 @@ describe('NavBlockedStep', () => {
         history: {
             push: jest.fn(),
         },
+        stepProps: {
+            completed: true,
+        },
+        stepClass: 'class',
     };
 
-    it('matches snapshot', () => {
+    it('NavBlockedStepInProgress matches snapshot', () => {
         const wrapper = shallow(<NavBlockedStep {...defaultProps} />);
         expect(wrapper.getElement()).toMatchSnapshot();
     });
@@ -28,5 +32,19 @@ describe('NavBlockedStep', () => {
         const wrapper = shallow(<NavBlockedStep {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
         expect(defaultProps.history.push).toHaveBeenCalledWith('/income-employment/summary');
+    });
+});
+
+describe('NavBlockedInProgressStep', () => {
+    it('matches snapshot', () => {
+        const wrapper = shallow(<NavBlockedInProgressStep text={'You have to add guarantor.'} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+});
+
+describe('NavBlockedCompletedStep', () => {
+    it('matches snapshot', () => {
+        const wrapper = shallow(<NavBlockedCompletedStep text={'App is submitted.'} />);
+        expect(wrapper.getElement()).toMatchSnapshot();
     });
 });
