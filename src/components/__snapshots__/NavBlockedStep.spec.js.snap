@@ -62,6 +62,7 @@ exports[`NavBlockedStep NavBlockedStepInProgress matches snapshot 1`] = `
         "root": "css-1lf61q0",
       }
     }
+    color="primary"
     disabled={false}
     id="viewProgressButton"
     onClick={[Function]}
