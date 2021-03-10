@@ -58,7 +58,7 @@ without hash: `localhost:3000/1`
 
 with hash: `localhost:3000/1/?v=za7jDFkEML`
 
-### Project Structure:
+### Project Structure
 
 #### Global elements
 
@@ -97,6 +97,6 @@ In there you'll be able to find things like: apis, contants, hooks, reducers, an
         /PageWhatever.js
 ```
 
-### Documentation:
+### Documentation
 
 You can find very useful documentation and very helpful other resources related to Woodhouse, the Automated Online Project, and the development guidelines in the [Nuclino](https://app.nuclino.com/Nestio/Dev/Online-Leasing-d470cb31-b040-4fb0-946b-0da6e62c5ec6) page.
