@@ -109,7 +109,9 @@ export function Application({ application = {}, isActive = true }) {
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
                         Monthly Rent:{' '}
-                        <span>{fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}</span>
+                        <span>
+                            {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}
+                        </span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
                         Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>

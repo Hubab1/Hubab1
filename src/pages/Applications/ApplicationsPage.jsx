@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'app/constants';
-import * as hooks from '../../hooks';
+import * as hooks from './hooks';
 import Page from 'components/common/Page/Page';
-import Application from '../Application/Application';
+import Application from './components/Application';
 
 export const ERROR_MESSAGE = "Oops, we're having trouble obtaining your applications. Please try again later.";
 

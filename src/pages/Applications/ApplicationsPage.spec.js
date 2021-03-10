@@ -3,12 +3,12 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'app/constants';
-import * as hooks from '../../hooks';
+import * as hooks from './hooks';
 import ApplicationsPage from './ApplicationsPage';
-import Application from '../Application/Application';
+import Application from './components/Application';
 
 // Mock hooks, issue: https://stackoverflow.com/questions/53162001/typeerror-during-jests-spyon-cannot-set-property-getrequest-of-object-which
-jest.mock('../../hooks', () => ({
+jest.mock('./hooks', () => ({
     useApplications: jest.fn(),
 }));
 
