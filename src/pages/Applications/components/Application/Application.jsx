@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#000',
     },
     applicationId: {
+        color: '#828796',
         display: 'block',
         marginTop: theme.spacing(2),
     },
@@ -120,8 +121,8 @@ export function Application({ application = {}, isActive = true }) {
                         <Typography className={classes.typography} variant="body1">
                             Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
                         </Typography>
-                        <Typography className={clsx(classes.typography, classes.applicationId)} variant="caption">
-                            Application ID: <span>{id}</span>
+                        <Typography className={classes.applicationId} variant="caption">
+                            Application ID <span>{id}</span>
                         </Typography>
                     </CardContent>
                 </Collapse>

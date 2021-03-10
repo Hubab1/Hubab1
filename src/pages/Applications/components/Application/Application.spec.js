@@ -1,12 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {
-    ACTIVE_APPLICATION_STATUSES,
-    PAST_APPLICATION_STATUSES,
-    APPLICANT_ROLE_VALUES,
-    APPLICATION_STATUSES,
-} from 'app/constants';
+import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES } from 'app/constants';
 import Application from './Application';
 
 describe('Application', () => {
@@ -109,7 +104,7 @@ describe('Application', () => {
         expect(content.html().includes('Lease Term: <span>12</span>')).toBe(true);
         expect(content.html().includes('Monthly Rent: <span>$1.500</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
-        expect(content.html().includes('Application ID: <span>1</span>')).toBe(true);
+        expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
     });
 
     it('renders active application content - missing data', () => {
@@ -130,7 +125,7 @@ describe('Application', () => {
         expect(content.html().includes('Lease Term: <span>-</span>')).toBe(true);
         expect(content.html().includes('Monthly Rent: <span>-</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
-        expect(content.html().includes('Application ID: <span>1</span>')).toBe(true);
+        expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
     });
 
     it('renders past application', () => {
