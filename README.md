@@ -58,7 +58,7 @@ with hash: `localhost:3000/1/?v=za7jDFkEML`
 ### Project Structure:
 #### Global elements
 All globally used elements are located directly in the root `src` directory. 
-In there you'll be able to find things like: apis, contants, hooksm, reducers, and much more. 
+In there you'll be able to find things like: apis, contants, hooks, reducers, and much more. 
 
 
 #### How are our components and pages structured?
@@ -72,7 +72,7 @@ In there you'll be able to find things like: apis, contants, hooksm, reducers, a
 
 /pages
     /Page                                          <-- Each page is grouped inside it's own directory too!
-        /Page.jsx                                      (following the same patterns as a component's directory)
+        /Page.jsx                                      (following the same pattern as a common-component's directory)
         /Page.spec.js
         /PageStykes.js
     
@@ -88,7 +88,7 @@ In there you'll be able to find things like: apis, contants, hooksm, reducers, a
             /InnerPageY.jsx
             /InnerPageY.spec.jsx
 
-        /PageUtils.js                              <-- Or other files that only belong to this page
+        /PageUtils.js                              <-- And other files that only belong to this page
         /PageReducer.js
         /PageWhatever.js
 ```
