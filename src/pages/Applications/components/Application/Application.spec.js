@@ -74,9 +74,9 @@ describe('Application', () => {
         expect(wrapper.html().includes('<span style="color:#FB6D68">Denied</span>')).toBe(true);
 
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED }} />
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED }} />
         );
-        expect(wrapper.html().includes('<span style="color:#FB6D68">Canceled</span>')).toBe(true);
+        expect(wrapper.html().includes('<span style="color:#FB6D68">Cancelled</span>')).toBe(true);
     });
 
     it('renders applicant roles', () => {
@@ -107,7 +107,7 @@ describe('Application', () => {
         expect(header.html().includes('Community Alpha, #12')).toBe(true);
         expect(content.html().includes('Move in Date: <span>01/01/2020</span>')).toBe(true);
         expect(content.html().includes('Lease Term: <span>12</span>')).toBe(true);
-        expect(content.html().includes('Montly Rent: <span>$1.500</span>')).toBe(true);
+        expect(content.html().includes('Monthly Rent: <span>$1.500</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID: <span>1</span>')).toBe(true);
     });
@@ -128,7 +128,7 @@ describe('Application', () => {
         expect(header.html().includes('Community Alpha')).toBe(true);
         expect(content.html().includes('Move in Date: <span>-</span>')).toBe(true);
         expect(content.html().includes('Lease Term: <span>-</span>')).toBe(true);
-        expect(content.html().includes('Montly Rent: <span>-</span>')).toBe(true);
+        expect(content.html().includes('Monthly Rent: <span>-</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID: <span>1</span>')).toBe(true);
     });

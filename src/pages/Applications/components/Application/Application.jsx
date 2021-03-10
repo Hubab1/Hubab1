@@ -112,7 +112,7 @@ export function Application({ application = {}, isActive = true }) {
                             Lease Term: <span>{lease_term ? lease_term : '-'}</span>
                         </Typography>
                         <Typography className={classes.typography} variant="body1">
-                            Montly Rent:{' '}
+                            Monthly Rent:{' '}
                             <span>
                                 {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}
                             </span>
