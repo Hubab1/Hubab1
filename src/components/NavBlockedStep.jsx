@@ -27,7 +27,9 @@ const viewProgress = css`
     display: block !important;
 `;
 
-export function NavBlockedStep({ text, history, config, initialPage, handleDrawerClose }) {
+export function NavBlockedStep(props) {
+    const { text, history, config, initialPage, handleDrawerClose, stepProps, stepClass } = props;
+
     const onClick = () => {
         history.push(initialPage);
         handleDrawerClose && handleDrawerClose();
@@ -35,8 +37,8 @@ export function NavBlockedStep({ text, history, config, initialPage, handleDrawe
 
     return (
         <Step active>
-            <StepLabel StepIconComponent={() => <ErrorIcon color="primary" />} active classes={{ root: iconRoot }}>
-                <span className="stepBlockedMsg">
+            <StepLabel {...stepProps}>
+                <span className={stepClass}>
                     {text} Please call us at{' '}
                     <a href={`tel:${config.community.contact_phone}`}>
                         {prettyFormatPhoneNumber(config.community.contact_phone)}
@@ -66,6 +68,8 @@ NavBlockedStep.propTypes = {
     text: PropTypes.string.isRequired,
     config: PropTypes.object.isRequired,
     handleDrawerClose: PropTypes.func,
+    stepClass: PropTypes.string.isRequired,
+    stepProps: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -73,4 +77,41 @@ const mapStateToProps = (state) => ({
     config: state.configuration,
 });
 
-export default connect(mapStateToProps, null)(withRouter(NavBlockedStep));
+const ConnectedNavBlockedStep = connect(mapStateToProps, null)(withRouter(NavBlockedStep));
+
+export default ConnectedNavBlockedStep;
+
+export function NavBlockedInProgressStep(props) {
+    return (
+        <ConnectedNavBlockedStep
+            {...props}
+            stepClass={'stepBlockedMsg'}
+            stepProps={{
+                active: true,
+                classes: { root: iconRoot },
+                StepIconComponent: () => <ErrorIcon color="primary" />,
+            }}
+        />
+    );
+}
+
+export function NavBlockedCompletedStep(props) {
+    return (
+        <ConnectedNavBlockedStep
+            {...props}
+            stepClass={'appCompletedMsg'}
+            stepProps={{
+                completed: true,
+                classes: { root: iconRoot },
+            }}
+        />
+    );
+}
+
+NavBlockedCompletedStep.propTypes = {
+    text: PropTypes.string.isRequired,
+};
+
+NavBlockedInProgressStep.propTypes = {
+    text: PropTypes.string.isRequired,
+};

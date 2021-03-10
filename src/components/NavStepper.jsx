@@ -11,29 +11,19 @@ import PropTypes from 'prop-types';
 import { MOCKY } from 'app/api';
 import { selectors } from 'reducers/renter-profile';
 import { actions } from 'reducers/store';
-import { prettyFormatPhoneNumber } from 'utils/misc';
-import Button from '@material-ui/core/Button';
 import { ROUTES } from 'app/constants';
 import {
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
     MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
 } from 'app/constants';
-import NavBlockedStep from 'components/NavBlockedStep';
+import { NavBlockedCompletedStep, NavBlockedInProgressStep } from 'components/NavBlockedStep';
 
 const useStyles = makeStyles(() => ({
     root: {
         padding: 0,
     },
 }));
-
-const iconRoot = css`
-    align-items: flex-start !important;
-    .appCompletedMsg,
-    .outstandingBalance {
-        color: #828796;
-    }
-`;
 
 const active = css`
     .MuiStepLabel-active {
@@ -46,15 +36,6 @@ const accessible = css`
     .Mui-disabled {
         cursor: pointer !important;
     }
-`;
-
-const viewProgress = css`
-    width: 192px;
-    border-radius: 30px !important;
-    text-transform: none !important;
-    font-size: 16px !important;
-    margin: 30px auto !important;
-    display: block !important;
 `;
 
 export function getStepperIndex(routes, currentRoute) {
@@ -90,13 +71,55 @@ export function VerticalLinearStepper(props) {
         }
     }
 
+    const isNavigationBlocked =
+        props.guarantorRequested ||
+        outstandingBalance ||
+        holdingDepositAgreementSignatureRequested ||
+        additionalDocumentsRequested;
+
+    function renderBlockedStep() {
+        if (unitUnavailable && !props.guarantorRequested) {
+            return (
+                <NavBlockedInProgressStep
+                    text={`We've placed your application on hold for now, since the apartment you were interested in is no longer available.`}
+                />
+            );
+        }
+
+        if (holdingDepositAgreementSignatureRequested && !props.guarantorRequested) {
+            return (
+                <NavBlockedInProgressStep
+                    text={`We’ll need you to agree to the new holding deposit terms.`}
+                    handleDrawerClose={props.handleDrawerClose}
+                />
+            );
+        }
+
+        if (props.guarantorRequested) {
+            return <NavBlockedInProgressStep text={`We’re waiting for you to add a guarantor.`} />;
+        }
+
+        if (additionalDocumentsRequested) {
+            return <NavBlockedInProgressStep text={`We’re requesting additional info to verify your income/assets.`} />;
+        }
+
+        if (outstandingBalance) {
+            return (
+                <NavBlockedInProgressStep
+                    text={`You'll be able to move forward with your application once all outstanding balances have been paid.`}
+                    handleDrawerClose={props.handleDrawerClose}
+                />
+            );
+        }
+    }
+
     return (
         <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
-            {props.applicantStillFinishingApplication &&
-                !unitUnavailable &&
-                !props.guarantorRequested &&
-                !holdingDepositAgreementSignatureRequested &&
-                !additionalDocumentsRequested &&
+            {isNavigationBlocked ? (
+                renderBlockedStep()
+            ) : !props.applicantStillFinishingApplication ? (
+                <NavBlockedCompletedStep text={'Your application has been completed and submitted.'} />
+            ) : (
                 props.navRoutes.map((route, i) => (
                     <Step
                         classes={{
@@ -113,69 +136,8 @@ export function VerticalLinearStepper(props) {
                             {route.name}
                         </StepLabel>
                     </Step>
-                ))}
-
-            {unitUnavailable && !props.guarantorRequested && (
-                <NavBlockedStep
-                    text={`We've placed your application on hold for now, since the apartment you were interested in is no longer available.`}
-                />
+                ))
             )}
-
-            {holdingDepositAgreementSignatureRequested && !props.guarantorRequested && (
-                <NavBlockedStep
-                    text={`We’ll need you to agree to the new holding deposit terms.`}
-                    handleDrawerClose={props.handleDrawerClose}
-                />
-            )}
-
-            {props.guarantorRequested && <NavBlockedStep text={`We’re waiting for you to add a guarantor.`} />}
-
-            {additionalDocumentsRequested &&
-                !props.guarantorRequested &&
-                !unitUnavailable &&
-                !holdingDepositAgreementSignatureRequested && (
-                    <NavBlockedStep text={`We’re requesting additional info to verify your income/assets.`} />
-                )}
-
-            {outstandingBalance && (
-                <NavBlockedStep
-                    text={`You'll be able to move forward with your application once all outstanding balances have been paid.`}
-                    handleDrawerClose={props.handleDrawerClose}
-                />
-            )}
-
-            {!props.applicantStillFinishingApplication &&
-                !props.guarantorRequested &&
-                !outstandingBalance &&
-                !holdingDepositAgreementSignatureRequested &&
-                !additionalDocumentsRequested && (
-                    <Step active>
-                        <StepLabel completed classes={{ root: iconRoot }}>
-                            <span className="appCompletedMsg">
-                                Your application has been completed and submitted. Please call us at&nbsp;
-                                <a href={`tel:${props.config.community.contact_phone}`}>
-                                    {prettyFormatPhoneNumber(props.config.community.contact_phone)}
-                                </a>{' '}
-                                if you have any questions.
-                            </span>
-                        </StepLabel>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            id="viewProgressButton"
-                            classes={{
-                                root: viewProgress,
-                            }}
-                            disabled={false}
-                            onClick={() => {
-                                props.history.push(props.initialPage);
-                                props.handleDrawerClose();
-                            }}
-                        >
-                            View Progress
-                        </Button>
-                    </Step>
-                )}
         </Stepper>
     );
 }
