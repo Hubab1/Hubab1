@@ -10,7 +10,7 @@ import { serializeDate } from 'utils/misc';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { actions as modalActions } from 'reducers/loader';
 
-import ConfirmationPage from 'common-components/Pages/ConfirmationPage/ConfirmationPage';
+import ConfirmationPage from 'pages/Confirmation';
 import BackLink from 'common-components/BackLink/BackLink';
 import InviteForm from 'common-components//InviteForm/InviteForm';
 import { H1, H3 } from 'assets/styles';

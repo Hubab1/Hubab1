@@ -12,7 +12,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import AccountForm from 'common-components//AccountForm/AccountForm';
 import { H1, P, link } from 'assets/styles';
 

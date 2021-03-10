@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Main } from './Main';
-import CriticalErrorPage from 'common-components/Pages/CriticalErrorPage/CriticalErrorPage';
+import CriticalErrorPage from 'pages/CriticalError';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
 

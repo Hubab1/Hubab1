@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import * as sentryUtils from 'utils/sentry';
 import ErrorBoundary from './ErrorBoundary';
-import CriticalErrorPage from 'common-components/Pages/CriticalErrorPage/CriticalErrorPage';
+import CriticalErrorPage from 'pages/CriticalError';
 
 describe('ErrorBoundary', () => {
     it('render alternative UI and loggs error to sentry when app crashes', () => {

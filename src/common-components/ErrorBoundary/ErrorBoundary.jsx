@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { logToSentry } from 'utils/sentry';
-import CriticalErrorPage from 'common-components/Pages/CriticalErrorPage/CriticalErrorPage';
+import CriticalErrorPage from 'pages/CriticalError';
 
 const initialState = {
     hasError: false,

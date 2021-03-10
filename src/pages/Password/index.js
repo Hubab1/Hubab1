@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from 'constants/constants';
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import ResetPassword from './pages/ResetPasswordPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordVerificationPage from './pages/ResetPasswordVerificationPage';

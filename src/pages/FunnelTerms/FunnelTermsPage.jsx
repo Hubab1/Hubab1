@@ -9,7 +9,7 @@ import captureRoute from 'utils/captureRoute';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 
 import { ScrollableTermsCardSection, Card } from 'assets/styles';
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 
 export const TERMS_HEADER = styled.h1`
     font-weight: 600 !important;

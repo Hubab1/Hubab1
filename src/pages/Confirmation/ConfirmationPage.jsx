@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1, H3 } from 'assets/styles';
-import { ImageContainer } from './styles';
+import { ImageContainer } from './ConfirmationPageStyles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 
 const SpacedH3 = styled(H3)`

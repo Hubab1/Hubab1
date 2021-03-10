@@ -15,10 +15,10 @@ import { actions as mainActions } from 'reducers/store';
 import { selectors as configSelectors } from 'reducers/configuration';
 
 import AppContextProvider from 'app/AppContextProvider';
-import CriticalError from 'common-components/Pages/CriticalErrorPage/CriticalErrorPage';
 import NavDrawer from 'common-components/NavDrawer/NavDrawer';
 import ResendLinkForm from 'common-components//ResendLinkForm/ResendLinkForm';
 
+import CriticalError from 'pages/CriticalError';
 import WelcomePage from 'pages/Welcome';
 import LoginPage from 'pages/Login';
 import SignupPage from 'pages/Signup';

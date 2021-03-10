@@ -8,7 +8,7 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as loaderActions } from 'reducers/loader';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import LoginForm from 'common-components//LoginForm/LoginForm';
 import { H1, SpacedH3 } from 'assets/styles';

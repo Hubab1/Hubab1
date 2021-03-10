@@ -6,7 +6,7 @@ import { ROUTES } from 'constants/constants';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import captureRoute from 'utils/captureRoute';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import FAQ from 'pages/FAQ/components/FAQ';
 
 export function FAQPage({ config, isSignedIn }) {

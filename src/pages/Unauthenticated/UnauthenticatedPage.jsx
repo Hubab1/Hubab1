@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 
-import { Banner } from './styles';
+import { Banner } from './UnauthenticatedPageStyles';
 import { Logo } from 'assets/styles';
 import { AppTheme } from 'app/AppContextProvider';
 

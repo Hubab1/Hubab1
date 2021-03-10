@@ -7,7 +7,7 @@ import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import { ScrollableTermsCardSection, Card } from 'assets/styles';
 
 export const TERMS_HEADER = styled.h1`

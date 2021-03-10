@@ -8,7 +8,7 @@ import { ROUTES, TOS_TYPE_NESTIO } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1, Card, ScrollableTermsCardSection } from 'assets/styles';
 

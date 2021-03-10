@@ -7,7 +7,7 @@ import { ROUTES } from 'constants/constants';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import captureRoute from 'utils/captureRoute';
 
-import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import { H1, SpacedH3, P } from 'assets/styles';
 import tooslow from 'assets/images/tooslow.png';
 

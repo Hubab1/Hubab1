@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import API from 'api/api';
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'constants/constants';
 import { GuarantorPage } from './GuarantorPage';
-import ConfirmationPage from 'common-components/Pages/ConfirmationPage/ConfirmationPage';
+import ConfirmationPage from 'pages/Confirmation';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 
 let defaultProps;

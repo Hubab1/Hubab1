@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { DOES_NOT_EXIST } from 'constants/constants';
 import { basenameReceived } from 'reducers/site-config';
 
-import Main from 'common-components/Main/Main';
-import NotFoundPage from 'common-components/Pages/NotFoundPage/NotFoundPage';
+import Main from './Main';
+import NotFoundPage from 'pages/NotFound';
 import ScrollToTop from 'common-components/ScrollToTop/ScrollToTop';
 
 export class App extends Component {
