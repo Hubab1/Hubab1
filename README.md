@@ -55,6 +55,45 @@ without hash: `localhost:3000/1`
 
 with hash: `localhost:3000/1/?v=za7jDFkEML`
 
+### Project Structure:
+#### Global elements
+All globally used elements are located directly in the root `src` directory. 
+In there you'll be able to find things like: apis, contants, hooksm, reducers, and much more. 
 
-## Documentation:
+
+#### How are our components and pages structured?
+
+```
+/common-components                                 <-- Contains all commonly used components
+    /Component                                     <-- Each component is grouped inside it's own directory
+        /Component.jsx
+        /Component.spec.js
+        /ComponentStyles.js
+
+/pages
+    /Page                                          <-- Each page is grouped inside it's own directory too!
+        /Page.jsx                                      (following the same patterns as a component's directory)
+        /Page.spec.js
+        /PageStykes.js
+    
+        /components                                <-- A page can have it's own components directory
+            /PageComponentX.jsx
+            /PageComponentX.spec.js
+            /PageComponentY.jsx
+            /PageComponentY.spec.
+
+        /pages                                     <-- Or even have it's own inner pages
+            /InnerPageX.jsx
+            /InnerPageX.spec.jsx
+            /InnerPageY.jsx
+            /InnerPageY.spec.jsx
+
+        /PageUtils.js                              <-- Or other files that only belong to this page
+        /PageReducer.js
+        /PageWhatever.js
+```
+
+### Documentation:
 You can find very useful documentation and very helpful other resources related to Woodhouse, the Automated Online Project, and the development guidelines in the [Nuclino](https://app.nuclino.com/Nestio/Dev/Online-Leasing-d470cb31-b040-4fb0-946b-0da6e62c5ec6) page.
+
+
