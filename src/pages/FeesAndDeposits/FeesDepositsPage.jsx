@@ -11,9 +11,9 @@ import { fetchApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
 import PaymentTerms from 'common-components/PaymentTerms/PaymentTerms';
-import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions/FeesDepositsOptions';
-import Payment from 'pages/FeesAndDeposits/components/Payment/Payment';
-import FeesDepositsReceipt from 'pages/FeesAndDeposits/components/FeesDepositsReceipt/FeesDepositsReceipt';
+import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions';
+import Payment from 'pages/FeesAndDeposits/components/Payment';
+import FeesDepositsReceipt from 'pages/FeesAndDeposits/components/FeesDepositsReceipt';
 
 export const FeesDepositsPage = ({
     _prev,

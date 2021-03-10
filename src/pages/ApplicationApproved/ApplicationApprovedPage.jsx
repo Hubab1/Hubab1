@@ -7,8 +7,8 @@ import captureRoute from 'utils/captureRoute';
 import { applicantUpdated } from 'reducers/applicant';
 import { fetchPayments } from 'reducers/payments';
 
-import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView/ApplicationApprovedView';
-import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView/SignLeaseView';
+import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView';
+import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView';
 
 export const ApplicationApprovedPage = ({ profile, configuration, history, applicantUpdated, applicant, payables }) => {
     const [showPaymentDetails, setShowPaymentDetails] = useState(false);

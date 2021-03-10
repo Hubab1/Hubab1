@@ -10,7 +10,7 @@ import { fetchPayments } from 'reducers/payments';
 import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDetailsCard/PaymentDetailsCard';
 import { PaymentTerms } from 'common-components/PaymentTerms/PaymentTerms';
 import { H1, P, SpacedH3 } from 'assets/styles';
-import { termsDiv, viewPaymentTerms } from './styles';
+import { termsDiv, viewPaymentTerms } from './PaymentDetailsPageStyles';
 
 export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPayments, applicant }) => {
     const [currentPage, setCurrentPage] = useState('summary');

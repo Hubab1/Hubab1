@@ -6,8 +6,8 @@ import { MILESTONE_LEASE_SENT } from 'constants/constants';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 
 import { ApplicationApprovedPage } from './ApplicationApprovedPage';
-import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView/ApplicationApprovedView';
-import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView/SignLeaseView';
+import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView';
+import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView';
 import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDetailsCard/PaymentDetailsCard';
 import { LinkButton } from 'assets/styles';
 

@@ -7,7 +7,7 @@ import { sessionIsValidForCommunityId } from 'utils/misc';
 import captureRoute from 'utils/captureRoute';
 
 import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
-import FAQ from 'pages/FAQ/components/FAQ/FAQ';
+import FAQ from 'pages/FAQ/components/FAQ';
 
 export function FAQPage({ config, isSignedIn }) {
     if (!isSignedIn) {

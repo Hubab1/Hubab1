@@ -15,8 +15,8 @@ import hsclient from 'utils/hsclient';
 import { fetchPayments } from 'reducers/payments';
 import { applicantUpdated } from 'reducers/applicant';
 
-import HoldingDepositAgreementView from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementView/HoldingDepositAgreementView';
-import HoldingDepositAgreementConfirmation from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementConfirmation/HoldingDepositAgreementConfirmation';
+import HoldingDepositAgreementView from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementView';
+import HoldingDepositAgreementConfirmation from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementConfirmation';
 
 export const HoldingDepositAgreementPage = ({
     _prev,

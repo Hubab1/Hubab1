@@ -10,7 +10,7 @@ import { actions as loaderActions } from 'reducers/loader';
 
 import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
-import LoginForm from 'common-components/Forms/LoginForm/LoginForm';
+import LoginForm from 'common-components//LoginForm/LoginForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import welcome from 'assets/images/welcome.jpeg';
 

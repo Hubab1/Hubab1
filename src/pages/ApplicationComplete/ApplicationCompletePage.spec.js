@@ -5,7 +5,7 @@ import mockProfile from 'reducers/mock-profile';
 import mockConfig from 'reducers/mock-config';
 import mockApplicant from 'reducers/mock-applicant';
 import { ApplicationCompletePage } from './ApplicationCompletePage';
-import { PersonRow } from 'pages/ApplicationComplete/components/PersonRow/PersonRow';
+import { PersonRow } from 'pages/ApplicationComplete/components/PersonRow';
 
 let defaultProps;
 beforeEach(() => {

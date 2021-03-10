@@ -7,7 +7,7 @@ import mockApplicant from 'reducers/mock-applicant';
 import mockPayments from 'reducers/mock-payments';
 
 import { FeesDepositsPage } from './FeesDepositsPage';
-import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions/FeesDepositsOptions';
+import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions';
 
 let defaultProps;
 

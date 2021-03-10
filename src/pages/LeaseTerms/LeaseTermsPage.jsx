@@ -21,8 +21,8 @@ import { actions as modalActions } from 'reducers/loader';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import PriceBreakdown from 'common-components/PriceBreakdown/PriceBreakdown';
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import AvailableUnitsSelector from 'pages/LeaseTerms/components/AvailableUnitsSelector/AvailableUnitsSelector';
-import AvailableLeaseTermsSelector from 'pages/LeaseTerms/components/AvailableLeaseTermsSelector/AvailableLeaseTermsSelector';
+import AvailableUnitsSelector from 'pages/LeaseTerms/components/AvailableUnitsSelector';
+import AvailableLeaseTermsSelector from 'pages/LeaseTerms/components/AvailableLeaseTermsSelector';
 import { H1, SpacedH3 } from 'assets/styles';
 import rent from 'assets/images/rent.png';
 

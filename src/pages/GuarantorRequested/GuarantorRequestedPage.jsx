@@ -15,7 +15,7 @@ import {
     AdverseActionNoticeButton,
 } from 'common-components/AdverseActionNoticeButton/AdverseActionNoticeButton';
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import GuarantorExplanation from 'pages/GuarantorRequested/components/GuarantorExplanation/GuarantorExplanation';
+import GuarantorExplanation from 'pages/GuarantorRequested/components/GuarantorExplanation';
 import { H1, SpacedH3, LinkButton } from 'assets/styles';
 import addGuarantor from 'assets/images/add-guarantor.png';
 

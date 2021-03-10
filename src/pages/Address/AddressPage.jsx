@@ -10,7 +10,7 @@ import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
 import { updateApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
-import AddressForm from 'common-components/Forms/AddressForm/AddressForm';
+import AddressForm from 'common-components//AddressForm/AddressForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
 

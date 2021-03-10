@@ -9,8 +9,8 @@ import { LeaseTermsPage, validationSchema } from './LeaseTermsPage';
 
 import PriceBreakdown from 'common-components/PriceBreakdown/PriceBreakdown';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
-import AvailableUnitsSelector from 'pages/LeaseTerms/components/AvailableUnitsSelector/AvailableUnitsSelector';
-import AvailableLeaseTermsSelector from 'pages/LeaseTerms/components/AvailableLeaseTermsSelector/AvailableLeaseTermsSelector';
+import AvailableUnitsSelector from 'pages/LeaseTerms/components/AvailableUnitsSelector';
+import AvailableLeaseTermsSelector from 'pages/LeaseTerms/components/AvailableLeaseTermsSelector';
 
 let defaultProps;
 let updateRenterProfile;

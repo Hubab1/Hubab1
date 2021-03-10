@@ -17,7 +17,7 @@ import { selectors as configSelectors } from 'reducers/configuration';
 import AppContextProvider from 'common-components/App/AppContextProvider';
 import CriticalError from 'common-components/Pages/CriticalErrorPage/CriticalErrorPage';
 import NavDrawer from 'common-components/NavDrawer/NavDrawer';
-import ResendLinkForm from 'common-components/Forms/ResendLinkForm/ResendLinkForm';
+import ResendLinkForm from 'common-components//ResendLinkForm/ResendLinkForm';
 
 import WelcomePage from 'pages/Welcome';
 import LoginPage from 'pages/Login';

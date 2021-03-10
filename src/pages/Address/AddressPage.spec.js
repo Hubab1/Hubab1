@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import withHooksAsync from 'utils/withHooksAsync';
 import { AddressPage, GENERIC_ERROR_MESSAGE } from './AddressPage';
-import AddressForm from 'common-components/Forms/AddressForm/AddressForm';
+import AddressForm from 'common-components//AddressForm/AddressForm';
 
 describe('handle submit', () => {
     let defaultProps;

@@ -13,10 +13,10 @@ import { updateApplicant } from 'reducers/applicant';
 import { getApplicantSubmittedApplication } from 'selectors/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
-import AccountForm from 'common-components/Forms/AccountForm/AccountForm';
-import ChangePasswordForm from 'common-components/Forms/ChangePasswordForm/ChangePasswordForm';
+import AccountForm from 'common-components/AccountForm/AccountForm';
+import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
-import VerifyAccount from 'pages/Account/components/VerifyAccount/VerifyAccount';
+import VerifyAccount from 'pages/Account/components/VerifyAccount';
 import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 export class AccountPage extends Component {

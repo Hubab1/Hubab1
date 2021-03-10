@@ -13,7 +13,7 @@ import { fetchApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
 import UnauthenticatedPage from 'common-components/Pages/UnauthenticatedPage/UnauthenticatedPage';
-import AccountForm from 'common-components/Forms/AccountForm/AccountForm';
+import AccountForm from 'common-components//AccountForm/AccountForm';
 import { H1, P, link } from 'assets/styles';
 
 export class SignupPage extends Component {
