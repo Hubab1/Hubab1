@@ -82,6 +82,8 @@ NavBlockedStep.propTypes = {
     handleDrawerClose: PropTypes.func,
     stepClass: PropTypes.string.isRequired,
     stepProps: PropTypes.object.isRequired,
+    buttonColor: PropTypes.string.isRequired,
+    currentRoute: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

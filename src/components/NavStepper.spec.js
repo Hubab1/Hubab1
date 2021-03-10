@@ -158,7 +158,7 @@ describe('Guarantor requested state', function () {
                     contact_phone: '123-456-7891',
                 },
             },
-            initia6lPage: '/guarantor_request',
+            initialPage: '/guarantor_request',
             guarantorRequested: true,
             handleDrawerClose: jest.fn(),
         };
