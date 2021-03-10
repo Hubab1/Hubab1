@@ -117,7 +117,7 @@ export function VerticalLinearStepper(props) {
         <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
             {isNavigationBlocked ? (
                 renderBlockedStep()
-            ) : !props.applicantStillFinishingApplication ? (
+            ) : true ? (
                 <NavBlockedCompletedStep text={'Your application has been completed and submitted.'} />
             ) : (
                 props.navRoutes.map((route, i) => (

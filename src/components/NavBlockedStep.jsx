@@ -28,7 +28,7 @@ const viewProgress = css`
 `;
 
 export function NavBlockedStep(props) {
-    const { text, history, config, initialPage, handleDrawerClose, stepProps, stepClass } = props;
+    const { text, history, config, initialPage, handleDrawerClose, stepProps, stepClass, buttonColor } = props;
 
     const onClick = () => {
         history.push(initialPage);
@@ -37,7 +37,7 @@ export function NavBlockedStep(props) {
 
     return (
         <Step active>
-            <StepLabel {...stepProps}>
+            <StepLabel completed {...stepProps}>
                 <span className={stepClass}>
                     {text} Please call us at{' '}
                     <a href={`tel:${config.community.contact_phone}`}>
@@ -48,7 +48,7 @@ export function NavBlockedStep(props) {
             </StepLabel>
             <Button
                 variant="outlined"
-                color="default"
+                color={buttonColor}
                 id="viewProgressButton"
                 classes={{
                     root: viewProgress,
@@ -91,6 +91,7 @@ export function NavBlockedInProgressStep(props) {
                 classes: { root: iconRoot },
                 StepIconComponent: () => <ErrorIcon color="primary" />,
             }}
+            buttonColor={'default'}
         />
     );
 }
@@ -104,6 +105,7 @@ export function NavBlockedCompletedStep(props) {
                 completed: true,
                 classes: { root: iconRoot },
             }}
+            buttonColor={'primary'}
         />
     );
 }
