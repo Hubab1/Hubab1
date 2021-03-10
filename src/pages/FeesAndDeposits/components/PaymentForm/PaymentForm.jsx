@@ -18,7 +18,7 @@ import { selectors as configSelectors } from 'reducers/configuration';
 import { selectors as profileSelectors } from 'reducers/renter-profile';
 
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import StripeElementWrapper from 'common-components/Stipe/StripeElementWrapper/StripeElementWrapper';
+import StripeElementWrapper from 'common-components/Stripe/StripeElementWrapper/StripeElementWrapper';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import { P } from 'assets/styles';
 import mockReceipt from 'reducers/tests/mock-receipt';

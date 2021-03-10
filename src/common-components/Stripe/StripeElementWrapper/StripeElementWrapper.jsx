@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
-import StripeInput from 'common-components/Stipe/StripeInput/StripeInput';
+import StripeInput from 'common-components/Stripe/StripeInput/StripeInput';
 
 class StripeElementWrapper extends PureComponent {
     static propTypes = {
