@@ -21,7 +21,7 @@ import ActionButton from 'common-components/ActionButton/ActionButton';
 import StripeElementWrapper from 'common-components/Stripe/StripeElementWrapper/StripeElementWrapper';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import { P } from 'assets/styles';
-import mockReceipt from 'reducers/tests/mock-receipt';
+import mockReceipt from 'reducers/mock-receipt';
 
 export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Please try again in a bit.";
 

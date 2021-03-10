@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import { Formik } from 'formik';
 
 import { PAYMENT_TIME_MONTHLY } from 'constants/constants';
-import mockConfig from 'reducers/tests/mock-config.json';
-import mockApplication from 'reducers/tests/mock-profile.json';
+import mockConfig from 'reducers/mock-config.json';
+import mockApplication from 'reducers/mock-profile.json';
 
 import { ParkingPage } from './ParkingPage';
 import ItemAdder from 'common-components/ItemAdder/ItemAdder';

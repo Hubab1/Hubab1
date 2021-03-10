@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import mockConfig from 'reducers/tests/mock-config.json';
-import mockApplication from 'reducers/tests/mock-profile.json';
-import mockProfile from 'reducers/tests/mock-profile.json';
+import mockConfig from 'reducers/mock-config.json';
+import mockApplication from 'reducers/mock-profile.json';
+import mockProfile from 'reducers/mock-profile.json';
 import { EditDependentPage } from './EditDependentPage';
 import InviteForm from 'common-components/Forms/InviteForm/InviteForm';
 

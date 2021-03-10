@@ -8,7 +8,7 @@ import { AccountPage } from './AccountPage';
 import AccountForm from 'common-components/Forms/AccountForm/AccountForm';
 import ChangePasswordForm from 'common-components/Forms/ChangePasswordForm/ChangePasswordForm';
 import VerifyAccount from 'pages/Account/components/VerifyAccount/VerifyAccount';
-import mockApplicant from 'reducers/tests/mock-applicant.json';
+import mockApplicant from 'reducers/mock-applicant.json';
 
 let defaultProps;
 

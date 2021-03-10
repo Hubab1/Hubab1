@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ROLE_CO_APPLICANT } from 'constants/constants';
-import mockProfile from 'reducers/tests/mock-profile';
-import mockApplicant from 'reducers/tests/mock-applicant';
-import mockPayments from 'reducers/tests/mock-payments';
+import mockProfile from 'reducers/mock-profile';
+import mockApplicant from 'reducers/mock-applicant';
+import mockPayments from 'reducers/mock-payments';
 
 import { FeesDepositsPage } from './FeesDepositsPage';
 import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions/FeesDepositsOptions';

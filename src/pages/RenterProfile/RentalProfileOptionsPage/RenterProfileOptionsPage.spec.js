@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { RENTER_PROFILE_TYPE_PARKING } from 'constants/constants';
-import mockConfig from 'reducers/tests/mock-config.json';
-import mockProfile from 'reducers/tests/mock-profile.json';
+import mockConfig from 'reducers/mock-config.json';
+import mockProfile from 'reducers/mock-profile.json';
 
 import { RentalProfileOptions } from './RenterProfileOptionsPage';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';

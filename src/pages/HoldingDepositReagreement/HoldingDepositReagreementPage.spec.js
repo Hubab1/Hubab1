@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import API from 'api/api';
-import mockProfile from 'reducers/tests/mock-profile.json';
-import mockConfig from 'reducers/tests/mock-config.json';
+import mockProfile from 'reducers/mock-profile.json';
+import mockConfig from 'reducers/mock-config.json';
 import { HoldingDepositReagreementPage } from './HoldingDepositReagreementPage';
 
 let defaultProps;
