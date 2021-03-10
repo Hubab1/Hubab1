@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import mockProfile from 'reducers/mock-profile';
-import mockConfig from 'reducers/mock-config';
-import mockApplicant from 'reducers/mock-applicant';
+import mockProfile from 'reducers/fixtures/mock-profile';
+import mockConfig from 'reducers/fixtures/mock-config';
+import mockApplicant from 'reducers/fixtures/mock-applicant';
 import { ApplicationCompletePage } from './ApplicationCompletePage';
 import { PersonRow } from 'pages/ApplicationComplete/components/PersonRow';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import mockProfile from 'reducers/mock-profile';
-import mockApplicant from 'reducers/mock-applicant';
-import mockPayments from 'reducers/mock-payments';
+import mockProfile from 'reducers/fixtures/mock-profile';
+import mockApplicant from 'reducers/fixtures/mock-applicant';
+import mockPayments from 'reducers/fixtures/mock-payments';
 import { PaidText } from 'common-components/PaidText/PaidText';
 import { BackLink } from 'common-components/BackLink/BackLink';
 import { FeesDepositsOptions } from './FeesDepositsOptions';

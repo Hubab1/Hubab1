@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import API from 'api/api';
 import { MOCKY } from 'config';
-import mock from './mock-payments';
+import mock from './fixtures/mock-payments';
 
 const payments = createSlice({
     name: 'payments',

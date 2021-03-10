@@ -18,7 +18,7 @@ import {
     ROUTE_LABELS,
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
 } from 'constants/constants';
-import mock from './mock-profile';
+import mock from './fixtures/mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
 

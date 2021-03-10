@@ -3,7 +3,7 @@ import produce from 'immer';
 
 import { MOCKY } from 'config';
 import API from 'api/api';
-import mock from './mock-applicant';
+import mock from './fixtures/mock-applicant';
 
 const applicant = createSlice({
     name: 'applicant',

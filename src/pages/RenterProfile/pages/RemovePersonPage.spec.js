@@ -7,9 +7,9 @@ import {
     RENTER_PROFILE_TYPE_DEPENDENT,
     RENTER_PROFILE_TYPE_GUARANTOR,
 } from 'constants/constants';
-import mockConfig from 'reducers/mock-config.json';
-import mockApplication from 'reducers/mock-profile.json';
-import mockProfile from 'reducers/mock-profile.json';
+import mockConfig from 'reducers/fixtures/mock-config.json';
+import mockApplication from 'reducers/fixtures/mock-profile.json';
+import mockProfile from 'reducers/fixtures/mock-profile.json';
 import { RemovePersonPage } from './RemovePersonPage';
 
 let defaultProps, fetchRenterProfile;
