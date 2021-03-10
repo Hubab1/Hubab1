@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import { AppTheme } from 'common-components/App/AppContextProvider';
+import { AppTheme } from 'app/AppContextProvider';
 
 export const Track = styled.div`
     position: absolute;

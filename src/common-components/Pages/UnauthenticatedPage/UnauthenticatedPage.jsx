@@ -4,7 +4,7 @@ import { css } from 'emotion';
 
 import { Banner } from './styles';
 import { Logo } from 'assets/styles';
-import { AppTheme } from 'common-components/App/AppContextProvider';
+import { AppTheme } from 'app/AppContextProvider';
 
 export const container = css`
     text-align: center;
