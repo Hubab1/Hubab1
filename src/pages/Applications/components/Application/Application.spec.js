@@ -94,7 +94,7 @@ describe('Application', () => {
         expect(wrapper.html().includes('Occupant')).toBe(true);
     });
 
-    it('renders active application - all data present', () => {
+    it('renders application - all data present', () => {
         const wrapper = shallow(<Application application={application} isActive={true} />);
         const content = wrapper.find('[data-testid="content"]');
         const header = wrapper.find('[data-testid="header"]');
@@ -107,7 +107,7 @@ describe('Application', () => {
         expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
     });
 
-    it('renders active application content - missing data', () => {
+    it('renders application content - missing data', () => {
         application = {
             ...application,
             unit: undefined,
@@ -126,14 +126,5 @@ describe('Application', () => {
         expect(content.html().includes('Monthly Rent: <span>-</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
-    });
-
-    it('renders past application', () => {
-        const wrapper = shallow(<Application application={application} isActive={false} />);
-        const content = wrapper.find('[data-testid="content"]');
-        const header = wrapper.find('[data-testid="header"]');
-
-        expect(header.length).toBe(1);
-        expect(content.length).toBe(0);
     });
 });
