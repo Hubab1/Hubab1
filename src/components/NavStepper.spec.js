@@ -79,6 +79,7 @@ describe('Application submitted state', function () {
                 },
             },
             handleDrawerClose: jest.fn(),
+            applicantStillFinishingApplication: false,
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const step = wrapper.find(NavBlockedCompletedStep);

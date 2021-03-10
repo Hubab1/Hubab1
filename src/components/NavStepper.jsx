@@ -72,13 +72,23 @@ export function VerticalLinearStepper(props) {
     }
 
     const isNavigationBlocked =
-        unitUnavailable ||
+        props.applicantStillFinishingApplication === false ||
         props.guarantorRequested ||
+        unitUnavailable ||
         outstandingBalance ||
         holdingDepositAgreementSignatureRequested ||
         additionalDocumentsRequested;
 
     function renderBlockedStep() {
+        if (props.applicantStillFinishingApplication === false) {
+            return (
+                <NavBlockedCompletedStep
+                    text={'Your application has been completed and submitted.'}
+                    handleDrawerClose={props.handleDrawerClose}
+                />
+            );
+        }
+
         if (unitUnavailable && !props.guarantorRequested) {
             return (
                 <NavBlockedInProgressStep
@@ -116,29 +126,25 @@ export function VerticalLinearStepper(props) {
 
     return (
         <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
-            {isNavigationBlocked ? (
-                renderBlockedStep()
-            ) : !props.applicantStillFinishingApplication ? (
-                <NavBlockedCompletedStep text={'Your application has been completed and submitted.'} />
-            ) : (
-                props.navRoutes.map((route, i) => (
-                    <Step
-                        classes={{
-                            root: clsx({
-                                [active]: activeStep === i,
-                                [accessible]: i <= firstUncompletedStep,
-                            }),
-                        }}
-                        key={route.name}
-                        onClick={(e) => onClickRoute(e, route, i)}
-                        active={i === activeStep || i === firstUncompletedStep}
-                    >
-                        <StepLabel icon={' '} completed={i < firstUncompletedStep}>
-                            {route.name}
-                        </StepLabel>
-                    </Step>
-                ))
-            )}
+            {isNavigationBlocked
+                ? renderBlockedStep()
+                : props.navRoutes.map((route, i) => (
+                      <Step
+                          classes={{
+                              root: clsx({
+                                  [active]: activeStep === i,
+                                  [accessible]: i <= firstUncompletedStep,
+                              }),
+                          }}
+                          key={route.name}
+                          onClick={(e) => onClickRoute(e, route, i)}
+                          active={i === activeStep || i === firstUncompletedStep}
+                      >
+                          <StepLabel icon={' '} completed={i < firstUncompletedStep}>
+                              {route.name}
+                          </StepLabel>
+                      </Step>
+                  ))}
         </Stepper>
     );
 }

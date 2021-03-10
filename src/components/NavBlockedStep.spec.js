@@ -21,6 +21,7 @@ describe('NavBlockedStep', () => {
             completed: true,
         },
         stepClass: 'class',
+        buttonColor: 'primary',
     };
 
     it('NavBlockedStepInProgress matches snapshot', () => {

@@ -310,7 +310,7 @@ selectors.selectNextRoute = createSelector(
 selectors.selectApplicantStillFinishingApplication = createSelector(
     (state) => state.applicant && state.applicant.events,
     (applicantEvents) => {
-        if (!applicantEvents) return false;
+        if (!applicantEvents) return;
         // if applicant has submitted milestone, they're not completing fields anymore
         return !applicantEvents.find((e) => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
