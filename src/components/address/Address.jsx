@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
 import { ROUTES } from 'app/constants';
+import withRelativeRoutes from 'app/withRelativeRoutes';
 import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
 import { updateApplicant } from 'reducers/applicant';
-import withRelativeRoutes from 'app/withRelativeRoutes';
+import { actions as modalActions } from 'reducers/loader';
+
 import AddressForm from 'components/common/AddressForm/AddressForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import sticky from 'assets/images/sticky.png';
@@ -22,11 +24,12 @@ const ImageContainer = styled.div`
 
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
-export const Address = ({ applicant, updateApplicant, _nextRoute, showAutomatedAddress }) => {
+export const Address = ({ applicant, showAutomatedAddress, toggleLoader, updateApplicant, _nextRoute }) => {
     const [errors, setErrors] = useState(null);
 
     const handleSubmit = useCallback(
         async (values, { setErrors: setFormErrors, setSubmitting }) => {
+            toggleLoader(true);
             setErrors(null);
 
             try {
@@ -39,10 +42,11 @@ export const Address = ({ applicant, updateApplicant, _nextRoute, showAutomatedA
             } catch {
                 setErrors([GENERIC_ERROR_MESSAGE]);
             } finally {
+                toggleLoader(false);
                 setSubmitting(false);
             }
         },
-        [updateApplicant, _nextRoute, setErrors]
+        [toggleLoader, updateApplicant, _nextRoute, setErrors]
     );
 
     if (!applicant) {
@@ -69,6 +73,7 @@ export const Address = ({ applicant, updateApplicant, _nextRoute, showAutomatedA
 Address.propTypes = {
     applicant: PropTypes.object,
     showAutomatedAddress: PropTypes.bool,
+    toggleLoader: PropTypes.func,
     updateApplicant: PropTypes.func.isRequired,
     _nextRoute: PropTypes.func,
 };
@@ -80,6 +85,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
     updateApplicant,
+    toggleLoader: modalActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withRelativeRoutes(Address, ROUTES.ADDRESS));

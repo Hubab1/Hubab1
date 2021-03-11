@@ -114,7 +114,7 @@ describe('mountNavigation', () => {
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
-    it('routes to login page if not authenticated, but there is an associated registered invitee', function () {
+    it('routes to welcome page if not authenticated, but there is an associated registered invitee', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 

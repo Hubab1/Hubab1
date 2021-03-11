@@ -1,30 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
+import { Lock } from '@material-ui/icons';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe } from 'react-stripe-elements';
-import Lock from '@material-ui/icons/Lock';
+
+import API, { MOCKY } from 'app/api';
+import { ROUTES } from 'app/constants';
+import { prettyCurrency, prettyFormatPhoneNumber } from 'utils/misc';
+
+import { fetchApplicant } from 'reducers/applicant';
+import { fetchRenterProfile } from 'reducers/renter-profile';
+import { actions as modalActions } from 'reducers/loader';
+import { selectors as configSelectors } from 'reducers/configuration';
+import { selectors as profileSelectors } from 'reducers/renter-profile';
 
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import StripeElementWrapper from './StripeElementWrapper';
-import API, { MOCKY } from 'app/api';
-import { fetchApplicant } from 'reducers/applicant';
-import { fetchRenterProfile } from 'reducers/renter-profile';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import { prettyCurrency, prettyFormatPhoneNumber } from 'utils/misc';
-import mockReceipt from 'reducers/mock-receipt';
 import { P } from 'assets/styles';
-import { ROUTES } from 'app/constants';
-import { selectors as configSelectors } from 'reducers/configuration';
-import { selectors as profileSelectors } from 'reducers/renter-profile';
+import mockReceipt from 'reducers/mock-receipt';
+
 export const GENERIC_ERROR_MESSAGE = "Oops, we're having trouble processing your payment. Please try again in a bit.";
+
 export const CARD_DECLINE_ERROR_MESSAGE =
     "Oops, we're having trouble processing your payment because your card was declined. Please try a different card.";
+
 export const AVAILABILITY_ERROR_MESSAGE = (unit, contactPhone) =>
     `We’re having trouble verifying if ${unit ? `unit ${unit.unit_number}` : 'this unit'} is still available. Please ` +
     `try again in a bit. If you continue to see this error, please contact our Leasing Office at ${contactPhone} and ` +
     'an agent will be able to assist you.';
+
 export const UNAVAILABLE_ERROR_MESSAGE = (unit, contactPhone) =>
     `Sorry, ${unit ? `unit ${unit.unit_number}` : 'this unit'} is no longer available. Call us at ${contactPhone} ` +
     'and we can help you find a similar one!';
@@ -51,8 +58,10 @@ export class PaymentForm extends React.Component {
             return this.props.onSuccess(mockReceipt);
         }
 
+        this.props.toggleLoader(true);
         this.props.setDisableBack(true);
         this.setState({ submitting: true });
+
         return this.props.stripe
             .createToken({ type: 'card', name: 'client card' })
             .then((res) => {
@@ -81,15 +90,18 @@ export class PaymentForm extends React.Component {
                         })
                         .finally(() => {
                             this.props.setDisableBack(false);
+                            this.props.toggleLoader(false);
                         });
                 } else {
                     this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                     this.props.setDisableBack(false);
+                    this.props.toggleLoader(false);
                 }
             })
             .catch(() => {
                 this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                 this.props.setDisableBack(false);
+                this.props.toggleLoader(false);
             });
     };
 
@@ -177,6 +189,7 @@ PaymentForm.propTypes = {
     unit: PropTypes.object,
     onSuccess: PropTypes.func.isRequired,
     setDisableBack: PropTypes.func.isRequired,
+    toggleLoader: PropTypes.func.isRequired,
     fetchApplicant: PropTypes.func.isRequired,
     fetchRenterProfile: PropTypes.func.isRequired,
 };
@@ -189,6 +202,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchApplicant,
     fetchRenterProfile,
+    toggleLoader: modalActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(PaymentForm));

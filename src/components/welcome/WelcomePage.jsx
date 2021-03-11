@@ -1,29 +1,109 @@
-import React, { Component, Fragment } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core';
 
+import { ROUTES } from 'app/constants';
+import { H1, H2, P, link } from 'assets/styles';
+import ActionButton from 'components/common/ActionButton/ActionButton';
 import funnelImage from 'assets/images/PoweredByFunnel.png';
 import homeImage from 'assets/images/home-image.png';
-import { H1, H2, P, Logo, link } from 'assets/styles';
-import {
-    BackgroundImage,
-    BackgroundImageTint,
-    WelcomeFlexContainer,
-    WelcomeTextContainer,
-    WelcomeFooterContainer,
-    HomeImageContainer,
-    CallToActionButton,
-    LogoContainer,
-} from './styles';
-import { ROUTES } from 'app/constants';
-import { AppTheme } from 'contexts/AppContextProvider';
 
-export class WelcomePage extends Component {
-    static contextType = AppTheme;
+const useStyles = makeStyles((theme) => {
+    return {
+        background: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            zIndex: -5,
+            opacity: theme.darkMode ? 1 : 0.3,
+            backgroundImage: `url(${theme.assets.background})`,
+        },
+        backgroundOverlay: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -4,
+            opacity: 0.6,
+            backgroundColor: theme.darkMode ? theme.palette.primary.main : 'none',
+        },
+        root: {
+            position: 'absolute',
+            display: 'flex',
+            flexFlow: 'column',
+            alignContent: 'space-around',
+            color: 'white',
+            height: '100%',
+            width: '100%',
+        },
+        banner: {
+            margin: '20px auto 0 auto',
+            '& img': {
+                maxWidth: '120px',
+                maxHeight: '50px',
+            },
+        },
+        content: {
+            position: 'relative',
+            margin: 'auto',
+            paddingBottom: '50px',
+            width: '82%',
+            maxWidth: '500px',
+            textAlign: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        },
+        homeImageContainer: {
+            position: 'relative',
+            top: '-35px',
+            width: '70px',
+            height: '35px',
+            borderTopLeftRadius: '70px',
+            borderTopRightRadius: '70px',
+            background: 'inherit',
+            textAlign: 'center',
+            margin: '0 auto',
 
-    getFirstName() {
-        const { person, invitee } = this.props.configuration;
+            '& img': {
+                position: 'relative',
+                top: '9px',
+                width: '27px',
+                height: '27px',
+                objectFit: 'contain',
+            },
+        },
+        footer: {
+            display: 'flex',
+            flexFlow: 'column',
+            alignItems: 'center',
+            margin: '2% 10%',
+            height: '15%',
+        },
+        ctaButton: {
+            backgroundColor: theme.darkMode ? theme.palette.common.white : theme.palette.primary.main,
+        },
+        link: {
+            color: theme.darkMode ? theme.palette.common.white : theme.palette.common.black,
+        },
+    };
+});
+
+export function WelcomePage(props) {
+    const theme = useTheme();
+    const classes = useStyles();
+    const { configuration } = props;
+    const { community, unit, invitee } = configuration;
+    const { building_name, city, state, postal_code, normalized_street_address } = community;
+
+    const firstName = useMemo(() => {
+        const { person, invitee } = configuration;
         if (person) {
             return person.first_name;
         } else if (invitee && invitee.first_name) {
@@ -31,79 +111,68 @@ export class WelcomePage extends Component {
         } else {
             return null;
         }
-    }
+    }, [configuration]);
 
-    getCTALabel() {
+    const getCTALabel = () => {
         const { invitee } = this.props.configuration;
         if (invitee) {
             return 'Continue to Application';
         }
 
         return 'Create Account & Apply';
-    }
+    };
 
-    getCTALink() {
+    const getCTALink = () => {
         const { invitee } = this.props.configuration;
         if (invitee?.is_registered) {
             return ROUTES.LOGIN;
         }
 
         return ROUTES.SIGNUP;
-    }
+    };
 
-    render() {
-        const { background, logo, community, unit, primary_color, dark_mode, invitee } = this.props.configuration;
-        const { building_name, city, state, postal_code, normalized_street_address } = community;
-        const firstName = this.getFirstName();
-        const cityStateZip = `${city}, ${state} ${postal_code}`;
-        const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
-        const callToActionButtonStyle = dark_mode ? {} : { background: `#${primary_color}` };
-        const linkStyle = dark_mode ? { color: 'white' } : { color: 'black' };
+    const cityStateZip = `${city}, ${state} ${postal_code}`;
+    const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
 
-        return (
-            <Fragment>
-                <BackgroundImage opacity={this.context.welcomeBackgroundImageOpacity} url={background} />
-                <BackgroundImageTint background={this.context.welcomeBackgroundImageTintBackground} />
-                <WelcomeFlexContainer>
-                    <LogoContainer>
-                        <Logo src={logo} alt="company logo" />
-                    </LogoContainer>
-                    <WelcomeTextContainer>
-                        <HomeImageContainer>
-                            <img src={homeImage} width="30" alt="company logo" />
-                        </HomeImageContainer>
-                        <H2>{helloContent}</H2>
-                        <P>Your new home awaits at</P>
-                        {building_name && <H1 className="welcome__building-header">{building_name}</H1>}
-                        {building_name ? (
-                            <P>{normalized_street_address}</P>
-                        ) : (
-                            <H1 className="welcome__building-header">{normalized_street_address}</H1>
-                        )}
-                        {cityStateZip && <P>{cityStateZip}</P>}
-                        {unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
-                    </WelcomeTextContainer>
-                    <WelcomeFooterContainer>
-                        <Link
-                            to={{ pathname: this.getCTALink() }}
-                            style={{ textDecoration: 'none' }}
-                            className="cta-container"
-                        >
-                            <CallToActionButton fullWidth style={callToActionButtonStyle}>
-                                {this.getCTALabel()}
-                            </CallToActionButton>
+    return (
+        <>
+            <div className={classes.background} />
+            <div className={classes.backgroundOverlay} />
+            <div className={classes.root}>
+                <div className={classes.banner}>
+                    <img data-testid="logo" className={classes.logo} src={theme?.assets?.logo} alt="company logo" />
+                </div>
+                <div data-testid="content" className={classes.content}>
+                    <div className={classes.homeImageContainer}>
+                        <img src={homeImage} alt="home-icon" />
+                    </div>
+                    <H2>{helloContent}</H2>
+                    <P>Your new home awaits at</P>
+                    {building_name && <H1 className="welcome__building-header">{building_name}</H1>}
+                    {building_name ? (
+                        <P>{normalized_street_address}</P>
+                    ) : (
+                        <H1 className="welcome__building-header">{normalized_street_address}</H1>
+                    )}
+                    {cityStateZip && <P>{cityStateZip}</P>}
+                    {unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
+                </div>
+                <div className={classes.footer}>
+                    <Link to={{ pathname: getCTALink() }} style={{ textDecoration: 'none' }} className="cta-container">
+                        <ActionButton data-testid="cta-button" buttonClassName={classes.ctaButton}>
+                            {getCTALabel()}
+                        </ActionButton>
+                    </Link>
+                    {!invitee && (
+                        <Link to={ROUTES.LOGIN} className={clsx(link, classes.link)}>
+                            I already have an account
                         </Link>
-                        {!invitee && (
-                            <Link to={ROUTES.LOGIN} className={link} style={linkStyle}>
-                                I already have an account
-                            </Link>
-                        )}
-                        <img src={funnelImage} width="150" alt="funnel logo" />
-                    </WelcomeFooterContainer>
-                </WelcomeFlexContainer>
-            </Fragment>
-        );
-    }
+                    )}
+                    <img src={funnelImage} width="150" alt="funnel logo" />
+                </div>
+            </div>
+        </>
+    );
 }
 
 WelcomePage.propTypes = {

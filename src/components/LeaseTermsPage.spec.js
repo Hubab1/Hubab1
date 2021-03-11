@@ -18,6 +18,9 @@ let updateRenterProfile;
 beforeEach(() => {
     updateRenterProfile = jest.fn();
     defaultProps = {
+        applicant: {
+            role: ROLE_PRIMARY_APPLICANT,
+        },
         application: {},
         config: {
             lease_term_options: [],
@@ -30,10 +33,8 @@ beforeEach(() => {
         isPrimaryApplicant: true,
         hasOutstandingBalance: true,
         updateRenterProfile: updateRenterProfile,
+        toggleLoader: jest.fn(),
         _nextRoute: jest.fn(),
-        applicant: {
-            role: ROLE_PRIMARY_APPLICANT,
-        },
         pageComplete: jest.fn().mockResolvedValue({}),
     };
 });

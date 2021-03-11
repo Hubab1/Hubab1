@@ -1,18 +1,21 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
 import styled from '@emotion/styled';
 
 import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'app/constants';
+import API from 'app/api';
+
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
-import API from 'app/api';
 import { selectors } from 'reducers/renter-profile';
-import { H1, SpacedH3 } from 'assets/styles';
+import { actions as modalActions } from 'reducers/loader';
+
 import { InviteForm } from 'components/common/InviteForm';
 import ConfirmationPage from 'components/common/ConfirmationPage/ConfirmationPage';
 import BackLink from 'components/common/BackLink';
+import { H1, SpacedH3 } from 'assets/styles';
 import coin from 'assets/images/coin.png';
 
 const ERROR_INVITE = 'There was an error sending your guarantor an invite. Please Try again.';
@@ -26,10 +29,12 @@ const ImageContainer = styled.div`
     }
 `;
 
-export class GuarantorPage extends React.Component {
+export class GuarantorPage extends Component {
     state = { confirmSent: false, errors: null };
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        this.props.toggleLoader(true);
+
         return API.inviteGuarantor({ guarantors: [values] })
             .then((res) => {
                 setSubmitting(false);
@@ -47,6 +52,9 @@ export class GuarantorPage extends React.Component {
             })
             .catch((res) => {
                 this.setState({ errors: [res.errors || ERROR_INVITE] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -73,7 +81,7 @@ export class GuarantorPage extends React.Component {
             );
         }
         return (
-            <Fragment>
+            <>
                 <H1>Let&apos;s Invite a Guarantor</H1>
                 <SpacedH3>
                     Plain and simple, a lease guarantor is someone who guarantees payment on the lease if it
@@ -84,7 +92,7 @@ export class GuarantorPage extends React.Component {
                 </ImageContainer>
                 <InviteForm handleOnSubmit={this.onSubmit} displayedErrors={this.state.errors} isGuarantor={true} />
                 <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`} />
-            </Fragment>
+            </>
         );
     }
 }
@@ -92,9 +100,10 @@ export class GuarantorPage extends React.Component {
 GuarantorPage.propTypes = {
     guarantorRequested: PropTypes.bool,
     initialPage: PropTypes.string,
+    history: PropTypes.object,
+    toggleLoader: PropTypes.func,
     fetchRenterProfile: PropTypes.func,
     fetchApplicant: PropTypes.func,
-    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
@@ -102,4 +111,10 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
 });
 
-export default connect(mapStateToProps, { fetchRenterProfile, fetchApplicant })(GuarantorPage);
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchApplicant,
+    toggleLoader: modalActions.toggleLoader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GuarantorPage);
