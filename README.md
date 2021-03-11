@@ -78,13 +78,13 @@ In there you'll be able to find things like: apis, contants, hooks, reducers, an
     /Page                                          <-- Each page is grouped inside it's own directory too!
         /Page.jsx                                      (following the same pattern as a common-component's directory)
         /Page.spec.js
-        /PageStykes.js
+        /PageStyles.js
 
         /components                                <-- A page can have it's own components directory
             /PageComponentX.jsx
             /PageComponentX.spec.js
             /PageComponentY.jsx
-            /PageComponentY.spec.
+            /PageComponentY.spec.jes
 
         /pages                                     <-- Or even have it's own inner pages
             /InnerPageX.jsx
