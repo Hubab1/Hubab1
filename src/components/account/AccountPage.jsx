@@ -4,17 +4,20 @@ import { connect } from 'react-redux';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import { ROUTES } from 'app/constants';
-import auth from 'utils/auth';
 import API from 'app/api';
 import captureRoute from 'app/captureRoute';
+import auth from 'utils/auth';
+import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
+
 import { updateApplicant } from 'reducers/applicant';
 import { getApplicantSubmittedApplication } from 'selectors/applicant';
-import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
-import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
+import { actions as modalActions } from 'reducers/loader';
+
 import VerifyAccount from 'components/account/VerifyAccount';
 import AccountForm from 'components/common/AccountForm';
 import ChangePasswordForm from 'components/common/ChangePasswordForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
+import { H1, blackLinkRoot, arrowIcon } from 'assets/styles';
 
 export class AccountPage extends React.Component {
     state = { status: null, verified: false, showChangePassword: false, resetPasswordErrors: null };
@@ -41,6 +44,8 @@ export class AccountPage extends React.Component {
             birthday: serializeDate(values.birthday),
         };
 
+        this.props.toggleLoader(true);
+
         try {
             const response = await this.props.updateApplicant(data, data);
             if (response.errors) {
@@ -61,12 +66,15 @@ export class AccountPage extends React.Component {
                 },
             });
         } finally {
+            this.props.toggleLoader(false);
             setSubmitting(false);
         }
     };
 
     onChangePasswordSubmit = async (values, { setSubmitting }) => {
         const token = auth.getToken();
+
+        this.props.toggleLoader(true);
 
         try {
             const response = await API.passwordReset(values.password, token);
@@ -89,6 +97,7 @@ export class AccountPage extends React.Component {
                 resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
             });
         } finally {
+            this.props.toggleLoader(false);
             setSubmitting(false);
         }
     };
@@ -145,11 +154,12 @@ export class AccountPage extends React.Component {
 }
 
 AccountPage.propTypes = {
-    updateApplicant: PropTypes.func,
     communityId: PropTypes.string,
     configuration: PropTypes.object,
     applicant: PropTypes.object,
     applicantSubmittedApplication: PropTypes.bool,
+    updateApplicant: PropTypes.func,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -159,6 +169,9 @@ const mapStateToProps = (state) => ({
     applicantSubmittedApplication: getApplicantSubmittedApplication(state),
 });
 
-const mapDispatchToProps = { updateApplicant };
+const mapDispatchToProps = {
+    updateApplicant,
+    toggleLoader: modalActions.toggleLoader,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AccountPage, ROUTES.ACCOUNT));

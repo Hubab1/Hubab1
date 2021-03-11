@@ -53,10 +53,6 @@ export class Main extends Component {
         const { history, location } = this.props;
         const pathname = location.pathname;
 
-        const clientRegistered = configuration.client && configuration.client.applicant_id;
-        const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
-        const hasRegistered = clientRegistered || inviteeRegistered;
-
         initLaunchDarkly(configuration?.community?.company);
 
         if (!isAuthenticated) {
@@ -69,14 +65,9 @@ export class Main extends Component {
                 pathname.includes('faq')
             )
                 return;
-            if (!configuration.client || !configuration.invitee) {
-                if (configuration.unit?.is_unavailable) {
-                    history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
-                } else {
-                    history.replace(ROUTES.WELCOME);
-                }
-            } else if (hasRegistered) {
-                history.replace(ROUTES.LOGIN);
+
+            if (configuration.unit?.is_unavailable) {
+                history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
             } else {
                 history.replace(ROUTES.WELCOME);
             }
@@ -176,8 +167,7 @@ export class Main extends Component {
                                 <Route path={ROUTES.ACCOUNT} component={AccountPage} />
                                 <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
                                 <Route path={ROUTES.ADDRESS} component={Address} />
-                                {/* Key is added to force component re-mount, even when clicking on the same link */}
-                                <Route path={ROUTES.BANKING} component={BankingContainer} key={new Date()} />
+                                <Route path={ROUTES.BANKING} component={BankingContainer} />
                                 <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDeposits} />
                                 <Route
                                     path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}

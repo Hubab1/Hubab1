@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
     makeStyles,
-    CssBaseline,
     Drawer,
     AppBar,
     Toolbar,
@@ -251,8 +250,7 @@ export function PersistentDrawerLeft({
 
     if (showApplicationsToolbar) {
         return (
-            <div>
-                <CssBaseline />
+            <>
                 <AppBar color="primary" position="fixed" className={classes.appBar}>
                     <Toolbar
                         className={classes.toolbar}
@@ -276,13 +274,12 @@ export function PersistentDrawerLeft({
                     <div className={classes.drawerHeader} />
                     <div className={drawerContent}>{children}</div>
                 </main>
-            </div>
+            </>
         );
     }
 
     return (
-        <div>
-            <CssBaseline />
+        <>
             <AppBar color="primary" position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton className={classes.drawerMenuTrigger} onClick={handleDrawerOpen} edge="start">
@@ -340,7 +337,7 @@ export function PersistentDrawerLeft({
                 <div className={classes.drawerHeader} />
                 <div className={drawerContent}>{children}</div>
             </main>
-        </div>
+        </>
     );
 }
 

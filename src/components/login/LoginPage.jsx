@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import welcome from 'assets/images/welcome.jpeg';
-import { H1, SpacedH3 } from 'assets/styles';
+import auth from 'utils/auth';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { actions as loaderActions } from 'reducers/loader';
 import { fetchApplicant } from 'reducers/applicant';
+import { prettyFormatPhoneNumber } from 'utils/misc';
 import UnauthenticatedPage from 'components/common/Page/UnauthenticatedPage';
 import LoginForm from 'components/common/LoginForm';
 import GenericFormMessage from 'components/common/GenericFormMessage';
-import auth from 'utils/auth';
-import { prettyFormatPhoneNumber } from 'utils/misc';
+import welcome from 'assets/images/welcome.jpeg';
+import { H1, SpacedH3 } from 'assets/styles';
 
 const BAD_CREDENTIALS_ERROR = 'The email and password you entered do not match our records. Please try again.';
 const NO_APPLICATION_ERROR = (phone) =>
@@ -44,12 +45,13 @@ export class LoginPage extends React.Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
+        this.props.toggleLoader(true);
+
         const { history } = this.props;
         return auth
             .login(values.email, values.password, this.props.communityId)
             .then((res) => {
                 auth.setSession(res.token, this.props.communityId);
-                setSubmitting(false);
                 if (this.state.errors) this.setState({ errors: null });
                 Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                     history.replace(this.props.initialPage);
@@ -58,6 +60,9 @@ export class LoginPage extends React.Component {
             .catch((res) => {
                 const error = res.errors?.error;
                 this.setState({ errors: [this.get_error_message(error)] });
+            })
+            .finally(() => {
+                this.props.toggleLoader(false);
                 setSubmitting(false);
             });
     };
@@ -66,7 +71,11 @@ export class LoginPage extends React.Component {
         return (
             <UnauthenticatedPage>
                 <H1>Welcome Back</H1>
-                <SpacedH3>Sign in to continue with your application.</SpacedH3>
+                <SpacedH3>
+                    {this.props.invitee?.is_registered
+                        ? `Looks like you've applied to ${this.props.community?.company.name} community before. Sign in to get started on your application.`
+                        : `Sign in to continue with your application.`}
+                </SpacedH3>
                 <GenericFormMessage type="error" messages={this.errors} />
                 <img src={welcome} alt="welcome sign" width="118" height="94" />
                 <LoginForm handleOnSubmit={this.onSubmit} includeRegister={true} buttonText="Sign In" />
@@ -84,6 +93,8 @@ LoginPage.propTypes = {
     location: PropTypes.object,
     history: PropTypes.object,
     fetchApplicant: PropTypes.func,
+    configuration: PropTypes.object.isRequired,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -91,8 +102,13 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
     community: state.configuration && state.configuration.community,
+    invitee: state.configuration && state.configuration.invitee,
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchApplicant, configuration: PropTypes.object };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchApplicant,
+    toggleLoader: loaderActions.toggleLoader,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

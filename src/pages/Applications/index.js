@@ -1,3 +1,3 @@
-import ApplicationsPage from './components/ApplicationsPage/ApplicationsPage';
+import ApplicationsPage from './ApplicationsPage';
 
 export default ApplicationsPage;

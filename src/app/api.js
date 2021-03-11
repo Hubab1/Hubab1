@@ -288,6 +288,18 @@ API.submitFinancialSource = (data, vgsEnabled) => {
             AUTHORIZATION: `Token ${auth.getToken()}`,
         },
         body: data,
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -308,7 +320,14 @@ API.getFinancialSource = (id) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -323,7 +342,14 @@ API.updateFinancialSource = (id, body) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -337,7 +363,14 @@ API.deleteFinancialSource = (id) => {
         if (res.status === 200) {
             return res.json();
         }
-        throw new Error();
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
     });
 };
 
@@ -409,6 +442,15 @@ API.postEmployer = (data) => {
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
+    }).then((res) => res.json());
+};
+
+API.getApplications = () => {
+    return fetch(chuck('/applications/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
     }).then((res) => res.json());
 };
 
