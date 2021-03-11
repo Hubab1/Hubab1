@@ -10,9 +10,9 @@ import { serializeDate } from 'utils/misc';
 import { updateRenterProfile } from 'reducers/renter-profile';
 import { actions as modalActions } from 'reducers/loader';
 
-import ConfirmationPage from 'pages/Confirmation';
 import BackLink from 'common-components/BackLink/BackLink';
-import InviteForm from 'common-components//InviteForm/InviteForm';
+import InviteForm from 'common-components/InviteForm/InviteForm';
+import ConfirmationPage from 'pages/Confirmation';
 import { H1, H3 } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';

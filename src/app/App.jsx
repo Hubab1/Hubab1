@@ -8,8 +8,8 @@ import { DOES_NOT_EXIST } from 'constants/constants';
 import { basenameReceived } from 'reducers/site-config';
 
 import Main from './Main';
-import NotFoundPage from 'pages/NotFound';
 import ScrollToTop from 'common-components/ScrollToTop/ScrollToTop';
+import NotFoundPage from 'pages/NotFound';
 
 export class App extends Component {
     componentDidMount() {

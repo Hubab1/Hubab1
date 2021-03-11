@@ -12,9 +12,9 @@ import { fetchApplicant } from 'reducers/applicant';
 import { selectors } from 'reducers/renter-profile';
 import { actions as modalActions } from 'reducers/loader';
 
-import InviteForm from 'common-components//InviteForm/InviteForm';
-import ConfirmationPage from 'pages/Confirmation';
+import InviteForm from 'common-components/InviteForm/InviteForm';
 import BackLink from 'common-components/BackLink/BackLink';
+import ConfirmationPage from 'pages/Confirmation';
 import { H1, SpacedH3 } from 'assets/styles';
 import coin from 'assets/images/coin.png';
 

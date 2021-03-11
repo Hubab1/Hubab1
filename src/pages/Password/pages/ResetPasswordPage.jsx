@@ -6,8 +6,8 @@ import API from 'api/api';
 import { ROUTES } from 'constants/constants';
 import { actions as modalActions } from 'reducers/loader';
 
+import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
 import ConfirmationPage from 'pages/Confirmation';
-import ChangePasswordForm from 'common-components//ChangePasswordForm/ChangePasswordForm';
 import { H1 } from 'assets/styles';
 import thumbsUp from 'assets/images/thumbs-up.png';
 

@@ -16,9 +16,9 @@ import { selectors as configSelectors } from 'reducers/configuration';
 
 import AppContextProvider from 'app/AppContextProvider';
 import NavDrawer from 'common-components/NavDrawer/NavDrawer';
-import ResendLinkForm from 'common-components//ResendLinkForm/ResendLinkForm';
+import ResendLinkForm from 'common-components/ResendLinkForm/ResendLinkForm';
 
-import CriticalError from 'pages/CriticalError';
+import CriticalErrorPage from 'pages/CriticalError';
 import WelcomePage from 'pages/Welcome';
 import LoginPage from 'pages/Login';
 import SignupPage from 'pages/Signup';
@@ -157,7 +157,7 @@ export class Main extends Component {
         const { theme, isLoggedIn } = this.props;
         const { hasError } = this.state;
 
-        if (hasError) return <CriticalError />;
+        if (hasError) return <CriticalErrorPage />;
         if (!theme) return null;
 
         return (

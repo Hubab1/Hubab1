@@ -5,7 +5,7 @@ import mockConfig from 'reducers/fixtures/mock-config.json';
 import mockApplication from 'reducers/fixtures/mock-profile.json';
 import mockProfile from 'reducers/fixtures/mock-profile.json';
 import { EditDependentPage } from './EditDependentPage';
-import InviteForm from 'common-components//InviteForm/InviteForm';
+import InviteForm from 'common-components/InviteForm/InviteForm';
 
 let defaultProps, updateRenterProfile;
 

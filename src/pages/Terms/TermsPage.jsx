@@ -8,8 +8,8 @@ import { ROUTES, TOS_TYPE_NESTIO } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 
-import UnauthenticatedPage from 'pages/Unauthenticated';
 import ActionButton from 'common-components/ActionButton/ActionButton';
+import UnauthenticatedPage from 'pages/Unauthenticated';
 import { H1, Card, ScrollableTermsCardSection } from 'assets/styles';
 
 const useFormGroupClasses = makeStyles(() => ({

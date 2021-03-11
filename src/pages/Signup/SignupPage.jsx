@@ -12,8 +12,8 @@ import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
+import AccountForm from 'common-components/AccountForm/AccountForm';
 import UnauthenticatedPage from 'pages/Unauthenticated';
-import AccountForm from 'common-components//AccountForm/AccountForm';
 import { H1, P, link } from 'assets/styles';
 
 export class SignupPage extends Component {

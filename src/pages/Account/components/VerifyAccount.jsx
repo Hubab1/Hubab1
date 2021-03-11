@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import auth from 'utils/auth';
-import LoginForm from 'common-components//LoginForm/LoginForm';
+import LoginForm from 'common-components/LoginForm/LoginForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import verify from 'assets/images/verify.png';
 
