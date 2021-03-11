@@ -6,7 +6,7 @@ import {
     APPLICATION_STATUS_APPROVED,
     APPLICATION_STATUS_COMPLETED,
     APPLICATION_STATUS_CONDITIONALLY_APPROVED,
-    APPLICATION_STATUS_CANCELED,
+    APPLICATION_STATUS_CANCELLED,
     MILESTONE_APPLICANT_SUBMITTED,
     EVENT_LEASE_TERMS_COMPLETED,
     MILESTONE_APPLICATION_FEE_COMPLETED,
@@ -607,7 +607,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
-                status: APPLICATION_STATUS_CANCELED,
+                status: APPLICATION_STATUS_CANCELLED,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
