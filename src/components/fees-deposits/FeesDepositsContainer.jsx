@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getPreventNonPrimaryFromPayingUnheldUnit } from 'selectors/launchDarkly';
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'app/constants';
 import API from 'app/api';
 import withRelativeRoutes from 'app/withRelativeRoutes';
@@ -11,6 +12,7 @@ import { fetchApplicant } from 'reducers/applicant';
 import { actions as modalActions } from 'reducers/loader';
 
 import FeesDepositsOptions from './FeesDepositsOptions';
+import UnitNotHeldWaitingPage from './UnitNotHeldWaitingPage';
 import { PaymentPage } from './PaymentPage/PaymentPage';
 import FeesDepositsReceipt from './FeesDepositsReceipt';
 import { PaymentTerms } from './PaymentTerms';
@@ -21,6 +23,7 @@ export const FeesDepositsContainer = ({
     payables,
     profile,
     applicant,
+    preventNonPrimaryFromPayingUnheldUnit,
     configuration,
     isOutstanding,
     toggleLoader,
@@ -117,6 +120,17 @@ export const FeesDepositsContainer = ({
         }
     };
 
+    if (preventNonPrimaryFromPayingUnheldUnit && !isPrimaryApplicant && !profile.unit_is_held) {
+        return (
+            <UnitNotHeldWaitingPage
+                primaryApplicantFirstName={profile.primary_applicant.first_name}
+                primaryApplicantLastName={profile.primary_applicant.last_name}
+                communityName={communityName}
+                unitNumber={unitNumber}
+            />
+        );
+    }
+
     if (currentPage === 'options') {
         return (
             <FeesDepositsOptions
@@ -184,6 +198,7 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
+    preventNonPrimaryFromPayingUnheldUnit: getPreventNonPrimaryFromPayingUnheldUnit(state),
 });
 
 const mapStateToPropsOutstandingBalance = (state) => ({

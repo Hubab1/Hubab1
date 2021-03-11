@@ -8,6 +8,7 @@ const flags = {
     'ol-show-automated-address-form': true,
     'multiple-apps-v-2-login-and-navigation': true,
     'ol-applicant-can-view-applications-list-page': true,
+    'prevent-non-primary-applicants-from-paying-application-fee-before-unit-is-held': false,
 };
 
 export const initLaunchDarkly = (company = {}) => {
