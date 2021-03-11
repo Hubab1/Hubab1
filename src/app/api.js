@@ -445,4 +445,13 @@ API.postEmployer = (data) => {
     }).then((res) => res.json());
 };
 
+API.getApplications = () => {
+    return fetch(chuck('/applications/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.json());
+};
+
 export default API;
