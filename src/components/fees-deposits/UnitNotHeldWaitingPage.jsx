@@ -19,6 +19,8 @@ const bodyRowImg = css`
     display: block;
     margin-left: auto;
     margin-right: auto;
+    max-width: 40%;
+    height: auto;
 `;
 
 const bodyRowAddress = css`
