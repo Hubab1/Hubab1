@@ -114,7 +114,6 @@ export function WelcomePage(props) {
     }, [configuration]);
 
     const getCTALabel = () => {
-        const { invitee } = this.props.configuration;
         if (invitee) {
             return 'Continue to Application';
         }
@@ -123,7 +122,6 @@ export function WelcomePage(props) {
     };
 
     const getCTALink = () => {
-        const { invitee } = this.props.configuration;
         if (invitee?.is_registered) {
             return ROUTES.LOGIN;
         }
