@@ -71,7 +71,11 @@ export class LoginPage extends React.Component {
         return (
             <UnauthenticatedPage>
                 <H1>Welcome Back</H1>
-                <SpacedH3>Sign in to continue with your application.</SpacedH3>
+                <SpacedH3>
+                    {this.props.invitee?.is_registered
+                        ? `Looks like you've applied to ${this.props.community?.company.name} community before. Sign in to get started on your application.`
+                        : `Sign in to continue with your application.`}
+                </SpacedH3>
                 <GenericFormMessage type="error" messages={this.errors} />
                 <img src={welcome} alt="welcome sign" width="118" height="94" />
                 <LoginForm handleOnSubmit={this.onSubmit} includeRegister={true} buttonText="Sign In" />
@@ -89,6 +93,7 @@ LoginPage.propTypes = {
     location: PropTypes.object,
     history: PropTypes.object,
     fetchApplicant: PropTypes.func,
+    configuration: PropTypes.object.isRequired,
     toggleLoader: PropTypes.func,
 };
 
@@ -97,6 +102,7 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
     community: state.configuration && state.configuration.community,
+    invitee: state.configuration && state.configuration.invitee,
 });
 
 const mapDispatchToProps = {
