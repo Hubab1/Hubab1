@@ -12,7 +12,6 @@ import { H1, H3, P, Bold } from 'assets/styles';
 import GenericFormMessage from 'components/common/GenericFormMessage';
 import { ROUTES } from 'app/constants';
 import { Link } from 'react-router-dom';
-import BankingContext from 'components/banking/BankingContext';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;

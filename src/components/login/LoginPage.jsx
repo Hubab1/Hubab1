@@ -53,11 +53,7 @@ export class LoginPage extends React.Component {
                 setSubmitting(false);
                 if (this.state.errors) this.setState({ errors: null });
 
-                Promise.all([
-                    this.props.fetchRenterProfile(),
-                    this.props.fetchApplicant(),
-                    this.props.refreshFinancialSources(), // TODO: return this with applicant
-                ]).then(() => {
+                Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                     history.replace(this.props.initialPage);
                 });
             })

@@ -100,8 +100,6 @@ export class Main extends Component {
             configuration = await this.props.fetchConfiguration(communityId, hash);
             if (isLoggedIn) {
                 await this.props.fetchApplicant();
-                // TODO: Instead of doing extra call we could return the initial data from the applicant
-                await this.props.refreshFinancialSources();
             }
         } catch (error) {
             return this.setState({ hasError: true });

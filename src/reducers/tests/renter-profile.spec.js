@@ -727,3 +727,173 @@ describe('selectUnit', () => {
         expect(actual).toBe(unit);
     });
 });
+
+describe('selectDefaultBankingPage', () => {
+    it("returns connect page if applicant hasn't provided any income yet", () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_AND_EMPLOYMENT);
+    });
+
+    it('returns connect page if agent requested income', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_AND_EMPLOYMENT);
+    });
+
+    it('returns summary page if agent requested income and assets were submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if agent requested income and income was submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if employee page disabled in configuration', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: false,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if employee page already submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [{ event: APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO }],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if reported no income', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [{ event: APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE }],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: true,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns employee page if none of the previous conditions is met', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.EMPLOYER_DETAILS);
+    });
+});

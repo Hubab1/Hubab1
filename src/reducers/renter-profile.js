@@ -106,13 +106,9 @@ export const selectors = {};
 selectors.selectDefaultBankingPage = createSelector(
     (state) => state.applicant,
     (state) => state.application && state.application.events,
-    (state) => state.renterProfile,
     (state) => state.configuration,
     (state) => state.banking,
-    (applicant, applicationEvents, renterProfile, configuration, data) => {
-        const location = window.location;
-        const pathname = location.pathname;
-
+    (applicant, applicationEvents, configuration, data) => {
         const applicantEnteredIncomeOrAssets =
             data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
 
@@ -131,37 +127,24 @@ selectors.selectDefaultBankingPage = createSelector(
             return ROUTES.INCOME_AND_EMPLOYMENT;
         }
 
-        if (!configuration.enable_automatic_income_verification) {
-            if (configuration.collect_employer_information) {
-                return ROUTES.EMPLOYER_DETAILS;
-            }
-        }
+        const addedEmployerInfo = !!applicant.events.find(
+            (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
+        );
 
-        if (applicantEnteredIncomeOrAssets) {
-            const addedEmployerInfo = !!applicant.events.find(
-                (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO)
-            );
+        const reportedNoIncome = !!applicant.events.find(
+            (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
+        );
 
-            const reportedNoIncome = !!applicant.events.find(
-                (e) => String(e.event) === String(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE)
-            );
+        const shouldEditEmployerInfo =
+            configuration.collect_employer_information &&
+            !addedEmployerInfo &&
+            !reportedNoIncome &&
+            !applicant.submitted_application;
 
-            // This is needed when clicked on the Back button from the fees page
-            if (pathname.includes(ROUTES.EMPLOYER_DETAILS) && configuration.collect_employer_information) {
-                return ROUTES.EMPLOYER_DETAILS;
-            }
-
-            const shouldEditEmployerInfo =
-                configuration.collect_employer_information &&
-                !addedEmployerInfo &&
-                !reportedNoIncome &&
-                !applicant.submitted_application;
-
-            if (shouldEditEmployerInfo && !pathname.endsWith(ROUTES.INCOME_VERIFICATION_SUMMARY)) {
-                return ROUTES.EMPLOYER_DETAILS;
-            } else {
-                return ROUTES.INCOME_VERIFICATION_SUMMARY;
-            }
+        if (shouldEditEmployerInfo) {
+            return ROUTES.EMPLOYER_DETAILS;
+        } else {
+            return ROUTES.INCOME_VERIFICATION_SUMMARY;
         }
     }
 );
@@ -234,9 +217,7 @@ const isFeesAndDepositsCompleted = (applicant) => {
 
 const isIncomeAndEmploymentCompleted = (events, profile, configuration) => {
     if (events.has(APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED)) {
-        if (!configuration.collect_employer_information) {
-            return true;
-        }
+        if (!configuration.collect_employer_information) return true;
         return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
     }
 

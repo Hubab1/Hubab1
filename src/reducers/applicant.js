@@ -3,6 +3,7 @@ import produce from 'immer';
 
 import API, { MOCKY } from 'app/api';
 import mock from './applicant-mock';
+import { bankingDataReceived } from 'reducers/banking';
 
 const applicant = createSlice({
     name: 'applicant',
@@ -13,7 +14,7 @@ const applicant = createSlice({
             return state;
         },
         applicantUpdated(state, action) {
-            return produce(state, draft => {
+            return produce(state, (draft) => {
                 Object.assign(draft, action.payload);
             });
         },
@@ -21,8 +22,8 @@ const applicant = createSlice({
     extraReducers: {
         USER_LOGOUT: () => {
             return null;
-        }
-    }
+        },
+    },
 });
 
 const { actions, reducer } = applicant;
@@ -30,7 +31,7 @@ export const { applicantUpdated, applicantReceived } = actions;
 export default reducer;
 
 export const fetchApplicant = () => {
-    return async dispatch => {
+    return async (dispatch) => {
         let applicant;
         if (MOCKY) {
             applicant = mock;
@@ -38,17 +39,18 @@ export const fetchApplicant = () => {
             applicant = await API.fetchApplicant();
         }
         dispatch(applicantReceived(applicant));
+        dispatch(bankingDataReceived(applicant.financial_data));
         return applicant;
     };
 };
 
 export const updateApplicant = (newData) => {
-    return dispatch => {
+    return (dispatch) => {
         if (MOCKY) {
             dispatch(applicantUpdated(newData));
             return Promise.resolve({});
         }
-        return API.putApplicant(newData).then(res => {
+        return API.putApplicant(newData).then((res) => {
             if (res.errors) {
                 return res;
             }
