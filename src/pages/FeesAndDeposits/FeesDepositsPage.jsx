@@ -214,12 +214,12 @@ const mapDispatchToProps = {
     toggleLoader: modalActions.toggleLoader,
 };
 
-export const FeesAndDeposits = connect(
+export const FeesAndDepositsPage = connect(
     mapStateToProps,
     mapDispatchToProps
 )(withRelativeRoutes(FeesDepositsPage, ROUTES.FEES_AND_DEPOSITS));
 
-export const OutstandingBalance = connect(
+export const OutstandingBalancePage = connect(
     mapStateToPropsOutstandingBalance,
     mapDispatchToProps
 )(withRelativeRoutes(FeesDepositsPage, ROUTES.OUTSTANDING_BALANCE));
