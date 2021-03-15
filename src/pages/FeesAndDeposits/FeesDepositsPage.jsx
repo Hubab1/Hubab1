@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { ROUTES, LINE_ITEM_TYPE_HOLDING_DEPOSIT, ROLE_PRIMARY_APPLICANT } from 'constants/constants';
 import API from 'api/api';
+import { getPreventNonPrimaryFromPayingUnheldUnit } from 'selectors/launchDarkly';
 import withRelativeRoutes from 'utils/withRelativeRoutes';
 
 import { fetchPayments } from 'reducers/payments';
@@ -12,8 +13,9 @@ import { actions as modalActions } from 'reducers/loader';
 
 import PaymentTerms from 'common-components/PaymentTerms/PaymentTerms';
 import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions';
-import Payment from 'pages/FeesAndDeposits/components/Payment';
+import UnitNotHeldWaitingPage from 'pages/FeesAndDeposits/components/UnitNotHeldWaitingPage';
 import FeesDepositsReceipt from 'pages/FeesAndDeposits/components/FeesDepositsReceipt';
+import Payment from 'pages/FeesAndDeposits/components/Payment';
 
 export const FeesDepositsPage = ({
     _prev,
@@ -21,6 +23,7 @@ export const FeesDepositsPage = ({
     payables,
     profile,
     applicant,
+    preventNonPrimaryFromPayingUnheldUnit,
     configuration,
     isOutstanding,
     toggleLoader,
@@ -117,6 +120,17 @@ export const FeesDepositsPage = ({
         }
     };
 
+    if (preventNonPrimaryFromPayingUnheldUnit && !isPrimaryApplicant && !profile.unit_is_held) {
+        return (
+            <UnitNotHeldWaitingPage
+                primaryApplicantFirstName={profile.primary_applicant.first_name}
+                primaryApplicantLastName={profile.primary_applicant.last_name}
+                communityName={communityName}
+                unitNumber={unitNumber}
+            />
+        );
+    }
+
     if (currentPage === 'options') {
         return (
             <FeesDepositsOptions
@@ -184,6 +198,7 @@ const mapStateToProps = (state) => ({
     configuration: state.configuration,
     profile: state.renterProfile,
     payables: state.payments,
+    preventNonPrimaryFromPayingUnheldUnit: getPreventNonPrimaryFromPayingUnheldUnit(state),
 });
 
 const mapStateToPropsOutstandingBalance = (state) => ({
@@ -199,12 +214,12 @@ const mapDispatchToProps = {
     toggleLoader: modalActions.toggleLoader,
 };
 
-export const FeesAndDepositsPage = connect(
+export const FeesAndDeposits = connect(
     mapStateToProps,
     mapDispatchToProps
 )(withRelativeRoutes(FeesDepositsPage, ROUTES.FEES_AND_DEPOSITS));
 
-export const OutstandingBalancePage = connect(
+export const OutstandingBalance = connect(
     mapStateToPropsOutstandingBalance,
     mapDispatchToProps
 )(withRelativeRoutes(FeesDepositsPage, ROUTES.OUTSTANDING_BALANCE));

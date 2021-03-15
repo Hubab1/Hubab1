@@ -101,7 +101,7 @@ describe('mountNavigation', () => {
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
     });
 
-    it('routes to login page if not authenticated, but there is an associated client application', function () {
+    it('routes to welcome page if not authenticated, but there is an associated client application', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
@@ -111,10 +111,10 @@ describe('mountNavigation', () => {
         const configuration = { client: { applicant_id: 123 }, invitee: {} };
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/login');
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
-    it('routes to login page if not authenticated, but there is an associated registered invitee', function () {
+    it('routes to welcome page if not authenticated, but there is an associated registered invitee', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
 
@@ -124,7 +124,7 @@ describe('mountNavigation', () => {
         const configuration = { client: {}, invitee: { is_registered: true } };
         wrapper.instance().mountNavigation(isAuthenticated, configuration);
         expect(historyStub).toHaveBeenCalledTimes(1);
-        expect(historyStub).toHaveBeenCalledWith('/login');
+        expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
 
     it('routes to welcome page if not authenticated, and there is a client associated', function () {

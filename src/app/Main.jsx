@@ -56,10 +56,6 @@ export class Main extends Component {
         const { history, location } = this.props;
         const pathname = location.pathname;
 
-        const clientRegistered = configuration.client && configuration.client.applicant_id;
-        const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
-        const hasRegistered = clientRegistered || inviteeRegistered;
-
         initLaunchDarkly(configuration?.community?.company);
 
         if (!isAuthenticated) {
@@ -72,14 +68,9 @@ export class Main extends Component {
                 pathname.includes('faq')
             )
                 return;
-            if (!configuration.client || !configuration.invitee) {
-                if (configuration.unit?.is_unavailable) {
-                    history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
-                } else {
-                    history.replace(ROUTES.WELCOME);
-                }
-            } else if (hasRegistered) {
-                history.replace(ROUTES.LOGIN);
+
+            if (configuration.unit?.is_unavailable) {
+                history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
             } else {
                 history.replace(ROUTES.WELCOME);
             }

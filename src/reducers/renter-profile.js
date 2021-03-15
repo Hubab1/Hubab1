@@ -230,7 +230,7 @@ selectors.selectDefaultInitialPage = createSelector(
 
             // eslint-disable-next-line default-case
             switch (profile.status) {
-                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED:
+                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED:
                     return ROUTES.APP_CANCELLED;
                 case APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED:
                     return ROUTES.LEASE_EXECUTED;

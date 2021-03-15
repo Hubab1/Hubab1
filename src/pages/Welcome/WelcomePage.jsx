@@ -99,7 +99,7 @@ export function WelcomePage(props) {
     const theme = useTheme();
     const classes = useStyles();
     const { configuration } = props;
-    const { community, unit } = configuration;
+    const { community, unit, invitee } = configuration;
     const { building_name, city, state, postal_code, normalized_street_address } = community;
 
     const firstName = useMemo(() => {
@@ -112,6 +112,22 @@ export function WelcomePage(props) {
             return null;
         }
     }, [configuration]);
+
+    const getCTALabel = () => {
+        if (invitee) {
+            return 'Continue to Application';
+        }
+
+        return 'Create Account & Apply';
+    };
+
+    const getCTALink = () => {
+        if (invitee?.is_registered) {
+            return ROUTES.LOGIN;
+        }
+
+        return ROUTES.SIGNUP;
+    };
 
     const cityStateZip = `${city}, ${state} ${postal_code}`;
     const helloContent = firstName ? `Hello ${firstName},` : 'Hi There,';
@@ -140,14 +156,16 @@ export function WelcomePage(props) {
                     {unit && unit.unit_number && <P>{`Unit ${unit.unit_number}`}</P>}
                 </div>
                 <div className={classes.footer}>
-                    <Link to={{ pathname: ROUTES.SIGNUP }} style={{ textDecoration: 'none' }} className="cta-container">
+                    <Link to={{ pathname: getCTALink() }} style={{ textDecoration: 'none' }} className="cta-container">
                         <ActionButton data-testid="cta-button" buttonClassName={classes.ctaButton}>
-                            Start Application
+                            {getCTALabel()}
                         </ActionButton>
                     </Link>
-                    <Link to={ROUTES.LOGIN} className={clsx(link, classes.link)}>
-                        I already started an application
-                    </Link>
+                    {!invitee && (
+                        <Link to={ROUTES.LOGIN} className={clsx(link, classes.link)}>
+                            I already have an account
+                        </Link>
+                    )}
                     <img src={funnelImage} width="150" alt="funnel logo" />
                 </div>
             </div>
