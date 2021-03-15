@@ -10,7 +10,7 @@ const banking = createSlice({
             state = action.payload;
             return state;
         },
-        bankingDataCleared(state, action) {
+        bankingDataCleared(state) {
             state = {};
             return state;
         },
