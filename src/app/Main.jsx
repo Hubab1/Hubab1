@@ -200,7 +200,7 @@ export class Main extends Component {
                                 component={FeesAndDepositsPages.OutstandingBalancePage}
                             />
                             <Route path={ROUTES.APPLICATIONS} component={ApplicationsPage} />
-                            <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailablePage} />
+                            <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailablePage} />
                             <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicyPage} />
                             <Route path={ROUTES.FAQ} component={FAQPage} />
                             <Route path={ROUTES.TERMS} component={TermsPage} />
