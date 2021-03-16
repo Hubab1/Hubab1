@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import API from 'app/api';
+import API from 'api/api';
 
-import { useMayorLoader } from 'components/MayorLoader/MayorLoaderProvider';
+import { useMayorLoader } from 'common-components/MayorLoader/MayorLoaderProvider';
 
 export default function useApplications(errorMessage) {
     const { toggleLoader } = useMayorLoader();

@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
 
-import { APPLICATION_STATUSES_LABELS, APPLICANT_ROLE_LABELS, APPLICATION_STATUSES_COLORS } from 'app/constants';
+import { APPLICATION_STATUSES_LABELS, APPLICANT_ROLE_LABELS, APPLICATION_STATUSES_COLORS } from 'constants/constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
