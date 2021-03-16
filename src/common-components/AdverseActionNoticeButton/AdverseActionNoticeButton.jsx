@@ -20,7 +20,7 @@ export function AdverseActionNoticeButton({ componentType, ...props }) {
         const w = window.open('', '_blank');
         w.document.write('Loading');
         try {
-            const response = await API.fetchAANDocument();
+            const response = await API.fetchAANDocument(props.application.id);
             const blobUrl = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
             w.location.replace(blobUrl);
         } catch (e) {
@@ -42,4 +42,5 @@ export function AdverseActionNoticeButton({ componentType, ...props }) {
 
 AdverseActionNoticeButton.propTypes = {
     componentType: PropTypes.oneOf([LINK_BUTTON, ACTION_BUTTON]).isRequired,
+    application: PropTypes.object.isRequired,
 };

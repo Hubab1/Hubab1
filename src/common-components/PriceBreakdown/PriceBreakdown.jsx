@@ -65,7 +65,7 @@ function PriceBreakdown(props) {
         };
 
         try {
-            const result = await API.getCurrentFlatQuote(body);
+            const result = await API.getCurrentFlatQuote(props.application.id, body);
             if (result.errors) {
                 props.onError && props.onError(result.errors);
                 setHasError(true);

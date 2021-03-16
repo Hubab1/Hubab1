@@ -60,7 +60,7 @@ export default function AvailableLeaseTermsSelector(props) {
                 move_in_date: props.leaseStartDate?.toISOString().split('T')[0],
             };
 
-            API.fetchAvailableLeaseTerms(data).then((res) => {
+            API.fetchAvailableLeaseTerms(props.application.id, data).then((res) => {
                 if (res.lease_terms?.length) setLeaseTerms(res.lease_terms);
                 setIsReady(true);
             });
@@ -112,4 +112,5 @@ AvailableLeaseTermsSelector.propTypes = {
     handleChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
     leaseStartDate: PropTypes.any,
+    application: PropTypes.object.isRequired,
 };

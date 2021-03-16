@@ -7,6 +7,7 @@ import API from 'api/api';
 import captureRoute from 'utils/captureRoute';
 
 import PaymentTerms from 'common-components/PaymentTerms/PaymentTerms';
+import Payment from 'pages/FeesAndDeposits/components/Payment';
 
 export const HoldingDepositReagreementPage = ({ profile, configuration }) => {
     if (!profile || !configuration || !profile.lease_start_date) {
@@ -20,7 +21,7 @@ export const HoldingDepositReagreementPage = ({ profile, configuration }) => {
         parseFloat(profile.selected_rental_options?.['holding-deposit']?.[0]?.quoted_deposit_amount) || 0;
 
     const handleTermsAccepted = (data) => {
-        API.acceptTerms(data).then(async () => {
+        API.acceptTerms(profile.id, data).then(async () => {
             window.location.reload();
         });
     };
@@ -34,6 +35,7 @@ export const HoldingDepositReagreementPage = ({ profile, configuration }) => {
             canProceedToPayment={true}
             isReagreeing={true}
             handleTermsAccepted={(data) => handleTermsAccepted(data)}
+            application={profile}
         />
     );
 };

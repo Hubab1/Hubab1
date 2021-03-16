@@ -26,7 +26,7 @@ export function LeaseExecutedPage(props) {
     const [url, setUrl] = useState('');
     useEffect(() => {
         (async () => {
-            const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
+            const response = await API.leaseDocumentUrl(props.profile.id, DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
     }, []);
@@ -60,6 +60,7 @@ LeaseExecutedPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     unit: state.renterProfile && state.renterProfile.unit,
+    profile: state.renterProfile,
     community: state.configuration && state.configuration.community,
 });
 

@@ -269,6 +269,7 @@ export const LeaseTermsPage = ({
                                             handleChange={handleChange}
                                             disabled={!isPrimaryApplicant || !hasOutstandingBalance}
                                             leaseStartDate={values.lease_start_date}
+                                            application={application}
                                         />
                                     </Grid>
                                 </Grid>

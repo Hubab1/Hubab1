@@ -32,7 +32,7 @@ export const HoldingDepositAgreementConfirmation = ({ profile, configuration, ha
 
     const fetchLeaseDocumentUrl = async () => {
         setLoading(true);
-        const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
+        const response = await API.leaseDocumentUrl(profile.id, DOCUMENT_TYPE_HOLDING_DEPOSIT);
         setUrl(response ? response.url : undefined);
         setError(response.url ? undefined : 'Holding Deposit Agreement is still processing. Please try again later.');
         setLoading(false);

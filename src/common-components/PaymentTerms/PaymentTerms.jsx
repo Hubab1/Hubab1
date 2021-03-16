@@ -24,6 +24,7 @@ export const PaymentTerms = ({
     communityName,
     leaseStartDate,
     canProceedToPayment,
+    application,
 }) => {
     const [html, setHtml] = useState(undefined);
     const [errors, setErrors] = useState(null);
@@ -33,7 +34,7 @@ export const PaymentTerms = ({
     useEffect(() => {
         (async () => {
             try {
-                const html = await API.fetchHoldingDepositTerms(canProceedToPayment);
+                const html = await API.fetchHoldingDepositTerms(application.id, canProceedToPayment);
                 setHtml(html);
             } catch (e) {
                 setErrors([
@@ -105,6 +106,7 @@ PaymentTerms.propTypes = {
     communityName: PropTypes.string.isRequired,
     leaseStartDate: PropTypes.string.isRequired,
     canProceedToPayment: PropTypes.bool.isRequired,
+    application: PropTypes.object.isRequired,
 };
 
 export default PaymentTerms;

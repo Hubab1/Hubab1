@@ -28,12 +28,13 @@ function BankingContainer({
     location,
     fetchRenterProfile,
     toggleLoader,
+    application,
 }) {
     const [state, dispatch] = useReducer(bankingReducer, {});
     const [routeSelected, setRouteSelected] = useState(false);
 
     const refreshFinancialSources = useCallback(async () => {
-        const response = await API.getFinancialSources();
+        const response = await API.getFinancialSources(application.id);
         if (response.status === 200) {
             const data = await response.json();
             dispatch({ type: 'BANKING_DATA_RECEIVED', data });
@@ -170,6 +171,7 @@ const mapStateToProps = (state) => ({
     applicationEvents: state.renterProfile?.events,
     applicant: state.applicant,
     configuration: state.configuration,
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = {

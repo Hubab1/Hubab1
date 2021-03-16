@@ -35,7 +35,7 @@ export class GuarantorPage extends Component {
     onSubmit = (values, { setSubmitting, setErrors }) => {
         this.props.toggleLoader(true);
 
-        return API.inviteGuarantor({ guarantors: [values] })
+        return API.inviteGuarantor(this.props.application.id, { guarantors: [values] })
             .then((res) => {
                 setSubmitting(false);
                 if (res.errors) {
@@ -109,6 +109,7 @@ GuarantorPage.propTypes = {
 const mapStateToProps = (state) => ({
     guarantorRequested: selectors.selectGuarantorRequested(state),
     initialPage: selectors.selectInitialPage(state),
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = {
