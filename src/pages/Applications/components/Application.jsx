@@ -102,15 +102,15 @@ export function Application({ application = {}, isActive = true }) {
                 <CardContent data-testid="content">
                     <Typography className={classes.typography} variant="body1">
                         Move in Date:{' '}
-                        <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '-'}</span>
+                        <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '---'}</span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
-                        Lease Term: <span>{lease_term ? lease_term : '-'}</span>
+                        Lease Term: <span>{lease_term ? lease_term : '---'}</span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
                         Monthly Rent:{' '}
                         <span>
-                            {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}
+                            {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '---'}
                         </span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
