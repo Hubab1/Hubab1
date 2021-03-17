@@ -111,7 +111,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchRenterProfile,
     fetchApplicant,
-    configuration: PropTypes.object,
     toggleLoader: loaderActions.toggleLoader,
 };
 
