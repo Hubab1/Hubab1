@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 
-import API, { MOCKY } from 'app/api';
-import mock from './applicant-mock';
 import { bankingDataReceived } from 'reducers/banking';
+import { MOCKY } from 'config';
+import API from 'api/api';
+import mock from './fixtures/mock-applicant';
 
 const applicant = createSlice({
     name: 'applicant',
@@ -54,6 +55,7 @@ export const updateApplicant = (newData) => {
             if (res.errors) {
                 return res;
             }
+
             return dispatch(applicantUpdated(res));
         });
     };

@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-import API, { MOCKY } from 'app/api';
+import { MOCKY } from 'config';
+import { DOES_NOT_EXIST } from 'constants/constants';
+import API from 'api/api';
 import { createTheme } from 'assets/theme';
-import mock from './mock-config';
-import { DOES_NOT_EXIST } from 'app/constants';
+import mock from './fixtures/mock-config';
 
 const configuration = createSlice({
     name: 'configuration',

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import API from 'app/api';
+import API from 'api/api';
 
 const banking = createSlice({
     name: 'banking',

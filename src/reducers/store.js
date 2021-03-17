@@ -7,6 +7,7 @@ import siteConfig from 'reducers/site-config';
 import applicant from 'reducers/applicant';
 import payments from 'reducers/payments';
 import banking from 'reducers/banking';
+import loader from 'reducers/loader';
 
 const reducer = {
     applicant,
@@ -14,6 +15,7 @@ const reducer = {
     configuration,
     siteConfig,
     payments,
+    loader,
     launchDarkly: ldRedux.reducer(),
     banking,
 };

@@ -3,47 +3,50 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { ROUTES } from 'constants/constants';
 import { initLaunchDarkly } from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
 import auth from 'utils/auth';
+
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as mainActions } from 'reducers/store';
-import { ROUTES } from 'app/constants';
 import { selectors as configSelectors } from 'reducers/configuration';
-import AppContextProvider from 'contexts/AppContextProvider';
-import ResendLinkForm from 'components/common/ResendLinkForm';
-import WelcomePage from 'components/welcome/WelcomePage';
-import PasswordContainer from 'components/password/PasswordContainer';
-import RentalProfileContainer from 'components/profile/RentalProfileContainer';
-import LoginPage from 'components/login/LoginPage';
-import AccountPage from 'components/account/AccountPage';
-import RegisterPage from 'components/RegisterPage';
-import LeaseTermsPage from 'components/LeaseTermsPage';
-import BankingContainer from 'components/banking/BankingContainer';
-import { FeesAndDeposits, OutstandingBalance } from 'components/fees-deposits/FeesDepositsContainer';
-import HoldingDepositAgreementContainer from 'components/holding-deposit-agreement/HoldingDepositAgreementContainer';
-import PaymentTerms from 'components/fees-deposits/PaymentTerms';
-import Address from 'components/address/Address';
-import Screening from 'components/Screening';
-import NavDrawer from 'components/NavDrawer';
-import AppComplete from 'components/status/AppComplete';
-import AppApproved from 'components/app-approved/AppApprovedContainer';
-import AppDenied from 'components/AppDenied';
-import LeaseSigned from 'components/LeaseSigned';
-import LeaseExecuted from 'components/LeaseExecuted';
-import TermsPage from 'components/TermsPage';
-import FAQPage from 'components/FAQ/FAQPage';
-import AppCancelled from 'components/AppCancelled';
-import LeaseVoided from 'components/LeaseVoided';
-import PrivacyPolicy from 'components/PrivacyPolicy';
-import FunnelTerms from 'components/FunnelTerms';
-import UnitUnavailable from 'components/UnitUnavailable';
-import CriticalError from 'components/common/CriticalError';
-import PaymentDetails from 'components/payment-details/PaymentDetails';
-import GuarantorRequested from 'components/GuarantorRequested';
-import HoldingDepositReagreement from 'components/fees-deposits/HoldingDepositReagreement';
+
+import AppContextProvider from 'app/AppContextProvider';
+import NavDrawer from 'common-components/NavDrawer/NavDrawer';
+import ResendLinkForm from 'common-components/ResendLinkForm/ResendLinkForm';
+
+import CriticalErrorPage from 'pages/CriticalError';
+import WelcomePage from 'pages/Welcome';
+import LoginPage from 'pages/Login';
+import SignupPage from 'pages/Signup';
+import PasswordPages from 'pages/Password';
+import UnitUnavailablePage from 'pages/UnitUnavailable';
+import PrivacyPolicyPage from 'pages/PrivacyPolicy';
+import FAQPage from 'pages/FAQ';
+import TermsPage from 'pages/Terms';
+import Address from 'pages/Address';
+import LeaseTermsPage from 'pages/LeaseTerms';
+import AccountPage from 'pages/Account';
+import RenterProfilePages from 'pages/RenterProfile';
+import BankingPages from 'pages/Banking';
+import FeesAndDepositsPages from 'pages/FeesAndDeposits';
+import HoldingDepositAgreementPage from 'pages/HoldingDepositAgreement';
+import HoldingDepositReagreementPage from 'pages/HoldingDepositReagreement';
+import ScreeningPage from 'pages/Screening';
+import ApplicationApprovedPage from 'pages/ApplicationApproved';
+import ApplicationCancelledPage from 'pages/ApplicationCancelled';
+import ApplicationCompletePage from 'pages/ApplicationComplete';
+import ApplicationDeniedPage from 'pages/ApplicationDenied';
+import LeaseExecutedPage from 'pages/LeaseExecuted';
+import LeaseSignedPage from 'pages/LeaseSigned';
+import LeaseVoidedPage from 'pages/LeaseVoided';
+import FunnelTermsPage from 'pages/FunnelTerms';
+import GuarantorRequestedPage from 'pages/GuarantorRequested';
+import PaymentDetailsPage from 'pages/PaymentDetails';
+import PaymentTermsPage from 'pages/PaymentTerms';
 import ApplicationsPage from 'pages/Applications';
 import { refreshFinancialSources } from 'reducers/banking';
 
@@ -53,10 +56,6 @@ export class Main extends Component {
     mountNavigation(isAuthenticated, configuration) {
         const { history, location } = this.props;
         const pathname = location.pathname;
-
-        const clientRegistered = configuration.client && configuration.client.applicant_id;
-        const inviteeRegistered = configuration.invitee && configuration.invitee.is_registered;
-        const hasRegistered = clientRegistered || inviteeRegistered;
 
         initLaunchDarkly(configuration?.community?.company);
 
@@ -70,14 +69,9 @@ export class Main extends Component {
                 pathname.includes('faq')
             )
                 return;
-            if (!configuration.client || !configuration.invitee) {
-                if (configuration.unit?.is_unavailable) {
-                    history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
-                } else {
-                    history.replace(ROUTES.WELCOME);
-                }
-            } else if (hasRegistered) {
-                history.replace(ROUTES.LOGIN);
+
+            if (configuration.unit?.is_unavailable) {
+                history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
             } else {
                 history.replace(ROUTES.WELCOME);
             }
@@ -155,63 +149,67 @@ export class Main extends Component {
 
     render() {
         const { theme, isLoggedIn } = this.props;
-        if (this.state.hasError) return <CriticalError />;
+        const { hasError } = this.state;
+
+        if (hasError) return <CriticalErrorPage />;
         if (!theme) return null;
+
         return (
             <AppContextProvider theme={theme}>
-                <div>
-                    <Switch>
-                        <Route path={ROUTES.WELCOME} component={WelcomePage} />
-                        <Route path={ROUTES.LOGIN} component={LoginPage} />
-                        <Route path={ROUTES.SIGNUP} component={RegisterPage} />
-                        <Route path={ROUTES.PASSWORD} component={PasswordContainer} />
-                        {!isLoggedIn && (
-                            <>
-                                <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailable} />
-                                <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
-                                <Route path={ROUTES.FAQ} component={FAQPage} />
-                                <Route path={ROUTES.TERMS} component={TermsPage} />
-                            </>
-                        )}
-                        {isLoggedIn && (
-                            <NavDrawer>
-                                <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
-                                <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-                                <Route path={ROUTES.RENTAL_PROFILE} component={RentalProfileContainer} />
-                                <Route path={ROUTES.ADDRESS} component={Address} />
-                                <Route path={ROUTES.BANKING} component={BankingContainer} />
-                                <Route path={ROUTES.FEES_AND_DEPOSITS} component={FeesAndDeposits} />
-                                <Route
-                                    path={ROUTES.HOLDING_DEPOSIT_AGREEMENT}
-                                    component={HoldingDepositAgreementContainer}
-                                />
-                                <Route
-                                    path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
-                                    component={HoldingDepositReagreement}
-                                />
-                                <Route path={ROUTES.SCREENING} component={Screening} />
-                                <Route path={ROUTES.APP_COMPLETE} component={AppComplete} />
-                                <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm} />
-                                <Route path={ROUTES.APP_APPROVED} component={AppApproved} />
-                                <Route path={ROUTES.LEASE_SIGNED} component={LeaseSigned} />
-                                <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecuted} />
-                                <Route path={ROUTES.APP_DENIED} component={AppDenied} />
-                                <Route path={ROUTES.APP_CANCELLED} component={AppCancelled} />
-                                <Route path={ROUTES.TERMS} component={TermsPage} />
-                                <Route path={ROUTES.FAQ} component={FAQPage} />
-                                <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoided} />
-                                <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
-                                <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTerms} />
-                                <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailable} />
-                                <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequested} />
-                                <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetails} />
-                                <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTerms} />
-                                <Route path={ROUTES.OUTSTANDING_BALANCE} component={OutstandingBalance} />
-                                <Route path={ROUTES.APPLICATIONS} component={ApplicationsPage} />
-                            </NavDrawer>
-                        )}
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route path={ROUTES.WELCOME} component={WelcomePage} />
+                    <Route path={ROUTES.LOGIN} component={LoginPage} />
+                    <Route path={ROUTES.SIGNUP} component={SignupPage} />
+                    <Route path={ROUTES.PASSWORD} component={PasswordPages} />
+                    {!isLoggedIn && (
+                        <>
+                            <Route path={ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE} component={UnitUnavailablePage} />
+                            <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicyPage} />
+                            <Route path={ROUTES.FAQ} component={FAQPage} />
+                            <Route path={ROUTES.TERMS} component={TermsPage} />
+                        </>
+                    )}
+                    {isLoggedIn && (
+                        <NavDrawer>
+                            <Route path={ROUTES.ADDRESS} component={Address} />
+                            <Route path={ROUTES.LEASE_TERMS} component={LeaseTermsPage} />
+                            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+                            <Route path={ROUTES.RENTAL_PROFILE} component={RenterProfilePages} />
+                            <Route path={ROUTES.BANKING} component={BankingPages} />
+                            <Route
+                                path={ROUTES.FEES_AND_DEPOSITS}
+                                component={FeesAndDepositsPages.FeesAndDepositsPage}
+                            />
+                            <Route path={ROUTES.HOLDING_DEPOSIT_AGREEMENT} component={HoldingDepositAgreementPage} />
+                            <Route
+                                path={ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT}
+                                component={HoldingDepositReagreementPage}
+                            />
+                            <Route path={ROUTES.SCREENING} component={ScreeningPage} />
+                            <Route path={ROUTES.APP_APPROVED} component={ApplicationApprovedPage} />
+                            <Route path={ROUTES.APP_CANCELLED} component={ApplicationCancelledPage} />
+                            <Route path={ROUTES.APP_COMPLETE} component={ApplicationCompletePage} />
+                            <Route path={ROUTES.APP_DENIED} component={ApplicationDeniedPage} />
+                            <Route path={ROUTES.LEASE_EXECUTED} component={LeaseExecutedPage} />
+                            <Route path={ROUTES.LEASE_SIGNED} component={LeaseSignedPage} />
+                            <Route path={ROUTES.LEASE_VOIDED} component={LeaseVoidedPage} />
+                            <Route path={ROUTES.FUNNEL_TERMS} component={FunnelTermsPage} />
+                            <Route path={ROUTES.GUARANTOR_REQUESTED} component={GuarantorRequestedPage} />
+                            <Route path={ROUTES.RESEND_INVITE} component={ResendLinkForm} />
+                            <Route path={ROUTES.PAYMENT_DETAILS} component={PaymentDetailsPage} />
+                            <Route path={ROUTES.PAYMENT_TERMS} component={PaymentTermsPage} />
+                            <Route
+                                path={ROUTES.OUTSTANDING_BALANCE}
+                                component={FeesAndDepositsPages.OutstandingBalancePage}
+                            />
+                            <Route path={ROUTES.APPLICATIONS} component={ApplicationsPage} />
+                            <Route path={ROUTES.UNIT_UNAVAILABLE} component={UnitUnavailablePage} />
+                            <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicyPage} />
+                            <Route path={ROUTES.FAQ} component={FAQPage} />
+                            <Route path={ROUTES.TERMS} component={TermsPage} />
+                        </NavDrawer>
+                    )}
+                </Switch>
             </AppContextProvider>
         );
     }

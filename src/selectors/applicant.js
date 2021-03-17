@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { MILESTONE_APPLICANT_SUBMITTED } from 'app/constants';
+import { MILESTONE_APPLICANT_SUBMITTED } from 'constants/constants';
 
 export const getApplicantEventsSet = createSelector(
     (state) => state.applicant && state.applicant.events,
