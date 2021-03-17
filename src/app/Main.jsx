@@ -13,6 +13,7 @@ import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as mainActions } from 'reducers/store';
 import { selectors as configSelectors } from 'reducers/configuration';
+import { refreshFinancialSources } from 'reducers/banking';
 
 import AppContextProvider from 'app/AppContextProvider';
 import NavDrawer from 'common-components/NavDrawer/NavDrawer';
@@ -48,7 +49,6 @@ import GuarantorRequestedPage from 'pages/GuarantorRequested';
 import PaymentDetailsPage from 'pages/PaymentDetails';
 import PaymentTermsPage from 'pages/PaymentTerms';
 import ApplicationsPage from 'pages/Applications';
-import { refreshFinancialSources } from 'reducers/banking';
 
 export class Main extends Component {
     state = { error: null };

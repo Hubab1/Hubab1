@@ -15,9 +15,9 @@ const reducer = {
     configuration,
     siteConfig,
     payments,
+    banking,
     loader,
     launchDarkly: ldRedux.reducer(),
-    banking,
 };
 
 export const actions = {};
