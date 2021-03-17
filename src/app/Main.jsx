@@ -92,9 +92,7 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            if (isLoggedIn) {
-                await this.props.fetchApplicant();
-            }
+            isLoggedIn && (await this.props.fetchApplicant());
         } catch (error) {
             return this.setState({ hasError: true });
         }
