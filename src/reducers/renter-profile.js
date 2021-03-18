@@ -350,6 +350,9 @@ selectors.selectUnit = (state) => state?.renterProfile?.unit;
 selectors.applicationFees = createSelector(
     (state) => state.payments,
     (payments) => {
+        if (!payments) {
+            return { allPaid: false, items: [], total: 0 };
+        }
         const paymentDetailsFormat = (payable) => {
             const items = payable[1];
             const name = LINE_ITEM_TYPES[payable[0]];
@@ -364,7 +367,7 @@ selectors.applicationFees = createSelector(
 
         const items = fp.flow(fp.groupBy('type'), fp.toPairs, fp.map(paymentDetailsFormat))(payments);
         const total = fp.sumBy('amount')(items);
-        const allPaid = fp.every(['paid', true])(payments);
+        const allPaid = fp.every(['paid', true])(payments) && !!payments.length;
 
         return { total, items, allPaid };
     }

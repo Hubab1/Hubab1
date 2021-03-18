@@ -731,7 +731,7 @@ describe('selectUnit', () => {
 });
 
 describe('applicationFees', () => {
-    let state = {
+    const state = {
         payments: [
             { paid: false, type: 10, amount: 120 },
             { paid: false, type: 10, amount: 120 },
@@ -739,14 +739,15 @@ describe('applicationFees', () => {
         ],
     };
 
-    it('should return undefined when there are no payments', () => {
-        state = { payments: [] };
-        let actual = selectors.applicationFees(state);
-        expect(actual).toBeUndefined();
+    it('should return default state when there are no payments', () => {
+        let newState = { payments: [] };
+        let actual = selectors.applicationFees(newState);
+        const expected = { allPaid: false, items: [], total: 0 };
+        expect(actual).toEqual(expected);
 
-        state = {};
-        actual = selectors.applicationFees(state);
-        expect(actual).toBeUndefined();
+        newState = {};
+        actual = selectors.applicationFees(newState);
+        expect(actual).toEqual(expected);
     });
 
     it('creates an object with an allPaid flag, formatted items, and payment total', () => {
@@ -774,12 +775,27 @@ describe('applicationFees', () => {
     });
 
     it('calculates allPaid == true when all payments have been paid', () => {
-        const newState = state.payments.map((p) => ({ ...p, paid: true }));
+        const newState = { payments: state.payments.map((p) => ({ ...p, paid: true })) };
         const actual = selectors.applicationFees(newState);
         expect(actual).toEqual({
             allPaid: true,
-            items: [],
-            total: 0,
+            items: [
+                {
+                    amount: 240,
+                    name: 'Application Fee',
+                    price: 120,
+                    quantity: 2,
+                    type: 'fee',
+                },
+                {
+                    amount: 300,
+                    name: 'Holding Deposit',
+                    price: 300,
+                    quantity: 1,
+                    type: 'fee',
+                },
+            ],
+            total: 540,
         });
     });
 });
