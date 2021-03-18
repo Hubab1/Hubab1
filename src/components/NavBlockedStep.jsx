@@ -38,6 +38,7 @@ export function NavBlockedStep(props) {
         stepClass,
         buttonColor,
         currentRoute,
+        callUsText,
     } = props;
 
     const onClick = () => {
@@ -55,7 +56,7 @@ export function NavBlockedStep(props) {
                     <a href={`tel:${config.community.contact_phone}`}>
                         {prettyFormatPhoneNumber(config.community.contact_phone)}
                     </a>{' '}
-                    so we can discuss some other options.
+                    {callUsText || 'if you have any questions.'}
                 </span>
             </StepLabel>
             <Button
@@ -128,8 +129,10 @@ export function NavBlockedCompletedStep(props) {
 
 NavBlockedCompletedStep.propTypes = {
     text: PropTypes.string.isRequired,
+    callUsText: PropTypes.string,
 };
 
 NavBlockedInProgressStep.propTypes = {
     text: PropTypes.string.isRequired,
+    callusText: PropTypes.string,
 };

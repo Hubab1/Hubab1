@@ -18,6 +18,7 @@ import {
     MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
 } from 'app/constants';
 import { NavBlockedCompletedStep, NavBlockedInProgressStep } from 'components/NavBlockedStep';
+import { prettyFormatPhoneNumber } from 'utils/misc';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -71,6 +72,18 @@ export function VerticalLinearStepper(props) {
         }
     }
 
+    const getNavBlockedText = (text_1, text_2) => {
+        return (
+            <>
+                {text_1} Please call us at{' '}
+                <a href={`tel:${config.community.contact_phone}`}>
+                    {prettyFormatPhoneNumber(config.community.contact_phone)}
+                </a>{' '}
+                {text_2 || 'if you have any questions.'}
+            </>
+        );
+    };
+
     const isNavigationBlocked =
         props.applicantStillFinishingApplication === false ||
         props.guarantorRequested ||
@@ -80,24 +93,16 @@ export function VerticalLinearStepper(props) {
         additionalDocumentsRequested;
 
     function renderBlockedStep() {
-        if (props.applicantStillFinishingApplication === false) {
-            return (
-                <NavBlockedCompletedStep
-                    text={'Your application has been completed and submitted.'}
-                    handleDrawerClose={props.handleDrawerClose}
-                />
-            );
-        }
-
         if (unitUnavailable && !props.guarantorRequested) {
             return (
                 <NavBlockedInProgressStep
                     text={`We've placed your application on hold for now, since the apartment you were interested in is no longer available.`}
+                    callUsText={'so we can discuss some other options.'}
                 />
             );
         }
 
-        if (holdingDepositAgreementSignatureRequested && !props.guarantorRequested) {
+        if (holdingDepositAgreementSignatureRequested) {
             return (
                 <NavBlockedInProgressStep
                     text={`We’ll need you to agree to the new holding deposit terms.`}
@@ -107,7 +112,12 @@ export function VerticalLinearStepper(props) {
         }
 
         if (props.guarantorRequested) {
-            return <NavBlockedInProgressStep text={`We’re waiting for you to add a guarantor.`} />;
+            return (
+                <NavBlockedInProgressStep
+                    text={`We’re waiting for you to add a guarantor.`}
+                    callUsText={'if you have any questions or if you are unable or unwilling to add a guarantor.'}
+                />
+            );
         }
 
         if (additionalDocumentsRequested) {
@@ -118,6 +128,15 @@ export function VerticalLinearStepper(props) {
             return (
                 <NavBlockedInProgressStep
                     text={`You'll be able to move forward with your application once all outstanding balances have been paid.`}
+                    handleDrawerClose={props.handleDrawerClose}
+                />
+            );
+        }
+
+        if (props.applicantStillFinishingApplication === false) {
+            return (
+                <NavBlockedCompletedStep
+                    text={'Your application has been completed and submitted.'}
                     handleDrawerClose={props.handleDrawerClose}
                 />
             );
