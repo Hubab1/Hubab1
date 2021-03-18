@@ -742,11 +742,11 @@ describe('applicationFees', () => {
     it('should return undefined when there are no payments', () => {
         state = { payments: [] };
         let actual = selectors.applicationFees(state);
-        expect(actual).toBeUndefined;
+        expect(actual).toBeUndefined();
 
         state = {};
         actual = selectors.applicationFees(state);
-        expect(actual).toBeUndefined;
+        expect(actual).toBeUndefined();
     });
 
     it('creates an object with an allPaid flag, formatted items, and payment total', () => {
