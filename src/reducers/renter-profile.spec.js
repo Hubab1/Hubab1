@@ -731,7 +731,7 @@ describe('selectUnit', () => {
 });
 
 describe('applicationFees', () => {
-    const state = {
+    let state = {
         payments: [
             { paid: false, type: 10, amount: 120 },
             { paid: false, type: 10, amount: 120 },
@@ -740,7 +740,7 @@ describe('applicationFees', () => {
     };
 
     it('should return undefined when there are no payments', () => {
-        let state = { payments: [] };
+        state = { payments: [] };
         let actual = selectors.applicationFees(state);
         expect(actual).toBeUndefined;
 
