@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import API, { MOCKY } from 'app/api';
-import mock from './mock-payments';
+import API from 'api/api';
+import { MOCKY } from 'config';
+import mock from './fixtures/mock-payments';
 
 const payments = createSlice({
     name: 'payments',
@@ -10,8 +11,8 @@ const payments = createSlice({
         paymentsReceived(state, action) {
             state = action.payload;
             return state;
-        }
-    }
+        },
+    },
 });
 
 const { actions, reducer } = payments;
@@ -19,7 +20,7 @@ export const { paymentsReceived } = actions;
 export default reducer;
 
 export const fetchPayments = () => {
-    return async dispatch => {
+    return async (dispatch) => {
         let payments;
         if (MOCKY) {
             payments = mock;

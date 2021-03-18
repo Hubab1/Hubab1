@@ -2,6 +2,8 @@ import memoize from 'lodash/memoize';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import addDays from 'date-fns/addDays';
+import { sumBy } from 'lodash';
+
 import auth from 'utils/auth';
 import {
     MILESTONE_APPLICANT_SUBMITTED,
@@ -9,8 +11,7 @@ import {
     CO_APPLICANT_STATUS_COMPLETED,
     CO_APPLICANT_STATUS_IN_PROGRESS,
     PAYMENT_TIME_MONTHLY,
-} from 'app/constants';
-import { sumBy } from 'lodash';
+} from 'constants/constants';
 import { browserName, browserVersion, osName, osVersion, isPrivateBrowsing, isDesktop } from 'utils/mobileDetect';
 
 export function sessionIsValidForCommunityId(communityId) {
@@ -150,6 +151,7 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
             const filesMapping = {};
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
                     const variableName = `file${cur}`;
                     formData.append(variableName, v.file);
                     filesMapping[variableName] = key;
@@ -171,6 +173,7 @@ export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) =>
         } else {
             for (const key of Object.keys(values.uploadedDocuments)) {
                 values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
                     formData.append(`${key}[]`, v.file);
                 });
             }

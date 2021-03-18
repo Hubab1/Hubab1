@@ -3,7 +3,8 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 
-import API, { MOCKY } from 'app/api';
+import { MOCKY } from 'config';
+import API from 'api/api';
 import {
     ROUTES,
     ROLE_PRIMARY_APPLICANT,
@@ -16,8 +17,8 @@ import {
     MILESTONE_APPLICATION_FEE_COMPLETED,
     ROUTE_LABELS,
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
-} from 'app/constants';
-import mock from './mock-profile';
+} from 'constants/constants';
+import mock from './fixtures/mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
 
@@ -229,7 +230,7 @@ selectors.selectDefaultInitialPage = createSelector(
 
             // eslint-disable-next-line default-case
             switch (profile.status) {
-                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELED:
+                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED:
                     return ROUTES.APP_CANCELLED;
                 case APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED:
                     return ROUTES.LEASE_EXECUTED;

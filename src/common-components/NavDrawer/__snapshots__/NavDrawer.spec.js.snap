@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersistentDrawerLeft - Matches snapshot 1`] = `
+<React.Fragment>
+  <ForwardRef(WithStyles)
+    className="makeStyles-appBar-3"
+    color="primary"
+    position="fixed"
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-toolbar-4"
+    >
+      <ForwardRef(WithStyles)
+        className="makeStyles-drawerMenuTrigger-6"
+        edge="start"
+        onClick={[Function]}
+      >
+        <UNDEFINED />
+      </ForwardRef(WithStyles)>
+      <BannerLogo
+        className="makeStyles-bannerLogo-5"
+      />
+      <ForwardRef(WithStyles)
+        aria-controls={null}
+        aria-haspopup={true}
+        className="makeStyles-profileMenuTrigger-7"
+        edge="end"
+        onClick={[Function]}
+      >
+        <div
+          className="makeStyles-avatar-14"
+        >
+          JD
+        </div>
+        <UNDEFINED
+          fontSize="small"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "bottom",
+          }
+        }
+        disableAutoFocus={false}
+        disableEnforceFocus={false}
+        disableRestoreFocus={false}
+        id="menu"
+        onClose={[Function]}
+        onMouseLeave={[Function]}
+        open={false}
+      >
+        <ForwardRef(MenuList)
+          className="makeStyles-profileMenuList-8"
+        >
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
+          >
+            Account
+          </ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles) />
+          <ForwardRef(WithStyles)
+            onClick={[Function]}
+          >
+            Logout
+          </ForwardRef(WithStyles)>
+        </ForwardRef(MenuList)>
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ProgressBar
+      percent={0}
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+  >
+    <div
+      className="makeStyles-list-1"
+      role="presentation"
+    >
+      <ForwardRef(StyledComponent)
+        className="makeStyles-section-9 makeStyles-communitySection-10"
+      >
+        <span />
+      </ForwardRef(StyledComponent)>
+      <ForwardRef(StyledComponent)
+        className="makeStyles-section-9"
+      >
+        <UNDEFINED
+          handleDrawerClose={[Function]}
+        />
+      </ForwardRef(StyledComponent)>
+      <ForwardRef(StyledComponent)
+        className="makeStyles-section-9 makeStyles-footer-12"
+      >
+        <ForwardRef
+          target="_blank"
+          to="/privacy-policy"
+        >
+          Privacy
+        </ForwardRef>
+        <ForwardRef
+          target="_blank"
+          to="/terms"
+        >
+          Terms of Use
+        </ForwardRef>
+        <ForwardRef
+          target="_blank"
+          to="/faq"
+        >
+          FAQs
+        </ForwardRef>
+      </ForwardRef(StyledComponent)>
+    </div>
+  </ForwardRef(WithStyles)>
+  <main>
+    <div
+      className="makeStyles-drawerHeader-2"
+    />
+    <div
+      className="css-us5k2a"
+    />
+  </main>
+</React.Fragment>
+`;
