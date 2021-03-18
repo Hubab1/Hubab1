@@ -11,6 +11,7 @@ import {
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
     MILESTONE_FINANCIAL_STREAM_INCOMPLETE,
 } from 'constants/constants';
+import { MOCKY } from 'config';
 
 import { NavBlockedCompletedStep, NavBlockedInProgressStep } from 'common-components/NavDrawer/NavBlockedStep';
 import { selectors } from 'reducers/renter-profile';
