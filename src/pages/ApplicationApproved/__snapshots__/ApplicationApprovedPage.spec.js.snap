@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it displays the right section hides payment details section when clicking back 1`] = `
+<ApplicationApprovedView
+  applicant={
+    Object {
+      "person": Object {
+        "name": "John Doe",
+      },
+    }
+  }
+  configuration={
+    Object {
+      "community": Object {
+        "building_name": "Fake Building",
+        "normalized_street_address": "123 Fake Street",
+      },
+    }
+  }
+  profile={
+    Object {
+      "events": Array [
+        Object {
+          "event": "20030",
+        },
+      ],
+      "last_status_change": Object {
+        "created_at": "2020-05-06 04:06:23",
+      },
+      "unit": Object {
+        "unit_number": null,
+      },
+    }
+  }
+  setShowPaymentDetails={[Function]}
+/>
+`;
+
+exports[`it displays the right section shows payment details section when clicking continue 1`] = `
+<SignLeaseView
+  applicantUpdated={[MockFunction]}
+  fetchPayments={[Function]}
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  payables={Array []}
+  profile={
+    Object {
+      "events": Array [
+        Object {
+          "event": "20030",
+        },
+      ],
+      "last_status_change": Object {
+        "created_at": "2020-05-06 04:06:23",
+      },
+      "unit": Object {
+        "unit_number": null,
+      },
+    }
+  }
+  setShowPaymentDetails={[Function]}
+/>
+`;
