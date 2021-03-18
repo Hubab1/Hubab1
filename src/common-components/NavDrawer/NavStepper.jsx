@@ -87,7 +87,6 @@ export function VerticalLinearStepper(props) {
         }
     }
 
-    console.log({ additionalDocumentsRequested });
     return (
         <Stepper className={classes.root} activeStep={activeStep} orientation="vertical">
             {unitUnavailable && !props.guarantorRequested && (

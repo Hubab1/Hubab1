@@ -10,6 +10,9 @@ const buildProps = () => {
     return {
         unit: {},
         community: {},
+        profile: {
+            id: 1,
+        },
     };
 };
 

@@ -27,6 +27,9 @@ beforeEach(() => {
             income_or_asset_type: 10,
             estimated_amount: '1111',
         },
+        application: {
+            id: 1,
+        },
     };
 });
 

@@ -102,7 +102,7 @@ export class GuarantorRequestedPage extends React.Component {
                                     Unfortunately, we will not be able to approve your application without a
                                     guarantor.&nbsp;
                                 </span>
-                                <AdverseActionNoticeButton componentType={LINK_BUTTON} />
+                                <AdverseActionNoticeButton componentType={LINK_BUTTON} application={profile} />
                             </>
                         ) : (
                             <span className={requestGuarantorHelpText}>
@@ -120,7 +120,7 @@ export class GuarantorRequestedPage extends React.Component {
                             Add a Guarantor
                         </ActionButton>
                     ) : (
-                        <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={65} />
+                        <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={65} application={profile} />
                     )}
                 </div>
                 {viewGuarantorExplanation && (

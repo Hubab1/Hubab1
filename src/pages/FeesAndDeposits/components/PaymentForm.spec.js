@@ -22,6 +22,9 @@ beforeEach(() => {
         onSuccess: jest.fn(),
         setDisableBack: jest.fn(),
         toggleLoader: jest.fn(),
+        application: {
+            id: 1,
+        },
     };
 });
 
@@ -39,7 +42,7 @@ it('handleSubmit sets paymentSuccess to true on Success', function () {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(defaultProps.onSuccess).toHaveBeenCalled();
             expect(wrapper.state().submitting).toBeFalsy();
         });
@@ -54,7 +57,7 @@ it('handleSubmit sets error on API fail', function () {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([GENERIC_ERROR_MESSAGE]);
             expect(wrapper.state().submitting).toBeFalsy();
         });
@@ -72,7 +75,7 @@ it('handleSubmit sets error on Unit PMS Unavailable error', () => {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([
                 AVAILABILITY_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
             ]);
@@ -92,7 +95,7 @@ it('handleSubmit sets error on Unit Temporarily Unavailable error', () => {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([
                 AVAILABILITY_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
             ]);
@@ -112,7 +115,7 @@ it('handleSubmit sets error on Unit Unavailable error', () => {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([
                 UNAVAILABLE_ERROR_MESSAGE(defaultProps.unit, 'community@company.com'),
             ]);
@@ -132,7 +135,7 @@ it('handleSubmit sets error on Unit Temporarily Unavailable error and no unit se
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([AVAILABILITY_ERROR_MESSAGE(null, 'community@company.com')]);
             expect(wrapper.state().submitting).toBeFalsy();
         });
@@ -147,7 +150,7 @@ it('handleSubmit sets error on API fail because of card', function () {
         .instance()
         .handleSubmit({ preventDefault: () => {} })
         .then(() => {
-            expect(API.stripePayment).toHaveBeenCalledWith({ token: 123 });
+            expect(API.stripePayment).toHaveBeenCalledWith(1, { token: 123 });
             expect(wrapper.state().errors).toEqual([CARD_DECLINE_ERROR_MESSAGE]);
             expect(wrapper.state().submitting).toBeFalsy();
         });

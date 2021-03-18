@@ -230,7 +230,7 @@ API.fetchFinicityReports = (application_id) => {
     });
 };
 
-API.stripePayment = (application_id, data) => {
+API.mment = (application_id, data) => {
     return fetch(chuck(`/application/${application_id}/payment`), {
         method: 'POST',
         headers: {
