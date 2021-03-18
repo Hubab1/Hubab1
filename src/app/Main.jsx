@@ -13,7 +13,6 @@ import { fetchConfiguration } from 'reducers/configuration';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as mainActions } from 'reducers/store';
 import { selectors as configSelectors } from 'reducers/configuration';
-import { refreshFinancialSources } from 'reducers/banking';
 
 import AppContextProvider from 'app/AppContextProvider';
 import NavDrawer from 'common-components/NavDrawer/NavDrawer';
@@ -229,7 +228,6 @@ Main.propTypes = {
     history: PropTypes.object,
     location: PropTypes.object,
     applicant: PropTypes.object,
-    refreshFinancialSources: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -249,7 +247,6 @@ const mapDispatchToProps = {
     fetchConfiguration,
     fetchApplicant,
     logout: mainActions.logout,
-    refreshFinancialSources,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

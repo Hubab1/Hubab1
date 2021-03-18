@@ -282,7 +282,7 @@ describe('selectInitialPage', () => {
                 events: [{ event: MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -328,7 +328,7 @@ describe('selectInitialPage', () => {
                 events: [],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -374,7 +374,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -424,7 +424,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -748,7 +748,7 @@ describe('selectDefaultBankingPage', () => {
             },
         });
 
-        expect(bankingPage).toBe(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_CONNECT);
     });
 
     it('returns connect page if agent requested income', () => {
@@ -768,7 +768,7 @@ describe('selectDefaultBankingPage', () => {
             },
         });
 
-        expect(bankingPage).toBe(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_CONNECT);
     });
 
     it('returns summary page if agent requested income and assets were submitted', () => {

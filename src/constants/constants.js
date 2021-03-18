@@ -59,7 +59,7 @@ export const ROUTES = {
 
     // Income and Employment related routes
     BANKING: '/income-employment',
-    INCOME_AND_EMPLOYMENT: '/income-employment/connect',
+    INCOME_VERIFICATION_CONNECT: '/income-employment/connect',
     INCOME_VERIFICATION_SUMMARY: '/income-employment/summary',
     MANUAL_INCOME_ENTRY_ADD_INCOME: '/income-employment/manual/add-income',
     MANUAL_ASSET_ENTRY_ADD_ASSET: '/income-employment/manual/add-asset',
@@ -76,7 +76,7 @@ export const ROUTE_LABELS = {
     [ROUTES.LEASE_TERMS]: 'Lease Terms',
     [ROUTES.PROFILE_OPTIONS]: 'Rental Profile',
     [ROUTES.BANKING]: 'Income & Employment',
-    [ROUTES.INCOME_AND_EMPLOYMENT]: 'Income & Employment',
+    [ROUTES.INCOME_VERIFICATION_CONNECT]: 'Income & Employment',
     [ROUTES.INCOME_VERIFICATION_SUMMARY]: 'Income & Employment',
     [ROUTES.EMPLOYER_DETAILS]: 'Income & Employment',
     [ROUTES.FEES_AND_DEPOSITS]: 'Fees & Deposits',

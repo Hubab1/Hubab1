@@ -40,7 +40,7 @@ function BankingContainer({
             }}
         >
             <Switch>
-                <Route path={ROUTES.INCOME_AND_EMPLOYMENT} component={ConnectBankPage} exact />
+                <Route path={ROUTES.INCOME_VERIFICATION_CONNECT} component={ConnectBankPage} exact />
                 <Route path={ROUTES.INCOME_VERIFICATION_SUMMARY} component={IncomeVerificationSummaryPage} />
                 <Route path={ROUTES.EMPLOYER_DETAILS} component={EmployerDetailsPage} />
                 <Route path={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME} component={AddIncomeSourcePage} />

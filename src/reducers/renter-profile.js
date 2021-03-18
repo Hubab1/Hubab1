@@ -114,7 +114,7 @@ selectors.selectDefaultBankingPage = createSelector(
             data?.income_sources?.length || data?.asset_sources?.length || data?.reported_no_income_assets;
 
         if (!applicantEnteredIncomeOrAssets || !applicant) {
-            return ROUTES.INCOME_AND_EMPLOYMENT;
+            return ROUTES.INCOME_VERIFICATION_CONNECT;
         }
 
         const agentRequestedIncomeAssets =
@@ -125,7 +125,7 @@ selectors.selectDefaultBankingPage = createSelector(
             if (data?.income_sources?.length || data?.asset_sources?.length) {
                 return ROUTES.INCOME_VERIFICATION_SUMMARY;
             }
-            return ROUTES.INCOME_AND_EMPLOYMENT;
+            return ROUTES.INCOME_VERIFICATION_CONNECT;
         }
 
         const addedEmployerInfo = !!applicant.events.find(
@@ -322,11 +322,11 @@ selectors.selectDefaultInitialPage = createSelector(
             }
 
             if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
-                return ROUTES.INCOME_AND_EMPLOYMENT;
+                return ROUTES.INCOME_VERIFICATION_CONNECT;
             }
 
             if (applicationEvents && applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)) {
-                return ROUTES.INCOME_AND_EMPLOYMENT;
+                return ROUTES.INCOME_VERIFICATION_CONNECT;
             }
 
             if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {

@@ -9,11 +9,11 @@ describe('getStepperIndex', function () {
         const routes = [
             { name: 'Current Address', value: ROUTES.ADDRESS },
             { name: 'Lease Terms', value: ROUTES.LEASE_TERMS },
-            { name: 'Income & Employment', value: ROUTES.INCOME_AND_EMPLOYMENT },
+            { name: 'Income & Employment', value: ROUTES.INCOME_VERIFICATION_CONNECT },
             { name: 'Screening', value: ROUTES.SCREENING },
         ];
 
-        const currentRoute = ROUTES.INCOME_AND_EMPLOYMENT;
+        const currentRoute = ROUTES.INCOME_VERIFICATION_CONNECT;
         expect(getStepperIndex(routes, currentRoute)).toEqual(2);
     });
 

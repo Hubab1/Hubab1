@@ -333,7 +333,7 @@ export function IncomeVerificationSummaryPage(props) {
             <ResetApplicantFinancials
                 onSubmit={() => {
                     context.clearFinancialSources();
-                    props.history.push(ROUTES.INCOME_AND_EMPLOYMENT);
+                    props.history.push(ROUTES.INCOME_VERIFICATION_CONNECT);
                 }}
                 onCancel={() => setShowResetFinancials(false)}
             />
@@ -428,7 +428,7 @@ export function IncomeVerificationSummaryPage(props) {
                 Continue
             </ActionButton>
             {hasNotAddedFinancialSources ? (
-                <BackLink to={ROUTES.INCOME_AND_EMPLOYMENT} />
+                <BackLink to={ROUTES.INCOME_VERIFICATION_CONNECT} />
             ) : (
                 <Typography
                     classes={{ root: styles.cursor }}
