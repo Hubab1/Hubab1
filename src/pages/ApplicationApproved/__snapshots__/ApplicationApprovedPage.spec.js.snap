@@ -45,7 +45,6 @@ exports[`it displays the right section shows payment details section when clicki
       "push": [MockFunction],
     }
   }
-  payables={Array []}
   profile={
     Object {
       "events": Array [
