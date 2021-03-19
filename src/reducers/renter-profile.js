@@ -21,6 +21,7 @@ import {
 import mock from './fixtures/mock-profile';
 
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
+import { generatePath } from 'react-router';
 
 const renterProfile = createSlice({
     name: 'renterProfile',
@@ -223,74 +224,85 @@ selectors.selectDefaultInitialPage = createSelector(
     (state) => state.configuration,
     (orderedRoutes, events, applicant, profile, configuration) => {
         if (orderedRoutes && events && applicant && profile) {
-            const eventsSet = new Set(events.map((event) => parseInt(event.event)));
-            const applicationEvents = profile.events
-                ? new Set(profile.events.map((event) => parseInt(event.event)))
-                : null;
+            const getRoute = () => {
+                const eventsSet = new Set(events.map((event) => parseInt(event.event)));
+                const applicationEvents = profile.events
+                    ? new Set(profile.events.map((event) => parseInt(event.event)))
+                    : null;
 
-            // eslint-disable-next-line default-case
-            switch (profile.status) {
-                case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED:
-                    return ROUTES.APP_CANCELLED;
-                case APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED:
-                    return ROUTES.LEASE_EXECUTED;
-                case APPLICATION_STATUSES.APPLICATION_STATUS_DENIED:
-                    return ROUTES.APP_DENIED;
+                // eslint-disable-next-line default-case
+                switch (profile.status) {
+                    case APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED:
+                        return ROUTES.APP_CANCELLED;
+                    case APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED:
+                        return ROUTES.LEASE_EXECUTED;
+                    case APPLICATION_STATUSES.APPLICATION_STATUS_DENIED:
+                        return ROUTES.APP_DENIED;
+                }
+
+                if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
+                    return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
+                }
+
+                if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
+                    return ROUTES.LEASE_VOIDED;
+                }
+
+                if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
+                    return ROUTES.LEASE_SIGNED;
+                }
+
+                // eslint-disable-next-line default-case
+                switch (profile.status) {
+                    case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
+                    case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
+                        return ROUTES.APP_APPROVED;
+                }
+
+                if (profile.unit_available === false) {
+                    return ROUTES.UNIT_UNAVAILABLE;
+                }
+
+                if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
+                    return ROUTES.INCOME_AND_EMPLOYMENT;
+                }
+
+                if (
+                    applicationEvents &&
+                    applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)
+                ) {
+                    return ROUTES.INCOME_AND_EMPLOYMENT;
+                }
+
+                if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
+                    return ROUTES.GUARANTOR_REQUESTED;
+                }
+
+                if (eventsSet.has(MILESTONE_APPLICATION_FEE_COMPLETED) && applicant.outstanding_balances.length > 0) {
+                    return ROUTES.OUTSTANDING_BALANCE;
+                }
+
+                if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
+                    return ROUTES.APP_COMPLETE;
+                }
+
+                const accessibleRoutes = pageCompleted(eventsSet, applicant, profile, configuration);
+                return orderedRoutes.find((r) => !accessibleRoutes[r]);
+            };
+
+            const route = getRoute();
+            if (route) {
+                return generatePath(route, { application_id: profile.id });
             }
+            console.log({ route, profile });
 
-            if (eventsSet.has(MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD)) {
-                return ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
-            }
-
-            if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED)) {
-                return ROUTES.LEASE_VOIDED;
-            }
-
-            if (eventsSet.has(APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)) {
-                return ROUTES.LEASE_SIGNED;
-            }
-
-            // eslint-disable-next-line default-case
-            switch (profile.status) {
-                case APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED:
-                case APPLICATION_STATUSES.APPLICATION_STATUS_CONDITIONALLY_APPROVED:
-                    return ROUTES.APP_APPROVED;
-            }
-
-            if (profile.unit_available === false) {
-                return ROUTES.UNIT_UNAVAILABLE;
-            }
-
-            if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
-                return ROUTES.INCOME_AND_EMPLOYMENT;
-            }
-
-            if (applicationEvents && applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)) {
-                return ROUTES.INCOME_AND_EMPLOYMENT;
-            }
-
-            if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
-                return ROUTES.GUARANTOR_REQUESTED;
-            }
-
-            if (eventsSet.has(MILESTONE_APPLICATION_FEE_COMPLETED) && applicant.outstanding_balances.length > 0) {
-                return ROUTES.OUTSTANDING_BALANCE;
-            }
-
-            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
-                return ROUTES.APP_COMPLETE;
-            }
-
-            const accessibleRoutes = pageCompleted(eventsSet, applicant, profile, configuration);
-
-            const route = orderedRoutes.find((r) => !accessibleRoutes[r]);
-            if (route) return route;
             console.error('Could not determine current page.');
         }
     }
 );
 
 selectors.selectInitialPage = createSelector(selectors.selectDefaultInitialPage, (defaultInitialPage) => {
+    // TODO: payment detail page should be per app
     const directRoute = getDirectRoute(window.location.pathname);
     if (directRoute) {
         return directRoute;
