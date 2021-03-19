@@ -33,7 +33,7 @@ exports[`PaymentDetails matches snapshot with savings 1`] = `
     </div>
   </div>
   <PaymentItemsExpansionPanel
-    amount="620"
+    amount={620}
     defaultExpanded={false}
     isPaid={true}
     label="due at application"
@@ -41,8 +41,24 @@ exports[`PaymentDetails matches snapshot with savings 1`] = `
     <PaymentDetailRows
       paymentObject={
         Object {
-          "items": Array [],
-          "total": "620",
+          "allPaid": true,
+          "items": Array [
+            Object {
+              "amount": 500,
+              "name": "Application Fee",
+              "price": 125,
+              "quantity": 4,
+              "type": "fee",
+            },
+            Object {
+              "amount": 120,
+              "name": "Holding Deposit",
+              "price": 120,
+              "quantity": 1,
+              "type": "fee",
+            },
+          ],
+          "total": 620,
         }
       }
       paymentType="application"
@@ -141,7 +157,7 @@ exports[`PaymentDetails matches snapshot without savings 1`] = `
     </div>
   </div>
   <PaymentItemsExpansionPanel
-    amount="620"
+    amount={620}
     defaultExpanded={false}
     isPaid={true}
     label="due at application"
@@ -149,8 +165,24 @@ exports[`PaymentDetails matches snapshot without savings 1`] = `
     <PaymentDetailRows
       paymentObject={
         Object {
-          "items": Array [],
-          "total": "620",
+          "allPaid": true,
+          "items": Array [
+            Object {
+              "amount": 500,
+              "name": "Application Fee",
+              "price": 125,
+              "quantity": 4,
+              "type": "fee",
+            },
+            Object {
+              "amount": 120,
+              "name": "Holding Deposit",
+              "price": 120,
+              "quantity": 1,
+              "type": "fee",
+            },
+          ],
+          "total": 620,
         }
       }
       paymentType="application"

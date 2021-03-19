@@ -31,8 +31,27 @@ describe('PaymentDetails', () => {
                 },
             },
             configuration: {},
-            payables: [{ paid: true }, { paid: true }, { paid: true }],
             fetchPayments: jest.fn(),
+            applicationFees: {
+                total: 620,
+                allPaid: true,
+                items: [
+                    {
+                        name: 'Application Fee',
+                        amount: 500,
+                        quantity: 4,
+                        price: 125,
+                        type: 'fee',
+                    },
+                    {
+                        name: 'Holding Deposit',
+                        amount: 120,
+                        quantity: 1,
+                        price: 120,
+                        type: 'fee',
+                    },
+                ],
+            },
         };
     });
 
@@ -48,10 +67,10 @@ describe('PaymentDetails', () => {
         expect(wrapper.find(PaidText).length).toEqual(1);
     });
 
-    it('does not render the "Paid" text if some due at application payments have not been paid', () => {
-        const payables = [{ paid: true }, { paid: false }, { paid: true }];
+    it('does not render the "Paid" text if applicationFees.allPaid is false', () => {
+        const applicationFees = { ...defaultProps.applicationFees, allPaid: false };
 
-        const wrapper = mount(<PaymentDetailsPage {...{ ...defaultProps, payables }} />);
+        const wrapper = mount(<PaymentDetailsPage {...{ ...defaultProps, applicationFees }} />);
 
         expect(defaultProps.fetchPayments).toBeCalledTimes(1);
         expect(wrapper.find(PaidText).length).toEqual(0);

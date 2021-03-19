@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
+import fp from 'lodash/fp';
 
 import { MOCKY } from 'config';
 import API from 'api/api';
@@ -10,6 +11,7 @@ import {
     ROLE_PRIMARY_APPLICANT,
     APPLICANT_EVENTS,
     APPLICATION_STATUSES,
+    LINE_ITEM_TYPES,
     MILESTONE_APPLICANT_SUBMITTED,
     MILESTONE_REQUEST_GUARANTOR,
     MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED,
@@ -344,3 +346,29 @@ selectors.selectNav = createSelector(selectors.selectOrderedRoutes, (orderedRout
 });
 
 selectors.selectUnit = (state) => state?.renterProfile?.unit;
+
+selectors.applicationFees = createSelector(
+    (state) => state.payments,
+    (payments) => {
+        if (!payments) {
+            return { allPaid: false, items: [], total: 0 };
+        }
+        const paymentDetailsFormat = (payable) => {
+            const items = payable[1];
+            const name = LINE_ITEM_TYPES[payable[0]];
+            return {
+                name,
+                amount: fp.sumBy('amount')(items),
+                quantity: items.length,
+                price: items[0].amount,
+                type: 'fee',
+            };
+        };
+
+        const items = fp.flow(fp.groupBy('type'), fp.toPairs, fp.map(paymentDetailsFormat))(payments);
+        const total = fp.sumBy('amount')(items);
+        const allPaid = fp.every(['paid', true])(payments) && !!payments.length;
+
+        return { total, items, allPaid };
+    }
+);

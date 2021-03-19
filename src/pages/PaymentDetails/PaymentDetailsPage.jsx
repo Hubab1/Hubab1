@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 
 import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
-
 import { fetchPayments } from 'reducers/payments';
-
+import { selectors } from 'reducers/renter-profile';
 import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDetailsCard/PaymentDetailsCard';
 import { PaymentTerms } from 'common-components/PaymentTerms/PaymentTerms';
 import { H1, P, SpacedH3 } from 'assets/styles';
 import { termsDiv, viewPaymentTerms } from './PaymentDetailsPageStyles';
 
-export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPayments, applicant }) => {
+export const PaymentDetailsPage = ({ profile, configuration, fetchPayments, applicant, applicationFees }) => {
     const [currentPage, setCurrentPage] = useState('summary');
     useEffect(() => {
         fetchPayments();
@@ -47,7 +46,7 @@ export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPaym
             <>
                 <H1>Payment Details</H1>
                 <SpacedH3>Here’s the breakdown for unit {unitNumber}</SpacedH3>
-                <PaymentDetailsCard fetchPayments={fetchPayments} payables={payables} profile={profile} />
+                <PaymentDetailsCard fetchPayments={fetchPayments} profile={profile} applicationFees={applicationFees} />
                 {hasReceipt && (
                     <div className={termsDiv}>
                         <P fontSize={14}>
@@ -67,13 +66,13 @@ PaymentDetailsPage.propTypes = {
     profile: PropTypes.object.isRequired,
     applicant: PropTypes.object.isRequired,
     configuration: PropTypes.object.isRequired,
-    payables: PropTypes.array.isRequired,
+    applicationFees: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    applicationFees: selectors.applicationFees(state),
     profile: state.renterProfile,
     configuration: state.configuration,
-    payables: state.payments || [],
     applicant: state.applicant,
 });
 
