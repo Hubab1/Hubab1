@@ -92,7 +92,7 @@ export class Main extends Component {
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
             isLoggedIn && (await this.props.fetchApplicant());
-        } catch {
+        } catch (error) {
             return this.setState({ hasError: true });
         }
         this.mountNavigation(isLoggedIn, configuration);
@@ -242,6 +242,11 @@ const mapStateToProps = (state) => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchConfiguration,
+    fetchApplicant,
+    logout: mainActions.logout,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -57,6 +57,7 @@ export const ROUTES = {
     REMOVE_PERSON: '/application/:application_id/rental-profile/:type/:id/remove',
 
     // Income and Employment related routes
+
     BANKING: '/application/:application_id/income-employment',
     INCOME_VERIFICATION_CONNECT: '/application/:application_id/income-employment/connect',
     INCOME_VERIFICATION_SUMMARY: '/application/:application_id/income-employment/summary',
@@ -64,7 +65,7 @@ export const ROUTES = {
     MANUAL_ASSET_ENTRY_ADD_ASSET: '/application/:application_id/income-employment/manual/add-asset',
     EDIT_MANUAL_FINANCIAL_SOURCE: '/application/:application_id/income-employment/manual/financial-sources/:id/edit',
     REMOVE_FINANCIAL_SOURCE: '/application/:application_id/income-employment/manual/financial-sources/:id/remove',
-    EMPLOYER_DETAILS: '/income-employment/employer-details',
+    EMPLOYER_DETAILS: '/application/:application_id/income-employment/employer-details',
 
     // Applications
     APPLICATIONS: '/applications',
