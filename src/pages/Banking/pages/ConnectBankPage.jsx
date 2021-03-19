@@ -172,7 +172,6 @@ export class ConnectBankPage extends React.Component {
 
     render() {
         const finicityConnect = window.finicityConnect;
-        console.log({ finicityConnect });
 
         if (!this.props.applicant) {
             return <div />;
