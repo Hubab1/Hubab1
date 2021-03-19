@@ -76,7 +76,7 @@ export const PaymentDetailsCard = ({ profile, applicationFees }) => {
 
 PaymentDetailsCard.propTypes = {
     profile: PropTypes.object.isRequired,
-    payables: PropTypes.array,
+    applicationFees: PropTypes.object,
 };
 
 export function PaymentItemsExpansionPanel({ children, defaultExpanded, label, amount, isPaid }) {

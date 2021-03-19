@@ -11,7 +11,7 @@ import ActionButton from 'common-components/ActionButton/ActionButton';
 import { arrowIcon, blackLinkRoot, H1, LinkButton, SpacedH3 } from 'assets/styles';
 
 export const SignLeaseView = ({
-    payables,
+    applicationFees,
     profile,
     setShowPaymentDetails,
     fetchPayments,
@@ -61,7 +61,7 @@ export const SignLeaseView = ({
             <div>
                 <H1>{`Payment Details`}</H1>
                 <SpacedH3>{`Make sure everything looks good before signing the lease.`}</SpacedH3>
-                <PaymentDetailsCard profile={profile} payables={payables} />
+                <PaymentDetailsCard profile={profile} applicationFees={applicationFees} />
             </div>
             <ActionButton className="sign-lease" onClick={openEmbeddedSigning} marginTop={30}>
                 View & Sign Lease
@@ -79,6 +79,6 @@ SignLeaseView.propTypes = {
     fetchPayments: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
-    payables: PropTypes.array.isRequired,
+    applicationFees: PropTypes.object.isRequired,
     setShowPaymentDetails: PropTypes.func.isRequired,
 };
