@@ -11,7 +11,7 @@ const banking = createSlice({
             return state;
         },
         bankingDataCleared(state) {
-            state = {};
+            state = null;
             return state;
         },
     },
@@ -32,7 +32,7 @@ export const refreshFinancialSources = () => {
     };
 };
 
-export const clearFinancialSources = async () => {
+export const clearFinancialSources = () => {
     return async (dispatch) => {
         dispatch(bankingDataCleared());
     };
