@@ -23,7 +23,7 @@ export const ApplicationCancelledPage = ({ profile, configuration }) => {
             {profile.unit ? (
                 <SpacedH3>You are no longer applying for unit {profile.unit.unit_number}.</SpacedH3>
             ) : (
-                <SpacedH3>Your application at {configuration.community.building_name} have been cancelled.</SpacedH3>
+                <SpacedH3>Your application at {configuration.community.building_name} has been cancelled.</SpacedH3>
             )}
 
             <Img src={cancelled} />

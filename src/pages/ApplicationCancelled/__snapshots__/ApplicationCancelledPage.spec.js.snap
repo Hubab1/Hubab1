@@ -37,7 +37,7 @@ exports[`matches snapshot when no unit 1`] = `
   <ForwardRef(render)>
     Your application at 
     Fake Building
-     have been cancelled.
+     has been cancelled.
   </ForwardRef(render)>
   <ForwardRef(render)
     src="cancelled.png"
