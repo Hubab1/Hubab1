@@ -32,8 +32,8 @@ export class ConnectBankPage extends React.Component {
     componentWillUnmount() {
         clearInterval(window.fetchReportsInterval);
         try {
-            if (Window.finicityConnect) {
-                Window.finicityConnect.destroy();
+            if (window.finicityConnect) {
+                window.finicityConnect.destroyIFrame();
             }
         } catch (e) {
             console.error(e);

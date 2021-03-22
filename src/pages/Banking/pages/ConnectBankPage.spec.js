@@ -26,6 +26,16 @@ describe('openFinicityIframe', () => {
     });
 });
 
+describe('unmount', () => {
+    it('calls finicityConnect.destroyIFrame', () => {
+        window.finicityConnect.destroyIFrame = jest.fn();
+
+        const wrapper = shallow(<ConnectBankPage />);
+        wrapper.unmount();
+        expect(window.finicityConnect.destroyIFrame).toHaveBeenCalled();
+    });
+});
+
 describe('handleFetchReports', () => {
     it('calls API.fetchFinicityReports and setState on success', () => {
         const wrapper = shallow(<ConnectBankPage />);
