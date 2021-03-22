@@ -16,8 +16,8 @@ import Payment from 'pages/FeesAndDeposits/components/Payment';
 export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPayments, applicant }) => {
     const [currentPage, setCurrentPage] = useState('summary');
     useEffect(() => {
-        fetchPayments();
-    }, [fetchPayments]);
+        profile && fetchPayments();
+    }, [fetchPayments, profile]);
 
     if (!profile || !configuration || !profile.lease_start_date) {
         return null;

@@ -14,7 +14,6 @@ import { InviteForm } from 'common-components/InviteForm/InviteForm';
 import ConfirmationPage from 'pages/Confirmation';
 import { H1, SpacedH3 } from 'assets/styles';
 import resendEnvelope from 'assets/images/resendEnvelope.png';
-import { selectors as configSelectors } from 'reducers/configuration';
 
 const ImageContainer = styled.div`
     margin-top: 31px;

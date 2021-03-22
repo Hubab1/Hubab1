@@ -11,6 +11,7 @@ import GenericFormMessage from 'common-components/GenericFormMessage/GenericForm
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import BankingContext from 'pages/Banking/BankingContext';
 import { H1, H3, P, Bold } from 'assets/styles';
+import { generatePath } from 'react-router';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -68,7 +69,9 @@ export class RemoveFinancialSourcePage extends React.Component {
     }
 
     get returnLink() {
-        return `${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`;
+        return generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`, {
+            application_id: this.props.application.id,
+        });
     }
 
     render() {
@@ -134,6 +137,7 @@ export class RemoveFinancialSourcePage extends React.Component {
 RemoveFinancialSourcePage.propTypes = {
     match: PropTypes.object,
     history: PropTypes.object,
+    application: PropTypes.object.isRequired,
 };
 
 RemoveFinancialSourcePage.contextType = BankingContext;

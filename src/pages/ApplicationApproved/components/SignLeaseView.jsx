@@ -9,6 +9,7 @@ import API from 'api/api';
 import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDetailsCard/PaymentDetailsCard';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { arrowIcon, blackLinkRoot, H1, LinkButton, SpacedH3 } from 'assets/styles';
+import { generatePath } from 'react-router';
 
 export const SignLeaseView = ({
     payables,
@@ -35,7 +36,7 @@ export const SignLeaseView = ({
             }
             applicantUpdated(newApplicant);
             // lease may not be ready by the time of navigation to the lease signed page
-            setTimeout(() => history.push(ROUTES.LEASE_SIGNED), 2500);
+            setTimeout(() => history.push(generatePath(ROUTES.LEASE_SIGNED, { application_id: profile.id }), 2500));
         });
         return () => {
             hsclient.off('sign');

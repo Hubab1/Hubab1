@@ -4,7 +4,7 @@ export const community = {
 
 export const ROUTES = {
     // Independent routes
-    COMMUNITY: '/',
+    APPLICATION: '/application/:application_id', //TODO?
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',

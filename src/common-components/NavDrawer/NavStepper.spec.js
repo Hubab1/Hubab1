@@ -4,8 +4,13 @@ import { shallow } from 'enzyme';
 import { NavBlockedInProgressStep, NavBlockedCompletedStep } from 'common-components/NavDrawer/NavBlockedStep';
 import { MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED, ROUTES } from 'constants/constants';
 import { getStepperIndex, VerticalLinearStepper } from 'common-components/NavDrawer/NavStepper';
+import { generatePath } from 'react-router';
 
 describe('getStepperIndex', function () {
+    const application = {
+        id: 1,
+    };
+
     it('gets the correct index for an unnested route', function () {
         const routes = [
             { name: 'Current Address', value: ROUTES.ADDRESS },
@@ -14,8 +19,8 @@ describe('getStepperIndex', function () {
             { name: 'Screening', value: ROUTES.SCREENING },
         ];
 
-        const currentRoute = ROUTES.INCOME_VERIFICATION_CONNECT;
-        expect(getStepperIndex(routes, currentRoute)).toEqual(2);
+        const currentRoute = generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 1 });
+        expect(getStepperIndex(routes, currentRoute, application)).toEqual(2);
     });
 
     it('returns -1 if route not found', function () {
@@ -26,7 +31,7 @@ describe('getStepperIndex', function () {
         ];
 
         const currentRoute = 'FAKEROUTE';
-        expect(getStepperIndex(routes, currentRoute)).toEqual(-1);
+        expect(getStepperIndex(routes, currentRoute, application)).toEqual(-1);
     });
 });
 
@@ -63,6 +68,9 @@ describe('VerticalLinearStepper', () => {
             },
         },
         handleDrawerClose: jest.fn(),
+        renterProfile: {
+            id: 1,
+        },
     };
     it('matches snapshot', () => {
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
@@ -81,6 +89,9 @@ describe('Application submitted state', function () {
             },
             handleDrawerClose: jest.fn(),
             applicantStillFinishingApplication: false,
+            renterProfile: {
+                id: 1,
+            },
         };
         const wrapper = shallow(<VerticalLinearStepper {...defaultProps} />);
         const step = wrapper.find(NavBlockedCompletedStep);
@@ -93,6 +104,7 @@ describe('Unit unavailable state', function () {
         const defaultProps = {
             renterProfile: {
                 unit_available: false,
+                id: 2,
             },
             applicantStillFinishingApplication: true,
             navRoutes: [],

@@ -36,7 +36,7 @@ describe('NavBlockedStep', () => {
     it('View Progress when clicked takes to initialPage set', function () {
         const wrapper = shallow(<NavBlockedStep {...defaultProps} />);
         wrapper.find('#viewProgressButton').simulate('click');
-        expect(defaultProps.history.push).toHaveBeenCalledWith('/income-employment/summary');
+        expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.INCOME_VERIFICATION_SUMMARY);
     });
 });
 

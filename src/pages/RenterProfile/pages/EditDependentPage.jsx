@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import get from 'lodash/get';
 
-import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'constants/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS, RENTER_PROFILE_TYPE_WINE_COOLER } from 'constants/constants';
 import { serializeDate } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';
@@ -14,6 +14,7 @@ import { BackLink } from 'common-components/BackLink/BackLink';
 import InviteForm from 'common-components/InviteForm/InviteForm';
 import { H1, H3 } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
+import { generatePath } from 'react-router';
 
 const SpacedH3 = styled(H3)`
     margin-top: 15px;
@@ -45,7 +46,10 @@ export class EditDependentPage extends Component {
                               errors: ['There was an error updating your dependent. Please Try again.'],
                           });
                 } else {
-                    this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
+                    const url = generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
+                        application_id: this.props.application.id,
+                    });
+                    this.props.history.push(url);
                 }
             })
             .catch(() => {

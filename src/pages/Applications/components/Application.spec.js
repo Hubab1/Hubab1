@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES } from 'constants/constants';
-import Application from './Application';
+import { Application } from './Application';
 
 describe('Application', () => {
     let application = {};

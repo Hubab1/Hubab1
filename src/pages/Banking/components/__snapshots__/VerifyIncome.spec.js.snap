@@ -75,7 +75,7 @@ exports[`matches snapshot when route is selected 1`] = `
   </ActionButton>
   <ForwardRef
     className="css-1qj8w5r"
-    to="/income-employment/summary"
+    to="/application/:application_id/income-employment/summary"
   >
     <ActionButton
       color="primary"
@@ -89,7 +89,7 @@ exports[`matches snapshot when route is selected 1`] = `
   <ForwardRef
     className="css-1qj8w5r"
     onClick={[Function]}
-    to="/income-employment/summary"
+    to="/application/:application_id/income-employment/summary"
   >
     <ActionButton
       color="primary"

@@ -19,6 +19,9 @@ import AddFinancialSourceForm from 'pages/Banking/components/AddFinancialSourceF
 import BankingContext from 'pages/Banking/BankingContext';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
+import { generatePath } from 'react-router';
+import { connect } from 'react-redux';
+import { AddAssetSourcePage } from 'pages/Banking/pages/AddAssetSourcePage';
 
 export const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +
@@ -120,7 +123,9 @@ export class EditFinancialSourcePage extends Component {
     }
 
     get returnLink() {
-        return `${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`;
+        return generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#${this.isAsset ? 'asset' : 'income'}`, {
+            application_id: this.props.application.id,
+        });
     }
 
     render() {
@@ -153,9 +158,14 @@ export class EditFinancialSourcePage extends Component {
 EditFinancialSourcePage.propTypes = {
     match: PropTypes.object,
     history: PropTypes.object,
+    application: PropTypes.object.isRequired,
 };
 
 EditFinancialSourcePage.route = ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE;
 EditFinancialSourcePage.contextType = BankingContext;
 
-export default captureRoute(EditFinancialSourcePage);
+const mapStateToProps = (state) => ({
+    application: state.renterProfile,
+});
+
+export default connect(mapStateToProps)(captureRoute(EditFinancialSourcePage));

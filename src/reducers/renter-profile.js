@@ -53,13 +53,13 @@ const { actions, reducer } = renterProfile;
 export const { renterProfileReceived, renterProfileUpdated } = actions;
 export default reducer;
 
-export const fetchRenterProfile = () => {
+export const fetchRenterProfile = (id) => {
     return async (dispatch) => {
         let profile;
         if (MOCKY) {
             profile = mock;
         } else {
-            profile = await API.fetchRenterProfile();
+            profile = await API.fetchRenterProfile(id);
         }
 
         dispatch(renterProfileReceived(profile));
@@ -264,15 +264,28 @@ selectors.canAccessRoute = (state, route) => {
     if (pageCompleted(eventsSet, state)[route] === true) {
         return true;
     }
+
     //  route is next page
-    return route === selectors.selectInitialPage(state);
+    return (
+        selectors.selectDefaultInitialPage(state) === generatePath(route, { application_id: state.renterProfile.id })
+    );
 };
 
 export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ, ROUTES.APPLICATIONS];
 
-const getDirectRoute = (route) => {
+const getDirectRoute = (route, application) => {
     if (!route) return null;
-    return DIRECT_ROUTES.find((r) => route.includes(r));
+
+    if (application) {
+        const paymentRoute = generatePath(ROUTES.PAYMENT_DETAILS, { application_id: application.id });
+        if (route === paymentRoute) {
+            return paymentRoute;
+        }
+    }
+
+    route = DIRECT_ROUTES.find((r) => route.includes(r));
+
+    return route;
 };
 
 selectors.selectDefaultInitialPage = createSelector(
@@ -323,6 +336,17 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.UNIT_UNAVAILABLE;
                 }
 
+                if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
+                    return ROUTES.INCOME_VERIFICATION_CONNECT;
+                }
+
+                if (
+                    applicationEvents &&
+                    applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)
+                ) {
+                    return ROUTES.INCOME_VERIFICATION_CONNECT;
+                }
+
                 if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
                     return ROUTES.GUARANTOR_REQUESTED;
                 }
@@ -340,25 +364,39 @@ selectors.selectDefaultInitialPage = createSelector(
             };
 
             const route = getRoute();
+
             if (route) {
                 return generatePath(route, { application_id: profile.id });
             }
-            console.log({ route, profile });
-
             console.error('Could not determine current page.');
         }
     }
 );
 
-selectors.selectInitialPage = createSelector(selectors.selectDefaultInitialPage, (defaultInitialPage) => {
-    // TODO: payment detail page should be per app
-    const directRoute = getDirectRoute(window.location.pathname);
-    if (directRoute) {
-        return directRoute;
-    }
+selectors.selectDirectRoute = createSelector(
+    (state) => state.renterProfile,
+    (application) => {
+        const directRoute = getDirectRoute(window.location.pathname, application);
 
-    return defaultInitialPage;
-});
+        if (directRoute) {
+            return directRoute;
+        }
+
+        return null;
+    }
+);
+
+selectors.selectInitialPage = createSelector(
+    selectors.selectDirectRoute,
+    selectors.selectDefaultInitialPage,
+    (directRoute, defaultInitialPage) => {
+        if (directRoute) {
+            return directRoute;
+        }
+
+        return defaultInitialPage;
+    }
+);
 
 selectors.selectNextRoute = createSelector(
     selectors.selectOrderedRoutes,

@@ -17,6 +17,7 @@ import { actions as modalActions } from 'reducers/loader';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1, H3, P, Bold } from 'assets/styles';
+import { generatePath } from 'react-router';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -45,7 +46,9 @@ export class RemovePersonPage extends Component {
     state = { errorSubmitting: false, financialSource: null, submitting: false };
 
     get returnLink() {
-        return `${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`;
+        return generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
+            application_id: this.profile.id,
+        });
     }
 
     get person() {

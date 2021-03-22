@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -75,7 +75,8 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            this.props.fetchRenterProfile().then(() => {
+            const id = window.location.pathname.split('/')[3] || this.props.applicant.application;
+            this.props.fetchRenterProfile(id).then(() => {
                 if (!this.props.canAccessCurrentRoute()) {
                     history.replace(this.props.initialPage);
                 }
@@ -228,6 +229,7 @@ Main.propTypes = {
     history: PropTypes.object,
     location: PropTypes.object,
     applicant: PropTypes.object,
+    match: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({

@@ -11,6 +11,7 @@ import {
     RENTAL_OPTIONS_PETS_CATS,
     RENTAL_OPTIONS_PETS_DOGS,
     RENTAL_OPTIONS_PETS_OTHER,
+    RENTER_PROFILE_TYPE_CO_APPLICANTS,
     RENTER_PROFILE_TYPE_PETS,
     ROUTES,
 } from 'constants/constants';
@@ -29,6 +30,7 @@ import PetRestrictions from 'pages/RenterProfile/components/PetRestrictions';
 import { H1, P, SpacedH3 } from 'assets/styles';
 import { petsImageMargin, policyDiv, viewPetPolicy as viewPetPolicyClassName } from './PetsPageStyles';
 import petsImage from 'assets/images/pets.png';
+import { generatePath } from 'react-router';
 
 export const petsSchema = (config) =>
     Yup.object().shape({
@@ -72,6 +74,12 @@ export class PetsPage extends Component {
         viewPetPolicy: false,
         viewPetRestrictions: false,
         errors: null,
+    };
+
+    getUrl = () => {
+        return generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`, {
+            application_id: this.props.application.id,
+        });
     };
 
     emptyPetFilter = (petOption) => {
@@ -166,7 +174,7 @@ export class PetsPage extends Component {
         this.props
             .updateRenterProfile({ selected_rental_options: pets })
             .then(() => {
-                this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`);
+                this.props.history.push(this.getUrl());
             })
             .catch((res) => {
                 this.setState({ errors: res.errors });
@@ -296,7 +304,7 @@ export class PetsPage extends Component {
                             );
                         }}
                     </Formik>
-                    <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PETS}`} />
+                    <BackLink to={this.getUrl()} />
                 </div>
                 {viewPetPolicy && (
                     <PetPolicy date="April 2019" policy={community.pets_notes} onAgree={this.toggleViewPetPolicy} />

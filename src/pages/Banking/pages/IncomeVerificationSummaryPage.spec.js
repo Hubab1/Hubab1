@@ -27,6 +27,7 @@ beforeEach(() => {
             applicant_income_requirements: 40,
         },
         profile: {
+            id: 1,
             unit: {
                 price: 1000,
             },
@@ -227,6 +228,7 @@ it('renders more document requested warning when applicable', () => {
         unit: {
             price: 1000,
         },
+        id: 1,
         events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
     };
 

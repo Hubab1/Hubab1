@@ -11,6 +11,7 @@ import { logToSentry } from 'utils/sentry';
 import BankVerifying from 'pages/Banking/components/BankVerifying';
 import VerifyIncome from 'pages/Banking/components/VerifyIncome';
 import BankingContext from 'pages/Banking/BankingContext';
+import { generatePath } from 'react-router';
 
 const finicityContainer = css`
     height: calc(100vh - 66px);
@@ -50,7 +51,9 @@ export class ConnectBankPage extends React.Component {
                 if (!res) return;
                 clearInterval(window.fetchReportsInterval);
                 this.context.refreshFinancialSources().then(() => {
-                    this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                    this.props.history.push(
+                        generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: this.props.application.id })
+                    );
                 });
             });
     };

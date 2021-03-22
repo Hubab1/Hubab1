@@ -39,6 +39,7 @@ export const fetchApplicant = () => {
         } else {
             applicant = await API.fetchApplicant();
         }
+        console.log({ applicant });
         dispatch(applicantReceived(applicant));
         dispatch(bankingDataReceived(applicant.financial_data));
         return applicant;

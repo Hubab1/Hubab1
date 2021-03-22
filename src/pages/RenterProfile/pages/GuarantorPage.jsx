@@ -17,6 +17,7 @@ import BackLink from 'common-components/BackLink/BackLink';
 import ConfirmationPage from 'pages/Confirmation';
 import { H1, SpacedH3 } from 'assets/styles';
 import coin from 'assets/images/coin.png';
+import { generatePath } from 'react-router';
 
 const ERROR_INVITE = 'There was an error sending your guarantor an invite. Please Try again.';
 
@@ -61,7 +62,11 @@ export class GuarantorPage extends Component {
 
     handleContinueAfterInviteSent = () => {
         if (!this.props.guarantorRequested) {
-            this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`);
+            this.props.history.push(
+                generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`, {
+                    application_id: this.props.application.id,
+                })
+            );
         } else {
             this.props.fetchApplicant().then(() => {
                 this.props.history.push(this.props.initialPage);

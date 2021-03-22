@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { generatePath, withRouter } from 'react-router-dom';
 import { css } from 'emotion';
 import clsx from 'clsx';
 import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
@@ -36,12 +36,14 @@ const accessible = css`
     }
 `;
 
-export function getStepperIndex(routes, currentRoute) {
+export function getStepperIndex(routes, currentRoute, application) {
     if (!routes || routes.length === 0) return -1;
 
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
-        if (route.value === currentRoute) return i;
+        if (generatePath(route.value, { application_id: application?.id }) === currentRoute) {
+            return i;
+        }
     }
     return -1;
 }
@@ -49,8 +51,8 @@ export function getStepperIndex(routes, currentRoute) {
 export function VerticalLinearStepper(props) {
     const classes = useStyles();
 
-    const activeStep = getStepperIndex(props.navRoutes, props.currentRoute);
-    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.defaultInitialPage);
+    const activeStep = getStepperIndex(props.navRoutes, props.currentRoute, props.renterProfile);
+    const firstUncompletedStep = getStepperIndex(props.navRoutes, props.defaultInitialPage, props.renterProfile);
     const unitUnavailable = props.renterProfile?.unit_available === false;
     const outstandingBalance = props.initialPage === ROUTES.OUTSTANDING_BALANCE;
     const holdingDepositAgreementSignatureRequested = props.initialPage === ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT;
@@ -65,7 +67,7 @@ export function VerticalLinearStepper(props) {
     function onClickRoute(e, route, i) {
         e.stopPropagation();
         if (i <= firstUncompletedStep || MOCKY) {
-            props.history.push(route.value);
+            props.history.push(generatePath(route.value, { application_id: props.renterProfile.id }));
         }
     }
 

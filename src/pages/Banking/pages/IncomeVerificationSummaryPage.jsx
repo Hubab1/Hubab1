@@ -100,7 +100,7 @@ IncomeOrAssetItemWarning.propTypes = {
     isAsset: PropTypes.bool.isRequired,
 };
 
-export function IncomeOrAssetsItem({ source }) {
+export function IncomeOrAssetsItem({ source, application }) {
     const isAsset = source.stream_type === FINANCIAL_STREAM_ASSET;
 
     const getSourceLabel = useCallback((source) => {
@@ -144,13 +144,20 @@ export function IncomeOrAssetsItem({ source }) {
                     <Link
                         style={linkStyle}
                         to={generatePath(ROUTES.EDIT_MANUAL_FINANCIAL_SOURCE, {
+                            application_id: application.id,
                             id: source.id,
                         })}
                     >
                         Edit
                     </Link>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link style={linkStyle} to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, { id: source.id })}>
+                    <Link
+                        style={linkStyle}
+                        to={generatePath(ROUTES.REMOVE_FINANCIAL_SOURCE, {
+                            id: source.id,
+                            application_id: application.id,
+                        })}
+                    >
                         Remove
                     </Link>
                 </>
@@ -161,6 +168,7 @@ export function IncomeOrAssetsItem({ source }) {
 
 IncomeOrAssetsItem.propTypes = {
     source: PropTypes.object.isRequired,
+    application: PropTypes.object.isRequired,
 };
 
 export function IncomeVerificationSummaryPage(props) {
@@ -306,17 +314,17 @@ export function IncomeVerificationSummaryPage(props) {
     const onContinue = useCallback(async () => {
         if (applicantSubmittedApplication || updatesWereRequested) {
             if (!reportedNoIncomeAssets && !applicantUpdatedEmployerInfo) {
-                props.history.push(ROUTES.EMPLOYER_DETAILS);
+                props.history.push(generatePath(ROUTES.EMPLOYER_DETAILS, { application_id: props.profile.id }));
                 return;
             }
             window.location.reload();
             return;
         }
         if (props.config.collect_employer_information && !reportedNoIncomeAssets) {
-            props.history.push(ROUTES.EMPLOYER_DETAILS);
+            props.history.push(generatePath(ROUTES.EMPLOYER_DETAILS, { application_id: props.profile.id }));
         } else {
             fetchApplicant();
-            context.history.push(ROUTES.FEES_AND_DEPOSITS);
+            context.history.push(generatePath(ROUTES.FEES_AND_DEPOSITS, { application_id: props.profile.id }));
         }
     }, [
         context,
@@ -333,7 +341,9 @@ export function IncomeVerificationSummaryPage(props) {
             <ResetApplicantFinancials
                 onSubmit={() => {
                     context.clearFinancialSources();
-                    props.history.push(ROUTES.INCOME_VERIFICATION_CONNECT);
+                    props.history.push(
+                        generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: props.profile.id })
+                    );
                 }}
                 onCancel={() => setShowResetFinancials(false)}
                 application={props.profile}
@@ -371,7 +381,7 @@ export function IncomeVerificationSummaryPage(props) {
                     !context.bankingData?.income_sources?.length ? 'Add an Income Source' : 'Add Another Income Source'
                 }
                 tip={getIncomeTipText()}
-                route={ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME}
+                route={generatePath(ROUTES.MANUAL_INCOME_ENTRY_ADD_INCOME, { application_id: props.profile.id })}
                 expansionPanel={
                     <>
                         {context.bankingData?.income_total && (
@@ -388,7 +398,7 @@ export function IncomeVerificationSummaryPage(props) {
                             defaultExpanded={hashValue === 'income' || hasIncompleteIncomeSources}
                         >
                             {context.bankingData?.income_sources?.map((source) => (
-                                <IncomeOrAssetsItem key={source.id} source={source} />
+                                <IncomeOrAssetsItem key={source.id} source={source} application={props.profile} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
@@ -400,7 +410,7 @@ export function IncomeVerificationSummaryPage(props) {
                 label="Assets"
                 buttonLabel={!context.bankingData?.asset_sources?.length ? 'Add an Asset' : 'Add Another Asset'}
                 tip={getAssetTip()}
-                route={ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET}
+                route={generatePath(ROUTES.MANUAL_ASSET_ENTRY_ADD_ASSET, { application_id: props.profile.id })}
                 expansionPanel={
                     <>
                         {context.bankingData?.asset_total && (
@@ -419,7 +429,7 @@ export function IncomeVerificationSummaryPage(props) {
                             defaultExpanded={hashValue === 'asset' || hasIncompleteAssetSources}
                         >
                             {context.bankingData?.asset_sources?.map((source) => (
-                                <IncomeOrAssetsItem key={source.id} source={source} />
+                                <IncomeOrAssetsItem key={source.id} source={source} application={props.profile} />
                             ))}
                         </ExistingItemsExpansionPanel>
                     </>
@@ -429,7 +439,7 @@ export function IncomeVerificationSummaryPage(props) {
                 Continue
             </ActionButton>
             {hasNotAddedFinancialSources ? (
-                <BackLink to={ROUTES.INCOME_VERIFICATION_CONNECT} />
+                <BackLink to={generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: props.profile.id })} />
             ) : (
                 <Typography
                     classes={{ root: styles.cursor }}

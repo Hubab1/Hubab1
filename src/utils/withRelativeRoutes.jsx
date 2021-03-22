@@ -10,6 +10,7 @@ import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
+import { generatePath } from 'react-router';
 
 // Second param is deprecated in favor of static param 'route'
 export default function withRelativeRoutes(WrappedComponent, route) {
@@ -26,15 +27,16 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
 
         stayOrPushRoute = () => {
+            const routeWithApplication = generatePath(route, { application_id: this.props.application.id });
             const props = this.props;
             if (!props.initialPage) {
                 this.blockRender = true;
-            } else if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
+            } else if (!props.selectApplicantStillFinishingApplication && routeWithApplication !== props.initialPage) {
                 this.blockRender = true;
                 this.props.history.push(props.initialPage);
             } else {
                 this.blockRender = false;
-                props.currentRouteReceived(route);
+                props.currentRouteReceived(routeWithApplication);
             }
         };
 
@@ -90,6 +92,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         unitAvailable: state.renterProfile?.unit_available,
         applicant: state.applicant,
         selectApplicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
+        application: state.renterProfile,
     });
 
     return connect(mapStateToProps, { currentRouteReceived, fetchApplicant, fetchRenterProfile })(Component);

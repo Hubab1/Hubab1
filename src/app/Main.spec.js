@@ -93,7 +93,8 @@ describe('this.logout', () => {
 
 describe('mountNavigation', () => {
     it('calls fetchRenterProfile if authenticated', function () {
-        const wrapper = shallow(<Main {...defaultProps} />);
+        const applicant = { application: 1 };
+        const wrapper = shallow(<Main {...defaultProps} applicant={applicant} />);
 
         const isAuthenticated = true;
         const configuration = {};

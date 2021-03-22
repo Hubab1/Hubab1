@@ -29,7 +29,7 @@ exports[`matches snapshot 1`] = `
     onSubmitDependent={[Function]}
   />
   <BackLink
-    to="/rental-profile/options#co_applicants"
+    to="/application/:application_id/rental-profile/options#co_applicants"
   />
 </React.Fragment>
 `;

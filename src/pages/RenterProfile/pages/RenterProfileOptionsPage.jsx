@@ -37,6 +37,7 @@ import cat from 'assets/images/cat.svg';
 import addparking from 'assets/images/addparking.svg';
 import addstorage from 'assets/images/addstorage.svg';
 import addwinecooler from 'assets/images/wine.png';
+import { generatePath } from 'react-router';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -143,7 +144,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_CO_APPLICANTS}
                             label="I'll be living with other people"
                             buttonLabel={!!people.length ? 'Add Another Person' : 'Add a Person'}
-                            route={ROUTES.CO_APPLICANTS}
+                            route={generatePath(ROUTES.CO_APPLICANTS, { application_id: this.props.profile.id })}
                             expansionPanel={
                                 !!people.length && (
                                     <ExistingItemsExpansionPanel
@@ -183,7 +184,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_GUARANTOR}
                             label="I'll need a guarantor"
                             buttonLabel="Invite a guarantor"
-                            route={ROUTES.GUARANTOR}
+                            route={generatePath(ROUTES.GUARANTOR, { application_id: this.props.profile.id })}
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
                             limitReached={!!this.props.profile.primary_applicant.guarantors.length}
                             expansionPanel={
@@ -211,7 +212,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_PETS}
                             label="I'll be living with pets"
                             buttonLabel={this.existingPets.length ? 'Manage pets' : 'Add a pet'}
-                            route={ROUTES.PETS}
+                            route={generatePath(ROUTES.PETS, { application_id: this.props.profile.id })}
                             expansionPanel={
                                 !!this.existingPets.length && (
                                     <ExistingItemsExpansionPanel
@@ -233,7 +234,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_PARKING}
                             label="I'll need parking"
                             buttonLabel={filteredParking.length > 0 ? 'Manage Parking' : 'Add Parking'}
-                            route={ROUTES.PARKING}
+                            route={generatePath(ROUTES.PARKING, { application_id: this.props.profile.id })}
                             expansionPanel={
                                 filteredParking.length > 0 && (
                                     <ExistingItemsExpansionPanel
@@ -264,7 +265,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_STORAGE}
                             label="I'll need storage"
                             buttonLabel={filteredStorage.length > 0 ? 'Manage Storage' : 'Add Storage'}
-                            route={ROUTES.STORAGE}
+                            route={generatePath(ROUTES.STORAGE, { application_id: this.props.profile.id })}
                             expansionPanel={
                                 filteredStorage.length > 0 && (
                                     <ExistingItemsExpansionPanel
@@ -295,7 +296,7 @@ export class RentalProfileOptions extends React.Component {
                             name={RENTER_PROFILE_TYPE_WINE_COOLER}
                             label="I'll need a cooler to store wine"
                             buttonLabel={filteredWineCooler.length > 0 ? 'Manage Wine Coolers' : 'Add Wine Cooler'}
-                            route={ROUTES.WINE_COOLER}
+                            route={generatePath(ROUTES.WINE_COOLER, { application_id: this.props.profile.id })}
                             expansionPanel={
                                 filteredWineCooler.length > 0 && (
                                     <ExistingItemsExpansionPanel

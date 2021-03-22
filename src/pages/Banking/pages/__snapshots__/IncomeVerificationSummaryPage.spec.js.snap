@@ -61,7 +61,7 @@ exports[`matches snapshot when no financial sources data, but reported no income
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -131,7 +131,7 @@ exports[`matches snapshot when no financial sources data, but reported no income
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -150,7 +150,7 @@ exports[`matches snapshot when no financial sources data, but reported no income
     Continue
   </ActionButton>
   <BackLink
-    to="/income-employment/connect"
+    to="/application/1/income-employment/connect"
   />
 </React.Fragment>
 `;
@@ -216,7 +216,7 @@ exports[`matches snapshot with no financial sources data 1`] = `
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -286,7 +286,7 @@ exports[`matches snapshot with no financial sources data 1`] = `
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -305,7 +305,7 @@ exports[`matches snapshot with no financial sources data 1`] = `
     Continue
   </ActionButton>
   <BackLink
-    to="/income-employment/connect"
+    to="/application/1/income-employment/connect"
   />
 </React.Fragment>
 `;
@@ -379,7 +379,7 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -439,6 +439,14 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
           labelQuantity={1}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -462,7 +470,7 @@ exports[`matches snapshot with only asset sources - with warning 1`] = `
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -553,6 +561,14 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
           labelQuantity={2}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": 100020,
@@ -565,6 +581,14 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -588,7 +612,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -648,6 +672,14 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
           labelQuantity={2}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": 40020,
@@ -660,6 +692,14 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -683,7 +723,7 @@ exports[`matches snapshot with some financial sources data - with warnings 1`] =
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -766,6 +806,14 @@ exports[`matches snapshot with some financial sources data 1`] = `
           labelQuantity={3}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -785,6 +833,14 @@ exports[`matches snapshot with some financial sources data 1`] = `
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -795,6 +851,14 @@ exports[`matches snapshot with some financial sources data 1`] = `
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -841,7 +905,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -901,6 +965,14 @@ exports[`matches snapshot with some financial sources data 1`] = `
           labelQuantity={1}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 40000,
@@ -922,7 +994,7 @@ exports[`matches snapshot with some financial sources data 1`] = `
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -1013,6 +1085,14 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
           labelQuantity={2}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": 100020,
@@ -1025,6 +1105,14 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -1048,7 +1136,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -1108,6 +1196,14 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
           labelQuantity={2}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": 40020,
@@ -1120,6 +1216,14 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -1143,7 +1247,7 @@ exports[`matches snapshot with some financial sources data if guarantor - with w
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -1226,6 +1330,14 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           labelQuantity={3}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -1245,6 +1357,14 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -1255,6 +1375,14 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
             }
           />
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 100000,
@@ -1301,7 +1429,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -1361,6 +1489,14 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
           labelQuantity={1}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "estimated_amount": 40000,
@@ -1382,7 +1518,7 @@ exports[`matches snapshot with some financial sources data if guarantor 1`] = `
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.
@@ -1491,7 +1627,7 @@ exports[`renders more document requested warning when applicable 1`] = `
         src="finance.png"
       />
     }
-    route="/income-employment/manual/add-income"
+    route="/application/1/income-employment/manual/add-income"
     tip={
       <React.Fragment>
         Proof of legal, verifiable income in an amount equal to 2.0 – 3.0 times the monthly rent per household will be required based on pre-established requirements at the property, along with any necessary supporting documents.
@@ -1551,6 +1687,19 @@ exports[`renders more document requested warning when applicable 1`] = `
           labelQuantity={1}
         >
           <IncomeOrAssetsItem
+            application={
+              Object {
+                "events": Array [
+                  Object {
+                    "event": 10110,
+                  },
+                ],
+                "id": 1,
+                "unit": Object {
+                  "price": 1000,
+                },
+              }
+            }
             source={
               Object {
                 "adjusted_amount": null,
@@ -1574,7 +1723,7 @@ exports[`renders more document requested warning when applicable 1`] = `
         src="piggy-bank.png"
       />
     }
-    route="/income-employment/manual/add-asset"
+    route="/application/1/income-employment/manual/add-asset"
     tip={
       <React.Fragment>
         If no current income, proof of liquid assets (which includes bank statements with deposits) at 2.0 – 3.0 the net rent for the entire lease term is required.

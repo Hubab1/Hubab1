@@ -13,6 +13,7 @@ import BankingContext from 'pages/Banking/BankingContext';
 import EmployerAddressForm from 'pages/Banking/components/EmployerAddressForm';
 import { H1, SpacedH3 } from 'assets/styles';
 import portfolio from 'assets/images/portfolio_bag.png';
+import { generatePath } from 'react-router';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -25,7 +26,7 @@ const ImageContainer = styled.div`
 
 export const GENERIC_ERROR_MESSAGE = 'Oops! We ran into some issues. Please try again later.';
 
-export function EmployerDetailsPage({ applicant, showAutomatedAddress, fetchApplicant, configuration }) {
+export function EmployerDetailsPage({ applicant, showAutomatedAddress, fetchApplicant, configuration, application }) {
     const context = useContext(BankingContext);
     const [errors, setErrors] = useState(null);
 
@@ -58,7 +59,7 @@ export function EmployerDetailsPage({ applicant, showAutomatedAddress, fetchAppl
                         context._nextRoute();
                         return;
                     }
-                    context.history.push(ROUTES.FEES_AND_DEPOSITS);
+                    context.history.push(generatePath(ROUTES.FEES_AND_DEPOSITS, { application_id: application.id }));
                 }
             })
             .catch(() => {
@@ -88,9 +89,9 @@ export function EmployerDetailsPage({ applicant, showAutomatedAddress, fetchAppl
                 showAutomatedAddress={showAutomatedAddress}
             />
             {configuration.enable_automatic_income_verification ? (
-                <BackLink to={ROUTES.INCOME_VERIFICATION_SUMMARY} />
+                <BackLink to={generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: application.id })} />
             ) : (
-                <BackLink to={ROUTES.PROFILE_OPTIONS} />
+                <BackLink to={generatePath(ROUTES.PROFILE_OPTIONS, { application_id: application.id })} />
             )}
         </>
     );
@@ -101,12 +102,14 @@ EmployerDetailsPage.propTypes = {
     configuration: PropTypes.object,
     showAutomatedAddress: PropTypes.bool,
     fetchApplicant: PropTypes.func,
+    application: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     showAutomatedAddress: getShowAutomatedAddressForm(state),
     configuration: state.configuration,
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = {

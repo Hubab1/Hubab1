@@ -18,6 +18,7 @@ import ItemAdder from 'common-components/ItemAdder/ItemAdder';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1, SpacedH3 } from 'assets/styles';
 import wineCoolerImage from 'assets/images/fridge.png';
+import { generatePath } from 'react-router';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -52,7 +53,10 @@ export const WineCoolerPage = (props) => {
                     setErrors(res.errors);
                     setErrorSubmitting(true);
                 } else {
-                    props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`);
+                    const url = generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_WINE_COOLER}`, {
+                        application_id: props.application.id,
+                    });
+                    props.history.push(url);
                 }
             })
             .finally(() => {

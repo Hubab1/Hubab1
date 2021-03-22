@@ -23,6 +23,7 @@ import {
 import API from 'api/api';
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
+import { generatePath } from 'react-router';
 
 describe('selectNav', () => {
     it('Builds list of nav routes and label objects', () => {
@@ -46,27 +47,27 @@ describe('selectNav', () => {
             },
             {
                 name: 'Lease Terms',
-                value: '/lease-terms',
+                value: '/application/:application_id/lease-terms',
             },
             {
                 name: 'Rental Profile',
-                value: '/rental-profile/options',
+                value: '/application/:application_id/rental-profile/options',
             },
             {
                 name: 'Income & Employment',
-                value: '/income-employment/connect',
+                value: '/application/:application_id/income-employment/connect',
             },
             {
                 name: 'Fees & Deposits',
-                value: '/fees-deposits',
+                value: '/application/:application_id/fees-deposits',
             },
             {
                 name: 'Screening',
-                value: '/screening',
+                value: '/application/:application_id/screening',
             },
             {
                 name: 'Application Complete',
-                value: '/application-complete',
+                value: '/application/:application_id/application-complete',
             },
         ]);
     });
@@ -84,6 +85,7 @@ describe('canAccessRoute', () => {
             guarantor: null,
             pets: null,
             lease_term: 6,
+            id: 12,
         },
         applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
     };
@@ -167,12 +169,12 @@ describe('selectOrderedRoutes', () => {
         });
         expect(pages).toEqual([
             '/address',
-            '/lease-terms',
-            '/rental-profile/options',
-            '/income-employment/connect',
-            '/fees-deposits',
-            '/screening',
-            '/application-complete',
+            '/application/:application_id/lease-terms',
+            '/application/:application_id/rental-profile/options',
+            '/application/:application_id/income-employment/connect',
+            '/application/:application_id/fees-deposits',
+            '/application/:application_id/screening',
+            '/application/:application_id/application-complete',
         ]);
     });
     it('Shows correct pages for secondary applicants', () => {
@@ -192,11 +194,11 @@ describe('selectOrderedRoutes', () => {
         });
         expect(pages).toEqual([
             '/address',
-            '/lease-terms',
-            '/income-employment/connect',
-            '/fees-deposits',
-            '/screening',
-            '/application-complete',
+            '/application/:application_id/lease-terms',
+            '/application/:application_id/income-employment/connect',
+            '/application/:application_id/fees-deposits',
+            '/application/:application_id/screening',
+            '/application/:application_id/application-complete',
         ]);
     });
     it('doesnt show income-employment page if enable_automatic_income_verification=false', () => {
@@ -216,11 +218,11 @@ describe('selectOrderedRoutes', () => {
         });
         expect(pages).toEqual([
             '/address',
-            '/lease-terms',
-            '/rental-profile/options',
-            '/fees-deposits',
-            '/screening',
-            '/application-complete',
+            '/application/:application_id/lease-terms',
+            '/application/:application_id/rental-profile/options',
+            '/application/:application_id/fees-deposits',
+            '/application/:application_id/screening',
+            '/application/:application_id/application-complete',
         ]);
     });
 });
@@ -239,10 +241,11 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
-        expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
+        expect(initialPage).toEqual(generatePath(ROUTES.LEASE_TERMS, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -256,6 +259,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -263,7 +267,7 @@ describe('selectInitialPage', () => {
                 events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.UNIT_UNAVAILABLE);
+        expect(initialPage).toEqual(generatePath(ROUTES.UNIT_UNAVAILABLE, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -276,6 +280,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -283,7 +288,7 @@ describe('selectInitialPage', () => {
                 events: [{ event: MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -296,6 +301,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -308,7 +314,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT);
+        expect(initialPage).toEqual(generatePath(ROUTES.HOLDING_DEPOSIT_TERMS_AGREEMENT, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -322,6 +328,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -329,7 +336,7 @@ describe('selectInitialPage', () => {
                 events: [],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -342,6 +349,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -349,7 +357,8 @@ describe('selectInitialPage', () => {
                 events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.PROFILE_OPTIONS);
+
+        expect(initialPage).toEqual(generatePath(ROUTES.PROFILE_OPTIONS, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -363,6 +372,7 @@ describe('selectInitialPage', () => {
                     { name: 'garfield', pet_type: 'Cat' },
                 ],
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -375,7 +385,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -389,6 +399,7 @@ describe('selectInitialPage', () => {
                     { name: 'garfield', pet_type: 'Cat' },
                 ],
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -400,7 +411,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.FEES_AND_DEPOSITS);
+        expect(initialPage).toEqual(generatePath(ROUTES.FEES_AND_DEPOSITS, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -414,6 +425,7 @@ describe('selectInitialPage', () => {
                     { name: 'garfield', pet_type: 'Cat' },
                 ],
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -425,7 +437,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -437,6 +449,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -449,7 +462,7 @@ describe('selectInitialPage', () => {
                 receipt: { id: 123 },
             },
         });
-        expect(initialPage).toEqual(ROUTES.SCREENING);
+        expect(initialPage).toEqual(generatePath(ROUTES.SCREENING, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -461,6 +474,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -475,7 +489,7 @@ describe('selectInitialPage', () => {
                 receipt: { id: 123 },
             },
         });
-        expect(initialPage).toEqual(ROUTES.APP_COMPLETE);
+        expect(initialPage).toEqual(generatePath(ROUTES.APP_COMPLETE, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -487,6 +501,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -504,7 +519,7 @@ describe('selectInitialPage', () => {
                 receipt: { id: 123 },
             },
         });
-        expect(initialPage).toEqual(ROUTES.OUTSTANDING_BALANCE);
+        expect(initialPage).toEqual(generatePath(ROUTES.OUTSTANDING_BALANCE, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -517,6 +532,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_APPROVED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -527,7 +543,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.APP_APPROVED);
+        expect(initialPage).toEqual(generatePath(ROUTES.APP_APPROVED, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -540,6 +556,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -551,7 +568,7 @@ describe('selectInitialPage', () => {
             },
         });
 
-        expect(initialPage).toEqual(ROUTES.APP_APPROVED);
+        expect(initialPage).toEqual(generatePath(ROUTES.APP_APPROVED, { application_id: 12 }));
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
@@ -563,6 +580,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_CONDITIONALLY_APPROVED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -575,7 +593,7 @@ describe('selectInitialPage', () => {
             },
         });
 
-        expect(initialPage).toEqual(ROUTES.LEASE_SIGNED);
+        expect(initialPage).toEqual(generatePath(ROUTES.LEASE_SIGNED, { application_id: 12 }));
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
@@ -587,6 +605,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_COMPLETED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -599,7 +618,7 @@ describe('selectInitialPage', () => {
             },
         });
 
-        expect(initialPage).toEqual(ROUTES.LEASE_EXECUTED);
+        expect(initialPage).toEqual(generatePath(ROUTES.LEASE_EXECUTED, { application_id: 12 }));
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
@@ -611,6 +630,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_CANCELLED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -623,7 +643,7 @@ describe('selectInitialPage', () => {
             },
         });
 
-        expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+        expect(initialPage).toEqual(generatePath(ROUTES.APP_CANCELLED, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -636,6 +656,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 status: APPLICATION_STATUS_DENIED,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -648,7 +669,7 @@ describe('selectInitialPage', () => {
             },
         });
 
-        expect(initialPage).toEqual(ROUTES.APP_DENIED);
+        expect(initialPage).toEqual(generatePath(ROUTES.APP_DENIED, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -660,6 +681,7 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -667,7 +689,7 @@ describe('selectInitialPage', () => {
                 events: [{ event: APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.LEASE_VOIDED);
+        expect(initialPage).toEqual(generatePath(ROUTES.LEASE_VOIDED, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -680,6 +702,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 events: [{ event: MILESTONE_REQUEST_GUARANTOR }],
+                id: 12,
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -687,13 +710,13 @@ describe('selectInitialPage', () => {
                 events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.GUARANTOR_REQUESTED);
+        expect(initialPage).toEqual(generatePath(ROUTES.GUARANTOR_REQUESTED, { application_id: 12 }));
     });
 
     it('selects direct route correctly', () => {
         delete window.location;
         window.location = {
-            pathname: '/payment-details',
+            pathname: '/application/12/payment-details',
         };
         const initialPage = selectors.selectInitialPage({
             configuration: {
@@ -706,10 +729,11 @@ describe('selectInitialPage', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
-        expect(initialPage).toEqual(ROUTES.PAYMENT_DETAILS);
+        expect(initialPage).toEqual(generatePath(ROUTES.PAYMENT_DETAILS, { application_id: 12 }));
     });
 });
 
@@ -730,10 +754,11 @@ describe('select default initial page', () => {
                 guarantor: null,
                 pets: null,
                 lease_term: 6,
+                id: 12,
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
-        expect(initialPage).toEqual(ROUTES.LEASE_TERMS);
+        expect(initialPage).toEqual(generatePath(ROUTES.LEASE_TERMS, { application_id: 12 }));
     });
 });
 

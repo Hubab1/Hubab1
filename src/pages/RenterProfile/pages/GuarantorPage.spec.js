@@ -6,6 +6,7 @@ import { ROUTES, RENTER_PROFILE_TYPE_GUARANTOR } from 'constants/constants';
 import { GuarantorPage } from './GuarantorPage';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import ConfirmationPage from 'pages/Confirmation';
+import { generatePath } from 'react-router';
 
 let defaultProps;
 
@@ -59,7 +60,7 @@ it('Confirmation Page - Add guarantor from rental options', function () {
     expect(wrapper.find(ConfirmationPage).exists()).toBeTruthy();
     wrapper.find(ConfirmationPage).dive().find(ActionButton).at(0).simulate('click');
     expect(defaultProps.history.push).toHaveBeenCalledWith(
-        `${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`
+        generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`, { application_id: 1 })
     );
 });
 
