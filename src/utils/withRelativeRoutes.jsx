@@ -19,6 +19,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         throw Error(`${route} is invalid. Route must be a top level route! Did you mean to use captureRoute?`);
     }
     route = WrappedComponent.route || route;
+    console.log({ route });
     class Component extends React.Component {
         constructor(props) {
             super(props);
@@ -27,18 +28,26 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
 
         stayOrPushRoute = () => {
-            if (!this.props.application) {
-                return;
-            }
+            console.log({ route });
+            console.log(' 1 STAY OR PUSH');
 
-            const routeWithApplication = generatePath(route, { application_id: this.props.application.id });
             const props = this.props;
+            const routeWithApplication =
+                props.application && generatePath(route, { application_id: this.props.application.id });
+
             if (!props.initialPage) {
+                console.log('Block render');
                 this.blockRender = true;
-            } else if (!props.selectApplicantStillFinishingApplication && routeWithApplication !== props.initialPage) {
+            } else if (
+                props.selectApplicantStillFinishingApplication === false &&
+                routeWithApplication !== props.initialPage
+            ) {
+                console.log('!!!!!Pushing initial page!');
                 this.blockRender = true;
                 this.props.history.push(props.initialPage);
             } else {
+                console.log('----------------currentRouteReceived');
+                console.log({ route, routeWithApplication });
                 this.blockRender = false;
                 props.currentRouteReceived(routeWithApplication);
             }
@@ -47,6 +56,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         componentDidUpdate(prevProps) {
             const props = this.props;
             if (!prevProps.initialPage && props.initialPage) {
+                console.log(' 2 STAY OR PUSH');
                 this.stayOrPushRoute();
             }
 

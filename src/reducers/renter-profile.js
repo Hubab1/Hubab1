@@ -181,6 +181,7 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 const pageCompleted = (events, state) => {
     const { applicant, profile, configuration } = state;
     const containerIndexRoutes = selectors.selectDefaultContainerPage(state);
+
     return {
         [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
         [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
@@ -242,6 +243,9 @@ const isApplicationCompleted = (events) => {
     return events.has(MILESTONE_APPLICANT_SUBMITTED);
 };
 
+export const applicationPath = (route, application_id, params = {}) =>
+    generatePath(route, { application_id, ...params });
+
 selectors.canAccessRoute = (state, route) => {
     if (MOCKY && route != null) return true;
     /*
@@ -262,18 +266,26 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     // check if page was completed
-    if (pageCompleted(eventsSet, state)[route] === true) {
-        return true;
+    console.log('PAGE COMPLETED', { state, route }, pageCompleted(eventsSet, state)[route]);
+
+    const pagesCompleted = pageCompleted(eventsSet, state);
+
+    for (const pageRoute in pagesCompleted) {
+        if (applicationPath(pageRoute, state.renterProfile.id) === route && pagesCompleted[pageRoute] === true) {
+            return true;
+        }
     }
 
-    //  route is next page
     if (selectors.selectDirectRoute(state)) {
         return true;
     }
 
-    return (
-        selectors.selectDefaultInitialPage(state) === generatePath(route, { application_id: state.renterProfile.id })
-    );
+    if (route === null) {
+        return true;
+    }
+
+    // route is next page
+    return selectors.selectDefaultInitialPage(state) === applicationPath(route, state.renterProfile.id);
 };
 
 export const DIRECT_ROUTES = [ROUTES.PAYMENT_DETAILS, ROUTES.FAQ, ROUTES.APPLICATIONS];
@@ -369,6 +381,8 @@ selectors.selectDefaultInitialPage = createSelector(
             };
 
             const route = getRoute();
+
+            console.log('DEFAULT INITIAL PAGE', { route });
 
             if (route) {
                 return generatePath(route, { application_id: profile.id });

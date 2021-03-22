@@ -74,7 +74,7 @@ export class Main extends Component {
             } else {
                 history.replace(ROUTES.WELCOME);
             }
-        } else {
+        } else if (!this.props.canAccessCurrentRoute()) {
             history.replace(this.props.initialPage);
         }
     }
