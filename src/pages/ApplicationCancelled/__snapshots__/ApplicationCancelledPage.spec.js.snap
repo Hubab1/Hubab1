@@ -28,3 +28,32 @@ exports[`matches snapshot 1`] = `
   </ForwardRef(render)>
 </React.Fragment>
 `;
+
+exports[`matches snapshot when no unit 1`] = `
+<React.Fragment>
+  <ForwardRef(render)>
+    Application Cancelled
+  </ForwardRef(render)>
+  <ForwardRef(render)>
+    Your application at 
+    Fake Building
+     has been cancelled.
+  </ForwardRef(render)>
+  <ForwardRef(render)
+    src="cancelled.png"
+  />
+  <ForwardRef(render)
+    bold={true}
+    margin="90px 0 0 0"
+  >
+    Call us at
+     
+    <a
+      href="tel:1234445510"
+    >
+      123‑444‑5510
+    </a>
+     if you have any questions or if you’d like to start a new application.
+  </ForwardRef(render)>
+</React.Fragment>
+`;
