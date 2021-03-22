@@ -18,22 +18,7 @@ export default function captureRoute(WrappedComponent, route) {
             props.currentRouteReceived(route);
         }
         render() {
-            return (
-                <WrappedComponent
-                    _navigate={async (route) => {
-                        // if (!MOCKY) {
-                        //     this.props.fetchApplicant();
-                        //     await this.props.fetchRenterProfile();
-                        // }
-                        // if (this.props.unitAvailable === false) {
-                        //     return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
-                        // } else {
-                        //     return this.props.history.push(route);
-                        // }
-                    }}
-                    {...this.props}
-                />
-            );
+            return <WrappedComponent {...this.props} />;
         }
     }
 

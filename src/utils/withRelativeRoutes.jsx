@@ -34,6 +34,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
             const props = this.props;
             const routeWithApplication =
                 props.application && generatePath(route, { application_id: this.props.application.id });
+            console.log({ initialPage: props.initialPage, routeWithApplication });
 
             if (!props.initialPage) {
                 console.log('Block render');
@@ -43,7 +44,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                 routeWithApplication !== props.initialPage
             ) {
                 console.log('!!!!!Pushing initial page!');
-                this.blockRender = true;
+                this.blockRender = true; // FUUU?
                 this.props.history.push(props.initialPage);
             } else {
                 console.log('----------------currentRouteReceived');

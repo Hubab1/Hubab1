@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
@@ -20,11 +20,12 @@ import {
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
+    ROUTES,
 } from 'constants/constants';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { applicationPath, clearRenterProfile, fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +66,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
+export function Application({
+    application = {},
+    isActive = true,
+    fetchRenterProfile,
+    clearRenterProfile,
+    initialPage,
+    history,
+    currentApp,
+}) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -75,15 +84,22 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
         setExpanded(!expanded);
     }, [expanded]);
 
+    const [appSelected, setAppSelected] = useState(false);
+
+    useEffect(() => {
+        initialPage && appSelected && history.push(initialPage);
+    }, [initialPage, appSelected]);
+
     if (isEmpty(application)) {
         return null;
     }
 
     const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
 
-    const openApplication = async (id) => {
-        await fetchRenterProfile(id);
-        history.replace(initialPage);
+    const selectApplication = async (id) => {
+        // await clearRenterProfile();
+        const profile = await fetchRenterProfile(id);
+        setAppSelected(true);
     };
 
     return (
@@ -141,7 +157,7 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                             variant="outlined"
                             marginTop={20}
                             marginBottom={10}
-                            onClick={() => openApplication(id)}
+                            onClick={() => selectApplication(id)}
                         >
                             Go To Application
                         </ActionButton>
@@ -173,10 +189,12 @@ Application.propTypes = {
 const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
     initialPage: selectors.selectDefaultInitialPage(state),
+    currentApp: state.renterProfile,
 });
 
 const mapDispatchToProps = {
     fetchRenterProfile,
+    clearRenterProfile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Application));

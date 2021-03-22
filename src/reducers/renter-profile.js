@@ -41,6 +41,11 @@ const renterProfile = createSlice({
                 Object.assign(draft, action.payload);
             });
         },
+        renterProfileCleared(state) {
+            console.log('CLEARING RENTER');
+            state = null;
+            return state;
+        },
     },
     extraReducers: {
         USER_LOGOUT: () => {
@@ -50,11 +55,10 @@ const renterProfile = createSlice({
 });
 
 const { actions, reducer } = renterProfile;
-export const { renterProfileReceived, renterProfileUpdated } = actions;
+export const { renterProfileReceived, renterProfileUpdated, renterProfileCleared } = actions;
 export default reducer;
 
 export const fetchRenterProfile = (id) => {
-    console.log({ id });
     return async (dispatch) => {
         let profile;
         if (MOCKY) {
@@ -67,6 +71,12 @@ export const fetchRenterProfile = (id) => {
         dispatch(filterRentalOptionsByUnit(profile));
 
         return profile;
+    };
+};
+
+export const clearRenterProfile = () => {
+    return (dispatch) => {
+        dispatch(renterProfileCleared());
     };
 };
 
@@ -272,6 +282,7 @@ selectors.canAccessRoute = (state, route) => {
 
     for (const pageRoute in pagesCompleted) {
         if (applicationPath(pageRoute, state.renterProfile.id) === route && pagesCompleted[pageRoute] === true) {
+            console.log('HAS ACCESS');
             return true;
         }
     }
@@ -281,7 +292,8 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     if (route === null) {
-        return true;
+        console.log('WEIRD SHIT');
+        return false;
     }
 
     // route is next page
@@ -315,7 +327,9 @@ selectors.selectDefaultInitialPage = createSelector(
     (orderedRoutes, events, applicant, profile, configuration, state) => {
         if (orderedRoutes && events && applicant && profile) {
             const getRoute = () => {
-                const eventsSet = new Set(events.map((event) => parseInt(event.event)));
+                const eventsSet = new Set(
+                    events.filter((e) => e.application === profile.id).map((event) => parseInt(event.event))
+                );
                 const applicationEvents = profile.events
                     ? new Set(profile.events.map((event) => parseInt(event.event)))
                     : null;
@@ -354,14 +368,14 @@ selectors.selectDefaultInitialPage = createSelector(
                 }
 
                 if (eventsSet.has(MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED)) {
-                    return ROUTES.INCOME_VERIFICATION_CONNECT;
+                    return ROUTES.INCOME_VERIFICATION_SUMMARY;
                 }
 
                 if (
                     applicationEvents &&
                     applicationEvents.has(MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED)
                 ) {
-                    return ROUTES.INCOME_VERIFICATION_CONNECT;
+                    return ROUTES.INCOME_VERIFICATION_SUMMARY;
                 }
 
                 if (applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR)) {
@@ -381,11 +395,8 @@ selectors.selectDefaultInitialPage = createSelector(
             };
 
             const route = getRoute();
-
-            console.log('DEFAULT INITIAL PAGE', { route });
-
             if (route) {
-                return generatePath(route, { application_id: profile.id });
+                return applicationPath(route, profile.id);
             }
             console.error('Could not determine current page.');
         }
@@ -429,10 +440,13 @@ selectors.selectNextRoute = createSelector(
 
 selectors.selectApplicantStillFinishingApplication = createSelector(
     (state) => state.applicant && state.applicant.events,
-    (applicantEvents) => {
-        if (!applicantEvents) return;
+    (state) => state.renterProfile,
+    (applicantEvents, application) => {
+        if (!applicantEvents || !application) return;
         // if applicant has submitted milestone, they're not completing fields anymore
-        return !applicantEvents.find((e) => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
+        return !applicantEvents
+            .filter((e) => e.application === application.id)
+            .find((e) => parseInt(e.event) === parseInt(MILESTONE_APPLICANT_SUBMITTED));
     }
 );
 
