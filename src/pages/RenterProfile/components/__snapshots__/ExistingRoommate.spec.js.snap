@@ -78,7 +78,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
         className="css-h8dj3w"
         to={
           Object {
-            "pathname": "/resend-invite",
+            "pathname": "/application/:application_id/resend-invite",
             "state": Object {
               "confirmationButtonText": "Back to Rental Profile",
               "initialValues": Object {
@@ -89,7 +89,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
                 "last_name": "mcgreebs",
                 "phone_number": "(383) 838-4849",
               },
-              "returnRoute": "/rental-profile/options#co_applicants",
+              "returnRoute": "/application/:application_id/rental-profile/options#co_applicants",
             },
           }
         }
@@ -99,7 +99,7 @@ exports[`matches snapshot for unregistered roommate 1`] = `
     </React.Fragment>
     <ForwardRef
       className="css-h8dj3w css-11kem00"
-      to="/rental-profile/co_applicants/71/remove"
+      to="/application/1/rental-profile/co_applicants/71/remove"
     >
       Remove
     </ForwardRef>

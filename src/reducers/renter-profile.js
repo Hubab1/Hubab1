@@ -54,6 +54,7 @@ export const { renterProfileReceived, renterProfileUpdated } = actions;
 export default reducer;
 
 export const fetchRenterProfile = (id) => {
+    console.log({ id });
     return async (dispatch) => {
         let profile;
         if (MOCKY) {
@@ -266,6 +267,10 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     //  route is next page
+    if (selectors.selectDirectRoute(state)) {
+        return true;
+    }
+
     return (
         selectors.selectDefaultInitialPage(state) === generatePath(route, { application_id: state.renterProfile.id })
     );

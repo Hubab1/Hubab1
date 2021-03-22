@@ -22,7 +22,9 @@ export default reducer;
 export const fetchPayments = () => {
     return async (dispatch, getState) => {
         const { renterProfile } = getState();
-        console.log({ getState: getState(), renterProfile });
+        if (!renterProfile) {
+            return;
+        }
         let payments;
         if (MOCKY) {
             payments = mock;

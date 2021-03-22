@@ -75,12 +75,7 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            const id = window.location.pathname.split('/')[3] || this.props.applicant.application;
-            this.props.fetchRenterProfile(id).then(() => {
-                if (!this.props.canAccessCurrentRoute()) {
-                    history.replace(this.props.initialPage);
-                }
-            });
+            history.replace(this.props.initialPage);
         }
     }
 
@@ -93,6 +88,11 @@ export class Main extends Component {
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
             isLoggedIn && (await this.props.fetchApplicant());
+
+            const id = window.location.pathname.split('/')[3] || this.props.applicant.application;
+            console.log('Fetching application');
+            isLoggedIn && (await this.props.fetchRenterProfile(id));
+            console.log('Fetching DONE');
         } catch (error) {
             return this.setState({ hasError: true });
         }

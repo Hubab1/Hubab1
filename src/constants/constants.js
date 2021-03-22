@@ -4,7 +4,7 @@ export const community = {
 
 export const ROUTES = {
     // Independent routes
-    APPLICATION: '/application/:application_id', //TODO?
+    APPLICATION: '/application/:application_id',
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
@@ -17,7 +17,7 @@ export const ROUTES = {
     OUTSTANDING_BALANCE: '/application/:application_id/outstanding-balance',
     PAYMENT_TERMS: '/application/:application_id/payment-terms',
     ACCOUNT: '/account',
-    RESEND_INVITE: '/resend-invite',
+    RESEND_INVITE: '/application/:application_id/resend-invite',
     TERMS: '/terms',
     PRIVACY_POLICY: '/privacy-policy',
     FUNNEL_TERMS: '/funnel-terms',

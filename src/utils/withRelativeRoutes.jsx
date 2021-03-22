@@ -27,6 +27,10 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
 
         stayOrPushRoute = () => {
+            if (!this.props.application) {
+                return;
+            }
+
             const routeWithApplication = generatePath(route, { application_id: this.props.application.id });
             const props = this.props;
             if (!props.initialPage) {

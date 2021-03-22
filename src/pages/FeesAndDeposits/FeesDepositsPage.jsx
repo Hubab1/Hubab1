@@ -16,6 +16,7 @@ import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOp
 import UnitNotHeldWaitingPage from 'pages/FeesAndDeposits/components/UnitNotHeldWaitingPage';
 import FeesDepositsReceipt from 'pages/FeesAndDeposits/components/FeesDepositsReceipt';
 import Payment from 'pages/FeesAndDeposits/components/Payment';
+import { generatePath } from 'react-router';
 
 export const FeesDepositsPage = ({
     _prev,
@@ -114,7 +115,7 @@ export const FeesDepositsPage = ({
         const reportedNoIncome = !applicant.income_total && !applicant.asset_total;
 
         if (configuration.collect_employer_information && !reportedNoIncome) {
-            return ROUTES.EMPLOYER_DETAILS;
+            return generatePath(ROUTES.EMPLOYER_DETAILS, { application_id: profile.id });
         } else {
             return _prev;
         }

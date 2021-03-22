@@ -110,6 +110,8 @@ API.putApplicant = (data) => {
 };
 
 API.fetchRenterProfile = (application_id) => {
+    console.log({ application_id });
+    console.log(chuck(`/application/${application_id}/`));
     return fetch(chuck(`/application/${application_id}/`), {
         method: 'GET',
         headers: {

@@ -19,18 +19,13 @@ import {
     APPLICATION_STATUSES_LABELS,
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
-    ROUTES,
+    APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import { generatePath, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { PersistentDrawerLeft } from 'common-components/NavDrawer/NavDrawer';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
 import { useHistory } from 'react-router-dom';
-import { fetchConfiguration } from 'reducers/configuration';
-import { fetchApplicant } from 'reducers/applicant';
-import { actions as mainActions } from 'reducers/store';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage }) {
+export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -80,13 +75,13 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
         setExpanded(!expanded);
     }, [expanded]);
 
-    const history = useHistory();
-
     if (isEmpty(application)) {
         return null;
     }
 
-    const goToApplication = async (id) => {
+    const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
+
+    const openApplication = async (id) => {
         await fetchRenterProfile(id);
         history.replace(initialPage);
     };
@@ -141,9 +136,16 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                     <Typography className={classes.applicationId} variant="caption">
                         Application ID <span>{id}</span>
                     </Typography>
-                    <ActionButton variant="outlined" marginBottom={20} onClick={() => goToApplication(id)}>
-                        Go To Application
-                    </ActionButton>
+                    {showOpenApplicationButton && (
+                        <ActionButton
+                            variant="outlined"
+                            marginTop={20}
+                            marginBottom={10}
+                            onClick={() => openApplication(id)}
+                        >
+                            Go To Application
+                        </ActionButton>
+                    )}
                 </CardContent>
             </Collapse>
         </Card>
@@ -162,6 +164,10 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
+    initialPage: PropTypes.string,
+    communityId: PropTypes.number,
+    fetchRenterProfile: PropTypes.func,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({

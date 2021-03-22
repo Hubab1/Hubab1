@@ -17,6 +17,9 @@ beforeEach(() => {
         history: {
             push: jest.fn(),
         },
+        application: {
+            id: 123,
+        },
     };
 });
 
