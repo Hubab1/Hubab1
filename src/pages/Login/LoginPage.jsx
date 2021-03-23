@@ -55,6 +55,7 @@ export class LoginPage extends Component {
             .then((res) => {
                 auth.setSession(res.token, this.props.communityId);
                 if (this.state.errors) this.setState({ errors: null });
+
                 Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
                     history.replace(this.props.initialPage);
                 });

@@ -8,7 +8,6 @@ import { ROUTES } from 'constants/constants';
 import GreenCheckIcon from 'common-components/GreenCheckIcon/GreenCheckIcon';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
-import BankingContext from 'pages/Banking/BankingContext';
 import { styles } from 'assets/styles';
 import { H1, H3, P, Bold } from 'assets/styles';
 import safeImage from 'assets/images/connect-bank/safe.png';
@@ -39,11 +38,6 @@ const bodyRow = css`
 `;
 
 const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, reportNoIncomeAssets }) => {
-    const context = React.useContext(BankingContext);
-    if (!context.routeSelected) {
-        return null;
-    }
-
     return (
         <>
             <H1>Verify Your Income and Assets</H1>

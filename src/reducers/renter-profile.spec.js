@@ -17,9 +17,10 @@ import {
     MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD,
     MILESTONE_LEASE_VOIDED,
     MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED,
+    MILESTONE_REQUEST_GUARANTOR,
+    APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
 import API from 'api/api';
-
 import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
 
@@ -53,7 +54,7 @@ describe('selectNav', () => {
             },
             {
                 name: 'Income & Employment',
-                value: '/income-employment',
+                value: '/income-employment/connect',
             },
             {
                 name: 'Fees & Deposits',
@@ -168,7 +169,7 @@ describe('selectOrderedRoutes', () => {
             '/address',
             '/lease-terms',
             '/rental-profile/options',
-            '/income-employment',
+            '/income-employment/connect',
             '/fees-deposits',
             '/screening',
             '/application-complete',
@@ -192,7 +193,7 @@ describe('selectOrderedRoutes', () => {
         expect(pages).toEqual([
             '/address',
             '/lease-terms',
-            '/income-employment',
+            '/income-employment/connect',
             '/fees-deposits',
             '/screening',
             '/application-complete',
@@ -282,7 +283,7 @@ describe('selectInitialPage', () => {
                 events: [{ event: MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED }],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -328,7 +329,7 @@ describe('selectInitialPage', () => {
                 events: [],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -374,7 +375,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -424,7 +425,7 @@ describe('selectInitialPage', () => {
                 ],
             },
         });
-        expect(initialPage).toEqual(ROUTES.INCOME_AND_EMPLOYMENT);
+        expect(initialPage).toEqual(ROUTES.INCOME_VERIFICATION_CONNECT);
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -623,6 +624,32 @@ describe('selectInitialPage', () => {
         });
 
         expect(initialPage).toEqual(ROUTES.APP_CANCELLED);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                status: APPLICATION_STATUS_DENIED,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                ],
+            },
+        });
+
+        expect(initialPage).toEqual(ROUTES.APP_DENIED);
+
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
@@ -641,6 +668,26 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(ROUTES.LEASE_VOIDED);
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                events: [{ event: MILESTONE_REQUEST_GUARANTOR }],
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+            },
+        });
+        expect(initialPage).toEqual(ROUTES.GUARANTOR_REQUESTED);
     });
 
     it('selects direct route correctly', () => {
@@ -727,5 +774,175 @@ describe('selectUnit', () => {
             renterProfile: { unit },
         });
         expect(actual).toBe(unit);
+    });
+});
+
+describe('selectDefaultBankingPage', () => {
+    it("returns connect page if applicant hasn't provided any income yet", () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_CONNECT);
+    });
+
+    it('returns connect page if agent requested income', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_CONNECT);
+    });
+
+    it('returns summary page if agent requested income and assets were submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if agent requested income and income was submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {},
+            application: {
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_MISSING_DOCUMENTS_REQUESTED }],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if employee page disabled in configuration', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: false,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if employee page already submitted', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [{ event: APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO }],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns summary page if reported no income', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [{ event: APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE }],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [],
+                income_sources: [],
+                reported_no_income_assets: true,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.INCOME_VERIFICATION_SUMMARY);
+    });
+
+    it('returns employee page if none of the previous conditions is met', () => {
+        const bankingPage = selectors.selectDefaultBankingPage({
+            applicant: {
+                events: [],
+            },
+            application: {
+                events: [],
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            banking: {
+                asset_sources: [{ id: 1 }, { id: 2 }],
+                income_sources: [{ id: 1 }, { id: 2 }],
+                reported_no_income_assets: false,
+            },
+        });
+
+        expect(bankingPage).toBe(ROUTES.EMPLOYER_DETAILS);
     });
 });

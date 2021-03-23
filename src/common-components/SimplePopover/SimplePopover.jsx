@@ -74,7 +74,7 @@ export default function SimplePopover(props) {
 }
 
 SimplePopover.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
     children: PropTypes.object,
 };
 
