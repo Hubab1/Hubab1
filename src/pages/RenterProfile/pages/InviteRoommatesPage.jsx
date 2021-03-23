@@ -17,6 +17,7 @@ import { H1, H3 } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';
 import { generatePath } from 'react-router';
+import captureRoute from 'utils/captureRoute';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 20px 15%;
@@ -146,4 +147,4 @@ const mapDispatchToProps = {
     toggleLoader: modalActions.toggleLoader,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InviteRoommatesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(InviteRoommatesPage, ROUTES.CO_APPLICANTS));

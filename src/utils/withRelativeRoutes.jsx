@@ -27,9 +27,12 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
 
         stayOrPushRoute = () => {
+            console.log('Stay or push');
             const props = this.props;
             const routeWithApplication =
                 props.application && generatePath(route, { application_id: this.props.application.id });
+
+            console.log({ routeWithApplication });
             if (!props.initialPage) {
                 this.blockRender = true;
             } else if (

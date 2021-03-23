@@ -31,6 +31,9 @@ export const HoldingDepositAgreementConfirmation = ({ profile, configuration, ha
     const [retried, setRetried] = useState(false);
 
     const fetchLeaseDocumentUrl = async () => {
+        if (!profile) {
+            return;
+        }
         setLoading(true);
         const response = await API.leaseDocumentUrl(profile.id, DOCUMENT_TYPE_HOLDING_DEPOSIT);
         setUrl(response ? response.url : undefined);
@@ -40,7 +43,7 @@ export const HoldingDepositAgreementConfirmation = ({ profile, configuration, ha
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
-    });
+    }, []);
 
     const onClick = () => {
         if (!url) {

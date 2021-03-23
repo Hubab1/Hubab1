@@ -76,8 +76,6 @@ export class Main extends Component {
             }
         } else if (!this.props.canAccessCurrentRoute()) {
             console.log('Cant access current route, replacing with initial');
-            console.log(this.props.initialPage);
-            console.log(this.props.canAccessCurrentRoute());
             history.replace(this.props.initialPage);
         }
     }

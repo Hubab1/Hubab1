@@ -42,7 +42,7 @@ export function NavBlockedStep(props) {
     } = props;
 
     const onClick = () => {
-        if (!currentRoute.startsWith(initialPage)) {
+        if (currentRoute && !currentRoute.startsWith(initialPage)) {
             history.push(initialPage);
         }
         handleDrawerClose && handleDrawerClose();

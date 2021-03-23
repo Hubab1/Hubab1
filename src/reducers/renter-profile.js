@@ -196,7 +196,6 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 const pageCompleted = (events, state) => {
     const { applicant, profile, configuration } = state;
     const containerIndexRoutes = selectors.selectDefaultContainerPage(state);
-    console.log({ events });
     return {
         [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
         [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
@@ -262,7 +261,6 @@ export const applicationPath = (route, application_id, params = {}) =>
     generatePath(route, { application_id, ...params });
 
 selectors.canAccessRoute = (state, route) => {
-    console.log('can access route? ' + route);
     if (MOCKY && route != null) return true;
     /*
      Ordered screens and generally can't be completed out of order.
@@ -271,9 +269,8 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
     // These pages should always be accessible
-
+    console.log({ route });
     if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ, ROUTES.FUNNEL_TERMS].includes(route)) {
-        console.log('always true');
         return true;
     }
 
@@ -287,25 +284,19 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     const pagesCompleted = pageCompleted(eventsSet, state);
-    console.log({ pagesCompleted });
     for (const pageRoute in pagesCompleted) {
         if (applicationPath(pageRoute, state.renterProfile.id) === route && pagesCompleted[pageRoute] === true) {
-            console.log('HAS ACCESS');
             return true;
         }
     }
 
     if (selectors.selectDirectRoute(state)) {
-        console.log('direct route');
         return true;
     }
 
     if (route === null) {
-        console.log('WEIRD SHIT');
         return false;
     }
-    console.log('is default initial page');
-    console.log(selectors.selectDefaultInitialPage(state) === applicationPath(route, state.renterProfile.id));
 
     // route is next page
     return selectors.selectDefaultInitialPage(state) === applicationPath(route, state.renterProfile.id);
@@ -402,13 +393,10 @@ selectors.selectDefaultInitialPage = createSelector(
                 }
 
                 const accessibleRoutes = pageCompleted(eventsSet, state);
-                console.log({ accessibleRoutes, orderedRoutes });
                 return orderedRoutes.find((r) => !accessibleRoutes[r]);
             };
 
             const route = getRoute();
-            console.log('DEFAULT INITIAL STEP', { route });
-
             if (route) return applicationPath(route, profile.id);
 
             console.error('Could not determine current page.');

@@ -30,6 +30,7 @@ export function LeaseSignedPage(props) {
     const [retried, setRetried] = useState(false);
 
     const fetchLeaseDocumentUrl = async () => {
+        if (!props.profile) return;
         setLoading(true);
         const response = await API.leaseDocumentUrl(props.profile.id, DOCUMENT_TYPE_LEASE);
         setUrl(response ? response.url : undefined);
@@ -39,7 +40,7 @@ export function LeaseSignedPage(props) {
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
-    });
+    }, []);
 
     const unit = props.unit;
     const community = props.community;
