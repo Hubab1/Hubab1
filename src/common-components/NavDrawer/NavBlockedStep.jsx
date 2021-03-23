@@ -88,7 +88,7 @@ NavBlockedStep.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    initialPage: selectors.selectInitialPage(state),
+    initialPage: selectors.selectDefaultInitialPage(state),
     currentRoute: state.siteConfig.currentRoute,
     config: state.configuration,
 });

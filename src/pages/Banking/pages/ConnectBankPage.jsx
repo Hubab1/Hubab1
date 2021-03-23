@@ -189,6 +189,7 @@ export class ConnectBankPage extends React.Component {
                 openFinicityIframe={this.openFinicityIframe}
                 reportNoIncomeAssets={this.reportNoIncomeAssets}
                 errors={this.state.errors}
+                application={this.props.application}
             />
         );
     }
@@ -199,6 +200,7 @@ ConnectBankPage.propTypes = {
     refreshFinancialSources: PropTypes.func,
     fetchApplicant: PropTypes.func,
     history: PropTypes.object,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

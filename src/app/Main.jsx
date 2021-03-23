@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, useParams, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -75,6 +75,9 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else if (!this.props.canAccessCurrentRoute()) {
+            console.log('Cant access current route, replacing with initial');
+            console.log(this.props.initialPage);
+            console.log(this.props.canAccessCurrentRoute());
             history.replace(this.props.initialPage);
         }
     }
@@ -87,13 +90,14 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            isLoggedIn && (await this.props.fetchApplicant());
 
-            const id = window.location.pathname.split('/')[3] || this.props.applicant.application;
-            console.log('Fetching application');
-            isLoggedIn && (await this.props.fetchRenterProfile(id));
-            console.log('Fetching DONE');
+            if (isLoggedIn) {
+                await this.props.fetchApplicant();
+                const applicationId = window.location.pathname.split('/')[3] || this.props.applicant.application;
+                await this.props.fetchRenterProfile(applicationId);
+            }
         } catch (error) {
+            console.log({ error });
             return this.setState({ hasError: true });
         }
         this.mountNavigation(isLoggedIn, configuration);
@@ -242,6 +246,7 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     canAccessCurrentRoute: () => selectors.canAccessRoute(state, state.siteConfig.currentRoute),
     theme: configSelectors.selectTheme(state),
+    defaultInitialPage: selectors.defaultInitialPage,
 });
 
 const mapDispatchToProps = {

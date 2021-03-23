@@ -7,7 +7,6 @@ import API from 'api/api';
 import captureRoute from 'utils/captureRoute';
 
 import PaymentTerms from 'common-components/PaymentTerms/PaymentTerms';
-import Payment from 'pages/FeesAndDeposits/components/Payment';
 
 export const HoldingDepositReagreementPage = ({ profile, configuration }) => {
     if (!profile || !configuration || !profile.lease_start_date) {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import get from 'lodash/get';
 
-import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS, RENTER_PROFILE_TYPE_WINE_COOLER } from 'constants/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'constants/constants';
 import { serializeDate } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';

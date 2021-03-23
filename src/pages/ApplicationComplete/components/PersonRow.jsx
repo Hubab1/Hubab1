@@ -6,8 +6,6 @@ import { APPLICANT_STATUS_COLOR_MAP, ROLE_PRIMARY_APPLICANT, ROUTES } from 'cons
 import { getRoommateStatus } from 'utils/misc';
 import { applicationStatus, link, P, CardRow } from 'assets/styles';
 import { connect } from 'react-redux';
-import captureRoute from 'utils/captureRoute';
-import { ApplicationCompletePage } from 'pages/ApplicationComplete/ApplicationCompletePage';
 
 export const PersonRow = ({ application, person, label, role }) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
@@ -56,6 +54,7 @@ PersonRow.propTypes = {
     person: PropTypes.object,
     label: PropTypes.string,
     role: PropTypes.string,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

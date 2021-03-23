@@ -86,7 +86,8 @@ export class PaymentForm extends React.Component {
                                 this.props.onSuccess(res);
                             }
                         })
-                        .catch(() => {
+                        .catch((e) => {
+                            console.log({ e });
                             this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                         })
                         .finally(() => {
@@ -94,12 +95,16 @@ export class PaymentForm extends React.Component {
                             this.props.toggleLoader(false);
                         });
                 } else {
+                    console.log('no token');
+
                     this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                     this.props.setDisableBack(false);
                     this.props.toggleLoader(false);
                 }
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log({ e });
+
                 this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                 this.props.setDisableBack(false);
                 this.props.toggleLoader(false);

@@ -7,7 +7,7 @@ import { ROUTES, ROUTES_TOP_LEVEL } from 'constants/constants';
 import { setSentryUser } from 'utils/sentry';
 
 import { fetchApplicant } from 'reducers/applicant';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { applicationPath, fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
 import { generatePath } from 'react-router';
@@ -19,7 +19,6 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         throw Error(`${route} is invalid. Route must be a top level route! Did you mean to use captureRoute?`);
     }
     route = WrappedComponent.route || route;
-    console.log({ route });
     class Component extends React.Component {
         constructor(props) {
             super(props);
@@ -28,27 +27,18 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         }
 
         stayOrPushRoute = () => {
-            console.log({ route });
-            console.log(' 1 STAY OR PUSH');
-
             const props = this.props;
             const routeWithApplication =
                 props.application && generatePath(route, { application_id: this.props.application.id });
-            console.log({ initialPage: props.initialPage, routeWithApplication });
-
             if (!props.initialPage) {
-                console.log('Block render');
                 this.blockRender = true;
             } else if (
                 props.selectApplicantStillFinishingApplication === false &&
                 routeWithApplication !== props.initialPage
             ) {
-                console.log('!!!!!Pushing initial page!');
-                this.blockRender = true; // FUUU?
-                this.props.history.push(props.initialPage);
+                this.blockRender = false; // TODO: should this be true or false
+                //this.props.history.push(props.initialPage);
             } else {
-                console.log('----------------currentRouteReceived');
-                console.log({ route, routeWithApplication });
                 this.blockRender = false;
                 props.currentRouteReceived(routeWithApplication);
             }
@@ -57,7 +47,6 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         componentDidUpdate(prevProps) {
             const props = this.props;
             if (!prevProps.initialPage && props.initialPage) {
-                console.log(' 2 STAY OR PUSH');
                 this.stayOrPushRoute();
             }
 
@@ -73,10 +62,12 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                     _nextRoute={async () => {
                         if (!MOCKY) {
                             this.props.fetchApplicant();
-                            await this.props.fetchRenterProfile();
+                            await this.props.fetchRenterProfile(this.props.application.id);
                         }
                         if (this.props.unitAvailable === false) {
-                            return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
+                            return this.props.history.push(
+                                applicationPath(ROUTES.UNIT_UNAVAILABLE, this.props.application.id)
+                            );
                         } else {
                             return this.props.history.push(this.props._next);
                         }
@@ -98,6 +89,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         fetchApplicant: PropTypes.func,
         fetchRenterProfile: PropTypes.func,
         currentRouteReceived: PropTypes.func,
+        application: PropTypes.object,
     };
 
     const mapStateToProps = (state) => ({

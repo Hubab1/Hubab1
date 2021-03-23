@@ -42,7 +42,6 @@ const renterProfile = createSlice({
             });
         },
         renterProfileCleared(state) {
-            console.log('CLEARING RENTER');
             state = null;
             return state;
         },
@@ -59,7 +58,10 @@ export const { renterProfileReceived, renterProfileUpdated, renterProfileCleared
 export default reducer;
 
 export const fetchRenterProfile = (id) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
+        const { renterProfile } = getState();
+        id = id || renterProfile?.id;
+
         let profile;
         if (MOCKY) {
             profile = mock;
@@ -81,7 +83,9 @@ export const clearRenterProfile = () => {
 };
 
 export const updateRenterProfile = (newData, stateUpdate = null) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const { renterProfile } = getState();
+
         if (MOCKY) {
             dispatch({
                 type: renterProfileUpdated.toString(),
@@ -89,7 +93,7 @@ export const updateRenterProfile = (newData, stateUpdate = null) => {
             });
             return Promise.resolve({});
         }
-        return API.patchApplication(newData)
+        return API.patchApplication(renterProfile.id, newData)
             .then((res) => {
                 if (res.errors) {
                     return res;
@@ -106,9 +110,10 @@ export const updateRenterProfile = (newData, stateUpdate = null) => {
 };
 
 export const pageComplete = (page) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const { renterProfile } = getState();
         return API.postPageComplete(page).then(() => {
-            dispatch(fetchRenterProfile());
+            dispatch(fetchRenterProfile(renterProfile.id));
         });
     };
 };
@@ -191,7 +196,7 @@ const ADDRESS_FIELDS = ['address_street', 'address_city', 'address_state', 'addr
 const pageCompleted = (events, state) => {
     const { applicant, profile, configuration } = state;
     const containerIndexRoutes = selectors.selectDefaultContainerPage(state);
-
+    console.log({ events });
     return {
         [ROUTES.ADDRESS]: isApplicantAddressCompleted(applicant),
         [ROUTES.LEASE_TERMS]: isLeaseTermsCompleted(events),
@@ -257,6 +262,7 @@ export const applicationPath = (route, application_id, params = {}) =>
     generatePath(route, { application_id, ...params });
 
 selectors.canAccessRoute = (state, route) => {
+    console.log('can access route? ' + route);
     if (MOCKY && route != null) return true;
     /*
      Ordered screens and generally can't be completed out of order.
@@ -267,19 +273,21 @@ selectors.canAccessRoute = (state, route) => {
     // These pages should always be accessible
 
     if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ, ROUTES.FUNNEL_TERMS].includes(route)) {
+        console.log('always true');
         return true;
     }
-    const eventsSet = new Set(state.applicant.events.map((event) => parseInt(event.event)));
+
+    const application_id = state.renterProfile?.id;
+    const eventsSet = new Set(
+        state.applicant.events.filter((e) => e.application === application_id).map((event) => parseInt(event.event))
+    );
 
     if (route === ROUTES.PAYMENT_DETAILS) {
         return eventsSet.has(APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED);
     }
 
-    // check if page was completed
-    console.log('PAGE COMPLETED', { state, route }, pageCompleted(eventsSet, state)[route]);
-
     const pagesCompleted = pageCompleted(eventsSet, state);
-
+    console.log({ pagesCompleted });
     for (const pageRoute in pagesCompleted) {
         if (applicationPath(pageRoute, state.renterProfile.id) === route && pagesCompleted[pageRoute] === true) {
             console.log('HAS ACCESS');
@@ -288,6 +296,7 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     if (selectors.selectDirectRoute(state)) {
+        console.log('direct route');
         return true;
     }
 
@@ -295,6 +304,8 @@ selectors.canAccessRoute = (state, route) => {
         console.log('WEIRD SHIT');
         return false;
     }
+    console.log('is default initial page');
+    console.log(selectors.selectDefaultInitialPage(state) === applicationPath(route, state.renterProfile.id));
 
     // route is next page
     return selectors.selectDefaultInitialPage(state) === applicationPath(route, state.renterProfile.id);
@@ -391,13 +402,15 @@ selectors.selectDefaultInitialPage = createSelector(
                 }
 
                 const accessibleRoutes = pageCompleted(eventsSet, state);
+                console.log({ accessibleRoutes, orderedRoutes });
                 return orderedRoutes.find((r) => !accessibleRoutes[r]);
             };
 
             const route = getRoute();
-            if (route) {
-                return applicationPath(route, profile.id);
-            }
+            console.log('DEFAULT INITIAL STEP', { route });
+
+            if (route) return applicationPath(route, profile.id);
+
             console.error('Could not determine current page.');
         }
     }
@@ -431,9 +444,29 @@ selectors.selectInitialPage = createSelector(
 selectors.selectNextRoute = createSelector(
     selectors.selectOrderedRoutes,
     (state) => state.siteConfig.currentRoute,
-    (orderedRoutes, currentRoute) => {
-        if (orderedRoutes && currentRoute) {
-            return orderedRoutes[orderedRoutes.indexOf(currentRoute) + 1];
+    (state) => state.renterProfile,
+    (orderedRoutes, currentRoute, application) => {
+        if (!application) {
+            return null;
+        }
+        const orderedRoutesWithApp = orderedRoutes.map((route) => applicationPath(route, application.id));
+        if (orderedRoutesWithApp && currentRoute) {
+            return orderedRoutesWithApp[orderedRoutesWithApp.indexOf(currentRoute) + 1];
+        }
+    }
+);
+
+selectors.selectPrevRoute = createSelector(
+    selectors.selectOrderedRoutes,
+    (state) => state.siteConfig.currentRoute,
+    (state) => state.renterProfile,
+    (orderedRoutes, currentRoute, application) => {
+        if (!application) {
+            return null;
+        }
+        const orderedRoutesWithApp = orderedRoutes.map((route) => applicationPath(route, application.id));
+        if (orderedRoutesWithApp && currentRoute) {
+            return orderedRoutesWithApp[orderedRoutesWithApp.indexOf(currentRoute) - 1];
         }
     }
 );
@@ -457,16 +490,6 @@ selectors.selectGuarantorRequested = createSelector(
         if (!(events && profile)) return false;
         const applicationEvents = profile.events ? new Set(profile.events.map((event) => parseInt(event.event))) : null;
         return applicationEvents && applicationEvents.has(MILESTONE_REQUEST_GUARANTOR);
-    }
-);
-
-selectors.selectPrevRoute = createSelector(
-    selectors.selectOrderedRoutes,
-    (state) => state.siteConfig.currentRoute,
-    (orderedRoutes, currentRoute) => {
-        if (orderedRoutes && currentRoute) {
-            return orderedRoutes[orderedRoutes.indexOf(currentRoute) - 1];
-        }
     }
 );
 

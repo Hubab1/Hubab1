@@ -21,7 +21,6 @@ import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import { generatePath } from 'react-router';
 import { connect } from 'react-redux';
-import { AddAssetSourcePage } from 'pages/Banking/pages/AddAssetSourcePage';
 
 export const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +

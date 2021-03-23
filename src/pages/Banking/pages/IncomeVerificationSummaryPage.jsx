@@ -37,6 +37,7 @@ import { H1, H3 } from 'assets/styles';
 import { styles, Spacer, infoIconRoot } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import piggyBank from 'assets/images/piggy-bank.png';
+import captureRoute from 'utils/captureRoute';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;
@@ -172,6 +173,7 @@ IncomeOrAssetsItem.propTypes = {
 };
 
 export function IncomeVerificationSummaryPage(props) {
+    console.log('INCOME SUMMARY PAGE 1');
     const context = React.useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = useState(false);
 
@@ -330,11 +332,14 @@ export function IncomeVerificationSummaryPage(props) {
         context,
         props.history,
         props.config,
+        props.profile.id,
         reportedNoIncomeAssets,
         updatesWereRequested,
         applicantSubmittedApplication,
         applicantUpdatedEmployerInfo,
     ]);
+
+    console.log('INCOME SUMMARY PAGE 2');
 
     if (showResetFinancials) {
         return (
@@ -350,6 +355,8 @@ export function IncomeVerificationSummaryPage(props) {
             />
         );
     }
+    console.log('INCOME SUMMARY PAGE 3');
+    console.log(props.profile);
 
     return (
         <>
@@ -468,4 +475,6 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps, { fetchApplicant })(IncomeVerificationSummaryPage);
+export default connect(mapStateToProps, { fetchApplicant })(
+    captureRoute(IncomeVerificationSummaryPage, ROUTES.INCOME_VERIFICATION_SUMMARY)
+);

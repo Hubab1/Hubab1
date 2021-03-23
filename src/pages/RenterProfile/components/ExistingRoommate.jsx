@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { generatePath, withRouter } from 'react-router';
+import { generatePath } from 'react-router';
 import { css } from 'emotion';
 import clsx from 'clsx';
 

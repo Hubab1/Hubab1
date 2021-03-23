@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import Box from '@material-ui/core/Box';
 
-import { ROUTES, RENTER_PROFILE_TYPE_PARKING, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'constants/constants';
+import { ROUTES, RENTER_PROFILE_TYPE_PARKING } from 'constants/constants';
 import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder, rentalOptionCTALabel } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';

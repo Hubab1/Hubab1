@@ -20,13 +20,11 @@ import {
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
-    ROUTES,
 } from 'constants/constants';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { applicationPath, clearRenterProfile, fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import { useHistory } from 'react-router-dom';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,15 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({
-    application = {},
-    isActive = true,
-    fetchRenterProfile,
-    clearRenterProfile,
-    initialPage,
-    history,
-    currentApp,
-}) {
+export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -87,20 +77,22 @@ export function Application({
     const [appSelected, setAppSelected] = useState(false);
 
     useEffect(() => {
-        initialPage && appSelected && history.push(initialPage);
-    }, [initialPage, appSelected]);
+        if (initialPage && appSelected) {
+            setAppSelected(false);
+            history.push(initialPage);
+        }
+    }, [initialPage, appSelected, history.push]);
+
+    const handleApplicationClick = async (id) => {
+        await fetchRenterProfile(id);
+        setAppSelected(true);
+    };
 
     if (isEmpty(application)) {
         return null;
     }
 
     const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
-
-    const selectApplication = async (id) => {
-        // await clearRenterProfile();
-        const profile = await fetchRenterProfile(id);
-        setAppSelected(true);
-    };
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -157,7 +149,7 @@ export function Application({
                             variant="outlined"
                             marginTop={20}
                             marginBottom={10}
-                            onClick={() => selectApplication(id)}
+                            onClick={() => handleApplicationClick(id)}
                         >
                             Go To Application
                         </ActionButton>
@@ -189,12 +181,10 @@ Application.propTypes = {
 const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
     initialPage: selectors.selectDefaultInitialPage(state),
-    currentApp: state.renterProfile,
 });
 
 const mapDispatchToProps = {
     fetchRenterProfile,
-    clearRenterProfile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Application));

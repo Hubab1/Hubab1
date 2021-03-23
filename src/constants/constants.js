@@ -8,7 +8,7 @@ export const ROUTES = {
     WELCOME: '/welcome',
     LOGIN: '/login',
     SIGNUP: '/signup',
-    ADDRESS: '/address',
+    ADDRESS: '/application/:application_id/address',
     FEES_AND_DEPOSITS: '/application/:application_id/fees-deposits',
     HOLDING_DEPOSIT_AGREEMENT: '/application/:application_id/holding-deposit-agreement', // For HelloSign HD Agreement
     HOLDING_DEPOSIT_TERMS_AGREEMENT: '/application/:application_id/holding-deposit-terms-agreement', // For payment terms agreement

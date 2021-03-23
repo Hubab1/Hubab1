@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { currentRouteReceived } from 'reducers/site-config';
 
-import { MOCKY } from 'config';
-import { ROUTES } from 'constants/constants';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 

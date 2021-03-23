@@ -130,7 +130,6 @@ export const LeaseTermsPage = ({
     pageComplete,
     _nextRoute,
 }) => {
-    console.log({ application });
     const [errorMsg, setErrorMsg] = useState('');
     const { community } = config;
     const { company } = community;

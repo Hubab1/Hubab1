@@ -6,7 +6,7 @@ const siteConfig = createSlice({
         basename: '',
         theme: null,
         hash: null,
-        currentRoute: null
+        currentRoute: null,
     },
     reducers: {
         basenameReceived(state, action) {
@@ -17,8 +17,8 @@ const siteConfig = createSlice({
         currentRouteReceived(state, action) {
             state.currentRoute = action.payload;
             return state;
-        }
-    }
+        },
+    },
 });
 
 const { actions, reducer } = siteConfig;

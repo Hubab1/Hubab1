@@ -39,7 +39,7 @@ export function LeaseSignedPage(props) {
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
-    }, []);
+    });
 
     const unit = props.unit;
     const community = props.community;
