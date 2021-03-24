@@ -50,7 +50,7 @@ const renterProfile = createSlice({
 });
 
 const { actions, reducer } = renterProfile;
-export const { renterProfileReceived, renterProfileUpdated, renterProfileCleared } = actions;
+export const { renterProfileReceived, renterProfileUpdated } = actions;
 export default reducer;
 
 export const fetchRenterProfile = (id) => {

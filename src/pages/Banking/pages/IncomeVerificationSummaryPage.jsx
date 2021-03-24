@@ -173,7 +173,6 @@ IncomeOrAssetsItem.propTypes = {
 };
 
 export function IncomeVerificationSummaryPage(props) {
-    console.log('INCOME SUMMARY PAGE 1');
     const context = React.useContext(BankingContext);
     const [showResetFinancials, setShowResetFinancials] = useState(false);
 
@@ -339,8 +338,6 @@ export function IncomeVerificationSummaryPage(props) {
         applicantUpdatedEmployerInfo,
     ]);
 
-    console.log('INCOME SUMMARY PAGE 2');
-
     if (showResetFinancials) {
         return (
             <ResetApplicantFinancials
@@ -355,8 +352,6 @@ export function IncomeVerificationSummaryPage(props) {
             />
         );
     }
-    console.log('INCOME SUMMARY PAGE 3');
-    console.log(props.profile);
 
     return (
         <>
