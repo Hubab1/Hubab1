@@ -76,7 +76,7 @@ export class Main extends Component {
             }
         } else {
             await this.props.fetchApplicant();
-            const applicationId = window.location.pathname.split('/')[3] || this.props.applicant.application;
+            const applicationId = pathname.split('/')[3] || this.props.applicant.application;
             await this.props.fetchRenterProfile(applicationId);
 
             if (!this.props.canAccessCurrentRoute()) {
@@ -242,7 +242,6 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     canAccessCurrentRoute: () => selectors.canAccessRoute(state, state.siteConfig.currentRoute),
     theme: configSelectors.selectTheme(state),
-    defaultInitialPage: selectors.defaultInitialPage,
 });
 
 const mapDispatchToProps = {
