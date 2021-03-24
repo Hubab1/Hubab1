@@ -111,8 +111,6 @@ ExistingRoommate.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    communityId: state.siteConfig.basename,
-    initialPage: selectors.selectDefaultInitialPage(state),
     application: state.renterProfile,
 });
 

@@ -86,7 +86,7 @@ export class PaymentForm extends React.Component {
                                 this.props.onSuccess(res);
                             }
                         })
-                        .catch((e) => {
+                        .catch(() => {
                             this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                         })
                         .finally(() => {
@@ -99,7 +99,7 @@ export class PaymentForm extends React.Component {
                     this.props.toggleLoader(false);
                 }
             })
-            .catch((e) => {
+            .catch(() => {
                 this.setState({ errors: [GENERIC_ERROR_MESSAGE], submitting: false });
                 this.props.setDisableBack(false);
                 this.props.toggleLoader(false);
