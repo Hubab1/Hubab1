@@ -89,8 +89,8 @@ API.fetchAvailableUnits = (application_id) => {
     }).then((res) => res.json());
 };
 
-API.patchApplication = (data) => {
-    return fetch(chuck('/application/'), {
+API.patchApplication = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/`), {
         method: 'PATCH',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -109,8 +109,8 @@ API.putApplicant = (data) => {
     }).then((res) => res.json());
 };
 
-API.fetchRenterProfile = () => {
-    return fetch(chuck('/application/'), {
+API.fetchRenterProfile = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/`), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -230,7 +230,7 @@ API.fetchFinicityReports = (application_id) => {
     });
 };
 
-API.mment = (application_id, data) => {
+API.stripePayment = (application_id, data) => {
     return fetch(chuck(`/application/${application_id}/payment`), {
         method: 'POST',
         headers: {
