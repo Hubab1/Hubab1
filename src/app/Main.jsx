@@ -52,7 +52,7 @@ import ApplicationsPage from 'pages/Applications';
 export class Main extends Component {
     state = { error: null };
 
-    mountNavigation(isAuthenticated, configuration) {
+    async initializeApp(isAuthenticated, configuration) {
         const { history, location } = this.props;
         const pathname = location.pathname;
 
@@ -74,9 +74,14 @@ export class Main extends Component {
             } else {
                 history.replace(ROUTES.WELCOME);
             }
-        } else if (!this.props.canAccessCurrentRoute()) {
-            console.log('Cant access current route, replacing with initial');
-            history.replace(this.props.initialPage);
+        } else {
+            await this.props.fetchApplicant();
+            const applicationId = window.location.pathname.split('/')[3] || this.props.applicant.application;
+            await this.props.fetchRenterProfile(applicationId);
+
+            if (!this.props.canAccessCurrentRoute()) {
+                history.replace(this.props.initialPage);
+            }
         }
     }
 
@@ -88,17 +93,10 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-
-            if (isLoggedIn) {
-                await this.props.fetchApplicant();
-                const applicationId = window.location.pathname.split('/')[3] || this.props.applicant.application;
-                await this.props.fetchRenterProfile(applicationId);
-            }
         } catch (error) {
-            console.log({ error });
             return this.setState({ hasError: true });
         }
-        this.mountNavigation(isLoggedIn, configuration);
+        await this.initializeApp(isLoggedIn, configuration);
         this.resetTimer();
         this.addIdleEventListeners();
     }

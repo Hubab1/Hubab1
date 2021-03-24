@@ -21,7 +21,7 @@ import {
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
 import API from 'api/api';
-import { fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
+import { applicationPath, fetchRenterProfile, renterProfileReceived, selectors } from 'reducers/renter-profile';
 import { filterRentalOptionsByUnit } from 'reducers/configuration';
 import { generatePath } from 'react-router';
 
@@ -43,7 +43,7 @@ describe('selectNav', () => {
         expect(pages).toEqual([
             {
                 name: 'Current Address',
-                value: '/address',
+                value: '/application/:application_id/address',
             },
             {
                 name: 'Lease Terms',
@@ -115,21 +115,27 @@ describe('canAccessRoute', () => {
     });
     // completed page accessible
     it('address page is accessible', () => {
-        const accessible = selectors.canAccessRoute(state, ROUTES.ADDRESS);
+        const accessible = selectors.canAccessRoute(state, applicationPath(ROUTES.ADDRESS, state.renterProfile.id));
         expect(accessible).toBe(true);
     });
     // completed page + 1 accessible
     it('lease terms page is accessible', () => {
-        const accessible = selectors.canAccessRoute(state, ROUTES.LEASE_TERMS);
+        const accessible = selectors.canAccessRoute(state, applicationPath(ROUTES.LEASE_TERMS, state.renterProfile.id));
         expect(accessible).toBe(true);
     });
     // completed page + 2 inaccessible
     it('renter profile page is not accessible', () => {
-        const accessible = selectors.canAccessRoute(state, ROUTES.PROFILE_OPTIONS);
+        const accessible = selectors.canAccessRoute(
+            state,
+            applicationPath(ROUTES.RENTAL_PROFILE, state.renterProfile.id)
+        );
         expect(accessible).toBe(false);
     });
     it('payment details page is not accessible', () => {
-        const accessible = selectors.canAccessRoute(state, ROUTES.PAYMENT_DETAILS);
+        const accessible = selectors.canAccessRoute(
+            state,
+            applicationPath(ROUTES.PAYMENT_DETAILS, state.renterProfile.id)
+        );
         expect(accessible).toBe(false);
     });
     it('payment details page is accessible', () => {
@@ -140,6 +146,7 @@ describe('canAccessRoute', () => {
                     ...state.applicant,
                     events: [
                         {
+                            application: state.renterProfile.id,
                             event: EVENT_LEASE_TERMS_COMPLETED,
                         },
                     ],
@@ -168,7 +175,7 @@ describe('selectOrderedRoutes', () => {
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
-            '/address',
+            '/application/:application_id/address',
             '/application/:application_id/lease-terms',
             '/application/:application_id/rental-profile/options',
             '/application/:application_id/income-employment/connect',
@@ -193,7 +200,7 @@ describe('selectOrderedRoutes', () => {
             applicant: { role: ROLE_CO_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
-            '/address',
+            '/application/:application_id/address',
             '/application/:application_id/lease-terms',
             '/application/:application_id/income-employment/connect',
             '/application/:application_id/fees-deposits',
@@ -217,7 +224,7 @@ describe('selectOrderedRoutes', () => {
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
         expect(pages).toEqual([
-            '/address',
+            '/application/:application_id/address',
             '/application/:application_id/lease-terms',
             '/application/:application_id/rental-profile/options',
             '/application/:application_id/fees-deposits',
@@ -285,10 +292,10 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED }],
+                events: [{ event: MILESTONE_FINANCIAL_STREAM_ADDITIONAL_DOCUMENTS_REQUESTED, application: 12 }],
             },
         });
-        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -307,10 +314,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD },
-                    { event: MILESTONE_LEASE_VOIDED },
-                    { event: APPLICATION_STATUS_APPROVED },
-                    { event: APPLICATION_STATUS_CONDITIONALLY_APPROVED },
+                    { event: MILESTONE_APPLICANT_NEEDS_TO_REAGREE_TO_HD, application: 12 },
+                    { event: MILESTONE_LEASE_VOIDED, application: 12 },
+                    { event: APPLICATION_STATUS_APPROVED, application: 12 },
+                    { event: APPLICATION_STATUS_CONDITIONALLY_APPROVED, application: 12 },
                 ],
             },
         });
@@ -336,7 +343,7 @@ describe('selectInitialPage', () => {
                 events: [],
             },
         });
-        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_CONNECT, { application_id: 12 }));
+        expect(initialPage).toEqual(generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -354,7 +361,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 }],
             },
         });
 
@@ -378,10 +385,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_COAPPLICANT_INVITED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_PET_ADDED, application: 12 },
                 ],
             },
         });
@@ -405,9 +412,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
                 ],
             },
         });
@@ -431,9 +438,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
                 ],
             },
         });
@@ -455,9 +462,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
                 ],
                 receipt: { id: 123 },
             },
@@ -480,10 +487,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
-                    { event: MILESTONE_APPLICANT_SUBMITTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
+                    { event: MILESTONE_APPLICANT_SUBMITTED, application: 12 },
                 ],
                 outstanding_balances: [],
                 receipt: { id: 123 },
@@ -507,10 +514,10 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED },
-                    { event: MILESTONE_APPLICATION_FEE_COMPLETED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
+                    { event: MILESTONE_APPLICATION_FEE_COMPLETED, application: 12 },
                 ],
                 outstanding_balances: [
                     { receipt: 123, paid: false },
@@ -538,8 +545,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -562,8 +569,8 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -586,9 +593,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -611,9 +618,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -636,9 +643,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -662,9 +669,9 @@ describe('selectInitialPage', () => {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
                 events: [
-                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE },
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED },
+                    { event: APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
                 ],
             },
         });
@@ -686,7 +693,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED }],
+                events: [{ event: APPLICANT_EVENTS.MILESTONE_LEASE_VOIDED, application: 12 }],
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.LEASE_VOIDED, { application_id: 12 }));
@@ -707,7 +714,7 @@ describe('selectInitialPage', () => {
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
                 address_street: 'some street',
-                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED }],
+                events: [{ event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 }],
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.GUARANTOR_REQUESTED, { application_id: 12 }));

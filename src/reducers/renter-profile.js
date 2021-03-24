@@ -41,10 +41,6 @@ const renterProfile = createSlice({
                 Object.assign(draft, action.payload);
             });
         },
-        renterProfileCleared(state) {
-            state = null;
-            return state;
-        },
     },
     extraReducers: {
         USER_LOGOUT: () => {
@@ -73,12 +69,6 @@ export const fetchRenterProfile = (id) => {
         dispatch(filterRentalOptionsByUnit(profile));
 
         return profile;
-    };
-};
-
-export const clearRenterProfile = () => {
-    return (dispatch) => {
-        dispatch(renterProfileCleared());
     };
 };
 
@@ -262,6 +252,8 @@ export const applicationPath = (route, application_id, params = {}) =>
 
 selectors.canAccessRoute = (state, route) => {
     if (MOCKY && route != null) return true;
+    if (route === null) return false;
+
     /*
      Ordered screens and generally can't be completed out of order.
      Some pages can always be accessed no matter what.
@@ -269,7 +261,6 @@ selectors.canAccessRoute = (state, route) => {
      This is not totally comprehensive.
     */
     // These pages should always be accessible
-    console.log({ route });
     if ([ROUTES.ACCOUNT, ROUTES.TERMS, ROUTES.PRIVACY_POLICY, ROUTES.FAQ, ROUTES.FUNNEL_TERMS].includes(route)) {
         return true;
     }
@@ -292,10 +283,6 @@ selectors.canAccessRoute = (state, route) => {
 
     if (selectors.selectDirectRoute(state)) {
         return true;
-    }
-
-    if (route === null) {
-        return false;
     }
 
     // route is next page

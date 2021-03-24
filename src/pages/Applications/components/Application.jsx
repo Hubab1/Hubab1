@@ -81,7 +81,7 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [initialPage, appSelected, history.push]);
+    }, [initialPage, appSelected, history]);
 
     const handleApplicationClick = async (id) => {
         await fetchRenterProfile(id);

@@ -9,6 +9,9 @@ beforeEach(() => {
     mockUseContext = jest.spyOn(React, 'useContext');
     defaultProps = {
         errors: 'Some random error',
+        application: {
+            id: 1,
+        },
     };
 });
 

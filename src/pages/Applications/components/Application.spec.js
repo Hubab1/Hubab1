@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES, ROUTES } from 'constants/constants';
 import { Application } from './Application';
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import { fetchRenterProfile } from 'reducers/renter-profile';
 
 describe('Application', () => {
     let application = {};
@@ -170,21 +169,16 @@ describe('Application', () => {
         expect(wrapper.find(ActionButton).length).toBe(0);
     });
 
-    it('opens application when clicking on the button', async () => {
+    it('fetches an application when clicking on the button', async () => {
         const fetchRenterProfile = jest.fn();
-        const history = {
-            replace: jest.fn(),
-        };
         const wrapper = shallow(
             <Application
                 application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
                 fetchRenterProfile={fetchRenterProfile}
-                history={history}
                 initialPage={ROUTES.FEES_AND_DEPOSITS}
             />
         );
         await wrapper.find(ActionButton).simulate('click');
         expect(fetchRenterProfile).toBeCalledWith(application.id);
-        expect(history.replace).toBeCalledWith(ROUTES.FEES_AND_DEPOSITS);
     });
 });
