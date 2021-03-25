@@ -47,7 +47,7 @@ export class RemovePersonPage extends Component {
 
     get returnLink() {
         return generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
-            application_id: this.profile.id,
+            application_id: this.props.profile.id,
         });
     }
 

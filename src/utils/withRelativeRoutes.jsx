@@ -38,7 +38,6 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                 routeWithApplication !== props.initialPage
             ) {
                 this.blockRender = false;
-                //this.props.history.push(props.initialPage);
             } else {
                 this.blockRender = false;
                 props.currentRouteReceived(routeWithApplication);

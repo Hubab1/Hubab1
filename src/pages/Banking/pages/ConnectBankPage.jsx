@@ -63,6 +63,8 @@ export class ConnectBankPage extends React.Component {
         this.setState({ loadingFinicityIframe: true });
         this.context.toggleLoader?.(true);
 
+        const applicationId = this.props.application.id;
+
         API.createFinicityUrl()
             .then((res) => {
                 if (!res || !res.link) {
@@ -135,7 +137,7 @@ export class ConnectBankPage extends React.Component {
                                             time: Date.now(),
                                         },
                                     };
-                                    API.acceptTerms(this.props.application.id, body).catch(() => {
+                                    API.acceptTerms(applicationId, body).catch(() => {
                                         this.setState({
                                             showFinicityIframe: false,
                                             errors: [

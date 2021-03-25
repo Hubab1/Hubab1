@@ -223,7 +223,25 @@ const isFeesAndDepositsCompleted = (applicant) => {
     return !!applicant.receipt;
 };
 
+const getContainerRoute = (route, application) => {
+    if (route.includes(':application_id')) {
+        route = applicationPath(route, application);
+    }
+
+    if (route.startsWith(applicationPath(ROUTES.BANKING, application))) {
+        return applicationPath(ROUTES.BANKING, application);
+    }
+    if (route.startsWith(applicationPath(ROUTES.RENTAL_PROFILE, application))) {
+        return applicationPath(ROUTES.RENTAL_PROFILE, application);
+    }
+
+    return route;
+};
+
 const isIncomeAndEmploymentCompleted = (events, profile, configuration) => {
+    const reportedNoIncome = events.has(APPLICANT_EVENTS.EVENT_INCOME_REPORTED_NONE);
+    if (reportedNoIncome) return true;
+
     if (events.has(APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED)) {
         if (!configuration.collect_employer_information) return true;
         return events.has(APPLICANT_EVENTS.EVENT_APPLICANT_UPDATED_EMPLOYER_INFO);
@@ -275,9 +293,13 @@ selectors.canAccessRoute = (state, route) => {
     }
 
     const pagesCompleted = pageCompleted(eventsSet, state);
-    for (const pageRoute in pagesCompleted) {
-        if (applicationPath(pageRoute, state.renterProfile.id) === route && pagesCompleted[pageRoute] === true) {
-            return true;
+    if (state.renterProfile) {
+        for (const page in pagesCompleted) {
+            const completedPage = getContainerRoute(page, state.renterProfile.id);
+            const currentRoute = getContainerRoute(route, state.renterProfile.id);
+            if (completedPage === currentRoute && pagesCompleted[page] === true) {
+                return true;
+            }
         }
     }
 

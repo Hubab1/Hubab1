@@ -222,8 +222,8 @@ API.leaseDocumentUrl = (application_id, type) => {
     }).then((res) => res.json());
 };
 
-API.fetchFinicityReports = (application_id) => {
-    return fetch(chuck(`/application/${application_id}/fetch-finicity-reports/`), {
+API.fetchFinicityReports = () => {
+    return fetch(chuck(`/fetch-finicity-reports/`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },

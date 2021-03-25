@@ -76,9 +76,8 @@ export class Main extends Component {
             }
         } else {
             await this.props.fetchApplicant();
-            const applicationId = pathname.split('/')[3] || this.props.applicant.application;
+            const applicationId = pathname.split('/')[2] || this.props.applicant.application;
             await this.props.fetchRenterProfile(applicationId);
-
             if (!this.props.canAccessCurrentRoute()) {
                 history.replace(this.props.initialPage);
             }

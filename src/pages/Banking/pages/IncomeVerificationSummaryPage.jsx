@@ -470,6 +470,4 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
 });
 
-export default connect(mapStateToProps, { fetchApplicant })(
-    captureRoute(IncomeVerificationSummaryPage, ROUTES.INCOME_VERIFICATION_SUMMARY)
-);
+export default connect(mapStateToProps, { fetchApplicant })(IncomeVerificationSummaryPage);

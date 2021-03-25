@@ -147,4 +147,4 @@ const mapDispatchToProps = {
     toggleLoader: modalActions.toggleLoader,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(InviteRoommatesPage, ROUTES.CO_APPLICANTS));
+export default connect(mapStateToProps, mapDispatchToProps)(InviteRoommatesPage);

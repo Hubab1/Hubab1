@@ -37,11 +37,14 @@ const accessible = css`
 `;
 
 export function getStepperIndex(routes, currentRoute, application) {
+    if (!application) {
+        return -1;
+    }
     if (!routes || routes.length === 0) return -1;
 
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
-        if (generatePath(route.value, { application_id: application?.id }) === currentRoute) {
+        if (generatePath(route.value, { application_id: application.id }) === currentRoute) {
             return i;
         }
     }

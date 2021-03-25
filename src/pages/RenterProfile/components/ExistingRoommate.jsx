@@ -15,7 +15,7 @@ import {
 import { getRoommateStatus } from 'utils/misc';
 import { P, Span, applicationStatus, Spacer } from 'assets/styles';
 import { link, inviteeContact, nameContainer } from './ExistingRoommateStyles';
-import { selectors } from 'reducers/renter-profile';
+import { applicationPath, selectors } from 'reducers/renter-profile';
 import { connect } from 'react-redux';
 
 const removeLink = css`
@@ -44,11 +44,11 @@ export function ExistingRoommate({ item, type, application }) {
                         <Link
                             className={link}
                             to={{
-                                pathname: ROUTES.RESEND_INVITE,
+                                pathname: applicationPath(ROUTES.RESEND_INVITE, application.id),
                                 state: {
                                     initialValues: item,
                                     confirmationButtonText: 'Back to Rental Profile',
-                                    returnRoute: `${ROUTES.PROFILE_OPTIONS}#${type}`,
+                                    returnRoute: `${applicationPath(ROUTES.PROFILE_OPTIONS, application.id)}#${type}`,
                                 },
                             }}
                         >
