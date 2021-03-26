@@ -37,7 +37,6 @@ import { H1, H3 } from 'assets/styles';
 import { styles, Spacer, infoIconRoot } from 'assets/styles';
 import finance from 'assets/images/finance.png';
 import piggyBank from 'assets/images/piggy-bank.png';
-import captureRoute from 'utils/captureRoute';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;

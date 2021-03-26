@@ -14,7 +14,6 @@ import { H1, H3, P, Bold } from 'assets/styles';
 import { generatePath } from 'react-router';
 import { connect } from 'react-redux';
 import captureRoute from 'utils/captureRoute';
-import { EditFinancialSourcePage } from 'pages/Banking/pages/EditFinancialSourcePage';
 
 const SkinnyH1 = styled(H1)`
     width: 70%;

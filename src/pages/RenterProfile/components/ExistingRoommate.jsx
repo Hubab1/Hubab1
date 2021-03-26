@@ -15,7 +15,7 @@ import {
 import { getRoommateStatus } from 'utils/misc';
 import { P, Span, applicationStatus, Spacer } from 'assets/styles';
 import { link, inviteeContact, nameContainer } from './ExistingRoommateStyles';
-import { applicationPath, selectors } from 'reducers/renter-profile';
+import { applicationPath } from 'reducers/renter-profile';
 import { connect } from 'react-redux';
 
 const removeLink = css`
