@@ -40,7 +40,8 @@ export const HoldingDepositAgreementConfirmation = ({ profile, configuration, ha
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
-    }, [fetchLeaseDocumentUrl]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const onClick = () => {
         if (!url) {
