@@ -29,7 +29,7 @@ export function LeaseExecutedPage(props) {
             const response = await API.leaseDocumentUrl(props.profile.id, DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
-    }, []);
+    }, [props.profile.id]);
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;

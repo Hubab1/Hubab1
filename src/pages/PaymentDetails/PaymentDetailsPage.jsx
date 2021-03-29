@@ -11,7 +11,6 @@ import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDeta
 import { PaymentTerms } from 'common-components/PaymentTerms/PaymentTerms';
 import { H1, P, SpacedH3 } from 'assets/styles';
 import { termsDiv, viewPaymentTerms } from './PaymentDetailsPageStyles';
-import Payment from 'pages/FeesAndDeposits/components/Payment';
 
 export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPayments, applicant }) => {
     const [currentPage, setCurrentPage] = useState('summary');
