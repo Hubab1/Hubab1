@@ -26,3 +26,8 @@ it('matches snapshot', () => {
     const wrapper = shallow(<ApplicationCancelledPage {...buildProps()} />);
     expect(wrapper.getElement()).toMatchSnapshot();
 });
+
+it('matches snapshot when no unit', () => {
+    const wrapper = shallow(<ApplicationCancelledPage {...buildProps()} profile={{ unit: null }} />);
+    expect(wrapper.getElement()).toMatchSnapshot();
+});

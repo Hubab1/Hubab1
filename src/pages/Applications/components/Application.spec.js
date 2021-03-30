@@ -122,9 +122,9 @@ describe('Application', () => {
         const header = wrapper.find('[data-testid="header"]');
 
         expect(header.html().includes('Community Alpha')).toBe(true);
-        expect(content.html().includes('Move in Date: <span>-</span>')).toBe(true);
-        expect(content.html().includes('Lease Term: <span>-</span>')).toBe(true);
-        expect(content.html().includes('Monthly Rent: <span>-</span>')).toBe(true);
+        expect(content.html().includes('Move in Date: <span>---</span>')).toBe(true);
+        expect(content.html().includes('Lease Term: <span>---</span>')).toBe(true);
+        expect(content.html().includes('Monthly Rent: <span>---</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
     });
