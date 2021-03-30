@@ -224,9 +224,7 @@ const isFeesAndDepositsCompleted = (applicant) => {
 };
 
 const getContainerRoute = (route, application) => {
-    if (!route || !application) {
-        return;
-    }
+    if (!route || !application) return;
 
     if (route.includes(':application_id')) {
         route = applicationPath(route, application);
