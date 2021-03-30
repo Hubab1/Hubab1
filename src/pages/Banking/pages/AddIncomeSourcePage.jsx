@@ -81,6 +81,7 @@ AddIncomeSourcePage.propTypes = {
     history: PropTypes.object,
     initialValues: PropTypes.object,
     vgsEnabled: PropTypes.bool,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

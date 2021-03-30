@@ -56,6 +56,7 @@ export function LeaseExecutedPage(props) {
 LeaseExecutedPage.propTypes = {
     unit: PropTypes.object,
     community: PropTypes.object,
+    profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
