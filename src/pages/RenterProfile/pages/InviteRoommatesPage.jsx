@@ -92,9 +92,7 @@ export class InviteRoommatesPage extends Component {
     }
 
     render() {
-        if (!this.props.profile) {
-            return null;
-        }
+        if (!this.props.profile) return null;
         const url = generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
             application_id: this.props.profile.id,
         });
