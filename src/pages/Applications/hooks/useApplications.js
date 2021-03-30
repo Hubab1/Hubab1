@@ -7,7 +7,7 @@ export default function useApplications(errorMessage) {
     const { toggleLoader } = useMayorLoader();
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [applications, setApplications] = useState([]);
+    const [data, setData] = useState([]);
 
     const getApplications = useCallback(async () => {
         setIsLoading(true);
@@ -23,7 +23,7 @@ export default function useApplications(errorMessage) {
                     };
                 }) || [];
 
-            setApplications(applicationsData);
+            setData(applicationsData);
         } catch {
             setError(errorMessage);
         } finally {
@@ -43,6 +43,6 @@ export default function useApplications(errorMessage) {
     return {
         loading,
         error,
-        applications,
+        data,
     };
 }

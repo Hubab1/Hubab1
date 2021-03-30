@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Application invitation renders invitations correctly 1`] = `
+<ForwardRef(WithStyles)
+  className="makeStyles-root-1"
+  elevation={2}
+>
+  <ForwardRef(WithStyles)
+    action={
+      <ForwardRef(WithStyles)
+        className="makeStyles-expand-2 makeStyles-expandOpen-3"
+        onClick={[Function]}
+      >
+        <UNDEFINED />
+      </ForwardRef(WithStyles)>
+    }
+    data-testid="header"
+    subheader={
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5"
+        variant="body1"
+      >
+        Application Status:
+         
+        <span
+          style={
+            Object {
+              "color": "#000",
+            }
+          }
+        >
+          In Progress
+        </span>
+      </ForwardRef(WithStyles)>
+    }
+    title={
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5 makeStyles-title-6"
+        variant="body1"
+      >
+        <b>
+          Community Alpha, #12
+        </b>
+      </ForwardRef(WithStyles)>
+    }
+  />
+  <ForwardRef(WithStyles)
+    in={true}
+  >
+    <ForwardRef(WithStyles)
+      className="makeStyles-divider-4"
+    />
+    <ForwardRef(WithStyles)
+      data-testid="content"
+    >
+      <p
+        className="makeStyles-inviteeNotice-8"
+      >
+        <UNDEFINED />
+        <span>
+          You’ve been invited to apply for this unit.
+        </span>
+      </p>
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5"
+        variant="body1"
+      >
+        Move in Date:
+         
+        <span>
+          01/01/2020
+        </span>
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5"
+        variant="body1"
+      >
+        Lease Term: 
+        <span>
+          12
+        </span>
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5"
+        variant="body1"
+      >
+        Monthly Rent:
+         
+        <span>
+          $1.500
+        </span>
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        className="makeStyles-typography-5"
+        variant="body1"
+      >
+        Role: 
+        <span>
+          Main Applicant
+        </span>
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        className="makeStyles-applicationId-7"
+        variant="caption"
+      >
+        Application ID 
+        <span>
+          1
+        </span>
+      </ForwardRef(WithStyles)>
+      <ActionButton
+        color="primary"
+        marginBottom={10}
+        marginTop={20}
+        onClick={[Function]}
+        successGreen={false}
+        variant="outlined"
+      >
+        Start Application
+      </ActionButton>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;

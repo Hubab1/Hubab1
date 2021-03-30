@@ -1,9 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES, ROUTES } from 'constants/constants';
+import {
+    ACTIVE_APPLICATION_STATUSES,
+    APPLICANT_ROLE_VALUES,
+    APPLICATION_STATUSES,
+    ROLE_CO_APPLICANT,
+    ROUTES,
+} from 'constants/constants';
 import { Application } from './Application';
 import ActionButton from 'common-components/ActionButton/ActionButton';
+import API from 'api/api';
 
 describe('Application', () => {
     let application = {};
@@ -175,10 +182,45 @@ describe('Application', () => {
             <Application
                 application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
                 fetchRenterProfile={fetchRenterProfile}
-                initialPage={ROUTES.FEES_AND_DEPOSITS}
+                initnialPage={ROUTES.FEES_AND_DEPOSITS}
             />
         );
         await wrapper.find(ActionButton).simulate('click');
         expect(fetchRenterProfile).toBeCalledWith(application.id);
+    });
+
+    describe('invitation', () => {
+        const invitee = {
+            id: 123,
+            role: 30,
+        };
+
+        const fetchRenterProfile = jest.fn().mockReturnValue(Promise.resolve());
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = shallow(
+                <Application
+                    application={{ ...application }}
+                    invitee={invitee}
+                    fetchRenterProfile={fetchRenterProfile}
+                />
+            );
+        });
+
+        afterEach(() => {
+            jest.restoreAllMocks();
+        });
+
+        it('renders invitations correctly', async () => {
+            expect(wrapper.getElement()).toMatchSnapshot();
+        });
+
+        it('handles "Start Application" button correctly', async () => {
+            jest.spyOn(API, 'createApplicantRole').mockReturnValue({});
+            await wrapper.find(ActionButton).simulate('click');
+            expect(API.createApplicantRole).toBeCalledWith(invitee.id);
+            expect(fetchRenterProfile).toBeCalledWith(application.id);
+        });
     });
 });

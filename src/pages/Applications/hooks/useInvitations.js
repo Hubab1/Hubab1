@@ -7,14 +7,14 @@ export default function useInvitations(errorMessage) {
     const { toggleLoader } = useMayorLoader();
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [invitations, setInvitations] = useState([]);
+    const [data, setData] = useState([]);
 
     const getInvitations = useCallback(async () => {
         setIsLoading(true);
 
         try {
             const invitations = await API.getInvitations();
-            setInvitations(invitations);
+            setData(invitations);
         } catch {
             setError(errorMessage);
         } finally {
@@ -34,6 +34,6 @@ export default function useInvitations(errorMessage) {
     return {
         loading,
         error,
-        invitations,
+        data,
     };
 }

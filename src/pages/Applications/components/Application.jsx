@@ -197,7 +197,10 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
-    invitee: PropTypes.object,
+    invitee: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        role: PropTypes.number.isRequired,
+    }),
     initialPage: PropTypes.string,
     communityId: PropTypes.number,
     fetchRenterProfile: PropTypes.func,

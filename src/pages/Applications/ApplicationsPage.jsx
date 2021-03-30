@@ -30,11 +30,11 @@ const useStyles = makeStyles(() => ({
 export function ApplicationsPage() {
     const classes = useStyles();
 
-    const { loading_applications, error_applications, applications } = hooks.useApplications(ERROR_MESSAGE);
-    const { loading_invitations, error_invitations, invitations } = hooks.useInvitations(ERROR_MESSAGE);
+    const apps = hooks.useApplications(ERROR_MESSAGE);
+    const invitees = hooks.useInvitations(ERROR_MESSAGE);
 
-    const loading = loading_applications || loading_invitations;
-    const error = error_applications || error_invitations;
+    const loading = apps.loading || invitees.loading;
+    const error = apps.error || invitees.error;
 
     const notification = error && {
         type: 'error',
@@ -43,26 +43,21 @@ export function ApplicationsPage() {
 
     const [active, past] = useMemo(() => {
         return [
-            applications.filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
-            applications.filter((application) => PAST_APPLICATION_STATUSES.includes(application.status)),
+            apps.data.filter((application) => ACTIVE_APPLICATION_STATUSES.includes(application.status)),
+            apps.data.filter((application) => PAST_APPLICATION_STATUSES.includes(application.status)),
         ];
-    }, [applications]);
-
-    // const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
-    //     return [!error && active.length === 0, !error && past.length === 0];
-    // }, [error, active, past]);
+    }, [apps.data]);
 
     const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
-        return [!error && active.length === 0, !error && past.length === 0, !error && invitations.length === 0];
-    }, [error, active, past, invitations]);
+        return [!error && active.length === 0, !error && past.length === 0, !error && invitees.data.length === 0];
+    }, [error, active, past, invitees.data]);
 
     return (
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
             <div data-testid="active-applications" className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
 
-                {invitations.map((invitee) => {
-                    console.log(invitee.application);
+                {invitees.data.map((invitee) => {
                     return (
                         <Application
                             key={invitee.id}
