@@ -74,7 +74,7 @@ export class ResetApplicantFinancials extends Component {
 ResetApplicantFinancials.propTypes = {
     onSubmit: PropTypes.func,
     onCancel: PropTypes.func,
-    application: PropTypes.object,
+    application: PropTypes.object.isRequired,
 };
 
 export default ResetApplicantFinancials;

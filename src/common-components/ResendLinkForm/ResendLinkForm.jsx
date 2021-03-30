@@ -95,6 +95,7 @@ ResendLinkForm.propTypes = {
     location: PropTypes.object,
     toggleLoader: PropTypes.func,
     fetchRenterProfile: PropTypes.func,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
