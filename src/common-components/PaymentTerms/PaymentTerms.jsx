@@ -42,7 +42,7 @@ export const PaymentTerms = ({
                 ]);
             }
         })();
-    }, [canProceedToPayment]);
+    }, [canProceedToPayment, application.id]);
 
     const handleContinueClick = useCallback(() => {
         const data = {
