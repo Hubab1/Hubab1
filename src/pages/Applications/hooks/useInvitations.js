@@ -3,27 +3,18 @@ import API from 'api/api';
 
 import { useMayorLoader } from 'common-components/MayorLoader/MayorLoaderProvider';
 
-export default function useApplications(errorMessage) {
+export default function useInvitations(errorMessage) {
     const { toggleLoader } = useMayorLoader();
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [applications, setApplications] = useState([]);
+    const [invitations, setInvitations] = useState([]);
 
-    const getApplications = useCallback(async () => {
+    const getInvitations = useCallback(async () => {
         setIsLoading(true);
 
         try {
-            const applications = await API.getApplications();
-            const applicationsData =
-                applications?.map(({ application, role, last_activity }) => {
-                    return {
-                        ...application,
-                        role,
-                        lastActivity: last_activity,
-                    };
-                }) || [];
-
-            setApplications(applicationsData);
+            const invitations = await API.getInvitations();
+            setInvitations(invitations);
         } catch {
             setError(errorMessage);
         } finally {
@@ -32,8 +23,8 @@ export default function useApplications(errorMessage) {
     }, [errorMessage]);
 
     useEffect(() => {
-        getApplications();
-    }, [getApplications]);
+        getInvitations();
+    }, [getInvitations]);
 
     useEffect(() => {
         toggleLoader(loading);
@@ -43,6 +34,6 @@ export default function useApplications(errorMessage) {
     return {
         loading,
         error,
-        applications,
+        invitations,
     };
 }

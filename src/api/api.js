@@ -464,4 +464,25 @@ API.getApplications = () => {
     }).then((res) => res.json());
 };
 
+API.getInvitations = () => {
+    return fetch(chuck('/invitations/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.json());
+};
+
+API.createApplicantRole = (invitee_id) => {
+    return fetch(chuck('/applicant-role/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify({
+            invitee_id,
+        }),
+    }).then((res) => res.json());
+};
+
 export default API;

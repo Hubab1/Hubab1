@@ -29,7 +29,13 @@ const useStyles = makeStyles(() => ({
 
 export function ApplicationsPage() {
     const classes = useStyles();
-    const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
+
+    const { loading_applications, error_applications, applications } = hooks.useApplications(ERROR_MESSAGE);
+    const { loading_invitations, error_invitations, invitations } = hooks.useInvitations(ERROR_MESSAGE);
+
+    const loading = loading_applications || loading_invitations;
+    const error = error_applications || error_invitations;
+
     const notification = error && {
         type: 'error',
         messages: error,
@@ -42,14 +48,30 @@ export function ApplicationsPage() {
         ];
     }, [applications]);
 
+    // const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
+    //     return [!error && active.length === 0, !error && past.length === 0];
+    // }, [error, active, past]);
+
     const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
-        return [!error && active.length === 0, !error && past.length === 0];
-    }, [error, active, past]);
+        return [!error && active.length === 0, !error && past.length === 0, !error && invitations.length === 0];
+    }, [error, active, past, invitations]);
 
     return (
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
             <div data-testid="active-applications" className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
+
+                {invitations.map((invitee) => {
+                    console.log(invitee.application);
+                    return (
+                        <Application
+                            key={invitee.id}
+                            application={invitee.application}
+                            invitee={{ id: invitee.id, role: invitee.role }}
+                            isActive
+                        />
+                    );
+                })}
                 {active.map((application) => {
                     return <Application key={application.id} application={application} isActive />;
                 })}

@@ -25,6 +25,8 @@ import ActionButton from 'common-components/ActionButton/ActionButton';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import API from 'api/api';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,9 +64,17 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         marginTop: theme.spacing(2),
     },
+    inviteeNotice: {
+        display: 'flex',
+        alignItems: 'center',
+        color: '#f44336',
+        '& span': {
+            paddingLeft: '5px',
+        },
+    },
 }));
 
-export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
+export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history, invitee }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -75,16 +85,22 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
     }, [expanded]);
 
     const [appSelected, setAppSelected] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (initialPage && appSelected) {
             setAppSelected(false);
+            setLoading(false);
             history.push(initialPage);
         }
     }, [initialPage, appSelected, history]);
 
-    const handleApplicationClick = async (id) => {
-        await fetchRenterProfile(id);
+    const handleApplicationClick = async (applicationId) => {
+        setLoading(true);
+        if (invitee) {
+            await API.createApplicantRole(invitee.id);
+        }
+        await fetchRenterProfile(applicationId);
         setAppSelected(true);
     };
 
@@ -93,6 +109,9 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
     }
 
     const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
+
+    const inviteeCTA = loading ? 'Starting Application' : 'Start Application';
+    const applicationCTA = loading ? 'Loading Application' : 'Go To Application';
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -125,6 +144,12 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
             <Collapse in={expanded}>
                 <Divider className={classes.divider} />
                 <CardContent data-testid="content">
+                    {invitee && (
+                        <p className={classes.inviteeNotice}>
+                            <ErrorIcon />
+                            <span>You’ve been invited to apply for this unit.</span>
+                        </p>
+                    )}
                     <Typography className={classes.typography} variant="body1">
                         Move in Date:{' '}
                         <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '-'}</span>
@@ -139,7 +164,7 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                         </span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
-                        Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
+                        Role: <span>{`${APPLICANT_ROLE_LABELS[role || invitee.role]}`}</span>
                     </Typography>
                     <Typography className={classes.applicationId} variant="caption">
                         Application ID <span>{id}</span>
@@ -151,7 +176,7 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                             marginBottom={10}
                             onClick={() => handleApplicationClick(id)}
                         >
-                            Go To Application
+                            {invitee ? inviteeCTA : applicationCTA}
                         </ActionButton>
                     )}
                 </CardContent>
@@ -172,6 +197,7 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
+    invitee: PropTypes.object,
     initialPage: PropTypes.string,
     communityId: PropTypes.number,
     fetchRenterProfile: PropTypes.func,
