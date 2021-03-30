@@ -58,7 +58,7 @@ export class ScreeningPage extends React.Component {
 
         this.props.toggleLoader(true);
 
-        API.postPassthrough(body, this.props.vgsEnabled)
+        API.postPassthrough(this.props.application.id, body, this.props.vgsEnabled)
             .then((res) => {
                 if (res.errors) {
                     setErrors(res.errors);
@@ -220,6 +220,7 @@ export class ScreeningPage extends React.Component {
 
 ScreeningPage.propTypes = {
     applicant: PropTypes.object,
+    application: PropTypes.object.isRequired,
     vgsEnabled: PropTypes.bool,
     toggleLoader: PropTypes.func,
     _nextRoute: PropTypes.func,
@@ -227,6 +228,7 @@ ScreeningPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    application: state.renterProfile.isRequired,
     vgsEnabled: !state.configuration.use_demo_config,
     buildingName:
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,

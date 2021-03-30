@@ -46,7 +46,7 @@ export function AddIncomeSourcePage(props) {
             setSubmitting(false);
         }
         try {
-            await API.submitFinancialSource(formData, props.vgsEnabled);
+            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
             context.refreshFinancialSources();
             await context.fetchRenterProfile();
             props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`);
@@ -81,9 +81,11 @@ AddIncomeSourcePage.propTypes = {
     history: PropTypes.object,
     initialValues: PropTypes.object,
     vgsEnabled: PropTypes.bool,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    application: state.renterProfile,
     vgsEnabled: !state.configuration.use_demo_config,
 });
 

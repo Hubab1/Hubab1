@@ -18,6 +18,9 @@ beforeEach(() => {
         initialPage: '/rental_profile',
         toggleLoader: jest.fn(),
         fetchApplicant: jest.fn().mockResolvedValue({}),
+        application: {
+            id: 1,
+        },
     };
 });
 

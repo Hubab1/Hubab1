@@ -98,7 +98,7 @@ export const ApplicationApprovedView = ({ profile, configuration, applicant, set
                                     </Bold>
                                     is required for this application.&nbsp;
                                 </span>
-                                <AdverseActionNoticeButton componentType={LINK_BUTTON} />
+                                <AdverseActionNoticeButton componentType={LINK_BUTTON} application={profile} />
                             </Grid>
                         </Grid>
                     )}

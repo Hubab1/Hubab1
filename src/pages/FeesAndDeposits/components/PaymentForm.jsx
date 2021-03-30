@@ -72,7 +72,7 @@ export class PaymentForm extends React.Component {
                         payables: this.props.payments,
                         total: this.props.totalPayment,
                     };
-                    API.stripePayment(data)
+                    API.stripePayment(this.props.application.id, data)
                         .then((res) => {
                             if (res.errors) {
                                 this.setState({
@@ -198,6 +198,7 @@ PaymentForm.propTypes = {
 const mapStateToProps = (state) => ({
     contactPhone: configSelectors.selectCommunityContactPhoneNumber(state),
     unit: profileSelectors.selectUnit(state),
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = {

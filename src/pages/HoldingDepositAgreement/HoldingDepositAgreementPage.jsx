@@ -59,7 +59,7 @@ export const HoldingDepositAgreementPage = ({
     }, [applicantUpdated]);
 
     const openEmbeddedSigning = async () => {
-        const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_HOLDING_DEPOSIT);
+        const data = await API.embeddedSigningUrl(profile.id, DOCUMENT_TYPE_HOLDING_DEPOSIT);
         const url = data.url;
         const testMode = data.test_mode !== false;
         if (url) {

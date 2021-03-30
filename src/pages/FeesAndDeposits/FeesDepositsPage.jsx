@@ -94,7 +94,7 @@ export const FeesDepositsPage = ({
     const handleTermsAccepted = (data) => {
         toggleLoader(true);
 
-        API.acceptTerms(data)
+        API.acceptTerms(profile.id, data)
             .then(() => {
                 setCurrentPage('payment');
             })
@@ -156,6 +156,7 @@ export const FeesDepositsPage = ({
                 canProceedToPayment={true}
                 handleClickBack={() => setCurrentPage('options')}
                 handleTermsAccepted={(data) => handleTermsAccepted(data)}
+                application={profile}
             />
         );
     } else if (currentPage === 'payment') {

@@ -39,6 +39,7 @@ export const PaymentDetailsPage = ({ profile, configuration, payables, fetchPaym
                     communityName={communityName}
                     leaseStartDate={leaseStartDate}
                     canProceedToPayment={false}
+                    application={profile}
                 />
             </>
         );

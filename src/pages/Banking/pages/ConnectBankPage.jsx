@@ -41,7 +41,7 @@ export class ConnectBankPage extends React.Component {
     }
 
     handleFetchReports = () => {
-        API.fetchFinicityReports()
+        API.fetchFinicityReports(this.props.application.id)
             .then((res) => {
                 if (res.status === 202) return;
                 return res.json();
@@ -89,7 +89,7 @@ export class ConnectBankPage extends React.Component {
                                         loadingFinicityIframe: false,
                                     });
 
-                                    API.generateFinicityReports()
+                                    API.generateFinicityReports(this.props.application.id)
                                         .then(() => {
                                             window.fetchReportsInterval = window.setInterval(
                                                 this.handleFetchReports,
@@ -132,7 +132,7 @@ export class ConnectBankPage extends React.Component {
                                             time: Date.now(),
                                         },
                                     };
-                                    API.acceptTerms(body).catch(() => {
+                                    API.acceptTerms(this.props.application.id, body).catch(() => {
                                         this.setState({
                                             showFinicityIframe: false,
                                             errors: [
@@ -160,7 +160,7 @@ export class ConnectBankPage extends React.Component {
         this.context.toggleLoader(true);
 
         try {
-            await API.submitFinancialSource(formData, false); // No files to encrypt
+            await API.submitFinancialSource(this.props.application.id, formData, false); // No files to encrypt
             await this.context.refreshFinancialSources();
             this.props.history.push(targetPath);
         } catch (e) {
@@ -200,6 +200,7 @@ ConnectBankPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = { fetchApplicant };

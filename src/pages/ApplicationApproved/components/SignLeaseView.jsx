@@ -43,7 +43,7 @@ export const SignLeaseView = ({
     }, [applicantUpdated, fetchPayments, history]);
 
     const openEmbeddedSigning = async () => {
-        const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
+        const data = await API.embeddedSigningUrl(profile.id, DOCUMENT_TYPE_LEASE);
         const url = data.url;
         const testMode = data.test_mode !== false;
         if (url) {

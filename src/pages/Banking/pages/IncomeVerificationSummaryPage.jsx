@@ -336,6 +336,7 @@ export function IncomeVerificationSummaryPage(props) {
                     props.history.push(ROUTES.INCOME_VERIFICATION_CONNECT);
                 }}
                 onCancel={() => setShowResetFinancials(false)}
+                application={props.profile}
             />
         );
     }

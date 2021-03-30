@@ -50,7 +50,7 @@ export function AddAssetSourcePage(props) {
             setSubmitting(false);
         }
         try {
-            await API.submitFinancialSource(formData, props.vgsEnabled);
+            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
             context.refreshFinancialSources();
             await context.fetchRenterProfile();
             props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
@@ -89,6 +89,7 @@ AddAssetSourcePage.propTypes = {
 
 const mapStateToProps = (state) => ({
     vgsEnabled: !state.configuration.use_demo_config,
+    application: state.renterProfile,
 });
 
 export default connect(mapStateToProps)(AddAssetSourcePage);

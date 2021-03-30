@@ -83,9 +83,9 @@ export class RemovePersonPage extends Component {
 
         try {
             if (type === RENTER_PROFILE_TYPE_DEPENDENT) {
-                await API.deletePerson(id);
+                await API.deletePerson(this.props.profile.id, id);
             } else {
-                await API.deleteInvitee(id);
+                await API.deleteInvitee(this.props.profile.id, id);
             }
 
             this.props.fetchRenterProfile();
