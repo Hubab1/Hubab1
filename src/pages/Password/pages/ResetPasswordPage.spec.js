@@ -48,7 +48,7 @@ describe('ResetPasswordPage', () => {
         await onSubmitHandler({ password: 'Abagail' }, { setSubmitting: jest.fn() });
 
         expect(props.toggleLoader).toBeCalledWith(true);
-        expect(request).toHaveBeenCalledWith('Abagail', token, true);
+        expect(request).toHaveBeenCalledWith('Abagail', token);
         expect(props.toggleLoader).toBeCalledWith(false);
         expect(wrapper.find(ConfirmationPage).length).toBe(1);
         expect(wrapper.find(ChangePasswordForm).length).toBe(0);

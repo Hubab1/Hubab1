@@ -28,7 +28,7 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
             toggleLoader(true);
 
             try {
-                const response = await API.passwordReset(values.password, token, true);
+                const response = await API.passwordReset(values.password, token);
 
                 if (response.errors) {
                     setErrors(response.errors);

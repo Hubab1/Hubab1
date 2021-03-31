@@ -60,7 +60,7 @@ it('calls API.passwordReset onChangePasswordSubmit', function () {
         .instance()
         .onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function () {} })
         .then(() => {
-            expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token, false);
+            expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token);
         });
 });
 
