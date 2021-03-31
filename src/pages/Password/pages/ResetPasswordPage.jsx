@@ -6,6 +6,7 @@ import API from 'api/api';
 import { ROUTES } from 'constants/constants';
 import { actions as modalActions } from 'reducers/loader';
 
+import Page from 'common-components/Page/Page';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
 import ConfirmationPage from 'pages/Confirmation';
 import { H1 } from 'assets/styles';
@@ -59,10 +60,9 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
     }
 
     return (
-        <>
-            <H1>Reset Password</H1>
+        <Page title="Reset Password">
             <ChangePasswordForm onSubmit={handleSubmit} errors={errors} />
-        </>
+        </Page>
     );
 };
 

@@ -1,15 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 
+import Page from 'common-components/Page/Page';
 import ActionButton from 'common-components/ActionButton/ActionButton';
-import { H1, H3 } from 'assets/styles';
-import { ImageContainer } from './ConfirmationPageStyles';
 import inviteConfirm from 'assets/images/invite-confirm.png';
-
-const SpacedH3 = styled(H3)`
-    margin: 15px 15% 20px 15%;
-`;
 
 export default function ConfirmationPage(props) {
     const {
@@ -22,14 +16,7 @@ export default function ConfirmationPage(props) {
         confirmationImage,
     } = props;
     return (
-        <Fragment>
-            <H1>{successMessage}</H1>
-            {secondarySuccessMessage && <SpacedH3>{secondarySuccessMessage}</SpacedH3>}
-            {confirmationImage && (
-                <ImageContainer>
-                    <img src={confirmationImage} alt="confirmation" />
-                </ImageContainer>
-            )}
+        <Page title={successMessage} subTitle={secondarySuccessMessage} image={{ src: confirmationImage }}>
             <ActionButton marginTop={30} onClick={buttonClick}>
                 {buttonText}
             </ActionButton>
@@ -38,7 +25,7 @@ export default function ConfirmationPage(props) {
                     {secondaryButtonText}
                 </ActionButton>
             )}
-        </Fragment>
+        </Page>
     );
 }
 
