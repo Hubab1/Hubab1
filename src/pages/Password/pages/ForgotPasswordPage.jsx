@@ -17,7 +17,7 @@ import BackLink from 'common-components/BackLink/BackLink';
 import { LinkButton } from 'assets/styles';
 import forgotPassword from 'assets/images/forgot-password.png';
 
-export const ERROR_MESSAGE = 'Oops! We had some trouble resetting your password. Try again in a little bit.';
+export const ERROR_MESSAGE = 'Oops! We had some trouble sending your code. Try again in a little bit.';
 
 export const validationSchema = Yup.object().shape(
     {

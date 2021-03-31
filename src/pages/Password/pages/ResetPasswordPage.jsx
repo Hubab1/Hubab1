@@ -9,7 +9,6 @@ import { actions as modalActions } from 'reducers/loader';
 import Page from 'common-components/Page/Page';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
 import ConfirmationPage from 'pages/Confirmation';
-import { H1 } from 'assets/styles';
 import thumbsUp from 'assets/images/thumbs-up.png';
 
 export const SUCCESS_MESSAGE = 'Success! Your Password Has Been Reset.';
