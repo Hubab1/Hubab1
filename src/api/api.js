@@ -148,24 +148,24 @@ API.acceptTerms = (data) => {
     }).then((res) => res.json());
 };
 
-API.passwordResetRequest = (phone_number, lease_settings_id) => {
+API.passwordResetRequest = (data) => {
     return fetch(chuck('/password-reset/'), {
         method: 'POST',
-        body: JSON.stringify({ phone_number, lease_settings_id }),
+        body: JSON.stringify(data),
     }).then((res) => res.json());
 };
 
-API.passwordResetVerification = (phone_number, code, lease_settings_id) => {
+API.passwordResetVerification = (data) => {
     return fetch(chuck('/password-reset-verification/'), {
         method: 'POST',
-        body: JSON.stringify({ phone_number, code, lease_settings_id }),
+        body: JSON.stringify(data),
     }).then((res) => res.json());
 };
 
-API.passwordReset = (password, token) => {
+API.passwordReset = (password, token, forgot_password = false) => {
     return fetch(chuck('/password-change/'), {
         method: 'PUT',
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, forgot_password }),
         headers: {
             'Content-Type': 'application/json',
             AUTHORIZATION: `token ${token}`,

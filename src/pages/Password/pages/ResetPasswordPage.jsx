@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,53 +11,55 @@ import ConfirmationPage from 'pages/Confirmation';
 import { H1 } from 'assets/styles';
 import thumbsUp from 'assets/images/thumbs-up.png';
 
-export class ResetPasswordPage extends Component {
-    state = {
-        confirmReset: false,
-        errors: null,
-    };
+export const SUCCESS_MESSAGE = 'Success! Your Password Has Been Reset.';
+export const ERROR_MESSAGE = 'There was an error with resetting your password. Please try again.';
 
-    onSubmit = (values, { setSubmitting }) => {
-        const token = this.props.history.location.state.token;
+export const ResetPasswordPage = ({ history, toggleLoader }) => {
+    const [confirmReset, setConfirmReset] = useState(false);
+    const [errors, setErrors] = useState(null);
 
-        this.props.toggleLoader(true);
+    const handleSubmit = useCallback(
+        async (values, { setSubmitting }) => {
+            const token = history.location.state.token;
 
-        return API.passwordReset(values.password, token)
-            .then((res) => {
-                if (res.errors) {
-                    this.setState({ errors: res.errors });
+            toggleLoader(true);
+
+            try {
+                const response = await API.passwordReset(values.password, token, true);
+
+                if (response.errors) {
+                    setErrors(response.errors);
                 } else {
-                    this.setState({ confirmReset: true });
+                    setConfirmReset(true);
                 }
-            })
-            .catch(() => {
-                this.setState({ errors: ['There was an error with resetting your password. Please try again.'] });
-            })
-            .finally(() => {
-                this.props.toggleLoader(false);
+            } catch {
+                setErrors([ERROR_MESSAGE]);
+            } finally {
+                toggleLoader(false);
                 setSubmitting(false);
-            });
-    };
+            }
+        },
+        [history.location.state.token, toggleLoader]
+    );
 
-    render() {
-        if (this.state.confirmReset) {
-            return (
-                <ConfirmationPage
-                    successMessage="Success! Your Password Has Been Reset."
-                    confirmationImage={thumbsUp}
-                    buttonClick={() => this.props.history.push(ROUTES.LOGIN)}
-                    buttonText="Sign in"
-                />
-            );
-        }
+    if (confirmReset) {
         return (
-            <>
-                <H1>Reset Password</H1>
-                <ChangePasswordForm onSubmit={this.onSubmit} errors={this.state.errors} />
-            </>
+            <ConfirmationPage
+                successMessage={SUCCESS_MESSAGE}
+                confirmationImage={thumbsUp}
+                buttonClick={() => history.push(ROUTES.LOGIN)}
+                buttonText="Sign in"
+            />
         );
     }
-}
+
+    return (
+        <>
+            <H1>Reset Password</H1>
+            <ChangePasswordForm onSubmit={handleSubmit} errors={errors} />
+        </>
+    );
+};
 
 const mapStateToProps = null;
 

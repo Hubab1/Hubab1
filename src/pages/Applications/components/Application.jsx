@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
         color: '#000',
     },
     applicationId: {
-        color: '#828796',
         display: 'block',
         marginTop: theme.spacing(2),
     },
