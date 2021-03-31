@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -17,11 +17,14 @@ export const ERROR_MESSAGE = 'There was an error with resetting your password. P
 export const ResetPasswordPage = ({ history, toggleLoader }) => {
     const [confirmReset, setConfirmReset] = useState(false);
     const [errors, setErrors] = useState(null);
+    const token = history?.location?.state?.token;
+
+    useEffect(() => {
+        !token && history.push(ROUTES.FORGOT_PASSWORD);
+    }, [token, history]);
 
     const handleSubmit = useCallback(
         async (values, { setSubmitting }) => {
-            const token = history.location.state.token;
-
             toggleLoader(true);
 
             try {
@@ -39,8 +42,10 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
                 setSubmitting(false);
             }
         },
-        [history.location.state.token, toggleLoader]
+        [token, toggleLoader]
     );
+
+    if (!token) return null;
 
     if (confirmReset) {
         return (

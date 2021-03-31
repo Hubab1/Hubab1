@@ -34,7 +34,7 @@ export function ChangePasswordForm(props) {
                 <Form onSubmit={handleSubmit} autoComplete="off">
                     <img className={imgSpacing} src={changePassword} alt="welcome sign" width="101" height="91" />
                     <div className={formContent}>
-                        {/*{props.errors && <GenericFormMessage type="error" messages={props.errors} />}*/}
+                        {props.errors && <GenericFormMessage type="error" messages={props.errors} />}
                         <div>
                             <FormTextInput
                                 label="Enter new password"

@@ -1,10 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { withHooks } from 'jest-react-hooks-shallow';
 
+import API from 'api/api';
+import { ROUTES } from 'constants/constants';
 import ConfirmationPage from 'pages/Confirmation';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
 import { ResetPasswordPage } from './ResetPasswordPage';
-import API from 'api/api';
+import { ResetPasswordVerificationPage } from './ResetPasswordVerificationPage';
 
 const mockPasswordReset = (returnValue = {}) => {
     return jest.spyOn(API, 'passwordReset').mockReturnValue(returnValue);
@@ -21,6 +24,19 @@ describe('ResetPasswordPage', () => {
             profile: null,
             toggleLoader: jest.fn(),
         };
+    });
+
+    it('redirects back to forgot-password when page is visited without a token in the history`s state', () => {
+        const history = {
+            location: { state: null },
+            push: jest.fn(),
+        };
+
+        withHooks(() => {
+            const wrapper = shallow(<ResetPasswordVerificationPage {...props} history={history} />);
+            expect(wrapper.type()).toEqual(null);
+            expect(history.push).toBeCalledWith(ROUTES.FORGOT_PASSWORD);
+        });
     });
 
     it('handles successful attempt to reset password', async () => {
