@@ -61,10 +61,11 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
 
             try {
                 const response = await API.passwordResetVerification({
-                    phone_number: phoneNumber,
-                    email: email,
                     code: values.resetCode,
                     lease_settings_id: communityId,
+                    phone_number: phoneNumber,
+                    channel,
+                    email,
                 });
 
                 if (response.errors) {
