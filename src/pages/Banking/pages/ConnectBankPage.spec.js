@@ -36,7 +36,7 @@ describe('unmount', () => {
     it('calls finicityConnect.destroyIFrame', () => {
         window.finicityConnect.destroyIFrame = jest.fn();
 
-        const wrapper = shallow(<ConnectBankPage />);
+        const wrapper = shallow(<ConnectBankPage application={{ id: 7 }} />);
         wrapper.unmount();
         expect(window.finicityConnect.destroyIFrame).toHaveBeenCalled();
     });
@@ -56,5 +56,29 @@ describe('handleFetchReports', () => {
 
         wrapper.instance().handleFetchReports();
         expect(API.fetchFinicityReports).toHaveBeenCalled();
+    });
+});
+
+describe('reportNoIncomeAssets', () => {
+    it('should submit a financial source for no income/assets then refresh sources and redirect', () => {
+        const targetRoute = '/test/route';
+        const mockHistory = { push: jest.fn() };
+        const mockContext = { refreshFinancialSources: jest.fn(), toggleLoader: jest.fn() };
+
+        API.createFinancialSource = jest.fn().mockResolvedValue({});
+
+        const wrapper = shallow(<ConnectBankPage {...defaultProps} history={mockHistory} />);
+        const instance = wrapper.instance();
+
+        instance.context = mockContext;
+
+        return wrapper
+            .instance()
+            .reportNoIncomeAssets({ preventDefault: () => {} }, targetRoute)
+            .then(() => {
+                expect(API.createFinancialSource).toHaveBeenCalled();
+                expect(mockContext.refreshFinancialSources).toHaveBeenCalledWith();
+                expect(mockHistory.push).toHaveBeenCalledWith(targetRoute);
+            });
     });
 });
