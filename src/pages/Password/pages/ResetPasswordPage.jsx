@@ -32,8 +32,8 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
                 const response = await API.passwordReset(
                     {
                         password: values.password,
-                        forgot_password: true,
-                        forgot_password_channel: channel,
+                        recovered_password: true,
+                        recovered_password_channel: channel,
                     },
                     token
                 );

@@ -61,8 +61,8 @@ describe('ResetPasswordPage', () => {
         expect(request).toHaveBeenCalledWith(
             {
                 password: mockFormData.password,
-                forgot_password: true,
-                forgot_password_channel: channel,
+                recovered_password: true,
+                recovered_password_channel: channel,
             },
             token
         );
