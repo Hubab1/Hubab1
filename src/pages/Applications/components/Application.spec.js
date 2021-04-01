@@ -182,7 +182,7 @@ describe('Application', () => {
             <Application
                 application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
                 fetchRenterProfile={fetchRenterProfile}
-                initnialPage={ROUTES.FEES_AND_DEPOSITS}
+                initialPage={ROUTES.FEES_AND_DEPOSITS}
             />
         );
         await wrapper.find(ActionButton).simulate('click');
