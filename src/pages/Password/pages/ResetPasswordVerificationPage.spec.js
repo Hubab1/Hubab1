@@ -86,7 +86,10 @@ describe('ResetPasswordVerificationPage', () => {
         });
         expect(history.push).toBeCalledWith({
             pathname: ROUTES.RESET_PASSWORD,
-            state: { token },
+            state: {
+                token,
+                channel: 'sms',
+            },
         });
         expect(props.toggleLoader).toBeCalledWith(false);
     });
@@ -113,7 +116,10 @@ describe('ResetPasswordVerificationPage', () => {
         });
         expect(history.push).toBeCalledWith({
             pathname: ROUTES.RESET_PASSWORD,
-            state: { token },
+            state: {
+                token,
+                channel: 'email',
+            },
         });
         expect(props.toggleLoader).toBeCalledWith(false);
     });

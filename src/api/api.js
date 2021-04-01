@@ -162,10 +162,10 @@ API.passwordResetVerification = (data) => {
     }).then((res) => res.json());
 };
 
-API.passwordReset = (password, token) => {
+API.passwordReset = (data, token) => {
     return fetch(chuck('/password-change/'), {
         method: 'PUT',
-        body: JSON.stringify({ password }),
+        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
             AUTHORIZATION: `token ${token}`,

@@ -72,7 +72,10 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
                 } else {
                     history.push({
                         pathname: ROUTES.RESET_PASSWORD,
-                        state: { token: response.token },
+                        state: {
+                            token: response.token,
+                            channel,
+                        },
                     });
                 }
             } catch {
@@ -82,7 +85,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
                 setSubmitting(false);
             }
         },
-        [communityId, phoneNumber, email, history, toggleLoader]
+        [toggleLoader, phoneNumber, email, communityId, history, channel]
     );
 
     const handleResendLinkClick = useCallback(async () => {

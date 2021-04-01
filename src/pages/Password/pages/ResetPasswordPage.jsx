@@ -18,6 +18,7 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
     const [confirmReset, setConfirmReset] = useState(false);
     const [errors, setErrors] = useState(null);
     const token = history?.location?.state?.token;
+    const channel = history?.location?.state?.channel;
 
     useEffect(() => {
         !token && history.push(ROUTES.FORGOT_PASSWORD);
@@ -28,7 +29,14 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
             toggleLoader(true);
 
             try {
-                const response = await API.passwordReset(values.password, token);
+                const response = await API.passwordReset(
+                    {
+                        password: values.password,
+                        forgot_password: true,
+                        forgot_password_channel: channel,
+                    },
+                    token
+                );
 
                 if (response.errors) {
                     setErrors(response.errors);
@@ -42,7 +50,7 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
                 setSubmitting(false);
             }
         },
-        [token, toggleLoader]
+        [token, channel, toggleLoader]
     );
 
     if (!token) return null;

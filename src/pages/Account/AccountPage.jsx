@@ -77,7 +77,12 @@ export class AccountPage extends Component {
         this.props.toggleLoader(true);
 
         try {
-            const response = await API.passwordReset(values.password, token);
+            const response = await API.passwordReset(
+                {
+                    password: values.password,
+                },
+                token
+            );
             if (response.errors) {
                 return this.setState({
                     resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
