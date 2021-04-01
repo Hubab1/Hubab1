@@ -5,7 +5,6 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import { ROUTES } from 'constants/constants';
 import API from 'api/api';
-import auth from 'utils/auth';
 import captureRoute from 'utils/captureRoute';
 import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
 
@@ -72,20 +71,13 @@ export class AccountPage extends Component {
     };
 
     onChangePasswordSubmit = async (values, { setSubmitting }) => {
-        const token = auth.getToken();
-
         this.props.toggleLoader(true);
 
         try {
-            const response = await API.passwordReset(
-                {
-                    password: values.password,
-                },
-                token
-            );
+            const response = await API.passwordChange(values.password);
             if (response.errors) {
                 return this.setState({
-                    resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
+                    resetPasswordErrors: [response.errors],
                 });
             }
 
