@@ -158,14 +158,11 @@ export class ConnectBankPage extends React.Component {
 
     reportNoIncomeAssets = async (e, targetPath) => {
         e.preventDefault();
-
-        // Handle reporting no income/assets
-        const formData = new FormData();
-        formData.append('report_no_income_assets', 'True');
         this.context.toggleLoader(true);
 
         try {
-            await API.submitFinancialSource(this.props.application.id, formData, false); // No files to encrypt
+            const body = { report_no_income_assets: true };
+            await API.createFinancialSource(this.props.application.id, body);
             await this.context.refreshFinancialSources();
             this.props.history.push(targetPath);
         } catch (e) {

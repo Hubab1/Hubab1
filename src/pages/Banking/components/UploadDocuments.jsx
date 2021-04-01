@@ -41,6 +41,7 @@ const UploadButtonContainer = styled.div`
         margin-bottom: 15px;
     }
 `;
+
 const FileNamesContainer = styled.div`
     margin-right: -23px;
     margin-left: -23px;
@@ -186,6 +187,7 @@ export class UploadDocuments extends React.Component {
     };
 
     onFileChange = (e, selectedDocument) => {
+        this.props.setError([]);
         const id = e.target.id;
         if (e.target.value.length === 0) return null;
 
@@ -196,12 +198,15 @@ export class UploadDocuments extends React.Component {
 
         for (let i = 0; i < (e.target.files.length <= maxCount ? e.target.files.length : maxCount); i++) {
             const file = e.target.files[i];
+            if (!(file && file.size)) {
+                this.props.setError([`Oops! We’re having trouble uploading one of your files. Please try again.`]);
+                continue;
+            }
             const fileSize = file.size / 1024 / 1024; // in MB
             if (fileSize > 10) {
                 largeFiles.push(file.name);
             } else {
                 const reader = new FileReader();
-                reader.readAsDataURL(file);
                 reader.onload = () => {
                     const fileInfo = {
                         name: file.name,
@@ -220,6 +225,14 @@ export class UploadDocuments extends React.Component {
                     }
                     this.props.loadDocument(uploadedDocuments);
                 };
+
+                reader.onerror = (e) => {
+                    console.error(e.target.error);
+                    this.props.setError([
+                        `Oops! We’re having trouble uploading the file ${file.name}. Please try again.`,
+                    ]);
+                };
+                reader.readAsDataURL(file);
             }
         }
         if (largeFiles.length) {
@@ -231,8 +244,6 @@ export class UploadDocuments extends React.Component {
                       )} are too large. Please save them as 10MB or smaller each and try again.`;
 
             this.props.setError([errorMessage]);
-        } else {
-            this.props.setError([]);
         }
     };
 
@@ -270,7 +281,6 @@ export class UploadDocuments extends React.Component {
                                         <LinkButton onClick={() => this.props.removeFile(docId, file.id)}>
                                             Remove
                                         </LinkButton>
-                                        {/* <a onClick={() => this.props.removeFile(docId, file.id)} href="javascript:void(0);" role="button">Remove</a> */}
                                     </div>
                                 ))}
                             </FileNamesContainer>

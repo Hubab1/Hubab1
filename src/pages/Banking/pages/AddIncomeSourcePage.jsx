@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import API from 'api/api';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'constants/constants';
-import { getFinancialSourceRequestBody } from 'utils/misc';
+import { getUploadDocumentRequestBody } from 'utils/misc';
 import { logToSentry } from 'utils/sentry';
 
 import { BackLink } from 'common-components/BackLink/BackLink';
@@ -39,15 +39,20 @@ export function AddIncomeSourcePage(props) {
         context.toggleLoader(true);
         setSubmitting(true);
         setErrors([]);
-
-        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, props.vgsEnabled);
-        if (!formData) {
-            setErrors([ERROR_UPLOAD]);
-            context.toggleLoader(false);
-            setSubmitting(false);
-        }
         try {
-            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
+            const { estimated_amount, income_or_asset_type, other, uploadedDocuments } = values;
+            const body = { estimated_amount, stream_type: FINANCIAL_STREAM_INCOME, income_or_asset_type, other };
+            const stream = await API.createFinancialSource(props.application.id, body);
+
+            if (uploadedDocuments) {
+                for (const key of Object.keys(uploadedDocuments)) {
+                    for (const v of uploadedDocuments[key].files) {
+                        if (!(v.file && v.file.size)) return null;
+                        const data = getUploadDocumentRequestBody(v, stream.id, key, props.vgsEnabled);
+                        await API.uploadFinancialDocument(props.application.id, data, props.vgsEnabled);
+                    }
+                }
+            }
             context.refreshFinancialSources();
             await context.fetchRenterProfile();
             props.history.push(url);

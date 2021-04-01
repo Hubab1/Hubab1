@@ -287,10 +287,20 @@ API.getCurrentFlatQuote = (application_id, data) => {
     });
 };
 
-API.submitFinancialSource = (application_id, data, vgsEnabled) => {
+API.createFinancialSource = (application_id, body) => {
+    return fetch(chuck(`/application/${application_id}/financial-sources/`), {
+        method: 'PUT',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(body),
+    }).then((res) => res.json());
+};
+
+API.uploadFinancialDocument = (application_id, data, vgsEnabled) => {
     const url = vgsEnabled
-        ? vgs(`/application/${application_id}/vgs-financial-sources/`)
-        : chuck(`/application/${application_id}/financial-sources/`);
+        ? vgs(`/application/${application_id}/financial-document/`)
+        : chuck(`/application/${application_id}/financial-document/`);
 
     return fetch(url, {
         method: 'POST',

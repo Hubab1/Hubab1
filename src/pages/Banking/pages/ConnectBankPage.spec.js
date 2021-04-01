@@ -58,27 +58,3 @@ describe('handleFetchReports', () => {
         expect(API.fetchFinicityReports).toHaveBeenCalled();
     });
 });
-
-describe('reportNoIncomeAssets', () => {
-    it('should submit a financial source for no income/assets then refresh sources and redirect', () => {
-        const targetRoute = '/test/route';
-        const mockHistory = { push: jest.fn() };
-        const mockContext = { refreshFinancialSources: jest.fn(), toggleLoader: jest.fn() };
-
-        API.submitFinancialSource = jest.fn().mockResolvedValue({});
-
-        const wrapper = shallow(<ConnectBankPage {...defaultProps} history={mockHistory} />);
-        const instance = wrapper.instance();
-
-        instance.context = mockContext;
-
-        return wrapper
-            .instance()
-            .reportNoIncomeAssets({ preventDefault: () => {} }, targetRoute)
-            .then(() => {
-                expect(API.submitFinancialSource).toHaveBeenCalled();
-                expect(mockContext.refreshFinancialSources).toHaveBeenCalledWith();
-                expect(mockHistory.push).toHaveBeenCalledWith(targetRoute);
-            });
-    });
-});
