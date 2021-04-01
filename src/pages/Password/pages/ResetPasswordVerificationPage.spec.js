@@ -83,6 +83,7 @@ describe('ResetPasswordVerificationPage', () => {
             phone_number: history.location.state.phoneNumber,
             code: mockFormValues.resetCode,
             lease_settings_id: props.communityId,
+            channel: 'sms',
         });
         expect(history.push).toBeCalledWith({
             pathname: ROUTES.RESET_PASSWORD,
@@ -113,6 +114,7 @@ describe('ResetPasswordVerificationPage', () => {
             email: history.location.state.email,
             code: mockFormValues.resetCode,
             lease_settings_id: props.communityId,
+            channel: 'email',
         });
         expect(history.push).toBeCalledWith({
             pathname: ROUTES.RESET_PASSWORD,

@@ -77,7 +77,7 @@ export class AccountPage extends Component {
             const response = await API.passwordChange(values.password);
             if (response.errors) {
                 return this.setState({
-                    resetPasswordErrors: [response.errors],
+                    resetPasswordErrors: response.errors,
                 });
             }
 
