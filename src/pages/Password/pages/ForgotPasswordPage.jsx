@@ -17,7 +17,7 @@ import BackLink from 'common-components/BackLink/BackLink';
 import { LinkButton } from 'assets/styles';
 import forgotPassword from 'assets/images/forgot-password.png';
 
-export const ERROR_MESSAGE = 'Oops! We had some trouble sending your code. Try again in a little bit.';
+export const ERROR_MESSAGE = 'Oops! We had some trouble sending your code. Please try again.';
 
 export const validationSchema = Yup.object().shape(
     {
@@ -101,8 +101,8 @@ export const ForgotPasswordPage = ({ communityId, history, toggleLoader }) => {
             notification={notification}
         >
             <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
-                {({ values, errors: formErrors, handleChange, resetForm, submitCount, handleSubmit, isSubmitting }) => (
-                    <Form onSubmit={handleSubmit} autoComplete="off">
+                {({ values, errors: formErrors, handleChange, resetForm, submitCount, isSubmitting }) => (
+                    <Form autoComplete="off">
                         {usePhone ? (
                             <PhoneNumberInput
                                 data-testid="phone-number-input"

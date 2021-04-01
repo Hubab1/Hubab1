@@ -16,7 +16,7 @@ import { LinkButton } from 'assets/styles';
 import forgotPassword from 'assets/images/forgot-password.png';
 
 export const INVALID_CODE_ERROR_MESSAGE = 'Invalid Error Code';
-export const RESENT_ERROR_MESSAGE = 'Oops! We had some trouble resending your code. Try again in a little bit.';
+export const RESENT_ERROR_MESSAGE = 'Oops! We had some trouble resending your code. Please try again.';
 
 export const validationSchema = Yup.object().shape({
     resetCode: Yup.string().max(6, 'Invalid code').matches(/^\d+$/, 'Only numbers are allowed'),
@@ -56,6 +56,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
 
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors: setFormErrors }) => {
+            setErrors(null);
             toggleLoader(true);
 
             try {
@@ -85,6 +86,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
     );
 
     const handleResendLinkClick = useCallback(async () => {
+        setErrors(null);
         toggleLoader(true);
 
         try {
@@ -115,16 +117,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
             notification={notification}
         >
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                {({
-                    values,
-                    errors: formErrors,
-                    touched,
-                    handleChange,
-                    submitCount,
-                    handleBlur,
-                    handleSubmit,
-                    submitForm,
-                }) => {
+                {({ values, errors: formErrors, touched, handleChange, submitCount, handleBlur, submitForm }) => {
                     const wrappedHandleChange = (event) => {
                         handleChange(event);
                         if (event.target.value.length === 6) {
@@ -133,7 +126,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
                     };
 
                     return (
-                        <Form onSubmit={handleSubmit} autoComplete="off">
+                        <Form autoComplete="off">
                             <FormTextInput
                                 label="Enter Code"
                                 name="resetCode"
