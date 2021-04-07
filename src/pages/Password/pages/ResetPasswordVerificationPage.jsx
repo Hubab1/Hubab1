@@ -114,7 +114,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
             title="Enter Verification Code"
             subTitle={
                 <span>
-                    We sent a text message to <strong>{recipient}</strong> with a 6 digit code to reset your password.
+                    We sent a 6 digit code to <strong>{recipient}</strong>. Enter it below to reset your password.
                 </span>
             }
             image={{ src: forgotPassword }}
@@ -147,7 +147,7 @@ export const ResetPasswordVerificationPage = ({ communityId, history, toggleLoad
                 }}
             </Formik>
             <Typography variant="body1" className={classes.resendCode}>
-                Didn&apos;t Receive a text?{' '}
+                Didn&apos;t get the code?{' '}
                 <LinkButton data-testid="resent-code-link" onClick={handleResendLinkClick}>
                     Resend Here
                 </LinkButton>
