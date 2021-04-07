@@ -173,7 +173,7 @@ Application.propTypes = {
     }),
     isActive: PropTypes.bool,
     initialPage: PropTypes.string,
-    communityId: PropTypes.number,
+    communityId: PropTypes.string,
     fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
 };
