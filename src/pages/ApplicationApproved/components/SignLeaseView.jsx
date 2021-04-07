@@ -18,13 +18,14 @@ export const SignLeaseView = ({
     fetchPayments,
     history,
     applicantUpdated,
+    leaseSettingsId,
 }) => {
     useEffect(() => {
         fetchPayments();
 
         hsclient.on('sign', async () => {
             // ensure FE has the applicant signed milestone before navigating to next screen
-            const newApplicant = await API.fetchApplicant();
+            const newApplicant = await API.fetchApplicant(leaseSettingsId);
             const leaseSignedMilestone = newApplicant.events.find(
                 (e) => parseInt(e.event) === parseInt(APPLICANT_EVENTS.MILESTONE_APPLICANT_SIGNED_LEASE)
             );
@@ -41,7 +42,7 @@ export const SignLeaseView = ({
         return () => {
             hsclient.off('sign');
         };
-    }, [applicantUpdated, fetchPayments, history, profile.id]);
+    }, [applicantUpdated, fetchPayments, history, profile.id, leaseSettingsId]);
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(profile.id, DOCUMENT_TYPE_LEASE);
@@ -82,4 +83,5 @@ SignLeaseView.propTypes = {
     profile: PropTypes.object.isRequired,
     applicationFees: PropTypes.object.isRequired,
     setShowPaymentDetails: PropTypes.func.isRequired,
+    leaseSettingsId: PropTypes.string.isRequired,
 };

@@ -14,6 +14,7 @@ import hsclient from 'utils/hsclient';
 
 import { fetchPayments } from 'reducers/payments';
 import { applicantUpdated } from 'reducers/applicant';
+import { selectors as configurationSelectors } from 'reducers/site-config';
 
 import HoldingDepositAgreementView from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementView';
 import HoldingDepositAgreementConfirmation from 'pages/HoldingDepositAgreement/components/HoldingDepositAgreementConfirmation';
@@ -25,6 +26,7 @@ export const HoldingDepositAgreementPage = ({
     profile,
     applicant,
     applicantUpdated,
+    leaseSettingsId,
 }) => {
     const [currentPage, setCurrentPage] = useState('sign');
 
@@ -39,7 +41,7 @@ export const HoldingDepositAgreementPage = ({
 
     useEffect(() => {
         hsclient.on('sign', async () => {
-            const newApplicant = await API.fetchApplicant();
+            const newApplicant = await API.fetchApplicant(leaseSettingsId);
             const signedAgreement = newApplicant.events.find(
                 (e) => parseInt(e.event) === parseInt(APPLICANT_EVENTS.MILESTONE_HOLDING_DEPOSIT_SIGNED)
             );
@@ -56,7 +58,7 @@ export const HoldingDepositAgreementPage = ({
         return () => {
             hsclient.off('sign');
         };
-    }, [applicantUpdated]);
+    }, [applicantUpdated, leaseSettingsId]);
 
     const openEmbeddedSigning = async () => {
         const data = await API.embeddedSigningUrl(profile.id, DOCUMENT_TYPE_HOLDING_DEPOSIT);
@@ -73,7 +75,7 @@ export const HoldingDepositAgreementPage = ({
     };
 
     const goNext = async () => {
-        const newApplicant = await API.fetchApplicant();
+        const newApplicant = await API.fetchApplicant(leaseSettingsId);
 
         // HelloSign takes time to send a callback, this is to allow us to move forward
         const signedAgreement = newApplicant.events.find(
@@ -128,6 +130,7 @@ const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     payables: state.payments,
     configuration: state.configuration,
+    leaseSettingsId: configurationSelectors.getLeaseSettingsId(state),
 });
 
 const mapDispatchToProps = {

@@ -39,6 +39,8 @@ const buildProps = (buildingName = 'Fake Building', streetAddress = '123 Fake St
         applicantUpdated: jest.fn(),
         fetchPayments: jest.fn(),
         payables: [],
+        applicationFees: {},
+        leaseSettingsId: '20'
     };
 };
 

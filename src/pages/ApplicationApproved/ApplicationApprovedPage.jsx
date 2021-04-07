@@ -6,10 +6,11 @@ import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { applicantUpdated } from 'reducers/applicant';
 import { fetchPayments } from 'reducers/payments';
+import { selectors } from 'reducers/renter-profile';
+import { selectors as configurationSelectors } from 'reducers/site-config';
 
 import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView';
 import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView';
-import { selectors } from 'reducers/renter-profile';
 
 export const ApplicationApprovedPage = ({
     profile,
@@ -18,6 +19,7 @@ export const ApplicationApprovedPage = ({
     applicantUpdated,
     applicant,
     applicationFees,
+    leaseSettingsId,
 }) => {
     const [showPaymentDetails, setShowPaymentDetails] = useState(false);
 
@@ -32,6 +34,7 @@ export const ApplicationApprovedPage = ({
                 profile={profile}
                 applicationFees={applicationFees}
                 setShowPaymentDetails={setShowPaymentDetails}
+                leaseSettingsId={leaseSettingsId}
             />
         );
     }
@@ -54,6 +57,7 @@ ApplicationApprovedPage.propTypes = {
     history: PropTypes.object,
     applicantUpdated: PropTypes.func,
     applicationFees: PropTypes.object,
+    leaseSettingsId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -61,6 +65,7 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
     configuration: state.configuration,
     applicationFees: selectors.applicationFees(state),
+    leaseSettingsId: configurationSelectors.getLeaseSettingsId(state),
 });
 
 const mapDispatchToProps = {
