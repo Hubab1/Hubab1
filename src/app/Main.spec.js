@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { ROUTES } from 'constants/constants';
 import { Main } from './Main';
 import CriticalErrorPage from 'pages/CriticalError';
 
@@ -211,5 +212,76 @@ describe('initializeApp', () => {
         const configuration = {};
         await wrapper.instance().initializeApp(isAuthenticated, configuration);
         expect(defaultProps.fetchRenterProfile).toHaveBeenCalledWith(1);
+    });
+
+    it('redirects to applications page when we do not know what application the applicant is trying to access and has multiple active apps', async () => {
+        const lease_settings_id = 6;
+        const applicant = { application: 1 };
+        const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({
+            has_multiple_active_applications: true,
+            application: 1,
+        }));
+        const mockHistory = {
+            replace: jest.fn(),
+            push: jest.fn(),
+        };
+        const mockLocation = {
+            search: '',
+            pathname: `${lease_settings_id}`
+        };
+        const wrapper = shallow(
+            <Main
+                {...defaultProps}
+                applicant={applicant}
+                fetchApplicant={mockFetchApplicant}
+                history={mockHistory}
+                location={mockLocation}
+            />
+        );
+        const isAuthenticated = true;
+        const configuration = {
+            location: mockLocation,
+            history: mockHistory
+        };
+
+        await wrapper.instance().initializeApp(isAuthenticated, configuration);
+        expect(mockHistory.replace).toHaveBeenCalledWith(ROUTES.APPLICATIONS);
+    });
+
+    it('redirects to application page when we do know what application the applicant is trying to access regardless if has multiple active apps', async () => {
+        const lease_settings_id = 6;
+        const application_id = 1;
+        const applicant = { application: application_id };
+        const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({
+            has_multiple_active_applications: true,
+            application: application_id,
+        }));
+        const mockHistory = {
+            replace: jest.fn(),
+            push: jest.fn(),
+        };
+        const mockLocation = {
+            search: '',
+            pathname: `${lease_settings_id}/application/${application_id}`
+        };
+        const mockApplicationInitialPage = ROUTES.APP_APPROVED;
+        const wrapper = shallow(
+            <Main
+                {...defaultProps}
+                applicant={applicant}
+                fetchApplicant={mockFetchApplicant}
+                history={mockHistory}
+                location={mockLocation}
+                initialPage={mockApplicationInitialPage}
+            />
+        );
+        const isAuthenticated = true;
+        const configuration = {
+            location: mockLocation,
+            history: mockHistory
+        };
+
+        await wrapper.instance().initializeApp(isAuthenticated, configuration);
+        expect(mockHistory.replace).toHaveBeenCalledWith(mockApplicationInitialPage);
     });
 });

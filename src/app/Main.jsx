@@ -75,9 +75,16 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            await this.props.fetchApplicant();
-            const applicationId = pathname.split('/')[2] || this.props.applicant.application;
+            let applicationId = pathname.split('/')[2];
+            const { has_multiple_active_applications } = await this.props.fetchApplicant();
+
+            if (!applicationId && has_multiple_active_applications) {
+                return history.replace(ROUTES.APPLICATIONS);
+            }
+
+            applicationId = this.props.applicant.application;
             await this.props.fetchRenterProfile(applicationId);
+
             if (!this.props.canAccessCurrentRoute()) {
                 history.replace(this.props.initialPage);
             }
