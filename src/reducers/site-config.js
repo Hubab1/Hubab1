@@ -26,6 +26,6 @@ export const { basenameReceived, currentRouteReceived } = actions;
 export default reducer;
 
 const selectors = {};
-selectors.getLeaseSettingsId = state => state.siteConfig.basename;
+selectors.getLeaseSettingsId = (state) => state.siteConfig.basename;
 
 export { selectors };
