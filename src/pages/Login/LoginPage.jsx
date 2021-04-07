@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import auth from 'utils/auth';
+import { ROUTES } from 'constants/constants';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
@@ -47,6 +48,7 @@ export class LoginPage extends Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
+        this.setState({ errors: null });
         this.props.toggleLoader(true);
 
         const { history } = this.props;
@@ -54,10 +56,13 @@ export class LoginPage extends Component {
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
-                if (this.state.errors) this.setState({ errors: null });
+                const { has_multiple_active_applications } = await this.props.fetchApplicant();
+                if (has_multiple_active_applications) {
+                    return history.replace(ROUTES.APPLICATIONS);
+                }
 
-                await this.props.fetchApplicant();
-                await this.props.fetchRenterProfile(this.props.applicant.application);
+                const applicationId = this.props?.configuration?.application_id || this.props?.applicant?.application;
+                await this.props.fetchRenterProfile(applicationId);
                 history.replace(this.props.initialPage);
             })
             .catch((res) => {
@@ -93,6 +98,8 @@ LoginPage.propTypes = {
     initialPage: PropTypes.string,
     communityId: PropTypes.string,
     community: PropTypes.object,
+    applicant: PropTypes.object,
+    invitee: PropTypes.object,
     location: PropTypes.object,
     history: PropTypes.object,
     fetchApplicant: PropTypes.func,
@@ -104,6 +111,7 @@ const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
+    configuration: state.configuration,
     community: state.configuration && state.configuration.community,
     invitee: state.configuration && state.configuration.invitee,
     applicant: state.applicant,
