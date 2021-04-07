@@ -52,7 +52,7 @@
         "start": "react-scripts start",
         "mocky": "REACT_APP_MOCKY=\"1\" react-scripts start",
         "build": "sh -ac '. .env.${DEPLOY_ENVIRONMENT}; react-scripts build'",
-        "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)",
+        "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); sc -ac '. .env.${DEPLOY_ENVIRONMENT}; react-scripts build && node scripts/sentry.js)",
         "test": "TZ=America/New_York react-scripts test",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.jsx src/**/*.js",
