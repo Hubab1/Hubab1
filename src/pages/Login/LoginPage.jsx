@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import auth from 'utils/auth';
+import API from 'api/api';
 import { ROUTES } from 'constants/constants';
+import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
@@ -55,6 +56,16 @@ export class LoginPage extends Component {
         return auth
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
+                console.log({
+                    config: this.props?.configuration
+                });
+
+                const applications = await API.getApplications({
+                    email: values.email
+                });
+                console.log({ applications })
+                return;
+
                 auth.setSession(res.token, this.props.communityId);
                 const { has_multiple_active_applications } = await this.props.fetchApplicant();
                 if (has_multiple_active_applications) {
