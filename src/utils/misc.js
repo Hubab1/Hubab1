@@ -227,3 +227,7 @@ export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) =
     return subtitle;
 };
 /* eslint-enable */
+
+export const getHasApplicationForUnit = (applications = [], unitId) => {
+    return Boolean(applications.find(a => a.unit?.id === unitId));
+};

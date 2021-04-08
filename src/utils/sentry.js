@@ -25,7 +25,7 @@ export const logToSentry = async (error) => {
         apiError.message = await error.text();
         return Sentry.captureException(apiError);
     }
-    Sentry.captureException(error);
+    Sentry.captureException(erroar);
 };
 
 export const setSentryUser = (user) => {

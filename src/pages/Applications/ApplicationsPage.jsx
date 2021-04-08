@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles, Typography } from '@material-ui/core';
 
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'constants/constants';
 import * as hooks from './hooks';
+
 import Page from 'common-components/Page/Page';
 import Application from './components/Application';
 
@@ -27,12 +30,39 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export function ApplicationsPage() {
+const getApplicantAlreadyHasActiveAppAsPrimaryError = (
+    applicant,
+    community,
+    unit,
+) => {
+    if (!applicant || !unit || !community) {
+        return null;
+    }
+
+    if (!applicant.has_active_application_as_primary) {
+        return null;
+    }
+
+    return (
+        <span>
+            Oops, it looks like you already have an active application for {community.display_name}.
+            Please continue your application for unit {unit.unit_number},{' '}
+            or call our office at {community.contact_phone} if you would like to start another application at {community.display_name}.
+        </span>
+    );
+};
+
+export function ApplicationsPage({
+    applicant,
+    community,
+    unit,
+}) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
-    const notification = error && {
+    const alreadyActiveAppError = getApplicantAlreadyHasActiveAppAsPrimaryError(applicant, community, unit);
+    const notification = (error || alreadyActiveAppError) && {
         type: 'error',
-        messages: error,
+        messages: error || alreadyActiveAppError,
     };
 
     const [active, past] = useMemo(() => {
@@ -68,4 +98,21 @@ export function ApplicationsPage() {
     );
 }
 
-export default ApplicationsPage;
+ApplicationsPage.propTypes = {
+    applicant: PropTypes.object.isRequired,
+    community: PropTypes.object,
+    unit: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
+    applicant: state.applicant,
+    community: state.configuration?.community,
+    unit: state.configuration?.unit,
+});
+
+const mapActionsToProps = null;
+
+export default connect(
+    mapStateToProps,
+    mapActionsToProps,
+)(ApplicationsPage);

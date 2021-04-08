@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import API from 'api/api';
 import { ROUTES } from 'constants/constants';
 import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
@@ -56,19 +55,10 @@ export class LoginPage extends Component {
         return auth
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
-                console.log({
-                    config: this.props?.configuration
-                });
-
-                const applications = await API.getApplications({
-                    email: values.email
-                });
-                console.log({ applications })
-                return;
-
                 auth.setSession(res.token, this.props.communityId);
-                const { has_multiple_active_applications } = await this.props.fetchApplicant();
-                if (has_multiple_active_applications) {
+                const applicant = await this.props.fetchApplicant();
+
+                if (applicant.has_active_application_as_primary || applicant.has_multiple_active_applications) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
 
@@ -123,8 +113,8 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
     configuration: state.configuration,
-    community: state.configuration && state.configuration.community,
-    invitee: state.configuration && state.configuration.invitee,
+    community: state.configuration?.community,
+    invitee: state.configuration?.invitee,
     applicant: state.applicant,
 });
 

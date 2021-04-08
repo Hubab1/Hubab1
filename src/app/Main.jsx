@@ -75,10 +75,15 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
+            const accessedAppByInvitationOrWebsite = this.props.hash;
             let applicationId = pathname.split('/')[2];
-            const { has_multiple_active_applications } = await this.props.fetchApplicant();
+            const applicant = await this.props.fetchApplicant();
 
-            if (!applicationId && has_multiple_active_applications) {
+            if (accessedAppByInvitationOrWebsite && applicant.has_active_application_as_primary) {
+                return history.replace(ROUTES.APPLICATIONS);
+            }
+
+            if (!applicationId && applicant.has_multiple_active_applications) {
                 return history.replace(ROUTES.APPLICATIONS);
             }
 
