@@ -12,7 +12,7 @@ $DCR_CMD woodhouse /bin/bash -c "rm -rf node_modules && npm ci --no-progress"
 
 echo -e "--- Building Woodhouse"
 nestctl get-secrets "/${DEPLOY_ENVIRONMENT}/${APP}/config" -o env >> .env
-$DCR_CMD -e SENTRY_AUTH_TOKEN=${BUILDKITE_SENTRY_AUTH_TOKEN} DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT} woodhouse npm run release
+$DCR_CMD -e SENTRY_AUTH_TOKEN=${BUILDKITE_SENTRY_AUTH_TOKEN} -e DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT} woodhouse npm run release
 
 echo -e "--- Deploying Woodhouse"
 s3cmd --guess-mime-type --no-mime-magic sync build/ ${S3_BUCKET}
