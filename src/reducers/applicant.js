@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 
 import { bankingDataReceived } from 'reducers/banking';
-import { selectors as configurationSelectors } from 'reducers/site-config';
 import { MOCKY } from 'config';
 import API from 'api/api';
 import mock from './fixtures/mock-applicant';
@@ -33,13 +32,12 @@ export const { applicantUpdated, applicantReceived } = actions;
 export default reducer;
 
 export const fetchApplicant = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         let applicant;
         if (MOCKY) {
             applicant = mock;
         } else {
-            const leaseSettingsId = configurationSelectors.getLeaseSettingsId(getState());
-            applicant = await API.fetchApplicant(leaseSettingsId);
+            applicant = await API.fetchApplicant();
         }
 
         dispatch(applicantReceived(applicant));

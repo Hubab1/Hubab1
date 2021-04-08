@@ -24,8 +24,3 @@ const siteConfig = createSlice({
 const { actions, reducer } = siteConfig;
 export const { basenameReceived, currentRouteReceived } = actions;
 export default reducer;
-
-const selectors = {};
-selectors.getLeaseSettingsId = (state) => state.siteConfig.basename;
-
-export { selectors };

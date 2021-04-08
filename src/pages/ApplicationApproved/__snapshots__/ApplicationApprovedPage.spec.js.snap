@@ -46,7 +46,6 @@ exports[`it displays the right section shows payment details section when clicki
       "push": [MockFunction],
     }
   }
-  leaseSettingsId="20"
   profile={
     Object {
       "events": Array [
