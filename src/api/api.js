@@ -118,8 +118,8 @@ API.fetchRenterProfile = (application_id) => {
     }).then((res) => res.json());
 };
 
-API.fetchApplicant = (leaseSettings) => {
-    return fetch(chuck(`/applicant/${leaseSettings}`), {
+API.fetchApplicant = () => {
+    return fetch(chuck('/applicant/'), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,

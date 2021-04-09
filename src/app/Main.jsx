@@ -77,13 +77,13 @@ export class Main extends Component {
         } else {
             const accessedAppByInvitationOrWebsite = this.props.hash;
             let applicationId = pathname.split('/')[2];
-            const applicant = await this.props.fetchApplicant();
+            const { num_active_apps } = await this.props.fetchApplicant();
 
-            if (accessedAppByInvitationOrWebsite && applicant.has_active_application_as_primary) {
+            if (accessedAppByInvitationOrWebsite && num_active_apps > 1) {
                 return history.replace(ROUTES.APPLICATIONS);
             }
 
-            if (!applicationId && applicant.has_multiple_active_applications) {
+            if (!applicationId && num_active_apps > 1) {
                 return history.replace(ROUTES.APPLICATIONS);
             }
 
