@@ -56,12 +56,19 @@ export class LoginPage extends Component {
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
-                const { num_active_apps } = await this.props.fetchApplicant();
-                if (this.props.accessedAppByInvitationOrWebsite && num_active_apps === 1) {
+                const { num_active_applications } = await this.props.fetchApplicant();
+
+                // eslint-disable-next-line no-console
+                console.log('Login: ', {
+                    num_active_applications,
+                    accessedAppByInvitationOrWebsite: this.props.accessedAppByInvitationOrWebsite,
+                });
+
+                if (this.props.accessedAppByInvitationOrWebsite && num_active_applications === 1) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
 
-                if (num_active_apps > 1) {
+                if (num_active_applications > 1) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
 
@@ -120,7 +127,7 @@ const mapStateToProps = (state) => ({
     community: state.configuration?.community,
     invitee: state.configuration?.invitee,
     applicant: state.applicant,
-    accessedAppByInvitationOrWebsite: state.siteConfig.hash,
+    accessedAppByInvitationOrWebsite: Boolean(state.siteConfig.hash),
 });
 
 const mapDispatchToProps = {

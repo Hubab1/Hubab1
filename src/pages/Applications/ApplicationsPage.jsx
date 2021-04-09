@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography } from '@material-ui/core';
 
-import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES } from 'constants/constants';
+import {
+    ACTIVE_APPLICATION_STATUSES,
+    PAST_APPLICATION_STATUSES,
+    ROLE_PRIMARY_APPLICANT_VALUE,
+} from 'constants/constants';
 import * as hooks from './hooks';
 
 import Page from 'common-components/Page/Page';
@@ -30,41 +34,53 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const getApplicantAlreadyHasActiveAppAsPrimaryError = (
+const getHasActiveApplicationForCommuntiyAsPrimaryError = (
     applicant,
+    applications,
     community,
     unit,
+    accessedAppByInvitationOrWebsite
 ) => {
-    if (!applicant || !unit || !community) {
-        return null;
+    if (!accessedAppByInvitationOrWebsite || !community || !unit) return false;
+    if (applications?.length === 0) return false;
+
+    const activeApplicationsForCommunityAsPrimary = applications.filter((a) => {
+        return (
+            a.role === ROLE_PRIMARY_APPLICANT_VALUE &&
+            a.community.id === community.id &&
+            ACTIVE_APPLICATION_STATUSES.includes(a.status)
+        );
+    });
+
+    if (activeApplicationsForCommunityAsPrimary?.length > 0) {
+        return (
+            <span>
+                Oops, it looks like you already have an active application for {community.display_name}. Please continue
+                your application for unit {unit.unit_number}, or call our office at {community.contact_phone} if you
+                would like to start another application at {community.display_name}.
+            </span>
+        );
     }
 
-    if (!applicant.has_active_application_as_primary) {
-        return null;
-    }
-
-    return (
-        <span>
-            Oops, it looks like you already have an active application for {community.display_name}.
-            Please continue your application for unit {unit.unit_number},{' '}
-            or call our office at {community.contact_phone} if you would like to start another application at {community.display_name}.
-        </span>
-    );
+    return null;
 };
 
-export function ApplicationsPage({
-    applicant,
-    community,
-    unit,
-    accessedAppByInvitationOrWebsite,
-}) {
+export function ApplicationsPage({ applicant, community, unit, accessedAppByInvitationOrWebsite }) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
-    // const alreadyActiveAppError = getApplicantAlreadyHasActiveAppAsPrimaryError(applicant, community, unit);
+    const activeApplicationForCommuntiyAsPrimaryError = useMemo(() => {
+        return getHasActiveApplicationForCommuntiyAsPrimaryError(
+            applicant,
+            applications,
+            community,
+            unit,
+            accessedAppByInvitationOrWebsite
+        );
+    }, [applicant, applications, community, unit, accessedAppByInvitationOrWebsite]);
 
-    const notification = error && {
+    const notification = (error || activeApplicationForCommuntiyAsPrimaryError) && {
         type: 'error',
-        messages: error,
+        messages: error || activeApplicationForCommuntiyAsPrimaryError,
     };
 
     const [active, past] = useMemo(() => {
@@ -111,12 +127,9 @@ const mapStateToProps = (state) => ({
     applicant: state.applicant,
     community: state.configuration?.community,
     unit: state.configuration?.unit,
-    accessedAppByInvitationOrWebsite: state.siteConfig.hash,
+    accessedAppByInvitationOrWebsite: Boolean(state.siteConfig.hash),
 });
 
 const mapActionsToProps = null;
 
-export default connect(
-    mapStateToProps,
-    mapActionsToProps,
-)(ApplicationsPage);
+export default connect(mapStateToProps, mapActionsToProps)(ApplicationsPage);
