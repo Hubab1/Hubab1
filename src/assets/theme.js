@@ -17,6 +17,10 @@ export const createTheme = (config) => {
         typography: {
             useNextVariants: true,
             fontFamily: ['proxima-nova', 'sans-serif'],
+            caption: {
+                color: '#828796',
+                fontSize: 12,
+            },
         },
         palette: {
             primary: {
