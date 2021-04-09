@@ -75,14 +75,15 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            const accessedAppByInvitationOrWebsite = this.props.hash;
+            const accessedAppByInvitationOrWebsite = Boolean(this.props.hash);
             let applicationId = pathname.split('/')[2];
 
             // Note: the logic to determine the initial route is similar to LoginPage.jsx#onSubmit
             // TODO: abstract logic once we have the final draft as part of the following ticket: https://nestiolistings.atlassian.net/browse/NESTIO-21304
             const { num_active_applications } = await this.props.fetchApplicant();
 
-            if (accessedAppByInvitationOrWebsite && num_active_applications === 1) {
+            if (accessedAppByInvitationOrWebsite && num_active_applications > 0) {
+                console.log('REDIRECT BECAUSE accessedAppByInvitationOrWebsite and has at least one active app');
                 return history.replace(ROUTES.APPLICATIONS);
             }
 

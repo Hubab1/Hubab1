@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography } from '@material-ui/core';
 
-import {
-    ACTIVE_APPLICATION_STATUSES,
-    PAST_APPLICATION_STATUSES,
-    ROLE_PRIMARY_APPLICANT_VALUE,
-} from 'constants/constants';
+import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, PAST_APPLICATION_STATUSES } from 'constants/constants';
 import * as hooks from './hooks';
 
 import Page from 'common-components/Page/Page';
@@ -34,19 +30,20 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const getHasActiveApplicationForCommuntiyAsPrimaryError = (
+export const getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError = (
     applicant,
     applications,
     community,
     unit,
     accessedAppByInvitationOrWebsite
 ) => {
-    if (!accessedAppByInvitationOrWebsite || !community || !unit) return false;
-    if (applications?.length === 0) return false;
+    if (!accessedAppByInvitationOrWebsite || !community || !unit) return;
+    if (applications?.length === 0) return;
 
     const activeApplicationsForCommunityAsPrimary = applications.filter((a) => {
         return (
-            a.role === ROLE_PRIMARY_APPLICANT_VALUE &&
+            a.primary_applicant.id === applicant.id,
+            a.role === APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT &&
             a.community.id === community.id &&
             ACTIVE_APPLICATION_STATUSES.includes(a.status)
         );
@@ -61,15 +58,13 @@ const getHasActiveApplicationForCommuntiyAsPrimaryError = (
             </span>
         );
     }
-
-    return null;
 };
 
 export function ApplicationsPage({ applicant, community, unit, accessedAppByInvitationOrWebsite }) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
-    const activeApplicationForCommuntiyAsPrimaryError = useMemo(() => {
-        return getHasActiveApplicationForCommuntiyAsPrimaryError(
+    const alreadyHasActiveApplicationForCommuntiyAsPrimaryError = useMemo(() => {
+        return getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError(
             applicant,
             applications,
             community,
@@ -78,9 +73,9 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
         );
     }, [applicant, applications, community, unit, accessedAppByInvitationOrWebsite]);
 
-    const notification = (error || activeApplicationForCommuntiyAsPrimaryError) && {
+    const notification = (error || alreadyHasActiveApplicationForCommuntiyAsPrimaryError) && {
         type: 'error',
-        messages: error || activeApplicationForCommuntiyAsPrimaryError,
+        messages: error || alreadyHasActiveApplicationForCommuntiyAsPrimaryError,
     };
 
     const [active, past] = useMemo(() => {

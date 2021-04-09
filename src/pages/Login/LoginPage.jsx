@@ -60,7 +60,7 @@ export class LoginPage extends Component {
                 // Note: the logic to determine the initial route is similar to Main.jsx#initializeApp
                 // TODO: abstract logic once we have the final draft as part of the following ticket: https://nestiolistings.atlassian.net/browse/NESTIO-21304
                 const { num_active_applications } = await this.props.fetchApplicant();
-                if (this.props.accessedAppByInvitationOrWebsite && num_active_applications === 1) {
+                if (this.props.accessedAppByInvitationOrWebsite && num_active_applications > 0) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
 

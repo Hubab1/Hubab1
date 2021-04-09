@@ -72,6 +72,6 @@ GenericFormMessage.defaultProps = {
 };
 
 GenericFormMessage.propTypes = {
-    messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.node,]),
     type: PropTypes.oneOf(['sucess', 'error']),
 };

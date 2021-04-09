@@ -72,6 +72,20 @@ it('redirects to applications page when applicant has multiple active apps after
             expect(defaultProps.history.replace).toBeCalledWith(ROUTES.APPLICATIONS);
         });
 });
+
+it('redirects to applications page when applicant accessed app by invitation or website and has at least 1 active app', function () {
+    const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({ num_active_applications: 1 }));
+    const setSession = jest.fn();
+    const wrapper = shallow(<LoginPage {...defaultProps} fetchApplicant={mockFetchApplicant} accessedAppByInvitationOrWebsite={true} />);
+    wrapper.instance().auth.setSession = setSession;
+    return wrapper
+        .instance()
+        .onSubmit({ username: 'Frank', password: 'Abagail' }, { setSubmitting: function () {} })
+        .then(() => {
+            expect(defaultProps.history.replace).toBeCalledWith(ROUTES.APPLICATIONS);
+        });
+});
+
 it('uses application id from config to fetch renter profile when is present after login', function () {
     const configuration = {
         application_id: 1,
