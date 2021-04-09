@@ -83,7 +83,6 @@ export class Main extends Component {
             const { num_active_applications } = await this.props.fetchApplicant();
 
             if (accessedAppByInvitationOrWebsite && num_active_applications > 0) {
-                console.log('REDIRECT BECAUSE accessedAppByInvitationOrWebsite and has at least one active app');
                 return history.replace(ROUTES.APPLICATIONS);
             }
 
