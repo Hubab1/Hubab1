@@ -455,12 +455,8 @@ API.postEmployer = (data) => {
     }).then((res) => res.json());
 };
 
-API.getApplications = (email) => {
-    const url = email
-        ? chuck(`/applications/${email}`)
-        : chuck('/applications/');
-
-    return fetch(url, {
+API.getApplications = () => {
+    return fetch(chuck('/applications/'), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
