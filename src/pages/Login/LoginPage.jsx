@@ -57,6 +57,10 @@ export class LoginPage extends Component {
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
                 const { num_active_apps } = await this.props.fetchApplicant();
+                if (this.props.accessedAppByInvitationOrWebsite && num_active_apps === 1) {
+                    return history.replace(ROUTES.APPLICATIONS);
+                }
+
                 if (num_active_apps > 1) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
@@ -102,6 +106,7 @@ LoginPage.propTypes = {
     invitee: PropTypes.object,
     location: PropTypes.object,
     history: PropTypes.object,
+    accessedAppByInvitationOrWebsite: PropTypes.bool,
     fetchApplicant: PropTypes.func,
     configuration: PropTypes.object.isRequired,
     toggleLoader: PropTypes.func,
@@ -115,6 +120,7 @@ const mapStateToProps = (state) => ({
     community: state.configuration?.community,
     invitee: state.configuration?.invitee,
     applicant: state.applicant,
+    accessedAppByInvitationOrWebsite: state.siteConfig.hash,
 });
 
 const mapDispatchToProps = {

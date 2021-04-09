@@ -79,7 +79,12 @@ export class Main extends Component {
             let applicationId = pathname.split('/')[2];
             const { num_active_apps } = await this.props.fetchApplicant();
 
-            if (accessedAppByInvitationOrWebsite && num_active_apps > 1) {
+            console.log({
+                num_active_apps,
+                accessedAppByInvitationOrWebsite
+            })
+
+            if (accessedAppByInvitationOrWebsite && num_active_apps === 1) {
                 return history.replace(ROUTES.APPLICATIONS);
             }
 

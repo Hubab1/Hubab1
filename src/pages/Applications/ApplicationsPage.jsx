@@ -56,13 +56,15 @@ export function ApplicationsPage({
     applicant,
     community,
     unit,
+    accessedAppByInvitationOrWebsite,
 }) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
-    const alreadyActiveAppError = getApplicantAlreadyHasActiveAppAsPrimaryError(applicant, community, unit);
-    const notification = (error || alreadyActiveAppError) && {
+    // const alreadyActiveAppError = getApplicantAlreadyHasActiveAppAsPrimaryError(applicant, community, unit);
+
+    const notification = error && {
         type: 'error',
-        messages: error || alreadyActiveAppError,
+        messages: error,
     };
 
     const [active, past] = useMemo(() => {
@@ -102,12 +104,14 @@ ApplicationsPage.propTypes = {
     applicant: PropTypes.object.isRequired,
     community: PropTypes.object,
     unit: PropTypes.object,
+    accessedAppByInvitationOrWebsite: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
     community: state.configuration?.community,
     unit: state.configuration?.unit,
+    accessedAppByInvitationOrWebsite: state.siteConfig.hash,
 });
 
 const mapActionsToProps = null;
