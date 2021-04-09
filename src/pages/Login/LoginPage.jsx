@@ -56,8 +56,8 @@ export class LoginPage extends Component {
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
-                const { has_multiple_active_applications } = await this.props.fetchApplicant();
-                if (has_multiple_active_applications) {
+                const { num_active_apps } = await this.props.fetchApplicant();
+                if (num_active_apps > 1) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
 
