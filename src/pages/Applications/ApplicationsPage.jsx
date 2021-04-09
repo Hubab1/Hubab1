@@ -44,7 +44,8 @@ export const getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError = (
         return (
             a.primary_applicant.id === applicant.id &&
             a.role === APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT &&
-            a.community.id === community.id && ACTIVE_APPLICATION_STATUSES.includes(a.status)
+            a.community.id === community.id &&
+            ACTIVE_APPLICATION_STATUSES.includes(a.status)
         );
     });
 

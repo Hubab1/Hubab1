@@ -119,8 +119,8 @@ describe('ApplicationsPage', () => {
 
         expect(renderedError).toEqual(
             'Oops, it looks like you already have an active application for Community Name. ' +
-            'Please continue your application for unit 207, or call our office at (858) 485-9199 ' +
-            'if you would like to start another application at Community Name.'
+                'Please continue your application for unit 207, or call our office at (858) 485-9199 ' +
+                'if you would like to start another application at Community Name.'
         );
     });
 });
