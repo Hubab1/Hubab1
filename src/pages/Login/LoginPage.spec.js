@@ -61,7 +61,7 @@ it('sets session after logging in', function () {
 });
 
 it('redirects to applications page when applicant has multiple active apps after login', function () {
-    const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({ num_active_apps: 2 }));
+    const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({ num_active_applications: 2 }));
     const setSession = jest.fn();
     const wrapper = shallow(<LoginPage {...defaultProps} fetchApplicant={mockFetchApplicant} />);
     wrapper.instance().auth.setSession = setSession;

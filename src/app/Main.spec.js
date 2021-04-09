@@ -219,7 +219,7 @@ describe('initializeApp', () => {
         const applicant = { application: 1 };
         const mockFetchApplicant = jest.fn().mockReturnValue(
             Promise.resolve({
-                num_active_apps: 2,
+                num_active_applications: 2,
                 application: 1,
             })
         );
@@ -256,7 +256,7 @@ describe('initializeApp', () => {
         const applicant = { application: application_id };
         const mockFetchApplicant = jest.fn().mockReturnValue(
             Promise.resolve({
-                num_active_apps: 2,
+                num_active_applications: 2,
                 application: application_id,
             })
         );

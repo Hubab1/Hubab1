@@ -76,9 +76,9 @@ export class Main extends Component {
             }
         } else {
             let applicationId = pathname.split('/')[2];
-            const { num_active_apps } = await this.props.fetchApplicant();
+            const { num_active_applications } = await this.props.fetchApplicant();
 
-            if (!applicationId && num_active_apps > 1) {
+            if (!applicationId && num_active_applications > 1) {
                 return history.replace(ROUTES.APPLICATIONS);
             }
 
