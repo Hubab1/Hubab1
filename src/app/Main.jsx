@@ -77,7 +77,23 @@ export class Main extends Component {
         } else {
             const accessedAppByInvitationOrWebsite = Boolean(this.props.hash);
             let applicationId = pathname.split('/')[2];
-
+            /**
+             * (Initial) redirect rules:
+             *  - When we do know what application the applicant is trying to access
+             *    (the application id is part of the url).
+             *    Then we redirect to the initial page of that application.
+             *
+             *  - When the applicant has multiple active applicants, and either applied for another one,
+             *    or got invited to another once.
+             *    Then we redirect to the applications page, where the new application is listed and can be started.
+             *
+             *  - When we don't know what application the applicant is trying to access
+             *    but does have multiple active applications.
+             *    Then we redirect to the application page so that the applicant can choose the application.
+             *
+             *  - When none of the above.
+             *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
+             */
             // Note: the logic to determine the initial route is similar to LoginPage.jsx#onSubmit
             // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
             const { num_active_applications } = await this.props.fetchApplicant();
