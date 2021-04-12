@@ -61,7 +61,7 @@ export class GuarantorPage extends Component {
     };
 
     handleContinueAfterInviteSent = () => {
-        if (!this.props.guarantorRequested) {
+        if (this.props.stillFinishingApp) {
             this.props.history.push(
                 generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`, {
                     application_id: this.props.application.id,
@@ -103,7 +103,7 @@ export class GuarantorPage extends Component {
 }
 
 GuarantorPage.propTypes = {
-    guarantorRequested: PropTypes.bool,
+    stillFinishingApp: PropTypes.bool,
     initialPage: PropTypes.string,
     history: PropTypes.object,
     toggleLoader: PropTypes.func,
@@ -112,7 +112,7 @@ GuarantorPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    guarantorRequested: selectors.selectGuarantorRequested(state),
+    stillFinishingApp: selectors.selectApplicantStillFinishingApplication(state),
     initialPage: selectors.selectInitialPage(state),
     application: state.renterProfile,
 });

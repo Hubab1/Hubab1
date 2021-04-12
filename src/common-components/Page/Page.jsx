@@ -90,8 +90,8 @@ export function Page({
 
 Page.propTypes = {
     className: PropTypes.string,
-    title: PropTypes.string,
-    subTitle: PropTypes.string,
+    title: PropTypes.any,
+    subTitle: PropTypes.any,
     notification: PropTypes.shape({
         messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         type: PropTypes.oneOf(['sucess', 'error']).isRequired,

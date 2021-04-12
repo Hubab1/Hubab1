@@ -6,6 +6,7 @@ import { APPLICANT_STATUS_COLOR_MAP, ROLE_PRIMARY_APPLICANT, ROUTES } from 'cons
 import { getRoommateStatus } from 'utils/misc';
 import { applicationStatus, link, P, CardRow } from 'assets/styles';
 import { connect } from 'react-redux';
+import { applicationPath } from 'reducers/renter-profile';
 
 export const PersonRow = ({ application, person, label, role }) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
@@ -38,7 +39,7 @@ export const PersonRow = ({ application, person, label, role }) => {
                             state: {
                                 initialValues: person,
                                 confirmationButtonText: 'Back to Application Status',
-                                returnRoute: ROUTES.APP_COMPLETE,
+                                returnRoute: applicationPath(ROUTES.APP_COMPLETE, application.id),
                             },
                         }}
                     >

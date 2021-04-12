@@ -22,6 +22,7 @@ beforeEach(() => {
         application: {
             id: 1,
         },
+        stillFinishingApp: true,
     };
 });
 
@@ -65,7 +66,7 @@ it('Confirmation Page - Add guarantor from rental options', function () {
 });
 
 it('Confirmation Page - Add guarantor after requested', function () {
-    const wrapper = shallow(<GuarantorPage {...defaultProps} guarantorRequested={true} />);
+    const wrapper = shallow(<GuarantorPage {...defaultProps} stillFinishingApp={false} />);
     wrapper.setState({ confirmSent: true });
     expect(wrapper.find(ConfirmationPage).exists()).toBeTruthy();
     wrapper.find(ConfirmationPage).dive().find(ActionButton).at(0).simulate('click');
