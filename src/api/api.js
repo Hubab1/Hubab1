@@ -302,7 +302,7 @@ API.getCurrentFlatQuote = (application_id, data) => {
 
 API.createFinancialSource = (application_id, body) => {
     return fetch(chuck(`/application/${application_id}/financial-sources/`), {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
