@@ -64,7 +64,7 @@ export const getPrimaryOnOtherActiveAppForCommunityError = (
 export function ApplicationsPage({ applicant, community, unit, accessedAppByInvitationOrWebsite }) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
-    const alreadyHasActiveApplicationForCommuntiyAsPrimaryError = useMemo(() => {
+    const primaryOnOtherActiveAppForCommunityError = useMemo(() => {
         return getPrimaryOnOtherActiveAppForCommunityError(
             applicant,
             applications,
@@ -74,9 +74,9 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
         );
     }, [applicant, applications, community, unit, accessedAppByInvitationOrWebsite]);
 
-    const notification = (error || alreadyHasActiveApplicationForCommuntiyAsPrimaryError) && {
+    const notification = (error || primaryOnOtherActiveAppForCommunityError) && {
         type: 'error',
-        messages: error || alreadyHasActiveApplicationForCommuntiyAsPrimaryError,
+        messages: error || primaryOnOtherActiveAppForCommunityError,
     };
 
     const [active, past] = useMemo(() => {
