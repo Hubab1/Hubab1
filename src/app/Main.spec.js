@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { Main } from './Main';
 import CriticalErrorPage from 'pages/CriticalError';
 
-let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise;
+let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise, fetchApplicantPromise;
 
 beforeEach(() => {
     configurationObject = {
@@ -32,11 +32,15 @@ beforeEach(() => {
 
     fetchConfigurationPromise = Promise.resolve(configurationObject);
     fetchRenterProfilePromise = Promise.resolve({});
+    fetchApplicantPromise = Promise.resolve({
+        application: 1,
+    });
 
     defaultProps = {
         hasApplicant: true,
         canAccessCurrentRoute: jest.fn(),
         fetchRenterProfile: jest.fn().mockReturnValue(fetchRenterProfilePromise),
+        fetchApplicant: jest.fn().mockReturnValue(fetchApplicantPromise),
         fetchConfiguration: jest.fn().mockReturnValue(fetchConfigurationPromise),
         logout: jest.fn(),
         configuration: configurationObject,
@@ -91,16 +95,7 @@ describe('this.logout', () => {
     });
 });
 
-describe('mountNavigation', () => {
-    it('calls fetchRenterProfile if authenticated', function () {
-        const wrapper = shallow(<Main {...defaultProps} />);
-
-        const isAuthenticated = true;
-        const configuration = {};
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
-        expect(defaultProps.fetchRenterProfile).toHaveBeenCalledTimes(1);
-    });
-
+describe('initializeApp', () => {
     it('routes to welcome page if not authenticated, but there is an associated client application', function () {
         const historyStub = jest.fn();
         const history = { push: historyStub, replace: historyStub };
@@ -109,7 +104,7 @@ describe('mountNavigation', () => {
 
         const isAuthenticated = false;
         const configuration = { client: { applicant_id: 123 }, invitee: {} };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
@@ -122,7 +117,7 @@ describe('mountNavigation', () => {
 
         const isAuthenticated = false;
         const configuration = { client: {}, invitee: { is_registered: true } };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
     });
@@ -134,7 +129,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
         const configuration = { client: {} };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -147,7 +142,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
         const configuration = { invitee: {} };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -160,7 +155,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<Main {...defaultProps} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/welcome');
@@ -174,7 +169,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<Main {...defaultProps} location={location} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(0);
     });
@@ -187,7 +182,7 @@ describe('mountNavigation', () => {
         const wrapper = shallow(<Main {...defaultProps} location={location} history={history} />);
         const isAuthenticated = false;
         const configuration = {};
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(0);
     });
@@ -203,9 +198,18 @@ describe('mountNavigation', () => {
                 is_unavailable: true,
             },
         };
-        wrapper.instance().mountNavigation(isAuthenticated, configuration);
+        wrapper.instance().initializeApp(isAuthenticated, configuration);
 
         expect(historyStub).toHaveBeenCalledTimes(1);
         expect(historyStub).toHaveBeenCalledWith('/unauth-unit-unavailable');
+    });
+
+    it('calls fetchRenterProfile if authenticated', async function () {
+        const applicant = { application: 1 };
+        const wrapper = shallow(<Main {...defaultProps} applicant={applicant} />);
+        const isAuthenticated = true;
+        const configuration = {};
+        await wrapper.instance().initializeApp(isAuthenticated, configuration);
+        expect(defaultProps.fetchRenterProfile).toHaveBeenCalledWith(1);
     });
 });

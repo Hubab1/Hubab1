@@ -14,6 +14,7 @@ import BankingContext from 'pages/Banking/BankingContext';
 import AddFinancialSourceForm from 'pages/Banking/components/AddFinancialSourceForm';
 import { H1, H3, Spacer } from 'assets/styles';
 import piggyBank from 'assets/images/piggy-bank.png';
+import { generatePath } from 'react-router';
 
 const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +
@@ -50,10 +51,12 @@ export function AddAssetSourcePage(props) {
             setSubmitting(false);
         }
         try {
-            await API.submitFinancialSource(formData, props.vgsEnabled);
+            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
             context.refreshFinancialSources();
             await context.fetchRenterProfile();
-            props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
+            props.history.push(
+                generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`, { application_id: props.application.id })
+            );
         } catch (e) {
             await logToSentry(e.response || e);
             setErrors([ERROR_UPLOAD]);
@@ -89,6 +92,7 @@ AddAssetSourcePage.propTypes = {
 
 const mapStateToProps = (state) => ({
     vgsEnabled: !state.configuration.use_demo_config,
+    application: state.renterProfile,
 });
 
 export default connect(mapStateToProps)(AddAssetSourcePage);

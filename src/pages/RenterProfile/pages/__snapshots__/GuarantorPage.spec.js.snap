@@ -20,7 +20,7 @@ exports[`matches snapshot 1`] = `
     isGuarantor={true}
   />
   <BackLink
-    to="/rental-profile/options#guarantor"
+    to="/application/:application_id/rental-profile/options#guarantor"
   />
 </React.Fragment>
 `;

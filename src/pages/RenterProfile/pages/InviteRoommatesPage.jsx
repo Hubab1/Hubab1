@@ -16,6 +16,7 @@ import ConfirmationPage from 'pages/Confirmation';
 import { H1, H3 } from 'assets/styles';
 import roommatesImage from 'assets/images/roommates.png';
 import inviteConfirm from 'assets/images/invite-confirm.png';
+import { generatePath } from 'react-router';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 15% 20px 15%;
@@ -66,7 +67,11 @@ export class InviteRoommatesPage extends Component {
                         ? setErrors(errors)
                         : this.setState({ errors: ['There was an error adding your dependent. Please Try again.'] });
                 } else {
-                    this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`);
+                    this.props.history.push(
+                        generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
+                            application_id: this.props.profile.id,
+                        })
+                    );
                 }
             })
             .catch((res) => {
@@ -87,14 +92,18 @@ export class InviteRoommatesPage extends Component {
     }
 
     render() {
+        if (!this.props.profile) return null;
+        const url = generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`, {
+            application_id: this.props.profile.id,
+        });
         if (this.state.confirmSent) {
             return (
                 <ConfirmationPage
                     successMessage="Invite Sent!"
                     secondarySuccessMessage="You’ll be able to check in on your roommate’s progress once you complete your application."
-                    buttonClick={() =>
-                        this.props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`)
-                    }
+                    buttonClick={() => {
+                        this.props.history.push(url);
+                    }}
                     buttonText="Continue"
                     secondaryButtonClick={this.canInviteMore() ? () => this.setState({ confirmSent: false }) : null}
                     secondaryButtonText="Add Another Person"
@@ -113,7 +122,7 @@ export class InviteRoommatesPage extends Component {
                     handleOnSubmit={this.onSubmit}
                     displayedErrors={this.state.errors}
                 />
-                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_CO_APPLICANTS}`} />
+                <BackLink to={url} />
             </>
         );
     }

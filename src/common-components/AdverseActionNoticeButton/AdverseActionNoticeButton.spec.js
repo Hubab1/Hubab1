@@ -8,6 +8,12 @@ import { LinkButton } from 'assets/styles';
 
 const runAllPromises = () => new Promise(setImmediate);
 
+const defaultProps = {
+    application: {
+        id: 1,
+    },
+};
+
 describe('AdverseActionNoticeButton', () => {
     let mockedWindow;
     beforeEach(() => {
@@ -31,19 +37,19 @@ describe('AdverseActionNoticeButton', () => {
     });
 
     it('renders link button', async () => {
-        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} {...defaultProps} />);
         expect(wrapper.find(LinkButton).length).toBe(1);
     });
 
     it('renders action button', async () => {
-        const wrapper = shallow(<AdverseActionNoticeButton componentType={ACTION_BUTTON} />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={ACTION_BUTTON} {...defaultProps} />);
         expect(wrapper.find(ActionButton).length).toBe(1);
     });
 
     it('opens document on click', async () => {
         API.fetchAANDocument = jest.fn().mockReturnValue('pdf-data');
 
-        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} {...defaultProps} />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
         wrapper.find(LinkButton).simulate('click');
@@ -61,7 +67,7 @@ describe('AdverseActionNoticeButton', () => {
     it('handles error', async () => {
         API.fetchAANDocument = jest.fn().mockReturnValue(Promise.reject());
 
-        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} />);
+        const wrapper = shallow(<AdverseActionNoticeButton componentType={LINK_BUTTON} {...defaultProps} />);
 
         expect(wrapper.find(LinkButton).text()).toBe('Learn why');
         wrapper.find(LinkButton).simulate('click');

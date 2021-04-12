@@ -5,6 +5,7 @@ import { ROLE_PRIMARY_APPLICANT, MILESTONE_REQUEST_GUARANTOR, ROUTES } from 'con
 import { GuarantorRequestedPage } from './GuarantorRequestedPage';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { AdverseActionNoticeButton } from 'common-components/AdverseActionNoticeButton/AdverseActionNoticeButton';
+import { generatePath } from 'react-router';
 
 const buildProps = (
     buildingName = 'Fake Building',
@@ -18,6 +19,7 @@ const buildProps = (
 ) => {
     return {
         profile: {
+            id: 1,
             events: [{ event: MILESTONE_REQUEST_GUARANTOR }],
             unit: {
                 unit_number: unitNumber,
@@ -75,5 +77,5 @@ it('Primary Applicant', () => {
     );
     expect(wrapper.find(ActionButton)).toHaveLength(1);
     wrapper.find(ActionButton).at(0).simulate('click');
-    expect(defaultProps.history.push).toHaveBeenCalledWith(ROUTES.GUARANTOR);
+    expect(defaultProps.history.push).toHaveBeenCalledWith(generatePath(ROUTES.GUARANTOR, { application_id: 1 }));
 });

@@ -52,12 +52,13 @@ export class LoginPage extends Component {
         const { history } = this.props;
         return auth
             .login(values.email, values.password, this.props.communityId)
-            .then((res) => {
+            .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
                 if (this.state.errors) this.setState({ errors: null });
-                Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
-                    history.replace(this.props.initialPage);
-                });
+
+                await this.props.fetchApplicant();
+                await this.props.fetchRenterProfile(this.props.applicant.application);
+                history.replace(this.props.initialPage);
             })
             .catch((res) => {
                 const error = res.errors?.error;
@@ -105,6 +106,7 @@ const mapStateToProps = (state) => ({
     communityId: state.siteConfig.basename,
     community: state.configuration && state.configuration.community,
     invitee: state.configuration && state.configuration.invitee,
+    applicant: state.applicant,
 });
 
 const mapDispatchToProps = {

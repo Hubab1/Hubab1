@@ -2,6 +2,113 @@
 
 exports[`Matches snapshot with a start date 1`] = `
 <PaymentTerms
+  application={
+    Object {
+      "co_applicants": Array [
+        Object {
+          "first_name": "kreebs",
+          "id": 71,
+          "is_registered": false,
+          "last_milestone": null,
+          "last_name": "mcgreebs",
+          "phone_number": "(383) 838-4849",
+          "status": "Not Started",
+        },
+        Object {
+          "first_name": "jerry",
+          "id": 73,
+          "is_registered": true,
+          "last_milestone": Object {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 10030,
+            "id": 10557,
+          },
+          "last_name": "maguire",
+          "phone_number": "(333) 888-4449",
+          "status": "Completed",
+        },
+      ],
+      "dependents": Array [
+        Object {
+          "first_name": "Bobby",
+          "id": 75,
+          "last_name": "Kennedy",
+          "phone_number": "(555) 822-4841",
+        },
+      ],
+      "events": Array [],
+      "id": 17,
+      "lease_end_date": null,
+      "lease_settings": 2,
+      "lease_start_date": "14/22/2050",
+      "lease_term": 12,
+      "occupants": Array [
+        Object {
+          "first_name": "Made",
+          "id": 99,
+          "is_registered": true,
+          "last_milestone": Object {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 10030,
+            "id": 10557,
+          },
+          "last_name": "Man",
+          "phone_number": "(212) 123-4567",
+          "status": "Completed",
+        },
+      ],
+      "primary_applicant": Object {
+        "email": "johnjenkins@nestio.com",
+        "first_name": "frank",
+        "guarantors": Array [
+          Object {
+            "first_name": "elvish",
+            "id": 74,
+            "is_registered": false,
+            "last_milestone": Object {
+              "created_at": "2020-07-23 15:22:49",
+              "event": 10070,
+              "id": 10554,
+            },
+            "last_name": "parsley",
+            "phone_number": "(222) 111-0000",
+          },
+        ],
+        "id": 18,
+        "last_milestone": Object {
+          "created_at": "2020-07-23 15:22:49",
+          "event": 10030,
+          "id": 10557,
+        },
+        "last_name": "underwood",
+        "person": Object {
+          "email": "johnjenkins@nestio.com",
+          "id": 351422,
+          "name": "frank underwood",
+          "phone_1": "(111) 111-1111",
+        },
+        "phone_number": "(111) 111-1111",
+      },
+      "rent": null,
+      "selected_rental_options": Object {
+        "app-fee": Array [
+          Object {
+            "quoted_fee_amount": 125.5,
+          },
+        ],
+        "holding-deposit": Array [
+          Object {
+            "quoted_deposit_amount": 501.5,
+          },
+        ],
+      },
+      "status": 25,
+      "unit": Object {
+        "layout": 10,
+        "unit_number": "12a",
+      },
+    }
+  }
   canProceedToPayment={true}
   handleTermsAccepted={[Function]}
   holdingDepositAmount={501.5}

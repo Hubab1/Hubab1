@@ -23,7 +23,7 @@ export class ResetApplicantFinancials extends Component {
     onSubmit = async () => {
         this.setState({ submitting: true });
         try {
-            await API.resetApplicantFinancials();
+            await API.resetApplicantFinancials(this.props.application.id);
         } catch {
             this.setState({ submitting: false, errorSubmitting: true });
             return;
@@ -74,6 +74,7 @@ export class ResetApplicantFinancials extends Component {
 ResetApplicantFinancials.propTypes = {
     onSubmit: PropTypes.func,
     onCancel: PropTypes.func,
+    application: PropTypes.object.isRequired,
 };
 
 export default ResetApplicantFinancials;

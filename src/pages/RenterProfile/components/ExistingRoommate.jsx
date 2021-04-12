@@ -15,17 +15,19 @@ import {
 import { getRoommateStatus } from 'utils/misc';
 import { P, Span, applicationStatus, Spacer } from 'assets/styles';
 import { link, inviteeContact, nameContainer } from './ExistingRoommateStyles';
+import { applicationPath } from 'reducers/renter-profile';
+import { connect } from 'react-redux';
 
 const removeLink = css`
     margin-left: 15px;
 `;
 
-export function ExistingRoommate({ item, type }) {
+export function ExistingRoommate({ item, type, application }) {
     const isOccupant = type === RENTER_PROFILE_TYPE_OCCUPANT;
     const isDependent = type === RENTER_PROFILE_TYPE_DEPENDENT;
     const statusColor = APPLICANT_STATUS_COLOR_MAP[getRoommateStatus(item)];
     const didPersonStartApplication = getRoommateStatus(item) !== CO_APPLICANT_STATUS_NOT_STARTED;
-
+    const application_id = application.id;
     return (
         <>
             <div className={nameContainer}>
@@ -42,11 +44,11 @@ export function ExistingRoommate({ item, type }) {
                         <Link
                             className={link}
                             to={{
-                                pathname: ROUTES.RESEND_INVITE,
+                                pathname: applicationPath(ROUTES.RESEND_INVITE, application_id),
                                 state: {
                                     initialValues: item,
                                     confirmationButtonText: 'Back to Rental Profile',
-                                    returnRoute: `${ROUTES.PROFILE_OPTIONS}#${type}`,
+                                    returnRoute: `${applicationPath(ROUTES.PROFILE_OPTIONS, application_id)}#${type}`,
                                 },
                             }}
                         >
@@ -57,7 +59,7 @@ export function ExistingRoommate({ item, type }) {
                 {!isDependent && !isOccupant && !didPersonStartApplication && (
                     <Link
                         className={clsx([link, removeLink])}
-                        to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type })}
+                        to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type, application_id })}
                     >
                         Remove
                     </Link>
@@ -73,12 +75,15 @@ export function ExistingRoommate({ item, type }) {
                             Under 18
                         </Span>
                         <Spacer height={10} />
-                        <Link className={link} to={generatePath(ROUTES.EDIT_DEPENDANT, { id: item.id })}>
+                        <Link
+                            className={link}
+                            to={generatePath(ROUTES.EDIT_DEPENDANT, { id: item.id, application_id })}
+                        >
                             Edit
                         </Link>
                         <Link
                             className={clsx([link, removeLink])}
-                            to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type })}
+                            to={generatePath(ROUTES.REMOVE_PERSON, { id: item.id, type, application_id })}
                         >
                             Remove
                         </Link>
@@ -102,6 +107,11 @@ ExistingRoommate.propTypes = {
     item: PropTypes.object,
     type: PropTypes.string,
     isDependent: PropTypes.bool,
+    application: PropTypes.object.isRequired,
 };
 
-export default ExistingRoommate;
+const mapStateToProps = (state) => ({
+    application: state.renterProfile,
+});
+
+export default connect(mapStateToProps)(ExistingRoommate);

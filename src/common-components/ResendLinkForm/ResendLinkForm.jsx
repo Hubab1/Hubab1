@@ -33,7 +33,7 @@ export class ResendLinkForm extends Component {
 
         this.props.toggleLoader(true);
 
-        API.updateInvitee(resendValues, values.id)
+        API.updateInvitee(this.props.application.id, resendValues, values.id)
             .then((res) => {
                 if (res.error_type === 'ValidationError') {
                     if (!values.email && !values.phone_number) {
@@ -95,9 +95,12 @@ ResendLinkForm.propTypes = {
     location: PropTypes.object,
     toggleLoader: PropTypes.func,
     fetchRenterProfile: PropTypes.func,
+    application: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => ({
+    application: state.renterProfile,
+});
 
 const mapDispatchToProps = {
     fetchRenterProfile,

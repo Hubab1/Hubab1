@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 
 import { APPLICANT_STATUS_COLOR_MAP, ROLE_PRIMARY_APPLICANT, ROUTES } from 'constants/constants';
 import { getRoommateStatus } from 'utils/misc';
 import { applicationStatus, link, P, CardRow } from 'assets/styles';
+import { connect } from 'react-redux';
+import { applicationPath } from 'reducers/renter-profile';
 
-export const PersonRow = ({ person, label, role }) => {
+export const PersonRow = ({ application, person, label, role }) => {
     const isPrimaryApplicant = role === ROLE_PRIMARY_APPLICANT;
     const showResendLink =
         isPrimaryApplicant && !person.is_registered && label !== 'Main Applicant' && label !== 'Occupant';
@@ -33,11 +35,11 @@ export const PersonRow = ({ person, label, role }) => {
                     <Link
                         className={link}
                         to={{
-                            pathname: ROUTES.RESEND_INVITE,
+                            pathname: generatePath(ROUTES.RESEND_INVITE, { application_id: application.id }),
                             state: {
                                 initialValues: person,
                                 confirmationButtonText: 'Back to Application Status',
-                                returnRoute: ROUTES.APP_COMPLETE,
+                                returnRoute: applicationPath(ROUTES.APP_COMPLETE, application.id),
                             },
                         }}
                     >
@@ -53,4 +55,11 @@ PersonRow.propTypes = {
     person: PropTypes.object,
     label: PropTypes.string,
     role: PropTypes.string,
+    application: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+    application: state.renterProfile,
+});
+
+export default connect(mapStateToProps, null)(PersonRow);

@@ -37,13 +37,20 @@ API.fetchFunnelTerms = (leaseSettingsId) => {
     return fetch(chuck(`/funnel_terms/${leaseSettingsId}`));
 };
 
-API.fetchHoldingDepositTerms = (canProceedToPayment) => {
-    return fetch(chuck(`/holding_deposit_terms/?can_proceed_to_payment=${canProceedToPayment ? 1 : 0}`), {
-        method: 'GET',
-        headers: {
-            Authorization: `Token ${auth.getToken()}`,
-        },
-    }).then((res) => res.text());
+API.fetchHoldingDepositTerms = (application_id, canProceedToPayment) => {
+    return fetch(
+        chuck(
+            `/application/${application_id}/holding_deposit_terms/?can_proceed_to_payment=${
+                canProceedToPayment ? 1 : 0
+            }`
+        ),
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Token ${auth.getToken()}`,
+            },
+        }
+    ).then((res) => res.text());
 };
 
 API.fetchPersonalizedInfo = (communityId, hash) => {
@@ -60,7 +67,7 @@ API.postPageComplete = (page) => {
     }).then((res) => res.json());
 };
 
-API.fetchAvailableUnits = () => {
+API.fetchAvailableUnits = (application_id) => {
     if (MOCKY)
         return Promise.resolve([
             { id: 1, unit_number: '1B', price: 1540.5 },
@@ -74,7 +81,7 @@ API.fetchAvailableUnits = () => {
             { id: 9, unit_number: '2D', price: 2450.99 },
             { id: 10, unit_number: '2E', price: 2450.99 },
         ]);
-    return fetch(chuck('/available-units/'), {
+    return fetch(chuck(`/application/${application_id}/available-units/`), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -82,8 +89,8 @@ API.fetchAvailableUnits = () => {
     }).then((res) => res.json());
 };
 
-API.patchApplication = (data) => {
-    return fetch(chuck('/application/'), {
+API.patchApplication = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/`), {
         method: 'PATCH',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -102,8 +109,8 @@ API.putApplicant = (data) => {
     }).then((res) => res.json());
 };
 
-API.fetchRenterProfile = () => {
-    return fetch(chuck('/application/'), {
+API.fetchRenterProfile = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/`), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -138,8 +145,8 @@ API.register = (data, leaseSettingsId, hash) => {
     }).then((res) => res.json());
 };
 
-API.acceptTerms = (data) => {
-    return fetch(chuck('/terms-accepted/'), {
+API.acceptTerms = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/terms-accepted/`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -186,8 +193,8 @@ API.passwordChange = (password) => {
     }).then((res) => res.json());
 };
 
-API.inviteGuarantor = (data) => {
-    return fetch(chuck('/guarantors/'), {
+API.inviteGuarantor = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/guarantors/`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -204,24 +211,24 @@ API.createFinicityUrl = () => {
     }).then((res) => res.json());
 };
 
-API.generateFinicityReports = () => {
-    return fetch(chuck('/generate-finicity-reports/'), {
+API.generateFinicityReports = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/generate-finicity-reports/`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => res.json());
 };
 
-API.embeddedSigningUrl = (type) => {
-    return fetch(chuck(`/embedded-signing-url/?document_type=${type}`), {
+API.embeddedSigningUrl = (application_id, type) => {
+    return fetch(chuck(`/application/${application_id}/embedded-signing-url/?document_type=${type}`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => res.json());
 };
 
-API.leaseDocumentUrl = (type) => {
-    return fetch(chuck(`/lease-document-url/?document_type=${type}`), {
+API.leaseDocumentUrl = (application_id, type) => {
+    return fetch(chuck(`/application/${application_id}/lease-document-url/?document_type=${type}`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
@@ -229,15 +236,15 @@ API.leaseDocumentUrl = (type) => {
 };
 
 API.fetchFinicityReports = () => {
-    return fetch(chuck('/fetch-finicity-reports/'), {
+    return fetch(chuck(`/fetch-finicity-reports/`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
     });
 };
 
-API.stripePayment = (data) => {
-    return fetch(chuck('/payment/'), {
+API.stripePayment = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/payment`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -246,8 +253,8 @@ API.stripePayment = (data) => {
     }).then((res) => res.json());
 };
 
-API.updateInvitee = (data, inviteeId) => {
-    return fetch(chuck(`/invitees/${inviteeId}/`), {
+API.updateInvitee = (application_id, data, inviteeId) => {
+    return fetch(chuck(`/application/${application_id}/invitees/${inviteeId}/`), {
         method: 'PUT',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -256,8 +263,10 @@ API.updateInvitee = (data, inviteeId) => {
     }).then((res) => res.json());
 };
 
-API.postPassthrough = (data, vgsEnabled) => {
-    const url = vgsEnabled ? vgs('/passthrough/') : chuck('/passthrough/');
+API.postPassthrough = (application_id, data, vgsEnabled) => {
+    const url = vgsEnabled
+        ? vgs(`/application/${application_id}/passthrough/`)
+        : chuck(`/application/${application_id}/passthrough/`);
     return fetch(url, {
         method: 'POST',
         headers: {
@@ -268,8 +277,8 @@ API.postPassthrough = (data, vgsEnabled) => {
     }).then((res) => res.json());
 };
 
-API.fetchPaymentOptions = () => {
-    return fetch(chuck('/payment-options/'), {
+API.fetchPaymentOptions = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/payment-options/`), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -279,8 +288,8 @@ API.fetchPaymentOptions = () => {
     });
 };
 
-API.getCurrentFlatQuote = (data) => {
-    return fetch(chuck('/payment-breakdown/'), {
+API.getCurrentFlatQuote = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/payment-breakdown/`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -291,8 +300,11 @@ API.getCurrentFlatQuote = (data) => {
     });
 };
 
-API.submitFinancialSource = (data, vgsEnabled) => {
-    const url = vgsEnabled ? vgs('/vgs-financial-sources/') : chuck('/financial-sources/');
+API.submitFinancialSource = (application_id, data, vgsEnabled) => {
+    const url = vgsEnabled
+        ? vgs(`/application/${application_id}/vgs-financial-sources/`)
+        : chuck(`/application/${application_id}/financial-sources/`);
+
     return fetch(url, {
         method: 'POST',
         headers: {
@@ -314,8 +326,8 @@ API.submitFinancialSource = (data, vgsEnabled) => {
     });
 };
 
-API.getFinancialSources = () => {
-    return fetch(chuck('/financial-sources/'), {
+API.getFinancialSources = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/financial-sources/`), {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
@@ -385,8 +397,8 @@ API.deleteFinancialSource = (id) => {
     });
 };
 
-API.resetApplicantFinancials = () => {
-    return fetch(chuck(`/financial-sources/`), {
+API.resetApplicantFinancials = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/financial-sources/`), {
         method: 'DELETE',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -399,8 +411,8 @@ API.resetApplicantFinancials = () => {
     });
 };
 
-API.deletePerson = (id) => {
-    return fetch(chuck(`/person/${id}/`), {
+API.deletePerson = (application_id, id) => {
+    return fetch(chuck(`/application/${application_id}/person/${id}/`), {
         method: 'DELETE',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -413,8 +425,8 @@ API.deletePerson = (id) => {
     });
 };
 
-API.deleteInvitee = (id) => {
-    return fetch(chuck(`/invitees/${id}/`), {
+API.deleteInvitee = (application_id, id) => {
+    return fetch(chuck(`/application/${application_id}/invitees/${id}/`), {
         method: 'DELETE',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -427,8 +439,8 @@ API.deleteInvitee = (id) => {
     });
 };
 
-API.fetchAvailableLeaseTerms = (data) => {
-    return fetch(chuck(`/available-lease-terms/`), {
+API.fetchAvailableLeaseTerms = (application_id, data) => {
+    return fetch(chuck(`/application/${application_id}/available-lease-terms/`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
@@ -437,8 +449,8 @@ API.fetchAvailableLeaseTerms = (data) => {
     }).then((res) => res.json());
 };
 
-API.fetchAANDocument = () => {
-    return fetch(chuck('/aan-document/'), {
+API.fetchAANDocument = (application_id) => {
+    return fetch(chuck(`/application/${application_id}/aan-document/`), {
         method: 'GET',
         headers: {
             Authorization: `Token ${auth.getToken()}`,

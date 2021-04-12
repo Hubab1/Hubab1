@@ -14,8 +14,8 @@ import { termsDiv, viewPaymentTerms } from './PaymentDetailsPageStyles';
 export const PaymentDetailsPage = ({ profile, configuration, fetchPayments, applicant, applicationFees }) => {
     const [currentPage, setCurrentPage] = useState('summary');
     useEffect(() => {
-        fetchPayments();
-    }, [fetchPayments]);
+        profile && fetchPayments();
+    }, [fetchPayments, profile]);
 
     if (!profile || !configuration || !profile.lease_start_date) {
         return null;
@@ -38,6 +38,7 @@ export const PaymentDetailsPage = ({ profile, configuration, fetchPayments, appl
                     communityName={communityName}
                     leaseStartDate={leaseStartDate}
                     canProceedToPayment={false}
+                    application={profile}
                 />
             </>
         );

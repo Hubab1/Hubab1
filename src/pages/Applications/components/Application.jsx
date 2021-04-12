@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
@@ -15,7 +15,16 @@ import {
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
 
-import { APPLICATION_STATUSES_LABELS, APPLICANT_ROLE_LABELS, APPLICATION_STATUSES_COLORS } from 'constants/constants';
+import {
+    APPLICATION_STATUSES_LABELS,
+    APPLICANT_ROLE_LABELS,
+    APPLICATION_STATUSES_COLORS,
+    APPLICATION_STATUS_DENIED,
+} from 'constants/constants';
+import ActionButton from 'common-components/ActionButton/ActionButton';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,19 +63,35 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({ application = {}, isActive = true }) {
+export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
-    const [expaneded, setExpanded] = useState(isActive);
+    const [expanded, setExpanded] = useState(isActive);
     const title = unit?.unit_number ? `${community.display_name}, #${unit.unit_number}` : community.display_name;
 
     const handleExpandClick = useCallback(() => {
-        setExpanded(!expaneded);
-    }, [expaneded]);
+        setExpanded(!expanded);
+    }, [expanded]);
+
+    const [appSelected, setAppSelected] = useState(false);
+
+    useEffect(() => {
+        if (initialPage && appSelected) {
+            setAppSelected(false);
+            history.push(initialPage);
+        }
+    }, [initialPage, appSelected, history]);
+
+    const handleApplicationClick = async (id) => {
+        await fetchRenterProfile(id);
+        setAppSelected(true);
+    };
 
     if (isEmpty(application)) {
         return null;
     }
+
+    const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -88,7 +113,7 @@ export function Application({ application = {}, isActive = true }) {
                 action={
                     <IconButton
                         className={clsx(classes.expand, {
-                            [classes.expandOpen]: expaneded,
+                            [classes.expandOpen]: expanded,
                         })}
                         onClick={handleExpandClick}
                     >
@@ -96,7 +121,7 @@ export function Application({ application = {}, isActive = true }) {
                     </IconButton>
                 }
             />
-            <Collapse in={expaneded}>
+            <Collapse in={expanded}>
                 <Divider className={classes.divider} />
                 <CardContent data-testid="content">
                     <Typography className={classes.typography} variant="body1">
@@ -118,6 +143,16 @@ export function Application({ application = {}, isActive = true }) {
                     <Typography className={classes.applicationId} variant="caption">
                         Application ID <span>{id}</span>
                     </Typography>
+                    {showOpenApplicationButton && (
+                        <ActionButton
+                            variant="outlined"
+                            marginTop={20}
+                            marginBottom={10}
+                            onClick={() => handleApplicationClick(id)}
+                        >
+                            Go To Application
+                        </ActionButton>
+                    )}
                 </CardContent>
             </Collapse>
         </Card>
@@ -136,6 +171,19 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
+    initialPage: PropTypes.string,
+    communityId: PropTypes.number,
+    fetchRenterProfile: PropTypes.func,
+    history: PropTypes.object,
 };
 
-export default Application;
+const mapStateToProps = (state) => ({
+    communityId: state.siteConfig.basename,
+    initialPage: selectors.selectDefaultInitialPage(state),
+});
+
+const mapDispatchToProps = {
+    fetchRenterProfile,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Application));

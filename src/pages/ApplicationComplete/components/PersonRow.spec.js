@@ -25,6 +25,9 @@ beforeEach(() => {
         label: 'Roommate',
         role: ROLE_PRIMARY_APPLICANT,
         handleClick: jest.fn(),
+        application: {
+            id: 123,
+        },
     };
 });
 

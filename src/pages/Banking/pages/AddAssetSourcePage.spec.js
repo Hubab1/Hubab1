@@ -7,6 +7,7 @@ import { ROUTES } from 'constants/constants';
 import API from 'api/api';
 import { AddAssetSourcePage } from './AddAssetSourcePage';
 import AddFinancialSourceForm from 'pages/Banking/components/AddFinancialSourceForm';
+import { generatePath } from 'react-router';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -26,6 +27,9 @@ beforeEach(() => {
         initialValues: {
             income_or_asset_type: 10,
             estimated_amount: '1111',
+        },
+        application: {
+            id: 1,
         },
     };
 });
@@ -62,7 +66,9 @@ it('Goes back to manual income verification page on submit', async () => {
         await Promise.resolve(wrapper);
         wrapper.update();
     });
-    expect(defaultProps.history.push).toHaveBeenCalledWith(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`);
+    expect(defaultProps.history.push).toHaveBeenCalledWith(
+        `${generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: 1 })}#asset`
+    );
 });
 
 it('Doesnt go back on failure to submit and logs to sentry', async () => {

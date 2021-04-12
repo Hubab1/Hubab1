@@ -18,6 +18,7 @@ import ActionButton from 'common-components/ActionButton/ActionButton';
 import GuarantorExplanation from 'pages/GuarantorRequested/components/GuarantorExplanation';
 import { H1, SpacedH3, LinkButton } from 'assets/styles';
 import addGuarantor from 'assets/images/add-guarantor.png';
+import { generatePath } from 'react-router';
 
 export const requestGuarantorHelpText = css`
     color: #454b57;
@@ -71,7 +72,7 @@ export class GuarantorRequestedPage extends React.Component {
     };
 
     addGuarantor = () => {
-        this.props.history.push(ROUTES.GUARANTOR);
+        this.props.history.push(generatePath(ROUTES.GUARANTOR, { application_id: this.props.profile.id }));
     };
 
     render() {
@@ -102,7 +103,7 @@ export class GuarantorRequestedPage extends React.Component {
                                     Unfortunately, we will not be able to approve your application without a
                                     guarantor.&nbsp;
                                 </span>
-                                <AdverseActionNoticeButton componentType={LINK_BUTTON} />
+                                <AdverseActionNoticeButton componentType={LINK_BUTTON} application={profile} />
                             </>
                         ) : (
                             <span className={requestGuarantorHelpText}>
@@ -120,7 +121,7 @@ export class GuarantorRequestedPage extends React.Component {
                             Add a Guarantor
                         </ActionButton>
                     ) : (
-                        <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={65} />
+                        <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={65} application={profile} />
                     )}
                 </div>
                 {viewGuarantorExplanation && (

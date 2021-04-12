@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 
+import { bankingDataReceived } from 'reducers/banking';
 import { MOCKY } from 'config';
 import API from 'api/api';
 import mock from './fixtures/mock-applicant';
@@ -39,6 +40,7 @@ export const fetchApplicant = () => {
             applicant = await API.fetchApplicant();
         }
         dispatch(applicantReceived(applicant));
+        dispatch(bankingDataReceived(applicant.financial_data));
         return applicant;
     };
 };
@@ -53,6 +55,7 @@ export const updateApplicant = (newData) => {
             if (res.errors) {
                 return res;
             }
+
             return dispatch(applicantUpdated(res));
         });
     };

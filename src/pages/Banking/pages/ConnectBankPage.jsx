@@ -11,6 +11,7 @@ import { logToSentry } from 'utils/sentry';
 import BankVerifying from 'pages/Banking/components/BankVerifying';
 import VerifyIncome from 'pages/Banking/components/VerifyIncome';
 import BankingContext from 'pages/Banking/BankingContext';
+import { generatePath } from 'react-router';
 
 const finicityContainer = css`
     height: calc(100vh - 66px);
@@ -41,7 +42,7 @@ export class ConnectBankPage extends React.Component {
     }
 
     handleFetchReports = () => {
-        API.fetchFinicityReports()
+        API.fetchFinicityReports(this.props.application.id)
             .then((res) => {
                 if (res.status === 202) return;
                 return res.json();
@@ -50,7 +51,9 @@ export class ConnectBankPage extends React.Component {
                 if (!res) return;
                 clearInterval(window.fetchReportsInterval);
                 this.context.refreshFinancialSources().then(() => {
-                    this.props.history.push(ROUTES.INCOME_VERIFICATION_SUMMARY);
+                    this.props.history.push(
+                        generatePath(ROUTES.INCOME_VERIFICATION_SUMMARY, { application_id: this.props.application.id })
+                    );
                 });
             });
     };
@@ -59,6 +62,8 @@ export class ConnectBankPage extends React.Component {
         /* eslint-disable no-unused-expressions */
         this.setState({ loadingFinicityIframe: true });
         this.context.toggleLoader?.(true);
+
+        const applicationId = this.props.application.id;
 
         API.createFinicityUrl()
             .then((res) => {
@@ -89,7 +94,7 @@ export class ConnectBankPage extends React.Component {
                                         loadingFinicityIframe: false,
                                     });
 
-                                    API.generateFinicityReports()
+                                    API.generateFinicityReports(this.props.application.id)
                                         .then(() => {
                                             window.fetchReportsInterval = window.setInterval(
                                                 this.handleFetchReports,
@@ -132,7 +137,7 @@ export class ConnectBankPage extends React.Component {
                                             time: Date.now(),
                                         },
                                     };
-                                    API.acceptTerms(body).catch(() => {
+                                    API.acceptTerms(applicationId, body).catch(() => {
                                         this.setState({
                                             showFinicityIframe: false,
                                             errors: [
@@ -160,7 +165,7 @@ export class ConnectBankPage extends React.Component {
         this.context.toggleLoader(true);
 
         try {
-            await API.submitFinancialSource(formData, false); // No files to encrypt
+            await API.submitFinancialSource(this.props.application.id, formData, false); // No files to encrypt
             await this.context.refreshFinancialSources();
             this.props.history.push(targetPath);
         } catch (e) {
@@ -186,6 +191,7 @@ export class ConnectBankPage extends React.Component {
                 openFinicityIframe={this.openFinicityIframe}
                 reportNoIncomeAssets={this.reportNoIncomeAssets}
                 errors={this.state.errors}
+                application={this.props.application}
             />
         );
     }
@@ -196,10 +202,12 @@ ConnectBankPage.propTypes = {
     refreshFinancialSources: PropTypes.func,
     fetchApplicant: PropTypes.func,
     history: PropTypes.object,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
+    application: state.renterProfile,
 });
 
 const mapDispatchToProps = { fetchApplicant };

@@ -8,7 +8,13 @@ import {
     RENTER_PROFILE_TYPE_GUARANTOR,
     RENTER_PROFILE_TYPE_DEPENDENT,
 } from 'constants/constants';
-import ExistingRoommate from './ExistingRoommate';
+import { ExistingRoommate } from './ExistingRoommate';
+
+const defaultProps = {
+    application: {
+        id: 1,
+    },
+};
 
 it('matches snapshot for unregistered roommate', () => {
     const unregistered = {
@@ -19,7 +25,9 @@ it('matches snapshot for unregistered roommate', () => {
         is_registered: false,
         last_milestone: null,
     };
-    const wrapper = shallow(<ExistingRoommate item={unregistered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
+    const wrapper = shallow(
+        <ExistingRoommate {...defaultProps} item={unregistered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />
+    );
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -32,7 +40,9 @@ it('matches snapshot for registered roommate', () => {
         is_registered: true,
         last_milestone: { event: MILESTONE_APPLICANT_SUBMITTED },
     };
-    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
+    const wrapper = shallow(
+        <ExistingRoommate {...defaultProps} item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />
+    );
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -45,7 +55,9 @@ it('matches snapshot for roommate in progress', () => {
         is_registered: true,
         last_milestone: { event: MILESTONE_APPLICATION_FEE_COMPLETED },
     };
-    const wrapper = shallow(<ExistingRoommate item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
+    const wrapper = shallow(
+        <ExistingRoommate {...defaultProps} item={registered} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />
+    );
     expect(wrapper.getElement()).toMatchSnapshot();
 });
 
@@ -58,9 +70,9 @@ it('doesnt show resend / edit for dependents', () => {
             id: 71,
         },
     };
-    let wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
+    let wrapper = shallow(<ExistingRoommate {...defaultProps} {...props} type={RENTER_PROFILE_TYPE_CO_APPLICANTS} />);
     expect(wrapper.text()).toContain('Resend');
-    wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_DEPENDENT} />);
+    wrapper = shallow(<ExistingRoommate {...defaultProps} {...props} type={RENTER_PROFILE_TYPE_DEPENDENT} />);
     expect(wrapper.text()).not.toContain('Resend');
 });
 
@@ -74,7 +86,7 @@ it('can remove invitee while he didnt start his application', () => {
             last_milestone: null,
         },
     };
-    const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
+    const wrapper = shallow(<ExistingRoommate {...defaultProps} {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
     expect(wrapper.text()).toContain('Remove');
 });
 
@@ -88,6 +100,6 @@ it('can not remove invitee while he already started his application', () => {
             last_milestone: { event: MILESTONE_APPLICANT_SUBMITTED },
         },
     };
-    const wrapper = shallow(<ExistingRoommate {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
+    const wrapper = shallow(<ExistingRoommate {...defaultProps} {...props} type={RENTER_PROFILE_TYPE_GUARANTOR} />);
     expect(wrapper.text()).not.toContain('Remove');
 });

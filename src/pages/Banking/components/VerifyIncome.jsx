@@ -8,12 +8,12 @@ import { ROUTES } from 'constants/constants';
 import GreenCheckIcon from 'common-components/GreenCheckIcon/GreenCheckIcon';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
-import BankingContext from 'pages/Banking/BankingContext';
 import { styles } from 'assets/styles';
 import { H1, H3, P, Bold } from 'assets/styles';
 import safeImage from 'assets/images/connect-bank/safe.png';
 import padlockImage from 'assets/images/connect-bank/padlock.png';
 import thunderImage from 'assets/images/connect-bank/thunder.jpg';
+import { applicationPath } from 'reducers/renter-profile';
 
 const SpacedH3 = styled(H3)`
     margin: 20px 5% 25px 5%;
@@ -38,12 +38,7 @@ const bodyRow = css`
     margin-bottom: 20px;
 `;
 
-const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, reportNoIncomeAssets }) => {
-    const context = React.useContext(BankingContext);
-    if (!context.routeSelected) {
-        return null;
-    }
-
+const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, reportNoIncomeAssets, application }) => {
     return (
         <>
             <H1>Verify Your Income and Assets</H1>
@@ -77,15 +72,20 @@ const VerifyIncome = ({ errors, loadingFinicityIframe, openFinicityIframe, repor
             <ActionButton disabled={loadingFinicityIframe} onClick={openFinicityIframe} marginBottom={20}>
                 Link Bank Account
             </ActionButton>
-            <Link to={ROUTES.INCOME_VERIFICATION_SUMMARY} className={styles.linkNoStyle}>
+            <Link
+                to={applicationPath(ROUTES.INCOME_VERIFICATION_SUMMARY, application.id)}
+                className={styles.linkNoStyle}
+            >
                 <ActionButton variant="outlined" marginBottom={20}>
                     I’d Rather Manually Add Income/Assets
                 </ActionButton>
             </Link>
             <Link
-                to={ROUTES.INCOME_VERIFICATION_SUMMARY}
+                to={applicationPath(ROUTES.INCOME_VERIFICATION_SUMMARY, application.id)}
                 className={styles.linkNoStyle}
-                onClick={(e) => reportNoIncomeAssets(e, ROUTES.INCOME_VERIFICATION_SUMMARY)}
+                onClick={(e) =>
+                    reportNoIncomeAssets(e, applicationPath(ROUTES.INCOME_VERIFICATION_SUMMARY, application.id))
+                }
             >
                 <ActionButton variant="outlined" marginBottom={20}>
                     I Don&apos;t Have Income or Assets
@@ -100,6 +100,7 @@ VerifyIncome.propTypes = {
     loadingFinicityIframe: PropTypes.bool,
     openFinicityIframe: PropTypes.func,
     reportNoIncomeAssets: PropTypes.func,
+    application: PropTypes.object.isRequired,
 };
 
 export default VerifyIncome;

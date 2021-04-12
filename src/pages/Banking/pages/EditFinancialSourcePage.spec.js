@@ -7,12 +7,12 @@ import { FINANCIAL_STREAM_STATUS_PENDING } from 'constants/constants';
 import { EditFinancialSourcePage, ERROR_UPLOAD } from './EditFinancialSourcePage';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 
-const mockGetFinancialSource = (resturnValue) => {
-    API.getFinancialSource = jest.fn().mockReturnValue(resturnValue);
+const mockGetFinancialSource = (returnValue) => {
+    API.getFinancialSource = jest.fn().mockReturnValue(returnValue);
 };
 
-const mockUpdateFinancialSource = (resturnValue) => {
-    API.updateFinancialSource = jest.fn().mockReturnValue(resturnValue);
+const mockUpdateFinancialSource = (returnValue) => {
+    API.updateFinancialSource = jest.fn().mockReturnValue(returnValue);
 };
 
 let defaultProps;
@@ -25,6 +25,9 @@ beforeEach(() => {
         },
         history: {
             push: jest.fn(),
+        },
+        application: {
+            id: 1,
         },
     };
 });
@@ -121,7 +124,7 @@ it('onSubmit submits correct form data', async () => {
     expect(formData.get('status')).toBe(String(FINANCIAL_STREAM_STATUS_PENDING));
 });
 
-it('onSubmit handle failire', async () => {
+it('onSubmit handle failure', async () => {
     const logToSentry = jest.spyOn(sentryUtils, 'logToSentry');
     mockUpdateFinancialSource(Promise.reject({ status: 400 }));
     mockGetFinancialSource({

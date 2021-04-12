@@ -45,7 +45,7 @@ export const ApplicationDeniedPage = (props) => {
                 {buildingName}
                 {unitNumber}
             </div>
-            <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={50} />
+            <AdverseActionNoticeButton componentType={ACTION_BUTTON} marginTop={50} application={profile} />
         </div>
     );
 };

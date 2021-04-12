@@ -18,6 +18,7 @@ import ItemAdder from 'common-components/ItemAdder/ItemAdder';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { H1, SpacedH3 } from 'assets/styles';
 import parkingImage from 'assets/images/parking.png';
+import { generatePath } from 'react-router';
 
 const ImageContainer = styled.div`
     margin-top: 31px;
@@ -31,6 +32,10 @@ const ImageContainer = styled.div`
 export const ParkingPage = (props) => {
     const [errorSubmitting, setErrorSubmitting] = useState(false);
     if (!props.config || !props.application) return null;
+
+    const url = generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`, {
+        application_id: props.application.id,
+    });
 
     const onSubmit = (values, { setSubmitting, setErrors }) => {
         setErrorSubmitting(false);
@@ -52,7 +57,7 @@ export const ParkingPage = (props) => {
                     setErrors(res.errors);
                     setErrorSubmitting(true);
                 } else {
-                    props.history.push(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`);
+                    props.history.push(url);
                 }
             })
             .finally(() => {
@@ -125,7 +130,7 @@ export const ParkingPage = (props) => {
                 }}
             </Formik>
             <Box padding="20px">
-                <BackLink to={`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_PARKING}`} />
+                <BackLink to={url} />
             </Box>
         </>
     );

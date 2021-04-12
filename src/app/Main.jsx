@@ -52,7 +52,7 @@ import ApplicationsPage from 'pages/Applications';
 export class Main extends Component {
     state = { error: null };
 
-    mountNavigation(isAuthenticated, configuration) {
+    async initializeApp(isAuthenticated, configuration) {
         const { history, location } = this.props;
         const pathname = location.pathname;
 
@@ -75,11 +75,12 @@ export class Main extends Component {
                 history.replace(ROUTES.WELCOME);
             }
         } else {
-            this.props.fetchRenterProfile().then(() => {
-                if (!this.props.canAccessCurrentRoute()) {
-                    history.replace(this.props.initialPage);
-                }
-            });
+            await this.props.fetchApplicant();
+            const applicationId = pathname.split('/')[2] || this.props.applicant.application;
+            await this.props.fetchRenterProfile(applicationId);
+            if (!this.props.canAccessCurrentRoute()) {
+                history.replace(this.props.initialPage);
+            }
         }
     }
 
@@ -91,11 +92,10 @@ export class Main extends Component {
         let configuration;
         try {
             configuration = await this.props.fetchConfiguration(communityId, hash);
-            isLoggedIn && (await this.props.fetchApplicant());
-        } catch {
+        } catch (error) {
             return this.setState({ hasError: true });
         }
-        this.mountNavigation(isLoggedIn, configuration);
+        await this.initializeApp(isLoggedIn, configuration);
         this.resetTimer();
         this.addIdleEventListeners();
     }
@@ -228,6 +228,7 @@ Main.propTypes = {
     history: PropTypes.object,
     location: PropTypes.object,
     applicant: PropTypes.object,
+    match: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
@@ -242,6 +243,11 @@ const mapStateToProps = (state) => ({
     theme: configSelectors.selectTheme(state),
 });
 
-const mapDispatchToProps = { fetchRenterProfile, fetchConfiguration, fetchApplicant, logout: mainActions.logout };
+const mapDispatchToProps = {
+    fetchRenterProfile,
+    fetchConfiguration,
+    fetchApplicant,
+    logout: mainActions.logout,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

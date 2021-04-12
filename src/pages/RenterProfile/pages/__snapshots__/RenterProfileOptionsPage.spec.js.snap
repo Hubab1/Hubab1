@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
           label="Roommates"
           labelQuantity={4}
         >
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "kreebs",
@@ -31,7 +31,7 @@ exports[`matches snapshot 1`] = `
             }
             type="co_applicants"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "jerry",
@@ -49,7 +49,7 @@ exports[`matches snapshot 1`] = `
             }
             type="co_applicants"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "Made",
@@ -67,7 +67,7 @@ exports[`matches snapshot 1`] = `
             }
             type="occupant"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "Bobby",
@@ -89,7 +89,7 @@ exports[`matches snapshot 1`] = `
           src="coapplicants.png"
         />
       }
-      route="/rental-profile/invite-roommates"
+      route="/application/17/rental-profile/invite-roommates"
     />
     <Capsule
       buttonLabel="Invite a guarantor"
@@ -99,7 +99,7 @@ exports[`matches snapshot 1`] = `
           label="Guarantor"
           labelQuantity={1}
         >
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "elvish",
@@ -127,7 +127,7 @@ exports[`matches snapshot 1`] = `
           src="guarantor.png"
         />
       }
-      route="/rental-profile/invite-guarantor"
+      route="/application/17/rental-profile/invite-guarantor"
       tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
     />
     <Capsule
@@ -142,7 +142,7 @@ exports[`matches snapshot 1`] = `
           src="cat.svg"
         />
       }
-      route="/rental-profile/pets"
+      route="/application/17/rental-profile/pets"
     />
     <Capsule
       buttonLabel="Add Parking"
@@ -156,7 +156,7 @@ exports[`matches snapshot 1`] = `
           src="addparking.svg"
         />
       }
-      route="/rental-profile/parking"
+      route="/application/17/rental-profile/parking"
     />
     <Capsule
       buttonLabel="Add Storage"
@@ -170,7 +170,7 @@ exports[`matches snapshot 1`] = `
           src="addstorage.svg"
         />
       }
-      route="/rental-profile/storage"
+      route="/application/17/rental-profile/storage"
     />
     <Capsule
       buttonLabel="Add Wine Cooler"
@@ -184,7 +184,7 @@ exports[`matches snapshot 1`] = `
           src="wine.png"
         />
       }
-      route="/rental-profile/wine-cooler"
+      route="/application/17/rental-profile/wine-cooler"
     />
   </div>
   <ActionButton
@@ -221,7 +221,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           label="Roommates"
           labelQuantity={4}
         >
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "kreebs",
@@ -235,7 +235,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
             }
             type="co_applicants"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "jerry",
@@ -253,7 +253,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
             }
             type="co_applicants"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "Made",
@@ -271,7 +271,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
             }
             type="occupant"
           />
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "Bobby",
@@ -293,7 +293,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="coapplicants.png"
         />
       }
-      route="/rental-profile/invite-roommates"
+      route="/application/17/rental-profile/invite-roommates"
     />
     <Capsule
       buttonLabel="Invite a guarantor"
@@ -303,7 +303,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           label="Guarantor"
           labelQuantity={1}
         >
-          <ExistingRoommate
+          <UNDEFINED
             item={
               Object {
                 "first_name": "elvish",
@@ -331,7 +331,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="guarantor.png"
         />
       }
-      route="/rental-profile/invite-guarantor"
+      route="/application/17/rental-profile/invite-guarantor"
       tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
     />
     <Capsule
@@ -346,7 +346,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="cat.svg"
         />
       }
-      route="/rental-profile/pets"
+      route="/application/17/rental-profile/pets"
     />
     <Capsule
       buttonLabel="Manage Parking"
@@ -376,7 +376,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="addparking.svg"
         />
       }
-      route="/rental-profile/parking"
+      route="/application/17/rental-profile/parking"
     />
     <Capsule
       buttonLabel="Add Storage"
@@ -390,7 +390,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="addstorage.svg"
         />
       }
-      route="/rental-profile/storage"
+      route="/application/17/rental-profile/storage"
     />
     <Capsule
       buttonLabel="Add Wine Cooler"
@@ -404,7 +404,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
           src="wine.png"
         />
       }
-      route="/rental-profile/wine-cooler"
+      route="/application/17/rental-profile/wine-cooler"
     />
   </div>
   <ActionButton
@@ -439,7 +439,7 @@ exports[`renders ExistingItemsExpansionPanel for parking when there are selected
 exports[`renders ExistingItemsExpansionPanel with coapplicants as existing items 1`] = `
 Array [
   Array [
-    <ExistingRoommate
+    <UNDEFINED
       item={
         Object {
           "first_name": "kreebs",
@@ -453,7 +453,7 @@ Array [
       }
       type="co_applicants"
     />,
-    <ExistingRoommate
+    <UNDEFINED
       item={
         Object {
           "first_name": "jerry",
@@ -473,7 +473,7 @@ Array [
     />,
   ],
   Array [
-    <ExistingRoommate
+    <UNDEFINED
       item={
         Object {
           "first_name": "Made",
@@ -493,7 +493,7 @@ Array [
     />,
   ],
   Array [
-    <ExistingRoommate
+    <UNDEFINED
       item={
         Object {
           "first_name": "Bobby",

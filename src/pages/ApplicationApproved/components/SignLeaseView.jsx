@@ -9,6 +9,7 @@ import API from 'api/api';
 import { PaymentDetailsCard } from 'common-components/PaymentDetails/PaymentDetailsCard/PaymentDetailsCard';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { arrowIcon, blackLinkRoot, H1, LinkButton, SpacedH3 } from 'assets/styles';
+import { generatePath } from 'react-router';
 
 export const SignLeaseView = ({
     applicationFees,
@@ -35,15 +36,15 @@ export const SignLeaseView = ({
             }
             applicantUpdated(newApplicant);
             // lease may not be ready by the time of navigation to the lease signed page
-            setTimeout(() => history.push(ROUTES.LEASE_SIGNED), 2500);
+            setTimeout(() => history.push(generatePath(ROUTES.LEASE_SIGNED, { application_id: profile.id }), 2500));
         });
         return () => {
             hsclient.off('sign');
         };
-    }, [applicantUpdated, fetchPayments, history]);
+    }, [applicantUpdated, fetchPayments, history, profile.id]);
 
     const openEmbeddedSigning = async () => {
-        const data = await API.embeddedSigningUrl(DOCUMENT_TYPE_LEASE);
+        const data = await API.embeddedSigningUrl(profile.id, DOCUMENT_TYPE_LEASE);
         const url = data.url;
         const testMode = data.test_mode !== false;
         if (url) {

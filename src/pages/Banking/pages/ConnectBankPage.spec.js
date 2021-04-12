@@ -4,6 +4,12 @@ import { shallow } from 'enzyme';
 import API from 'api/api';
 import { ConnectBankPage } from './ConnectBankPage';
 
+const defaultProps = {
+    application: {
+        id: 1,
+    },
+};
+
 beforeEach(() => {
     global.finicityConnect = {
         connectIFrame: jest.fn(),
@@ -12,7 +18,7 @@ beforeEach(() => {
 
 describe('openFinicityIframe', () => {
     it('sets state to loadingFinicityIframe=true and calls API.createFinicityUrl', () => {
-        const wrapper = shallow(<ConnectBankPage />);
+        const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
 
         API.createFinicityUrl = jest.fn().mockReturnValue(Promise.resolve({ success: true, reasonCode: 'OK' }));
 
@@ -38,7 +44,7 @@ describe('unmount', () => {
 
 describe('handleFetchReports', () => {
     it('calls API.fetchFinicityReports and setState on success', () => {
-        const wrapper = shallow(<ConnectBankPage />);
+        const wrapper = shallow(<ConnectBankPage {...defaultProps} />);
 
         const data = {
             json: () => {
@@ -61,7 +67,7 @@ describe('reportNoIncomeAssets', () => {
 
         API.submitFinancialSource = jest.fn().mockResolvedValue({});
 
-        const wrapper = shallow(<ConnectBankPage history={mockHistory} />);
+        const wrapper = shallow(<ConnectBankPage {...defaultProps} history={mockHistory} />);
         const instance = wrapper.instance();
 
         instance.context = mockContext;

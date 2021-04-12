@@ -14,6 +14,7 @@ import AddFinancialSourceForm from 'pages/Banking/components/AddFinancialSourceF
 import BankingContext from 'pages/Banking/BankingContext';
 import { H1, H3, Spacer } from 'assets/styles';
 import finance from 'assets/images/finance.png';
+import { generatePath } from 'react-router';
 
 const ERROR_UPLOAD =
     'Oops, we had some trouble uploading your files. ' +
@@ -33,7 +34,7 @@ const SpacedH3 = styled(H3)`
 export function AddIncomeSourcePage(props) {
     const [errors, setErrors] = useState([]);
     const context = useContext(BankingContext);
-
+    const url = generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`, { application_id: props.application.id });
     const onSubmit = async (values, { setSubmitting }) => {
         context.toggleLoader(true);
         setSubmitting(true);
@@ -46,10 +47,10 @@ export function AddIncomeSourcePage(props) {
             setSubmitting(false);
         }
         try {
-            await API.submitFinancialSource(formData, props.vgsEnabled);
+            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
             context.refreshFinancialSources();
             await context.fetchRenterProfile();
-            props.history.push(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`);
+            props.history.push(url);
         } catch (e) {
             await logToSentry(e.response || e);
             setErrors([ERROR_UPLOAD]);
@@ -72,7 +73,7 @@ export function AddIncomeSourcePage(props) {
                 onSubmit={onSubmit}
                 setError={(err) => setErrors(err)}
             />
-            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`} />
+            <BackLink to={url} />
         </>
     );
 }
@@ -81,9 +82,11 @@ AddIncomeSourcePage.propTypes = {
     history: PropTypes.object,
     initialValues: PropTypes.object,
     vgsEnabled: PropTypes.bool,
+    application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    application: state.renterProfile,
     vgsEnabled: !state.configuration.use_demo_config,
 });
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES } from 'constants/constants';
-import Application from './Application';
+import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES, ROUTES } from 'constants/constants';
+import { Application } from './Application';
+import ActionButton from 'common-components/ActionButton/ActionButton';
 
 describe('Application', () => {
     let application = {};
@@ -126,5 +127,58 @@ describe('Application', () => {
         expect(content.html().includes('Monthly Rent: <span>---</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
+    });
+
+    it('renders "open application" button if active app or past denied app', () => {
+        let wrapper;
+
+        wrapper = shallow(
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
+            />
+        );
+        expect(wrapper.find(ActionButton).length).toBe(1);
+
+        wrapper = shallow(
+            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }} />
+        );
+        expect(wrapper.find(ActionButton).length).toBe(1);
+
+        wrapper = shallow(
+            <Application
+                isActive={false}
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_DENIED }}
+            />
+        );
+        expect(wrapper.find(ActionButton).length).toBe(1);
+
+        wrapper = shallow(
+            <Application
+                isActive={false}
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }}
+            />
+        );
+        expect(wrapper.find(ActionButton).length).toBe(0);
+
+        wrapper = shallow(
+            <Application
+                isActive={false}
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED }}
+            />
+        );
+        expect(wrapper.find(ActionButton).length).toBe(0);
+    });
+
+    it('fetches an application when clicking on the button', async () => {
+        const fetchRenterProfile = jest.fn();
+        const wrapper = shallow(
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_IN_PROGRESS }}
+                fetchRenterProfile={fetchRenterProfile}
+                initialPage={ROUTES.FEES_AND_DEPOSITS}
+            />
+        );
+        await wrapper.find(ActionButton).simulate('click');
+        expect(fetchRenterProfile).toBeCalledWith(application.id);
     });
 });

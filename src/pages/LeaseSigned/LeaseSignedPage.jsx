@@ -30,8 +30,9 @@ export function LeaseSignedPage(props) {
     const [retried, setRetried] = useState(false);
 
     const fetchLeaseDocumentUrl = async () => {
+        if (!props.profile) return;
         setLoading(true);
-        const response = await API.leaseDocumentUrl(DOCUMENT_TYPE_LEASE);
+        const response = await API.leaseDocumentUrl(props.profile.id, DOCUMENT_TYPE_LEASE);
         setUrl(response ? response.url : undefined);
         setError(response.url ? undefined : 'Lease document is still processing. Please try again later.');
         setLoading(false);
@@ -39,6 +40,7 @@ export function LeaseSignedPage(props) {
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const unit = props.unit;
@@ -91,10 +93,12 @@ export function LeaseSignedPage(props) {
 LeaseSignedPage.propTypes = {
     unit: PropTypes.object,
     community: PropTypes.object,
+    profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     unit: state.renterProfile && state.renterProfile.unit,
+    profile: state.renterProfile,
     community: state.configuration && state.configuration.community,
 });
 

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import ResendLinkForm from 'common-components/ResendLinkForm/ResendLinkForm';
-import { PersonRow } from 'pages/ApplicationComplete/components/PersonRow';
+import PersonRow from 'pages/ApplicationComplete/components/PersonRow';
 
 import { FolderImage, BulbImage, statusBlurb, gridContainer } from './ApplicationCompletePageStyles';
 import { H1, SpacedH3, Card, CardSection, P, leftText, CardRow } from 'assets/styles';

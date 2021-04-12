@@ -7,9 +7,10 @@ import { ROUTES, ROUTES_TOP_LEVEL } from 'constants/constants';
 import { setSentryUser } from 'utils/sentry';
 
 import { fetchApplicant } from 'reducers/applicant';
-import { fetchRenterProfile } from 'reducers/renter-profile';
+import { applicationPath, fetchRenterProfile } from 'reducers/renter-profile';
 import { selectors } from 'reducers/renter-profile';
 import { currentRouteReceived } from 'reducers/site-config';
+import { generatePath } from 'react-router';
 
 // Second param is deprecated in favor of static param 'route'
 export default function withRelativeRoutes(WrappedComponent, route) {
@@ -27,14 +28,19 @@ export default function withRelativeRoutes(WrappedComponent, route) {
 
         stayOrPushRoute = () => {
             const props = this.props;
+            const routeWithApplication =
+                props.application && generatePath(route, { application_id: this.props.application.id });
+
             if (!props.initialPage) {
                 this.blockRender = true;
-            } else if (!props.selectApplicantStillFinishingApplication && route !== props.initialPage) {
-                this.blockRender = true;
-                this.props.history.push(props.initialPage);
+            } else if (
+                props.selectApplicantStillFinishingApplication === false &&
+                routeWithApplication !== props.initialPage
+            ) {
+                this.blockRender = false;
             } else {
                 this.blockRender = false;
-                props.currentRouteReceived(route);
+                props.currentRouteReceived(routeWithApplication);
             }
         };
 
@@ -56,10 +62,12 @@ export default function withRelativeRoutes(WrappedComponent, route) {
                     _nextRoute={async () => {
                         if (!MOCKY) {
                             this.props.fetchApplicant();
-                            await this.props.fetchRenterProfile();
+                            await this.props.fetchRenterProfile(this.props.application.id);
                         }
                         if (this.props.unitAvailable === false) {
-                            return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
+                            return this.props.history.push(
+                                applicationPath(ROUTES.UNIT_UNAVAILABLE, this.props.application.id)
+                            );
                         } else {
                             return this.props.history.push(this.props._next);
                         }
@@ -81,6 +89,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         fetchApplicant: PropTypes.func,
         fetchRenterProfile: PropTypes.func,
         currentRouteReceived: PropTypes.func,
+        application: PropTypes.object,
     };
 
     const mapStateToProps = (state) => ({
@@ -90,6 +99,7 @@ export default function withRelativeRoutes(WrappedComponent, route) {
         unitAvailable: state.renterProfile?.unit_available,
         applicant: state.applicant,
         selectApplicantStillFinishingApplication: selectors.selectApplicantStillFinishingApplication(state),
+        application: state.renterProfile,
     });
 
     return connect(mapStateToProps, { currentRouteReceived, fetchApplicant, fetchRenterProfile })(Component);

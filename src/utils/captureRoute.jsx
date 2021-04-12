@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { currentRouteReceived } from 'reducers/site-config';
 
-import { MOCKY } from 'config';
-import { ROUTES } from 'constants/constants';
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 
@@ -18,22 +16,7 @@ export default function captureRoute(WrappedComponent, route) {
             props.currentRouteReceived(route);
         }
         render() {
-            return (
-                <WrappedComponent
-                    _navigate={async (route) => {
-                        if (!MOCKY) {
-                            this.props.fetchApplicant();
-                            await this.props.fetchRenterProfile();
-                        }
-                        if (this.props.unitAvailable === false) {
-                            return this.props.history.push(ROUTES.UNIT_UNAVAILABLE);
-                        } else {
-                            return this.props.history.push(route);
-                        }
-                    }}
-                    {...this.props}
-                />
-            );
+            return <WrappedComponent {...this.props} />;
         }
     }
 

@@ -18,6 +18,9 @@ describe('PaymentTerms', () => {
             leaseStartDate: '2020-10-30',
             unitNumber: '24',
             canProceedToPayment: true,
+            application: {
+                id: 123,
+            },
         };
     });
 
@@ -44,6 +47,9 @@ describe('When handleClickBack is not present', () => {
             leaseStartDate: '2020-10-30',
             unitNumber: '24',
             canProceedToPayment: true,
+            application: {
+                id: 123,
+            },
         };
     });
 
@@ -65,6 +71,9 @@ describe('can proceed to payment', () => {
             leaseStartDate: '2020-10-30',
             unitNumber: '24',
             canProceedToPayment: true,
+            application: {
+                id: 123,
+            },
         };
     });
 
@@ -87,6 +96,9 @@ describe('cannot proceed to payment', () => {
             leaseStartDate: '2020-10-30',
             unitNumber: '24',
             canProceedToPayment: false,
+            application: {
+                id: 123,
+            },
         };
     });
 

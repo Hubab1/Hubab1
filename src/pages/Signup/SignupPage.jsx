@@ -83,11 +83,11 @@ export class SignupPage extends Component {
         // particularly need this for guarantor and co-applicant to associate with existing application
         return auth
             .register(serialized, this.props.leaseSettingsId, hash)
-            .then((res) => {
+            .then(async (res) => {
                 auth.setSession(res.token, this.props.leaseSettingsId);
-                Promise.all([this.props.fetchRenterProfile(), this.props.fetchApplicant()]).then(() => {
-                    history.replace(this.props.initialPage);
-                });
+                await this.props.fetchApplicant();
+                await this.props.fetchRenterProfile(this.props.applicant.application);
+                history.replace(this.props.initialPage);
             })
             .catch((res) => {
                 const error = res?.errors?.error;
@@ -150,6 +150,7 @@ export class SignupPage extends Component {
 
 SignupPage.propTypes = {
     profile: PropTypes.object,
+    applicant: PropTypes.object,
     leaseSettingsId: PropTypes.string,
     hash: PropTypes.string,
     configuration: PropTypes.object,
@@ -163,6 +164,7 @@ SignupPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
+    applicant: state.applicant,
     initialPage: selectors.selectInitialPage(state),
     leaseSettingsId: state.siteConfig.basename,
     hash: state.siteConfig.hash,

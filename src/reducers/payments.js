@@ -20,12 +20,14 @@ export const { paymentsReceived } = actions;
 export default reducer;
 
 export const fetchPayments = () => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
+        const { renterProfile } = getState();
+        if (!renterProfile) return;
         let payments;
         if (MOCKY) {
             payments = mock;
         } else {
-            payments = await API.fetchPaymentOptions();
+            payments = await API.fetchPaymentOptions(renterProfile.id);
         }
         dispatch(paymentsReceived(payments.payables));
         return payments.payables;

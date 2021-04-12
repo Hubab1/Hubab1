@@ -50,7 +50,7 @@ export default function AvailableUnitsSelector({
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        API.fetchAvailableUnits().then((units) => {
+        API.fetchAvailableUnits(application.id).then((units) => {
             if (units.length) {
                 // The available units returned by our request might not contain the application's unit if this unit has been marked as below-market-rate.
                 // This may happen when an applicant was invited with a personalized link for a unit that is actually below-market-rate.

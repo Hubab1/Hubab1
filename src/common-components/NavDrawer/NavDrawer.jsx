@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { generatePath, withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
     makeStyles,
@@ -316,7 +316,9 @@ export function PersistentDrawerLeft({
                                     <b>${profile.fees_breakdown.monthly_fees.total}</b> monthly rent
                                 </li>
                             </ul>
-                            <Link to={ROUTES.PAYMENT_DETAILS}>Payment Details</Link>
+                            <Link to={generatePath(ROUTES.PAYMENT_DETAILS, { application_id: profile.id })}>
+                                Payment Details
+                            </Link>
                         </Box>
                     )}
                     <Box className={classes.section}>

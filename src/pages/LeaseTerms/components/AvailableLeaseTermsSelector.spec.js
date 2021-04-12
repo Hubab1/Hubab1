@@ -11,6 +11,9 @@ describe('AvailableLeaseTermsSelector', () => {
         defaultProps = {
             handleChange: jest.fn(),
             isPrimaryApplicant: true,
+            application: {
+                id: 1,
+            },
         };
     });
 
@@ -37,7 +40,7 @@ describe('AvailableLeaseTermsSelector', () => {
                 leaseStartDate={new Date('2020-08-26')}
             />
         );
-        expect(API.fetchAvailableLeaseTerms).toHaveBeenCalledWith({
+        expect(API.fetchAvailableLeaseTerms).toHaveBeenCalledWith(1, {
             move_in_date: '2020-08-26',
             unit_id: 100,
         });

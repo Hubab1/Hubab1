@@ -8,6 +8,9 @@ let defaultProps;
 beforeEach(() => {
     defaultProps = {
         onSubmit: jest.fn(),
+        application: {
+            id: 1,
+        },
     };
 });
 
