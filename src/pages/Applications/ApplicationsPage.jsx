@@ -30,22 +30,23 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export const getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError = (
+export const getPrimaryOnOtherActiveAppForCommunityError = (
     applicant,
     applications,
     community,
     unit,
     accessedAppByInvitationOrWebsite
 ) => {
-    if (!accessedAppByInvitationOrWebsite || !community || !unit) return;
-    if (applications?.length === 0) return;
+    if (!accessedAppByInvitationOrWebsite || !community || !unit || applications?.length === 0) {
+        return;
+    }
 
-    const activeApplicationsForCommunityAsPrimary = applications.filter((a) => {
+    const activeApplicationsForCommunityAsPrimary = applications.filter((application) => {
         return (
-            a.primary_applicant.id === applicant.id &&
-            a.role === APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT &&
-            a.community.id === community.id &&
-            ACTIVE_APPLICATION_STATUSES.includes(a.status)
+            application.primary_applicant.id === applicant.id &&
+            application.role === APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT &&
+            application.community.id === community.id &&
+            ACTIVE_APPLICATION_STATUSES.includes(application.status)
         );
     });
 
@@ -64,7 +65,7 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
     const alreadyHasActiveApplicationForCommuntiyAsPrimaryError = useMemo(() => {
-        return getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError(
+        return getPrimaryOnOtherActiveAppForCommunityError(
             applicant,
             applications,
             community,
