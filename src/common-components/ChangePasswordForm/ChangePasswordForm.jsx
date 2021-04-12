@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { css } from 'emotion';
 
@@ -30,8 +30,8 @@ const initialValues = {
 export function ChangePasswordForm(props) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={props.onSubmit}>
-            {({ values, errors, touched, handleChange, submitCount, handleBlur, handleSubmit, isSubmitting }) => (
-                <form onSubmit={handleSubmit} autoComplete="off">
+            {({ values, errors, touched, handleChange, submitCount, handleBlur, isSubmitting }) => (
+                <Form autoComplete="off">
                     <img className={imgSpacing} src={changePassword} alt="welcome sign" width="101" height="91" />
                     <div className={formContent}>
                         {props.errors && <GenericFormMessage type="error" messages={props.errors} />}
@@ -65,7 +65,7 @@ export function ChangePasswordForm(props) {
                             Save Password
                         </ActionButton>
                     </div>
-                </form>
+                </Form>
             )}
         </Formik>
     );
