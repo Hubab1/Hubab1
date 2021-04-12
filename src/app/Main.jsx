@@ -79,7 +79,7 @@ export class Main extends Component {
             let applicationId = pathname.split('/')[2];
 
             // Note: the logic to determine the initial route is similar to LoginPage.jsx#onSubmit
-            // TODO: abstract logic once we have the final draft as part of the following ticket: https://nestiolistings.atlassian.net/browse/NESTIO-21304
+            // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
             const { num_active_applications } = await this.props.fetchApplicant();
 
             if (accessedAppByInvitationOrWebsite && num_active_applications > 0) {
