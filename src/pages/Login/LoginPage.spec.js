@@ -73,7 +73,7 @@ it('redirects to applications page when applicant has multiple active apps after
     );
     const setSession = jest.fn();
 
-    // Mock window.location.pathname, which is used by the util that determines the initial route
+    // Mock window.location, which is used by the util that determines the initial route
     mockWindowLocation({
         search: '',
         pathname: `/${lease_settings_id}`,
@@ -102,7 +102,7 @@ it('redirects to applications page when applicant accessed app by invitation or 
     );
     const setSession = jest.fn();
 
-    // Mock window.location.pathname, which is used by the util that determines the initial route
+    // Mock window.location, which is used by the util that determines the initial route
     mockWindowLocation({
         search: '',
         pathname: `/${lease_settings_id}`,
@@ -140,7 +140,7 @@ it('uses application id from config to fetch renter profile when is present afte
     );
     const setSession = jest.fn();
 
-    // Mock window.location.pathname, which is used by the util that determines the initial route
+    // Mock window.location, which is used by the util that determines the initial route
     mockWindowLocation({
         search: '',
         pathname: `/${lease_settings_id}`,

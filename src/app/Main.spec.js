@@ -240,7 +240,7 @@ describe('initializeApp', () => {
             pathname: `/${lease_settings_id}`,
         };
 
-        // Mock window.location.pathname, which is used by the util that determines the initial route
+        // Mock window.location, which is used by the util that determines the initial route
         mockWindowLocation(mockLocation);
 
         const wrapper = shallow(
@@ -290,7 +290,7 @@ describe('initializeApp', () => {
         };
         const mockApplicationInitialPage = ROUTES.APP_APPROVED;
 
-        // Mock window.location.pathname, which is used by the util that determines the initial route
+        // Mock window.location, which is used by the util that determines the initial route
         mockWindowLocation(mockLocation);
 
         const wrapper = shallow(
@@ -340,7 +340,7 @@ describe('initializeApp', () => {
             pathname: `/${lease_settings_id}/application/${application_id}`,
         };
 
-        // Mock window.location.pathname, which is used by the util that determines the initial route
+        // Mock window.location, which is used by the util that determines the initial route
         mockWindowLocation(mockLocation);
 
         const wrapper = shallow(
@@ -388,7 +388,7 @@ describe('initializeApp', () => {
             pathname: `/${lease_settings_id}/application/${application_id}`,
         };
 
-        // Mock window.location.pathname, which is used by the util that determines the initial route
+        // Mock window.location, which is used by the util that determines the initial route
         mockWindowLocation(mockLocation);
 
         const mockApplicationInitialPage = ROUTES.APP_APPROVED;
