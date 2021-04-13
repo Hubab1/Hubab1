@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import PropTypes from 'prop-types';
 
 import { DOES_NOT_EXIST } from 'constants/constants';
+import { getLeaseSettingsIdFromUrl } from 'utils/routingHelpers';
 import { basenameReceived } from 'reducers/site-config';
 
 import Main from './Main';
@@ -13,17 +14,12 @@ import NotFoundPage from 'pages/NotFound';
 
 export class App extends Component {
     componentDidMount() {
-        const basename = window.location.pathname.split('/')[1];
+        const basename = getLeaseSettingsIdFromUrl();
         const siteConfig = {};
         siteConfig.basename = basename;
 
         const params = queryString.parse(window.location.search);
         siteConfig.hash = params.v;
-
-        console.log({
-            'window.location.pathname: ': window.location.pathname,
-            basename
-        })
 
         this.props.basenameReceived(siteConfig);
     }
