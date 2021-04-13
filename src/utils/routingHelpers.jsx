@@ -3,6 +3,11 @@ import auth from 'utils/auth';
 export const getApplicationIsInWrongCommunityEnv = (application) => {
     const leaseSettingsId = window.location.pathname.split('/')[1];
 
+    console.log('getApplicationIsInWrongCommunityEnv: ', {
+        leaseSettingsId,
+        'application.lease_settings': application.lease_settings,
+    })
+
     if (Number(leaseSettingsId) !== application.lease_settings) {
         return true;
     }

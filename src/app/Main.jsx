@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { ROUTES } from 'constants/constants';
 import { initLaunchDarkly } from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
+import * as routingHelpers from 'utils/routingHelpers';
 import auth from 'utils/auth';
 
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -91,10 +92,13 @@ export class Main extends Component {
              *    but does have multiple active applications.
              *    Then we redirect to the application page so that the applicant can choose the application.
              *
+             *  - When the applicant is accessing the app with an application of another community.
+             *    Then we switch to the application's community env.
+             *
              *  - When none of the above.
              *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
              */
-            // Note: the logic to determine the initial route is similar to LoginPage.jsx#onSubmit
+            // Note: the logic to determine the initial route is similar (but different) to LoginPage.jsx#onSubmit
             // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
             const { num_active_applications } = await this.props.fetchApplicant();
 
@@ -107,7 +111,10 @@ export class Main extends Component {
             }
 
             applicationId = this.props.applicant.application;
-            await this.props.fetchRenterProfile(applicationId);
+            const application = await this.props.fetchRenterProfile(applicationId);
+            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
+                return routingHelpers.switchToApplicationCommunityEnv(application, this.props.initialPage);
+            }
 
             if (!this.props.canAccessCurrentRoute()) {
                 history.replace(this.props.initialPage);
