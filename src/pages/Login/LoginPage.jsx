@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import auth from 'utils/auth';
 import { ROUTES } from 'constants/constants';
+import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
@@ -56,7 +56,31 @@ export class LoginPage extends Component {
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
+
+                /**
+                 * (Initial) redirect rules:
+                 *  - When we do know what application the applicant is trying to access
+                 *    (the application id was part of the url encoded - is decoded in the configuration state).
+                 *    Then we redirect to the initial page of that application.
+                 *
+                 *  - When the applicant has multiple active applicants, and either applied for another one,
+                 *    or got invited to another once.
+                 *    Then we redirect to the applications page, where the new application is listed and can be started.
+                 *
+                 *  - When we don't know what application the applicant is trying to access
+                 *    but does have multiple active applications.
+                 *    Then we redirect to the application page so that the applicant can choose the application.
+                 *
+                 *  - When none of the above.
+                 *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
+                 */
+                // Note: the logic to determine the initial route is similar to Main.jsx#initializeApp
+                // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
                 const { num_active_applications } = await this.props.fetchApplicant();
+                if (this.props.accessedAppByInvitationOrWebsite && num_active_applications > 0) {
+                    return history.replace(ROUTES.APPLICATIONS);
+                }
+
                 if (num_active_applications > 1) {
                     return history.replace(ROUTES.APPLICATIONS);
                 }
@@ -102,6 +126,7 @@ LoginPage.propTypes = {
     invitee: PropTypes.object,
     location: PropTypes.object,
     history: PropTypes.object,
+    accessedAppByInvitationOrWebsite: PropTypes.bool,
     fetchApplicant: PropTypes.func,
     configuration: PropTypes.object.isRequired,
     toggleLoader: PropTypes.func,
@@ -112,9 +137,10 @@ const mapStateToProps = (state) => ({
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
     configuration: state.configuration,
-    community: state.configuration && state.configuration.community,
-    invitee: state.configuration && state.configuration.invitee,
+    community: state.configuration?.community,
+    invitee: state.configuration?.invitee,
     applicant: state.applicant,
+    accessedAppByInvitationOrWebsite: Boolean(state.siteConfig.hash),
 });
 
 const mapDispatchToProps = {
