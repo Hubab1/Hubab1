@@ -171,7 +171,6 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
-    isNewPlaceholder: PropTypes.bool,
     initialPage: PropTypes.string,
     fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
