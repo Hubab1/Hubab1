@@ -49,28 +49,21 @@ it('renders ChangePasswordForm when password has been verified and Change Passwo
     expect(wrapper.find(ChangePasswordForm).exists()).toBeTruthy();
 });
 
-it('calls API.passwordReset onChangePasswordSubmit', function () {
-    const token = '123';
-
-    auth.getToken = jest.fn().mockReturnValue('123');
-
+it('calls API.passwordChange onChangePasswordSubmit', function () {
     const wrapper = shallow(<AccountPage {...defaultProps} />);
-    API.passwordReset = jest.fn().mockReturnValue(Promise.resolve());
+    API.passwordChange = jest.fn().mockReturnValue(Promise.resolve());
     return wrapper
         .instance()
         .onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function () {} })
         .then(() => {
-            expect(API.passwordReset).toHaveBeenCalledWith('Abagail', token);
+            expect(API.passwordChange).toHaveBeenCalledWith('Abagail');
         });
 });
 
 it('renders errors if has errors', function () {
     const errorMessage = 'There was an error with resetting your password. Please try again.';
-
-    auth.getToken = jest.fn().mockReturnValue('123');
-
     const wrapper = shallow(<AccountPage {...defaultProps} />);
-    API.passwordReset = jest.fn().mockReturnValue(Promise.resolve({ errors: [errorMessage] }));
+    API.passwordChange = jest.fn().mockReturnValue(Promise.resolve({ errors: [errorMessage] }));
     return wrapper
         .instance()
         .onChangePasswordSubmit({ password: 'Abagail' }, { setSubmitting: function () {} })
