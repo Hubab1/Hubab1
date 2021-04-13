@@ -24,7 +24,6 @@ import {
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-
 import ActionButton from 'common-components/ActionButton/ActionButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +81,7 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [application, initialPage, appSelected, history]);
+    }, [initialPage, appSelected, history]);
 
     const handleApplicationClick = async (id) => {
         await fetchRenterProfile(id);
@@ -142,11 +141,9 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                     <Typography className={classes.typography} variant="body1">
                         Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
                     </Typography>
-                    {id && (
-                        <Typography className={classes.applicationId} variant="caption">
-                            Application ID <span>{id}</span>
-                        </Typography>
-                    )}
+                    <Typography className={classes.applicationId} variant="caption">
+                        Application ID <span>{id}</span>
+                    </Typography>
                     {showOpenApplicationButton && (
                         <ActionButton
                             variant="outlined"
