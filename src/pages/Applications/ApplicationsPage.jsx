@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography } from '@material-ui/core';
 
-import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, PAST_APPLICATION_STATUSES } from 'constants/constants';
+import {
+    ACTIVE_APPLICATION_STATUSES,
+    APPLICANT_ROLE_VALUES,
+    APPLICATION_STATUSES,
+    PAST_APPLICATION_STATUSES
+} from 'constants/constants';
 import * as hooks from './hooks';
 
 import Page from 'common-components/Page/Page';
@@ -61,6 +66,15 @@ export const getPrimaryOnOtherActiveAppForCommunityError = (
     }
 };
 
+const getNewApplicationPlaceholderData = (community, unit) => {
+    return {
+        community,
+        unit,
+        role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT,
+        status: APPLICATION_STATUSES.APPLICATION_STATUS_NEW,
+    };
+};
+
 export function ApplicationsPage({ applicant, community, unit, accessedAppByInvitationOrWebsite }) {
     const classes = useStyles();
     const { loading, error, applications } = hooks.useApplications(ERROR_MESSAGE);
@@ -73,6 +87,8 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
             accessedAppByInvitationOrWebsite
         );
     }, [applicant, applications, community, unit, accessedAppByInvitationOrWebsite]);
+
+    const showNewApplicationPlaceholder = !primaryOnOtherActiveAppForCommunityError && accessedAppByInvitationOrWebsite;
 
     const notification = (error || primaryOnOtherActiveAppForCommunityError) && {
         type: 'error',
@@ -92,6 +108,12 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
 
     return (
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
+            {showNewApplicationPlaceholder && (
+                <div data-testid="new-application" className={classes.section}>
+                    <Typography variant="h3">New Application</Typography>
+                    <Application application={getNewApplicationPlaceholderData(community, unit)} isNewPlaceholder />
+                </div>
+            )}
             <div data-testid="active-applications" className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
                 {active.map((application) => {

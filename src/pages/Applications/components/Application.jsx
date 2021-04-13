@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import clsx from 'clsx';
@@ -21,11 +23,9 @@ import {
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
-import * as routingHelpers from 'utils/routingHelpers';
-import ActionButton from 'common-components/ActionButton/ActionButton';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+
+import ActionButton from 'common-components/ActionButton/ActionButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,13 +65,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({
-    application = {},
-    isActive = true,
-    initialPage,
-    history,
-    fetchRenterProfile,
-}) {
+export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -85,10 +79,6 @@ export function Application({
 
     useEffect(() => {
         if (initialPage && appSelected) {
-            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
-                return routingHelpers.switchToApplicationCommunityEnv(application, initialPage);
-            }
-
             setAppSelected(false);
             history.push(initialPage);
         }
@@ -152,9 +142,11 @@ export function Application({
                     <Typography className={classes.typography} variant="body1">
                         Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
                     </Typography>
-                    <Typography className={classes.applicationId} variant="caption">
-                        Application ID <span>{id}</span>
-                    </Typography>
+                    {id && (
+                        <Typography className={classes.applicationId} variant="caption">
+                            Application ID <span>{id}</span>
+                        </Typography>
+                    )}
                     {showOpenApplicationButton && (
                         <ActionButton
                             variant="outlined"
@@ -183,6 +175,7 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
+    isNewPlaceholder: PropTypes.bool,
     initialPage: PropTypes.string,
     fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
