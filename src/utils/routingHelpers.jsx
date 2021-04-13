@@ -24,13 +24,13 @@ export const getApplicationIsInWrongCommunityEnv = (application) => {
  * Get Initial route
  *  - When we do know what application the applicant is trying to access
  *    (the application id is part of the url).
- *    Then we return to the initial page of that application
+ *    Then we return to the initial page of that application.
  *
  *  - When the applicant has multiple active applications, and either applied for another one, or got invited to another one.
- *    Then we retirm the applications page, where the new application is listed and can be started.
+ *    Then we return the applications page, where the new application is listed and can be started.
  *
- *  - When we don't know what application the applicant is trying to access and does have multiple active applications.
- *    Then we return the application page so that the applicant can choose the application.
+ *  - When we don't know what application the applicant is trying to access but does have multiple active applications.
+ *    Then we return the applications page so that the applicant can choose the application.
  *
  *  - When the applicant is accessing the app with an application of another community.
  *    Then we return to the applications page, where applicant can switch between community environments.
