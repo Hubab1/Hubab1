@@ -93,7 +93,7 @@ export class Main extends Component {
              *    Then we redirect to the application page so that the applicant can choose the application.
              *
              *  - When the applicant is accessing the app with an application of another community.
-             *    Then we switch to the application's community env.
+             *    Then we redirect to the applications page, where applicant can switch between community environments.
              *
              *  - When none of the above.
              *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
@@ -113,7 +113,8 @@ export class Main extends Component {
             applicationId = this.props.applicant.application;
             const application = await this.props.fetchRenterProfile(applicationId);
             if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
-                return routingHelpers.switchToApplicationCommunityEnv(application, this.props.initialPage);
+                console.log('Application is in wrong community env')
+                return history.replace(ROUTES.APPLICATIONS);
             }
 
             if (!this.props.canAccessCurrentRoute()) {

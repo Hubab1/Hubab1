@@ -20,6 +20,11 @@ export class App extends Component {
         const params = queryString.parse(window.location.search);
         siteConfig.hash = params.v;
 
+        console.log({
+            'window.location.pathname: ': window.location.pathname,
+            basename
+        })
+
         this.props.basenameReceived(siteConfig);
     }
 
