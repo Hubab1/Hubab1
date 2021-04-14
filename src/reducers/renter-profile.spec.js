@@ -257,7 +257,7 @@ describe('selectInitialPage', () => {
         initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
-                collect_employer_information: true,
+                collect_employer_information: false,
             },
             renterProfile: {
                 unit_available: false,
