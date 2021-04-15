@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ROUTES } from 'constants/constants';
 import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 import * as routingHelpers from 'utils/routingHelpers';

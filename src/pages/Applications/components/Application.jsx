@@ -23,7 +23,9 @@ import {
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
+import * as routingHelpers from 'utils/routingHelpers';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+
 import ActionButton from 'common-components/ActionButton/ActionButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -77,10 +79,14 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
 
     useEffect(() => {
         if (initialPage && appSelected) {
+            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
+                return routingHelpers.switchToApplicationCommunityEnv(application, initialPage);
+            }
+
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [initialPage, appSelected, history]);
+    }, [application, initialPage, appSelected, history]);
 
     const handleApplicationClick = async (id) => {
         await fetchRenterProfile(id);

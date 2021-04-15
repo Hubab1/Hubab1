@@ -1,3 +1,4 @@
+import auth from 'utils/auth';
 import { ROUTES } from 'constants/constants';
 
 export const getLeaseSettingsIdFromUrl = () => {
@@ -53,4 +54,10 @@ export const getInitialRoute = (applicant, application, accessedAppByInvitationO
     }
 
     return initialApplicationPage;
+};
+
+export const switchToApplicationCommunityEnv = (application, initialPage) => {
+    auth.setScope(application.lease_settings);
+    const initialApplicationPageOtherCommunity = `${window.location.origin}/${application.lease_settings}${initialPage}`;
+    window.location = initialApplicationPageOtherCommunity;
 };
