@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ROUTES } from 'constants/constants';
 import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import * as routingHelpers from 'utils/routingHelpers';
+
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as loaderActions } from 'reducers/loader';
@@ -57,37 +58,20 @@ export class LoginPage extends Component {
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
 
-                /**
-                 * (Initial) redirect rules:
-                 *  - When we do know what application the applicant is trying to access
-                 *    (the application id was part of the url encoded - is decoded in the configuration state).
-                 *    Then we redirect to the initial page of that application.
-                 *
-                 *  - When the applicant has multiple active applicants, and either applied for another one,
-                 *    or got invited to another once.
-                 *    Then we redirect to the applications page, where the new application is listed and can be started.
-                 *
-                 *  - When we don't know what application the applicant is trying to access
-                 *    but does have multiple active applications.
-                 *    Then we redirect to the application page so that the applicant can choose the application.
-                 *
-                 *  - When none of the above.
-                 *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
-                 */
-                // Note: the logic to determine the initial route is similar to Main.jsx#initializeApp
-                // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
-                const { num_active_applications } = await this.props.fetchApplicant();
-                if (this.props.accessedAppByInvitationOrWebsite && num_active_applications > 0) {
-                    return history.replace(ROUTES.APPLICATIONS);
-                }
-
-                if (num_active_applications > 1) {
-                    return history.replace(ROUTES.APPLICATIONS);
-                }
-
-                const applicationId = this.props?.configuration?.application_id || this.props?.applicant?.application;
+                const applicant = await this.props.fetchApplicant();
+                const applicationId = routingHelpers.getApplicationIdFromUrl() ||
+                    this.props?.configuration?.application_id ||
+                    this.props?.applicant?.application;
                 await this.props.fetchRenterProfile(applicationId);
-                history.replace(this.props.initialPage);
+
+                const initialRoute = routingHelpers.getInitialRoute(
+                    applicant,
+                    this.props.configuration,
+                    this.props.accessedAppByInvitationOrWebsite,
+                    this.props.initialPage
+                );
+
+                history.replace(initialRoute);
             })
             .catch((res) => {
                 const error = res.errors?.error;

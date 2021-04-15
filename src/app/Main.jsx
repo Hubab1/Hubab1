@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { ROUTES } from 'constants/constants';
 import { initLaunchDarkly } from 'utils/launchdarkly';
 import { sessionIsValidForCommunityId } from 'utils/misc';
+import * as routingHelpers from 'utils/routingHelpers';
 import auth from 'utils/auth';
 
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
@@ -58,6 +59,13 @@ export class Main extends Component {
 
         initLaunchDarkly(configuration?.community?.company);
 
+        // Note, email CTA's will redirect to login?v=hash.
+        // Since we support multiple apps we need the applicant to login everytime
+        // so that the initial route can be determined correctly.
+        if (pathname.includes('login')) {
+            return;
+        }
+
         if (!isAuthenticated) {
             if (
                 pathname.includes('login') ||
@@ -66,8 +74,9 @@ export class Main extends Component {
                 pathname.includes('terms') ||
                 pathname.includes('privacy-policy') ||
                 pathname.includes('faq')
-            )
+            ) {
                 return;
+            }
 
             if (configuration.unit?.is_unavailable) {
                 history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
@@ -76,41 +85,26 @@ export class Main extends Component {
             }
         } else {
             const accessedAppByInvitationOrWebsite = Boolean(this.props.hash);
-            let applicationId = pathname.split('/')[2];
-            /**
-             * (Initial) redirect rules:
-             *  - When we do know what application the applicant is trying to access
-             *    (the application id is part of the url).
-             *    Then we redirect to the initial page of that application.
-             *
-             *  - When the applicant has multiple active applicants, and either applied for another one,
-             *    or got invited to another once.
-             *    Then we redirect to the applications page, where the new application is listed and can be started.
-             *
-             *  - When we don't know what application the applicant is trying to access
-             *    but does have multiple active applications.
-             *    Then we redirect to the application page so that the applicant can choose the application.
-             *
-             *  - When none of the above.
-             *    Then we 'fallback' to redirecting the applicant to the initial page of its application.
-             */
-            // Note: the logic to determine the initial route is similar to LoginPage.jsx#onSubmit
-            // TODO: abstract logic once we have the final draft as part of the following ticket: NESTIO-21304
-            const { num_active_applications } = await this.props.fetchApplicant();
-
-            if (accessedAppByInvitationOrWebsite && num_active_applications > 0) {
-                return history.replace(ROUTES.APPLICATIONS);
-            }
-
-            if (!applicationId && num_active_applications > 1) {
-                return history.replace(ROUTES.APPLICATIONS);
-            }
-
-            applicationId = this.props.applicant.application;
+            const applicant = await this.props.fetchApplicant();
+            const applicationId = routingHelpers.getApplicationIdFromUrl() ||
+                this.props?.configuration?.application_id ||
+                this.props?.applicant?.application;
             await this.props.fetchRenterProfile(applicationId);
+
+            const initialRoute = routingHelpers.getInitialRoute(
+                applicant,
+                configuration,
+                accessedAppByInvitationOrWebsite,
+                this.props.initialPage
+            );
+
+            if (initialRoute === ROUTES.APPLICATIONS) {
+                return history.replace(initialRoute);
+            }
 
             if (!this.props.canAccessCurrentRoute()) {
                 history.replace(this.props.initialPage);
+                return history.replace(initialRoute);
             }
         }
     }
