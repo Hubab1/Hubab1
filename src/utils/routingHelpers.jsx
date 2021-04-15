@@ -7,7 +7,7 @@ export const getLeaseSettingsIdFromUrl = () => {
 };
 
 export const getApplicationIdFromUrl = () => {
-    const applicationIdFromUrl = window.location.pathname.split('/')[2];
+    const applicationIdFromUrl = window.location.pathname.split('/')[3];
     return applicationIdFromUrl;
 };
 
@@ -40,7 +40,7 @@ export const getApplicationIsInWrongCommunityEnv = (application) => {
  *    Then we 'fallback' by returning the initial page of the application.
  */
 export const getInitialRoute = (applicant, application, accessedAppByInvitationOrWebsite, initialApplicationPage) => {
-    const applicationIdFromUrl = window.location.pathname.split('/')[2];
+    const applicationIdFromUrl = getApplicationIdFromUrl();
     if (accessedAppByInvitationOrWebsite && applicant?.num_active_applications > 0) {
         return ROUTES.APPLICATIONS;
     }
