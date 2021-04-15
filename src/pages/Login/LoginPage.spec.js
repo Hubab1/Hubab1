@@ -82,6 +82,7 @@ it('redirects to applications page when applicant has multiple active apps after
     const wrapper = shallow(
         <LoginPage {...defaultProps} fetchApplicant={mockFetchApplicant} fetchRenterProfile={mockFetchRenterProfile} />
     );
+
     wrapper.instance().auth.setSession = setSession;
     return wrapper
         .instance()
@@ -116,6 +117,7 @@ it('redirects to applications page when applicant accessed app by invitation or 
             accessedAppByInvitationOrWebsite={true}
         />
     );
+
     wrapper.instance().auth.setSession = setSession;
     return wrapper
         .instance()

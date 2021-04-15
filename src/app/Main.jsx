@@ -59,6 +59,13 @@ export class Main extends Component {
 
         initLaunchDarkly(configuration?.community?.company);
 
+        // Note, email CTA's will redirect to login?v=hash.
+        // Since we support multiple apps we need the applicant to login everytime
+        // so that the initial route can be determined correctly.
+        if (pathname.includes('login')) {
+            return;
+        }
+
         if (!isAuthenticated) {
             if (
                 pathname.includes('login') ||
@@ -67,8 +74,9 @@ export class Main extends Component {
                 pathname.includes('terms') ||
                 pathname.includes('privacy-policy') ||
                 pathname.includes('faq')
-            )
+            ) {
                 return;
+            }
 
             if (configuration.unit?.is_unavailable) {
                 history.replace(ROUTES.UNAUTHENTICATED_UNIT_UNAVAILABLE);
@@ -78,12 +86,16 @@ export class Main extends Component {
         } else {
             const accessedAppByInvitationOrWebsite = Boolean(this.props.hash);
             const applicant = await this.props.fetchApplicant();
-            const applicationId = routingHelpers.getApplicationIdFromUrl() || applicant.application;
+            const applicationId =
+                routingHelpers.getApplicationIdFromUrl() ||
+                this.props?.configuration?.application_id ||
+                this.props?.applicant?.application;
             const application = await this.props.fetchRenterProfile(applicationId);
 
             const initialRoute = routingHelpers.getInitialRoute(
                 applicant,
                 application,
+                configuration,
                 accessedAppByInvitationOrWebsite,
                 this.props.initialPage
             );

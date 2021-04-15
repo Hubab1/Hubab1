@@ -59,11 +59,15 @@ export class LoginPage extends Component {
                 auth.setSession(res.token, this.props.communityId);
 
                 const applicant = await this.props.fetchApplicant();
-                const applicationId = this.props?.configuration?.application_id || this.props?.applicant?.application;
+                const applicationId =
+                    routingHelpers.getApplicationIdFromUrl() ||
+                    this.props?.configuration?.application_id ||
+                    this.props?.applicant?.application;
                 const application = await this.props.fetchRenterProfile(applicationId);
                 const initialRoute = routingHelpers.getInitialRoute(
                     applicant,
                     application,
+                    this.props.configuration,
                     this.props.accessedAppByInvitationOrWebsite,
                     this.props.initialPage
                 );
