@@ -22,9 +22,6 @@ export const getApplicationIdFromUrl = () => {
  *  - When we don't know what application the applicant is trying to access but does have multiple active applications.
  *    Then we return the applications page so that the applicant can choose the application.
  *
- *  - When the applicant is accessing the app with an application of another community.
- *    Then we return to the applications page, where applicant can switch between community environments.
- *
  *  - When none of the above.
  *    Then we 'fallback' by returning the initial page of the application.
  */
