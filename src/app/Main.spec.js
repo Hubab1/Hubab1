@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 
 import { ROUTES } from 'constants/constants';
 import { Main } from './Main';
+import { mockWindowLocation } from 'utils/mockWindow';
 import CriticalErrorPage from 'pages/CriticalError';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise, fetchApplicantPromise;
@@ -216,11 +217,18 @@ describe('initializeApp', () => {
 
     it('redirects to applications page when we do not know what application the applicant is trying to access and has multiple active apps', async () => {
         const lease_settings_id = 6;
-        const applicant = { application: 1 };
+        const application_id = 1;
+        const applicant = { application: application_id };
         const mockFetchApplicant = jest.fn().mockReturnValue(
             Promise.resolve({
                 num_active_applications: 2,
-                application: 1,
+                application: application_id,
+            })
+        );
+        const mockFetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                id: application_id,
+                lease_settings: lease_settings_id,
             })
         );
         const mockHistory = {
@@ -229,13 +237,18 @@ describe('initializeApp', () => {
         };
         const mockLocation = {
             search: '',
-            pathname: `${lease_settings_id}`,
+            pathname: `/${lease_settings_id}`,
         };
+
+        // Mock window.location, which is used by the util that determines the initial route
+        mockWindowLocation(mockLocation);
+
         const wrapper = shallow(
             <Main
                 {...defaultProps}
                 applicant={applicant}
                 fetchApplicant={mockFetchApplicant}
+                fetchRenterProfile={mockFetchRenterProfile}
                 history={mockHistory}
                 location={mockLocation}
             />
@@ -261,21 +274,32 @@ describe('initializeApp', () => {
                 application: application_id,
             })
         );
+        const mockFetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                id: application_id,
+                lease_settings: lease_settings_id,
+            })
+        );
         const mockHistory = {
             replace: jest.fn(),
             push: jest.fn(),
         };
         const mockLocation = {
             search: '',
-            pathname: `${lease_settings_id}/application/${application_id}`,
+            pathname: `/${lease_settings_id}`,
         };
         const mockApplicationInitialPage = ROUTES.APP_APPROVED;
+
+        // Mock window.location, which is used by the util that determines the initial route
+        mockWindowLocation(mockLocation);
+
         const wrapper = shallow(
             <Main
                 {...defaultProps}
                 hash={hash}
                 applicant={applicant}
                 fetchApplicant={mockFetchApplicant}
+                fetchRenterProfile={mockFetchRenterProfile}
                 history={mockHistory}
                 location={mockLocation}
                 initialPage={mockApplicationInitialPage}
@@ -301,20 +325,31 @@ describe('initializeApp', () => {
                 application: application_id,
             })
         );
+        const mockFetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                id: application_id,
+                lease_settings: lease_settings_id,
+            })
+        );
         const mockHistory = {
             replace: jest.fn(),
             push: jest.fn(),
         };
         const mockLocation = {
             search: '',
-            pathname: `${lease_settings_id}/application/${application_id}`,
+            pathname: `/${lease_settings_id}/application/${application_id}`,
         };
         const mockApplicationInitialPage = ROUTES.APP_APPROVED;
+
+        // Mock window.location, which is used by the util that determines the initial route
+        mockWindowLocation(mockLocation);
+
         const wrapper = shallow(
             <Main
                 {...defaultProps}
                 applicant={applicant}
                 fetchApplicant={mockFetchApplicant}
+                fetchRenterProfile={mockFetchRenterProfile}
                 history={mockHistory}
                 location={mockLocation}
                 initialPage={mockApplicationInitialPage}

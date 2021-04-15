@@ -86,7 +86,8 @@ export class Main extends Component {
         } else {
             const accessedAppByInvitationOrWebsite = Boolean(this.props.hash);
             const applicant = await this.props.fetchApplicant();
-            const applicationId = routingHelpers.getApplicationIdFromUrl() ||
+            const applicationId =
+                routingHelpers.getApplicationIdFromUrl() ||
                 this.props?.configuration?.application_id ||
                 this.props?.applicant?.application;
             await this.props.fetchRenterProfile(applicationId);

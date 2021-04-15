@@ -10,21 +10,9 @@ export const getApplicationIdFromUrl = () => {
     return applicationIdFromUrl;
 };
 
-export const getInitialRoute = (
-    applicant,
-    configuration,
-    accessedAppByInvitationOrWebsite,
-    initialApplicationPage
-) => {
+export const getInitialRoute = (applicant, configuration, accessedAppByInvitationOrWebsite, initialApplicationPage) => {
     const applicationIdFromUrl = getApplicationIdFromUrl();
     const applicationIdFromConfiguration = configuration?.application_id;
-
-    console.log('getInitialRoute: ', {
-        accessedAppByInvitationOrWebsite,
-        applicationIdFromUrl,
-        applicationIdFromConfiguration,
-        num_active_applications: applicant?.num_active_applications,
-    });
 
     if (applicationIdFromUrl || applicationIdFromConfiguration) {
         return initialApplicationPage;
