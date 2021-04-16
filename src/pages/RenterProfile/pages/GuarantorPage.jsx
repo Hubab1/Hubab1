@@ -10,7 +10,7 @@ import API from 'api/api';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { selectors } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import InviteForm from 'common-components/InviteForm/InviteForm';
 import BackLink from 'common-components/BackLink/BackLink';
@@ -120,7 +120,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchRenterProfile,
     fetchApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuarantorPage);
