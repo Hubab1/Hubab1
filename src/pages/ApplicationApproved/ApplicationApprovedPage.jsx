@@ -6,10 +6,10 @@ import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { applicantUpdated } from 'reducers/applicant';
 import { fetchPayments } from 'reducers/payments';
+import { selectors } from 'reducers/renter-profile';
 
 import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView';
 import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView';
-import { selectors } from 'reducers/renter-profile';
 
 export const ApplicationApprovedPage = ({
     profile,
