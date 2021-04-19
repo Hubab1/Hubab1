@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import clsx from 'clsx';
@@ -14,19 +16,21 @@ import {
     Divider,
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
+import ErrorIcon from '@material-ui/icons/Error';
 
+import API from 'api/api';
 import {
     APPLICATION_STATUSES_LABELS,
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
-import ActionButton from 'common-components/ActionButton/ActionButton';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
-import API from 'api/api';
-import ErrorIcon from '@material-ui/icons/Error';
+import { actions as loaderActions } from 'reducers/loader';
+
+import ActionButton from 'common-components/ActionButton/ActionButton';
+
+export const ERROR_MESSAGE = 'Oops, something went wrong. Please try again later.';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,7 +78,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history, invitee }) {
+export function Application({
+    application = {},
+    isActive = true,
+    fetchRenterProfile,
+    initialPage,
+    history,
+    invitee,
+    toggleLoader,
+    setError,
+}) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -85,23 +98,36 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
     }, [expanded]);
 
     const [appSelected, setAppSelected] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (initialPage && appSelected) {
             setAppSelected(false);
-            setLoading(false);
             history.push(initialPage);
         }
     }, [initialPage, appSelected, history]);
 
     const handleApplicationClick = async (applicationId) => {
-        setLoading(true);
         if (invitee) {
-            await API.createApplicantRole(invitee.id);
+            try {
+                toggleLoader(true);
+
+                const response = await API.createApplicantRole(invitee.id);
+
+                if (response?.errors) {
+                    return setError(ERROR_MESSAGE);
+                }
+
+                await fetchRenterProfile(applicationId);
+                setAppSelected(true);
+            } catch {
+                return setError(ERROR_MESSAGE);
+            } finally {
+                toggleLoader(false);
+            }
+        } else {
+            await fetchRenterProfile(applicationId);
+            setAppSelected(true);
         }
-        await fetchRenterProfile(applicationId);
-        setAppSelected(true);
     };
 
     if (isEmpty(application)) {
@@ -109,9 +135,8 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
     }
 
     const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
-
-    const inviteeCTA = loading ? 'Starting Application' : 'Start Application';
-    const applicationCTA = loading ? 'Loading Application' : 'Go To Application';
+    const CTALabel = invitee ? 'Start Application' : 'Go To Application';
+    const CTAVariant = invitee ? 'contained' : 'outlined';
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -171,12 +196,12 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                     </Typography>
                     {showOpenApplicationButton && (
                         <ActionButton
-                            variant="outlined"
+                            variant={CTAVariant}
                             marginTop={20}
                             marginBottom={10}
                             onClick={() => handleApplicationClick(id)}
                         >
-                            {invitee ? inviteeCTA : applicationCTA}
+                            {CTALabel}
                         </ActionButton>
                     )}
                 </CardContent>
@@ -203,8 +228,10 @@ Application.propTypes = {
     }),
     initialPage: PropTypes.string,
     communityId: PropTypes.number,
-    fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    setError: PropTypes.func,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -214,6 +241,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchRenterProfile,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Application));

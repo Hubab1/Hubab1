@@ -28,6 +28,7 @@ exports[`ApplicationsPage useApplications success with application shows active 
         }
       }
       isActive={true}
+      setError={[Function]}
     />
   </div>
   <div
@@ -52,6 +53,7 @@ exports[`ApplicationsPage useApplications success with application shows active 
         }
       }
       isActive={false}
+      setError={[Function]}
     />
   </div>
 </Page>
@@ -89,6 +91,7 @@ exports[`ApplicationsPage useInvitations success with invitations shows invitati
         }
       }
       isActive={true}
+      setError={[Function]}
     />
     <UNDEFINED
       application={
@@ -107,6 +110,7 @@ exports[`ApplicationsPage useInvitations success with invitations shows invitati
         }
       }
       isActive={true}
+      setError={[Function]}
     />
     <ForwardRef(WithStyles)
       variant="h4"
