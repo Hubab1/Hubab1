@@ -6,6 +6,8 @@ steps:
     DEPLOY_ENVIRONMENT: staging
     PR_ABBR: ${PR_ABBR}
     S3_BUCKET: "s3://woodhouse-${PR_ABBR}.nestiostaging.com"
+    # Set this if you want to connect woodhouse staging to a chuck dynamic staging enviroment
+    STAGING_CHUCK_PR: ""
   agents:
     queue: docker
 
