@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
         color: '#000',
     },
     applicationId: {
-        color: '#828796',
         display: 'block',
         marginTop: theme.spacing(2),
     },
@@ -177,15 +176,15 @@ export function Application({
                     )}
                     <Typography className={classes.typography} variant="body1">
                         Move in Date:{' '}
-                        <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '-'}</span>
+                        <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '---'}</span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
-                        Lease Term: <span>{lease_term ? lease_term : '-'}</span>
+                        Lease Term: <span>{lease_term ? lease_term : '---'}</span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
                         Monthly Rent:{' '}
                         <span>
-                            {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '-'}
+                            {fees_breakdown?.monthly_fees?.total ? `$${fees_breakdown.monthly_fees.total}` : '---'}
                         </span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">

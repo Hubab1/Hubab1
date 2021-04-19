@@ -5,13 +5,12 @@ import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 
 import { ROUTES } from 'constants/constants';
 import API from 'api/api';
-import auth from 'utils/auth';
 import captureRoute from 'utils/captureRoute';
 import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'utils/misc';
 
 import { updateApplicant } from 'reducers/applicant';
 import { getApplicantSubmittedApplication } from 'selectors/applicant';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import AccountForm from 'common-components/AccountForm/AccountForm';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
@@ -72,15 +71,13 @@ export class AccountPage extends Component {
     };
 
     onChangePasswordSubmit = async (values, { setSubmitting }) => {
-        const token = auth.getToken();
-
         this.props.toggleLoader(true);
 
         try {
-            const response = await API.passwordReset(values.password, token);
+            const response = await API.passwordChange(values.password);
             if (response.errors) {
                 return this.setState({
-                    resetPasswordErrors: ['There was an error with resetting your password. Please try again.'],
+                    resetPasswordErrors: response.errors,
                 });
             }
 
@@ -171,7 +168,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AccountPage, ROUTES.ACCOUNT));

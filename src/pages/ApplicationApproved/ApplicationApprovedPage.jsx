@@ -6,11 +6,19 @@ import { ROUTES } from 'constants/constants';
 import captureRoute from 'utils/captureRoute';
 import { applicantUpdated } from 'reducers/applicant';
 import { fetchPayments } from 'reducers/payments';
+import { selectors } from 'reducers/renter-profile';
 
 import { ApplicationApprovedView } from 'pages/ApplicationApproved/components/ApplicationApprovedView';
 import { SignLeaseView } from 'pages/ApplicationApproved/components/SignLeaseView';
 
-export const ApplicationApprovedPage = ({ profile, configuration, history, applicantUpdated, applicant, payables }) => {
+export const ApplicationApprovedPage = ({
+    profile,
+    configuration,
+    history,
+    applicantUpdated,
+    applicant,
+    applicationFees,
+}) => {
     const [showPaymentDetails, setShowPaymentDetails] = useState(false);
 
     if (!profile || !configuration) return null;
@@ -22,7 +30,7 @@ export const ApplicationApprovedPage = ({ profile, configuration, history, appli
                 fetchPayments={fetchPayments}
                 history={history}
                 profile={profile}
-                payables={payables}
+                applicationFees={applicationFees}
                 setShowPaymentDetails={setShowPaymentDetails}
             />
         );
@@ -45,14 +53,14 @@ ApplicationApprovedPage.propTypes = {
     applicant: PropTypes.object,
     history: PropTypes.object,
     applicantUpdated: PropTypes.func,
-    payables: PropTypes.array,
+    applicationFees: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     applicant: state.applicant,
     configuration: state.configuration,
-    payables: state.payables || [],
+    applicationFees: selectors.applicationFees(state),
 });
 
 const mapDispatchToProps = {

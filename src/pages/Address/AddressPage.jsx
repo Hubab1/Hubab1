@@ -8,7 +8,7 @@ import withRelativeRoutes from 'utils/withRelativeRoutes';
 
 import { getShowAutomatedAddressForm } from 'selectors/launchDarkly';
 import { updateApplicant } from 'reducers/applicant';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import AddressForm from 'common-components/AddressForm/AddressForm';
 import { H1, SpacedH3 } from 'assets/styles';
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
     updateApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withRelativeRoutes(AddressPage, ROUTES.ADDRESS));

@@ -44,11 +44,11 @@ export function ExistingRoommate({ item, type, application }) {
                         <Link
                             className={link}
                             to={{
-                                pathname: applicationPath(ROUTES.RESEND_INVITE, application.id),
+                                pathname: applicationPath(ROUTES.RESEND_INVITE, application_id),
                                 state: {
                                     initialValues: item,
                                     confirmationButtonText: 'Back to Rental Profile',
-                                    returnRoute: `${applicationPath(ROUTES.PROFILE_OPTIONS, application.id)}#${type}`,
+                                    returnRoute: `${applicationPath(ROUTES.PROFILE_OPTIONS, application_id)}#${type}`,
                                 },
                             }}
                         >

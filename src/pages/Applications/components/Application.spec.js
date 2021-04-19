@@ -2,12 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import API from 'api/api';
-import {
-    ACTIVE_APPLICATION_STATUSES,
-    APPLICANT_ROLE_VALUES,
-    APPLICATION_STATUSES,
-    ROUTES,
-} from 'constants/constants';
+import { ACTIVE_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES, APPLICATION_STATUSES, ROUTES } from 'constants/constants';
 import { Application } from './Application';
 import ActionButton from 'common-components/ActionButton/ActionButton';
 
@@ -65,18 +60,27 @@ describe('Application', () => {
         expect(wrapper.html().includes('<span style="color:#000">In Progress</span>')).toBe(true);
 
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_SUBMITTED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_SUBMITTED }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('<span style="color:#000">Submitted</span>')).toBe(true);
 
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('<span style="color:#000">Completed</span>')).toBe(true);
 
         // Green statusses
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_APPROVED }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('<span style="color:#67C18B">Approved</span>')).toBe(true);
 
@@ -91,12 +95,18 @@ describe('Application', () => {
 
         // Red statusses
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_DENIED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_DENIED }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('<span style="color:#FB6D68">Denied</span>')).toBe(true);
 
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_CANCELLED }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('<span style="color:#FB6D68">Cancelled</span>')).toBe(true);
     });
@@ -105,7 +115,10 @@ describe('Application', () => {
         let wrapper;
 
         wrapper = shallow(
-            <Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT }} {...props} />
+            <Application
+                application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_PRIMARY_APPLICANT }}
+                {...props}
+            />
         );
         expect(wrapper.html().includes('Main Applicant')).toBe(true);
 
@@ -114,10 +127,14 @@ describe('Application', () => {
         );
         expect(wrapper.html().includes('Roommate')).toBe(true);
 
-        wrapper = shallow(<Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_GUARANTOR }} {...props} />);
+        wrapper = shallow(
+            <Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_GUARANTOR }} {...props} />
+        );
         expect(wrapper.html().includes('Guarantor')).toBe(true);
 
-        wrapper = shallow(<Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_OCCUPANT }} {...props} />);
+        wrapper = shallow(
+            <Application application={{ ...application, role: APPLICANT_ROLE_VALUES.ROLE_OCCUPANT }} {...props} />
+        );
         expect(wrapper.html().includes('Occupant')).toBe(true);
     });
 
@@ -148,9 +165,9 @@ describe('Application', () => {
         const header = wrapper.find('[data-testid="header"]');
 
         expect(header.html().includes('Community Alpha')).toBe(true);
-        expect(content.html().includes('Move in Date: <span>-</span>')).toBe(true);
-        expect(content.html().includes('Lease Term: <span>-</span>')).toBe(true);
-        expect(content.html().includes('Monthly Rent: <span>-</span>')).toBe(true);
+        expect(content.html().includes('Move in Date: <span>---</span>')).toBe(true);
+        expect(content.html().includes('Lease Term: <span>---</span>')).toBe(true);
+        expect(content.html().includes('Monthly Rent: <span>---</span>')).toBe(true);
         expect(content.html().includes('Role: <span>Main Applicant</span>')).toBe(true);
         expect(content.html().includes('Application ID <span>1</span>')).toBe(true);
     });
@@ -167,7 +184,10 @@ describe('Application', () => {
         expect(wrapper.find(ActionButton).length).toBe(1);
 
         wrapper = shallow(
-            <Application application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }} {...props} />
+            <Application
+                application={{ ...application, status: APPLICATION_STATUSES.APPLICATION_STATUS_COMPLETED }}
+                {...props}
+            />
         );
         expect(wrapper.find(ActionButton).length).toBe(1);
 
@@ -229,13 +249,7 @@ describe.only('Application - invitation start application', () => {
 
         props = defaultProps;
 
-        wrapper = shallow(
-            <Application
-                {...props}
-                application={{ ...application }}
-                invitee={invitee}
-            />
-        );
+        wrapper = shallow(<Application {...props} application={{ ...application }} invitee={invitee} />);
     });
 
     afterEach(() => {

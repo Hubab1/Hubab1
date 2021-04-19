@@ -90,10 +90,10 @@ export function Page({
 
 Page.propTypes = {
     className: PropTypes.string,
-    title: PropTypes.string,
-    subTitle: PropTypes.string,
+    title: PropTypes.any,
+    subTitle: PropTypes.any,
     notification: PropTypes.shape({
-        messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.node]),
         type: PropTypes.oneOf(['sucess', 'error']).isRequired,
     }),
     image: PropTypes.shape({

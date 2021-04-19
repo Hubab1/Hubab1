@@ -978,3 +978,73 @@ describe('selectDefaultBankingPage', () => {
         expect(bankingPage).toBe(ROUTES.EMPLOYER_DETAILS);
     });
 });
+
+describe('applicationFees', () => {
+    const state = {
+        payments: [
+            { paid: false, type: 10, amount: 120 },
+            { paid: false, type: 10, amount: 120 },
+            { paid: false, type: 20, amount: 300 },
+        ],
+    };
+
+    it('should return default state when there are no payments', () => {
+        let newState = { payments: [] };
+        let actual = selectors.applicationFees(newState);
+        const expected = { allPaid: false, items: [], total: 0 };
+        expect(actual).toEqual(expected);
+
+        newState = {};
+        actual = selectors.applicationFees(newState);
+        expect(actual).toEqual(expected);
+    });
+
+    it('creates an object with an allPaid flag, formatted items, and payment total', () => {
+        const actual = selectors.applicationFees(state);
+        expect(actual).toEqual({
+            allPaid: false,
+            items: [
+                {
+                    amount: 240,
+                    name: 'Application Fee',
+                    price: 120,
+                    quantity: 2,
+                    type: 'fee',
+                },
+                {
+                    amount: 300,
+                    name: 'Holding Deposit',
+                    price: 300,
+                    quantity: 1,
+                    type: 'fee',
+                },
+            ],
+            total: 540,
+        });
+    });
+
+    it('calculates allPaid == true when all payments have been paid', () => {
+        const newState = { payments: state.payments.map((p) => ({ ...p, paid: true })) };
+        const actual = selectors.applicationFees(newState);
+        expect(actual).toEqual({
+            allPaid: true,
+            items: [
+                {
+                    amount: 240,
+                    name: 'Application Fee',
+                    price: 120,
+                    quantity: 2,
+                    type: 'fee',
+                },
+                {
+                    amount: 300,
+                    name: 'Holding Deposit',
+                    price: 300,
+                    quantity: 1,
+                    type: 'fee',
+                },
+            ],
+            total: 540,
+        });
+    });
+});

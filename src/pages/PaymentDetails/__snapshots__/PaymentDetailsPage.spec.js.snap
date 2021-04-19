@@ -10,20 +10,29 @@ exports[`PaymentDetails renders the correct number of rows 1`] = `
     1
   </ForwardRef(render)>
   <PaymentDetailsCard
-    fetchPayments={[MockFunction]}
-    payables={
-      Array [
-        Object {
-          "paid": true,
-        },
-        Object {
-          "paid": true,
-        },
-        Object {
-          "paid": true,
-        },
-      ]
+    applicationFees={
+      Object {
+        "allPaid": true,
+        "items": Array [
+          Object {
+            "amount": 500,
+            "name": "Application Fee",
+            "price": 125,
+            "quantity": 4,
+            "type": "fee",
+          },
+          Object {
+            "amount": 120,
+            "name": "Holding Deposit",
+            "price": 120,
+            "quantity": 1,
+            "type": "fee",
+          },
+        ],
+        "total": 620,
+      }
     }
+    fetchPayments={[MockFunction]}
     profile={
       Object {
         "fees_breakdown": Object {

@@ -40,6 +40,7 @@ export function LeaseSignedPage(props) {
 
     useEffect(() => {
         fetchLeaseDocumentUrl();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const unit = props.unit;
@@ -92,6 +93,7 @@ export function LeaseSignedPage(props) {
 LeaseSignedPage.propTypes = {
     unit: PropTypes.object,
     community: PropTypes.object,
+    profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

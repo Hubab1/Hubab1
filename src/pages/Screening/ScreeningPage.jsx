@@ -11,7 +11,7 @@ import { MOCKY } from 'config';
 import { ROUTES } from 'constants/constants';
 import API from 'api/api';
 import withRelativeRoutes from 'utils/withRelativeRoutes';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import SocialSecurityInput from 'common-components/SocialSecurityInput/SocialSecurityInput';
@@ -220,6 +220,7 @@ export class ScreeningPage extends React.Component {
 
 ScreeningPage.propTypes = {
     applicant: PropTypes.object,
+    application: PropTypes.object.isRequired,
     vgsEnabled: PropTypes.bool,
     toggleLoader: PropTypes.func,
     _nextRoute: PropTypes.func,
@@ -227,14 +228,14 @@ ScreeningPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
-    application: state.renterProfile,
+    application: state.renterProfile.isRequired,
     vgsEnabled: !state.configuration.use_demo_config,
     buildingName:
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,
 });
 
 const mapDispatchToProps = {
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(ScreeningPage, ROUTES.SCREENING));

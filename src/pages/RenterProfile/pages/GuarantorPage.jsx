@@ -10,7 +10,7 @@ import API from 'api/api';
 import { fetchRenterProfile } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { selectors } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import InviteForm from 'common-components/InviteForm/InviteForm';
 import BackLink from 'common-components/BackLink/BackLink';
@@ -61,7 +61,7 @@ export class GuarantorPage extends Component {
     };
 
     handleContinueAfterInviteSent = () => {
-        if (!this.props.guarantorRequested) {
+        if (this.props.stillFinishingApp) {
             this.props.history.push(
                 generatePath(`${ROUTES.PROFILE_OPTIONS}#${RENTER_PROFILE_TYPE_GUARANTOR}`, {
                     application_id: this.props.application.id,
@@ -103,7 +103,7 @@ export class GuarantorPage extends Component {
 }
 
 GuarantorPage.propTypes = {
-    guarantorRequested: PropTypes.bool,
+    stillFinishingApp: PropTypes.bool,
     initialPage: PropTypes.string,
     history: PropTypes.object,
     toggleLoader: PropTypes.func,
@@ -112,7 +112,7 @@ GuarantorPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    guarantorRequested: selectors.selectGuarantorRequested(state),
+    stillFinishingApp: selectors.selectApplicantStillFinishingApplication(state),
     initialPage: selectors.selectInitialPage(state),
     application: state.renterProfile,
 });
@@ -120,7 +120,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchRenterProfile,
     fetchApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuarantorPage);

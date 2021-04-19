@@ -17,7 +17,7 @@ import {
 import { rentalOptionsInitialValues } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import AddAnotherButton from 'common-components/AddAnotherButton/AddAnotherButton';
 import ActionButton from 'common-components/ActionButton/ActionButton';
@@ -337,7 +337,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PetsPage);
