@@ -16,7 +16,7 @@ import { parseDateISOString, serializeDate } from 'utils/misc';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 
 import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import PriceBreakdown from 'common-components/PriceBreakdown/PriceBreakdown';
@@ -327,7 +327,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateRenterProfile,
     pageComplete,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(LeaseTermsPage, ROUTES.LEASE_TERMS));
