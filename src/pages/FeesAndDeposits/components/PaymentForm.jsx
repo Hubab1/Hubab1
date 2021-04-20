@@ -13,7 +13,7 @@ import { prettyCurrency, prettyFormatPhoneNumber } from 'utils/misc';
 
 import { fetchApplicant } from 'reducers/applicant';
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 import { selectors as configSelectors } from 'reducers/configuration';
 import { selectors as profileSelectors } from 'reducers/renter-profile';
 
@@ -204,7 +204,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchApplicant,
     fetchRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(PaymentForm));
