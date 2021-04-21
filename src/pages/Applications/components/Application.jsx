@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import clsx from 'clsx';
@@ -21,10 +23,10 @@ import {
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
-import ActionButton from 'common-components/ActionButton/ActionButton';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import * as routingHelpers from 'utils/routingHelpers';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+
+import ActionButton from 'common-components/ActionButton/ActionButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,10 +79,14 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
 
     useEffect(() => {
         if (initialPage && appSelected) {
+            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
+                return routingHelpers.switchToApplicationCommunityEnv(application, initialPage);
+            }
+
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [initialPage, appSelected, history]);
+    }, [application, initialPage, appSelected, history]);
 
     const handleApplicationClick = async (id) => {
         await fetchRenterProfile(id);
@@ -172,13 +178,11 @@ Application.propTypes = {
     }),
     isActive: PropTypes.bool,
     initialPage: PropTypes.string,
-    communityId: PropTypes.string,
     fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-    communityId: state.siteConfig.basename,
     initialPage: selectors.selectDefaultInitialPage(state),
 });
 

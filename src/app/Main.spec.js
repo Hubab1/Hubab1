@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ROUTES } from 'constants/constants';
-import { Main } from './Main';
 import { mockWindowLocation } from 'utils/mockWindow';
+import { Main } from './Main';
 import CriticalErrorPage from 'pages/CriticalError';
 
 let defaultProps, configurationObject, fetchConfigurationPromise, fetchRenterProfilePromise, fetchApplicantPromise;
@@ -315,6 +315,54 @@ describe('initializeApp', () => {
         expect(mockHistory.replace).toHaveBeenCalledWith(ROUTES.APPLICATIONS);
     });
 
+    it('redirects to applications page when applicants application is from another community', async () => {
+        const lease_settings_id = 6;
+        const application_id = 1;
+        const applicant = { application: application_id };
+        const mockFetchApplicant = jest.fn().mockReturnValue(
+            Promise.resolve({
+                num_active_applications: 1,
+                application: application_id,
+            })
+        );
+        const mockFetchRenterProfile = jest.fn().mockReturnValue(
+            Promise.resolve({
+                id: application_id,
+                lease_settings: 7, // <-- different community
+            })
+        );
+        const mockHistory = {
+            replace: jest.fn(),
+            push: jest.fn(),
+        };
+        const mockLocation = {
+            search: '',
+            pathname: `/${lease_settings_id}`,
+        };
+
+        // Mock window.location, which is used by the util that determines the initial route
+        mockWindowLocation(mockLocation);
+
+        const wrapper = shallow(
+            <Main
+                {...defaultProps}
+                applicant={applicant}
+                fetchApplicant={mockFetchApplicant}
+                fetchRenterProfile={mockFetchRenterProfile}
+                history={mockHistory}
+                location={mockLocation}
+            />
+        );
+        const isAuthenticated = true;
+        const configuration = {
+            location: mockLocation,
+            history: mockHistory,
+        };
+
+        await wrapper.instance().initializeApp(isAuthenticated, configuration);
+        expect(mockHistory.replace).toHaveBeenCalledWith(ROUTES.APPLICATIONS);
+    });
+
     it('redirects to application page when we do know what application the applicant is trying to access regardless if has multiple active apps', async () => {
         const lease_settings_id = 6;
         const application_id = 1;
@@ -339,6 +387,10 @@ describe('initializeApp', () => {
             search: '',
             pathname: `/${lease_settings_id}/application/${application_id}`,
         };
+
+        // Mock window.location, which is used by the util that determines the initial route
+        mockWindowLocation(mockLocation);
+
         const mockApplicationInitialPage = ROUTES.APP_APPROVED;
 
         // Mock window.location, which is used by the util that determines the initial route
