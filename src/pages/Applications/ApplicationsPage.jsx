@@ -93,24 +93,31 @@ export function ApplicationsPage({ applicant, community, unit, accessedAppByInvi
     }, [apps.data]);
 
     const [showActiveEmptyState, showPastEmptyState] = useMemo(() => {
-        return [!error && active.length === 0, !error && past.length === 0, !error && invitees.data.length === 0];
-    }, [error, active, past, invitees.data]);
+        return [!error && active.length === 0, !error && past.length === 0];
+    }, [error, active, past]);
+
+    const showNewApplicationsSection = invitees.data?.length > 0;
 
     return (
         <Page className={classes.root} title="My Applications" notification={notification} loading={loading}>
+            {showNewApplicationsSection && (
+                <div data-testid="new-applications" className={classes.section}>
+                    <Typography variant="h3">New Applications</Typography>
+                    {invitees.data.map((invitee) => {
+                        return (
+                            <Application
+                                key={invitee.id}
+                                application={invitee.application}
+                                invitee={{ id: invitee.id, role: invitee.role }}
+                                isActive
+                                setError={setError}
+                            />
+                        );
+                    })}
+                </div>
+            )}
             <div data-testid="active-applications" className={classes.section}>
                 <Typography variant="h3">Active Applications</Typography>
-                {invitees.data.map((invitee) => {
-                    return (
-                        <Application
-                            key={invitee.id}
-                            application={invitee.application}
-                            invitee={{ id: invitee.id, role: invitee.role }}
-                            isActive
-                            setError={setError}
-                        />
-                    );
-                })}
                 {active.map((application) => {
                     return <Application key={application.id} application={application} setError={setError} isActive />;
                 })}

@@ -73,7 +73,7 @@ describe('ApplicationsPage', () => {
 
     it('useApplications loading shows empty page', () => {
         mockUseApplications({ loading: true });
-        mockUseInvitations();
+        mockUseInvitations({ loading: false });
 
         const wrapper = shallow(<ApplicationsPage {...props} />);
 
@@ -84,7 +84,7 @@ describe('ApplicationsPage', () => {
 
     it('useInvitations loading shows empty page', () => {
         mockUseApplications({ loading: false });
-        mockUseApplications({ loading: true });
+        mockUseInvitations({ loading: true });
 
         const wrapper = shallow(<ApplicationsPage {...props} />);
 
@@ -123,8 +123,9 @@ describe('ApplicationsPage', () => {
                 lastActivity: moment('2020-01-01').format('MM-DD-YYYY'),
             },
         ];
+
         mockUseApplications({ data });
-        mockUseInvitations();
+        mockUseInvitations({ loading: false });
 
         const wrapper = shallow(<ApplicationsPage {...props} />);
         const activeApplications = wrapper.find('[data-testid="active-applications"]').find(Application);
@@ -135,7 +136,7 @@ describe('ApplicationsPage', () => {
         expect(wrapper.getElement()).toMatchSnapshot();
     });
 
-    it('useInvitations success with invitations shows invitations', () => {
+    it('useInvitations success with invitations shows new applications section', () => {
         const data = [
             {
                 id: 123,
@@ -156,11 +157,12 @@ describe('ApplicationsPage', () => {
                 },
             },
         ];
+
         mockUseInvitations({ data });
         mockUseApplications({ data: [] });
 
         const wrapper = shallow(<ApplicationsPage {...props} />);
-        const activeApplications = wrapper.find('[data-testid="active-applications"]').find(Application);
+        const activeApplications = wrapper.find('[data-testid="new-applications"]').find(Application);
         expect(activeApplications.length).toBe(2);
         expect(wrapper.getElement()).toMatchSnapshot();
     });

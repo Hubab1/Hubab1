@@ -59,7 +59,7 @@ exports[`ApplicationsPage useApplications success with application shows active 
 </Page>
 `;
 
-exports[`ApplicationsPage useInvitations success with invitations shows invitations 1`] = `
+exports[`ApplicationsPage useInvitations success with invitations shows new applications section 1`] = `
 <Page
   className="makeStyles-root-1"
   loading={false}
@@ -67,12 +67,12 @@ exports[`ApplicationsPage useInvitations success with invitations shows invitati
 >
   <div
     className="makeStyles-section-2"
-    data-testid="active-applications"
+    data-testid="new-applications"
   >
     <ForwardRef(WithStyles)
       variant="h3"
     >
-      Active Applications
+      New Applications
     </ForwardRef(WithStyles)>
     <UNDEFINED
       application={
@@ -112,6 +112,16 @@ exports[`ApplicationsPage useInvitations success with invitations shows invitati
       isActive={true}
       setError={[Function]}
     />
+  </div>
+  <div
+    className="makeStyles-section-2"
+    data-testid="active-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Active Applications
+    </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       variant="h4"
     >
