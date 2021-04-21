@@ -116,12 +116,12 @@ API.fetchRenterProfile = (application_id) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -137,12 +137,12 @@ API.fetchApplicant = () => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -336,12 +336,12 @@ API.submitFinancialSource = (application_id, data, vgsEnabled) => {
         },
         body: data,
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -364,12 +364,12 @@ API.getFinancialSource = (id) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -386,12 +386,12 @@ API.updateFinancialSource = (id, body) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -407,12 +407,12 @@ API.deleteFinancialSource = (id) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
