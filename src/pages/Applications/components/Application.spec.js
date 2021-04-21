@@ -234,8 +234,7 @@ describe('Application', () => {
     });
 });
 
-// TODO: remove only
-describe.only('Application - invitation start application', () => {
+describe('Application - invitation start application', () => {
     let wrapper;
     let application = {};
     let props = {};
