@@ -25,6 +25,7 @@ import {
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
+import * as routingHelpers from 'utils/routingHelpers';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { actions as loaderActions } from 'reducers/loader';
 
@@ -100,10 +101,14 @@ export function Application({
 
     useEffect(() => {
         if (initialPage && appSelected) {
+            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
+                return routingHelpers.switchToApplicationCommunityEnv(application, initialPage);
+            }
+
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [initialPage, appSelected, history]);
+    }, [application, initialPage, appSelected, history]);
 
     const handleApplicationClick = async (applicationId) => {
         if (invitee) {
@@ -226,7 +231,6 @@ Application.propTypes = {
         role: PropTypes.number.isRequired,
     }),
     initialPage: PropTypes.string,
-    communityId: PropTypes.number,
     history: PropTypes.object,
     fetchRenterProfile: PropTypes.func,
     setError: PropTypes.func,
@@ -234,7 +238,6 @@ Application.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    communityId: state.siteConfig.basename,
     initialPage: selectors.selectDefaultInitialPage(state),
 });
 

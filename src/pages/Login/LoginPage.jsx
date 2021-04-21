@@ -63,11 +63,10 @@ export class LoginPage extends Component {
                     routingHelpers.getApplicationIdFromUrl() ||
                     this.props?.configuration?.application_id ||
                     this.props?.applicant?.application;
-
-                await this.props.fetchRenterProfile(applicationId);
-
+                const application = await this.props.fetchRenterProfile(applicationId);
                 const initialRoute = routingHelpers.getInitialRoute(
                     applicant,
+                    application,
                     this.props.configuration,
                     this.props.accessedAppByInvitationOrWebsite,
                     this.props.initialPage

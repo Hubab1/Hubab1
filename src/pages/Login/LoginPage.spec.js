@@ -117,6 +117,7 @@ it('redirects to applications page when applicant accessed app by invitation or 
             accessedAppByInvitationOrWebsite={true}
         />
     );
+
     wrapper.instance().auth.setSession = setSession;
     return wrapper
         .instance()
