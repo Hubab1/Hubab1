@@ -90,10 +90,11 @@ export class Main extends Component {
                 routingHelpers.getApplicationIdFromUrl() ||
                 this.props?.configuration?.application_id ||
                 this.props?.applicant?.application;
-            await this.props.fetchRenterProfile(applicationId);
+            const application = await this.props.fetchRenterProfile(applicationId);
 
             const initialRoute = routingHelpers.getInitialRoute(
                 applicant,
+                application,
                 configuration,
                 accessedAppByInvitationOrWebsite,
                 this.props.initialPage
@@ -104,7 +105,6 @@ export class Main extends Component {
             }
 
             if (!this.props.canAccessCurrentRoute()) {
-                history.replace(this.props.initialPage);
                 return history.replace(initialRoute);
             }
         }
