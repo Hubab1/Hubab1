@@ -115,7 +115,19 @@ API.fetchRenterProfile = (application_id) => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
-    }).then((res) => res.json());
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
 };
 
 API.fetchApplicant = () => {
@@ -124,7 +136,19 @@ API.fetchApplicant = () => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
-    }).then((res) => res.json());
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
 };
 
 API.login = (email, password, communityId) => {
