@@ -137,6 +137,8 @@ export const LeaseTermsPage = ({
     const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
     const genericErrorMsg = `Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`;
     const unitErrorMsg = `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`;
+    const useValidation = isPrimaryApplicant;
+
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors }) => {
             toggleLoader(true);
@@ -208,7 +210,7 @@ export const LeaseTermsPage = ({
             <Formik
                 onSubmit={handleSubmit}
                 initialValues={initialValues}
-                validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
+                validationSchema={useValidation && validationSchema(company?.accepted_lease_start_date_range)}
             >
                 {({
                     values,
