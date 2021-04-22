@@ -10,6 +10,7 @@ exports[`matches snapshot 1`] = `
       Make sure everything looks good before signing the lease.
     </ForwardRef(render)>
     <PaymentDetailsCard
+      applicationFees={Object {}}
       profile={
         Object {
           "events": Array [

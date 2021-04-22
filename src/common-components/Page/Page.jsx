@@ -93,7 +93,7 @@ Page.propTypes = {
     title: PropTypes.any,
     subTitle: PropTypes.any,
     notification: PropTypes.shape({
-        messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        messages: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.node]),
         type: PropTypes.oneOf(['sucess', 'error']).isRequired,
     }),
     image: PropTypes.shape({

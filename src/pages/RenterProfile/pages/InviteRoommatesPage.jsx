@@ -8,7 +8,7 @@ import { ROUTES, RENTER_PROFILE_TYPE_CO_APPLICANTS } from 'constants/constants';
 import { serializeDate } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import BackLink from 'common-components/BackLink/BackLink';
 import InviteForm from 'common-components/InviteForm/InviteForm';
@@ -141,7 +141,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InviteRoommatesPage);

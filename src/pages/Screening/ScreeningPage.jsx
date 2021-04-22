@@ -11,7 +11,7 @@ import { MOCKY } from 'config';
 import { ROUTES } from 'constants/constants';
 import API from 'api/api';
 import withRelativeRoutes from 'utils/withRelativeRoutes';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import SocialSecurityInput from 'common-components/SocialSecurityInput/SocialSecurityInput';
@@ -235,7 +235,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRelativeRoutes(ScreeningPage, ROUTES.SCREENING));

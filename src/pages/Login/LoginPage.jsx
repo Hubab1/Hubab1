@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import auth from 'utils/auth';
 import { prettyFormatPhoneNumber } from 'utils/misc';
+import * as routingHelpers from 'utils/routingHelpers';
+
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
 import { actions as loaderActions } from 'reducers/loader';
@@ -47,6 +49,7 @@ export class LoginPage extends Component {
     }
 
     onSubmit = (values, { setSubmitting }) => {
+        this.setState({ errors: null });
         this.props.toggleLoader(true);
 
         const { history } = this.props;
@@ -54,11 +57,22 @@ export class LoginPage extends Component {
             .login(values.email, values.password, this.props.communityId)
             .then(async (res) => {
                 auth.setSession(res.token, this.props.communityId);
-                if (this.state.errors) this.setState({ errors: null });
 
-                await this.props.fetchApplicant();
-                await this.props.fetchRenterProfile(this.props.applicant.application);
-                history.replace(this.props.initialPage);
+                const applicant = await this.props.fetchApplicant();
+                const applicationId =
+                    routingHelpers.getApplicationIdFromUrl() ||
+                    this.props?.configuration?.application_id ||
+                    this.props?.applicant?.application;
+                const application = await this.props.fetchRenterProfile(applicationId);
+                const initialRoute = routingHelpers.getInitialRoute(
+                    applicant,
+                    application,
+                    this.props.configuration,
+                    this.props.accessedAppByInvitationOrWebsite,
+                    this.props.initialPage
+                );
+
+                history.replace(initialRoute);
             })
             .catch((res) => {
                 const error = res.errors?.error;
@@ -93,8 +107,11 @@ LoginPage.propTypes = {
     initialPage: PropTypes.string,
     communityId: PropTypes.string,
     community: PropTypes.object,
+    applicant: PropTypes.object,
+    invitee: PropTypes.object,
     location: PropTypes.object,
     history: PropTypes.object,
+    accessedAppByInvitationOrWebsite: PropTypes.bool,
     fetchApplicant: PropTypes.func,
     configuration: PropTypes.object.isRequired,
     toggleLoader: PropTypes.func,
@@ -104,9 +121,11 @@ const mapStateToProps = (state) => ({
     profile: state.renterProfile,
     initialPage: selectors.selectInitialPage(state),
     communityId: state.siteConfig.basename,
-    community: state.configuration && state.configuration.community,
-    invitee: state.configuration && state.configuration.invitee,
+    configuration: state.configuration,
+    community: state.configuration?.community,
+    invitee: state.configuration?.invitee,
     applicant: state.applicant,
+    accessedAppByInvitationOrWebsite: Boolean(state.siteConfig.hash),
 });
 
 const mapDispatchToProps = {
