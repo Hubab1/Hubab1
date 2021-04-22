@@ -12,7 +12,7 @@ import {
 import API from 'api/api';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
 import ActionButton from 'common-components/ActionButton/ActionButton';
@@ -176,7 +176,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemovePersonPage);

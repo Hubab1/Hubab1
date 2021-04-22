@@ -9,7 +9,7 @@ import { ROUTES, RENTER_PROFILE_TYPE_WINE_COOLER } from 'constants/constants';
 import { rentalOptionsInitialValues, getRentalOptionSubtitleItemAdder, rentalOptionCTALabel } from 'utils/misc';
 
 import { updateRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import PriceBreakdown from 'common-components/PriceBreakdown/PriceBreakdown';
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
@@ -149,7 +149,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WineCoolerPage);

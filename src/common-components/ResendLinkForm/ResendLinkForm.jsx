@@ -7,7 +7,7 @@ import API from 'api/api';
 import { RENTER_PROFILE_TYPE_GUARANTOR } from 'constants/constants';
 
 import { fetchRenterProfile } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import { BackLink } from 'common-components/BackLink/BackLink';
 import { InviteForm } from 'common-components/InviteForm/InviteForm';
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchRenterProfile,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResendLinkForm);

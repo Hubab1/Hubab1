@@ -18,7 +18,7 @@ import {
 import withRelativeRoutes from 'utils/withRelativeRoutes';
 
 import { updateRenterProfile, pageComplete } from 'reducers/renter-profile';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import ActionButton from 'common-components/ActionButton/ActionButton';
 import { BackLink } from 'common-components/BackLink/BackLink';
@@ -355,7 +355,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateRenterProfile,
     pageComplete,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import API from 'api/api';
 import { ROUTES } from 'constants/constants';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import Page from 'common-components/Page/Page';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
@@ -76,7 +76,7 @@ export const ResetPasswordPage = ({ history, toggleLoader }) => {
 const mapStateToProps = null;
 
 const mapDispatchToProps = {
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 ResetPasswordPage.propTypes = {

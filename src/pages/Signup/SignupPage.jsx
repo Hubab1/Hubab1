@@ -10,7 +10,7 @@ import { serializeDate, parseDateISOString } from 'utils/misc';
 import { getMultipleAppsV2LoginAndNavigation } from 'selectors/launchDarkly';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
 import { fetchApplicant } from 'reducers/applicant';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import AccountForm from 'common-components/AccountForm/AccountForm';
 import UnauthenticatedPage from 'pages/Unauthenticated';
@@ -175,7 +175,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchRenterProfile,
     fetchApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
