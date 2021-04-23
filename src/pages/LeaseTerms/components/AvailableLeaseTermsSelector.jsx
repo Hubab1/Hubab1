@@ -68,6 +68,7 @@ export default function AvailableLeaseTermsSelector(props) {
     }, [props.unitId, props.leaseStartDate, leaseTerms, props.application.id]);
 
     const handleClick = useCallback(async () => {
+        if (props.disabled) return;
         if (isDesktop) {
             return setOpen(!open);
         }
@@ -80,29 +81,26 @@ export default function AvailableLeaseTermsSelector(props) {
         }
 
         setOpen(false);
-    }, [open]);
+    }, [open, props.disabled]);
 
     return (
-        <div>
-            <FormControl fullWidth onClick={handleClick}>
-                <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
-                <Select
-                    open={open}
-                    fullWidth
-                    value={isReady && props.leaseTerm ? props.leaseTerm : ''}
-                    onChange={props.handleChange}
-                    disabled={props.disabled}
-                    MenuProps={{ classes: { paper: classes.paper } }}
-                    inputProps={{
-                        name: 'lease_term',
-                        id: 'lease-term',
-                    }}
-                >
-                    {getMenuItems(isReady, leaseTerms, props.unitId)}
-                </Select>
-                <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
-            </FormControl>
-        </div>
+        <FormControl fullWidth onClick={handleClick} disabled={props.disabled}>
+            <InputLabel htmlFor="lease-term">Lease Term</InputLabel>
+            <Select
+                open={open}
+                fullWidth
+                value={isReady && props.leaseTerm ? props.leaseTerm : ''}
+                onChange={props.handleChange}
+                MenuProps={{ classes: { paper: classes.paper } }}
+                inputProps={{
+                    name: 'lease_term',
+                    id: 'lease-term',
+                }}
+            >
+                {getMenuItems(isReady, leaseTerms, props.unitId)}
+            </Select>
+            <FormHelperText>{getLeaseEndDateText(props.leaseStartDate, props.leaseTerm)}</FormHelperText>
+        </FormControl>
     );
 }
 
