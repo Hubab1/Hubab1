@@ -120,6 +120,15 @@ export const validationSchema = (acceptedLeaseStartDateRange) => {
         });
 };
 
+/**
+ * Some general notes for the lease terms page:
+ *  - Only the primary applicant can submit the lease terms.
+ *    For this reason, the form fields are disabled for non-primary applicants.
+ *
+ *  - It may happen that the lease terms have changed overtime and became invalid.
+ *    As the form is disabled for non-primary applicants, they could get stuck on the page, not being able to continue.
+ *    For this reason, we avoid assigning any validation to the form for non-primary applicants.
+ */
 export const LeaseTermsPage = ({
     application,
     isPrimaryApplicant,
