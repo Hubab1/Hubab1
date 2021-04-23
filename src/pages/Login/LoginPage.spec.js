@@ -1,19 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import API from 'api/api';
 import { ROUTES } from 'constants/constants';
 import { mockWindowLocation } from 'utils/mockWindow';
 import { LoginPage } from './LoginPage';
-import { fetchApplicant } from '../../reducers/applicant';
-
-// const mockFetchApplicantApi = (returnValue = {}) => {
-//     return jest.spyOn(API, 'fetchApplicant').mockReturnValue(returnValue);
-// };
-//
-// const mockFetchRenterProfileApi = (returnValue = {}) => {
-//     return jest.spyOn(API, 'fetchRenterProfile').mockReturnValue(returnValue);
-// };
 
 jest.mock('utils/auth', () => {
     class Auth {
