@@ -23,6 +23,7 @@ const CHUCK_BASE_LEASE_SETTINGS = (communityId) => `${CHUCK_BASE_URL}/api/online
 const CHUCK_PERSONALIZED_LEASE_SETTINGS = (communityId, hash) =>
     `${CHUCK_BASE_URL}/api/onlineleasing/communities/${communityId}/personalized/${hash}`;
 
+// TODO: enhance fetch util to avoid duplicated code | created by @JimVercoelen | ticket: NESTIO-21662
 const API = {};
 
 API.fetchConfiguration = (communityId) => {
