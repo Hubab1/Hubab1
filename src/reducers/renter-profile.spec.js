@@ -1048,3 +1048,77 @@ describe('applicationFees', () => {
         });
     });
 });
+
+describe('selectNextRoute', () => {
+    it('selects application completed as next route after outstanding balances', () => {
+        const nextRoute = selectors.selectNextRoute({
+            renterProfile: {
+                id: 1,
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                events: [{ application: 1, event: MILESTONE_APPLICANT_SUBMITTED }],
+            },
+            siteConfig: {
+                currentRoute: applicationPath(ROUTES.OUTSTANDING_BALANCE, 1),
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+        });
+        expect(nextRoute).toEqual(applicationPath(ROUTES.APP_COMPLETE, 1));
+    });
+
+    it('selects screening as next route after outstanding balances', () => {
+        const nextRoute = selectors.selectNextRoute({
+            renterProfile: {
+                id: 1,
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                events: [{ application: 1, event: MILESTONE_APPLICATION_FEE_COMPLETED }],
+            },
+            siteConfig: {
+                currentRoute: applicationPath(ROUTES.OUTSTANDING_BALANCE, 1),
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+        });
+        expect(nextRoute).toEqual(applicationPath(ROUTES.SCREENING, 1));
+    });
+
+    it('selects next route correctly if page is address', () => {
+        const nextRoute = selectors.selectNextRoute({
+            renterProfile: {
+                id: 1,
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+            },
+            siteConfig: {
+                currentRoute: applicationPath(ROUTES.ADDRESS, 1),
+            },
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+        });
+        expect(nextRoute).toEqual(applicationPath(ROUTES.LEASE_TERMS, 1));
+    });
+});

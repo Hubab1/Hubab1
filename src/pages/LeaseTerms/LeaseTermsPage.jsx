@@ -120,6 +120,15 @@ export const validationSchema = (acceptedLeaseStartDateRange) => {
         });
 };
 
+/**
+ * Some general notes for the lease terms page:
+ *  - Only the primary applicant can submit the lease terms.
+ *    For this reason, the form fields are disabled for non-primary applicants.
+ *
+ *  - It may happen that the lease terms have changed overtime and became invalid.
+ *    As the form is disabled for non-primary applicants, they could get stuck on the page, not being able to continue.
+ *    For this reason, we avoid assigning any validation to the form for non-primary applicants.
+ */
 export const LeaseTermsPage = ({
     application,
     isPrimaryApplicant,
@@ -137,6 +146,8 @@ export const LeaseTermsPage = ({
     const contactPhone = useMemo(() => prettyFormatPhoneNumber(community.contact_phone), [community]);
     const genericErrorMsg = `Oops, we're having trouble calculating the pricing for your selections. Try selecting different terms, or call us at ${contactPhone} if this still isn’t working in a bit.`;
     const unitErrorMsg = `We're sorry, it looks like this unit is not available. Please select another unit, or call us at ${contactPhone} if you are having further issues.`;
+    const useValidation = isPrimaryApplicant;
+
     const handleSubmit = useCallback(
         async (values, { setSubmitting, setErrors }) => {
             toggleLoader(true);
@@ -208,7 +219,7 @@ export const LeaseTermsPage = ({
             <Formik
                 onSubmit={handleSubmit}
                 initialValues={initialValues}
-                validationSchema={validationSchema(company?.accepted_lease_start_date_range)}
+                validationSchema={useValidation && validationSchema(company?.accepted_lease_start_date_range)}
             >
                 {({
                     values,
