@@ -14,7 +14,7 @@ export const getApplicationIdFromUrl = () => {
 export const getApplicationIsInWrongCommunityEnv = (application) => {
     const leaseSettingsIdFromUrl = getLeaseSettingsIdFromUrl();
 
-    if (Number(leaseSettingsIdFromUrl) !== application.lease_settings) {
+    if (String(leaseSettingsIdFromUrl) !== String(application.lease_settings)) {
         return true;
     }
 

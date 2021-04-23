@@ -5,19 +5,29 @@ import moment from 'moment';
 import { ACTIVE_APPLICATION_STATUSES, PAST_APPLICATION_STATUSES, APPLICANT_ROLE_VALUES } from 'constants/constants';
 import Page from 'common-components/Page/Page';
 import * as hooks from './hooks';
-import { ApplicationsPage, getAlreadyHasActiveApplicationForCommuntiyAsPrimaryError } from './ApplicationsPage';
+import { ApplicationsPage } from './ApplicationsPage';
 import Application from './components/Application';
 
 // Mock hooks, issue: https://stackoverflow.com/questions/53162001/typeerror-during-jests-spyon-cannot-set-property-getrequest-of-object-which
 jest.mock('./hooks', () => ({
     useApplications: jest.fn(),
+    useInvitations: jest.fn(),
 }));
 
 const mockUseApplications = (returnValue = {}) => {
     return jest.spyOn(hooks, 'useApplications').mockReturnValue({
         loading: false,
         error: undefined,
-        applications: [],
+        data: [],
+        ...returnValue,
+    });
+};
+
+const mockUseInvitations = (returnValue = {}) => {
+    return jest.spyOn(hooks, 'useInvitations').mockReturnValue({
+        loading: false,
+        error: undefined,
+        data: [],
         ...returnValue,
     });
 };
@@ -39,6 +49,20 @@ describe('ApplicationsPage', () => {
 
     it('useApplications error shows error notification', () => {
         mockUseApplications({ error: 'Woops', loading: true });
+        mockUseInvitations();
+
+        const wrapper = shallow(<ApplicationsPage {...props} />);
+
+        expect(wrapper.html().includes('My Applications')).toBe(true);
+        expect(wrapper.html().includes('Woops')).toBe(true);
+        expect(wrapper.html().includes('Active Applications')).toBe(false);
+        expect(wrapper.html().includes('Past Applications')).toBe(false);
+    });
+
+    it('useInvitations error shows error notification', () => {
+        mockUseInvitations({ error: 'Woops', loading: true });
+        mockUseApplications();
+
         const wrapper = shallow(<ApplicationsPage {...props} />);
 
         expect(wrapper.html().includes('My Applications')).toBe(true);
@@ -49,6 +73,19 @@ describe('ApplicationsPage', () => {
 
     it('useApplications loading shows empty page', () => {
         mockUseApplications({ loading: true });
+        mockUseInvitations({ loading: false });
+
+        const wrapper = shallow(<ApplicationsPage {...props} />);
+
+        expect(wrapper.html().includes('My Applications')).toBe(true);
+        expect(wrapper.html().includes('Active Applications')).toBe(false);
+        expect(wrapper.html().includes('Past Applications')).toBe(false);
+    });
+
+    it('useInvitations loading shows empty page', () => {
+        mockUseApplications({ loading: false });
+        mockUseInvitations({ loading: true });
+
         const wrapper = shallow(<ApplicationsPage {...props} />);
 
         expect(wrapper.html().includes('My Applications')).toBe(true);
@@ -57,7 +94,9 @@ describe('ApplicationsPage', () => {
     });
 
     it('useApplications success without application shows sections with empty copy', () => {
-        mockUseApplications({ applications: [] });
+        mockUseApplications({ data: [] });
+        mockUseInvitations();
+
         const wrapper = shallow(<ApplicationsPage {...props} />);
 
         expect(wrapper.html().includes('My Applications')).toBe(true);
@@ -68,7 +107,7 @@ describe('ApplicationsPage', () => {
     });
 
     it('useApplications success with application shows active and past application sections', () => {
-        const applications = [
+        const data = [
             {
                 id: 'active-application',
                 status: ACTIVE_APPLICATION_STATUSES[0],
@@ -84,13 +123,48 @@ describe('ApplicationsPage', () => {
                 lastActivity: moment('2020-01-01').format('MM-DD-YYYY'),
             },
         ];
-        mockUseApplications({ applications });
+
+        mockUseApplications({ data });
+        mockUseInvitations({ loading: false });
+
         const wrapper = shallow(<ApplicationsPage {...props} />);
         const activeApplications = wrapper.find('[data-testid="active-applications"]').find(Application);
         const pastApplications = wrapper.find('[data-testid="past-applications"]').find(Application);
 
         expect(activeApplications.length).toBe(1);
         expect(pastApplications.length).toBe(1);
+        expect(wrapper.getElement()).toMatchSnapshot();
+    });
+
+    it('useInvitations success with invitations shows new applications section', () => {
+        const data = [
+            {
+                id: 123,
+                role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT,
+                application: {
+                    status: ACTIVE_APPLICATION_STATUSES[0],
+                    community: { display_name: 'community' },
+                    lastActivity: moment('2020-01-02').format('MM-DD-YYYY'),
+                },
+            },
+            {
+                id: 123,
+                role: APPLICANT_ROLE_VALUES.ROLE_CO_APPLICANT,
+                application: {
+                    status: ACTIVE_APPLICATION_STATUSES[0],
+                    community: { display_name: 'community' },
+                    lastActivity: moment('2020-01-01').format('MM-DD-YYYY'),
+                },
+            },
+        ];
+
+        mockUseInvitations({ data });
+        mockUseApplications({ data: [] });
+
+        const wrapper = shallow(<ApplicationsPage {...props} />);
+        const activeApplications = wrapper.find('[data-testid="new-applications"]').find(Application);
+        expect(activeApplications.length).toBe(2);
+        expect(wrapper.getElement()).toMatchSnapshot();
     });
 
     it('show already has active application for community as primary applicant', () => {
@@ -101,7 +175,7 @@ describe('ApplicationsPage', () => {
             accessedAppByInvitationOrWebsite: true,
         };
 
-        const applications = [
+        const data = [
             {
                 id: 1,
                 status: ACTIVE_APPLICATION_STATUSES[0],
@@ -111,7 +185,8 @@ describe('ApplicationsPage', () => {
                 lastActivity: moment('2020-01-02').format('MM-DD-YYYY'),
             },
         ];
-        mockUseApplications({ applications });
+
+        mockUseApplications({ data });
 
         const wrapper = shallow(<ApplicationsPage {...props} />);
         const page = wrapper.find(Page);

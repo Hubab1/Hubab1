@@ -3,27 +3,18 @@ import API from 'api/api';
 
 import { useMayorLoader } from 'common-components/MayorLoader/MayorLoaderProvider';
 
-export default function useApplications(errorMessage) {
+export default function useInvitations(errorMessage) {
     const { toggleLoader } = useMayorLoader();
     const [loading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [data, setData] = useState([]);
 
-    const getApplications = useCallback(async () => {
+    const getInvitations = useCallback(async () => {
         setIsLoading(true);
 
         try {
-            const applications = await API.getApplications();
-            const applicationsData =
-                applications?.map(({ application, role, last_activity }) => {
-                    return {
-                        ...application,
-                        role,
-                        lastActivity: last_activity,
-                    };
-                }) || [];
-
-            setData(applicationsData);
+            const invitations = await API.getInvitations();
+            setData(invitations);
         } catch {
             setError(errorMessage);
         } finally {
@@ -32,8 +23,8 @@ export default function useApplications(errorMessage) {
     }, [errorMessage]);
 
     useEffect(() => {
-        getApplications();
-    }, [getApplications]);
+        getInvitations();
+    }, [getInvitations]);
 
     useEffect(() => {
         toggleLoader(loading);
