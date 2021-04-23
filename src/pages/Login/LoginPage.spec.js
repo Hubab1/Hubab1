@@ -1,9 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import API from 'api/api';
 import { ROUTES } from 'constants/constants';
 import { mockWindowLocation } from 'utils/mockWindow';
 import { LoginPage } from './LoginPage';
+import { fetchApplicant } from '../../reducers/applicant';
+
+// const mockFetchApplicantApi = (returnValue = {}) => {
+//     return jest.spyOn(API, 'fetchApplicant').mockReturnValue(returnValue);
+// };
+//
+// const mockFetchRenterProfileApi = (returnValue = {}) => {
+//     return jest.spyOn(API, 'fetchRenterProfile').mockReturnValue(returnValue);
+// };
 
 jest.mock('utils/auth', () => {
     class Auth {
@@ -191,7 +201,48 @@ it('renders no application error', function () {
         });
 });
 
-it('renders genereic error', function () {
+it('renders genereic error when login request failed', function () {
+    const wrapper = shallow(<LoginPage {...defaultProps} />);
+    wrapper.instance().auth.login = () => Promise.reject({ errors: { error: 'something' } });
+    return wrapper
+        .instance()
+        .onSubmit({}, { setSubmitting: () => {} })
+        .then(() => {
+            expect(wrapper.state('errors')).toEqual(['Oops, something has gone wrong.']);
+        });
+});
+
+it('renders generic error when requesting applicant failed', function () {
+    const mockFetchApplicant = jest.fn().mockReturnValue(Promise.reject());
+    const mockFetchRenterProfile = jest.fn().mockReturnValue(Promise.resolve({ id: 1 }));
+    const wrapper = shallow(
+        <LoginPage {...defaultProps} fetchApplicant={mockFetchApplicant} fetchRenterProfile={mockFetchRenterProfile} />
+    );
+
+    return wrapper
+        .instance()
+        .onSubmit({}, { setSubmitting: () => {} })
+        .then(() => {
+            expect(wrapper.state('errors')).toEqual(['Oops, something has gone wrong.']);
+        });
+});
+
+it('renders generic error when requesting renter profile failed', function () {
+    const mockFetchApplicant = jest.fn().mockReturnValue(Promise.resolve({ id: 1 }));
+    const mockFetchRenterProfile = jest.fn().mockReturnValue(Promise.reject());
+    const wrapper = shallow(
+        <LoginPage {...defaultProps} fetchApplicant={mockFetchApplicant} fetchRenterProfile={mockFetchRenterProfile} />
+    );
+
+    return wrapper
+        .instance()
+        .onSubmit({}, { setSubmitting: () => {} })
+        .then(() => {
+            expect(wrapper.state('errors')).toEqual(['Oops, something has gone wrong.']);
+        });
+});
+
+it('renders genereic error when login request failed', function () {
     const wrapper = shallow(<LoginPage {...defaultProps} />);
     wrapper.instance().auth.login = () => Promise.reject({ errors: { error: 'something' } });
     return wrapper

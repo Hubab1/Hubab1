@@ -75,7 +75,7 @@ export class LoginPage extends Component {
                 history.replace(initialRoute);
             })
             .catch((res) => {
-                const error = res.errors?.error;
+                const error = res?.errors?.error;
                 this.setState({ errors: [this.get_error_message(error)] });
             })
             .finally(() => {
