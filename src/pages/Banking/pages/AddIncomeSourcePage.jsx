@@ -5,7 +5,9 @@ import styled from '@emotion/styled';
 
 import API from 'api/api';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'constants/constants';
-import { getUploadDocumentRequestBody } from 'utils/misc';
+import { getUploadDocumentRequestBody, getFinancialSourceRequestBody } from 'utils/misc';
+import { getUploadDocumentsOneByOne } from 'selectors/launchDarkly';
+
 import { logToSentry } from 'utils/sentry';
 
 import { BackLink } from 'common-components/BackLink/BackLink';
@@ -36,6 +38,31 @@ export function AddIncomeSourcePage(props) {
     const context = useContext(BankingContext);
     const url = generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#income`, { application_id: props.application.id });
     const onSubmit = async (values, { setSubmitting }) => {
+        context.toggleLoader(true);
+        setSubmitting(true);
+        setErrors([]);
+
+        const formData = getFinancialSourceRequestBody(values, FINANCIAL_STREAM_INCOME, props.vgsEnabled);
+        if (!formData) {
+            setErrors([ERROR_UPLOAD]);
+            context.toggleLoader(false);
+            setSubmitting(false);
+        }
+        try {
+            await API.submitFinancialSource(props.application.id, formData, props.vgsEnabled);
+            context.refreshFinancialSources();
+            await context.fetchRenterProfile();
+            props.history.push(url);
+        } catch (e) {
+            await logToSentry(e.response || e);
+            setErrors([ERROR_UPLOAD]);
+        } finally {
+            context.toggleLoader(false);
+            setSubmitting(false);
+        }
+    };
+
+    const onSubmitOneByOne = async (values, { setSubmitting }) => {
         context.toggleLoader(true);
         setSubmitting(true);
         setErrors([]);
@@ -75,7 +102,7 @@ export function AddIncomeSourcePage(props) {
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
                 financialType={FINANCIAL_STREAM_INCOME}
-                onSubmit={onSubmit}
+                onSubmit={props.uploadDocumentsOneByOne ? onSubmitOneByOne : onSubmit}
                 setError={(err) => setErrors(err)}
             />
             <BackLink to={url} />
@@ -88,11 +115,13 @@ AddIncomeSourcePage.propTypes = {
     initialValues: PropTypes.object,
     vgsEnabled: PropTypes.bool,
     application: PropTypes.object.isRequired,
+    uploadDocumentsOneByOne: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     application: state.renterProfile,
     vgsEnabled: !state.configuration.use_demo_config,
+    uploadDocumentsOneByOne: getUploadDocumentsOneByOne(state),
 });
 
 export default connect(mapStateToProps)(AddIncomeSourcePage);
