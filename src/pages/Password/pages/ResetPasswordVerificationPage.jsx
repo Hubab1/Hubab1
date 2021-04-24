@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { makeStyles, Typography } from '@material-ui/core';
 import API from 'api/api';
 import { ROUTES } from 'constants/constants';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import Page from 'common-components/Page/Page';
 import FormTextInput from 'common-components/FormTextInput/FormTextInput';
@@ -172,7 +172,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordVerificationPage);

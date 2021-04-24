@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationsPage useApplications success with application shows active and past application sections 1`] = `
+<Page
+  className="makeStyles-root-1"
+  loading={false}
+  title="My Applications"
+>
+  <div
+    className="makeStyles-section-2"
+    data-testid="active-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Active Applications
+    </ForwardRef(WithStyles)>
+    <UNDEFINED
+      application={
+        Object {
+          "community": Object {
+            "display_name": "community",
+          },
+          "id": "active-application",
+          "lastActivity": "01-02-2020",
+          "role": 10,
+          "status": 5,
+        }
+      }
+      isActive={true}
+      setError={[Function]}
+    />
+  </div>
+  <div
+    className="makeStyles-section-2"
+    data-testid="past-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Past Applications
+    </ForwardRef(WithStyles)>
+    <UNDEFINED
+      application={
+        Object {
+          "community": Object {
+            "display_name": "community",
+          },
+          "id": "past-application",
+          "lastActivity": "01-01-2020",
+          "role": 20,
+          "status": 25,
+        }
+      }
+      isActive={false}
+      setError={[Function]}
+    />
+  </div>
+</Page>
+`;
+
+exports[`ApplicationsPage useInvitations success with invitations shows new applications section 1`] = `
+<Page
+  className="makeStyles-root-1"
+  loading={false}
+  title="My Applications"
+>
+  <div
+    className="makeStyles-section-2"
+    data-testid="new-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      New Applications
+    </ForwardRef(WithStyles)>
+    <UNDEFINED
+      application={
+        Object {
+          "community": Object {
+            "display_name": "community",
+          },
+          "lastActivity": "01-02-2020",
+          "status": 5,
+        }
+      }
+      invitee={
+        Object {
+          "id": 123,
+          "role": 20,
+        }
+      }
+      isActive={true}
+      setError={[Function]}
+    />
+    <UNDEFINED
+      application={
+        Object {
+          "community": Object {
+            "display_name": "community",
+          },
+          "lastActivity": "01-01-2020",
+          "status": 5,
+        }
+      }
+      invitee={
+        Object {
+          "id": 123,
+          "role": 20,
+        }
+      }
+      isActive={true}
+      setError={[Function]}
+    />
+  </div>
+  <div
+    className="makeStyles-section-2"
+    data-testid="active-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Active Applications
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      variant="h4"
+    >
+      You don't have any active applications.
+    </ForwardRef(WithStyles)>
+  </div>
+  <div
+    className="makeStyles-section-2"
+    data-testid="past-applications"
+  >
+    <ForwardRef(WithStyles)
+      variant="h3"
+    >
+      Past Applications
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      variant="h4"
+    >
+      You don't have any past applications.
+    </ForwardRef(WithStyles)>
+  </div>
+</Page>
+`;

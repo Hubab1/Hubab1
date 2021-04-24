@@ -39,6 +39,7 @@ exports[`it displays the right section hides payment details section when clicki
 exports[`it displays the right section shows payment details section when clicking continue 1`] = `
 <SignLeaseView
   applicantUpdated={[MockFunction]}
+  applicationFees={Object {}}
   fetchPayments={[Function]}
   history={
     Object {

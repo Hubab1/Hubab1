@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import clsx from 'clsx';
@@ -14,17 +16,22 @@ import {
     Divider,
 } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcone } from '@material-ui/icons';
+import ErrorIcon from '@material-ui/icons/Error';
 
+import API from 'api/api';
 import {
     APPLICATION_STATUSES_LABELS,
     APPLICANT_ROLE_LABELS,
     APPLICATION_STATUSES_COLORS,
     APPLICATION_STATUS_DENIED,
 } from 'constants/constants';
-import ActionButton from 'common-components/ActionButton/ActionButton';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import * as routingHelpers from 'utils/routingHelpers';
 import { fetchRenterProfile, selectors } from 'reducers/renter-profile';
+import { actions as loaderActions } from 'reducers/loader';
+
+import ActionButton from 'common-components/ActionButton/ActionButton';
+
+export const ERROR_MESSAGE = 'Oops, something went wrong. Please try again later.';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,9 +68,26 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         marginTop: theme.spacing(2),
     },
+    inviteeNotice: {
+        display: 'flex',
+        alignItems: 'center',
+        color: '#f44336',
+        '& span': {
+            paddingLeft: '5px',
+        },
+    },
 }));
 
-export function Application({ application = {}, isActive = true, fetchRenterProfile, initialPage, history }) {
+export function Application({
+    application = {},
+    isActive = true,
+    fetchRenterProfile,
+    initialPage,
+    history,
+    invitee,
+    toggleLoader,
+    setError,
+}) {
     const { id, status, lease_start_date, lease_term, fees_breakdown, role, unit, community } = application;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(isActive);
@@ -77,14 +101,37 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
 
     useEffect(() => {
         if (initialPage && appSelected) {
+            if (routingHelpers.getApplicationIsInWrongCommunityEnv(application)) {
+                return routingHelpers.switchToApplicationCommunityEnv(application, initialPage);
+            }
+
             setAppSelected(false);
             history.push(initialPage);
         }
-    }, [initialPage, appSelected, history]);
+    }, [application, initialPage, appSelected, history]);
 
-    const handleApplicationClick = async (id) => {
-        await fetchRenterProfile(id);
-        setAppSelected(true);
+    const handleApplicationClick = async (applicationId) => {
+        if (invitee) {
+            try {
+                toggleLoader(true);
+
+                const response = await API.createApplicantRole(invitee.id);
+
+                if (response?.errors) {
+                    return setError(ERROR_MESSAGE);
+                }
+
+                await fetchRenterProfile(applicationId);
+                setAppSelected(true);
+            } catch {
+                return setError(ERROR_MESSAGE);
+            } finally {
+                toggleLoader(false);
+            }
+        } else {
+            await fetchRenterProfile(applicationId);
+            setAppSelected(true);
+        }
     };
 
     if (isEmpty(application)) {
@@ -92,6 +139,8 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
     }
 
     const showOpenApplicationButton = isActive || application.status === APPLICATION_STATUS_DENIED;
+    const CTALabel = invitee ? 'Start Application' : 'Go To Application';
+    const CTAVariant = invitee ? 'contained' : 'outlined';
 
     return (
         <Card className={classes.root} elevation={2}>
@@ -124,6 +173,12 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
             <Collapse in={expanded}>
                 <Divider className={classes.divider} />
                 <CardContent data-testid="content">
+                    {invitee && (
+                        <p className={classes.inviteeNotice}>
+                            <ErrorIcon />
+                            <span>You’ve been invited to apply for this unit.</span>
+                        </p>
+                    )}
                     <Typography className={classes.typography} variant="body1">
                         Move in Date:{' '}
                         <span>{lease_start_date ? moment(lease_start_date).format('MM/DD/YYYY') : '---'}</span>
@@ -138,19 +193,19 @@ export function Application({ application = {}, isActive = true, fetchRenterProf
                         </span>
                     </Typography>
                     <Typography className={classes.typography} variant="body1">
-                        Role: <span>{`${APPLICANT_ROLE_LABELS[role]}`}</span>
+                        Role: <span>{`${APPLICANT_ROLE_LABELS[role || invitee.role]}`}</span>
                     </Typography>
                     <Typography className={classes.applicationId} variant="caption">
                         Application ID <span>{id}</span>
                     </Typography>
                     {showOpenApplicationButton && (
                         <ActionButton
-                            variant="outlined"
+                            variant={CTAVariant}
                             marginTop={20}
                             marginBottom={10}
                             onClick={() => handleApplicationClick(id)}
                         >
-                            Go To Application
+                            {CTALabel}
                         </ActionButton>
                     )}
                 </CardContent>
@@ -171,19 +226,24 @@ Application.propTypes = {
         community: PropTypes.object.isRequired,
     }),
     isActive: PropTypes.bool,
+    invitee: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        role: PropTypes.number.isRequired,
+    }),
     initialPage: PropTypes.string,
-    communityId: PropTypes.number,
-    fetchRenterProfile: PropTypes.func,
     history: PropTypes.object,
+    fetchRenterProfile: PropTypes.func,
+    setError: PropTypes.func,
+    toggleLoader: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-    communityId: state.siteConfig.basename,
     initialPage: selectors.selectDefaultInitialPage(state),
 });
 
 const mapDispatchToProps = {
     fetchRenterProfile,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Application));

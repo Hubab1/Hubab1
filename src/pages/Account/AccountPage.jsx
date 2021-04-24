@@ -10,7 +10,7 @@ import { serializeDate, parseDateISOString, prettyFormatPhoneNumber } from 'util
 
 import { updateApplicant } from 'reducers/applicant';
 import { getApplicantSubmittedApplication } from 'selectors/applicant';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import AccountForm from 'common-components/AccountForm/AccountForm';
 import ChangePasswordForm from 'common-components/ChangePasswordForm/ChangePasswordForm';
@@ -168,7 +168,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(captureRoute(AccountPage, ROUTES.ACCOUNT));

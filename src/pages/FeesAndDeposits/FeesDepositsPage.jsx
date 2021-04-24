@@ -9,7 +9,7 @@ import withRelativeRoutes from 'utils/withRelativeRoutes';
 
 import { fetchPayments } from 'reducers/payments';
 import { fetchApplicant } from 'reducers/applicant';
-import { actions as modalActions } from 'reducers/loader';
+import { actions as loaderActions } from 'reducers/loader';
 
 import PaymentTerms from 'common-components/PaymentTerms/PaymentTerms';
 import FeesDepositsOptions from 'pages/FeesAndDeposits/components/FeesDepositsOptions';
@@ -213,7 +213,7 @@ const mapStateToPropsOutstandingBalance = (state) => ({
 const mapDispatchToProps = {
     fetchPayments,
     fetchApplicant,
-    toggleLoader: modalActions.toggleLoader,
+    toggleLoader: loaderActions.toggleLoader,
 };
 
 export const FeesAndDepositsPage = connect(
