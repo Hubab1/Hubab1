@@ -158,6 +158,50 @@ export const getUploadDocumentRequestBody = (document, stream_id, type, encrypte
 };
 
 /* eslint-disable */
+export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
+    const formData = new FormData();
+    formData.append('income_or_asset_type', values.income_or_asset_type);
+    formData.append('estimated_amount', values.estimated_amount.replace(/,/g, ''));
+    formData.append('stream_type', streamType);
+    formData.append('other', values.other);
+
+    if (values.uploadedDocuments) {
+        if (vgsEnabled) {
+            let cur = 1;
+            const filesMapping = {};
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
+                    const variableName = `file${cur}`;
+                    formData.append(variableName, v.file);
+                    filesMapping[variableName] = key;
+                    cur++;
+                });
+            }
+            formData.append('files_mapping', JSON.stringify(filesMapping));
+            formData.append(
+                'context',
+                JSON.stringify({
+                    browser_name: browserName,
+                    browser_version: browserVersion,
+                    os_name: osName,
+                    os_version: osVersion,
+                    is_private_browsing: isPrivateBrowsing,
+                    is_desktop: isDesktop,
+                })
+            );
+        } else {
+            for (const key of Object.keys(values.uploadedDocuments)) {
+                values.uploadedDocuments[key].files.forEach((v) => {
+                    if (!(v.file && v.file.size)) return null;
+                    formData.append(`${key}[]`, v.file);
+                });
+            }
+        }
+    }
+    return formData;
+};
+
 export const getRentalOptionSubtitleItemAdder = (rentalOption, subtitleSuffix) => {
     const pricing_group_tiers = rentalOption?.rental_option_pricing_group?.tiers;
     if (!pricing_group_tiers) {
