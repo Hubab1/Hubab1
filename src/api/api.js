@@ -351,6 +351,42 @@ API.submitFinancialSource = (application_id, data, vgsEnabled) => {
     });
 };
 
+API.createFinancialSource = (application_id, body) => {
+    return fetch(chuck(`/application/${application_id}/financial-sources/`), {
+        method: 'PUT',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(body),
+    }).then((res) => res.json());
+};
+
+API.uploadFinancialDocument = (application_id, data, vgsEnabled) => {
+    const url = vgsEnabled
+        ? vgs(`/application/${application_id}/financial-document/`)
+        : chuck(`/application/${application_id}/financial-document/`);
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            AUTHORIZATION: `Token ${auth.getToken()}`,
+        },
+        body: data,
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
+};
+
 API.getFinancialSources = (application_id) => {
     return fetch(chuck(`/application/${application_id}/financial-sources/`), {
         headers: {
@@ -499,6 +535,27 @@ API.getApplications = () => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
+    }).then((res) => res.json());
+};
+
+API.getInvitations = () => {
+    return fetch(chuck('/invitations/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.json());
+};
+
+API.createApplicantRole = (invitee_id) => {
+    return fetch(chuck('/applicant-role/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify({
+            invitee_id,
+        }),
     }).then((res) => res.json());
 };
 

@@ -12,6 +12,7 @@ beforeEach(() => {
         config: {
             dark_mode: true,
             use_demo_config: true,
+            use_stripe_demo_config: true,
         },
         theme: {
             palette: {
@@ -42,21 +43,21 @@ describe('dark mode', () => {
 
 describe('Stripe Provider', () => {
     it('should use demo api key when use_demo_config is true', () => {
-        defaultProps.config.use_demo_config = true;
+        defaultProps.config.use_stripe_demo_config = true;
         const wrapper = shallow(<AppContextProvider {...defaultProps} skipStripeAndMayorLoader={false} />);
 
         expect(wrapper.find(StripeProvider).prop('apiKey')).toBe(STRIPE_PUBLISHABLE_KEY_DEMO);
     });
 
     it('should use live api key when use_demo_config is false', () => {
-        defaultProps.config.use_demo_config = false;
+        defaultProps.config.use_stripe_demo_config = false;
         const wrapper = shallow(<AppContextProvider {...defaultProps} skipStripeAndMayorLoader={false} />);
 
         expect(wrapper.find(StripeProvider).prop('apiKey')).toBe(STRIPE_PUBLISHABLE_KEY_LIVE);
     });
 
     it('should use demo api key when use_demo_config is missing', () => {
-        delete defaultProps.config.use_demo_config;
+        delete defaultProps.config.use_stripe_demo_config;
         const wrapper = shallow(<AppContextProvider {...defaultProps} skipStripeAndMayorLoader={false} />);
 
         expect(wrapper.find(StripeProvider).prop('apiKey')).toBe(STRIPE_PUBLISHABLE_KEY_DEMO);

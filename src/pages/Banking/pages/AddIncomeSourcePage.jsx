@@ -5,7 +5,9 @@ import styled from '@emotion/styled';
 
 import API from 'api/api';
 import { ROUTES, FINANCIAL_STREAM_INCOME } from 'constants/constants';
-import { getFinancialSourceRequestBody } from 'utils/misc';
+import { getUploadDocumentRequestBody, getFinancialSourceRequestBody } from 'utils/misc';
+import { getUploadDocumentsOneByOne } from 'selectors/launchDarkly';
+
 import { logToSentry } from 'utils/sentry';
 
 import { BackLink } from 'common-components/BackLink/BackLink';
@@ -60,6 +62,36 @@ export function AddIncomeSourcePage(props) {
         }
     };
 
+    const onSubmitOneByOne = async (values, { setSubmitting }) => {
+        context.toggleLoader(true);
+        setSubmitting(true);
+        setErrors([]);
+        try {
+            const { estimated_amount, income_or_asset_type, other, uploadedDocuments } = values;
+            const body = { estimated_amount, stream_type: FINANCIAL_STREAM_INCOME, income_or_asset_type, other };
+            const stream = await API.createFinancialSource(props.application.id, body);
+
+            if (uploadedDocuments) {
+                for (const key of Object.keys(uploadedDocuments)) {
+                    for (const v of uploadedDocuments[key].files) {
+                        if (!(v.file && v.file.size)) return null;
+                        const data = getUploadDocumentRequestBody(v, stream.id, key, props.vgsEnabled);
+                        await API.uploadFinancialDocument(props.application.id, data, props.vgsEnabled);
+                    }
+                }
+            }
+            context.refreshFinancialSources();
+            await context.fetchRenterProfile();
+            props.history.push(url);
+        } catch (e) {
+            await logToSentry(e.response || e);
+            setErrors([ERROR_UPLOAD]);
+        } finally {
+            context.toggleLoader(false);
+            setSubmitting(false);
+        }
+    };
+
     return (
         <>
             <SkinnyH1>Add an Income Source</SkinnyH1>
@@ -70,7 +102,7 @@ export function AddIncomeSourcePage(props) {
             <AddFinancialSourceForm
                 initialValues={props.initialValues}
                 financialType={FINANCIAL_STREAM_INCOME}
-                onSubmit={onSubmit}
+                onSubmit={props.uploadDocumentsOneByOne ? onSubmitOneByOne : onSubmit}
                 setError={(err) => setErrors(err)}
             />
             <BackLink to={url} />
@@ -83,11 +115,13 @@ AddIncomeSourcePage.propTypes = {
     initialValues: PropTypes.object,
     vgsEnabled: PropTypes.bool,
     application: PropTypes.object.isRequired,
+    uploadDocumentsOneByOne: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     application: state.renterProfile,
     vgsEnabled: !state.configuration.use_demo_config,
+    uploadDocumentsOneByOne: getUploadDocumentsOneByOne(state),
 });
 
 export default connect(mapStateToProps)(AddIncomeSourcePage);
