@@ -300,6 +300,32 @@ API.getCurrentFlatQuote = (application_id, data) => {
     });
 };
 
+API.submitFinancialSource = (application_id, data, vgsEnabled) => {
+    const url = vgsEnabled
+        ? vgs(`/application/${application_id}/vgs-financial-sources/`)
+        : chuck(`/application/${application_id}/financial-sources/`);
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            AUTHORIZATION: `Token ${auth.getToken()}`,
+        },
+        body: data,
+    }).then((res) => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
+};
+
 API.createFinancialSource = (application_id, body) => {
     return fetch(chuck(`/application/${application_id}/financial-sources/`), {
         method: 'PUT',
