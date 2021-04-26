@@ -1,7 +1,7 @@
 import DetectRTC from 'detectrtc';
 
-export const isMobileOrTable = DetectRTC.isMobileDevice;
-export const isDesktop = !isMobileOrTable;
+export const isMobileOrTablet = DetectRTC.isMobileDevice;
+export const isDesktop = !isMobileOrTablet;
 export const browserName = DetectRTC.browser.name === 'Edge' || 'Chrome' || 'Firefox';
 export const browserVersion = DetectRTC.browser.version;
 export const osName = DetectRTC.osName;
