@@ -26,10 +26,12 @@ export function LeaseExecutedPage(props) {
     const [url, setUrl] = useState('');
     useEffect(() => {
         (async () => {
+            if (!props.profile) return;
             const response = await API.leaseDocumentUrl(props.profile.id, DOCUMENT_TYPE_LEASE);
             setUrl(response.url);
         })();
-    }, [props.profile.id]);
+    }, [props.profile]);
+
     const unit = props.unit;
     const community = props.community;
     if (!unit || !community) return null;

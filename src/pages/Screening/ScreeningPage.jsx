@@ -228,7 +228,7 @@ ScreeningPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     applicant: state.applicant,
-    application: state.renterProfile.isRequired,
+    application: state.renterProfile,
     vgsEnabled: !state.configuration.use_demo_config,
     buildingName:
         state.configuration.community.building_name || state.configuration.community.normalized_street_address,
