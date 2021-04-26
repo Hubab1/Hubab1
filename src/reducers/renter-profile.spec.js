@@ -695,34 +695,8 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.GUARANTOR_REQUESTED, { application_id: 12 }));
-    });
 
-    it('selects direct route correctly', () => {
-        delete window.location;
-        window.location = {
-            pathname: '/application/12/payment-details',
-        };
-        const initialPage = selectors.selectInitialPage({
-            configuration: {
-                enable_automatic_income_verification: true,
-                collect_employer_information: true,
-            },
-            renterProfile: {
-                co_applicants: null,
-                occupants: null,
-                guarantor: null,
-                pets: null,
-                lease_term: 6,
-                id: 12,
-                outstanding_balances: [],
-            },
-            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
-        });
-        expect(initialPage).toEqual(generatePath(ROUTES.PAYMENT_DETAILS, { application_id: 12 }));
-    });
-
-    it('selects outstanding balances when there are outstanding balances after the application fee is paid', () => {
-        const initialPage = selectors.selectInitialPage({
+        initialPage = selectors.selectInitialPage({
             configuration: {
                 enable_automatic_income_verification: true,
                 collect_employer_information: true,
@@ -750,6 +724,30 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.OUTSTANDING_BALANCE, { application_id: 12 }));
+    });
+
+    it('selects direct route correctly', () => {
+        delete window.location;
+        window.location = {
+            pathname: '/application/12/payment-details',
+        };
+        const initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                occupants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                id: 12,
+                outstanding_balances: [],
+            },
+            applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
+        });
+        expect(initialPage).toEqual(generatePath(ROUTES.PAYMENT_DETAILS, { application_id: 12 }));
     });
 });
 
