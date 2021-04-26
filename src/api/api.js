@@ -1,7 +1,6 @@
 import auth from 'utils/auth';
 import fetch from 'utils/fetch';
 
-import { isMobileOrTablet, browserName, osName } from 'utils/mobileDetect';
 import { MOCKY, CHUCK_BASE_URL, VGS_VAULT_ID, VGS_ENVIRONMENT } from 'config';
 
 export function chuck(path) {
@@ -11,21 +10,6 @@ export function chuck(path) {
 export function vgs(path) {
     return `https://${VGS_VAULT_ID}.${VGS_ENVIRONMENT}.verygoodproxy.com/api/onlineleasing${path}`;
 }
-
-const fetchWithUserAgentData = (url, options) => {
-    return fetch(url, {
-        ...options,
-        ...{
-            headers: {
-                'x-device-type': isMobileOrTablet ? 'mobile' : 'desktop',
-                'x-os-type': osName,
-                'x-browser-type': browserName,
-            },
-        },
-    }).then((res) => {
-        res.json();
-    });
-};
 
 const getWithHeaders = (url) =>
     fetch(url, {
@@ -180,20 +164,20 @@ API.register = (data, leaseSettingsId, hash) => {
     if (hash) {
         registerUrl = registerUrl.concat(`?v=${hash}`);
     }
-    return fetchWithUserAgentData(chuck(registerUrl), {
+    return fetch(chuck(registerUrl), {
         method: 'POST',
         body: JSON.stringify(data),
-    });
+    }).then((res) => res.json());
 };
 
 API.acceptTerms = (application_id, data) => {
-    return fetchWithUserAgentData(chuck(`/application/${application_id}/terms-accepted/`), {
+    return fetch(chuck(`/application/${application_id}/terms-accepted/`), {
         method: 'POST',
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
-    });
+    }).then((res) => res.json());
 };
 
 API.passwordResetRequest = (data) => {
@@ -308,14 +292,14 @@ API.postPassthrough = (application_id, data, vgsEnabled) => {
     const url = vgsEnabled
         ? vgs(`/application/${application_id}/passthrough/`)
         : chuck(`/application/${application_id}/passthrough/`);
-    return fetchWithUserAgentData(url, {
+    return fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Token ${auth.getToken()}`,
         },
         body: JSON.stringify(data),
-    });
+    }).then((res) => res.json());
 };
 
 API.fetchPaymentOptions = (application_id) => {
