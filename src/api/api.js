@@ -23,6 +23,7 @@ const CHUCK_BASE_LEASE_SETTINGS = (communityId) => `${CHUCK_BASE_URL}/api/online
 const CHUCK_PERSONALIZED_LEASE_SETTINGS = (communityId, hash) =>
     `${CHUCK_BASE_URL}/api/onlineleasing/communities/${communityId}/personalized/${hash}`;
 
+// TODO: enhance fetch util to avoid duplicated code | created by @JimVercoelen | ticket: NESTIO-21662
 const API = {};
 
 API.fetchConfiguration = (communityId) => {
@@ -115,7 +116,19 @@ API.fetchRenterProfile = (application_id) => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
-    }).then((res) => res.json());
+    }).then((res) => {
+        if (res.status === 204) {
+            return res;
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res.json();
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
 };
 
 API.fetchApplicant = () => {
@@ -124,7 +137,19 @@ API.fetchApplicant = () => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
-    }).then((res) => res.json());
+    }).then((res) => {
+        if (res.status === 204) {
+            return res;
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res.json();
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
 };
 
 API.login = (email, password, communityId) => {
@@ -312,6 +337,42 @@ API.submitFinancialSource = (application_id, data, vgsEnabled) => {
         },
         body: data,
     }).then((res) => {
+        if (res.status === 204) {
+            return res;
+        }
+
+        if (res.status >= 200 && res.status < 300) {
+            return res.json();
+        }
+
+        const error = new Error();
+        error.response = res;
+        throw error;
+    });
+};
+
+API.createFinancialSource = (application_id, body) => {
+    return fetch(chuck(`/application/${application_id}/financial-sources/`), {
+        method: 'PUT',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify(body),
+    }).then((res) => res.json());
+};
+
+API.uploadFinancialDocument = (application_id, data, vgsEnabled) => {
+    const url = vgsEnabled
+        ? vgs(`/application/${application_id}/financial-document/`)
+        : chuck(`/application/${application_id}/financial-document/`);
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            AUTHORIZATION: `Token ${auth.getToken()}`,
+        },
+        body: data,
+    }).then((res) => {
         if (res.status === 200) {
             return res.json();
         }
@@ -340,12 +401,12 @@ API.getFinancialSource = (id) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -362,12 +423,12 @@ API.updateFinancialSource = (id, body) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -383,12 +444,12 @@ API.deleteFinancialSource = (id) => {
             Authorization: `Token ${auth.getToken()}`,
         },
     }).then((res) => {
-        if (res.status === 200) {
-            return res.json();
+        if (res.status === 204) {
+            return res;
         }
 
         if (res.status >= 200 && res.status < 300) {
-            return res;
+            return res.json();
         }
 
         const error = new Error();
@@ -474,6 +535,27 @@ API.getApplications = () => {
         headers: {
             Authorization: `Token ${auth.getToken()}`,
         },
+    }).then((res) => res.json());
+};
+
+API.getInvitations = () => {
+    return fetch(chuck('/invitations/'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+    }).then((res) => res.json());
+};
+
+API.createApplicantRole = (invitee_id) => {
+    return fetch(chuck('/applicant-role/'), {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${auth.getToken()}`,
+        },
+        body: JSON.stringify({
+            invitee_id,
+        }),
     }).then((res) => res.json());
 };
 

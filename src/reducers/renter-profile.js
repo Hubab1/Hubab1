@@ -446,13 +446,31 @@ selectors.selectNextRoute = createSelector(
     selectors.selectOrderedRoutes,
     (state) => state.siteConfig.currentRoute,
     (state) => state.renterProfile,
-    (orderedRoutes, currentRoute, application) => {
+    (state) => state.applicant && state.applicant.events,
+    (orderedRoutes, currentRoute, application, applicantEvents) => {
         if (!application) {
             return null;
         }
-        const orderedRoutesWithApp = orderedRoutes.map((route) => applicationPath(route, application.id));
-        if (orderedRoutesWithApp && currentRoute) {
-            return orderedRoutesWithApp[orderedRoutesWithApp.indexOf(currentRoute) + 1];
+
+        if (orderedRoutes) {
+            const orderedRoutesWithApp = orderedRoutes.map((route) => applicationPath(route, application.id));
+            const index = orderedRoutesWithApp.indexOf(currentRoute);
+
+            if (orderedRoutesWithApp && currentRoute && index > -1) {
+                return orderedRoutesWithApp[index + 1];
+            }
+        }
+
+        if (currentRoute === applicationPath(ROUTES.OUTSTANDING_BALANCE, application.id)) {
+            const eventsSet = new Set(
+                applicantEvents.filter((e) => e.application === application.id).map((event) => parseInt(event.event))
+            );
+
+            if (eventsSet.has(MILESTONE_APPLICANT_SUBMITTED)) {
+                return applicationPath(ROUTES.APP_COMPLETE, application.id);
+            } else {
+                return applicationPath(ROUTES.SCREENING, application.id);
+            }
         }
     }
 );

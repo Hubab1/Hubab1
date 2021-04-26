@@ -5,3 +5,4 @@ export const getOlApplicantCanViewApplicationsListPage = (state) =>
     state.launchDarkly.olApplicantCanViewApplicationsListPage;
 export const getPreventNonPrimaryFromPayingUnheldUnit = (state) =>
     state.launchDarkly.preventNonPrimaryApplicantsFromPayingApplicationFeeBeforeUnitIsHeld;
+export const getUploadDocumentsOneByOne = (state) => state.launchDarkly.olApplicantUploadFinancialDocumentsOneByOne;
