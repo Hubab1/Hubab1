@@ -23,9 +23,8 @@ beforeEach(() => {
             ...mockProfile,
             dependents: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
             co_applicants: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
-            primary_applicant: {
-                guarantors: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
-            },
+            primary_applicant: {},
+            guarantors: [{ id: 1, first_name: 'John', last_name: 'Doe', birthday: null }],
         },
         application: mockApplication,
         config: mockConfig,

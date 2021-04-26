@@ -37,6 +37,20 @@ exports[`Matches snapshot with a start date 1`] = `
         },
       ],
       "events": Array [],
+      "guarantors": Array [
+        Object {
+          "first_name": "elvish",
+          "id": 74,
+          "is_registered": false,
+          "last_milestone": Object {
+            "created_at": "2020-07-23 15:22:49",
+            "event": 10070,
+            "id": 10554,
+          },
+          "last_name": "parsley",
+          "phone_number": "(222) 111-0000",
+        },
+      ],
       "id": 17,
       "lease_end_date": null,
       "lease_settings": 2,
@@ -60,20 +74,6 @@ exports[`Matches snapshot with a start date 1`] = `
       "primary_applicant": Object {
         "email": "johnjenkins@nestio.com",
         "first_name": "frank",
-        "guarantors": Array [
-          Object {
-            "first_name": "elvish",
-            "id": 74,
-            "is_registered": false,
-            "last_milestone": Object {
-              "created_at": "2020-07-23 15:22:49",
-              "event": 10070,
-              "id": 10554,
-            },
-            "last_name": "parsley",
-            "phone_number": "(222) 111-0000",
-          },
-        ],
         "id": 18,
         "last_milestone": Object {
           "created_at": "2020-07-23 15:22:49",

@@ -186,15 +186,15 @@ export class RentalProfileOptions extends React.Component {
                             buttonLabel="Invite a guarantor"
                             route={generatePath(ROUTES.GUARANTOR, { application_id: this.props.profile.id })}
                             tip="This is a person that agrees to be legally responsible for the apartment, its condition, and the money owed for rent if you are unable to pay."
-                            limitReached={!!this.props.profile.primary_applicant.guarantors.length}
+                            limitReached={!!this.props.profile.guarantors.length}
                             expansionPanel={
-                                !!this.props.profile.primary_applicant.guarantors.length && (
+                                !!this.props.profile.guarantors.length && (
                                     <ExistingItemsExpansionPanel
                                         label="Guarantor"
-                                        labelQuantity={this.props.profile.primary_applicant.guarantors.length}
+                                        labelQuantity={this.props.profile.guarantors.length}
                                         defaultExpanded={hashValue === RENTER_PROFILE_TYPE_GUARANTOR}
                                     >
-                                        {this.props.profile.primary_applicant.guarantors.map((item) => (
+                                        {this.props.profile.guarantors.map((item) => (
                                             <ExistingRoommate
                                                 key={`guarantor-${item.id}`}
                                                 item={item}

@@ -16,15 +16,6 @@ beforeEach(() => {
                 address_postal_code: '',
                 email: 'slkejhfkajshefjkhek@gm.com',
                 role: 'primary_applicant',
-                guarantors: [
-                    {
-                        phone_number: '(555) 123-6456',
-                        first_name: 'scotty',
-                        last_name: '2hotty',
-                        id: 5,
-                        is_registered: false,
-                    },
-                ],
                 application: 16,
                 person: {
                     id: 346785,
@@ -87,15 +78,6 @@ it('renders does not render radio select when everyone is only the logged in app
             address_postal_code: '',
             email: 'slkejhfkajshefjkhek@gm.com',
             role: 'primary_applicant',
-            guarantors: [
-                {
-                    phone_number: '(555) 123-6456',
-                    first_name: 'scotty',
-                    last_name: '2hotty',
-                    id: 5,
-                    is_registered: false,
-                },
-            ],
             application: 16,
             person: {
                 id: 346785,

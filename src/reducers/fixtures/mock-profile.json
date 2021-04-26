@@ -5,20 +5,6 @@
     "lease_settings": 2,
     "lease_start_date": null,
     "primary_applicant": {
-        "guarantors": [
-            {
-                "phone_number": "(222) 111-0000",
-                "first_name": "elvish",
-                "last_name": "parsley",
-                "id": 74,
-                "is_registered": false,
-                "last_milestone": {
-                    "created_at": "2020-07-23 15:22:49",
-                    "event": 10070,
-                    "id": 10554
-                }
-            }
-        ],
         "phone_number": "(111) 111-1111",
         "first_name": "frank",
         "last_name": "underwood",
@@ -73,6 +59,20 @@
                 "created_at": "2020-07-23 15:22:49",
                 "event": 10030,
                 "id": 10557
+            }
+        }
+    ],
+    "guarantors": [
+        {
+            "phone_number": "(222) 111-0000",
+            "first_name": "elvish",
+            "last_name": "parsley",
+            "id": 74,
+            "is_registered": false,
+            "last_milestone": {
+                "created_at": "2020-07-23 15:22:49",
+                "event": 10070,
+                "id": 10554
             }
         }
     ],
