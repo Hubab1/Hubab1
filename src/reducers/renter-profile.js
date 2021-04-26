@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 import fp from 'lodash/fp';
+import _ from 'lodash';
 
 import { MOCKY } from 'config';
 import API from 'api/api';
@@ -397,7 +398,7 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.GUARANTOR_REQUESTED;
                 }
 
-                if (eventsSet.has(MILESTONE_APPLICATION_FEE_COMPLETED) && profile.outstanding_balances.length > 0) {
+                if (selectors.selectOutstandingBalances(state)) {
                     return ROUTES.OUTSTANDING_BALANCE;
                 }
 
@@ -421,8 +422,8 @@ selectors.selectOutstandingBalances = createSelector(
     (state) => state.renterProfile,
     (state) => state.applicant.events,
     (application, applicant_events) => {
-        const hasPaidFees = () => true;
-        application.outstanding_balances.length > 0 && hasPaidFees(applicant_events);
+        const paidFeeEvents = _.filter(applicant_events, ['event', MILESTONE_APPLICATION_FEE_COMPLETED]);
+        return application.outstanding_balances.length > 0 && paidFeeEvents.length > 0;
     }
 );
 

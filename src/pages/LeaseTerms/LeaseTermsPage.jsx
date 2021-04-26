@@ -15,7 +15,7 @@ import withRelativeRoutes from 'utils/withRelativeRoutes';
 import { parseDateISOString, serializeDate } from 'utils/misc';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 
-import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
+import { pageComplete, selectors, updateRenterProfile } from 'reducers/renter-profile';
 import { actions as loaderActions } from 'reducers/loader';
 
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
@@ -330,7 +330,7 @@ LeaseTermsPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
-    hasOutstandingBalance: state.applicant?.outstanding_balances?.length > 0,
+    hasOutstandingBalance: selectors.hasOutstandingBalance(state),
     application: state.renterProfile,
     config: state.configuration,
 });
