@@ -330,7 +330,7 @@ LeaseTermsPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     isPrimaryApplicant: state.applicant.role === ROLE_PRIMARY_APPLICANT,
-    hasOutstandingBalance: selectors.hasOutstandingBalance(state),
+    hasOutstandingBalance: state.renterProfile?.outstanding_balances?.length > 0,
     application: state.renterProfile,
     config: state.configuration,
 });

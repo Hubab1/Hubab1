@@ -398,7 +398,7 @@ selectors.selectDefaultInitialPage = createSelector(
                     return ROUTES.GUARANTOR_REQUESTED;
                 }
 
-                if (selectors.selectOutstandingBalances(state)) {
+                if (eventsSet.has(MILESTONE_APPLICATION_FEE_COMPLETED) && profile?.outstanding_balances?.length > 0) {
                     return ROUTES.OUTSTANDING_BALANCE;
                 }
 
@@ -415,15 +415,6 @@ selectors.selectDefaultInitialPage = createSelector(
 
             console.error('Could not determine current page.');
         }
-    }
-);
-
-selectors.selectOutstandingBalances = createSelector(
-    (state) => state.renterProfile,
-    (state) => state.applicant.events,
-    (application, applicant_events) => {
-        const paidFeeEvents = _.filter(applicant_events, ['event', MILESTONE_APPLICATION_FEE_COMPLETED]);
-        return application.outstanding_balances.length > 0 && paidFeeEvents.length > 0;
     }
 );
 
