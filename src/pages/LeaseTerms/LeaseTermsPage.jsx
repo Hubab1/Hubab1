@@ -15,7 +15,7 @@ import withRelativeRoutes from 'utils/withRelativeRoutes';
 import { parseDateISOString, serializeDate } from 'utils/misc';
 import { prettyFormatPhoneNumber } from 'utils/misc';
 
-import { pageComplete, selectors, updateRenterProfile } from 'reducers/renter-profile';
+import { pageComplete, updateRenterProfile } from 'reducers/renter-profile';
 import { actions as loaderActions } from 'reducers/loader';
 
 import GenericFormMessage from 'common-components/GenericFormMessage/GenericFormMessage';
