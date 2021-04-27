@@ -3,7 +3,6 @@ import uuidv4 from 'uuid/v4';
 import produce from 'immer';
 import { createSelector } from 'reselect';
 import fp from 'lodash/fp';
-import _ from 'lodash';
 
 import { MOCKY } from 'config';
 import API from 'api/api';
