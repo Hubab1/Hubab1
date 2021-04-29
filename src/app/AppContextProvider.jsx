@@ -38,7 +38,8 @@ function getThemeValues(config, materialTheme) {
 }
 
 export function AppContextProvider({ theme, children, config, skipStripeAndMayorLoader = false }) {
-    const stripeApiKey = config.use_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
+    const stripeApiKey =
+        config.use_stripe_demo_config === false ? STRIPE_PUBLISHABLE_KEY_LIVE : STRIPE_PUBLISHABLE_KEY_DEMO;
 
     return (
         <MuiThemeProvider theme={theme}>

@@ -9,6 +9,7 @@ const flags = {
     'multiple-apps-v-2-login-and-navigation': true,
     'ol-applicant-can-view-applications-list-page': true,
     'prevent-non-primary-applicants-from-paying-application-fee-before-unit-is-held': false,
+    'ol-applicant-upload-financial-documents-one-by-one': false,
 };
 
 export const initLaunchDarkly = (company = {}) => {

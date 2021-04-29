@@ -137,6 +137,26 @@ export const getPaymentItemName = (name) => {
     return name.replace(/rentable item concession/i, 'Parking, Storage, Other Monthly Charge Concession');
 };
 
+export const getUploadDocumentRequestBody = (document, stream_id, type, encrypted) => {
+    const formData = new FormData();
+    formData.append('stream_id', stream_id);
+    formData.append('type_id', type);
+    formData.append('file1', document.file);
+    formData.append('encrypted', encrypted ? '1' : '0');
+    formData.append(
+        'context',
+        JSON.stringify({
+            browser_name: browserName,
+            browser_version: browserVersion,
+            os_name: osName,
+            os_version: osVersion,
+            is_private_browsing: isPrivateBrowsing,
+            is_desktop: isDesktop,
+        })
+    );
+    return formData;
+};
+
 /* eslint-disable */
 export const getFinancialSourceRequestBody = (values, streamType, vgsEnabled) => {
     const formData = new FormData();
