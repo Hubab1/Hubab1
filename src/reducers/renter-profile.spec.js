@@ -86,6 +86,7 @@ describe('canAccessRoute', () => {
             pets: null,
             lease_term: 6,
             id: 12,
+            outstanding_balances: [],
         },
         applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
     };
@@ -249,6 +250,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
@@ -357,6 +359,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -380,6 +383,7 @@ describe('selectInitialPage', () => {
                 ],
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -407,6 +411,7 @@ describe('selectInitialPage', () => {
                 ],
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -433,6 +438,7 @@ describe('selectInitialPage', () => {
                 ],
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -457,6 +463,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -482,6 +489,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: {
                 role: ROLE_PRIMARY_APPLICANT,
@@ -492,41 +500,10 @@ describe('selectInitialPage', () => {
                     { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
                     { event: MILESTONE_APPLICANT_SUBMITTED, application: 12 },
                 ],
-                outstanding_balances: [],
                 receipt: { id: 123 },
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.APP_COMPLETE, { application_id: 12 }));
-
-        initialPage = selectors.selectInitialPage({
-            configuration: {
-                enable_automatic_income_verification: true,
-                collect_employer_information: true,
-            },
-            renterProfile: {
-                co_applicants: null,
-                guarantor: null,
-                pets: null,
-                lease_term: 6,
-                id: 12,
-            },
-            applicant: {
-                role: ROLE_PRIMARY_APPLICANT,
-                address_street: 'some street',
-                events: [
-                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
-                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
-                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
-                    { event: MILESTONE_APPLICATION_FEE_COMPLETED, application: 12 },
-                ],
-                outstanding_balances: [
-                    { receipt: 123, paid: false },
-                    { receipt: 1234, paid: false },
-                ],
-                receipt: { id: 123 },
-            },
-        });
-        expect(initialPage).toEqual(generatePath(ROUTES.OUTSTANDING_BALANCE, { application_id: 12 }));
 
         initialPage = selectors.selectInitialPage({
             configuration: {
@@ -718,6 +695,35 @@ describe('selectInitialPage', () => {
             },
         });
         expect(initialPage).toEqual(generatePath(ROUTES.GUARANTOR_REQUESTED, { application_id: 12 }));
+
+        initialPage = selectors.selectInitialPage({
+            configuration: {
+                enable_automatic_income_verification: true,
+                collect_employer_information: true,
+            },
+            renterProfile: {
+                co_applicants: null,
+                guarantor: null,
+                pets: null,
+                lease_term: 6,
+                id: 12,
+                outstanding_balances: [
+                    { receipt: 123, paid: false },
+                    { receipt: 1234, paid: false },
+                ],
+            },
+            applicant: {
+                role: ROLE_PRIMARY_APPLICANT,
+                address_street: 'some street',
+                events: [
+                    { event: APPLICANT_EVENTS.EVENT_LEASE_TERMS_COMPLETED, application: 12 },
+                    { event: APPLICANT_EVENTS.EVENT_RENTAL_OPTIONS_NOT_SELECTED, application: 12 },
+                    { event: APPLICANT_EVENTS.MILESTONE_INCOME_COMPLETED, application: 12 },
+                    { event: MILESTONE_APPLICATION_FEE_COMPLETED, application: 12 },
+                ],
+            },
+        });
+        expect(initialPage).toEqual(generatePath(ROUTES.OUTSTANDING_BALANCE, { application_id: 12 }));
     });
 
     it('selects direct route correctly', () => {
@@ -737,6 +743,7 @@ describe('selectInitialPage', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
@@ -762,6 +769,7 @@ describe('select default initial page', () => {
                 pets: null,
                 lease_term: 6,
                 id: 12,
+                outstanding_balances: [],
             },
             applicant: { role: ROLE_PRIMARY_APPLICANT, address_street: 'some street', events: [] },
         });
