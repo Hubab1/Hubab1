@@ -111,7 +111,11 @@ export function AddAssetSourcePage(props) {
                 onSubmit={props.uploadDocumentsOneByOne ? onSubmitOneByOne : onSubmit}
                 setError={(err) => setErrors(err)}
             />
-            <BackLink to={`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`} />
+            <BackLink
+                to={generatePath(`${ROUTES.INCOME_VERIFICATION_SUMMARY}#asset`, {
+                    application_id: props.application.id,
+                })}
+            />
         </>
     );
 }
