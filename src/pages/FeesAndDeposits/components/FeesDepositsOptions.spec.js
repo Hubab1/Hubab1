@@ -11,9 +11,7 @@ import { ApplicationFees } from './ApplicationFees';
 import { HoldingDeposit } from './HoldingDeposit';
 
 let defaultProps;
-const everyone = mockProfile.primary_applicant.guarantors
-    .concat(mockProfile.co_applicants)
-    .concat(mockProfile.occupants);
+const everyone = mockProfile.guarantors.concat(mockProfile.co_applicants).concat(mockProfile.occupants);
 everyone.unshift(mockApplicant);
 
 beforeEach(() => {
