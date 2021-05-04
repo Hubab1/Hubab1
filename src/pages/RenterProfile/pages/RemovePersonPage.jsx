@@ -67,8 +67,7 @@ export class RemovePersonPage extends Component {
             case RENTER_PROFILE_TYPE_CO_APPLICANTS:
                 return profile.co_applicants.find((x) => x.id === parseInt(id));
             case RENTER_PROFILE_TYPE_GUARANTOR:
-                // TODO: get the guarantors directly from the profile | created by: @Chakib | Ticket: NESTIO-19934
-                return profile.primary_applicant.guarantors.find((x) => x.id === parseInt(id));
+                return profile.guarantors.find((x) => x.id === parseInt(id));
             default:
                 return null;
         }

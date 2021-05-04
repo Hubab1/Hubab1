@@ -108,7 +108,7 @@ export const FeesDepositsPage = ({
     const holdingDepositAmount =
         parseFloat(profile.selected_rental_options?.['holding-deposit']?.[0]?.quoted_deposit_amount) || 0;
 
-    const everyone = profile.primary_applicant.guarantors.concat(profile.co_applicants).concat(profile.occupants);
+    const everyone = profile.guarantors.concat(profile.co_applicants).concat(profile.occupants);
     everyone.unshift(profile.primary_applicant);
 
     const goToPreviousPage = () => {

@@ -26,8 +26,7 @@ export const ApplicationCompletePage = ({ profile, configuration, applicant }) =
             />
         );
     }
-    const { unit, primary_applicant, co_applicants, occupants } = profile;
-    const { guarantors } = primary_applicant;
+    const { unit, primary_applicant, co_applicants, guarantors, occupants } = profile;
     const buildingName = configuration.community.building_name || configuration.community.normalized_street_address;
     const role = applicant.role;
 
